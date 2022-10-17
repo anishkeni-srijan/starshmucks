@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:hexcolor/hexcolor.dart';
 import 'bloc/login_bloc.dart';
 import 'bloc/login_events.dart';
 import 'bloc/login_states.dart';
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,45 +14,42 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-
 class _LoginPageState extends State<LoginPage> {
   final pcontroller = TextEditingController();
   final ucontroller = TextEditingController();
 
   @override
-
   Widget build(BuildContext context) {
     return Container(
       decoration: getbackground(),
       child: Scaffold(
         appBar: getappbar(),
-        backgroundColor: Colors.transparent,
+        backgroundColor: HexColor("#175244"),
         body: SingleChildScrollView(
           child: Center(
             child: Column(children: <Widget>[
               getlogo(context),
-              SizedBox(height: 20,),
-              BlocBuilder<LoginBloc,LoginState>(
-                  builder:( context, state ){
-
-                    //checking if There's an error in Loginstate
-                    if(state is LoginErrorState){
-                      return Text(state.errormessage,
-                        style: TextStyle(color: Colors.white),);
-                    }
-                    //if the login is valid
-                    else if(state is LoginValidState){
-                      return Text(state.validity,
-                        style: TextStyle(color: Colors.white),);
-                    }
-                    else{
-                      return Container(
-
-                      );
-
-                    }
-                  }
+              SizedBox(
+                height: 20,
               ),
+              BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+                //checking if There's an error in Loginstate
+                if (state is LoginErrorState) {
+                  return Text(
+                    state.errormessage,
+                    style: TextStyle(color: Colors.white),
+                  );
+                }
+                //if the login is valid
+                else if (state is LoginValidState) {
+                  return Text(
+                    state.validity,
+                    style: TextStyle(color: Colors.white),
+                  );
+                } else {
+                  return Container();
+                }
+              }),
               Container(
                 width: MediaQuery.of(context).size.width * 0.8,
                 margin: EdgeInsets.only(
@@ -62,12 +58,14 @@ class _LoginPageState extends State<LoginPage> {
                 child: TextFormField(
                   style: const TextStyle(color: Colors.white), //<-- SEE HERE
                   controller: ucontroller,
-                  onChanged: (value){
+                  onChanged: (value) {
                     BlocProvider.of<LoginBloc>(context).add(
-                        LogInTextChangedEvent(ucontroller.text,pcontroller.text )
-                    );
+                        LogInTextChangedEvent(
+                            ucontroller.text, pcontroller.text));
                   },
                   decoration: InputDecoration(
+                      labelText: 'USERNAME',
+                      labelStyle: TextStyle(color: Colors.white),
                       hintText: 'Username',
                       hintStyle: const TextStyle(
                         fontSize: 20.0,
@@ -75,11 +73,13 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.white, width: 2),
+                        borderSide:
+                            const BorderSide(color: Colors.white, width: 2),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.white, width: 2),
+                        borderSide:
+                            const BorderSide(color: Colors.white, width: 2),
                       )),
                 ),
               ),
@@ -88,28 +88,32 @@ class _LoginPageState extends State<LoginPage> {
               //password
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.8,
-                child:  TextFormField(
+                child: TextFormField(
                   style: const TextStyle(color: Colors.white),
                   controller: pcontroller,
-                  onChanged: (value){
+                  onChanged: (value) {
                     BlocProvider.of<LoginBloc>(context).add(
-                        LogInTextChangedEvent(ucontroller.text,pcontroller.text )
-                    );
+                        LogInTextChangedEvent(
+                            ucontroller.text, pcontroller.text));
                   },
                   obscureText: true,
                   decoration: InputDecoration(
-                      hintText: 'Password',
+                      labelText: 'PASSWORD',
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintText: '********',
                       hintStyle: const TextStyle(
                         fontSize: 20.0,
                         color: Colors.white,
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.white, width: 2),
+                        borderSide:
+                            const BorderSide(color: Colors.white, width: 2),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.white, width: 2),
+                        borderSide:
+                            const BorderSide(color: Colors.white, width: 2),
                       )),
                 ),
               ),
@@ -121,32 +125,31 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               //submit button
-              BlocBuilder<LoginBloc,LoginState>(
-                  builder: (context, state) {
-                    return ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:(state is LoginValidState)?
-                        MaterialStateProperty.all<Color>(Colors.white):MaterialStateProperty.all<Color>(Colors.grey),
-                        foregroundColor:
+              BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+                return ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: (state is LoginValidState)
+                        ? MaterialStateProperty.all<Color>(Colors.white)
+                        : MaterialStateProperty.all<Color>(Colors.grey),
+                    foregroundColor:
                         MaterialStateProperty.all<Color>(Colors.black),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            side: const BorderSide(color: Colors.white),
-                            borderRadius: BorderRadius.circular(10))),
-                      ),
-                      onPressed: () {
-                        if(state is LoginValidState) {
-                          BlocProvider.of<LoginBloc>(context).add(
-                              LoginSumittedEvent(
-                                  ucontroller.text, pcontroller.text)
-                          );
-
-                        }
-
-                      },
-                      child: const Text('Sign in'),
-                    );
-                  }
-              ),
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        side: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(10))),
+                  ),
+                  onPressed: () {
+                    if (state is LoginValidState) {
+                      BlocProvider.of<LoginBloc>(context).add(
+                          LoginSumittedEvent(
+                              ucontroller.text, pcontroller.text));
+                    }
+                  },
+                  child: const Text(
+                    'Login',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                  ),
+                );
+              }),
 
               Container(
                 padding: const EdgeInsets.all(18),
@@ -161,15 +164,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-
-
-getappbar(){
-  return  AppBar(
+getappbar() {
+  return AppBar(
     backgroundColor: Colors.transparent,
     elevation: 0,
   );
 }
-getlogo(context){
+
+getlogo(context) {
   return Column(
     children: [
       // Container(
@@ -186,6 +188,7 @@ getlogo(context){
         child: const AutoSizeText(
           'Sign in',
           style: TextStyle(
+            fontWeight: FontWeight.w900,
             color: Colors.white,
             fontSize: 35.0,
           ),
@@ -194,7 +197,8 @@ getlogo(context){
     ],
   );
 }
-getbackground(){
+
+getbackground() {
   // return  BoxDecoration(
   //   image: DecorationImage(
   //       image: AssetImage('images/frame1login.png'), fit: BoxFit.cover),

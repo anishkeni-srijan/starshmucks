@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:starshmucks/login/login.dart';
-import 'package:starshmucks/splash/bloc/splash_events.dart';
 import 'package:starshmucks/splash/bloc/splash_states.dart';
 import 'package:tbib_splash_screen/splash_screen_view.dart';
 import 'package:hexcolor/hexcolor.dart';
