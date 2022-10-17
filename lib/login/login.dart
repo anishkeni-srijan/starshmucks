@@ -20,15 +20,20 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: getbackground(),
-      child: Scaffold(
+    return  Scaffold(
         appBar: getappbar(),
-        backgroundColor: HexColor("#175244"),
-        body: SingleChildScrollView(
-          child: Center(
+        backgroundColor: Colors.white,
+        body:  SingleChildScrollView(
+          child:Center(
             child: Column(children: <Widget>[
               getlogo(context),
+             Padding(
+               padding: const EdgeInsets.only(top: 80.0, left: 48,),
+               child: Align(
+                       alignment: Alignment.centerLeft,
+                     child: AutoSizeText('Log In.', style: TextStyle(color: HexColor("#036635")), minFontSize: 30,)),
+             ),
+
               SizedBox(
                 height: 20,
               ),
@@ -37,59 +42,51 @@ class _LoginPageState extends State<LoginPage> {
                 if (state is LoginErrorState) {
                   return Text(
                     state.errormessage,
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: HexColor("#036635")),
                   );
                 }
                 //if the login is valid
-                else if (state is LoginValidState) {
-                  return Text(
-                    state.validity,
-                    style: TextStyle(color: Colors.white),
-                  );
-                } else {
+                else {
                   return Container();
                 }
               }),
               Container(
                 width: MediaQuery.of(context).size.width * 0.8,
                 margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.04,
+                  top: MediaQuery.of(context).size.height * 0.01,
                 ),
                 child: TextFormField(
-                  style: const TextStyle(color: Colors.white), //<-- SEE HERE
+                  style: const TextStyle(color: Colors.black), //<-- SEE HERE
                   controller: ucontroller,
                   onChanged: (value) {
                     BlocProvider.of<LoginBloc>(context).add(
                         LogInTextChangedEvent(
                             ucontroller.text, pcontroller.text));
                   },
+
                   decoration: InputDecoration(
-                      labelText: 'USERNAME',
-                      labelStyle: TextStyle(color: Colors.white),
-                      hintText: 'Username',
-                      hintStyle: const TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.white,
-                      ),
-                      enabledBorder: OutlineInputBorder(
+                    contentPadding: EdgeInsets.all(10),
+                      labelText: 'Username',
+                      labelStyle: TextStyle(color: HexColor("#036635")),
+                      enabledBorder: UnderlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 2),
+                            BorderSide(color: HexColor("#036635"), width: 2),
                       ),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: UnderlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 2),
+                             BorderSide(color: HexColor("#036635"), width: 2),
                       )),
                 ),
               ),
 
               const SizedBox(height: 20),
               //password
-              SizedBox(
+              Container(
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: TextFormField(
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.black),
                   controller: pcontroller,
                   onChanged: (value) {
                     BlocProvider.of<LoginBloc>(context).add(
@@ -98,30 +95,27 @@ class _LoginPageState extends State<LoginPage> {
                   },
                   obscureText: true,
                   decoration: InputDecoration(
-                      labelText: 'PASSWORD',
-                      labelStyle: TextStyle(color: Colors.white),
-                      hintText: '********',
-                      hintStyle: const TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.white,
-                      ),
-                      enabledBorder: OutlineInputBorder(
+                      contentPadding: EdgeInsets.all(10),
+                      labelText: 'Password',
+                      labelStyle: TextStyle(color: HexColor("#036635")),
+
+                      enabledBorder: UnderlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 2),
+                             BorderSide(color: HexColor("#036635"),width: 2),
                       ),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: UnderlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 2),
+                           BorderSide(color: HexColor("#036635"),width: 2),
                       )),
                 ),
               ),
               Container(
                 padding: const EdgeInsets.all(18),
-                child: const Text(
+                child: Text(
                   'Forgot Password?',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: HexColor("#036635")),
                 ),
               ),
               //submit button
@@ -130,11 +124,14 @@ class _LoginPageState extends State<LoginPage> {
                   style: ButtonStyle(
                     backgroundColor: (state is LoginValidState)
                         ? MaterialStateProperty.all<Color>(Colors.white)
-                        : MaterialStateProperty.all<Color>(Colors.grey),
+                        : MaterialStateProperty.all<Color>(HexColor("#036635")),
                     foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.black),
+                    (state is LoginValidState)
+                        ? MaterialStateProperty.all<Color>(HexColor("#036635"))
+                        : MaterialStateProperty.all<Color>(Colors.white),
+
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        side: const BorderSide(color: Colors.white),
+                        side: BorderSide(color: HexColor("#036635"),width: 2),
                         borderRadius: BorderRadius.circular(10))),
                   ),
                   onPressed: () {
@@ -153,13 +150,14 @@ class _LoginPageState extends State<LoginPage> {
 
               Container(
                 padding: const EdgeInsets.all(18),
-                child: const Text('New User? Sign Up',
-                    style: TextStyle(color: Colors.white)),
+                child:  Text('New User? Sign Up',
+                    style: TextStyle(color: HexColor("#036635")),
               )
-            ]),
+              )
+            ]
+              ),
           ),
         ),
-      ),
     );
   }
 }
@@ -172,35 +170,11 @@ getappbar() {
 }
 
 getlogo(context) {
-  return Column(
-    children: [
-      // Container(
-      //   transform: Matrix4.translationValues(0, 70, 0),
-      //   child: Image.asset(
-      //     'images/logo.png',
-      //     scale: 2.2,
-      //   ),
-      // ),
-      Container(
-        margin: EdgeInsets.only(
-          top: MediaQuery.of(context).size.height * 0.12,
-        ),
-        child: const AutoSizeText(
-          'Sign in',
-          style: TextStyle(
-            fontWeight: FontWeight.w900,
-            color: Colors.white,
-            fontSize: 35.0,
-          ),
-        ),
-      ),
-    ],
-  );
+  return Container(
+        transform: Matrix4.translationValues(0, 40, 0),
+        child: Image( image: AssetImage('images/shmucks.png',), width:200, ),
+      );
 }
 
-getbackground() {
-  // return  BoxDecoration(
-  //   image: DecorationImage(
-  //       image: AssetImage('images/frame1login.png'), fit: BoxFit.cover),
-  // );
-}
+
+
