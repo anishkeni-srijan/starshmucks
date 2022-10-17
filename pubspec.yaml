@@ -49,7 +49,7 @@ dev_dependencies:
   flutter_bloc: ^8.1.1
 #  provider: ^6.0.3
 #  invert_colors: ^0.0.4
-  hexcolor: ^2.0.7
+  hexcolor: ^3.0.1
   tbib_splash_screen: ^0.0.6
 #  fluttertoast: ^8.1.1
 #  badges: ^2.0.3

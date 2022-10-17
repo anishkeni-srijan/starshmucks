@@ -1,9 +1,6 @@
-
 import 'package:flutter/material.dart';
-import 'package:starshmucks/home_screen.dart';
+import 'package:starshmucks/registration_screen.dart';
 import 'package:get/get.dart';
-
-
 
 class SplashScreenState extends StatelessWidget {
   const SplashScreenState({Key? key}) : super(key: key);
@@ -14,18 +11,10 @@ class SplashScreenState extends StatelessWidget {
   }
 }
 
+class SplashInitialState extends SplashScreenState {}
 
-class SplashInitialState extends SplashScreenState{
+class SplashloadingState extends SplashScreenState {}
 
-
-}
-
-class SplashloadingState extends SplashScreenState{
-
-}
-
-class SplashloadedState extends SplashScreenState{
+class SplashloadedState extends SplashScreenState {
 //check ifuser already exists
 }
-
-
