@@ -18,23 +18,17 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: getsplash(context),
+      body: Center(
+        child: Container(
+          child: SplashScreenView(
+            navigateRoute: LoginPage(),
+            imageSrc: "images/shmucks.png",
+            // paddingText
+            // paddingLoading
+          ),
+        ),
+      ),
     );
   }
 }
 
-getsplash(context) {
-  return Center(
-    child: Container(
-      child: SplashScreenView(
-        navigateRoute: LoginPage(),
-        imageSrc: "images/shmucks.png",
-        // paddingText
-        // paddingLoading
-      ),
-
-
-
-    ),
-  );
-}
