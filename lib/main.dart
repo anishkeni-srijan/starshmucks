@@ -15,18 +15,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-
-
-
-      ],
-      child: GetMaterialApp(
+    return  GetMaterialApp(
         title: 'MyShop',
         theme: ThemeData(primarySwatch: Colors.grey),
         home: Splash(),
         debugShowCheckedModeBanner: false,
-      ),
+
     );
   }
 
