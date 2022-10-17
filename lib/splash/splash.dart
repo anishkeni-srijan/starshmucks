@@ -21,6 +21,7 @@ class _SplashState extends State<Splash> {
       body: Center(
         child: Container(
           child: SplashScreenView(
+            duration: Duration(milliseconds: 1500),
             navigateRoute: LoginPage(),
             imageSrc: "images/shmucks.png",
             // paddingText
