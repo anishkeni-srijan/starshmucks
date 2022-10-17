@@ -12,7 +12,7 @@ class LoginBloc extends Bloc<LoginEvent,LoginState>{
   LoginBloc(): super(
       LoginInitialState()){
     //works on login text changed
-    on<LogInTextChangedEvent>((event, emit) {
+     on<LogInTextChangedEvent>((event, emit) {
 
 //user exists
       if (event.unamevalue == 'anish' && event.passwordvalue == 'pass') {

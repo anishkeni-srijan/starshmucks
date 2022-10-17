@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:starshmucks/home_screen.dart';
+import 'package:get/get.dart';
 
 
 
@@ -15,7 +17,7 @@ class SplashScreenState extends StatelessWidget {
 
 class SplashInitialState extends SplashScreenState{
 
-  //check if the user exists
+
 }
 
 class SplashloadingState extends SplashScreenState{
@@ -23,7 +25,7 @@ class SplashloadingState extends SplashScreenState{
 }
 
 class SplashloadedState extends SplashScreenState{
-
+//check ifuser already exists
 }
 
 
