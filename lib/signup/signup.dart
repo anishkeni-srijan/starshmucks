@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:starshmucks/signup/bloc/signup_events.dart';
 import '../Signup/bloc/Signup_states.dart';
 import '../signin/signin.dart';
+import 'package:intl/intl.dart';
 import 'package:starshmucks/signup/bloc/signup_bloc.dart';
-import 'package:starshmucks/signin/signin.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -33,6 +35,13 @@ class _SignupPageState extends State<SignupPage> {
   final phone = TextEditingController();
   final pass1 = TextEditingController();
   final pass2 = TextEditingController();
+  String initialCountry = 'IN';
+  PhoneNumber number = PhoneNumber(isoCode: 'IN');
+
+  void initState() {
+    dob.text = ""; //set the initial value of text field
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +55,7 @@ class _SignupPageState extends State<SignupPage> {
             getlogo(context),
             Padding(
               padding: const EdgeInsets.only(
-                top: 50.0,
+                top: 10.0,
                 left: 46,
               ),
               child: Align(
@@ -68,28 +77,37 @@ class _SignupPageState extends State<SignupPage> {
               indent: MediaQuery.of(context).size.width * 0.119,
               endIndent: MediaQuery.of(context).size.width * 0.746,
             ),
-            // BlocBuilder<SignupBloc , SignupState>(builder: (context, state) {
-            //   //checking if There's an error in Loginstate
-            //   if (state is SignupErrorState) {
-            //     return Text(
-            //       state.errormessage,
-            //       style: TextStyle(color: HexColor("#036635")),
-            //     );
-            //   }
-            //   //if the login is valid
-            //   else {
-            //     return Container();
-            //   }
-            // }),
+            SizedBox(
+              height: 10,
+            ),
+
+            BlocBuilder<SignupBloc, SignupState>(builder: (context, state) {
+              //checking if There's an error in Loginstate
+              if (state is SignupErrorState) {
+                return Text(
+                  state.errormessage,
+                  style: TextStyle(color: Colors.red),
+                );
+              }
+              //if the login is valid
+              else {
+                return Container();
+              }
+            }),
+
             //Name
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
               margin: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.005,
+                top: MediaQuery.of(context).size.height * 0.01,
               ),
               child: TextFormField(
                 style: const TextStyle(color: Colors.black), //<-- SEE HERE
                 controller: name,
+                onChanged: (value) {
+                  BlocProvider.of<SignupBloc>(context)
+                      .add(SignupNameChangedEvent(name.text));
+                },
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(5),
                   labelText: 'Name',
@@ -115,26 +133,56 @@ class _SignupPageState extends State<SignupPage> {
               margin: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.005,
               ),
-              child: TextFormField(
-                style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                controller: dob,
-                decoration: InputDecoration(
+              child: TextField(
+                controller: dob, //editing controller of this TextField
+                onChanged: (value) {
+                  BlocProvider.of<SignupBloc>(context).add(
+                      SignupDobChangedEvent(dob.text));
+                },
+                decoration:
+                InputDecoration(
+                     //label text of field
                   contentPadding: EdgeInsets.all(5),
                   labelText: 'Date Of Birth',
                   labelStyle: TextStyle(
                     color: HexColor("#175244"),
                   ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide:
-                        BorderSide(color: HexColor("#175244"), width: 2),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide:
-                        BorderSide(color: HexColor("#175244"), width: 2),
-                  ),
-                ),
+                    prefixIcon: Icon(Icons.calendar_month_rounded, color: HexColor("#175244"),) ,
+
+                    enabledBorder: UnderlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                      BorderSide(color: HexColor("#175244"), width: 2),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                      BorderSide(color: HexColor("#175244"), width: 2),
+                    )
+                    ),
+                readOnly: true, //set it true, so that user will not able to edit text
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
+                      lastDate: DateTime(2101)
+                  );
+
+                  if (pickedDate != null) {
+                    print(pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                    String formattedDate =
+                        DateFormat('yyyy-MM-dd').format(pickedDate);
+                    print(
+                        formattedDate); //formatted date output using intl package =>  2021-03-16
+                    //you can implement different kind of Date Format here according to your requirement
+                    setState(() {
+                      dob.text =
+                          formattedDate; //set output date to TextField value.
+                    });
+                  } else {
+                    print("Date is not selected");
+                  }
+                },
               ),
             ),
             //Email
@@ -168,33 +216,32 @@ class _SignupPageState extends State<SignupPage> {
             ),
             //Phone Number
             Container(
-              width: MediaQuery.of(context).size.width * 0.8,
-              margin: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.005,
-              ),
-              child: TextFormField(
-                style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                controller: phone,
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(5),
-                    labelText: 'Mobile Number',
-                    labelStyle: TextStyle(
-                      color: HexColor("#175244"),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: HexColor("#175244"),
-                        width: 2,
-                      ),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          BorderSide(color: HexColor("#175244"), width: 2),
-                    )),
-              ),
-            ),
+              padding: const EdgeInsets.all(8),
+              height: 80,
+              child:
+              InternationalPhoneNumberInput(
+                onInputChanged: (PhoneNumber number) {
+                  print(number.phoneNumber);
+                },
+                onInputValidated: (bool value) {
+                  print(value);
+                },
+                selectorConfig: SelectorConfig(
+                  selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                ),
+                ignoreBlank: false,
+                autoValidateMode: AutovalidateMode.disabled,
+                selectorTextStyle: TextStyle(color: Colors.black),
+                initialValue: number,
+                textFieldController: phone,
+                formatInput: false,
+                keyboardType:
+                TextInputType.numberWithOptions(signed: true, decimal: true),
+                inputBorder: OutlineInputBorder(),
+                onSaved: (PhoneNumber number) {
+                  print('On Saved: $number');
+                },
+              ),),
             //Password
             Container(
               width: MediaQuery.of(context).size.width * 0.8,

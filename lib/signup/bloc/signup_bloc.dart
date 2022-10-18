@@ -1,27 +1,30 @@
 import 'package:get/get.dart';
 import 'package:starshmucks/signup/bloc/signup_events.dart';
-import '/home_screen.dart';
-import '/Signup/bloc/signup_states.dart';
 
-
+import '../../Signup/bloc/Signup_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../home_screen.dart';
+
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc() : super(SignupInitialState()) {
     //works on login text changed
-    on<SignupTextChangedEvent>((event, emit) {
+    on<SignupNameChangedEvent>((event, emit) {
 //user exists
-      if (event.unamevalue == 'anish' && event.passwordvalue == 'pass') {
-        emit(SignupValidState("all good"));
-      } else {
-// incorrect credentials
-        if (event.unamevalue == '' || event.unamevalue != 'anish') {
-          emit(SignupErrorState("Please enter a valid username"));
-        } else if (event.passwordvalue == '' || event.passwordvalue != 'pass') {
-          emit(SignupErrorState("Please enter a valid password"));
-        }
+      if (event.namevalue == null || event.namevalue.trim().isEmpty) {
+        emit(SignupErrorState("Please enter your name correctly"));
       }
-    });
+        else if (event.namevalue.trim().length < 4) {
+          emit(SignupErrorState("Your name must be at least 4 Characters"));
+      }
+      // Return null if the entered username is valid
+      else return null;
+    },
+
+// incorrect credentials
+
+    );
 
     //works if login is valid
     on<SignupSumittedEvent>((event, emit) {
@@ -31,3 +34,4 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     });
   }
 }
+
