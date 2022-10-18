@@ -3,9 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:starshmucks/registration_screen.dart';
 import 'bloc/login_bloc.dart';
 import 'bloc/login_events.dart';
 import 'bloc/login_states.dart';
+import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -21,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getappbar(),
+      appBar: null,
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Center(
@@ -29,16 +31,25 @@ class _LoginPageState extends State<LoginPage> {
             getlogo(context),
             Padding(
               padding: const EdgeInsets.only(
-                top: 80.0,
+                top: 130.0,
                 left: 48,
               ),
               child: Align(
                   alignment: Alignment.centerLeft,
                   child: AutoSizeText(
-                    'Log In.',
-                    style: TextStyle(color: HexColor("#036635")),
-                    minFontSize: 30,
+                    'Sign In.',
+                    style: TextStyle(
+                      color: HexColor("#036635"),
+                      fontWeight: FontWeight.bold,),
+                    minFontSize: 28,
                   )),
+            ),
+            Divider(
+              color: HexColor("#036635"),
+              height: 10,
+              thickness: 3,
+              indent: 49,
+              endIndent: 288,
             ),
 
             SizedBox(
@@ -150,10 +161,26 @@ class _LoginPageState extends State<LoginPage> {
             }),
 
             Container(
-                padding: const EdgeInsets.all(21),
-                child: Text(
-                  'New User? Sign Up',
-                  style: TextStyle(color: HexColor("#036635")),
+                transform: Matrix4.translationValues(135, 0, 0),
+                child: Row(
+                  children: [
+                    Text(
+                      'New User?',
+                      style: TextStyle(color: HexColor("#036635")),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Get.to(RegistrationPage());
+                      },
+                      child: Text(
+                        'Sign Up.',
+                        style: TextStyle(color: HexColor("#036635"),
+                          decoration: TextDecoration.underline
+
+                        ),
+                      ),
+                    ),
+                  ],
                 ))
           ]),
         ),
@@ -162,16 +189,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-getappbar() {
-  return AppBar(
-    backgroundColor: Colors.transparent,
-    elevation: 0,
-  );
-}
+
 
 getlogo(context) {
   return Container(
-    transform: Matrix4.translationValues(0, 40, 0),
+    transform: Matrix4.translationValues(0, 100, 0),
     child: Image(
       image: AssetImage(
         'images/shmucks.png',

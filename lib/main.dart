@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:starshmucks/splash/bloc/splash_bloc.dart';
 import 'package:starshmucks/splash/splash.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'login/bloc/login_bloc.dart';
 import 'login/login.dart';
 
@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
         child: GetMaterialApp(
             title: 'Flutter Demo',
             theme: ThemeData(
+              textTheme: GoogleFonts.ubuntuTextTheme(),
               primarySwatch: Colors.blue,
             ),
             debugShowCheckedModeBanner: false,

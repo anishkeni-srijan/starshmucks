@@ -11,6 +11,18 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
+  bool isChecked = false;
+  Color getColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.pressed,
+      MaterialState.hovered,
+      MaterialState.focused,
+    };
+    if (states.any(interactiveStates.contains)) {
+      return Colors.blue;
+    }
+    return HexColor("#036635");
+  }
   final name = TextEditingController();
   final email = TextEditingController();
   final pass1 = TextEditingController();
@@ -18,28 +30,36 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getappbar(),
+      appBar:null,
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Center(
           child: Column(children: <Widget>[
+
             getlogo(context),
             Padding(
               padding: const EdgeInsets.only(
-                top: 60.0,
+                top: 140.0,
                 left: 46,
               ),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: AutoSizeText(
-                  'REGISTER',
+                  'Sign up.',
                   style: TextStyle(
                       color: HexColor("#036635"),
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline),
+                      fontWeight: FontWeight.bold,),
                   minFontSize: 28,
                 ),
+
               ),
+            ),
+            Divider(
+              color: HexColor("#036635"),
+              height: 10,
+              thickness: 3,
+              indent: 47,
+              endIndent: 293,
             ),
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
@@ -51,19 +71,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 controller: name,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(5),
-                  labelText: 'NAME',
+                  labelText: 'Name',
                   labelStyle: TextStyle(
-                    color: HexColor("#036635"),
+                    color: HexColor("#175244"),
                   ),
                   enabledBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                        BorderSide(color: HexColor("#036635"), width: 2),
+                        BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                        BorderSide(color: HexColor("#036635"), width: 2),
+                        BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                 ),
               ),
@@ -78,21 +98,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 controller: email,
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(5),
-                    labelText: 'EMAIL',
+                    labelText: 'Email',
                     labelStyle: TextStyle(
-                      color: HexColor("#036635"),
+                      color: HexColor("#175244"),
                     ),
                     enabledBorder: UnderlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide(
-                        color: HexColor("#036635"),
+                        color: HexColor("#175244"),
                         width: 2,
                       ),
                     ),
                     focusedBorder: UnderlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide:
-                          BorderSide(color: HexColor("#036635"), width: 2),
+                          BorderSide(color: HexColor("#175244"), width: 2),
                     )),
               ),
             ),
@@ -107,19 +127,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 controller: pass1,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(5),
-                  labelText: 'PASSWORD',
+                  labelText: 'Password',
                   labelStyle: TextStyle(
-                    color: HexColor("#036635"),
+                    color: HexColor("#175244"),
                   ),
                   enabledBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                        BorderSide(color: HexColor("#036635"), width: 2),
+                        BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                        BorderSide(color: HexColor("#036635"), width: 2),
+                        BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                 ),
               ),
@@ -137,24 +157,42 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   contentPadding: EdgeInsets.all(5),
                   labelText: 'Confirm Password',
                   labelStyle: TextStyle(
-                    color: HexColor("#036635"),
+                    color: HexColor("#175244"),
                   ),
                   enabledBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                        BorderSide(color: HexColor("#036635"), width: 2),
+                        BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                        BorderSide(color: HexColor("#036635"), width: 2),
+                        BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                 ),
               ),
             ),
-            SizedBox(
-              height: 15,
-            ),
+           
+        
+        Container(
+          transform: Matrix4.translationValues(30, 0, 0),
+          child: Row(
+            children: [
+              Checkbox(
+                  checkColor: Colors.white,
+                  fillColor: MaterialStateProperty.resolveWith(getColor),
+                  focusColor: Colors.green,
+                  value: isChecked,
+                  onChanged: (bool? value) {
+                    setState(() {
+                         isChecked = !isChecked;
+                    });
+                  },
+                ),
+              AutoSizeText('T&C, I agree.', style: TextStyle(color: HexColor("#175244")),)
+            ],
+          ),
+        ),
             SizedBox(
               width: 300,
               child: ElevatedButton(
