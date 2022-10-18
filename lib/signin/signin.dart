@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:starshmucks/forgot_password.dart';
+import '/forgot_password.dart';
 import '../signup/signup.dart';
 import 'bloc/signin_bloc.dart';
 import 'bloc/signin_events.dart';
@@ -30,8 +30,10 @@ class _SigninPageState extends State<SigninPage> {
         child: Center(
           child: Column(children: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.12),
-              child: getlogo(context),),
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.12),
+              child: getlogo(context),
+            ),
 
             Padding(
               padding: const EdgeInsets.only(
@@ -51,10 +53,10 @@ class _SigninPageState extends State<SigninPage> {
             ),
             Divider(
               color: HexColor("#036635"),
-              height: MediaQuery.of(context).size.height*0.015,
-              thickness: MediaQuery.of(context).size.height*0.004,
-              indent: MediaQuery.of(context).size.width*0.119,
-              endIndent: MediaQuery.of(context).size.width*0.746,
+              height: MediaQuery.of(context).size.height * 0.015,
+              thickness: MediaQuery.of(context).size.height * 0.004,
+              indent: MediaQuery.of(context).size.width * 0.119,
+              endIndent: MediaQuery.of(context).size.width * 0.746,
             ),
 
             SizedBox(
@@ -137,10 +139,12 @@ class _SigninPageState extends State<SigninPage> {
               padding: const EdgeInsets.all(10),
               child: TextButton(
                 child: Text(
-                'Forgot Password?',
-                style: TextStyle(color: HexColor("#036635")),
-              ),
-                onPressed: (){Get.to(ForgotPasswordPage());},
+                  'Forgot Password?',
+                  style: TextStyle(color: HexColor("#036635")),
+                ),
+                onPressed: () {
+                  Get.to(ForgotPasswordPage());
+                },
               ),
             ),
             //submit button,
@@ -200,15 +204,13 @@ class _SigninPageState extends State<SigninPage> {
       ),
     );
   }
-
-
 }
 
 getlogo(context) {
   return Image(
-      image: AssetImage(
-        'images/shmucks.png',
-      ),
-      width: 200,
-    );
+    image: AssetImage(
+      'images/shmucks.png',
+    ),
+    width: 200,
+  );
 }

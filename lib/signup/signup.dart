@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:starshmucks/signup/bloc/signup_events.dart';
+import '/signup/bloc/signup_events.dart';
 import '../Signup/bloc/Signup_states.dart';
 import '../signin/signin.dart';
 import 'package:intl/intl.dart';
-import 'package:starshmucks/signup/bloc/signup_bloc.dart';
+import '/signup/bloc/signup_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class SignupPage extends StatefulWidget {
@@ -136,40 +136,43 @@ class _SignupPageState extends State<SignupPage> {
               child: TextField(
                 controller: dob, //editing controller of this TextField
                 onChanged: (value) {
-                  BlocProvider.of<SignupBloc>(context).add(
-                      SignupDobChangedEvent(dob.text));
+                  BlocProvider.of<SignupBloc>(context)
+                      .add(SignupDobChangedEvent(dob.text));
                 },
-                decoration:
-                InputDecoration(
-                     //label text of field
-                  contentPadding: EdgeInsets.all(5),
-                  labelText: 'Date Of Birth',
-                  labelStyle: TextStyle(
-                    color: HexColor("#175244"),
-                  ),
-                    prefixIcon: Icon(Icons.calendar_month_rounded, color: HexColor("#175244"),) ,
-
+                decoration: InputDecoration(
+                    //label text of field
+                    contentPadding: EdgeInsets.all(5),
+                    labelText: 'Date Of Birth',
+                    labelStyle: TextStyle(
+                      color: HexColor("#175244"),
+                    ),
+                    prefixIcon: Icon(
+                      Icons.calendar_month_rounded,
+                      color: HexColor("#175244"),
+                    ),
                     enabledBorder: UnderlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide:
-                      BorderSide(color: HexColor("#175244"), width: 2),
+                          BorderSide(color: HexColor("#175244"), width: 2),
                     ),
                     focusedBorder: UnderlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide:
-                      BorderSide(color: HexColor("#175244"), width: 2),
-                    )
-                    ),
-                readOnly: true, //set it true, so that user will not able to edit text
+                          BorderSide(color: HexColor("#175244"), width: 2),
+                    )),
+                readOnly:
+                    true, //set it true, so that user will not able to edit text
                 onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(context: context,
+                  DateTime? pickedDate = await showDatePicker(
+                      context: context,
                       initialDate: DateTime.now(),
-                      firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
-                      lastDate: DateTime(2101)
-                  );
+                      firstDate: DateTime(
+                          2000), //DateTime.now() - not to allow to choose before today.
+                      lastDate: DateTime(2101));
 
                   if (pickedDate != null) {
-                    print(pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                    print(
+                        pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
                     String formattedDate =
                         DateFormat('yyyy-MM-dd').format(pickedDate);
                     print(
@@ -216,33 +219,50 @@ class _SignupPageState extends State<SignupPage> {
             ),
             //Phone Number
             Container(
-              padding: const EdgeInsets.all(8),
+              width: MediaQuery.of(context).size.width * 0.8,
               height: 80,
-              child:
-              InternationalPhoneNumberInput(
+              child: InternationalPhoneNumberInput(
                 onInputChanged: (PhoneNumber number) {
                   print(number.phoneNumber);
                 },
-                onInputValidated: (bool value) {
-                  print(value);
-                },
                 selectorConfig: SelectorConfig(
-                  selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                ),
+                    trailingSpace: false,
+                    selectorType: PhoneInputSelectorType.DROPDOWN),
                 autoValidateMode: AutovalidateMode.disabled,
-                selectorTextStyle: TextStyle(color: Colors.black),
+                selectorTextStyle: TextStyle(color: HexColor("#175244")),
                 initialValue: number,
                 textFieldController: phone,
-                formatInput: false,
-                keyboardType:
-                TextInputType.numberWithOptions(signed: true, decimal: true),
-                inputBorder: OutlineInputBorder(),
-              ),),
+                inputDecoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(5),
+                  labelText: 'Phone Number',
+                  labelStyle: TextStyle(
+                    color: HexColor("#175244"),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: HexColor("#175244"),
+                      width: 2,
+                    ),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide:
+                        BorderSide(color: HexColor("#175244"), width: 2),
+                  ),
+                ),
+
+                keyboardType: TextInputType.numberWithOptions(
+                  signed: true,
+                ),
+                //inputBorder: OutlineInputBorder(),
+              ),
+            ),
             //Password
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
               margin: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.005,
+                top: MediaQuery.of(context).size.height * 0,
               ),
               child: TextFormField(
                 obscureText: true,
