@@ -50,16 +50,13 @@ dev_dependencies:
   google_fonts: ^3.0.1
   intl: ^0.17.0
   intl_phone_number_input: ^0.7.1
-#  another_flushbar: ^1.12.29
-#  top_snackbar_flutter: ^2.1.1
   flutter_bloc: ^8.1.1
 #  provider: ^6.0.3
-#  invert_colors: ^0.0.4
+
   hexcolor: ^3.0.1
   tbib_splash_screen: ^0.0.6
 #  fluttertoast: ^8.1.1
-#  badges: ^2.0.3
-#  page_transition: ^2.0.9
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
