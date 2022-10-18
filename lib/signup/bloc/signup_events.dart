@@ -33,17 +33,17 @@ class SignupPasswordChangedEvent extends SignupEvent {
   String passwordvalue = '';
 
 
-  SignupPasswordChangedEvent(this.passwordvalue,);
+  SignupPasswordChangedEvent(this.passwordvalue);
 }
 //confirm pass
 class SignupConfirmPasswordChangedEvent extends SignupEvent {
   String confirmpassvalue = '';
-  String passwordvalue = '';
 
-  SignupConfirmPasswordChangedEvent(this.passwordvalue,this.confirmpassvalue);
+
+  SignupConfirmPasswordChangedEvent(this.confirmpassvalue);
 }
 class SignuptandcChangedEvent extends SignupEvent {
-  late bool checked;
+  bool checked;
 
   SignuptandcChangedEvent(this.checked);
 }

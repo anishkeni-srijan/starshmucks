@@ -194,10 +194,6 @@ class _SignupPageState extends State<SignupPage> {
               child: TextFormField(
                 style: const TextStyle(color: Colors.black), //<-- SEE HERE
                 controller: email,
-                onChanged: (value) {
-                    BlocProvider.of<SignupBloc>(context)
-                        .add(SignupEmailChangedEvent(email.text));
-                  },
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(5),
                     labelText: 'Email',
@@ -225,9 +221,14 @@ class _SignupPageState extends State<SignupPage> {
               child:
               InternationalPhoneNumberInput(
                 onInputChanged: (PhoneNumber number) {
-                  BlocProvider.of<SignupBloc>(context)
-                      .add(SignupNumberChangedEvent(phone.text));
+                  print(number.phoneNumber);
                 },
+                onInputValidated: (bool value) {
+                  print(value);
+                },
+                selectorConfig: SelectorConfig(
+                  selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                ),
                 autoValidateMode: AutovalidateMode.disabled,
                 selectorTextStyle: TextStyle(color: Colors.black),
                 initialValue: number,
@@ -247,10 +248,6 @@ class _SignupPageState extends State<SignupPage> {
                 obscureText: true,
                 style: const TextStyle(color: Colors.black), //<-- SEE HERE
                 controller: pass1,
-                onChanged: (value) {
-                  BlocProvider.of<SignupBloc>(context)
-                      .add(SignupPasswordChangedEvent(pass1.text));
-                },
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(5),
                   labelText: 'Password',
@@ -280,9 +277,6 @@ class _SignupPageState extends State<SignupPage> {
                 obscureText: true,
                 style: const TextStyle(color: Colors.black), //<-- SEE HERE
                 controller: pass2,
-                onChanged: (value) {
-                  BlocProvider.of<SignupBloc>(context).add(SignupConfirmPasswordChangedEvent(pass2.text,pass1.text));
-                },
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(5),
                   labelText: 'Confirm Password',
@@ -313,10 +307,6 @@ class _SignupPageState extends State<SignupPage> {
                     focusColor: Colors.green,
                     value: isChecked,
                     onChanged: (bool? value) {
-                        BlocProvider.of<SignupBloc>(context)
-                            .add(SignuptandcChangedEvent(isChecked));
-
-
                       setState(() {
                         isChecked = !isChecked;
                       });
