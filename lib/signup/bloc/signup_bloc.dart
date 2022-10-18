@@ -12,31 +12,33 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<SignupNameChangedEvent>(
       (event, emit) {
 //user exists
-        if (event.namevalue == null || event.namevalue.trim().isEmpty) {
-          emit(SignupErrorState("Please enter your name correctly"));
-        } else if (event.namevalue.trim().length < 4) {
-          emit(SignupErrorState("Your name must be at least 4 Characters"));
+        if (event.namevalue == 'anish') {
+          emit(SignupValidState("all good"));
+        } else {
+// incorrect credentials
+          if (event.namevalue == '' || event.namevalue != 'anish') {
+            emit(SignupErrorState("Please enter a valid username"));
+          } else
+            return SignupValidState('all good');
         }
-        // Return null if the entered username is valid
-        else
-          return null;
-      },
+      }
 
 // incorrect credentials
     );
+
     on<SignupDobChangedEvent>((event,emit){
       if (event.dobvalue == null || event.dobvalue.trim().isEmpty) {
         emit(SignupErrorState("Please enter your Date of Birth"));
       }
       // Return null if the entered username is valid
-      else return null;
+      else return SignupValidState('all good');
     });
     on<SignupEmailChangedEvent>((event,emit){
       if (event.emailvalue == null || event.emailvalue.trim().isEmpty) {
         emit(SignupErrorState("Please enter your email"));
       }
       // Return null if the entered username is valid
-      else return null;
+      else return SignupValidState('all good');
     });
     on<SignupNumberChangedEvent>((event,emit){
       if (event.phnumbervalue == null || event.phnumbervalue.trim().isEmpty) {
@@ -46,7 +48,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         emit(SignupErrorState("Your phone number must be at least 4 digits"));
       }
       // Return null if the entered username is valid
-      else return null;
+      else return SignupValidState('all good');
     });
     on<SignupPasswordChangedEvent>((event,emit){
       if (event.passwordvalue == null || event.passwordvalue.trim().isEmpty) {
@@ -56,7 +58,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         emit(SignupErrorState("Your password must be at least 4 Characters"));
       }
       // Return null if the entered username is valid
-      else return null;
+      else return SignupValidState('all good');
     });
     on<SignupConfirmPasswordChangedEvent>((event,emit){
       if (event.confirmpassvalue == null || event.confirmpassvalue.trim().isEmpty) {
@@ -71,14 +73,14 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 
       }
       // Return null if the entered username is valid
-      else return null;
+      else return SignupValidState('all good');
     });
     on<SignuptandcChangedEvent>((event,emit){
       if(event.checked == false){
         emit(SignupErrorState("Please agree to the T&C."));
       }
       else{
-        return null;
+        return SignupValidState('all goood');
       }
     });
 

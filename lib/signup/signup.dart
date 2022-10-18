@@ -90,9 +90,10 @@ class _SignupPageState extends State<SignupPage> {
                 );
               }
               //if the login is valid
-              else {
+              else if(state is SignupValidState) {
                 return Container();
               }
+              else return Container();
             }),
 
             //Name
@@ -105,8 +106,7 @@ class _SignupPageState extends State<SignupPage> {
                 style: const TextStyle(color: Colors.black), //<-- SEE HERE
                 controller: name,
                 onChanged: (value) {
-                  BlocProvider.of<SignupBloc>(context)
-                      .add(SignupNameChangedEvent(name.text));
+                  BlocProvider.of<SignupBloc>(context).add(SignupNameChangedEvent(name.text));
                 },
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(5),
@@ -117,12 +117,12 @@ class _SignupPageState extends State<SignupPage> {
                   enabledBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                        BorderSide(color: HexColor("#175244"), width: 2),
+                    BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                        BorderSide(color: HexColor("#175244"), width: 2),
+                    BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                 ),
               ),
@@ -141,12 +141,12 @@ class _SignupPageState extends State<SignupPage> {
                 },
                 decoration:
                 InputDecoration(
-                     //label text of field
-                  contentPadding: EdgeInsets.all(5),
-                  labelText: 'Date Of Birth',
-                  labelStyle: TextStyle(
-                    color: HexColor("#175244"),
-                  ),
+                  //label text of field
+                    contentPadding: EdgeInsets.all(5),
+                    labelText: 'Date Of Birth',
+                    labelStyle: TextStyle(
+                      color: HexColor("#175244"),
+                    ),
                     prefixIcon: Icon(Icons.calendar_month_rounded, color: HexColor("#175244"),) ,
 
                     enabledBorder: UnderlineInputBorder(
@@ -159,7 +159,7 @@ class _SignupPageState extends State<SignupPage> {
                       borderSide:
                       BorderSide(color: HexColor("#175244"), width: 2),
                     )
-                    ),
+                ),
                 readOnly: true, //set it true, so that user will not able to edit text
                 onTap: () async {
                   DateTime? pickedDate = await showDatePicker(context: context,
@@ -171,7 +171,7 @@ class _SignupPageState extends State<SignupPage> {
                   if (pickedDate != null) {
                     print(pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
                     String formattedDate =
-                        DateFormat('yyyy-MM-dd').format(pickedDate);
+                    DateFormat('yyyy-MM-dd').format(pickedDate);
                     print(
                         formattedDate); //formatted date output using intl package =>  2021-03-16
                     //you can implement different kind of Date Format here according to your requirement
@@ -194,6 +194,10 @@ class _SignupPageState extends State<SignupPage> {
               child: TextFormField(
                 style: const TextStyle(color: Colors.black), //<-- SEE HERE
                 controller: email,
+                onChanged: (value) {
+                  BlocProvider.of<SignupBloc>(context)
+                      .add(SignupEmailChangedEvent(email.text));
+                },
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(5),
                     labelText: 'Email',
@@ -210,34 +214,52 @@ class _SignupPageState extends State<SignupPage> {
                     focusedBorder: UnderlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide:
-                          BorderSide(color: HexColor("#175244"), width: 2),
+                      BorderSide(color: HexColor("#175244"), width: 2),
                     )),
               ),
             ),
             //Phone Number
+            //Phone Number
             Container(
-              padding: const EdgeInsets.all(8),
+              width: MediaQuery.of(context).size.width * 0.8,
               height: 80,
-              child:
-              InternationalPhoneNumberInput(
+              child: InternationalPhoneNumberInput(
                 onInputChanged: (PhoneNumber number) {
                   print(number.phoneNumber);
                 },
-                onInputValidated: (bool value) {
-                  print(value);
-                },
                 selectorConfig: SelectorConfig(
-                  selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                ),
+                    trailingSpace: false,
+                    selectorType: PhoneInputSelectorType.DROPDOWN),
                 autoValidateMode: AutovalidateMode.disabled,
-                selectorTextStyle: TextStyle(color: Colors.black),
+                selectorTextStyle: TextStyle(color: HexColor("#175244")),
                 initialValue: number,
                 textFieldController: phone,
-                formatInput: false,
-                keyboardType:
-                TextInputType.numberWithOptions(signed: true, decimal: true),
-                inputBorder: OutlineInputBorder(),
-              ),),
+                inputDecoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(5),
+                  labelText: 'Phone Number',
+                  labelStyle: TextStyle(
+                    color: HexColor("#175244"),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: HexColor("#175244"),
+                      width: 2,
+                    ),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide:
+                    BorderSide(color: HexColor("#175244"), width: 2),
+                  ),
+                ),
+
+                keyboardType: TextInputType.numberWithOptions(
+                  signed: true,
+                ),
+                //inputBorder: OutlineInputBorder(),
+              ),
+            ),
             //Password
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
@@ -248,6 +270,10 @@ class _SignupPageState extends State<SignupPage> {
                 obscureText: true,
                 style: const TextStyle(color: Colors.black), //<-- SEE HERE
                 controller: pass1,
+                onChanged: (value) {
+                  BlocProvider.of<SignupBloc>(context)
+                      .add(SignupPasswordChangedEvent(pass1.text));
+                },
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(5),
                   labelText: 'Password',
@@ -257,12 +283,12 @@ class _SignupPageState extends State<SignupPage> {
                   enabledBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                        BorderSide(color: HexColor("#175244"), width: 2),
+                    BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                        BorderSide(color: HexColor("#175244"), width: 2),
+                    BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                 ),
               ),
@@ -277,6 +303,9 @@ class _SignupPageState extends State<SignupPage> {
                 obscureText: true,
                 style: const TextStyle(color: Colors.black), //<-- SEE HERE
                 controller: pass2,
+                onChanged: (value) {
+                  BlocProvider.of<SignupBloc>(context).add(SignupConfirmPasswordChangedEvent(pass2.text,pass1.text));
+                },
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(5),
                   labelText: 'Confirm Password',
@@ -286,12 +315,12 @@ class _SignupPageState extends State<SignupPage> {
                   enabledBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                        BorderSide(color: HexColor("#175244"), width: 2),
+                    BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                        BorderSide(color: HexColor("#175244"), width: 2),
+                    BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                 ),
               ),
@@ -307,6 +336,10 @@ class _SignupPageState extends State<SignupPage> {
                     focusColor: Colors.green,
                     value: isChecked,
                     onChanged: (bool? value) {
+                      BlocProvider.of<SignupBloc>(context)
+                          .add(SignuptandcChangedEvent(isChecked));
+
+
                       setState(() {
                         isChecked = !isChecked;
                       });
