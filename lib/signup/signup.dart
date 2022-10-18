@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:starshmucks/signup/bloc/signup_events.dart';
 import '../Signup/bloc/Signup_states.dart';
 import '../signin/signin.dart';
 import 'package:intl/intl.dart';
 import 'package:starshmucks/signup/bloc/signup_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:starshmucks/model/user_model.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -16,6 +18,12 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  final List<UserData> signupdata = [];
+  @override
+  void dispose(){
+    Hive.box('signupdata').close();
+    super.dispose();
+  }
   bool isChecked = false;
   Color getColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -391,3 +399,5 @@ class _SignupPageState extends State<SignupPage> {
         ));
   }
 }
+
+

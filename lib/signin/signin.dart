@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import '/forgot_password.dart';
+import '../forgotpassword/forgot_password.dart';
 import '../signup/signup.dart';
 import 'bloc/signin_bloc.dart';
 import 'bloc/signin_events.dart';
@@ -67,7 +67,7 @@ class _SigninPageState extends State<SigninPage> {
               if (state is SigninErrorState) {
                 return Text(
                   state.errormessage,
-                  style: TextStyle(color: HexColor("#036635")),
+                  style: TextStyle(color: Colors.red),
                 );
               }
               //if the login is valid

@@ -2,6 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:starshmucks/forgotpassword/bloc/forgotpassword_bloc.dart';
+import 'package:starshmucks/forgotpassword/bloc/forgotpassword_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'bloc/forgotpassword_event.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
@@ -11,7 +17,7 @@ class ForgotPasswordPage extends StatefulWidget {
 }
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
-  final email = TextEditingController();
+  final forgotpasswordinput = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,6 +71,23 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     color: HexColor("#175244"),
                   )),
             ),
+            BlocBuilder<ForgotpasswordBloc, ForgotpasswordState>(builder: (context, state) {
+              //checking if There's an error in Loginstate
+              if (state is ForgotpasswordErrorState) {
+                return Text(
+                  state.errormessage,
+                  style: TextStyle(color:Colors.red),
+                );
+              }
+              //if the login is valid
+              else if(state is ForgotpasswordValidState){
+                return Text(
+                  state.validity,
+                  style: TextStyle(color: HexColor("#036635")),
+                );
+              }
+              else return Container();
+            }),
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
               margin: EdgeInsets.only(
@@ -72,10 +95,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               ),
               child: TextFormField(
                 style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                controller: email,
+                controller: forgotpasswordinput,
+                onChanged: (value){
+                  BlocProvider.of<ForgotpasswordBloc>(context).add(
+                    ForgotpasswordInputChangedEvent(forgotpasswordinput.text)
+                  );
+                  },
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(10),
-                  labelText: 'Email/Password',
+                  labelText: 'Email or Phone Number',
                   labelStyle: TextStyle(
                     color: HexColor("#175244"),
                   ),
