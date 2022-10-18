@@ -13,7 +13,6 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final email = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
