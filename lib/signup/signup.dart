@@ -229,7 +229,6 @@ class _SignupPageState extends State<SignupPage> {
                 selectorConfig: SelectorConfig(
                   selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                 ),
-                ignoreBlank: false,
                 autoValidateMode: AutovalidateMode.disabled,
                 selectorTextStyle: TextStyle(color: Colors.black),
                 initialValue: number,
@@ -238,9 +237,6 @@ class _SignupPageState extends State<SignupPage> {
                 keyboardType:
                 TextInputType.numberWithOptions(signed: true, decimal: true),
                 inputBorder: OutlineInputBorder(),
-                onSaved: (PhoneNumber number) {
-                  print('On Saved: $number');
-                },
               ),),
             //Password
             Container(
