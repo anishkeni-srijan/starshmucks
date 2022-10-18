@@ -134,7 +134,7 @@ class _SigninPageState extends State<SigninPage> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.all(18),
+              padding: const EdgeInsets.all(10),
               child: TextButton(
                 child: Text(
                 'Forgot Password?',
@@ -143,36 +143,39 @@ class _SigninPageState extends State<SigninPage> {
                 onPressed: (){Get.to(ForgotPasswordPage());},
               ),
             ),
-            //submit button
+            //submit button,
             BlocBuilder<SigninBloc, SigninState>(builder: (context, state) {
-              return ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: (state is SigninValidState)
-                      ? MaterialStateProperty.all<Color>(Colors.white)
-                      : MaterialStateProperty.all<Color>(HexColor("#036635")),
-                  foregroundColor: (state is SigninValidState)
-                      ? MaterialStateProperty.all<Color>(HexColor("#036635"))
-                      : MaterialStateProperty.all<Color>(Colors.white),
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      side: BorderSide(color: HexColor("#036635"), width: 2),
-                      borderRadius: BorderRadius.circular(10))),
-                ),
-                onPressed: () {
-                  if (state is SigninValidState) {
-                    BlocProvider.of<SigninBloc>(context).add(
-                        SigninSumittedEvent(
-                            ucontroller.text, pcontroller.text));
-                  }
-                },
-                child: const Text(
-                  'Sign in',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+              return Container(
+                transform: Matrix4.translationValues(0, -15, 0),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: (state is SigninValidState)
+                        ? MaterialStateProperty.all<Color>(Colors.white)
+                        : MaterialStateProperty.all<Color>(HexColor("#036635")),
+                    foregroundColor: (state is SigninValidState)
+                        ? MaterialStateProperty.all<Color>(HexColor("#036635"))
+                        : MaterialStateProperty.all<Color>(Colors.white),
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        side: BorderSide(color: HexColor("#036635"), width: 2),
+                        borderRadius: BorderRadius.circular(10))),
+                  ),
+                  onPressed: () {
+                    if (state is SigninValidState) {
+                      BlocProvider.of<SigninBloc>(context).add(
+                          SigninSumittedEvent(
+                              ucontroller.text, pcontroller.text));
+                    }
+                  },
+                  child: const Text(
+                    'Sign in',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                  ),
                 ),
               );
             }),
 
             Container(
-                transform: Matrix4.translationValues(135, 0, 0),
+                transform: Matrix4.translationValues(135, -20, 0),
                 child: Row(
                   children: [
                     Text(
