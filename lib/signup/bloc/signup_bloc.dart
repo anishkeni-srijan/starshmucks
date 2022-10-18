@@ -76,11 +76,11 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       else return SignupValidState('all good');
     });
     on<SignuptandcChangedEvent>((event,emit){
-      if(event.checked == false){
-        emit(SignupErrorState("Please agree to the T&C."));
+      if(event.checked == true){
+        return SignupValidState('all goood');
       }
       else{
-        return SignupValidState('all goood');
+        emit(SignupErrorState("Please agree to the T&C."));
       }
     });
 

@@ -225,7 +225,8 @@ class _SignupPageState extends State<SignupPage> {
               height: 80,
               child: InternationalPhoneNumberInput(
                 onInputChanged: (PhoneNumber number) {
-                  print(number.phoneNumber);
+                  BlocProvider.of<SignupBloc>(context)
+                      .add(SignupNumberChangedEvent(phone.text));
                 },
                 selectorConfig: SelectorConfig(
                     trailingSpace: false,
