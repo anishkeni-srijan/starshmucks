@@ -7,7 +7,6 @@ import '../signin/signin.dart';
 import 'package:starshmucks/signup/bloc/signup_bloc.dart';
 import 'package:starshmucks/signin/signin.dart';
 
-
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
   @override
@@ -29,7 +28,9 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   final name = TextEditingController();
+  final dob = TextEditingController();
   final email = TextEditingController();
+  final phone = TextEditingController();
   final pass1 = TextEditingController();
   final pass2 = TextEditingController();
 
@@ -62,10 +63,10 @@ class _SignupPageState extends State<SignupPage> {
             ),
             Divider(
               color: HexColor("#036635"),
-              height: MediaQuery.of(context).size.height*0.015,
-              thickness: MediaQuery.of(context).size.height*0.004,
-              indent: MediaQuery.of(context).size.width*0.119,
-              endIndent: MediaQuery.of(context).size.width*0.746,
+              height: MediaQuery.of(context).size.height * 0.015,
+              thickness: MediaQuery.of(context).size.height * 0.004,
+              indent: MediaQuery.of(context).size.width * 0.119,
+              endIndent: MediaQuery.of(context).size.width * 0.746,
             ),
             // BlocBuilder<SignupBloc , SignupState>(builder: (context, state) {
             //   //checking if There's an error in Loginstate
@@ -80,6 +81,7 @@ class _SignupPageState extends State<SignupPage> {
             //     return Container();
             //   }
             // }),
+            //Name
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
               margin: EdgeInsets.only(
@@ -107,6 +109,35 @@ class _SignupPageState extends State<SignupPage> {
                 ),
               ),
             ),
+            //Date of Birth
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              margin: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.005,
+              ),
+              child: TextFormField(
+                style: const TextStyle(color: Colors.black), //<-- SEE HERE
+                controller: dob,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(5),
+                  labelText: 'Date Of Birth',
+                  labelStyle: TextStyle(
+                    color: HexColor("#175244"),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide:
+                        BorderSide(color: HexColor("#175244"), width: 2),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide:
+                        BorderSide(color: HexColor("#175244"), width: 2),
+                  ),
+                ),
+              ),
+            ),
+            //Email
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
               margin: EdgeInsets.only(
@@ -135,6 +166,36 @@ class _SignupPageState extends State<SignupPage> {
                     )),
               ),
             ),
+            //Phone Number
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              margin: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.005,
+              ),
+              child: TextFormField(
+                style: const TextStyle(color: Colors.black), //<-- SEE HERE
+                controller: phone,
+                decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(5),
+                    labelText: 'Mobile Number',
+                    labelStyle: TextStyle(
+                      color: HexColor("#175244"),
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: HexColor("#175244"),
+                        width: 2,
+                      ),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          BorderSide(color: HexColor("#175244"), width: 2),
+                    )),
+              ),
+            ),
+            //Password
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
               margin: EdgeInsets.only(
@@ -163,6 +224,7 @@ class _SignupPageState extends State<SignupPage> {
                 ),
               ),
             ),
+            //Confirm Password
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
               margin: EdgeInsets.only(
@@ -191,6 +253,7 @@ class _SignupPageState extends State<SignupPage> {
                 ),
               ),
             ),
+            //CheckBox
             Container(
               transform: Matrix4.translationValues(30, 0, 0),
               child: Row(
@@ -241,9 +304,13 @@ class _SignupPageState extends State<SignupPage> {
     return Container(
         margin: EdgeInsets.only(top: 30, left: 0),
         alignment: Alignment.topLeft,
-        child: TextButton.icon(icon:Icon(Icons.arrow_back_ios_new_rounded,color: HexColor("#036635")),onPressed: (){
-          Navigator.pop(context);
-        }, label: Text(''),)
-    );
+        child: TextButton.icon(
+          icon: Icon(Icons.arrow_back_ios_new_rounded,
+              color: HexColor("#036635")),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          label: Text(''),
+        ));
   }
 }
