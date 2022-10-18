@@ -19,9 +19,9 @@ class UserData extends HiveObject {
   @HiveField(4)
   late String password;
 
-  @HiveField(4)
+  @HiveField(5)
   late bool tnc = false;
 
-  @HiveField(5)
+  @HiveField(6)
   late bool isactive = false;
 }
