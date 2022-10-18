@@ -69,9 +69,18 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       }
       else if(event.confirmpassvalue != event.passwordvalue){
         emit(SignupErrorState("Your password and confirm password should match"));
+
       }
       // Return null if the entered username is valid
       else return null;
+    });
+    on<SignuptandcChangedEvent>((event,emit){
+      if(event.checked == false){
+        emit(SignupErrorState("Please agree to the T&C."));
+      }
+      else{
+        return null;
+      }
     });
 
 

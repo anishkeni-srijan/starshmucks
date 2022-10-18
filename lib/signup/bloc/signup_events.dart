@@ -43,7 +43,7 @@ class SignupConfirmPasswordChangedEvent extends SignupEvent {
   SignupConfirmPasswordChangedEvent(this.passwordvalue,this.confirmpassvalue);
 }
 class SignuptandcChangedEvent extends SignupEvent {
-  bool checked;
+  late bool checked;
 
   SignuptandcChangedEvent(this.checked);
 }

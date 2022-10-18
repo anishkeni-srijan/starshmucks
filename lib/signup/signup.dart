@@ -226,7 +226,7 @@ class _SignupPageState extends State<SignupPage> {
               InternationalPhoneNumberInput(
                 onInputChanged: (PhoneNumber number) {
                   BlocProvider.of<SignupBloc>(context)
-                      .add(SignupEmailChangedEvent(phone.text));
+                      .add(SignupNumberChangedEvent(phone.text));
                 },
                 autoValidateMode: AutovalidateMode.disabled,
                 selectorTextStyle: TextStyle(color: Colors.black),
@@ -247,6 +247,10 @@ class _SignupPageState extends State<SignupPage> {
                 obscureText: true,
                 style: const TextStyle(color: Colors.black), //<-- SEE HERE
                 controller: pass1,
+                onChanged: (value) {
+                  BlocProvider.of<SignupBloc>(context)
+                      .add(SignupPasswordChangedEvent(pass1.text));
+                },
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(5),
                   labelText: 'Password',
@@ -276,6 +280,9 @@ class _SignupPageState extends State<SignupPage> {
                 obscureText: true,
                 style: const TextStyle(color: Colors.black), //<-- SEE HERE
                 controller: pass2,
+                onChanged: (value) {
+                  BlocProvider.of<SignupBloc>(context).add(SignupConfirmPasswordChangedEvent(pass2.text,pass1.text));
+                },
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(5),
                   labelText: 'Confirm Password',
@@ -306,6 +313,10 @@ class _SignupPageState extends State<SignupPage> {
                     focusColor: Colors.green,
                     value: isChecked,
                     onChanged: (bool? value) {
+                        BlocProvider.of<SignupBloc>(context)
+                            .add(SignuptandcChangedEvent(isChecked));
+
+
                       setState(() {
                         isChecked = !isChecked;
                       });
