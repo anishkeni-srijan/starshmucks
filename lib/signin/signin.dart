@@ -51,7 +51,7 @@ class _SigninPageState extends State<SigninPage> {
               height: 10,
               thickness: 3,
               indent: 49,
-              endIndent: 288,
+              endIndent: 291,
             ),
 
             SizedBox(
