@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../Signup/bloc/Signup_states.dart';
+import '../signin/signin.dart';
+import 'package:starshmucks/signup/bloc/signup_bloc.dart';
 
-import 'signin/signin.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -28,6 +31,7 @@ class _SignupPageState extends State<SignupPage> {
   final email = TextEditingController();
   final pass1 = TextEditingController();
   final pass2 = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,11 +60,24 @@ class _SignupPageState extends State<SignupPage> {
             ),
             Divider(
               color: HexColor("#036635"),
-              height: 10,
-              thickness: 3,
-              indent: 47,
-              endIndent: 293,
+              height: MediaQuery.of(context).size.height*0.015,
+              thickness: MediaQuery.of(context).size.height*0.004,
+              indent: MediaQuery.of(context).size.width*0.119,
+              endIndent: MediaQuery.of(context).size.width*0.746,
             ),
+            // BlocBuilder<SignupBloc , SignupState>(builder: (context, state) {
+            //   //checking if There's an error in Loginstate
+            //   if (state is SignupErrorState) {
+            //     return Text(
+            //       state.errormessage,
+            //       style: TextStyle(color: HexColor("#036635")),
+            //     );
+            //   }
+            //   //if the login is valid
+            //   else {
+            //     return Container();
+            //   }
+            // }),
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
               margin: EdgeInsets.only(

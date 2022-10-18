@@ -4,7 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../signin/signin.dart';
 import 'bloc/splash_bloc.dart';
-import '/signup.dart';
+import '../signup/signup.dart';
 import '/splash/bloc/splash_states.dart';
 
 class Splash extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:starshmucks/signup.dart';
+import 'package:starshmucks/signup/signup.dart';
 import 'bloc/signin_bloc.dart';
 import 'bloc/signin_events.dart';
 import 'bloc/signin_states.dart';
@@ -47,10 +47,10 @@ class _SigninPageState extends State<SigninPage> {
             ),
             Divider(
               color: HexColor("#036635"),
-              height: 10,
-              thickness: 3,
-              indent: 49,
-              endIndent: 291,
+              height: MediaQuery.of(context).size.height*0.015,
+              thickness: MediaQuery.of(context).size.height*0.004,
+              indent: MediaQuery.of(context).size.width*0.123,
+              endIndent: MediaQuery.of(context).size.width*0.74,
             ),
 
             SizedBox(
@@ -158,8 +158,8 @@ class _SigninPageState extends State<SigninPage> {
                   }
                 },
                 child: const Text(
-                  'Signin',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                  'Sign in',
+                  style: TextStyle( color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),
                 ),
               );
             }),

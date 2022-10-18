@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:starshmucks/signup/bloc/signup_bloc.dart';
+import 'package:starshmucks/signup/signup.dart';
 import '/signin/bloc/signin_bloc.dart';
 import '/signin/signin.dart';
 import '/splash/bloc/splash_bloc.dart';
@@ -26,6 +28,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => SigninBloc(),
           child: SigninPage(),
+        ),
+        BlocProvider(
+          create: (context) => SignupBloc(),
+          child: SignupPage(),
         )
       ],
       child: GetMaterialApp(
