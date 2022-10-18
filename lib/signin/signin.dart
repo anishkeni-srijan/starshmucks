@@ -5,6 +5,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:starshmucks/signup.dart';
+import '../forgot_password.dart';
 import 'bloc/signin_bloc.dart';
 import 'bloc/signin_events.dart';
 import 'bloc/signin_states.dart';
@@ -130,10 +131,15 @@ class _SigninPageState extends State<SigninPage> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.all(18),
-              child: Text(
-                'Forgot Password?',
-                style: TextStyle(color: HexColor("#036635")),
+              padding: const EdgeInsets.all(8),
+              child: TextButton(
+                onPressed: () {
+                  Get.to(ForgotPasswordPage());
+                },
+                child: Text(
+                  'Forgot Password?',
+                  style: TextStyle(color: HexColor("#036635")),
+                ),
               ),
             ),
             //submit button
@@ -157,9 +163,14 @@ class _SigninPageState extends State<SigninPage> {
                             ucontroller.text, pcontroller.text));
                   }
                 },
-                child: const Text(
-                  'Signin',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                child: TextButton(
+                  onPressed: () {
+                    Get.to(SignupPage());
+                  },
+                  child: Text(
+                    'Signin',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                  ),
                 ),
               );
             }),
