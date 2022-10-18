@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:starshmucks/splash/bloc/splash_bloc.dart';
 import 'package:starshmucks/splash/splash.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'login/bloc/login_bloc.dart';
-import 'login/login.dart';
+import 'login/bloc/signin_bloc.dart';
+import 'login/signin.dart';
 
 void main() {
   runApp(const MyApp());

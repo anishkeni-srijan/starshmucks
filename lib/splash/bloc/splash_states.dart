@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:starshmucks/registration_screen.dart';
+import 'package:starshmucks/signup.dart';
 import 'package:get/get.dart';
 
 class SplashScreenState extends StatelessWidget {

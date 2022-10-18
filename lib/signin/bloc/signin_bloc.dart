@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:starshmucks/home_screen.dart';
-import 'package:starshmucks/login/bloc/login_events.dart';
-import 'package:starshmucks/login/bloc/login_states.dart';
-import '../../registration_screen.dart';
+import 'package:starshmucks/login/bloc/signin_events.dart';
+import 'package:starshmucks/login/bloc/signin_states.dart';
+import '../../signup.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 

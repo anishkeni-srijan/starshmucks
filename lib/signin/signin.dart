@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:starshmucks/registration_screen.dart';
-import 'bloc/login_bloc.dart';
-import 'bloc/login_events.dart';
-import 'bloc/login_states.dart';
+import 'package:starshmucks/signup.dart';
+import 'bloc/signin_bloc.dart';
+import 'bloc/signin_events.dart';
+import 'bloc/signin_states.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
