@@ -22,7 +22,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       body: SingleChildScrollView(
         child: Center(
           child: Column(children: <Widget>[
-            getlogo(context),
+           Container(
+               margin: EdgeInsets.only(top: 30, left: 0),
+               alignment: Alignment.topLeft,
+               child: TextButton.icon(icon:Icon(Icons.arrow_back_ios_new_rounded,color: HexColor("#036635")),onPressed: (){
+                 Navigator.pop(context);
+               }, label: Text(''),)
+           ),
             Padding(
               padding: const EdgeInsets.only(
                 top: 130.0,
@@ -39,15 +45,22 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     minFontSize: 28,
                   )),
             ),
-            Divider(
-              color: HexColor("#036635"),
-              height: 10,
-              thickness: 3,
-              indent: 49,
-              endIndent: 288,
-            ),
+             Divider(
+                color: HexColor("#036635"),
+                height: MediaQuery.of(context).size.height*0.015,
+                thickness: MediaQuery.of(context).size.height*0.004,
+                indent: MediaQuery.of(context).size.width*0.126,
+                endIndent: MediaQuery.of(context).size.width*0.658,
+              ),
+
             SizedBox(
               height: 15,
+            ),
+            Container(
+              width: 300,
+              child: AutoSizeText('Please enter your details and We\'ll send you an email.', style: TextStyle(
+                  color: HexColor("#175244"),)
+              ),
             ),
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
@@ -58,8 +71,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 style: const TextStyle(color: Colors.black), //<-- SEE HERE
                 controller: email,
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(5),
-                  labelText: 'Enter Email ID',
+                  contentPadding: EdgeInsets.all(10),
+                  labelText: 'Email',
                   labelStyle: TextStyle(
                     color: HexColor("#175244"),
                   ),
@@ -89,7 +102,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   backgroundColor: HexColor("#036635"),
                 ),
                 child: const Text(
-                  'SIGN UP',
+                  'Reset Password',
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.white,

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../Signup/bloc/Signup_states.dart';
 import '../signin/signin.dart';
 import 'package:starshmucks/signup/bloc/signup_bloc.dart';
+import 'package:starshmucks/signin/signin.dart';
 
 
 class SignupPage extends StatefulWidget {
@@ -40,10 +41,11 @@ class _SignupPageState extends State<SignupPage> {
       body: SingleChildScrollView(
         child: Center(
           child: Column(children: <Widget>[
+            backbutton(context),
             getlogo(context),
             Padding(
               padding: const EdgeInsets.only(
-                top: 140.0,
+                top: 50.0,
                 left: 46,
               ),
               child: Align(
@@ -232,6 +234,16 @@ class _SignupPageState extends State<SignupPage> {
           ]),
         ),
       ),
+    );
+  }
+
+  backbutton(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.only(top: 30, left: 0),
+        alignment: Alignment.topLeft,
+        child: TextButton.icon(icon:Icon(Icons.arrow_back_ios_new_rounded,color: HexColor("#036635")),onPressed: (){
+          Navigator.pop(context);
+        }, label: Text(''),)
     );
   }
 }

@@ -4,7 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:starshmucks/signup.dart';
+import 'package:starshmucks/forgot_password.dart';
+import '../signup/signup.dart';
 import 'bloc/signin_bloc.dart';
 import 'bloc/signin_events.dart';
 import 'bloc/signin_states.dart';
@@ -28,10 +29,13 @@ class _SigninPageState extends State<SigninPage> {
       body: SingleChildScrollView(
         child: Center(
           child: Column(children: <Widget>[
-            getlogo(context),
+            Container(
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.12),
+              child: getlogo(context),),
+
             Padding(
               padding: const EdgeInsets.only(
-                top: 130.0,
+                top: 50.0,
                 left: 48,
               ),
               child: Align(
@@ -47,10 +51,10 @@ class _SigninPageState extends State<SigninPage> {
             ),
             Divider(
               color: HexColor("#036635"),
-              height: 10,
-              thickness: 3,
-              indent: 49,
-              endIndent: 291,
+              height: MediaQuery.of(context).size.height*0.015,
+              thickness: MediaQuery.of(context).size.height*0.004,
+              indent: MediaQuery.of(context).size.width*0.119,
+              endIndent: MediaQuery.of(context).size.width*0.746,
             ),
 
             SizedBox(
@@ -131,9 +135,12 @@ class _SigninPageState extends State<SigninPage> {
             ),
             Container(
               padding: const EdgeInsets.all(18),
-              child: Text(
+              child: TextButton(
+                child: Text(
                 'Forgot Password?',
                 style: TextStyle(color: HexColor("#036635")),
+              ),
+                onPressed: (){Get.to(ForgotPasswordPage());},
               ),
             ),
             //submit button
@@ -158,7 +165,7 @@ class _SigninPageState extends State<SigninPage> {
                   }
                 },
                 child: const Text(
-                  'Signin',
+                  'Sign in',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                 ),
               );
@@ -190,16 +197,15 @@ class _SigninPageState extends State<SigninPage> {
       ),
     );
   }
+
+
 }
 
 getlogo(context) {
-  return Container(
-    transform: Matrix4.translationValues(0, 100, 0),
-    child: Image(
+  return Image(
       image: AssetImage(
         'images/shmucks.png',
       ),
       width: 200,
-    ),
-  );
+    );
 }
