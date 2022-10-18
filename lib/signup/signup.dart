@@ -194,6 +194,10 @@ class _SignupPageState extends State<SignupPage> {
               child: TextFormField(
                 style: const TextStyle(color: Colors.black), //<-- SEE HERE
                 controller: email,
+                onChanged: (value) {
+                    BlocProvider.of<SignupBloc>(context)
+                        .add(SignupEmailChangedEvent(email.text));
+                  },
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(5),
                     labelText: 'Email',
@@ -221,14 +225,9 @@ class _SignupPageState extends State<SignupPage> {
               child:
               InternationalPhoneNumberInput(
                 onInputChanged: (PhoneNumber number) {
-                  print(number.phoneNumber);
+                  BlocProvider.of<SignupBloc>(context)
+                      .add(SignupEmailChangedEvent(phone.text));
                 },
-                onInputValidated: (bool value) {
-                  print(value);
-                },
-                selectorConfig: SelectorConfig(
-                  selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                ),
                 autoValidateMode: AutovalidateMode.disabled,
                 selectorTextStyle: TextStyle(color: Colors.black),
                 initialValue: number,
