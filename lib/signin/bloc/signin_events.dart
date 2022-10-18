@@ -1,16 +1,18 @@
-abstract class LoginEvent{}
+abstract class SigninEvent {}
 
-class LogInTextChangedEvent extends LoginEvent{
+class SigninTextChangedEvent extends SigninEvent {
   String unamevalue = '';
   String passwordvalue = '';
 
-  LogInTextChangedEvent(this.unamevalue,this.passwordvalue);
-
+  SigninTextChangedEvent(this.unamevalue, this.passwordvalue);
 }
 
-class LoginSumittedEvent extends LoginEvent{
+class SigninSumittedEvent extends SigninEvent {
   String? username;
   String? password;
 
-  LoginSumittedEvent(this.username,this.password,);
+  SigninSumittedEvent(
+    this.username,
+    this.password,
+  );
 }

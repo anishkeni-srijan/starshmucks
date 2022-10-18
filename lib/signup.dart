@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import 'login/signin.dart';
+import 'signin/signin.dart';
 
-class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({Key? key}) : super(key: key);
+class SignupPage extends StatefulWidget {
+  const SignupPage({Key? key}) : super(key: key);
   @override
-  State<RegistrationPage> createState() => _RegistrationPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage> {
+class _SignupPageState extends State<SignupPage> {
   bool isChecked = false;
   Color getColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -23,6 +23,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     }
     return HexColor("#036635");
   }
+
   final name = TextEditingController();
   final email = TextEditingController();
   final pass1 = TextEditingController();
@@ -30,12 +31,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:null,
+      appBar: null,
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Center(
           child: Column(children: <Widget>[
-
             getlogo(context),
             Padding(
               padding: const EdgeInsets.only(
@@ -47,11 +47,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 child: AutoSizeText(
                   'Sign up.',
                   style: TextStyle(
-                      color: HexColor("#036635"),
-                      fontWeight: FontWeight.bold,),
+                    color: HexColor("#036635"),
+                    fontWeight: FontWeight.bold,
+                  ),
                   minFontSize: 28,
                 ),
-
               ),
             ),
             Divider(
@@ -172,27 +172,28 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
               ),
             ),
-           
-        
-        Container(
-          transform: Matrix4.translationValues(30, 0, 0),
-          child: Row(
-            children: [
-              Checkbox(
-                  checkColor: Colors.white,
-                  fillColor: MaterialStateProperty.resolveWith(getColor),
-                  focusColor: Colors.green,
-                  value: isChecked,
-                  onChanged: (bool? value) {
-                    setState(() {
-                         isChecked = !isChecked;
-                    });
-                  },
-                ),
-              AutoSizeText('T&C, I agree.', style: TextStyle(color: HexColor("#175244")),)
-            ],
-          ),
-        ),
+            Container(
+              transform: Matrix4.translationValues(30, 0, 0),
+              child: Row(
+                children: [
+                  Checkbox(
+                    checkColor: Colors.white,
+                    fillColor: MaterialStateProperty.resolveWith(getColor),
+                    focusColor: Colors.green,
+                    value: isChecked,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        isChecked = !isChecked;
+                      });
+                    },
+                  ),
+                  AutoSizeText(
+                    'T&C, I agree.',
+                    style: TextStyle(color: HexColor("#175244")),
+                  )
+                ],
+              ),
+            ),
             SizedBox(
               width: 300,
               child: ElevatedButton(

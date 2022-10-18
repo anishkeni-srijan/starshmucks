@@ -1,32 +1,32 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:starshmucks/home_screen.dart';
-import 'package:starshmucks/login/bloc/signin_events.dart';
-import 'package:starshmucks/login/bloc/signin_states.dart';
+import '/home_screen.dart';
+
+import '/signin/bloc/signin_events.dart';
+import '/signin/bloc/signin_states.dart';
 import '../../signup.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc() : super(LoginInitialState()) {
+class SigninBloc extends Bloc<SigninEvent, SigninState> {
+  SigninBloc() : super(SigninInitialState()) {
     //works on login text changed
-    on<LogInTextChangedEvent>((event, emit) {
+    on<SigninTextChangedEvent>((event, emit) {
 //user exists
       if (event.unamevalue == 'anish' && event.passwordvalue == 'pass') {
-        emit(LoginValidState("all good"));
+        emit(SigninValidState("all good"));
       } else {
 // incorrect credentials
         if (event.unamevalue == '' || event.unamevalue != 'anish') {
-          emit(LoginErrorState("Please enter a valid username"));
+          emit(SigninErrorState("Please enter a valid username"));
         } else if (event.passwordvalue == '' || event.passwordvalue != 'pass') {
-          emit(LoginErrorState("Please enter a valid password"));
+          emit(SigninErrorState("Please enter a valid password"));
         }
       }
     });
 
     //works if login is valid
-    on<LoginSumittedEvent>((event, emit) {
-      if (state is LoginValidState) {
+    on<SigninSumittedEvent>((event, emit) {
+      if (state is SigninValidState) {
         Get.to(HomePage());
       }
     });

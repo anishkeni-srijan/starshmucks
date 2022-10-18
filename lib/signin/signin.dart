@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -7,16 +8,15 @@ import 'package:starshmucks/signup.dart';
 import 'bloc/signin_bloc.dart';
 import 'bloc/signin_events.dart';
 import 'bloc/signin_states.dart';
-import 'package:get/get.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class SigninPage extends StatefulWidget {
+  const SigninPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SigninPage> createState() => _SigninPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SigninPageState extends State<SigninPage> {
   final pcontroller = TextEditingController();
   final ucontroller = TextEditingController();
 
@@ -40,7 +40,8 @@ class _LoginPageState extends State<LoginPage> {
                     'Sign In.',
                     style: TextStyle(
                       color: HexColor("#036635"),
-                      fontWeight: FontWeight.bold,),
+                      fontWeight: FontWeight.bold,
+                    ),
                     minFontSize: 28,
                   )),
             ),
@@ -55,9 +56,9 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 20,
             ),
-            BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+            BlocBuilder<SigninBloc, SigninState>(builder: (context, state) {
               //checking if There's an error in Loginstate
-              if (state is LoginErrorState) {
+              if (state is SigninErrorState) {
                 return Text(
                   state.errormessage,
                   style: TextStyle(color: HexColor("#036635")),
@@ -77,8 +78,9 @@ class _LoginPageState extends State<LoginPage> {
                 style: const TextStyle(color: Colors.black), //<-- SEE HERE
                 controller: ucontroller,
                 onChanged: (value) {
-                  BlocProvider.of<LoginBloc>(context).add(LogInTextChangedEvent(
-                      ucontroller.text, pcontroller.text));
+                  BlocProvider.of<SigninBloc>(context).add(
+                      SigninTextChangedEvent(
+                          ucontroller.text, pcontroller.text));
                 },
 
                 decoration: InputDecoration(
@@ -106,8 +108,9 @@ class _LoginPageState extends State<LoginPage> {
                 style: const TextStyle(color: Colors.black),
                 controller: pcontroller,
                 onChanged: (value) {
-                  BlocProvider.of<LoginBloc>(context).add(LogInTextChangedEvent(
-                      ucontroller.text, pcontroller.text));
+                  BlocProvider.of<SigninBloc>(context).add(
+                      SigninTextChangedEvent(
+                          ucontroller.text, pcontroller.text));
                 },
                 obscureText: true,
                 decoration: InputDecoration(
@@ -134,13 +137,13 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             //submit button
-            BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+            BlocBuilder<SigninBloc, SigninState>(builder: (context, state) {
               return ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: (state is LoginValidState)
+                  backgroundColor: (state is SigninValidState)
                       ? MaterialStateProperty.all<Color>(Colors.white)
                       : MaterialStateProperty.all<Color>(HexColor("#036635")),
-                  foregroundColor: (state is LoginValidState)
+                  foregroundColor: (state is SigninValidState)
                       ? MaterialStateProperty.all<Color>(HexColor("#036635"))
                       : MaterialStateProperty.all<Color>(Colors.white),
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -148,13 +151,14 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(10))),
                 ),
                 onPressed: () {
-                  if (state is LoginValidState) {
-                    BlocProvider.of<LoginBloc>(context).add(
-                        LoginSumittedEvent(ucontroller.text, pcontroller.text));
+                  if (state is SigninValidState) {
+                    BlocProvider.of<SigninBloc>(context).add(
+                        SigninSumittedEvent(
+                            ucontroller.text, pcontroller.text));
                   }
                 },
                 child: const Text(
-                  'Login',
+                  'Signin',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                 ),
               );
@@ -170,14 +174,13 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Get.to(RegistrationPage());
+                        Get.to(SignupPage());
                       },
                       child: Text(
                         'Sign Up.',
-                        style: TextStyle(color: HexColor("#036635"),
-                          decoration: TextDecoration.underline
-
-                        ),
+                        style: TextStyle(
+                            color: HexColor("#036635"),
+                            decoration: TextDecoration.underline),
                       ),
                     ),
                   ],
@@ -188,8 +191,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-
 
 getlogo(context) {
   return Container(

@@ -1,13 +1,11 @@
-
 import 'package:get/get.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:starshmucks/splash/bloc/splash_bloc.dart';
-import 'package:starshmucks/splash/splash.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'login/bloc/signin_bloc.dart';
-import 'login/signin.dart';
+import '/signin/bloc/signin_bloc.dart';
+import '/signin/signin.dart';
+import '/splash/bloc/splash_bloc.dart';
+import '/splash/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,32 +18,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-          providers:[BlocProvider(
-        create: (context)=> SplashScreenBloc(),
-        child: Splash(),
+      providers: [
+        BlocProvider(
+          create: (context) => SplashScreenBloc(),
+          child: Splash(),
+        ),
+        BlocProvider(
+          create: (context) => SigninBloc(),
+          child: SigninPage(),
+        )
+      ],
+      child: GetMaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          textTheme: GoogleFonts.ubuntuTextTheme(),
+          primarySwatch: Colors.blue,
+        ),
+        debugShowCheckedModeBanner: false,
+        home: Splash(),
       ),
-            BlocProvider(
-              create: (context)=> LoginBloc(),
-              child: LoginPage(),
-            )
-          
-          ],
-        child: GetMaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              textTheme: GoogleFonts.ubuntuTextTheme(),
-              primarySwatch: Colors.blue,
-            ),
-            debugShowCheckedModeBanner: false,
-            home: Splash(),
-            ),
-
-        );
-      
-
+    );
   }
 }
-
-
-
-

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:starshmucks/signup.dart';
-import 'package:get/get.dart';
 
 class SplashScreenState extends StatelessWidget {
   const SplashScreenState({Key? key}) : super(key: key);

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:starshmucks/signup.dart';
-import 'package:starshmucks/login/signin.dart';
-import 'package:starshmucks/splash/bloc/splash_states.dart';
 import 'package:tbib_splash_screen/splash_screen_view.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../signin/signin.dart';
 import 'bloc/splash_bloc.dart';
+import '/signup.dart';
+import '/splash/bloc/splash_states.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class _SplashState extends State<Splash> {
             child: SplashScreenView(
               duration: Duration(milliseconds: 1500),
               imageSrc: "images/shmucks.png",
-              navigateRoute: LoginPage(),
+              navigateRoute: SigninPage(),
             ),
           );
         } else {
@@ -35,7 +35,7 @@ class _SplashState extends State<Splash> {
             child: SplashScreenView(
               duration: Duration(milliseconds: 1500),
               imageSrc: "images/shmucks.png",
-              navigateRoute: RegistrationPage(),
+              navigateRoute: SignupPage(),
             ),
           );
         }

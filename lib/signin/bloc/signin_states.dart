@@ -1,10 +1,7 @@
-
 import 'package:flutter/material.dart';
 
-
-
-class LoginState extends StatelessWidget {
-  const LoginState({Key? key}) : super(key: key);
+class SigninState extends StatelessWidget {
+  const SigninState({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,21 +9,18 @@ class LoginState extends StatelessWidget {
   }
 }
 
-
-class LoginInitialState extends LoginState{
-
+class SigninInitialState extends SigninState {
   //check if the user exists
 }
 
-class LoginValidState extends LoginState{
-  String  validity = '';
-  LoginValidState(this.validity);
+class SigninValidState extends SigninState {
+  String validity = '';
+  SigninValidState(this.validity);
 }
 
-
-class LoginErrorState extends LoginState{
+class SigninErrorState extends SigninState {
   String errormessage = '';
-  LoginErrorState(this.errormessage);
+  SigninErrorState(this.errormessage);
 }
 
-class LoginLoadingState extends LoginState{}
+class SigninLoadingState extends SigninState {}
