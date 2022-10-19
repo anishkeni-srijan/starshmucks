@@ -3,7 +3,7 @@ done today
 ui forgotpassword and signup
 bloc implementation forgotpassword and signup
 error handling wrt states in bloc
-db setup
+db setups
 
 remaining
 check validation on signup
