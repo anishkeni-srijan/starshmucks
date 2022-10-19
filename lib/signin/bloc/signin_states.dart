@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+
 class SigninState extends StatelessWidget {
   const SigninState({Key? key}) : super(key: key);
 
@@ -16,6 +18,7 @@ class SigninInitialState extends SigninState {
 class SigninValidState extends SigninState {
   String validity = '';
   SigninValidState(this.validity);
+
 }
 
 class SigninErrorState extends SigninState {

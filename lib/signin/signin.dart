@@ -4,9 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:starshmucks/user_profile.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 
+import '../boxes.dart';
 import '../forgotpassword/forgot_password.dart';
+import '../model/user_model.dart';
+import '../signup/signup.dart';
 import 'bloc/signin_bloc.dart';
 import 'bloc/signin_events.dart';
 import 'bloc/signin_states.dart';
@@ -20,7 +24,7 @@ class SigninPage extends StatefulWidget {
 
 class _SigninPageState extends State<SigninPage> {
   final pcontroller = TextEditingController();
-  final ucontroller = TextEditingController();
+  final ncontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -80,20 +84,36 @@ class _SigninPageState extends State<SigninPage> {
                   }
                 },
               ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
+        ValueListenableBuilder<Box<UserData>>(
+        valueListenable: Boxes.getUserData().listenable(),
+        builder: (context, box, _) {
+
+          final data = box.values.toList().cast<UserData>();
+          String obtainedname = data[0].name;
+          String obtainedpassword = data[0].password;
+          return
+
+            Column(
+              children: [
+                Container(
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.8,
                 margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.01,
+                  top: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 0.01,
                 ),
                 child: TextFormField(
                   style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                  controller: ucontroller,
+                  controller: ncontroller,
                   onChanged: (value) {
                     BlocProvider.of<SigninBloc>(context).add(
                       SigninTextChangedEvent(
-                        ucontroller.text,
-                        pcontroller.text,
-                      ),
+                        ncontroller.text,
+                        pcontroller.text,obtainedname,obtainedpassword),
                     );
                   },
                   decoration: InputDecoration(
@@ -118,9 +138,12 @@ class _SigninPageState extends State<SigninPage> {
                     ),
                   ),
                 ),
-              ),
+          ),
 
-              const SizedBox(height: 20),
+
+
+
+             SizedBox(height: 20),
               //password
               Container(
                 width: MediaQuery.of(context).size.width * 0.8,
@@ -130,9 +153,8 @@ class _SigninPageState extends State<SigninPage> {
                   onChanged: (value) {
                     BlocProvider.of<SigninBloc>(context).add(
                       SigninTextChangedEvent(
-                        ucontroller.text,
-                        pcontroller.text,
-                      ),
+                        ncontroller.text,
+                        pcontroller.text,obtainedname,obtainedpassword),
                     );
                   },
                   obscureText: true,
@@ -153,6 +175,9 @@ class _SigninPageState extends State<SigninPage> {
                   ),
                 ),
               ),
+              ],
+            );
+        }),
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextButton(
@@ -202,7 +227,7 @@ class _SigninPageState extends State<SigninPage> {
                         if (state is SigninValidState) {
                           BlocProvider.of<SigninBloc>(context).add(
                             SigninSumittedEvent(
-                              ucontroller.text,
+                              ncontroller.text,
                               pcontroller.text,
                             ),
                           );
@@ -237,7 +262,7 @@ class _SigninPageState extends State<SigninPage> {
                     TextButton(
                       onPressed: () {
                         Get.to(
-                          SigninPage(),
+                          SignupPage(),
                         );
                       },
                       child: Text(

@@ -23,9 +23,9 @@ class _UserProfileState extends State<UserProfile> {
           ),
           //profile image
           CircleAvatar(
-            radius: 150,
+            radius: 50,
             backgroundColor: Colors.red,
-            backgroundImage: AssetImage('images/profile1.jpg'),
+            backgroundImage: AssetImage('images/profile1.jpg',),
           ),
 
           //name

@@ -1,10 +1,11 @@
 
 done today
-ui forgotpassword and signup
-bloc implementation forgotpassword and signup
-error handling wrt states in bloc
-db setups
+ui error handling forgotpassword and signup
+data display operations
+login validation
+profile page ui
+
 
 remaining
-check validation on signup
-CRUD operations
+otp verification
+more CRUD operations

@@ -8,6 +8,5 @@ class ForgotpasswordInputChangedEvent extends ForgotpasswordEvent {
 
 class ForgotpasswordSumittedEvent extends ForgotpasswordEvent {
   String? input;
-
   ForgotpasswordSumittedEvent(this.input,);
 }
