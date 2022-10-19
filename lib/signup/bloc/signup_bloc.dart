@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '/signup/bloc/signup_events.dart';
 import '../../Signup/bloc/Signup_states.dart';
 import '../../home_screen.dart';
-
+import 'package:email_validator/email_validator.dart';
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc() : super(SignupInitialState()) {
     //works on login text changed
@@ -37,12 +37,13 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         return SignupValidState('all good');
     });
     on<SignupEmailChangedEvent>((event, emit) {
-      if (event.emailvalue == null || event.emailvalue.trim().isEmpty) {
-        emit(SignupErrorState("Please enter your email"));
+      final bool isEmailValid = EmailValidator.validate(event.emailvalue);
+      if (isEmailValid) {
+        SignupValidState('all good');
       }
       // Return null if the entered username is valid
-      else
-        return SignupValidState('all good');
+      else return  emit(SignupErrorState("Please enter your email"));
+
     });
     on<SignupNumberChangedEvent>((event, emit) {
       if (event.phnumbervalue == null || event.phnumbervalue.trim().isEmpty) {
