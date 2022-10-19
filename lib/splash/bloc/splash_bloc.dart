@@ -7,10 +7,14 @@ class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
   SplashScreenBloc() : super(
             //if new user
             SplashInitialState()) {
-    on<OnSplashEvent>((event, emit) async {
-      await Future<void>.delayed(const Duration(seconds: 1));
-      emit(SplashloadingState());
-    });
+    on<OnSplashEvent>(
+      (event, emit) async {
+        await Future<void>.delayed(const Duration(seconds: 1));
+        emit(
+          SplashloadingState(),
+        );
+      },
+    );
   }
 
   //else if the user exists

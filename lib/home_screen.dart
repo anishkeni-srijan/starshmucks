@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 import '/boxes.dart';
 import '/model/user_model.dart';
 
@@ -19,24 +20,22 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: ValueListenableBuilder<Box<UserData>>(
-          valueListenable: Boxes.getUserData().listenable(),
-          builder: (context, box, _) {
-            final data = box.values.toList().cast<UserData>();
-            return Container(
-                child: Column(
-                  children: [
-                    Text("Name: "+ data[3].name),
-                    Text("DOB: "+ data[3].dob),
-                    Text("Ph: "+ data[3].phone),
-                    Text("email: "+ data[3].email),
-                    Text("email: "+ data[3].password),
-
-
-
-                  ],
-                ),
-                );
-          }),
+        valueListenable: Boxes.getUserData().listenable(),
+        builder: (context, box, _) {
+          final data = box.values.toList().cast<UserData>();
+          return Container(
+            child: Column(
+              children: [
+                Text("Name: " + data[1].name),
+                Text("DOB: " + data[1].dob),
+                Text("Ph: " + data[1].phone),
+                Text("email: " + data[1].email),
+                Text("email: " + data[1].password),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
