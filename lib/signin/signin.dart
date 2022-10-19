@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:starshmucks/user_profile.dart';
 
 import '../forgotpassword/forgot_password.dart';
-import '../signup/signup.dart';
 import 'bloc/signin_bloc.dart';
 import 'bloc/signin_events.dart';
 import 'bloc/signin_states.dart';
@@ -237,7 +237,7 @@ class _SigninPageState extends State<SigninPage> {
                     TextButton(
                       onPressed: () {
                         Get.to(
-                          SignupPage(),
+                          SigninPage(),
                         );
                       },
                       child: Text(
