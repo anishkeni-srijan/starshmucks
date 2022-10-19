@@ -2,10 +2,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:starshmucks/forgotpassword/bloc/forgotpassword_state.dart';
-import 'package:starshmucks/forgotpassword/forgot_password.dart';
+import '/forgotpassword/forgot_password.dart';
 
 import '/signup/bloc/signup_bloc.dart';
 import '/signup/signup.dart';
@@ -44,28 +42,27 @@ class MyApp extends StatelessWidget {
           create: (context) => SignupBloc(),
           child: SignupPage(),
         ),
-          BlocProvider(
+        BlocProvider(
           create: (context) => ForgotpasswordBloc(),
           child: ForgotPasswordPage(),
         )
-
       ],
-      child:  GestureDetector(
-    onTap: () {
-    FocusScopeNode currentFocus = FocusScope.of(context);
-    if (!currentFocus.hasPrimaryFocus) {
-      currentFocus.unfocus();
-    }
-    },
+      child: GestureDetector(
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        },
         child: GetMaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          textTheme: GoogleFonts.ubuntuTextTheme(),
-          primarySwatch: Colors.blue,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            textTheme: GoogleFonts.ubuntuTextTheme(),
+            primarySwatch: Colors.blue,
+          ),
+          debugShowCheckedModeBanner: false,
+          home: Splash(),
         ),
-        debugShowCheckedModeBanner: false,
-        home: Splash(),
-      ),
       ),
     );
   }

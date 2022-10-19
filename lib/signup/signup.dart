@@ -4,15 +4,15 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:get/get.dart';
-import 'package:starshmucks/home_screen.dart';
-import 'package:starshmucks/signup/bloc/signup_events.dart';
+import '/home_screen.dart';
+import '/signup/bloc/signup_events.dart';
 import '../Signup/bloc/Signup_states.dart';
 import '../boxes.dart';
 import '../signin/signin.dart';
 import 'package:intl/intl.dart';
-import 'package:starshmucks/signup/bloc/signup_bloc.dart';
+import '/signup/bloc/signup_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:starshmucks/model/user_model.dart';
+import '/model/user_model.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
