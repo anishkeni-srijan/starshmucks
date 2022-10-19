@@ -13,6 +13,8 @@ import '/splash/bloc/splash_bloc.dart';
 import '/splash/splash.dart';
 import 'forgotpassword/bloc/forgotpassword_bloc.dart';
 import 'model/user_model.dart';
+import 'resetpassword/bloc/resetpassword_bloc.dart';
+import 'resetpassword/reset_password.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,6 +46,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ForgotpasswordBloc(),
           child: ForgotPasswordPage(),
+        ),
+        BlocProvider(
+          create: (context) => ResetpasswordBloc(),
+          child: ResetPasswordPage(),
         )
       ],
       child: GestureDetector(

@@ -7,7 +7,7 @@ import 'package:starshmucks/forgotpassword/bloc/forgotpassword_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:email_auth/email_auth.dart';
-import 'package:starshmucks/password_reset.dart';
+import 'package:starshmucks/resetpassword/reset_password.dart';
 import 'bloc/forgotpassword_event.dart';
 import 'package:get/get.dart';
 
@@ -214,7 +214,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         ? verificationflag = true
         : verificationflag = false;
 
-    verificationflag? Get.to(PasswordResetPage()):print('wrongotp');
+    verificationflag? Get.to(ResetPasswordPage()):print('wrongotp');
   }
 
 

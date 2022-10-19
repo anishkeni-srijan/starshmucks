@@ -21,7 +21,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
             SignupErrorState("Please enter a valid username"),
           );
         } else
-          return SignupValidState('all good');
+          return emit(SignupValidState(''));
       }
     }
 
@@ -34,15 +34,15 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       }
       // Return null if the entered username is valid
       else
-        return SignupValidState('all good');
+        return emit(SignupValidState(''));
     });
     on<SignupEmailChangedEvent>((event, emit) {
       final bool isEmailValid = EmailValidator.validate(event.emailvalue);
       if (isEmailValid) {
-        SignupValidState('all good');
+        emit(SignupValidState(''));
       }
       // Return null if the entered username is valid
-      else return  emit(SignupErrorState("Please enter your email"));
+      else emit(SignupErrorState("Please enter your email"));
 
     });
     on<SignupNumberChangedEvent>((event, emit) {
@@ -52,18 +52,14 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         emit(SignupErrorState("Your phone number must be at least 4 digits"));
       }
       // Return null if the entered username is valid
-      else
-        return SignupValidState('all good');
+      else emit(SignupValidState(''));
     });
     on<SignupPasswordChangedEvent>((event, emit) {
       if (event.passwordvalue == null || event.passwordvalue.trim().isEmpty) {
         emit(SignupErrorState("Please enter a password"));
       } else if (event.passwordvalue.trim().length < 4) {
         emit(SignupErrorState("Your password must be at least 4 Characters"));
-      }
-      // Return null if the entered username is valid
-      else
-        return SignupValidState('all good');
+      } else emit(SignupValidState(''));
     });
     on<SignupConfirmPasswordChangedEvent>((event, emit) {
       if (event.confirmpassvalue == null ||
@@ -77,15 +73,15 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
             "Your password and confirm password should match"));
       }
       // Return null if the entered username is valid
-      else
-        return SignupValidState('all good');
+      else emit(SignupValidState(''));
     });
     on<SignuptandcChangedEvent>((event, emit) {
       if (event.checked == true) {
-        return SignupValidState('all goood');
-      } else {
+        emit(SignupValidState('We\'re eager to make your coffee!'));
+      } else if (event.checked == !event.checked) {
         emit(SignupErrorState("Please agree to the T&C."));
       }
+      else return null;
     });
 
     //works if login is valid

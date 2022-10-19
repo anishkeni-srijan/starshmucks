@@ -49,23 +49,10 @@ class SignuptandcChangedEvent extends SignupEvent {
 }
 
 class SignupSumittedEvent extends SignupEvent {
-  String? username;
-  String? password;
-  String? dob;
-  String? email;
-  String? phno;
-  String? pswd;
-  String? cpaswd;
+
   bool? checked;
 
   SignupSumittedEvent(
-    this.username,
-    this.password,
-    this.dob,
-    this.email,
-    this.phno,
-    this.pswd,
-    this.cpaswd,
     this.checked,
   );
 }

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:starshmucks/resetpassword/reset_password.dart';
 
 import '../boxes.dart';
 import '../forgotpassword/forgot_password.dart';
@@ -189,7 +190,8 @@ class _SigninPageState extends State<SigninPage> {
                   ),
                   onPressed: () {
                     Get.to(
-                      ForgotPasswordPage(),
+                      // ForgotPasswordPage(),
+                      ResetPasswordPage(),
                     );
                   },
                 ),

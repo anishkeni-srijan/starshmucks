@@ -1,11 +1,15 @@
 
 done today
-ui error handling forgotpassword and signup
-data display operations
-login validation
-profile page ui
+ui error handling Reset password and signup
+resetpassword page in bloc
+otp auth using email(test)
+
 
 
 remaining
-otp verification
+otp auth using mobile
 more CRUD operations
+
+
+bugs found
+signup works even if the form is empty
