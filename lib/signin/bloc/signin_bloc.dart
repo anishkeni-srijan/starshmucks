@@ -25,9 +25,9 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
 
     //works if login is valid
     on<SigninSumittedEvent>((event, emit) {
-      if (state is SigninValidState) {
-        Get.to(HomePage());
-      }
+if(state is SigninValidState) {
+  Get.to(HomePage());
+}
     });
   }
 }

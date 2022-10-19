@@ -166,8 +166,7 @@ class _SigninPageState extends State<SigninPage> {
                   onPressed: () {
                     if (state is SigninValidState) {
                       BlocProvider.of<SigninBloc>(context).add(
-                          SigninSumittedEvent(
-                              ucontroller.text, pcontroller.text));
+                          SigninSumittedEvent(ucontroller.text, pcontroller.text));
                     }
                   },
                   child: const Text(

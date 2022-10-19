@@ -21,9 +21,20 @@ class _HomePageState extends State<HomePage> {
       body: ValueListenableBuilder<Box<UserData>>(
           valueListenable: Boxes.getUserData().listenable(),
           builder: (context, box, _) {
-            final data = box.values.toList().cast<UserData>;
+            final data = box.values.toList().cast<UserData>();
             return Container(
-                //child: Text(signupdata[0].name),
+                child: Column(
+                  children: [
+                    Text("Name: "+ data[3].name),
+                    Text("DOB: "+ data[3].dob),
+                    Text("Ph: "+ data[3].phone),
+                    Text("email: "+ data[3].email),
+                    Text("email: "+ data[3].password),
+
+
+
+                  ],
+                ),
                 );
           }),
     );
