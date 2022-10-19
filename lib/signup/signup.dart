@@ -3,8 +3,11 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:get/get.dart';
+import 'package:starshmucks/home_screen.dart';
 import 'package:starshmucks/signup/bloc/signup_events.dart';
 import '../Signup/bloc/Signup_states.dart';
+import '../boxes.dart';
 import '../signin/signin.dart';
 import 'package:intl/intl.dart';
 import 'package:starshmucks/signup/bloc/signup_bloc.dart';
@@ -20,10 +23,11 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   final List<UserData> signupdata = [];
   @override
-  void dispose(){
+  void dispose() {
     Hive.box('signupdata').close();
     super.dispose();
   }
+
   bool isChecked = false;
   Color getColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -49,6 +53,22 @@ class _SignupPageState extends State<SignupPage> {
   void initState() {
     dob.text = ""; //set the initial value of text field
     super.initState();
+  }
+
+  void addUserData() {
+    final user = UserData()
+      ..name = name.text
+      ..email = email.text
+      ..phone = phone.text
+      ..dob = dob.text
+      ..password = pass1.text
+      ..tnc = true
+      ..isactive = true;
+    // print(name.text);
+    final box = Boxes.getUserData();
+    box.add(user);
+    print(user.name);
+    print("added");
   }
 
   @override
@@ -98,10 +118,10 @@ class _SignupPageState extends State<SignupPage> {
                 );
               }
               //if the login is valid
-              else if(state is SignupValidState) {
+              else if (state is SignupValidState) {
                 return Container();
-              }
-              else return Container();
+              } else
+                return Container();
             }),
 
             //Name
@@ -114,7 +134,8 @@ class _SignupPageState extends State<SignupPage> {
                 style: const TextStyle(color: Colors.black), //<-- SEE HERE
                 controller: name,
                 onChanged: (value) {
-                  BlocProvider.of<SignupBloc>(context).add(SignupNameChangedEvent(name.text));
+                  BlocProvider.of<SignupBloc>(context)
+                      .add(SignupNameChangedEvent(name.text));
                 },
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(5),
@@ -125,12 +146,12 @@ class _SignupPageState extends State<SignupPage> {
                   enabledBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                    BorderSide(color: HexColor("#175244"), width: 2),
+                        BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                    BorderSide(color: HexColor("#175244"), width: 2),
+                        BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                 ),
               ),
@@ -144,42 +165,45 @@ class _SignupPageState extends State<SignupPage> {
               child: TextField(
                 controller: dob, //editing controller of this TextField
                 onChanged: (value) {
-                  BlocProvider.of<SignupBloc>(context).add(
-                      SignupDobChangedEvent(dob.text));
+                  BlocProvider.of<SignupBloc>(context)
+                      .add(SignupDobChangedEvent(dob.text));
                 },
-                decoration:
-                InputDecoration(
-                  //label text of field
+                decoration: InputDecoration(
+                    //label text of field
                     contentPadding: EdgeInsets.all(5),
                     labelText: 'Date Of Birth',
                     labelStyle: TextStyle(
                       color: HexColor("#175244"),
                     ),
-                    prefixIcon: Icon(Icons.calendar_month_rounded, color: HexColor("#175244"),) ,
-
+                    prefixIcon: Icon(
+                      Icons.calendar_month_rounded,
+                      color: HexColor("#175244"),
+                    ),
                     enabledBorder: UnderlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide:
-                      BorderSide(color: HexColor("#175244"), width: 2),
+                          BorderSide(color: HexColor("#175244"), width: 2),
                     ),
                     focusedBorder: UnderlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide:
-                      BorderSide(color: HexColor("#175244"), width: 2),
-                    )
-                ),
-                readOnly: true, //set it true, so that user will not able to edit text
+                          BorderSide(color: HexColor("#175244"), width: 2),
+                    )),
+                readOnly:
+                    true, //set it true, so that user will not able to edit text
                 onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(context: context,
+                  DateTime? pickedDate = await showDatePicker(
+                      context: context,
                       initialDate: DateTime.now(),
-                      firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
-                      lastDate: DateTime(2101)
-                  );
+                      firstDate: DateTime(
+                          2000), //DateTime.now() - not to allow to choose before today.
+                      lastDate: DateTime(2101));
 
                   if (pickedDate != null) {
-                    print(pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                    print(
+                        pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
                     String formattedDate =
-                    DateFormat('yyyy-MM-dd').format(pickedDate);
+                        DateFormat('yyyy-MM-dd').format(pickedDate);
                     print(
                         formattedDate); //formatted date output using intl package =>  2021-03-16
                     //you can implement different kind of Date Format here according to your requirement
@@ -222,11 +246,10 @@ class _SignupPageState extends State<SignupPage> {
                     focusedBorder: UnderlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide:
-                      BorderSide(color: HexColor("#175244"), width: 2),
+                          BorderSide(color: HexColor("#175244"), width: 2),
                     )),
               ),
             ),
-            //Phone Number
             //Phone Number
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
@@ -259,7 +282,7 @@ class _SignupPageState extends State<SignupPage> {
                   focusedBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                    BorderSide(color: HexColor("#175244"), width: 2),
+                        BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                 ),
 
@@ -292,12 +315,12 @@ class _SignupPageState extends State<SignupPage> {
                   enabledBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                    BorderSide(color: HexColor("#175244"), width: 2),
+                        BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                    BorderSide(color: HexColor("#175244"), width: 2),
+                        BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                 ),
               ),
@@ -313,7 +336,9 @@ class _SignupPageState extends State<SignupPage> {
                 style: const TextStyle(color: Colors.black), //<-- SEE HERE
                 controller: pass2,
                 onChanged: (value) {
-                  BlocProvider.of<SignupBloc>(context).add(SignupConfirmPasswordChangedEvent(pass2.text,pass1.text));
+                  BlocProvider.of<SignupBloc>(context).add(
+                      SignupConfirmPasswordChangedEvent(
+                          pass2.text, pass1.text));
                 },
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(5),
@@ -324,12 +349,12 @@ class _SignupPageState extends State<SignupPage> {
                   enabledBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                    BorderSide(color: HexColor("#175244"), width: 2),
+                        BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide:
-                    BorderSide(color: HexColor("#175244"), width: 2),
+                        BorderSide(color: HexColor("#175244"), width: 2),
                   ),
                 ),
               ),
@@ -348,7 +373,6 @@ class _SignupPageState extends State<SignupPage> {
                       BlocProvider.of<SignupBloc>(context)
                           .add(SignuptandcChangedEvent(isChecked));
 
-
                       setState(() {
                         isChecked = !isChecked;
                       });
@@ -364,7 +388,10 @@ class _SignupPageState extends State<SignupPage> {
             SizedBox(
               width: 300,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  addUserData();
+                  Get.to(HomePage());
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(60)),
@@ -399,7 +426,3 @@ class _SignupPageState extends State<SignupPage> {
         ));
   }
 }
-
-
-
-

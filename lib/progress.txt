@@ -6,4 +6,5 @@ error handling wrt states in bloc
 db setup
 
 remaining
+check validation on signup
 CRUD operations
