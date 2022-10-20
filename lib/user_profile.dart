@@ -140,11 +140,16 @@ class profileTile extends StatelessWidget {
         horizontal: 0,
         vertical: 0,
       ),
-      child: ElevatedButton(
+      child: TextButton(
+
         onPressed: press,
-        style: ElevatedButton.styleFrom(
+        style: TextButton.styleFrom(
           backgroundColor: Colors.white,
           padding: const EdgeInsets.all(20),
+          // shape: Border(
+          //     bottom: BorderSide({ width: 2.0,color: HexColor("#175244")}
+          //     ),
+          // ),
 
         ),
         child: Row(
