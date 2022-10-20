@@ -15,14 +15,29 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  getemail() async {
+  var filteredUsers;
+  late int  userkey;
+getemail() async {
     final keypref = await SharedPreferences.getInstance();
-    final int?  userkey= keypref.getInt('userkey');
+    userkey = keypref.getInt('userkey')!;
+    setState(() {
+
+    });
     print(userkey);
+   return userkey;
   }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getemail();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context)  {
-    getemail();
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text('User Data'),
@@ -30,30 +45,31 @@ class _HomePageState extends State<HomePage> {
       ),
       body: ValueListenableBuilder<Box<UserData>>(
         valueListenable: Boxes.getUserData().listenable(),
-        builder: (context, box, _) {
+        builder: (context, box,  _) {
           final data = box.values.toList().cast<UserData>();
-          return ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (context, index) {
 
-              return Column(
-                children: [
-                  Text("Name: " + data[index].name),
-                  Text("DOB: " + data[index].dob),
-                  Text("Ph: " + data[index].phone),
-                  Text("email: " + data[index].email),
-                  Text("Password: " + data[index].password),
-                  ElevatedButton(
-                      onPressed: () {
-                        Get.to(UserProfile());
-                      },
-                      child: Text('Profile')),
-                ],
-              );
-            },
-          );
-        },
-      ),
-    );
+
+           return Column(
+                 children: [
+
+                   Text("Name: " + data[userkey].name),
+                   Text("DOB: " + data[userkey].dob),
+                   // Text("Ph: " + data[index].phone),
+                   Text("email: " + data[userkey].email),
+                   // Text("Password: " + data[index].password),
+                   ElevatedButton(
+                       onPressed: () {
+                         Get.to(UserProfile());
+                       },
+                       child: Text('Profile')),
+                 ],
+               );
+             }
+           ),
+
+
+      );
+
+
   }
 }
