@@ -72,11 +72,12 @@ class _UserProfileState extends State<UserProfile> {
               height: 10,
             ),
             Container(
+              padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
              color: Colors.white,
                 borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(40),
+                    topLeft: Radius.circular(40),
 
               ),
               ),
