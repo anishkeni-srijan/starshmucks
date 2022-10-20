@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '/user_profile.dart';
 import '/boxes.dart';
@@ -14,8 +15,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  getemail() async {
+    final keypref = await SharedPreferences.getInstance();
+    final int?  userkey= keypref.getInt('userkey');
+    print(userkey);
+  }
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
+    getemail();
     return Scaffold(
       appBar: AppBar(
         title: Text('User Data'),
@@ -28,6 +35,7 @@ class _HomePageState extends State<HomePage> {
           return ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
+
               return Column(
                 children: [
                   Text("Name: " + data[index].name),

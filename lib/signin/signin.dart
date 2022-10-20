@@ -6,7 +6,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:starshmucks/forgotpassword/forgot_password.dart';
 import 'package:starshmucks/home_screen.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../signup/signup.dart';
 import '/user_profile.dart';
 import '/resetpassword/reset_password.dart';
@@ -25,9 +25,10 @@ class SigninPage extends StatefulWidget {
 
 class _SigninPageState extends State<SigninPage> {
   final pcontroller = TextEditingController();
-  final ncontroller = TextEditingController();
+  final econtroller = TextEditingController();
   late String obtainedemail;
   late String obtainedpassword;
+  late int obtainedkey;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,6 +98,7 @@ class _SigninPageState extends State<SigninPage> {
                     for (int i = 0; i < data.length; i++) {
                       obtainedemail = data[i].email;
                       obtainedpassword = data[i].password;
+                      obtainedkey = data[i].key;
                     }
                   }
                   return Column(
@@ -107,13 +109,14 @@ class _SigninPageState extends State<SigninPage> {
                           top: MediaQuery.of(context).size.height * 0.01,
                         ),
                         child: TextFormField(
+                          autocorrect: false,
                           style: const TextStyle(
                               color: Colors.black), //<-- SEE HERE
-                          controller: ncontroller,
+                          controller: econtroller,
                           onChanged: (value) {
                             BlocProvider.of<SigninBloc>(context).add(
                               SigninTextChangedEvent(
-                                  ncontroller.text,
+                                  econtroller.text,
                                   pcontroller.text,
                                   obtainedemail,
                                   obtainedpassword),
@@ -153,7 +156,7 @@ class _SigninPageState extends State<SigninPage> {
                           onChanged: (value) {
                             BlocProvider.of<SigninBloc>(context).add(
                               SigninTextChangedEvent(
-                                  ncontroller.text,
+                                  econtroller.text,
                                   pcontroller.text,
                                   obtainedemail,
                                   obtainedpassword),
@@ -196,10 +199,11 @@ class _SigninPageState extends State<SigninPage> {
                       color: HexColor("#036635"),
                     ),
                   ),
-                  onPressed: () {
+                  onPressed: ()  {
+
                     Get.to(
                       // ForgotPasswordPage(),
-                      ForgotPasswordPage(),
+                      ResetPasswordPage(),
                     );
                   },
                 ),
@@ -233,11 +237,16 @@ class _SigninPageState extends State<SigninPage> {
                           ),
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
+                        final keypref = await SharedPreferences.getInstance();
+                        await keypref.setInt('userkey', obtainedkey);
+                        setState(() {
+
+                        });
                         if (state is SigninValidState) {
                           BlocProvider.of<SigninBloc>(context).add(
                             SigninSumittedEvent(
-                              ncontroller.text,
+                              econtroller.text,
                               pcontroller.text,
                             ),
                           );

@@ -22,5 +22,6 @@ signup works even if the form is empty (fixed)
 
 
 creds:(anish)
-anishtest1
-pass123
+test1
+test1
+anish.keni@srijan
