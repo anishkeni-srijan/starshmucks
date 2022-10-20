@@ -4,12 +4,11 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:starshmucks/user_profile.dart';
 
+import '/user_profile.dart';
 import '/resetpassword/reset_password.dart';
 import '../boxes.dart';
 import '../model/user_model.dart';
-import '../signup/signup.dart';
 import 'bloc/signin_bloc.dart';
 import 'bloc/signin_events.dart';
 import 'bloc/signin_states.dart';
@@ -154,16 +153,22 @@ class _SigninPageState extends State<SigninPage> {
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10),
                             labelText: 'Password',
-                            labelStyle: TextStyle(color: HexColor("#036635")),
+                            labelStyle: TextStyle(
+                              color: HexColor("#036635"),
+                            ),
                             enabledBorder: UnderlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(
-                                  color: HexColor("#036635"), width: 2),
+                                color: HexColor("#036635"),
+                                width: 2,
+                              ),
                             ),
                             focusedBorder: UnderlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(
-                                  color: HexColor("#036635"), width: 2),
+                                color: HexColor("#036635"),
+                                width: 2,
+                              ),
                             ),
                           ),
                         ),

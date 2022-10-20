@@ -15,10 +15,14 @@ class ForgotpasswordBloc
 //user exists
         final bool isEmailValid = EmailValidator.validate(event.inputvalue);
         if (isEmailValid) {
-          emit(ForgotpasswordValidState("An OTP will be sent to you."));
+          emit(
+            ForgotpasswordValidState("An OTP will be sent to you."),
+          );
         } else {
 // incorrect credentials
-          emit(ForgotpasswordErrorState("No user found"));
+          emit(
+            ForgotpasswordErrorState("No user found"),
+          );
         }
       },
     );

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class UserProfile extends StatefulWidget {
@@ -20,8 +19,14 @@ class _UserProfileState extends State<UserProfile> {
         elevation: 0,
         centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.notifications),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.settings),
+          )
         ],
       ),
       backgroundColor: HexColor("#036635"),
@@ -101,7 +106,10 @@ class profileTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 10,
+      ),
       child: ElevatedButton(
         onPressed: press,
         style: ElevatedButton.styleFrom(
@@ -130,7 +138,10 @@ class profileTile extends StatelessWidget {
                     fontSize: 20),
               ),
             ),
-            Icon(Icons.arrow_forward_ios, color: Colors.black),
+            Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.black,
+            ),
           ],
         ),
       ),

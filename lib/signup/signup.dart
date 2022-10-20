@@ -1,17 +1,13 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import '/model/user_model.dart';
 import '/signup/bloc/signup_bloc.dart';
-import '/home_screen.dart';
 import '/signup/bloc/signup_events.dart';
 import '../Signup/bloc/Signup_states.dart';
 import '../boxes.dart';
@@ -140,8 +136,9 @@ class _SignupPageState extends State<SignupPage> {
                   style: const TextStyle(color: Colors.black), //<-- SEE HERE
                   controller: name,
                   onChanged: (value) {
-                    BlocProvider.of<SignupBloc>(context)
-                        .add(SignupNameChangedEvent(name.text));
+                    BlocProvider.of<SignupBloc>(context).add(
+                      SignupNameChangedEvent(name.text),
+                    );
                   },
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(5),
@@ -436,14 +433,13 @@ class _SignupPageState extends State<SignupPage> {
                 width: 300,
                 child: ElevatedButton(
                   onPressed: () {
-
-                   if (isChecked)
-                    { BlocProvider.of<SignupBloc>(context).add(
-                          SignupSumittedEvent(),
-                          );
+                    if (isChecked) {
+                      BlocProvider.of<SignupBloc>(context).add(
+                        SignupSumittedEvent(),
+                      );
                       addUserData();
-                    }
-                        else return null;
+                    } else
+                      return null;
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
