@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class UserProfile extends StatefulWidget {
@@ -13,119 +14,125 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: null,
-      backgroundColor: HexColor("#036635"),
-      body: ListView(
-        children: [
-          SizedBox(
-            height: 50,
-          ),
-          //profile image
-          CircleAvatar(
-            radius: 50,
-            backgroundColor: Colors.red,
-            backgroundImage: AssetImage(
-              'images/profile1.jpg',
-            ),
-          ),
-
-          //name
-          Align(
-            alignment: Alignment.center,
-            child: Text(
-              'Name From DB',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 40,
-              ),
-            ),
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height / 2,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20),
-                topLeft: Radius.circular(20),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 15,
-                ),
-                //Email Display
-                Row(
-                  children: [
-                    Text(
-                      'Email ID:  ',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: HexColor("#036635"),
-                      ),
-                    ),
-                    Text(
-                      'something@gmail.com',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: HexColor("#036635"),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                //phone number
-                Row(
-                  children: [
-                    Text(
-                      'Phone Number:  ',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: HexColor("#036635"),
-                      ),
-                    ),
-                    Text(
-                      '9999999999',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: HexColor("#036635"),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                //DOB
-                Row(
-                  children: [
-                    Text(
-                      'Date Of Birth:  ',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: HexColor("#036635"),
-                      ),
-                    ),
-                    Text(
-                      'DD/MM/YY',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: HexColor("#036635"),
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
+      appBar: AppBar(
+        title: Text("Account"),
+        backgroundColor: HexColor("#036635"),
+        elevation: 0,
+        centerTitle: true,
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
         ],
+      ),
+      backgroundColor: HexColor("#036635"),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(
+              child: CircleAvatar(
+                radius: 80,
+                backgroundImage: AssetImage("images/profile1.jpg"),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                'Sanish Aukhale',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 35,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            profileTile(
+              text: 'My Account',
+              press: () {},
+              icon: Icons.account_circle_outlined,
+            ),
+            profileTile(
+              text: 'Orders',
+              press: () {},
+              icon: Icons.coffee_outlined,
+            ),
+            profileTile(
+              text: 'Rewards',
+              press: () {},
+              icon: Icons.star_outline_sharp,
+            ),
+            profileTile(
+              text: 'Payment Mode',
+              press: () {},
+              icon: Icons.attach_money_sharp,
+            ),
+            profileTile(
+              text: 'Help',
+              press: () {},
+              icon: Icons.help_outline_rounded,
+            ),
+            profileTile(
+              text: 'Logout',
+              press: () {},
+              icon: Icons.logout,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class profileTile extends StatelessWidget {
+  const profileTile({
+    Key? key,
+    required this.text,
+    required this.press,
+    required this.icon,
+  }) : super(key: key);
+  final String text;
+  final IconData icon;
+  final VoidCallback press;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: ElevatedButton(
+        onPressed: press,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          padding: const EdgeInsets.all(20),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              size: 35,
+              color: HexColor("#036635"),
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Expanded(
+              child: Text(
+                text,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
+            ),
+            Icon(Icons.arrow_forward_ios, color: Colors.black),
+          ],
+        ),
       ),
     );
   }
