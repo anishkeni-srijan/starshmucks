@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:starshmucks/forgotpassword/forgot_password.dart';
+import 'package:starshmucks/home_screen.dart';
 
 import '../signup/signup.dart';
 import '/user_profile.dart';
@@ -274,7 +275,7 @@ class _SigninPageState extends State<SigninPage> {
                     TextButton(
                       onPressed: () {
                         Get.to(
-                          UserProfile(),
+                          SignupPage(),
                         );
                       },
                       child: Text(

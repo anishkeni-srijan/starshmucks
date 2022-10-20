@@ -14,8 +14,8 @@ class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Account"),
-        backgroundColor: HexColor("#036635"),
+        title: Text("Profile"),
+        backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
         actions: [
@@ -29,16 +29,30 @@ class _UserProfileState extends State<UserProfile> {
           )
         ],
       ),
-      backgroundColor: HexColor("#036635"),
+      backgroundColor: HexColor("#175244"),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Center(
-              child: CircleAvatar(
-                radius: 80,
-                backgroundImage: AssetImage("images/profile1.jpg"),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              width: 150.0,
+              height: 150.0,
+              decoration: BoxDecoration(
+                color: const Color(0xff7c94b6),
+                image: DecorationImage(
+                  image: AssetImage('images/profile1.jpg'),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.all( Radius.circular(75.0)),
+                border: Border.all(
+                  color: Colors.white,
+                  width: 4.0,
+                ),
               ),
             ),
+
             SizedBox(
               height: 20,
             ),
@@ -53,38 +67,53 @@ class _UserProfileState extends State<UserProfile> {
                 ),
               ),
             ),
+            TextButton(onPressed: (){}, child: Text('Edit Profile', style: TextStyle(color: Colors.white),),),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
-            profileTile(
-              text: 'My Account',
-              press: () {},
-              icon: Icons.account_circle_outlined,
-            ),
-            profileTile(
-              text: 'Orders',
-              press: () {},
-              icon: Icons.coffee_outlined,
-            ),
-            profileTile(
-              text: 'Rewards',
-              press: () {},
-              icon: Icons.star_outline_sharp,
-            ),
-            profileTile(
-              text: 'Payment Mode',
-              press: () {},
-              icon: Icons.attach_money_sharp,
-            ),
-            profileTile(
-              text: 'Help',
-              press: () {},
-              icon: Icons.help_outline_rounded,
-            ),
-            profileTile(
-              text: 'Logout',
-              press: () {},
-              icon: Icons.logout,
+            Container(
+              decoration: BoxDecoration(
+             color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(20),
+
+              ),
+              ),
+              child: Column(
+                children: [
+                  profileTile(
+                    text: 'My Account',
+                    press: () {},
+                    icon: Icons.account_circle_outlined,
+                  ),
+                  profileTile(
+                    text: 'Orders',
+                    press: () {},
+                    icon: Icons.coffee_outlined,
+                  ),
+                  profileTile(
+                    text: 'Rewards',
+                    press: () {},
+                    icon: Icons.star_outline_sharp,
+                  ),
+                  profileTile(
+                    text: 'Payment Mode',
+                    press: () {},
+                    icon: Icons.attach_money_sharp,
+                  ),
+                  profileTile(
+                    text: 'Help',
+                    press: () {},
+                    icon: Icons.help_outline_rounded,
+                  ),
+                  profileTile(
+                    text: 'Logout',
+                    press: () {Navigator.pop(context);Navigator.pop(context);},
+                    icon: Icons.logout,
+                  ),
+                ],
+              ),
             )
           ],
         ),
@@ -107,23 +136,21 @@ class profileTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 10,
+        horizontal: 0,
+        vertical: 0,
       ),
       child: ElevatedButton(
         onPressed: press,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
           padding: const EdgeInsets.all(20),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
+
         ),
         child: Row(
           children: [
             Icon(
               icon,
-              size: 35,
+              size: 30,
               color: HexColor("#036635"),
             ),
             SizedBox(
@@ -133,14 +160,14 @@ class profileTile extends StatelessWidget {
               child: Text(
                 text,
                 style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
+                    color: HexColor("#036635"),
+                    fontWeight: FontWeight.w300,
                     fontSize: 20),
               ),
             ),
             Icon(
               Icons.arrow_forward_ios,
-              color: Colors.black,
+              color: HexColor("#036635"),
             ),
           ],
         ),
