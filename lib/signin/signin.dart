@@ -26,7 +26,7 @@ class SigninPage extends StatefulWidget {
 class _SigninPageState extends State<SigninPage> {
   final pcontroller = TextEditingController();
   final ncontroller = TextEditingController();
-  late String obtainedname;
+  late String obtainedemail;
   late String obtainedpassword;
   @override
   Widget build(BuildContext context) {
@@ -91,14 +91,11 @@ class _SigninPageState extends State<SigninPage> {
                 valueListenable: Boxes.getUserData().listenable(),
                 builder: (context, box, _) {
                   final data = box.values.toList().cast<UserData>();
-                  if(data.isEmpty)
-                    {
-                      Get.to(SignupPage());
-                    }
-                  else {
-                    for(int i =0; i<data.length; i++) {
-
-                      obtainedname = data[i].name;
+                  if (data.isEmpty) {
+                    Get.to(SignupPage());
+                  } else {
+                    for (int i = 0; i < data.length; i++) {
+                      obtainedemail = data[i].email;
                       obtainedpassword = data[i].password;
                     }
                   }
@@ -118,13 +115,13 @@ class _SigninPageState extends State<SigninPage> {
                               SigninTextChangedEvent(
                                   ncontroller.text,
                                   pcontroller.text,
-                                  obtainedname,
+                                  obtainedemail,
                                   obtainedpassword),
                             );
                           },
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10),
-                            labelText: 'Username',
+                            labelText: 'Email',
                             labelStyle: TextStyle(
                               color: HexColor("#036635"),
                             ),
@@ -158,7 +155,7 @@ class _SigninPageState extends State<SigninPage> {
                               SigninTextChangedEvent(
                                   ncontroller.text,
                                   pcontroller.text,
-                                  obtainedname,
+                                  obtainedemail,
                                   obtainedpassword),
                             );
                           },

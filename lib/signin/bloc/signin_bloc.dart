@@ -11,13 +11,13 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
     on<SigninTextChangedEvent>(
       (event, emit) {
 //user exists
-        if (event.unamevalue == event.obtainedname &&
+        if (event.emailvalue == event.obtainedemail &&
             event.passwordvalue == event.obtainedpassword) {
           emit(SigninValidState("all good"));
         } else {
 // incorrect credentials
-          if (event.unamevalue == '' ||
-              event.unamevalue != event.obtainedname) {
+          if (event.emailvalue == '' ||
+              event.emailvalue != event.obtainedemail) {
             emit(
               SigninErrorState("Please enter a valid username"),
             );

@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
                   Text("DOB: " + data[index].dob),
                   Text("Ph: " + data[index].phone),
                   Text("email: " + data[index].email),
-                  Text("email: " + data[index].password),
+                  Text("Password: " + data[index].password),
                   ElevatedButton(
                       onPressed: () {
                         Get.to(UserProfile());
@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
                       child: Text('Profile')),
                 ],
               );
-            }
+            },
           );
         },
       ),

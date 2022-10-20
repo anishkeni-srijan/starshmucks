@@ -243,6 +243,7 @@ class _SignupPageState extends State<SignupPage> {
                   top: MediaQuery.of(context).size.height * 0.005,
                 ),
                 child: TextFormField(
+                  autocorrect: false,
                   style: const TextStyle(color: Colors.black), //<-- SEE HERE
                   controller: email,
                   onChanged: (value) {

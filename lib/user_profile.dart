@@ -1,6 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:get/get.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+
+import '/signin/signin.dart';
+import 'boxes.dart';
+import 'model/user_model.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
@@ -30,95 +37,132 @@ class _UserProfileState extends State<UserProfile> {
         ],
       ),
       backgroundColor: HexColor("#175244"),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              width: 150.0,
-              height: 150.0,
-              decoration: BoxDecoration(
-                color: const Color(0xff7c94b6),
-                image: DecorationImage(
-                  image: AssetImage('images/profile1.jpg'),
-                  fit: BoxFit.cover,
+      body: ValueListenableBuilder<Box<UserData>>(
+        valueListenable: Boxes.getUserData().listenable(),
+        builder: (context, box, _) {
+          final data = box.values.toList().cast<UserData>();
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20,
                 ),
-                borderRadius: BorderRadius.all( Radius.circular(75.0)),
-                border: Border.all(
-                  color: Colors.white,
-                  width: 4.0,
+                Container(
+                  width: 150.0,
+                  height: 150.0,
+                  decoration: BoxDecoration(
+                    color: const Color(0xff7c94b6),
+                    image: DecorationImage(
+                      image: AssetImage('images/profile1.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(75.0),
+                    ),
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 4.0,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Text(
-                'Sanish Aukhale',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 35,
+                SizedBox(
+                  height: 20,
                 ),
-              ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    data[3].name,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 35,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Edit Profile',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(40),
+                      topLeft: Radius.circular(40),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      profileTile(
+                        text: 'My Account',
+                        press: () {},
+                        icon: Icons.account_circle_outlined,
+                      ),
+                      DividerForTiles(),
+                      profileTile(
+                        text: 'Orders',
+                        press: () {},
+                        icon: Icons.coffee_outlined,
+                      ),
+                      DividerForTiles(),
+                      profileTile(
+                        text: 'Rewards',
+                        press: () {},
+                        icon: Icons.star_outline_sharp,
+                      ),
+                      DividerForTiles(),
+                      profileTile(
+                        text: 'Payment Mode',
+                        press: () {},
+                        icon: Icons.attach_money_sharp,
+                      ),
+                      DividerForTiles(),
+                      profileTile(
+                        text: 'Help',
+                        press: () {},
+                        icon: Icons.help_outline_rounded,
+                      ),
+                      DividerForTiles(),
+                      profileTile(
+                        text: 'Logout',
+                        press: () {
+                          Get.to(SigninPage());
+                        },
+                        icon: Icons.logout,
+                      ),
+                      DividerForTiles(),
+                    ],
+                  ),
+                )
+              ],
             ),
-            TextButton(onPressed: (){}, child: Text('Edit Profile', style: TextStyle(color: Colors.white),),),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-             color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(40),
-                    topLeft: Radius.circular(40),
-
-              ),
-              ),
-              child: Column(
-                children: [
-                  profileTile(
-                    text: 'My Account',
-                    press: () {},
-                    icon: Icons.account_circle_outlined,
-                  ),
-                  profileTile(
-                    text: 'Orders',
-                    press: () {},
-                    icon: Icons.coffee_outlined,
-                  ),
-                  profileTile(
-                    text: 'Rewards',
-                    press: () {},
-                    icon: Icons.star_outline_sharp,
-                  ),
-                  profileTile(
-                    text: 'Payment Mode',
-                    press: () {},
-                    icon: Icons.attach_money_sharp,
-                  ),
-                  profileTile(
-                    text: 'Help',
-                    press: () {},
-                    icon: Icons.help_outline_rounded,
-                  ),
-                  profileTile(
-                    text: 'Logout',
-                    press: () {Navigator.pop(context);Navigator.pop(context);},
-                    icon: Icons.logout,
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
+          );
+        },
       ),
+    );
+  }
+}
+
+class DividerForTiles extends StatelessWidget {
+  const DividerForTiles({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      color: HexColor("#036635"),
+      height: 1,
+      thickness: 0.5,
+      indent: 0,
+      endIndent: 0,
     );
   }
 }
@@ -141,16 +185,10 @@ class profileTile extends StatelessWidget {
         vertical: 0,
       ),
       child: TextButton(
-
         onPressed: press,
         style: TextButton.styleFrom(
           backgroundColor: Colors.white,
           padding: const EdgeInsets.all(20),
-          // shape: Border(
-          //     bottom: BorderSide({ width: 2.0,color: HexColor("#175244")}
-          //     ),
-          // ),
-
         ),
         child: Row(
           children: [
