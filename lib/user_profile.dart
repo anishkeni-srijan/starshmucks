@@ -4,6 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '/signin/signin.dart';
 import 'boxes.dart';
@@ -17,6 +18,22 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+  getemail() async {
+    final keypref = await SharedPreferences.getInstance();
+    userkey = keypref.getInt('userkey')!;
+    setState(() {
+
+    });
+    print(userkey);
+    return userkey;
+  }
+  @override
+  var userkey;
+  void initState(){
+    // TODO: implement initState
+    getemail();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +88,7 @@ class _UserProfileState extends State<UserProfile> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    data[3].name,
+                    data[userkey].name,
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
