@@ -49,10 +49,4 @@ class SignuptandcChangedEvent extends SignupEvent {
 }
 
 class SignupSumittedEvent extends SignupEvent {
-
-  bool? checked;
-
-  SignupSumittedEvent(
-    this.checked,
-  );
 }
