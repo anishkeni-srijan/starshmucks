@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -311,9 +313,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
                   ),
-                  keyboardType: TextInputType.numberWithOptions(
-                    signed: true,
-                  ),
+                  keyboardType: TextInputType.number,
                 ),
               ),
               //Password
@@ -415,6 +415,7 @@ class _SignupPageState extends State<SignupPage> {
                         BlocProvider.of<SignupBloc>(context).add(
                           SignuptandcChangedEvent(isChecked),
                         );
+
                         setState(
                           () {
                             isChecked = !isChecked;
@@ -435,10 +436,14 @@ class _SignupPageState extends State<SignupPage> {
                 width: 300,
                 child: ElevatedButton(
                   onPressed: () {
-                    addUserData();
-                    Get.to(
-                      HomePage(),
-                    );
+
+                   if (isChecked)
+                    { BlocProvider.of<SignupBloc>(context).add(
+                          SignupSumittedEvent(),
+                          );
+                      addUserData();
+                    }
+                        else return null;
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
