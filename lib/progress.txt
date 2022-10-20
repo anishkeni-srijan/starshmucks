@@ -10,8 +10,16 @@ otp auth using email(test)
 
 remaining
 otp auth using mobile
+update newpassword in db
 more CRUD operations
 
 
 bugs found
-signup works even if the form is empty
+signup works even if the form is empty (fixed)
+
+
+
+
+creds:(anish)
+anishtest1
+pass123

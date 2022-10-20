@@ -4,7 +4,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:starshmucks/forgotpassword/forgot_password.dart';
 
+import '../signup/signup.dart';
 import '/user_profile.dart';
 import '/resetpassword/reset_password.dart';
 import '../boxes.dart';
@@ -23,7 +25,8 @@ class SigninPage extends StatefulWidget {
 class _SigninPageState extends State<SigninPage> {
   final pcontroller = TextEditingController();
   final ncontroller = TextEditingController();
-
+  late String obtainedname;
+  late String obtainedpassword;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,8 +90,17 @@ class _SigninPageState extends State<SigninPage> {
                 valueListenable: Boxes.getUserData().listenable(),
                 builder: (context, box, _) {
                   final data = box.values.toList().cast<UserData>();
-                  String obtainedname = data[0].name;
-                  String obtainedpassword = data[0].password;
+                  if(data.isEmpty)
+                    {
+                      Get.to(SignupPage());
+                    }
+                  else {
+                    for(int i =0; i<data.length; i++) {
+
+                      obtainedname = data[i].name;
+                      obtainedpassword = data[i].password;
+                    }
+                  }
                   return Column(
                     children: [
                       Container(
@@ -189,7 +201,7 @@ class _SigninPageState extends State<SigninPage> {
                   onPressed: () {
                     Get.to(
                       // ForgotPasswordPage(),
-                      ResetPasswordPage(),
+                      ForgotPasswordPage(),
                     );
                   },
                 ),

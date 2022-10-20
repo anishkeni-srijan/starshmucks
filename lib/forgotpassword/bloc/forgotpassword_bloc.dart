@@ -14,7 +14,8 @@ class ForgotpasswordBloc
       (event, emit) {
 //user exists
         final bool isEmailValid = EmailValidator.validate(event.inputvalue);
-        if (isEmailValid) {
+
+        if ( isEmailValid ) {
           emit(
             ForgotpasswordValidState("An OTP will be sent to you."),
           );

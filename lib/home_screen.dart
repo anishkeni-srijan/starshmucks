@@ -25,21 +25,24 @@ class _HomePageState extends State<HomePage> {
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
           final data = box.values.toList().cast<UserData>();
-          return Container(
-            child: Column(
-              children: [
-                Text("Name: " + data[0].name),
-                Text("DOB: " + data[0].dob),
-                Text("Ph: " + data[0].phone),
-                Text("email: " + data[0].email),
-                Text("email: " + data[0].password),
-                ElevatedButton(
-                    onPressed: () {
-                      Get.to(UserProfile());
-                    },
-                    child: Text('Profile')),
-              ],
-            ),
+          return ListView.builder(
+            itemCount: data.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  Text("Name: " + data[index].name),
+                  Text("DOB: " + data[index].dob),
+                  Text("Ph: " + data[index].phone),
+                  Text("email: " + data[index].email),
+                  Text("email: " + data[index].password),
+                  ElevatedButton(
+                      onPressed: () {
+                        Get.to(UserProfile());
+                      },
+                      child: Text('Profile')),
+                ],
+              );
+            }
           );
         },
       ),
