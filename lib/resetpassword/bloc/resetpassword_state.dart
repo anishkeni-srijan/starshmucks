@@ -23,4 +23,9 @@ class ResetpasswordErrorState extends ResetpasswordState {
   ResetpasswordErrorState(this.errormessage);
 }
 
+class ResetpasswordConfirmState extends ResetpasswordState {
+  String message = '';
+  ResetpasswordConfirmState(this.message);
+}
+
 

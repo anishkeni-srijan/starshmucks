@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:starshmucks/resetpassword/reset_password.dart';
 
 import '/forgotpassword/bloc/forgotpassword_event.dart';
 import '/forgotpassword/bloc/forgotpassword_state.dart';
@@ -32,7 +33,7 @@ class ForgotpasswordBloc
     on<ForgotpasswordSumittedEvent>(
       (event, emit) {
         if (state is ForgotpasswordValidState) {
-          Get.to(HomePage());
+          Get.to(ResetPasswordPage());
         }
       },
     );

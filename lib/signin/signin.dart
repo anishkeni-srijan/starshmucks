@@ -203,7 +203,7 @@ class _SigninPageState extends State<SigninPage> {
 
                     Get.to(
                       // ForgotPasswordPage(),
-                      ResetPasswordPage(),
+                      ForgotPasswordPage(),
                     );
                   },
                 ),

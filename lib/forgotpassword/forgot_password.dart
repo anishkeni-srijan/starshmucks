@@ -5,9 +5,11 @@ import 'package:get/get.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:email_auth/email_auth.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../boxes.dart';
 import '../model/user_model.dart';
+import '../signup/signup.dart';
 import '/resetpassword/reset_password.dart';
 import 'bloc/forgotpassword_event.dart';
 import '/forgotpassword/bloc/forgotpassword_bloc.dart';
@@ -26,6 +28,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   bool submitValid = false;
   bool verificationflag = false;
   bool userfound = false;
+  late int obtainedkey;
   late EmailAuth emailAuth;
 
   @override
@@ -48,6 +51,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               valueListenable: Boxes.getUserData().listenable(),
               builder: (context, box, _) {
                 final data = box.values.toList().cast<UserData>();
+                if (data.isEmpty) {
+                  Get.to(SignupPage());
+                } else {
+                  for (int i = 0; i < data.length; i++) {
+                    obtainedkey = data[i].key;
+                  }
+                }
                 return Column(children: <Widget>[
                   Container(
                       margin: EdgeInsets.only(top: 30, left: 0),
@@ -195,7 +205,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   SizedBox(
                     width: 300,
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: ()async {
+                        final resetkey = await SharedPreferences.getInstance();
+                        await resetkey.setInt('resetuserkey', obtainedkey);
                         if(userfound) {
                           submitValid ? verify() : sendOtp();
                         }

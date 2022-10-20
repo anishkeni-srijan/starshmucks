@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var filteredUsers;
+
   late int  userkey;
 getemail() async {
     final keypref = await SharedPreferences.getInstance();
@@ -33,7 +33,7 @@ getemail() async {
     getemail();
     super.initState();
   }
-
+ final econtroller = TextEditingController();
   @override
   Widget build(BuildContext context)  {
 
@@ -48,7 +48,6 @@ getemail() async {
         builder: (context, box,  _) {
           final data = box.values.toList().cast<UserData>();
 
-
            return Column(
                  children: [
 
@@ -62,6 +61,43 @@ getemail() async {
                          Get.to(UserProfile());
                        },
                        child: Text('Profile')),
+                   TextFormField(
+                     autocorrect: false,
+                     style: const TextStyle(
+                         color: Colors.black), //<-- SEE HERE
+                     controller: econtroller,
+                     decoration: InputDecoration(
+                       contentPadding: EdgeInsets.all(10),
+                       labelText: 'Email',
+                       labelStyle: TextStyle(
+                         color: Colors.black,
+                       ),
+                       enabledBorder: UnderlineInputBorder(
+                         borderRadius: BorderRadius.circular(10),
+                         borderSide: BorderSide(
+                           color: Colors.black,
+                           width: 2,
+                         ),
+                       ),
+                       focusedBorder: UnderlineInputBorder(
+                         borderRadius: BorderRadius.circular(10),
+                         borderSide: BorderSide(
+                           color: Colors.black,
+                           width: 2,
+                         ),
+                       ),
+                     ),
+                   ),
+                   ElevatedButton(
+                       onPressed: () {
+                         data[userkey].email = econtroller.text;
+                         box.putAt(userkey,data[userkey]);
+                        setState(() {
+
+                        });
+
+                       },
+                       child: Text('update')),
                  ],
                );
              }
