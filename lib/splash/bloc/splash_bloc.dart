@@ -16,7 +16,5 @@ class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
       },
     );
   }
-
   //else if the user exists
-
 }

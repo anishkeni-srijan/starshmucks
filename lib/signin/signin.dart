@@ -1,15 +1,12 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:starshmucks/resetpassword/reset_password.dart';
 
+import '/resetpassword/reset_password.dart';
 import '../boxes.dart';
-import '../forgotpassword/forgot_password.dart';
 import '../model/user_model.dart';
 import '../signup/signup.dart';
 import 'bloc/signin_bloc.dart';
@@ -66,7 +63,6 @@ class _SigninPageState extends State<SigninPage> {
                 indent: MediaQuery.of(context).size.width * 0.119,
                 endIndent: MediaQuery.of(context).size.width * 0.746,
               ),
-
               SizedBox(
                 height: 20,
               ),
@@ -76,7 +72,9 @@ class _SigninPageState extends State<SigninPage> {
                   if (state is SigninErrorState) {
                     return Text(
                       state.errormessage,
-                      style: TextStyle(color: Colors.red),
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
                     );
                   }
                   //if the login is valid
@@ -85,100 +83,94 @@ class _SigninPageState extends State<SigninPage> {
                   }
                 },
               ),
-        ValueListenableBuilder<Box<UserData>>(
-        valueListenable: Boxes.getUserData().listenable(),
-        builder: (context, box, _) {
-
-          final data = box.values.toList().cast<UserData>();
-          String obtainedname = data[0].name;
-          String obtainedpassword = data[0].password;
-          return
-
-            Column(
-              children: [
-                Container(
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width * 0.8,
-                margin: EdgeInsets.only(
-                  top: MediaQuery
-                      .of(context)
-                      .size
-                      .height * 0.01,
-                ),
-                child: TextFormField(
-                  style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                  controller: ncontroller,
-                  onChanged: (value) {
-                    BlocProvider.of<SigninBloc>(context).add(
-                      SigninTextChangedEvent(
-                        ncontroller.text,
-                        pcontroller.text,obtainedname,obtainedpassword),
-                    );
-                  },
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10),
-                    labelText: 'Username',
-                    labelStyle: TextStyle(
-                      color: HexColor("#036635"),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: HexColor("#036635"),
-                        width: 2,
+              ValueListenableBuilder<Box<UserData>>(
+                valueListenable: Boxes.getUserData().listenable(),
+                builder: (context, box, _) {
+                  final data = box.values.toList().cast<UserData>();
+                  String obtainedname = data[0].name;
+                  String obtainedpassword = data[0].password;
+                  return Column(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.01,
+                        ),
+                        child: TextFormField(
+                          style: const TextStyle(
+                              color: Colors.black), //<-- SEE HERE
+                          controller: ncontroller,
+                          onChanged: (value) {
+                            BlocProvider.of<SigninBloc>(context).add(
+                              SigninTextChangedEvent(
+                                  ncontroller.text,
+                                  pcontroller.text,
+                                  obtainedname,
+                                  obtainedpassword),
+                            );
+                          },
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10),
+                            labelText: 'Username',
+                            labelStyle: TextStyle(
+                              color: HexColor("#036635"),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: HexColor("#036635"),
+                                width: 2,
+                              ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: HexColor("#036635"),
+                                width: 2,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: HexColor("#036635"),
-                        width: 2,
+
+                      SizedBox(height: 20),
+                      //password
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        child: TextFormField(
+                          style: const TextStyle(color: Colors.black),
+                          controller: pcontroller,
+                          onChanged: (value) {
+                            BlocProvider.of<SigninBloc>(context).add(
+                              SigninTextChangedEvent(
+                                  ncontroller.text,
+                                  pcontroller.text,
+                                  obtainedname,
+                                  obtainedpassword),
+                            );
+                          },
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10),
+                            labelText: 'Password',
+                            labelStyle: TextStyle(color: HexColor("#036635")),
+                            enabledBorder: UnderlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                  color: HexColor("#036635"), width: 2),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                  color: HexColor("#036635"), width: 2),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-          ),
-
-
-
-
-             SizedBox(height: 20),
-              //password
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: TextFormField(
-                  style: const TextStyle(color: Colors.black),
-                  controller: pcontroller,
-                  onChanged: (value) {
-                    BlocProvider.of<SigninBloc>(context).add(
-                      SigninTextChangedEvent(
-                        ncontroller.text,
-                        pcontroller.text,obtainedname,obtainedpassword),
-                    );
-                  },
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10),
-                    labelText: 'Password',
-                    labelStyle: TextStyle(color: HexColor("#036635")),
-                    enabledBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          BorderSide(color: HexColor("#036635"), width: 2),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          BorderSide(color: HexColor("#036635"), width: 2),
-                    ),
-                  ),
-                ),
+                    ],
+                  );
+                },
               ),
-              ],
-            );
-        }),
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextButton(
@@ -270,8 +262,9 @@ class _SigninPageState extends State<SigninPage> {
                       child: Text(
                         'Sign Up.',
                         style: TextStyle(
-                            color: HexColor("#036635"),
-                            decoration: TextDecoration.underline),
+                          color: HexColor("#036635"),
+                          decoration: TextDecoration.underline,
+                        ),
                       ),
                     ),
                   ],

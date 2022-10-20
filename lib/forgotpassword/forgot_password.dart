@@ -1,15 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:starshmucks/forgotpassword/bloc/forgotpassword_bloc.dart';
-import 'package:starshmucks/forgotpassword/bloc/forgotpassword_state.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:email_auth/email_auth.dart';
-import 'package:starshmucks/resetpassword/reset_password.dart';
+
+import '/resetpassword/reset_password.dart';
 import 'bloc/forgotpassword_event.dart';
-import 'package:get/get.dart';
+import '/forgotpassword/bloc/forgotpassword_bloc.dart';
+import '/forgotpassword/bloc/forgotpassword_state.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
@@ -207,25 +206,26 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   }
 
   void verify() {
-
     emailAuth.validateOtp(
             recipientMail: forgotpasswordinput.value.text,
             userOtp: otpinput.value.text)
         ? verificationflag = true
         : verificationflag = false;
 
-    verificationflag? Get.to(ResetPasswordPage()):print('wrongotp');
+    verificationflag ? Get.to(ResetPasswordPage()) : print('wrongotp');
   }
-
 
   void sendOtp() async {
     bool result = await emailAuth.sendOtp(
-        recipientMail: forgotpasswordinput.value.text, otpLength: 5);
+      recipientMail: forgotpasswordinput.value.text,
+      otpLength: 5,
+    );
     if (result) {
-      setState(() {
-        submitValid = true;
-      });
+      setState(
+        () {
+          submitValid = true;
+        },
+      );
     }
   }
-
 }

@@ -149,8 +149,10 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     enabledBorder: UnderlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          BorderSide(color: HexColor("#175244"), width: 2),
+                      borderSide: BorderSide(
+                        color: HexColor("#175244"),
+                        width: 2,
+                      ),
                     ),
                     focusedBorder: UnderlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -263,8 +265,10 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     focusedBorder: UnderlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          BorderSide(color: HexColor("#175244"), width: 2),
+                      borderSide: BorderSide(
+                        color: HexColor("#175244"),
+                        width: 2,
+                      ),
                     ),
                   ),
                 ),

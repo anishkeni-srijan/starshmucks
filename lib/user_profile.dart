@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
@@ -25,7 +24,9 @@ class _UserProfileState extends State<UserProfile> {
           CircleAvatar(
             radius: 50,
             backgroundColor: Colors.red,
-            backgroundImage: AssetImage('images/profile1.jpg',),
+            backgroundImage: AssetImage(
+              'images/profile1.jpg',
+            ),
           ),
 
           //name
