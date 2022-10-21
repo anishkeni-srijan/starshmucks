@@ -154,6 +154,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 top: MediaQuery.of(context).size.height * 0.02,
                               ),
                               child: TextFormField(
+                                obscureText: true,
                                 style: const TextStyle(
                                     color: Colors.black), //<-- SEE HERE
                                 controller: passwordcontroller,
@@ -191,6 +192,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 top: MediaQuery.of(context).size.height * 0.005,
                               ),
                               child: TextFormField(
+                                obscureText: true,
                                 style: const TextStyle(
                                     color: Colors.black), //<-- SEE HERE
                                 controller: confirmpasswordcontroller,
