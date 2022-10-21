@@ -5,12 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:starshmucks/model/user_model.dart';
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../boxes.dart';
-import '../signin/signin.dart';
-import '../signup/signup.dart';
 import 'bloc/resetpassword_bloc.dart';
 import 'bloc/resetpassword_event.dart';
 import 'bloc/resetpassword_state.dart';

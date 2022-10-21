@@ -49,6 +49,7 @@ dev_dependencies:
   get: ^4.6.5
   http: ^0.13.5
   email_auth: ^1.0.0
+  expandable_bottom_bar: ^2.0.2
   email_validator: ^2.1.17
   image_picker:
   google_fonts: ^3.0.1
