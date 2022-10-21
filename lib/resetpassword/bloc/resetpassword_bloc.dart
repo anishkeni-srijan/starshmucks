@@ -51,7 +51,7 @@ class ResetpasswordBloc extends Bloc<ResetpasswordEvent, ResetpasswordState> {
         emit(ResetpasswordConfirmState(''));
         if (state is ResetpasswordConfirmState) {
           emit(ResetpasswordConfirmState(''));
-          Future.delayed(Duration(seconds: 10), () {
+          Future.delayed(Duration(seconds: 5), () {
             Get.to(SigninPage());
           });
         }

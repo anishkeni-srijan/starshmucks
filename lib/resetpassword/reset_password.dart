@@ -102,7 +102,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     Container(
                       width: 300,
                       child: reset?AutoSizeText(
-              'Successfully Reset, Redirecting to Sign in in 10 seconds.',
+              'Successfully Reset, Redirecting to Sign in in 5 seconds.',
               style: TextStyle(
               color: HexColor("#175244"),
               ),
