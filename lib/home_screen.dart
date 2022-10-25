@@ -3,10 +3,15 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:provider/provider.dart';
+import 'package:starshmucks/providers/learnmore_provider.dart';
+import 'package:starshmucks/providers/nowserving_provider.dart';
 
 import '/boxes.dart';
 import '/model/user_model.dart';
 import 'commonthings.dart';
+
+import 'package:starshmucks/providers/offers_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -25,12 +30,14 @@ class _HomePageState extends State<HomePage> {
     userkey = keypref.getInt('userkey')!;
     setState(() {});
     print(userkey);
+
     return userkey;
   }
 
   @override
   void initState() {
     // TODO: implement initState
+
     getemail();
     super.initState();
   }
@@ -39,6 +46,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final nowservep = Provider.of<OffersData>(context);
+    nowservep.fetchData(context);
     return Scaffold(
       floatingActionButton: orderbutton(),
       appBar: gethomeappbar(),
@@ -64,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       minFontSize: 25,
                     )),
-                getoffers(context),
+               getoffers(context),
                 Container(
                   padding: EdgeInsets.all(10),
                   alignment: Alignment.topLeft,
@@ -281,399 +290,233 @@ getbanner(context, username) {
 }
 
 getoffers(context) {
-  return SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: Row(
-      children: [
-        SizedBox(
-          width: 10,
-        ),
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.deepOrangeAccent,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          height: MediaQuery.of(context).size.height * 0.18,
-          width: MediaQuery.of(context).size.width * 0.76,
-          child: Stack(
+  final offersp = Provider.of<OffersData>(context);
+  return SizedBox(
+    height: MediaQuery.of(context).size.height * 0.18,
+    child: ListView.builder(
+      scrollDirection: Axis.horizontal,
+      //   shrinkWrap: true,
+        itemCount: offersp.offerdata.length,
+        itemBuilder: (context, index) {
+          return Row(
             children: [
+              SizedBox(width: 10,),
               Container(
-                transform: Matrix4.translationValues(
-                  -25,
-                  0,
-                  0,
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color:index % 2 == 0 ? Colors.teal
+                :Colors.deepOrangeAccent,
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                child: Image.asset(
-                  'images/christmas.png',
-                ),
-              ),
-              Container(
-                child: Container(
-                  transform: Matrix4.translationValues(
-                    105,
-                    10,
-                    0,
-                  ),
-                  child: Text(
-                    'Join us this Christmas.',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                transform: Matrix4.translationValues(
-                  105,
-                  40,
-                  0,
-                ),
-                child: Text(
-                  'A Schtarry Decade',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-              ),
-              Container(
-                transform: Matrix4.translationValues(
-                  180,
-                  80,
-                  0,
-                ),
-                child: TextButton(
-                  onPressed: () {},
-                  child: Text('Order Now'),
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(HexColor('#175244')),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
+                height: MediaQuery.of(context).size.height * 0.18,
+                width: MediaQuery.of(context).size.width * 0.76,
+                child: Stack(
+                  children: [
+                    Container(
+                     transform: Matrix4.translationValues(-10, 20, 0),
+                      child: Image.asset(
+                        offersp.offerdata[index].image,
+                        width: 150,
+                        height: 150,
                       ),
                     ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.teal,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          height: MediaQuery.of(context).size.height * 0.18,
-          width: MediaQuery.of(context).size.width * 0.76,
-          child: Stack(
-            children: [
-              Container(
-                transform: Matrix4.translationValues(
-                  -15,
-                  0,
-                  0,
-                ),
-                child: Image.asset(
-                  'images/buytwo.png',
-                ),
-              ),
-              Container(
-                child: Container(
-                  transform: Matrix4.translationValues(
-                    145,
-                    20,
-                    0,
-                  ),
-                  child: Text(
-                    'Buy 2,',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                transform: Matrix4.translationValues(
-                  145,
-                  40,
-                  0,
-                ),
-                child: Text(
-                  'For the Price of 1.',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-              ),
-              Container(
-                transform: Matrix4.translationValues(
-                  180,
-                  80,
-                  0,
-                ),
-                child: TextButton(
-                  onPressed: () {},
-                  child: Text('Order Now'),
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(HexColor('#175244')),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-        SizedBox(
-          width: 10,
-        ),
-      ],
-    ),
-  );
-}
-
-nowserving(context) {
-  return SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: Row(
-      children: [
-        SizedBox(
-          width: 10,
-        ),
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.teal,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          height: MediaQuery.of(context).size.height * 0.18,
-          width: MediaQuery.of(context).size.width * 0.76,
-          child: Stack(
-            children: [
-              Container(
-                transform: Matrix4.translationValues(
-                  5,
-                  10,
-                  0,
-                ),
-                child: Image.asset(
-                  'images/newone.png',
-                  width: 100,
-                ),
-              ),
-              Container(
-                child: Container(
-                  transform: Matrix4.translationValues(
-                    105,
-                    10,
-                    0,
-                  ),
-                  child: Text(
-                    'Watermelon Sugar',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                transform: Matrix4.translationValues(
-                  105,
-                  40,
-                  0,
-                ),
-                child: Text(
-                  'Tastes like strawberries On a summer evenin\'',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-              ),
-              Container(
-                transform: Matrix4.translationValues(
-                  180,
-                  80,
-                  0,
-                ),
-                child: TextButton(
-                  onPressed: () {},
-                  child: Text('Order Now'),
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(HexColor('#175244')),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              color: Colors.deepOrangeAccent,
-              borderRadius: BorderRadius.circular(20)),
-          height: MediaQuery.of(context).size.height * 0.18,
-          width: MediaQuery.of(context).size.width * 0.76,
-          child: Stack(
-            children: [
-              Container(
-                transform: Matrix4.translationValues(
-                  20,
-                  0,
-                  0,
-                ),
-                child: Image.asset(
-                  'images/newtwo.png',
-                ),
-              ),
-              Container(
-                child: Container(
-                  transform: Matrix4.translationValues(
-                    120,
-                    20,
-                    0,
-                  ),
-                  child: Text(
-                    'Lorem Ipsum',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                transform: Matrix4.translationValues(
-                  120,
-                  40,
-                  0,
-                ),
-                child: AutoSizeText(
-                  'Lorem Ipsum is simply typesetting.',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w800),
-                ),
-              ),
-              Container(
-                transform: Matrix4.translationValues(
-                  180,
-                  80,
-                  0,
-                ),
-                child: TextButton(
-                    onPressed: () {},
-                    child: Text('Order Now'),
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                            HexColor('#175244')),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
+                    Container(
+                      child: Container(
+                        // transform: Matrix4.translationValues(-120, 10, 0),
+                        margin: EdgeInsets.only(top: 10, left: 130),
+                        child: Text(
+                          offersp.offerdata[index].offer,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
                           ),
-                        ))),
-              )
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 30, left: 130),
+                      child: Text(
+                        offersp.offerdata[index].title,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      // transform: Matrix4.translationValues(-320, 40, 0),
+                      margin: EdgeInsets.only(top:85, left: 190),
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text('Order Now'),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(HexColor('#175244')),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+
+                  ],
+                ),
+              ),
             ],
-          ),
-        ),
-        SizedBox(
-          width: 10,
-        ),
-      ],
-    ),
+          );
+
+        }),
   );
 }
+nowserving(context) {
+  final nowservep = Provider.of<NowServing>(context);
+  nowservep.fetchData(context);
+  return SizedBox(
+    height: MediaQuery.of(context).size.height * 0.18,
+    child: ListView.builder(
+      scrollDirection: Axis.horizontal,
 
+        itemCount: nowservep.nowdata.length,
+        itemBuilder: (context, index) {
+          return Row(
+            children: [
+              SizedBox(width: 10,),
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color:index % 2 == 0 ? Colors.deepOrangeAccent
+                :Colors.teal,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                height: MediaQuery.of(context).size.height * 0.18,
+                width: MediaQuery.of(context).size.width * 0.76,
+                child: Stack(
+                  children: [
+                    Container(
+                     transform: Matrix4.translationValues(-10, 20, 0),
+                      child: Image.asset(
+                        nowservep.nowdata[index].image,
+                        width: 150,
+                        height: 150,
+                      ),
+                    ),
+                    Container(
+                      child: Container(
+                        // transform: Matrix4.translationValues(-120, 10, 0),
+                        margin: EdgeInsets.only(top: 10, left: 130),
+                        child: Text(
+                          nowservep.nowdata[index].title,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 30, left: 130),
+                      child: Text(
+                        nowservep.nowdata[index].tag,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      // transform: Matrix4.translationValues(-320, 40, 0),
+                      margin: EdgeInsets.only(top:85, left: 190),
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text('Order Now'),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(HexColor('#175244')),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+
+                  ],
+                ),
+              ),
+            ],
+          );
+
+        }),
+  );
+}
 learnmore(context) {
-  return SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: Row(
-      children: [
-        SizedBox(
-          width: 10,
-        ),
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                HexColor('#ebd8a7'),
-                Colors.white,
+  final learnmorep = Provider.of<Learnmore>(context);
+  learnmorep.fetchData(context);
+  return SizedBox(
+ height: 250,
+    child: ListView.builder(itemCount:learnmorep.learnmore.length,
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (context, index) => Row(
+        children: [
+          SizedBox(
+            width: 10,
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  HexColor('#ebd8a7'),
+                  Colors.white,
+                ],
+              ),
+            ),
+            height: MediaQuery.of(context).size.height * 0.42,
+            width: MediaQuery.of(context).size.width * 0.86,
+            child: Column(
+              children: [
+                Container(
+                  child: Image.asset(
+                    learnmorep.learnmore[index].image,
+                    width: 250,
+                  ),
+                ),
+                Container(
+                  child: Container(
+                    child: Text(
+                      learnmorep.learnmore[index].title,
+                      style: TextStyle(
+                          color: HexColor('#175244'),
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Text(
+                     learnmorep.learnmore[index].tag,
+                    style: TextStyle(
+                      color: HexColor('#175244'),
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
-          height: MediaQuery.of(context).size.height * 0.32,
-          width: MediaQuery.of(context).size.width * 0.86,
-          child: Column(
-            children: [
-              Container(
-                child: Image.asset(
-                  'images/learnmore.png',
-                  width: 250,
-                ),
-              ),
-              Container(
-                child: Container(
-                  child: Text(
-                    'Learn More',
-                    style: TextStyle(
-                        color: HexColor('#175244'),
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ),
-              Container(
-                child: Text(
-                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                  style: TextStyle(
-                    color: HexColor('#175244'),
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }

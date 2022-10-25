@@ -36,7 +36,7 @@ class _EditProfileState extends State<EditProfile> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Edit Profile"),
-        backgroundColor: Colors.transparent,
+        backgroundColor: HexColor("#175244"),
         elevation: 0,
         centerTitle: true,
         actions: [
@@ -50,7 +50,7 @@ class _EditProfileState extends State<EditProfile> {
           )
         ],
       ),
-      backgroundColor: HexColor("#175244"),
+      backgroundColor:HexColor("#175244"),
       body: ValueListenableBuilder<Box<UserData>>(
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
@@ -101,6 +101,7 @@ class _EditProfileState extends State<EditProfile> {
                   height: 20,
                 ),
                 Container(
+                  height: MediaQuery.of(context).size.height*0.60,
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -124,7 +125,8 @@ class _EditProfileState extends State<EditProfile> {
                               box.putAt(userkey, data[userkey]);
                               setState(() {});
                             },
-                            icon: Icon(Icons.check),
+                            icon: Align(alignment:Alignment.bottomCenter,
+                            child: Icon(Icons.check)),
                           ),
                         ],
                       ),
@@ -141,7 +143,8 @@ class _EditProfileState extends State<EditProfile> {
                               box.putAt(userkey, data[userkey]);
                               setState(() {});
                             },
-                            icon: Icon(Icons.check),
+                            icon: Align(alignment:Alignment.bottomCenter,
+                                child: Icon(Icons.check)),
                           ),
                         ],
                       ),
@@ -158,7 +161,8 @@ class _EditProfileState extends State<EditProfile> {
                               box.putAt(userkey, data[userkey]);
                               setState(() {});
                             },
-                            icon: Icon(Icons.check),
+                            icon: Align(alignment:Alignment.bottomCenter,
+                                child: Icon(Icons.check)),
                           ),
                         ],
                       ),

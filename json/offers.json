@@ -1,0 +1,30 @@
+[
+  {
+    "image": "images/christmas.png",
+    "offer": "Join us this Christmas",
+    "title": "A Schtarry Decade",
+    "price": "13.5",
+    "bgcolor": "Colors.deepOrangeAccent",
+    "desc": "We wish you a merry Christmas.",
+    "rating": "4.3/5",
+    "id": "1"
+  },{
+    "image": "images/buytwo.png",
+    "offer": "Join us this Christmas",
+    "title": "Berries and Cherries",
+    "price": "13.5",
+    "bgcolor": "Colors.teal",
+    "desc": "We wish you a merry Christmas.",
+    "rating": "4.3/5",
+    "id": "2"
+  },{
+    "image": "images/seasonal.png",
+    "offer": "Join us this Christmas",
+    "title": "Schtrawberry",
+    "price": "13.5",
+    "bgcolor": "Colors.amberAccent",
+    "desc": "We wish you a merry Christmas.",
+    "rating": "4.3/5",
+    "id": "3"
+  }
+  ]
