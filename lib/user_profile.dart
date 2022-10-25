@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '/signin/signin.dart';
 import 'boxes.dart';
+import 'commonthings.dart';
 import 'edit_details.dart';
 import 'model/user_model.dart';
 
@@ -53,6 +54,7 @@ class _UserProfileState extends State<UserProfile> {
           )
         ],
       ),
+      bottomNavigationBar: getbottombar(context),
       backgroundColor: HexColor("#175244"),
       body: ValueListenableBuilder<Box<UserData>>(
         valueListenable: Boxes.getUserData().listenable(),

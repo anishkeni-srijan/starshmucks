@@ -595,20 +595,19 @@ nowserving(context) {
                   0,
                 ),
                 child: TextButton(
-                  onPressed: () {},
-                  child: Text('Order Now'),
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(HexColor('#175244')),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                    ),
-                  ),
-                ),
+                    onPressed: () {},
+                    child: Text('Order Now'),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            HexColor('#175244')),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                          ),
+                        ))),
               )
             ],
           ),
@@ -656,10 +655,9 @@ learnmore(context) {
                   child: Text(
                     'Learn More',
                     style: TextStyle(
-                      color: HexColor('#175244'),
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
+                        color: HexColor('#175244'),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               ),

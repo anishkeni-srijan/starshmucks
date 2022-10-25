@@ -6,8 +6,9 @@ import '/home_screen.dart';
 import '/user_profile.dart';
 
 Widget getbottombar(BuildContext context) {
-  bool homeroute = true;
+  bool homeroute;
   return Container(
+    height: 60,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.only(
         topRight: Radius.circular(30),
@@ -22,48 +23,102 @@ Widget getbottombar(BuildContext context) {
       ],
     ),
     child: ClipRRect(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(30.0),
-        topRight: Radius.circular(30.0),
-      ),
-      child: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            label: '',
-            icon: TextButton.icon(
-              icon: Icon(
-                Icons.home_outlined,
-                color: HexColor("#036635"),
+      child: BottomAppBar(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: IconButton(
+                iconSize: 25,
+                icon: Icon(
+                  Icons.home_outlined,
+                  color: HexColor("#036635"),
+                ),
+                onPressed: () {
+                  Get.to(HomePage());
+                },
               ),
-              label: Text(''),
-              onPressed: () {
-                homeroute
-                    ? null
-                    : Get.to(
-                        HomePage(),
-                      );
-              },
             ),
-          ),
-          BottomNavigationBarItem(
-            label: '',
-            icon: TextButton.icon(
-              icon: Icon(
-                Icons.person,
-                color: HexColor("#036635"),
+            Expanded(
+              child: IconButton(
+                iconSize: 25,
+                icon: Icon(
+                  Icons.card_giftcard,
+                  color: HexColor("#036635"),
+                ),
+                onPressed: () {},
               ),
-              label: Text(''),
-              onPressed: () {
-                Get.to(
-                  UserProfile(),
-                );
-                homeroute = false;
-              },
             ),
-          ),
-        ],
+            Expanded(child: new Text('')),
+            Expanded(
+              child: IconButton(
+                iconSize: 25,
+                icon: Icon(
+                  Icons.money,
+                  color: HexColor("#036635"),
+                ),
+                onPressed: () {},
+              ),
+            ),
+            Expanded(
+              child: IconButton(
+                iconSize: 25,
+                icon: Icon(
+                  Icons.person_outline_outlined,
+                  color: HexColor("#036635"),
+                ),
+                onPressed: () {
+                  Get.to(
+                    UserProfile(),
+                  );
+                  homeroute = false;
+                },
+              ),
+            ),
+          ],
+        ),
       ),
+      // BottomNavigationBar(
+      //   currentIndex: 1,
+      //   //iconSize: 24,
+      //   // selectedIconTheme: IconThemeData(size: 50),
+      //   backgroundColor: Colors.white,
+      //   items: [
+      //     BottomNavigationBarItem(
+      //       label: 'Home',
+      //       backgroundColor: Colors.lightGreen,
+      //       icon: IconButton(
+      // onPressed: () {
+      //   homeroute = true;
+      //   homeroute
+      //       ? null
+      //       : Get.to(
+      //           HomePage(),
+      //         );
+      // },
+      //         icon: Icon(
+      //           Icons.home_outlined,
+      //           color: HexColor("#036635"),
+      //         ),
+      //       ),
+      //     ),
+      //     BottomNavigationBarItem(
+      //       label: 'Profile',
+      //       icon: IconButton(
+      //         onPressed: () {
+      //           Get.to(
+      //             UserProfile(),
+      //           );
+      //           homeroute = false;
+      //         },
+      //         icon: Icon(
+      //           Icons.person_outline_outlined,
+      //           color: HexColor("#036635"),
+      //         ),
+      //       ),
+      //     ),
+      //   ],
+      // ),
     ),
   );
 }
