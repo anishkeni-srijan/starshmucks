@@ -116,7 +116,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     );
     on<SignuptandcChangedEvent>(
       (event, emit) {
-        if (event.checked == false) {
+        if (event.checked == true) {
           emit(
             SignupErrorState("Please agree to the T&C."),
           );
@@ -128,11 +128,12 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     //works if login is valid
     on<SignupSumittedEvent>(
       (event, emit) {
-        // if (state is SignupNoerrorState) {
+        if (state is SignupNoerrorState) {
           Get.to(SigninPage());
-        // } else {
-        //   emit(SignupErrorState("Please fill out all the fields"));
-        // }
+        } else  {
+          emit(SignupErrorState("Please fill out all the fields"));
+        }
+
       },
     );
   }

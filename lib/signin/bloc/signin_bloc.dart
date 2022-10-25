@@ -19,7 +19,7 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
           if (event.emailvalue == '' ||
               event.emailvalue != event.obtainedemail) {
             emit(
-              SigninErrorState("Please enter a valid username"),
+              SigninErrorState("Please enter a valid Email"),
             );
           } else if (event.passwordvalue == '' ||
               event.passwordvalue != event.passwordvalue) {
