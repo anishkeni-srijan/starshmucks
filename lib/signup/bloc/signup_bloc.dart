@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:starshmucks/signin/signin.dart';
+import 'package:starshmucks/signup/bloc/signup_states.dart';
 
 import '/signup/bloc/signup_events.dart';
-import '../../Signup/bloc/Signup_states.dart';
+import 'signup_states.dart';
 import '../../home_screen.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
@@ -118,7 +120,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           emit(
             SignupValidState('We\'re eager to make your coffee!'),
           );
-        } else if (event.checked == !event.checked) {
+        } else if (event.checked == false) {
           emit(
             SignupErrorState("Please agree to the T&C."),
           );
@@ -131,7 +133,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<SignupSumittedEvent>(
       (event, emit) {
         if (state is SignupValidState) {
-          Get.to(HomePage());
+         // emit(SignupSuccessState());
         } else {
           emit(SignupErrorState("Please fill out all the fields"));
         }

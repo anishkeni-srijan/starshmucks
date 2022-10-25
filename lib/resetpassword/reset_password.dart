@@ -64,7 +64,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         color: HexColor("#036635"),
                       ),
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.of(context).pop(context);
                       },
                       label: Text(''),
                     ),

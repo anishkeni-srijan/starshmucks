@@ -240,7 +240,7 @@ class _SigninPageState extends State<SigninPage> {
                       onPressed: () async {
                         final keypref = await SharedPreferences.getInstance();
                         await keypref.setInt('userkey', obtainedkey);
-                        setState(() {});
+                        // setState(() {});
                         if (state is SigninValidState) {
                           BlocProvider.of<SigninBloc>(context).add(
                             SigninSumittedEvent(

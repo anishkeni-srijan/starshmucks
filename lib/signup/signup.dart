@@ -9,9 +9,10 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import '/model/user_model.dart';
 import '/signup/bloc/signup_bloc.dart';
 import '/signup/bloc/signup_events.dart';
-import '../Signup/bloc/Signup_states.dart';
+
 import '../boxes.dart';
 import '../signin/signin.dart';
+import 'bloc/signup_states.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -474,7 +475,7 @@ class _SignupPageState extends State<SignupPage> {
           color: HexColor("#036635"),
         ),
         onPressed: () {
-          Navigator.pop(context);
+          Navigator.of(context).pop(context);
         },
         label: Text(''),
       ),

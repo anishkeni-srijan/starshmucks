@@ -69,7 +69,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       icon: Icon(Icons.arrow_back_ios_new_rounded,
                           color: HexColor("#036635")),
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.of(context).pop(context);
                       },
                       label: Text(''),
                     ),

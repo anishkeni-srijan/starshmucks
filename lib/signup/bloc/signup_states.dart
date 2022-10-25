@@ -23,4 +23,9 @@ class SignupErrorState extends SignupState {
   SignupErrorState(this.errormessage);
 }
 
-class SignupLoadingState extends SignupState {}
+class SignupNoerrorState extends SignupState {
+  String noerrormessage = '';
+  SignupNoerrorState(this.noerrormessage);
+}
+
+
