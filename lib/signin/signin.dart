@@ -90,14 +90,12 @@ class _SigninPageState extends State<SigninPage> {
                 valueListenable: Boxes.getUserData().listenable(),
                 builder: (context, box, _) {
                   final data = box.values.toList().cast<UserData>();
-                  if (data.isEmpty) {
-                    Get.to(SignupPage());
-                  } else {
+
                     for (int i = 0; i < data.length; i++) {
                       obtainedemail = data[i].email;
                       obtainedpassword = data[i].password;
                       obtainedkey = data[i].key;
-                    }
+
                   }
                   return Column(
                     children: [
