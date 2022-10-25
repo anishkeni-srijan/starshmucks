@@ -9,6 +9,7 @@ import 'package:starshmucks/commonthings.dart';
 
 import '/signin/signin.dart';
 import 'boxes.dart';
+import 'edit_details.dart';
 import 'model/user_model.dart';
 
 class UserProfile extends StatefulWidget {
@@ -22,19 +23,19 @@ class _UserProfileState extends State<UserProfile> {
   getemail() async {
     final keypref = await SharedPreferences.getInstance();
     userkey = keypref.getInt('userkey')!;
-    setState(() {
-
-    });
+    setState(() {});
     print(userkey);
     return userkey;
   }
+
   @override
   var userkey;
-  void initState(){
+  void initState() {
     // TODO: implement initState
     getemail();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,7 +121,9 @@ class _UserProfileState extends State<UserProfile> {
                     children: [
                       profileTile(
                         text: 'My Account',
-                        press: () {},
+                        press: () {
+                          Get.to(EditProfile());
+                        },
                         icon: Icons.account_circle_outlined,
                       ),
                       DividerForTiles(),
