@@ -5,7 +5,6 @@ import 'package:starshmucks/resetpassword/reset_password.dart';
 
 import '/forgotpassword/bloc/forgotpassword_event.dart';
 import '/forgotpassword/bloc/forgotpassword_state.dart';
-import '/home_screen.dart';
 
 class ForgotpasswordBloc
     extends Bloc<ForgotpasswordEvent, ForgotpasswordState> {
@@ -16,7 +15,7 @@ class ForgotpasswordBloc
 //user exists
         final bool isEmailValid = EmailValidator.validate(event.inputvalue);
 
-        if ( isEmailValid ) {
+        if (isEmailValid) {
           emit(
             ForgotpasswordValidState("An OTP will be sent to you."),
           );

@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:starshmucks/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../boxes.dart';
 import 'bloc/resetpassword_bloc.dart';
 import 'bloc/resetpassword_event.dart';
 import 'bloc/resetpassword_state.dart';
+import '/model/user_model.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({Key? key}) : super(key: key);
@@ -35,6 +34,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     geteuserkey();
     super.initState();
   }
+
   bool reset = false;
   var passwordcontroller = TextEditingController();
   var confirmpasswordcontroller = TextEditingController();
@@ -46,101 +46,111 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: ValueListenableBuilder<Box<UserData>>(
-            valueListenable: Boxes.getUserData().listenable(),
-            builder: (context, box, _) {
-              final data = box.values.toList().cast<UserData>();
-              return Center(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(
-                        top: 30,
-                        left: 0,
+          valueListenable: Boxes.getUserData().listenable(),
+          builder: (context, box, _) {
+            final data = box.values.toList().cast<UserData>();
+            return Center(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(
+                      top: 30,
+                      left: 0,
+                    ),
+                    alignment: Alignment.topLeft,
+                    child: TextButton.icon(
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: HexColor("#036635"),
                       ),
-                      alignment: Alignment.topLeft,
-                      child: TextButton.icon(
-                        icon: Icon(
-                          Icons.arrow_back_ios_new_rounded,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      label: Text(''),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 100.0,
+                      left: 48,
+                    ),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: AutoSizeText(
+                        'Reset Password',
+                        style: TextStyle(
                           color: HexColor("#036635"),
+                          fontWeight: FontWeight.bold,
                         ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        label: Text(''),
+                        minFontSize: 28,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 100.0,
-                        left: 48,
-                      ),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: AutoSizeText(
-                          'Reset Password',
+                  ),
+                  Divider(
+                    color: HexColor("#036635"),
+                    height: MediaQuery.of(context).size.height * 0.015,
+                    thickness: MediaQuery.of(context).size.height * 0.004,
+                    indent: MediaQuery.of(context).size.width * 0.126,
+                    endIndent: MediaQuery.of(context).size.width * 0.69,
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    width: 300,
+                    child: reset
+                        ? AutoSizeText(
+                            'Successfully Reset, Redirecting to Sign in in 5 seconds.',
+                            style: TextStyle(
+                              color: HexColor("#175244"),
+                            ),
+                          )
+                        : AutoSizeText(
+                            'Let\'s rest your password.',
+                            style: TextStyle(
+                              color: HexColor("#175244"),
+                            ),
+                          ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  BlocBuilder<ResetpasswordBloc, ResetpasswordState>(
+                    builder: (context, state) {
+                      //checking if There's an error in Loginstate
+                      if (state is ResetpasswordErrorState) {
+                        return Text(
+                          state.errormessage,
+                          style: TextStyle(color: Colors.red),
+                        );
+                      }
+                      //if the login is valid
+                      else if (state is ResetpasswordValidState) {
+                        return Text(
+                          state.validity,
                           style: TextStyle(
                             color: HexColor("#036635"),
-                            fontWeight: FontWeight.bold,
                           ),
-                          minFontSize: 28,
-                        ),
-                      ),
-                    ),
-                    Divider(
-                      color: HexColor("#036635"),
-                      height: MediaQuery.of(context).size.height * 0.015,
-                      thickness: MediaQuery.of(context).size.height * 0.004,
-                      indent: MediaQuery.of(context).size.width * 0.126,
-                      endIndent: MediaQuery.of(context).size.width * 0.69,
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Container(
-                      width: 300,
-                      child: reset?AutoSizeText(
-              'Successfully Reset, Redirecting to Sign in in 5 seconds.',
-              style: TextStyle(
-              color: HexColor("#175244"),
-              ),
-              ):AutoSizeText(
-                        'Let\'s rest your password.',
-                        style: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    BlocBuilder<ResetpasswordBloc, ResetpasswordState>(
-                      builder: (context, state) {
-                        //checking if There's an error in Loginstate
-                        if (state is ResetpasswordErrorState) {
-                          return Text(
-                            state.errormessage,
-                            style: TextStyle(color: Colors.red),
-                          );
-                        }
-                        //if the login is valid
-                        else if (state is ResetpasswordValidState) {
-                          return Text(
-                            state.validity,
-                            style: TextStyle(color: HexColor("#036635")),
-                          );
-                        } else if (state is ResetpasswordConfirmState) {
-                          return Text(state.message,
-                              style: TextStyle(color: HexColor("#036635")));
-                        } else
-                          return Container();
-                      },
-                    ),
-                    BlocBuilder<ResetpasswordBloc, ResetpasswordState>(
-                        builder: (context, state) {
+                        );
+                      } else if (state is ResetpasswordConfirmState) {
+                        return Text(
+                          state.message,
+                          style: TextStyle(
+                            color: HexColor("#036635"),
+                          ),
+                        );
+                      } else
+                        return Container();
+                    },
+                  ),
+                  BlocBuilder<ResetpasswordBloc, ResetpasswordState>(
+                    builder: (context, state) {
                       if (state is ResetpasswordConfirmState) {
                         return Padding(
                           padding: const EdgeInsets.all(28.0),
-                          child: CircularProgressIndicator(color: HexColor("#036635"),),
+                          child: CircularProgressIndicator(
+                            color: HexColor("#036635"),
+                          ),
                         );
                       } else {
                         return Column(
@@ -152,13 +162,15 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                               ),
                               child: TextFormField(
                                 obscureText: true,
-                                style: const TextStyle(
-                                    color: Colors.black), //<-- SEE HERE
+                                style: const TextStyle(color: Colors.black),
                                 controller: passwordcontroller,
                                 onChanged: (value) {
                                   BlocProvider.of<ResetpasswordBloc>(context)
-                                      .add(PasswordChangedEvent(
-                                          passwordcontroller.text));
+                                      .add(
+                                    PasswordChangedEvent(
+                                      passwordcontroller.text,
+                                    ),
+                                  );
                                 },
                                 decoration: InputDecoration(
                                   contentPadding: EdgeInsets.all(10),
@@ -210,12 +222,16 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                   enabledBorder: UnderlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide(
-                                        color: HexColor("#175244"), width: 2),
+                                      color: HexColor("#175244"),
+                                      width: 2,
+                                    ),
                                   ),
                                   focusedBorder: UnderlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide(
-                                        color: HexColor("#175244"), width: 2),
+                                      color: HexColor("#175244"),
+                                      width: 2,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -234,7 +250,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                   setState(() {});
                                   BlocProvider.of<ResetpasswordBloc>(context)
                                       .add(ResetpasswordSubmittedEvent());
-
                                 },
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
@@ -254,11 +269,13 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           ],
                         );
                       }
-                    }),
-                  ],
-                ),
-              );
-            }),
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

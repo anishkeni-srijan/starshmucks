@@ -15,7 +15,7 @@ class ResetpasswordBloc extends Bloc<ResetpasswordEvent, ResetpasswordState> {
             ResetpasswordErrorState("Please enter a password"),
           );
         } else if (event.newpassword.trim().length < 4) {
-          emit( ResetpasswordErrorState(
+          emit(ResetpasswordErrorState(
               "Your password must be at least 4 Characters"));
         }
         // Return null if the entered username is valid
@@ -29,18 +29,17 @@ class ResetpasswordBloc extends Bloc<ResetpasswordEvent, ResetpasswordState> {
       (event, emit) {
         if (event.confirmpassword == null ||
             event.confirmpassword.trim().isEmpty) {
-          emit( ResetpasswordErrorState("Please confirm your password"));
+          emit(ResetpasswordErrorState("Please confirm your password"));
         } else if (event.confirmpassword.trim().length < 4) {
-          emit( ResetpasswordErrorState(
+          emit(ResetpasswordErrorState(
               "Your confirm password must be at least 4 Characters"));
         } else if (event.confirmpassword != event.newpassword) {
-          emit( ResetpasswordErrorState(
+          emit(ResetpasswordErrorState(
               "Your password and confirm password should match"));
         }
         // Return null if the entered username is valid
         else {
           emit(ResetpasswordValidState('All Set!'));
-
         }
       },
     );
@@ -51,13 +50,15 @@ class ResetpasswordBloc extends Bloc<ResetpasswordEvent, ResetpasswordState> {
         emit(ResetpasswordConfirmState(''));
         if (state is ResetpasswordConfirmState) {
           emit(ResetpasswordConfirmState(''));
-          Future.delayed(Duration(seconds: 5), () {
-            Get.to(SigninPage());
-          });
-        }
-          else return null;
-        }
-
+          Future.delayed(
+            Duration(seconds: 5),
+            () {
+              Get.to(SigninPage());
+            },
+          );
+        } else
+          return null;
+      },
     );
   }
 }

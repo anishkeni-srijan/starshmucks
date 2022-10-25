@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'boxes.dart';
@@ -28,7 +27,6 @@ class _EditProfileState extends State<EditProfile> {
   @override
   var userkey;
   void initState() {
-    // TODO: implement initState
     getemail();
     super.initState();
   }
@@ -121,12 +119,13 @@ class _EditProfileState extends State<EditProfile> {
                             lbltxt: 'Email',
                           ),
                           IconButton(
-                              onPressed: () {
-                                data[userkey].email = econtroller.text;
-                                box.putAt(userkey, data[userkey]);
-                                setState(() {});
-                              },
-                              icon: Icon(Icons.check)),
+                            onPressed: () {
+                              data[userkey].email = econtroller.text;
+                              box.putAt(userkey, data[userkey]);
+                              setState(() {});
+                            },
+                            icon: Icon(Icons.check),
+                          ),
                         ],
                       ),
 
@@ -137,12 +136,13 @@ class _EditProfileState extends State<EditProfile> {
                             lbltxt: 'Phone',
                           ),
                           IconButton(
-                              onPressed: () {
-                                data[userkey].phone = phcontroller.text;
-                                box.putAt(userkey, data[userkey]);
-                                setState(() {});
-                              },
-                              icon: Icon(Icons.check)),
+                            onPressed: () {
+                              data[userkey].phone = phcontroller.text;
+                              box.putAt(userkey, data[userkey]);
+                              setState(() {});
+                            },
+                            icon: Icon(Icons.check),
+                          ),
                         ],
                       ),
 
@@ -153,12 +153,13 @@ class _EditProfileState extends State<EditProfile> {
                             lbltxt: 'Name',
                           ),
                           IconButton(
-                              onPressed: () {
-                                data[userkey].name = ncontroller.text;
-                                box.putAt(userkey, data[userkey]);
-                                setState(() {});
-                              },
-                              icon: Icon(Icons.check)),
+                            onPressed: () {
+                              data[userkey].name = ncontroller.text;
+                              box.putAt(userkey, data[userkey]);
+                              setState(() {});
+                            },
+                            icon: Icon(Icons.check),
+                          ),
                         ],
                       ),
                     ],
@@ -213,23 +214,6 @@ class EditableField extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class DividerForTiles extends StatelessWidget {
-  const DividerForTiles({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Divider(
-      color: HexColor("#036635"),
-      height: 1,
-      thickness: 0.5,
-      indent: 0,
-      endIndent: 0,
     );
   }
 }

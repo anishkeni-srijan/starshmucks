@@ -48,43 +48,48 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       body: SingleChildScrollView(
         child: Center(
           child: ValueListenableBuilder<Box<UserData>>(
-              valueListenable: Boxes.getUserData().listenable(),
-              builder: (context, box, _) {
-                final data = box.values.toList().cast<UserData>();
-                if (data.isEmpty) {
-                  Get.to(SignupPage());
-                } else {
-                  for (int i = 0; i < data.length; i++) {
-                    obtainedkey = data[i].key;
-                  }
+            valueListenable: Boxes.getUserData().listenable(),
+            builder: (context, box, _) {
+              final data = box.values.toList().cast<UserData>();
+              if (data.isEmpty) {
+                Get.to(
+                  SignupPage(),
+                );
+              } else {
+                for (int i = 0; i < data.length; i++) {
+                  obtainedkey = data[i].key;
                 }
-                return Column(children: <Widget>[
+              }
+              return Column(
+                children: <Widget>[
                   Container(
-                      margin: EdgeInsets.only(top: 30, left: 0),
-                      alignment: Alignment.topLeft,
-                      child: TextButton.icon(
-                        icon: Icon(Icons.arrow_back_ios_new_rounded,
-                            color: HexColor("#036635")),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        label: Text(''),
-                      )),
+                    margin: EdgeInsets.only(top: 30, left: 0),
+                    alignment: Alignment.topLeft,
+                    child: TextButton.icon(
+                      icon: Icon(Icons.arrow_back_ios_new_rounded,
+                          color: HexColor("#036635")),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      label: Text(''),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(
                       top: 130.0,
                       left: 48,
                     ),
                     child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: AutoSizeText(
-                          'Forgot Password',
-                          style: TextStyle(
-                            color: HexColor("#036635"),
-                            fontWeight: FontWeight.bold,
-                          ),
-                          minFontSize: 28,
-                        )),
+                      alignment: Alignment.centerLeft,
+                      child: AutoSizeText(
+                        'Forgot Password',
+                        style: TextStyle(
+                          color: HexColor("#036635"),
+                          fontWeight: FontWeight.bold,
+                        ),
+                        minFontSize: 28,
+                      ),
+                    ),
                   ),
                   Divider(
                     color: HexColor("#036635"),
@@ -99,29 +104,33 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   Container(
                     width: 300,
                     child: AutoSizeText(
-                        'Please enter your details and We\'ll send you an OTP.',
-                        style: TextStyle(
-                          color: HexColor("#175244"),
-                        )),
+                      'Please enter your details and We\'ll send you an OTP.',
+                      style: TextStyle(
+                        color: HexColor("#175244"),
+                      ),
+                    ),
                   ),
                   BlocBuilder<ForgotpasswordBloc, ForgotpasswordState>(
-                      builder: (context, state) {
-                    //checking if There's an error in Loginstate
-                    if (state is ForgotpasswordErrorState) {
-                      return Text(
-                        state.errormessage,
-                        style: TextStyle(color: Colors.red),
-                      );
-                    }
-                    //if the login is valid
-                    else if (state is ForgotpasswordValidState) {
-                      return Text(
-                        state.validity,
-                        style: TextStyle(color: HexColor("#036635")),
-                      );
-                    } else
-                      return Container();
-                  }),
+                    builder: (context, state) {
+                      //checking if There's an error in Loginstate
+                      if (state is ForgotpasswordErrorState) {
+                        return Text(
+                          state.errormessage,
+                          style: TextStyle(color: Colors.red),
+                        );
+                      }
+                      //if the login is valid
+                      else if (state is ForgotpasswordValidState) {
+                        return Text(
+                          state.validity,
+                          style: TextStyle(
+                            color: HexColor("#036635"),
+                          ),
+                        );
+                      } else
+                        return Container();
+                    },
+                  ),
                   submitValid
                       ? Container(
                           width: MediaQuery.of(context).size.width * 0.8,
@@ -130,11 +139,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           ),
                           child: TextFormField(
                             style: const TextStyle(
-                                color: Colors.black), //<-- SEE HERE
+                              color: Colors.black,
+                            ),
                             controller: otpinput,
-                            onChanged: (value) {
-
-                            },
+                            onChanged: (value) {},
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.all(10),
                               labelText: 'Enter the Verification Code',
@@ -144,12 +152,16 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                               enabledBorder: UnderlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide(
-                                    color: HexColor("#175244"), width: 2),
+                                  color: HexColor("#175244"),
+                                  width: 2,
+                                ),
                               ),
                               focusedBorder: UnderlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide(
-                                    color: HexColor("#175244"), width: 2),
+                                  color: HexColor("#175244"),
+                                  width: 2,
+                                ),
                               ),
                             ),
                           ),
@@ -162,23 +174,23 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           child: TextFormField(
                             autocorrect: false,
                             style: const TextStyle(color: Colors.black),
-                            //<-- SEE HERE
                             controller: forgotpasswordinput,
                             onChanged: (value) {
-                              for(int i =0; i<data.length; i++) {
-
-                                if( data[i].email == forgotpasswordinput.text){
-                                  setState(() {
-                                    userfound = true;
-                                  });
+                              for (int i = 0; i < data.length; i++) {
+                                if (data[i].email == forgotpasswordinput.text) {
+                                  setState(
+                                    () {
+                                      userfound = true;
+                                    },
+                                  );
                                 }
-
                               }
 
-                                BlocProvider.of<ForgotpasswordBloc>(context)
-                                    .add(ForgotpasswordInputChangedEvent(
-                                        forgotpasswordinput.text));
-
+                              BlocProvider.of<ForgotpasswordBloc>(context).add(
+                                ForgotpasswordInputChangedEvent(
+                                  forgotpasswordinput.text,
+                                ),
+                              );
                             },
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.all(10),
@@ -189,12 +201,16 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                               enabledBorder: UnderlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide(
-                                    color: HexColor("#175244"), width: 2),
+                                  color: HexColor("#175244"),
+                                  width: 2,
+                                ),
                               ),
                               focusedBorder: UnderlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide(
-                                    color: HexColor("#175244"), width: 2),
+                                  color: HexColor("#175244"),
+                                  width: 2,
+                                ),
                               ),
                             ),
                           ),
@@ -205,17 +221,18 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   SizedBox(
                     width: 300,
                     child: ElevatedButton(
-                      onPressed: ()async {
+                      onPressed: () async {
                         final resetkey = await SharedPreferences.getInstance();
                         await resetkey.setInt('resetuserkey', obtainedkey);
-                        if(userfound) {
+                        if (userfound) {
                           submitValid ? verify() : sendOtp();
-                        }
-                        else print('nootpfor you');
+                        } else
+                          print('nootpfor you');
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(60)),
+                          borderRadius: BorderRadius.circular(60),
+                        ),
                         backgroundColor: HexColor("#036635"),
                       ),
                       child: submitValid
@@ -235,8 +252,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             ),
                     ),
                   ),
-                ]);
-              }),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

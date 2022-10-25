@@ -22,6 +22,3 @@ class ForgotpasswordErrorState extends ForgotpasswordState {
   String errormessage = '';
   ForgotpasswordErrorState(this.errormessage);
 }
-
-
-

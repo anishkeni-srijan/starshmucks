@@ -4,17 +4,15 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:starshmucks/forgotpassword/forgot_password.dart';
-import 'package:starshmucks/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../signup/signup.dart';
-import '/user_profile.dart';
-import '/resetpassword/reset_password.dart';
+
 import '../boxes.dart';
 import '../model/user_model.dart';
 import 'bloc/signin_bloc.dart';
 import 'bloc/signin_events.dart';
 import 'bloc/signin_states.dart';
+import '/forgotpassword/forgot_password.dart';
+import '../signup/signup.dart';
 
 class SigninPage extends StatefulWidget {
   const SigninPage({Key? key}) : super(key: key);
@@ -111,15 +109,17 @@ class _SigninPageState extends State<SigninPage> {
                         child: TextFormField(
                           autocorrect: false,
                           style: const TextStyle(
-                              color: Colors.black), //<-- SEE HERE
+                            color: Colors.black,
+                          ),
                           controller: econtroller,
                           onChanged: (value) {
                             BlocProvider.of<SigninBloc>(context).add(
                               SigninTextChangedEvent(
-                                  econtroller.text,
-                                  pcontroller.text,
-                                  obtainedemail,
-                                  obtainedpassword),
+                                econtroller.text,
+                                pcontroller.text,
+                                obtainedemail,
+                                obtainedpassword,
+                              ),
                             );
                           },
                           decoration: InputDecoration(
@@ -156,10 +156,11 @@ class _SigninPageState extends State<SigninPage> {
                           onChanged: (value) {
                             BlocProvider.of<SigninBloc>(context).add(
                               SigninTextChangedEvent(
-                                  econtroller.text,
-                                  pcontroller.text,
-                                  obtainedemail,
-                                  obtainedpassword),
+                                econtroller.text,
+                                pcontroller.text,
+                                obtainedemail,
+                                obtainedpassword,
+                              ),
                             );
                           },
                           obscureText: true,
@@ -199,8 +200,7 @@ class _SigninPageState extends State<SigninPage> {
                       color: HexColor("#036635"),
                     ),
                   ),
-                  onPressed: ()  {
-
+                  onPressed: () {
                     Get.to(
                       // ForgotPasswordPage(),
                       ForgotPasswordPage(),
@@ -240,9 +240,7 @@ class _SigninPageState extends State<SigninPage> {
                       onPressed: () async {
                         final keypref = await SharedPreferences.getInstance();
                         await keypref.setInt('userkey', obtainedkey);
-                        setState(() {
-
-                        });
+                        setState(() {});
                         if (state is SigninValidState) {
                           BlocProvider.of<SigninBloc>(context).add(
                             SigninSumittedEvent(
