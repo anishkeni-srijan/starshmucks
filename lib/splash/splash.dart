@@ -30,7 +30,7 @@ class _SplashState extends State<Splash> {
                 child: SplashScreenView(
                   duration: Duration(milliseconds: 1500),
                   imageSrc: "images/shmucks.png",
-                  navigateRoute: SigninPage(),
+                  navigateRoute: HomePage(),
                 ),
               );
             } else {

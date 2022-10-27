@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:starshmucks/money.dart';
+import 'package:starshmucks/order_page.dart';
 
 import '/gift_card_page.dart';
 import '/home_screen.dart';
@@ -145,7 +146,9 @@ orderbutton() {
     //Floating action button on Scaffold
     elevation: 10,
     backgroundColor: Color(0xffb036635),
-    onPressed: () {},
+    onPressed: () {
+      Get.to(OrderPage(),transition: Transition.downToUp);
+    },
     child: Icon(
       Icons.coffee_maker_outlined,
       color: Colors.white,

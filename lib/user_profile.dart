@@ -38,22 +38,24 @@ class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: orderbutton(),
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
-        title: Text("Profile"),
-        backgroundColor: Colors.transparent,
+        title: Text("Profile", style: TextStyle(color: HexColor("#175244")),),
+        backgroundColor: Colors.white,
         elevation: 0,
-        centerTitle: true,
+        automaticallyImplyLeading: false,
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(
-              Icons.notifications,
+            icon: Icon(
+              Icons.notifications,color: HexColor("#175244"),
             ),
           ),
           IconButton(
             onPressed: () {},
-            icon: const Icon(
-              Icons.settings,
+            icon:  Icon(
+              Icons.settings,color: HexColor("#175244"),
             ),
           )
         ],

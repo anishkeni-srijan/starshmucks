@@ -49,6 +49,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: orderbutton(),
       appBar: gethomeappbar(),
       bottomNavigationBar: getbottombar(context),
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: ValueListenableBuilder<Box<UserData>>(
         valueListenable: Boxes.getUserData().listenable(),
@@ -187,7 +188,7 @@ getbanner(context, username) {
                     style: TextStyle(
                       color: Colors.white,
                     ),
-                    minFontSize: 20,
+                    minFontSize: 12,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
