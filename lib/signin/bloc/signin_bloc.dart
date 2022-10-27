@@ -13,41 +13,47 @@ import '/signin/bloc/signin_states.dart';
 class SigninBloc extends Bloc<SigninEvent, SigninState> {
   SigninBloc() : super(SigninInitialState()) {
     //works on login text changed
-    on<SigninTextChangedEvent>(
+    on<SigninemailChangedEvent>(
       (event, emit) {
 //user exists
-        if (event.emailvalue == event.obtainedemail &&
-            event.passwordvalue == event.obtainedpassword) {
+        if (event.emailvalue == event.obtainedemail) {
 
               emit(SigninValidState("all good"));
 
-        } else {
-// incorrect credentials
-          if (event.emailvalue == '' ||
+        } else if (event.emailvalue == '' ||
               event.emailvalue != event.obtainedemail) {
-
             emit(
               SigninErrorState("Please enter a valid Email"),
             );
-          } else if (event.passwordvalue == '' ||
-              event.passwordvalue != event.passwordvalue) {
-            emit(
-              SigninErrorState("Please enter a valid password"),
-            );
           }
+          else return Container();
         }
-      },
     );
-
-    //works if login is valid
-    on<SigninSumittedEvent>(
+    on<SigninpassChangedEvent>(
       (event, emit) {
-        if (state is SigninValidState) {
+//user exists
+        if (event.passwordvalue == event.obtainedpassword) {
           Get.to(
             HomePage(),
           );
+
+        } else if (event.passwordvalue == '' ||
+              event.passwordvalue != event.obtainedpassword) {
+            emit(
+              SigninErrorState("Please enter a valid Password"),
+            );
+          }
+          else return Container();
         }
-      },
     );
+
+    //works if login is valid
+    // on<SigninSumittedEvent>(
+    //   (event, emit) {
+    //     if (state is SigninValidState) {
+    //
+    //     }
+    //   },
+    // );
   }
 }

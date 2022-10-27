@@ -28,6 +28,9 @@ class _SigninPageState extends State<SigninPage> {
   late String obtainedemail;
   late String obtainedpassword;
   late int obtainedkey;
+
+
+  bool keeploggedin = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,11 +115,9 @@ class _SigninPageState extends State<SigninPage> {
                           controller: econtroller,
                           onChanged: (value) {
                             BlocProvider.of<SigninBloc>(context).add(
-                              SigninTextChangedEvent(
+                              SigninemailChangedEvent(
                                 econtroller.text,
-                                pcontroller.text,
                                 obtainedemail,
-                                obtainedpassword,
                               ),
                             );
                           },
@@ -151,16 +152,6 @@ class _SigninPageState extends State<SigninPage> {
                         child: TextFormField(
                           style: const TextStyle(color: Colors.black),
                           controller: pcontroller,
-                          onChanged: (value) {
-                            BlocProvider.of<SigninBloc>(context).add(
-                              SigninTextChangedEvent(
-                                econtroller.text,
-                                pcontroller.text,
-                                obtainedemail,
-                                obtainedpassword,
-                              ),
-                            );
-                          },
                           obscureText: true,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10),
@@ -185,6 +176,7 @@ class _SigninPageState extends State<SigninPage> {
                           ),
                         ),
                       ),
+
                     ],
                   );
                 },
@@ -238,15 +230,16 @@ class _SigninPageState extends State<SigninPage> {
                       onPressed: () async {
                         final keypref = await SharedPreferences.getInstance();
                         await keypref.setInt('userkey', obtainedkey);
+                        BlocProvider.of<SigninBloc>(context).add(
+                          SigninpassChangedEvent(
+                            pcontroller.text,
+                            obtainedpassword,
+                          ),
+                        );
+
                         // setState(() {});
-                        if (state is SigninValidState) {
-                          BlocProvider.of<SigninBloc>(context).add(
-                            SigninSumittedEvent(
-                              econtroller.text,
-                              pcontroller.text,
-                            ),
-                          );
-                        }
+
+
                       },
                       child: const Text(
                         'Sign in',
