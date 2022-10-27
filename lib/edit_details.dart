@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,7 +48,7 @@ class _EditProfileState extends State<EditProfile> {
           )
         ],
       ),
-      backgroundColor:HexColor("#175244"),
+      backgroundColor: HexColor("#175244"),
       body: ValueListenableBuilder<Box<UserData>>(
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
@@ -101,7 +99,7 @@ class _EditProfileState extends State<EditProfile> {
                   height: 20,
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height*0.60,
+                  height: MediaQuery.of(context).size.height * 0.60,
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -125,8 +123,10 @@ class _EditProfileState extends State<EditProfile> {
                               box.putAt(userkey, data[userkey]);
                               setState(() {});
                             },
-                            icon: Align(alignment:Alignment.bottomCenter,
-                            child: Icon(Icons.check)),
+                            icon: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Icon(Icons.check),
+                            ),
                           ),
                         ],
                       ),
@@ -143,8 +143,10 @@ class _EditProfileState extends State<EditProfile> {
                               box.putAt(userkey, data[userkey]);
                               setState(() {});
                             },
-                            icon: Align(alignment:Alignment.bottomCenter,
-                                child: Icon(Icons.check)),
+                            icon: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Icon(Icons.check),
+                            ),
                           ),
                         ],
                       ),
@@ -161,8 +163,10 @@ class _EditProfileState extends State<EditProfile> {
                               box.putAt(userkey, data[userkey]);
                               setState(() {});
                             },
-                            icon: Align(alignment:Alignment.bottomCenter,
-                                child: Icon(Icons.check)),
+                            icon: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Icon(Icons.check),
+                            ),
                           ),
                         ],
                       ),

@@ -4,14 +4,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
-import 'package:starshmucks/providers/learnmore_provider.dart';
-import 'package:starshmucks/providers/nowserving_provider.dart';
 
 import '/boxes.dart';
 import '/model/user_model.dart';
 import 'commonthings.dart';
-
-import 'package:starshmucks/providers/offers_provider.dart';
+import 'providers/learnmore_provider.dart';
+import '/providers/nowserving_provider.dart';
+import '/providers/offers_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -36,8 +35,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
-
     getemail();
     super.initState();
   }
@@ -63,17 +60,18 @@ class _HomePageState extends State<HomePage> {
               children: [
                 getbanner(context, username),
                 Container(
-                    padding: EdgeInsets.all(10),
-                    alignment: Alignment.topLeft,
-                    child: AutoSizeText(
-                      'Offers',
-                      style: TextStyle(
-                        color: HexColor("#175244"),
-                        fontWeight: FontWeight.w700,
-                      ),
-                      minFontSize: 25,
-                    )),
-               getoffers(context),
+                  padding: EdgeInsets.all(10),
+                  alignment: Alignment.topLeft,
+                  child: AutoSizeText(
+                    'Offers',
+                    style: TextStyle(
+                      color: HexColor("#175244"),
+                      fontWeight: FontWeight.w700,
+                    ),
+                    minFontSize: 25,
+                  ),
+                ),
+                getoffers(context),
                 Container(
                   padding: EdgeInsets.all(10),
                   alignment: Alignment.topLeft,
@@ -253,19 +251,20 @@ getbanner(context, username) {
                 ],
               ),
               Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  transform: Matrix4.translationValues(
-                    30,
-                    4,
-                    0,
+                width: MediaQuery.of(context).size.width * 0.4,
+                transform: Matrix4.translationValues(
+                  30,
+                  4,
+                  0,
+                ),
+                child: AutoSizeText(
+                  'You are 4 stars away from another reward',
+                  style: TextStyle(
+                    color: Colors.white,
                   ),
-                  child: AutoSizeText(
-                    'You are 4 stars away from another reward',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                    minFontSize: 15,
-                  )),
+                  minFontSize: 15,
+                ),
+              ),
               Container(
                 transform: Matrix4.translationValues(
                   15,
@@ -295,84 +294,94 @@ getoffers(context) {
     height: MediaQuery.of(context).size.height * 0.18,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
-      //   shrinkWrap: true,
-        itemCount: offersp.offerdata.length,
-        itemBuilder: (context, index) {
-          return Row(
-            children: [
-              SizedBox(width: 10,),
-              Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color:index % 2 == 0 ? Colors.teal
-                :Colors.deepOrangeAccent,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                height: MediaQuery.of(context).size.height * 0.18,
-                width: MediaQuery.of(context).size.width * 0.76,
-                child: Stack(
-                  children: [
-                    Container(
-                     transform: Matrix4.translationValues(-10, 20, 0),
-                      child: Image.asset(
-                        offersp.offerdata[index].image,
-                        width: 150,
-                        height: 150,
-                      ),
+      itemCount: offersp.offerdata.length,
+      itemBuilder: (context, index) {
+        return Row(
+          children: [
+            SizedBox(
+              width: 10,
+            ),
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              height: MediaQuery.of(context).size.height * 0.18,
+              width: MediaQuery.of(context).size.width * 0.76,
+              child: Stack(
+                children: [
+                  Container(
+                    transform: Matrix4.translationValues(-10, 20, 0),
+                    child: Image.asset(
+                      offersp.offerdata[index].image,
+                      width: 150,
+                      height: 150,
                     ),
-                    Container(
-                      child: Container(
-                        // transform: Matrix4.translationValues(-120, 10, 0),
-                        margin: EdgeInsets.only(top: 10, left: 130),
-                        child: Text(
-                          offersp.offerdata[index].offer,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                          ),
-                        ),
+                  ),
+                  Container(
+                    child: Container(
+                      // transform: Matrix4.translationValues(-120, 10, 0),
+                      margin: EdgeInsets.only(
+                        top: 10,
+                        left: 130,
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 30, left: 130),
                       child: Text(
-                        offersp.offerdata[index].title,
+                        offersp.offerdata[index].offer,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w800,
+                          fontSize: 15,
                         ),
                       ),
                     ),
-                    Container(
-                      // transform: Matrix4.translationValues(-320, 40, 0),
-                      margin: EdgeInsets.only(top:85, left: 190),
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text('Order Now'),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(HexColor('#175244')),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                      top: 30,
+                      left: 130,
+                    ),
+                    child: Text(
+                      offersp.offerdata[index].title,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    // transform: Matrix4.translationValues(-320, 40, 0),
+                    margin: EdgeInsets.only(
+                      top: 85,
+                      left: 190,
+                    ),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text('Order Now'),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            HexColor('#175244')),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
                           ),
                         ),
                       ),
-                    )
-
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
-            ],
-          );
-
-        }),
+            ),
+          ],
+        );
+      },
+    ),
   );
 }
+
 nowserving(context) {
   final nowservep = Provider.of<NowServing>(context);
   nowservep.fetchData(context);
@@ -380,90 +389,101 @@ nowserving(context) {
     height: MediaQuery.of(context).size.height * 0.18,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
-
-        itemCount: nowservep.nowdata.length,
-        itemBuilder: (context, index) {
-          return Row(
-            children: [
-              SizedBox(width: 10,),
-              Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color:index % 2 == 0 ? Colors.deepOrangeAccent
-                :Colors.teal,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                height: MediaQuery.of(context).size.height * 0.18,
-                width: MediaQuery.of(context).size.width * 0.76,
-                child: Stack(
-                  children: [
-                    Container(
-                     transform: Matrix4.translationValues(-10, 20, 0),
-                      child: Image.asset(
-                        nowservep.nowdata[index].image,
-                        width: 150,
-                        height: 150,
-                      ),
+      itemCount: nowservep.nowdata.length,
+      itemBuilder: (context, index) {
+        return Row(
+          children: [
+            SizedBox(
+              width: 10,
+            ),
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: index % 2 == 0 ? Colors.deepOrangeAccent : Colors.teal,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              height: MediaQuery.of(context).size.height * 0.18,
+              width: MediaQuery.of(context).size.width * 0.76,
+              child: Stack(
+                children: [
+                  Container(
+                    transform: Matrix4.translationValues(-10, 20, 0),
+                    child: Image.asset(
+                      nowservep.nowdata[index].image,
+                      width: 150,
+                      height: 150,
                     ),
-                    Container(
-                      child: Container(
-                        // transform: Matrix4.translationValues(-120, 10, 0),
-                        margin: EdgeInsets.only(top: 10, left: 130),
-                        child: Text(
-                          nowservep.nowdata[index].title,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                          ),
-                        ),
+                  ),
+                  Container(
+                    child: Container(
+                      // transform: Matrix4.translationValues(-120, 10, 0),
+                      margin: EdgeInsets.only(
+                        top: 10,
+                        left: 130,
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 30, left: 130),
                       child: Text(
-                        nowservep.nowdata[index].tag,
+                        nowservep.nowdata[index].title,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 15,
-                          fontWeight: FontWeight.w800,
                         ),
                       ),
                     ),
-                    Container(
-                      // transform: Matrix4.translationValues(-320, 40, 0),
-                      margin: EdgeInsets.only(top:85, left: 190),
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text('Order Now'),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(HexColor('#175244')),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                      top: 30,
+                      left: 130,
+                    ),
+                    child: Text(
+                      nowservep.nowdata[index].tag,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    // transform: Matrix4.translationValues(-320, 40, 0),
+                    margin: EdgeInsets.only(
+                      top: 85,
+                      left: 190,
+                    ),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text('Order Now'),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            HexColor('#175244')),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
                           ),
                         ),
                       ),
-                    )
-
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
-            ],
-          );
-
-        }),
+            ),
+          ],
+        );
+      },
+    ),
   );
 }
+
 learnmore(context) {
   final learnmorep = Provider.of<Learnmore>(context);
   learnmorep.fetchData(context);
   return SizedBox(
- height: 250,
-    child: ListView.builder(itemCount:learnmorep.learnmore.length,
+    height: 250,
+    child: ListView.builder(
+      itemCount: learnmorep.learnmore.length,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) => Row(
         children: [
@@ -497,15 +517,16 @@ learnmore(context) {
                     child: Text(
                       learnmorep.learnmore[index].title,
                       style: TextStyle(
-                          color: HexColor('#175244'),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600),
+                        color: HexColor('#175244'),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
                 Container(
                   child: Text(
-                     learnmorep.learnmore[index].tag,
+                    learnmorep.learnmore[index].tag,
                     style: TextStyle(
                       color: HexColor('#175244'),
                       fontSize: 18,

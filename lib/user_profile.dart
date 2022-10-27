@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
@@ -46,11 +45,15 @@ class _UserProfileState extends State<UserProfile> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.notifications),
+            icon: const Icon(
+              Icons.notifications,
+            ),
           ),
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.settings),
+            icon: const Icon(
+              Icons.settings,
+            ),
           )
         ],
       ),
@@ -102,7 +105,9 @@ class _UserProfileState extends State<UserProfile> {
                   onPressed: () {},
                   child: Text(
                     'Edit Profile',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -122,7 +127,9 @@ class _UserProfileState extends State<UserProfile> {
                       profileTile(
                         text: 'My Account',
                         press: () {
-                          Get.to(EditProfile());
+                          Get.to(
+                            EditProfile(),
+                          );
                         },
                         icon: Icons.account_circle_outlined,
                       ),
@@ -154,7 +161,9 @@ class _UserProfileState extends State<UserProfile> {
                       profileTile(
                         text: 'Logout',
                         press: () {
-                          Get.to(SigninPage());
+                          Get.to(
+                            SigninPage(),
+                          );
                         },
                         icon: Icons.logout,
                       ),
