@@ -37,6 +37,7 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: orderbutton(),
       appBar: AppBar(
         title: Text("Profile"),
         backgroundColor: Colors.transparent,

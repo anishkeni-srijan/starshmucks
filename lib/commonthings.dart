@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
+import 'package:starshmucks/money.dart';
 
+import '/gift_card_page.dart';
 import '/home_screen.dart';
 import '/user_profile.dart';
 
@@ -35,7 +37,10 @@ Widget getbottombar(BuildContext context) {
                   color: HexColor("#036635"),
                 ),
                 onPressed: () {
-                  Get.to(HomePage());
+                  Get.to(
+                    HomePage(),
+                    transition: Transition.rightToLeft,
+                  );
                 },
               ),
             ),
@@ -46,7 +51,13 @@ Widget getbottombar(BuildContext context) {
                   Icons.card_giftcard,
                   color: HexColor("#036635"),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(
+                    GiftCardPage(),
+                    transition: Transition.rightToLeft,
+                  );
+                  homeroute = false;
+                },
               ),
             ),
             Expanded(child: new Text('')),
@@ -57,7 +68,12 @@ Widget getbottombar(BuildContext context) {
                   Icons.money,
                   color: HexColor("#036635"),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(
+                    MoneyPage(),
+                    transition: Transition.rightToLeft,
+                  );
+                },
               ),
             ),
             Expanded(
@@ -70,6 +86,7 @@ Widget getbottombar(BuildContext context) {
                 onPressed: () {
                   Get.to(
                     UserProfile(),
+                    transition: Transition.rightToLeft,
                   );
                   homeroute = false;
                 },
