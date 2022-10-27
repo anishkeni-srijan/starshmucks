@@ -40,7 +40,7 @@ Widget getbottombar(BuildContext context) {
                 onPressed: () {
                   Get.to(
                     HomePage(),
-                    transition: Transition.rightToLeft,
+                    transition: Transition.leftToRight,
                   );
                 },
               ),
