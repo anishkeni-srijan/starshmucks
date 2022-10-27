@@ -36,10 +36,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         BlocProvider(
-          create: (context) => SplashScreenBloc(),
-          child: Splash(),
-        ),
-        BlocProvider(
           create: (context) => SigninBloc(),
           child: SigninPage(),
         ),

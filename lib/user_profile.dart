@@ -23,7 +23,6 @@ class _UserProfileState extends State<UserProfile> {
     userkey = keypref.getInt('userkey')!;
     setState(() {});
     print(userkey);
-    return userkey;
   }
 
   @override
@@ -66,6 +65,9 @@ class _UserProfileState extends State<UserProfile> {
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
           final data = box.values.toList().cast<UserData>();
+          print("pass  " + data[userkey].password);
+          print("email  " + data[userkey].email);
+
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -163,7 +165,10 @@ class _UserProfileState extends State<UserProfile> {
                       DividerForTiles(),
                       profileTile(
                         text: 'Logout',
-                        press: () {
+                        press: () async {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          prefs.remove('userkey');
                           Get.to(
                             SigninPage(),
                           );

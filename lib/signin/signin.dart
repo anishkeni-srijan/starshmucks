@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:starshmucks/home_screen.dart';
 
 import '../boxes.dart';
 import '../model/user_model.dart';
@@ -90,111 +91,102 @@ class _SigninPageState extends State<SigninPage> {
                 valueListenable: Boxes.getUserData().listenable(),
                 builder: (context, box, _) {
                   final data = box.values.toList().cast<UserData>();
+
                   for (int i = 0; i < data.length; i++) {
                     obtainedemail = data[i].email;
                     obtainedpassword = data[i].password;
                     obtainedkey = data[i].key;
                   }
-                     return Column(
-                        children: [
-                          Container(
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width * 0.8,
-                            margin: EdgeInsets.only(
-                              top: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height * 0.01,
-                            ),
-                            child: TextFormField(
-                              autocorrect: false,
-                              style: const TextStyle(
-                                color: Colors.black,
+                  return Column(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.01,
+                        ),
+                        child: TextFormField(
+                          autocorrect: false,
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ),
+                          controller: econtroller,
+                          onChanged: (value) {
+                            BlocProvider.of<SigninBloc>(context).add(
+                              SigninTextChangedEvent(
+                                econtroller.text,
+                                pcontroller.text,
+                                obtainedemail,
+                                obtainedpassword,
                               ),
-                              controller: econtroller,
-                              onChanged: (value) {
-                                BlocProvider.of<SigninBloc>(context).add(
-                                  SigninTextChangedEvent(
-                                    econtroller.text,
-                                    pcontroller.text,
-                                    obtainedemail,
-                                    obtainedpassword,
-                                  ),
-                                );
-                              },
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.all(10),
-                                labelText: 'Email',
-                                labelStyle: TextStyle(
-                                  color: HexColor("#036635"),
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(
-                                    color: HexColor("#036635"),
-                                    width: 2,
-                                  ),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(
-                                    color: HexColor("#036635"),
-                                    width: 2,
-                                  ),
-                                ),
+                            );
+                          },
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10),
+                            labelText: 'Email',
+                            labelStyle: TextStyle(
+                              color: HexColor("#036635"),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: HexColor("#036635"),
+                                width: 2,
+                              ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: HexColor("#036635"),
+                                width: 2,
                               ),
                             ),
                           ),
+                        ),
+                      ),
 
-                          SizedBox(height: 20),
-                          //password
-                          Container(
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width * 0.8,
-                            child: TextFormField(
-                              style: const TextStyle(color: Colors.black),
-                              controller: pcontroller,
-                              onChanged: (value) {
-                                BlocProvider.of<SigninBloc>(context).add(
-                                  SigninTextChangedEvent(
-                                    econtroller.text,
-                                    pcontroller.text,
-                                    obtainedemail,
-                                    obtainedpassword,
-                                  ),
-                                );
-                              },
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.all(10),
-                                labelText: 'Password',
-                                labelStyle: TextStyle(
-                                  color: HexColor("#036635"),
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(
-                                    color: HexColor("#036635"),
-                                    width: 2,
-                                  ),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(
-                                    color: HexColor("#036635"),
-                                    width: 2,
-                                  ),
-                                ),
+                      SizedBox(height: 20),
+                      //password
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        child: TextFormField(
+                          style: const TextStyle(color: Colors.black),
+                          controller: pcontroller,
+                          onChanged: (value) {
+                            BlocProvider.of<SigninBloc>(context).add(
+                              SigninTextChangedEvent(
+                                econtroller.text,
+                                pcontroller.text,
+                                obtainedemail,
+                                obtainedpassword,
+                              ),
+                            );
+                          },
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10),
+                            labelText: 'Password',
+                            labelStyle: TextStyle(
+                              color: HexColor("#036635"),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: HexColor("#036635"),
+                                width: 2,
+                              ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: HexColor("#036635"),
+                                width: 2,
                               ),
                             ),
                           ),
-                        ],
-                      );
-
+                        ),
+                      ),
+                    ],
+                  );
                 },
               ),
               Container(
@@ -304,8 +296,7 @@ class _SigninPageState extends State<SigninPage> {
         ),
       ),
     );
-    }
-
+  }
 }
 
 getlogo(context) {
