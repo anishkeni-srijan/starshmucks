@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:starshmucks/providers/menu_provider.dart';
 
 import '/forgotpassword/forgot_password.dart';
 import '/signup/bloc/signup_bloc.dart';
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => OffersData()),
         ChangeNotifierProvider(create: (context) => NowServing()),
         ChangeNotifierProvider(create: (context) => Learnmore()),
+        ChangeNotifierProvider(create: (context) => Menudata()),
       ],
       child: GestureDetector(
         onTap: () {

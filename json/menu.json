@@ -1,4 +1,5 @@
 [
+ "coffee", [
   {
     "title": "Caffè Americano",
     "category": "coffee",
@@ -19,8 +20,9 @@
     "description": "Handcrafted in small batches daily, slow-steeped in cool water for 20 hours, without touching Cold Brew is made from our custom blend of beans grown to steep long and cold for a super-smooth flavor.",
     "image": "images/image3",
     "id": 3
-  },
-  {
+  }
+  ],
+  "cake",[{
     "title": "Double Chocolate Brownie",
     "category": "cake",
     "description": "Rich chocolate brownie with generous chunks of semisweet chocolate.- VEGETARIAN",
@@ -40,7 +42,9 @@
     "description": "Semisweet chocolate chips mixed in a thick, chewy cookie--soft on the inside and crunchy on the outside. - VEGETARIAN",
     "image": "images/image6",
     "id": 6
-  },
+  }],
+
+  "smoothie",[
   {
     "title": "Java Chip Frappuccino® Blended Beverage",
     "category": "smoothie",
@@ -62,4 +66,5 @@
     "image": "images/image9",
     "id": 9
   }
+  ]
 ]

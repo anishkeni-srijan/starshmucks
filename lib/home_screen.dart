@@ -118,7 +118,7 @@ gethomeappbar() {
         fontWeight: FontWeight.w600,
       ),
     ),
-    elevation: 5,
+    elevation: 0,
     actions: [
       IconButton(
         color: HexColor("#175244"),
