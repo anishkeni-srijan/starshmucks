@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:starshmucks/home_screen.dart';
 
 import '../boxes.dart';
 import '../model/user_model.dart';
@@ -29,7 +28,6 @@ class _SigninPageState extends State<SigninPage> {
   late String obtainedpassword;
   late int obtainedkey;
 
-
   bool keeploggedin = false;
   @override
   Widget build(BuildContext context) {
@@ -42,7 +40,8 @@ class _SigninPageState extends State<SigninPage> {
             children: <Widget>[
               Container(
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.12),
+                  top: MediaQuery.of(context).size.height * 0.12,
+                ),
                 child: getlogo(context),
               ),
 
@@ -176,7 +175,6 @@ class _SigninPageState extends State<SigninPage> {
                           ),
                         ),
                       ),
-
                     ],
                   );
                 },
@@ -238,8 +236,6 @@ class _SigninPageState extends State<SigninPage> {
                         );
 
                         // setState(() {});
-
-
                       },
                       child: const Text(
                         'Sign in',

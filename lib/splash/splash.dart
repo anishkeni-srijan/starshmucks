@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:starshmucks/home_screen.dart';
 import 'package:tbib_splash_screen/splash_screen_view.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../boxes.dart';
 import '../model/user_model.dart';
 import '../signin/signin.dart';
-import 'bloc/splash_bloc.dart';
-import '../signup/signup.dart';
-import '/splash/bloc/splash_states.dart';
+import '/home_screen.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
