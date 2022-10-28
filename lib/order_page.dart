@@ -19,55 +19,58 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 3,vsync: this);
+    tabController = TabController(length: 3, vsync: this);
   }
   @override
   Widget build(BuildContext context) {
-   final menup = Provider.of<Menudata>(context);
-   menup.fetchData(context);
+    final menup = Provider.of<Menudata>(context);
+    menup.cakefetchData(context);
+    menup.coffeefetchData(context);
+    menup.smoothiefetchData(context);
     return DefaultTabController(
-        initialIndex: 1,
-        length: 3,
+      initialIndex: 1,
+      length: 3,
       child: Scaffold(
         appBar: gethomeappbar(),
         body: Column(
-            children: [
-              Container(
-                child: TabBar(
-                  indicatorColor: HexColor("#175244"),
-                  tabs: <Widget>[
-                    Tab(
-                      icon: Icon(Icons.coffee, color: HexColor("#175244"),),
-                    ),
-                    Tab(
-                      icon: Icon(Icons.cake_outlined,color: HexColor("#175244"),),
-                    ),
-                    Tab(
-                      icon: Icon(Icons.local_drink_sharp, color: HexColor("#175244"),),
-                    ),
+          children: [
+            TabBar(
+              controller: tabController,
+              indicatorColor: HexColor("#175244"),
+              tabs: <Widget>[
+                Tab(
+                  icon: Icon(
+                    Icons.coffee,
+                    color: HexColor("#175244"),
+                  ),
+                ),
+                Tab(
+                  icon: Icon(
+                    Icons.cake_outlined,
+                    color: HexColor("#175244"),
+                  ),
+                ),
+                Tab(
+                  icon: Icon(
+                    Icons.local_drink_sharp,
+                    color: HexColor("#175244"),
+                  ),
+                ),
+              ],
+            ),
+            Expanded(
+              child: TabBarView(
+                  controller: tabController,
+                  children:  <Widget>[
+                    getcoffee(context),
+                   getcake(context),
+                    getsmoothie(context),
+
                   ],
                 ),
-              ),
-         Expanded(
-           child: TabBarView(
-                controller: tabController,
-                children: <Widget>[
-                  SizedBox(
-
-                    child: getcoffee(context),
-                  ),
-                  Center(
-                    child: Text("It's rainy here"),
-                  ),
-                  Center(
-                    child: Text("It's sunny here"),
-                  ),
-                ],
-              ),
-         ),
-
-            ],
-          ),
+            ),
+          ],
+        ),
         floatingActionButton: orderbutton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: getbottombar(context),
@@ -76,159 +79,276 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   }
 }
 
-getoptions(context) {
-  return Row(children: [
-    GestureDetector(
-      child: Container(
-        margin: EdgeInsets.all(20),
-        width: 90.0,
-        height: 90.0,
-        decoration: BoxDecoration(
-          color: const Color(0xff7c94b6),
-          image: DecorationImage(
-            image: AssetImage('images/profile1.jpg'),
-            fit: BoxFit.cover,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(75.0),
-          ),
-          border: Border.all(
-            color: Colors.white,
-            width: 4.0,
-          ),
-        ),
-      ),
-    ),
-    GestureDetector(
-      child: Container(
-        margin: EdgeInsets.all(20),
-        width: 90.0,
-        height: 90.0,
-        decoration: BoxDecoration(
-          color: const Color(0xff7c94b6),
-          image: DecorationImage(
-            image: AssetImage('images/profile1.jpg'),
-            fit: BoxFit.cover,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(75.0),
-          ),
-          border: Border.all(
-            color: Colors.white,
-            width: 4.0,
-          ),
-        ),
-      ),
-    ),
-    GestureDetector(
-      child: Container(
-        margin: EdgeInsets.all(20),
-        width: 90.0,
-        height: 90.0,
-        decoration: BoxDecoration(
-          color: const Color(0xff7c94b6),
-          image: DecorationImage(
-            image: AssetImage('images/profile1.jpg'),
-            fit: BoxFit.cover,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(75.0),
-          ),
-          border: Border.all(
-            color: Colors.white,
-            width: 4.0,
-          ),
-        ),
-      ),
-    )
-  ]);
-}
-getcoffee(context){
+getcake(context) {
   final menup = Provider.of<Menudata>(context);
-  return ListView.builder(
-    itemCount: menup.menudata.length,
-    itemBuilder: (context, index) {
-      return Row(
-        children: [
-          SizedBox(
-            width: 10,
-          ),
-          Container(
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent,
-              borderRadius: BorderRadius.circular(20),
+  return Container(
+    child: ListView.builder(
+      itemCount: menup.cakemenudata.length,
+      itemBuilder: (context, index) {
+        return Row(
+          children: [
+            SizedBox(
+              width: 10,
             ),
-            height: MediaQuery.of(context).size.height * 0.18,
-            width: MediaQuery.of(context).size.width * 0.76,
-            child: Stack(
-              children: [
-                Container(
-                  transform: Matrix4.translationValues(-10, 20, 0),
-                  child: Image.asset(
-                    menup.menudata[index].image,
-                    width: 150,
-                    height: 150,
-                  ),
-                ),
-                Container(
-                  child: Container(
-                    // transform: Matrix4.translationValues(-120, 10, 0),
-                    margin: EdgeInsets.only(
-                      top: 10,
-                      left: 130,
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              height: MediaQuery.of(context).size.height * 0.18,
+              width: MediaQuery.of(context).size.width * 0.76,
+              child: Stack(
+                children: [
+                  Container(
+                    transform: Matrix4.translationValues(-10, 20, 0),
+                    child: Image.asset(
+                      menup.cakemenudata[index].image,
+                      width: 150,
+                      height: 150,
                     ),
-                    child: Text(
-                      menup.menudata[index].title,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
+                  ),
+                  Container(
+                    child: Container(
+                      // transform: Matrix4.translationValues(-120, 10, 0),
+                      margin: EdgeInsets.only(
+                        top: 10,
+                        left: 130,
                       ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-                    top: 30,
-                    left: 130,
-                  ),
-                  child: Text(
-                    menup.menudata[index].category,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ),
-                Container(
-                  // transform: Matrix4.translationValues(-320, 40, 0),
-                  margin: EdgeInsets.only(
-                    top: 85,
-                    left: 190,
-                  ),
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text('Order Now'),
-                    style: ButtonStyle(
-                      backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                          HexColor('#175244')),
-                      shape:
-                      MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
+                      child: Text(
+                        menup.cakemenudata[index].title,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
                         ),
                       ),
                     ),
                   ),
-                )
-              ],
+                  Container(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height*0.06,
+                      left: 130,
+                    ),
+                    child: Text(
+                      menup.cakemenudata[index].category,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    // transform: Matrix4.translationValues(-320, 40, 0),
+                    margin: EdgeInsets.only(
+                      top: 85,
+                      left: 190,
+                    ),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text('Order Now'),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            HexColor('#175244')),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
-      );
-    },
+          ],
+        );
+      },
+    ),
+  );
+}
+getsmoothie(context) {
+  final menup = Provider.of<Menudata>(context);
+  return Container(
+    child: ListView.builder(
+      itemCount: menup.smoothiemenudata.length,
+      itemBuilder: (context, index) {
+        return Row(
+          children: [
+            SizedBox(
+              width: 10,
+            ),
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              height: MediaQuery.of(context).size.height * 0.18,
+              width: MediaQuery.of(context).size.width * 0.76,
+              child: Stack(
+                children: [
+                  Container(
+                    transform: Matrix4.translationValues(-10, 20, 0),
+                    child: Image.asset(
+                      menup.smoothiemenudata[index].image,
+                      width: 150,
+                      height: 150,
+                    ),
+                  ),
+                  Container(
+                    child: Container(
+                      // transform: Matrix4.translationValues(-120, 10, 0),
+                      margin: EdgeInsets.only(
+                        top: 10,
+                        left: 130,
+                      ),
+                      child: Text(
+                        menup.smoothiemenudata[index].title,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                      top: 60,
+                      left: 130,
+                    ),
+                    child: Text(
+                      menup.smoothiemenudata[index].category,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    // transform: Matrix4.translationValues(-320, 40, 0),
+                    margin: EdgeInsets.only(
+                      top: 85,
+                      left: 190,
+                    ),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text('Order Now'),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            HexColor('#175244')),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    ),
+  );
+}
+getcoffee(context) {
+  final menup = Provider.of<Menudata>(context);
+  return Container(
+    child: ListView.builder(
+      itemCount: menup.coffeemenudata.length,
+      itemBuilder: (context, index) {
+        return Row(
+          children: [
+            SizedBox(
+              width: 10,
+            ),
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              height: MediaQuery.of(context).size.height * 0.18,
+              width: MediaQuery.of(context).size.width * 0.76,
+              child: Stack(
+                children: [
+                  Container(
+                    transform: Matrix4.translationValues(-10, 20, 0),
+                    child: Image.asset(
+                      menup.coffeemenudata[index].image,
+                      width: 150,
+                      height: 150,
+                    ),
+                  ),
+                  Container(
+                    child: Container(
+                      // transform: Matrix4.translationValues(-120, 10, 0),
+                      margin: EdgeInsets.only(
+                        top: 10,
+                        left: 130,
+                      ),
+                      child: Text(
+                        menup.coffeemenudata[index].title,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                      top: 30,
+                      left: 130,
+                    ),
+                    child: Text(
+                      menup.coffeemenudata[index].category,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    // transform: Matrix4.translationValues(-320, 40, 0),
+                    margin: EdgeInsets.only(
+                      top: 85,
+                      left: 190,
+                    ),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text('Order Now'),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            HexColor('#175244')),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    ),
   );
 }

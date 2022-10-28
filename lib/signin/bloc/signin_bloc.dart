@@ -1,11 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
 
-import '../../boxes.dart';
-import '../../model/user_model.dart';
 import '/home_screen.dart';
 import '/signin/bloc/signin_events.dart';
 import '/signin/bloc/signin_states.dart';
@@ -17,7 +13,6 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
       (event, emit) {
 //user exists
         if (event.emailvalue == event.obtainedemail) {
-
               emit(SigninValidState("all good"));
 
         } else if (event.emailvalue == '' ||
