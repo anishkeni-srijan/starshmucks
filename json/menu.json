@@ -1,0 +1,65 @@
+[
+  {
+    "title": "Caffè Americano",
+    "category": "coffee",
+    "description": "Espresso shots topped with hot water create a light layer of crema culminating in this wonderfully rich cup with depth and nuance.",
+    "image": "images/image1",
+    "id": 1
+  },
+  {
+    "title": "Dark Chocolate Mocha",
+    "category": "coffee",
+    "description": "Our small-lot  espresso combined with cocoa, ground chocolate and topped with steamed milk delivers a brilliant combination of sweetness.",
+    "image": "images/image2",
+    "id": 2
+  },
+  {
+    "title": "Cold Brew Coffee",
+    "category": "coffee",
+    "description": "Handcrafted in small batches daily, slow-steeped in cool water for 20 hours, without touching Cold Brew is made from our custom blend of beans grown to steep long and cold for a super-smooth flavor.",
+    "image": "images/image3",
+    "id": 3
+  },
+  {
+    "title": "Double Chocolate Brownie",
+    "category": "cake",
+    "description": "Rich chocolate brownie with generous chunks of semisweet chocolate.- VEGETARIAN",
+    "image": "images/image4",
+    "id": 4
+  },
+  {
+    "title": "Lime-Frosted Coconut Bar",
+    "category": "cake",
+    "description": "A delightful combination of chewy coconut and oatmeal with mini white chocolate chips, topped with lime frosting made with cream cheese, drizzled with a white-chocolaty coating and sprinkled with coconut.",
+    "image": "images/image5",
+    "id": 5
+  },
+  {
+    "title": "Chocolate Chip Cookie",
+    "category": "cake",
+    "description": "Semisweet chocolate chips mixed in a thick, chewy cookie--soft on the inside and crunchy on the outside. - VEGETARIAN",
+    "image": "images/image6",
+    "id": 6
+  },
+  {
+    "title": "Java Chip Frappuccino® Blended Beverage",
+    "category": "smoothie",
+    "description": "We blend mocha sauce and Frappuccino® chips with coffee, milk and ice, then top it off with whipped cream and a mocha drizzle to bring you endless java joy.",
+    "image": "images/image7",
+    "id": 7
+  },
+  {
+    "title": "White Chocolate Mocha Frappuccino",
+    "category": "smoothie",
+    "description": "White chocolate Frappuccino® Roast coffee, milk and ice get together for what might be the best thing that happens to you all day. Oh, and there's whipped cream on top.",
+    "image": "images/image8",
+    "id": 8
+  },
+  {
+    "title": "Espresso Frappuccino® Blended Beverage",
+    "category": "smoothie",
+    "description": "Coffee is combined with a shot of espresso and milk, then blended with ice to give you a nice little jolt and lots of sipping joy.",
+    "image": "images/image9",
+    "id": 9
+  }
+]
