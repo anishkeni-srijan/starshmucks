@@ -117,17 +117,6 @@ class _EditProfileState extends State<EditProfile> {
                             econtroller: econtroller,
                             lbltxt: 'Email',
                           ),
-                          IconButton(
-                            onPressed: () {
-                              data[userkey].email = econtroller.text;
-                              box.putAt(userkey, data[userkey]);
-                              setState(() {});
-                            },
-                            icon: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Icon(Icons.check),
-                            ),
-                          ),
                         ],
                       ),
 
@@ -136,17 +125,6 @@ class _EditProfileState extends State<EditProfile> {
                           EditableField(
                             econtroller: phcontroller,
                             lbltxt: 'Phone',
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              data[userkey].phone = phcontroller.text;
-                              box.putAt(userkey, data[userkey]);
-                              setState(() {});
-                            },
-                            icon: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Icon(Icons.check),
-                            ),
                           ),
                         ],
                       ),
@@ -157,19 +135,26 @@ class _EditProfileState extends State<EditProfile> {
                             econtroller: ncontroller,
                             lbltxt: 'Name',
                           ),
-                          IconButton(
-                            onPressed: () {
-                              data[userkey].name = ncontroller.text;
-                              box.putAt(userkey, data[userkey]);
-                              setState(() {});
-                            },
-                            icon: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Icon(Icons.check),
-                            ),
-                          ),
                         ],
                       ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            HexColor("#175244"),
+                          ),
+                        ),
+                        onPressed: () {
+                          data[userkey].name = ncontroller.text;
+                          data[userkey].email = econtroller.text;
+                          data[userkey].phone = phcontroller.text;
+                          box.putAt(userkey, data[userkey]);
+                          setState(() {});
+                        },
+                        child: Text('UPDATE'),
+                      )
                     ],
                   ),
                 )
