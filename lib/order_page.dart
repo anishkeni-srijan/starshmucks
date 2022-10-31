@@ -85,86 +85,90 @@ getcake(context) {
     child: ListView.builder(
       itemCount: menup.cakemenudata.length,
       itemBuilder: (context, index) {
-        return Row(
-          children: [
-            SizedBox(
-              width: 10,
-            ),
-            Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent,
-                borderRadius: BorderRadius.circular(20),
+        return Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(color: Colors.white, border: Border(bottom: BorderSide(color: HexColor("#175244"), width: 1)),),
+          child: Row(
+            children: [
+              SizedBox(
+                width: 10,
               ),
-              height: MediaQuery.of(context).size.height * 0.18,
-              width: MediaQuery.of(context).size.width * 0.76,
-              child: Stack(
-                children: [
-                  Container(
-                    transform: Matrix4.translationValues(-10, 20, 0),
-                    child: Image.asset(
-                      menup.cakemenudata[index].image,
-                      width: 150,
-                      height: 150,
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      // transform: Matrix4.translationValues(-120, 10, 0),
-                      margin: EdgeInsets.only(
-                        top: 10,
-                        left: 130,
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                height: MediaQuery.of(context).size.height * 0.18,
+                width: MediaQuery.of(context).size.width * 0.76,
+                child: Stack(
+                  children: [
+                    Container(
+                      transform: Matrix4.translationValues(-10, 20, 0),
+                      child: Image.asset(
+                        menup.cakemenudata[index].image,
+                        width: 150,
+                        height: 150,
                       ),
-                      child: Text(
-                        menup.cakemenudata[index].title,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
+                    ),
+                    Container(
+                      child: Container(
+                        // transform: Matrix4.translationValues(-120, 10, 0),
+                        margin: EdgeInsets.only(
+                          top: 10,
+                          left: 130,
                         ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height*0.06,
-                      left: 130,
-                    ),
-                    child: Text(
-                      menup.cakemenudata[index].category,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    // transform: Matrix4.translationValues(-320, 40, 0),
-                    margin: EdgeInsets.only(
-                      top: 85,
-                      left: 190,
-                    ),
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text('Order Now'),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                            HexColor('#175244')),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
+                        child: Text(
+                          menup.cakemenudata[index].title,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
                           ),
                         ),
                       ),
                     ),
-                  )
-                ],
+                    Container(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height*0.06,
+                        left: 130,
+                      ),
+                      child: Text(
+                        menup.cakemenudata[index].price +   " \$ ",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      // transform: Matrix4.translationValues(-320, 40, 0),
+                      margin: EdgeInsets.only(
+                        top: 85,
+                        left: 190,
+                      ),
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text('Order Now'),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(index % 2 != 0 ? Colors.teal : Colors.deepOrangeAccent),
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Colors.white),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     ),
@@ -176,86 +180,88 @@ getsmoothie(context) {
     child: ListView.builder(
       itemCount: menup.smoothiemenudata.length,
       itemBuilder: (context, index) {
-        return Row(
-          children: [
-            SizedBox(
-              width: 10,
-            ),
-            Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent,
-                borderRadius: BorderRadius.circular(20),
+        return Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(color: Colors.white, border: Border(bottom: BorderSide(color: HexColor("#175244"), width: 1)),),
+          child: Row(
+            children: [
+              SizedBox(
+                width: 10,
               ),
-              height: MediaQuery.of(context).size.height * 0.18,
-              width: MediaQuery.of(context).size.width * 0.76,
-              child: Stack(
-                children: [
-                  Container(
-                    transform: Matrix4.translationValues(-10, 20, 0),
-                    child: Image.asset(
-                      menup.smoothiemenudata[index].image,
-                      width: 150,
-                      height: 150,
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      // transform: Matrix4.translationValues(-120, 10, 0),
-                      margin: EdgeInsets.only(
-                        top: 10,
-                        left: 130,
-                      ),
-                      child: Text(
-                        menup.smoothiemenudata[index].title,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                        ),
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                height: MediaQuery.of(context).size.height * 0.18,
+                width: MediaQuery.of(context).size.width * 0.76,
+                child: Row(
+                  children: [
+                    Container(
+                      transform: Matrix4.translationValues(-10, 10, 0),
+                      child: Image.asset(
+                        menup.smoothiemenudata[index].image,
+                        width: 150,
+                        height: 150,
                       ),
                     ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(
-                      top: 60,
-                      left: 130,
-                    ),
-                    child: Text(
-                      menup.smoothiemenudata[index].category,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    // transform: Matrix4.translationValues(-320, 40, 0),
-                    margin: EdgeInsets.only(
-                      top: 85,
-                      left: 190,
-                    ),
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text('Order Now'),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                            HexColor('#175244')),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
+                    Stack(
+                      children: [
+                        Container(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width*0.32,
+                             transform: Matrix4.translationValues(-30, 10, 0),
+                            child: Text(
+                              menup.smoothiemenudata[index].title,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                        Container(
+                          transform: Matrix4.translationValues(-30, 50, 0),
+                          child: Text(
+                          menup.smoothiemenudata[index].price +  " \$ " ,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          // transform: Matrix4.translationValues(-320, 40, 0),
+                          margin: EdgeInsets.only(
+                            top: 85,
+                            left: 20,
+                          ),
+                          child: TextButton(
+                            onPressed: () {},
+                            child: Text('Order Now'),
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color>(index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent),
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                              shape:
+                                  MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
-                  )
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     ),
@@ -267,86 +273,90 @@ getcoffee(context) {
     child: ListView.builder(
       itemCount: menup.coffeemenudata.length,
       itemBuilder: (context, index) {
-        return Row(
-          children: [
-            SizedBox(
-              width: 10,
-            ),
-            Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent,
-                borderRadius: BorderRadius.circular(20),
+        return Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(color: Colors.white, border: Border(bottom: BorderSide(color: HexColor("#175244"), width: 1)),),
+          child: Row(
+            children: [
+              SizedBox(
+                width: 10,
               ),
-              height: MediaQuery.of(context).size.height * 0.18,
-              width: MediaQuery.of(context).size.width * 0.76,
-              child: Stack(
-                children: [
-                  Container(
-                    transform: Matrix4.translationValues(-10, 20, 0),
-                    child: Image.asset(
-                      menup.coffeemenudata[index].image,
-                      width: 150,
-                      height: 150,
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      // transform: Matrix4.translationValues(-120, 10, 0),
-                      margin: EdgeInsets.only(
-                        top: 10,
-                        left: 130,
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color:  Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                height: MediaQuery.of(context).size.height * 0.18,
+                width: MediaQuery.of(context).size.width * 0.76,
+                child: Stack(
+                  children: [
+                    Container(
+                      transform: Matrix4.translationValues(-10, 20, 0),
+                      child: Image.asset(
+                        menup.coffeemenudata[index].image,
+                        width: 150,
+                        height: 150,
                       ),
-                      child: Text(
-                        menup.coffeemenudata[index].title,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
+                    ),
+                    Container(
+                      child: Container(
+                        // transform: Matrix4.translationValues(-120, 10, 0),
+                        margin: EdgeInsets.only(
+                          top: 10,
+                          left: 130,
                         ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(
-                      top: 30,
-                      left: 130,
-                    ),
-                    child: Text(
-                      menup.coffeemenudata[index].category,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    // transform: Matrix4.translationValues(-320, 40, 0),
-                    margin: EdgeInsets.only(
-                      top: 85,
-                      left: 190,
-                    ),
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text('Order Now'),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                            HexColor('#175244')),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
+                        child: Text(
+                          menup.coffeemenudata[index].title,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
                           ),
                         ),
                       ),
                     ),
-                  )
-                ],
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: 50,
+                        left: 130,
+                      ),
+                      child: Text(
+                        menup.coffeemenudata[index].price+   " \$ ",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      // transform: Matrix4.translationValues(-320, 40, 0),
+                      margin: EdgeInsets.only(
+                        top: 85,
+                        left: 190,
+                      ),
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text('Order Now'),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent),
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Colors.white),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     ),

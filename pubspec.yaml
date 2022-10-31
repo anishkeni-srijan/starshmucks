@@ -89,6 +89,8 @@ flutter:
 
   assets:
     - images/
+    - images/cakes/
+    - images/coffee/
     - assets/flags/
     - json/
   # An image asset can refer to one or more resolution-specific "variants", see
