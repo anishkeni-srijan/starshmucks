@@ -14,6 +14,13 @@ class GiftCardPage extends StatefulWidget {
 }
 
 class _GiftCardPageState extends State<GiftCardPage> {
+  late TabController tabController;
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 4, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -225,33 +232,48 @@ class _GiftCardPageState extends State<GiftCardPage> {
               ),
             ),
           ),
-          Container(
-            child: DefaultTabController(
-              length: 4,
-              child: TabBar(
-                labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                indicatorSize: TabBarIndicatorSize.label,
-                indicatorColor: Colors.lightGreen, //underline
-                labelColor: Colors.white,
-                unselectedLabelColor: Colors.grey,
-                isScrollable: true,
-                tabs: [
-                  Tab(
-                    text: 'ALL',
+          DefaultTabController(
+            initialIndex: 1,
+            length: 4,
+            child: Column(
+              children: [
+                TabBar(
+                  controller: tabController,
+                  labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                  indicatorSize: TabBarIndicatorSize.label,
+                  indicatorColor: Colors.lightGreen, //underline
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Colors.grey,
+                  tabs: [
+                    Tab(
+                      text: 'ALL',
+                    ),
+                    Tab(
+                      text: 'FEATURED',
+                    ),
+                    Tab(
+                      text: 'CONGRATULATIONS',
+                    ),
+                    Tab(
+                      text: 'THANK YOU',
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: TabBarView(
+                    controller: tabController,
+                    children: [
+                      Text("yfvwdgcbhnj"),
+                      Text("yfvwdgcbhnj"),
+                      Text("yfvwdgcbhnj"),
+                      Text("yfvwdgcbhnj"),
+                      Text("yfvwdgcbhnj"),
+                    ],
                   ),
-                  Tab(
-                    text: 'FEATURED',
-                  ),
-                  Tab(
-                    text: 'CONGRATULATIONS',
-                  ),
-                  Tab(
-                    text: 'THANK YOU',
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          )
+          ),
         ],
       ),
     );
