@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:starshmucks/money.dart';
 import 'package:starshmucks/order_page.dart';
 
-import '/gift_card_page.dart';
 import '/home_screen.dart';
 import '/user_profile.dart';
+import 'gift_card.dart';
 
 Widget getbottombar(BuildContext context) {
   bool homeroute;
@@ -54,7 +54,7 @@ Widget getbottombar(BuildContext context) {
                 ),
                 onPressed: () {
                   Get.to(
-                    GiftCardPage(),
+                    GiftCard(),
                     transition: Transition.rightToLeft,
                   );
                   homeroute = false;
@@ -147,7 +147,7 @@ orderbutton() {
     elevation: 10,
     backgroundColor: Color(0xffb036635),
     onPressed: () {
-      Get.to(OrderPage(),transition: Transition.downToUp);
+      Get.to(OrderPage(), transition: Transition.downToUp);
     },
     child: Icon(
       Icons.coffee_maker_outlined,
@@ -155,4 +155,3 @@ orderbutton() {
     ), //icon inside button
   );
 }
-
