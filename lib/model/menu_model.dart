@@ -5,12 +5,14 @@ class Menu {
     required this.description,
     required this.image,
     required this.id,
+    required this.rating,
   });
 
   String title;
   String price;
   String description;
   String image;
+  String rating;
   int id;
 
   factory Menu.fromJson(Map<String, dynamic> json) => Menu(
@@ -19,5 +21,6 @@ class Menu {
     description: json["description"],
     image: json["image"],
     id: json["id"],
+    rating: json["rating"]
   );
 }

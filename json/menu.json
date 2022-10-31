@@ -6,45 +6,52 @@
         "price": "2.99",
         "description": "Rich chocolate brownie with generous chunks of semisweet chocolate.- VEGETARIAN",
         "image": "images/cakes/brownie.png",
-        "id": 4
+        "id": 4,
+        "rating": "4.0"
       },
       {
         "title": "Tiramisu Torte",
         "price": "7",
         "description": "A coffee-flavoured Italian dessert. It is made of ladyfingers dipped in coffee, layered with a whipped mixture of eggs, sugar, and mascarpone cheese, flavoured with cocoa.",
         "image": "images/cakes/tiramisu.png",
-        "id": 5
+        "id": 5,
+        "rating": "4.0"
       },
       {
         "title": "Jam Filled Berliner with Cinnamon",
         "price": "4.5",
         "description": "Classically filled with jam, the round yeast pastries, which depending on the region are also known as crepes, pancakes and donuts",
         "image": "images/cakes/berliner.png",
-        "id": 6
+        "id": 6,
+        "rating": "4.0"
       }
     ],
 
     "coffee": [
       {
+
         "title": "Caffè Americano",
         "price": "4",
         "description": "Espresso shots topped with hot water create a light layer of crema culminating in this wonderfully rich cup with depth and nuance.",
         "image": "images/coffee/americano.png",
-        "id": 1
+        "id": 1,
+        "rating": "4.0"
       },
       {
         "title": "Dark Chocolate Mocha",
         "price": "6",
         "description": "Our small-lot  espresso combined with cocoa, ground chocolate and topped with steamed milk delivers a brilliant combination of sweetness.",
         "image": "images/coffee/mocha.png",
-        "id": 2
+        "id": 2,
+        "rating": "4.0"
       },
       {
         "title": "Latte macchiato",
-        "price": "5",
+        "price": "5.99",
         "description": "Handcrafted in small batches daily, slow-steeped in cool water for 20 hours, without touching Cold Brew is made from our custom blend of beans grown to steep long and cold for a super-smooth flavor.",
         "image": "images/coffee/latte.png",
-        "id": 3
+        "id": 3,
+        "rating": "4.0"
       }
     ],
 
@@ -54,21 +61,24 @@
         "price": "10",
         "description": "We blend mocha sauce and Frappuccino® chips with coffee, milk and ice, then top it off with whipped cream and a mocha drizzle to bring you endless java joy.",
         "image": "images/christmas.png",
-        "id": 7
+        "id": 7,
+        "rating": "4.0"
       },
       {
         "title": "Berries and Cherries",
         "price": "8.99",
         "description": "White chocolate, Blue berries, Strawberries, milk and ice get together for what might be the best thing that happens to you all day.",
         "image": "images/buytwo.png",
-        "id": 8
+        "id": 8,
+        "rating": "4.0"
       },
       {
         "title": "Schtrawberry",
         "price": "7",
         "description": "Our homegrown Schtrawberries and milk, then blended with ice to give you a nice little jolt and lots of sipping joy.",
         "image": "images/seasonal.png",
-        "id": 9
+        "id": 9,
+        "rating": "4.0"
       }
     ]
   }
