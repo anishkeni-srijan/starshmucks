@@ -3,17 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-import 'commonthings.dart';
 import 'home_screen.dart';
 
-class GiftCardPage extends StatefulWidget {
-  const GiftCardPage({Key? key}) : super(key: key);
+class GiftCard extends StatefulWidget {
+  const GiftCard({Key? key}) : super(key: key);
 
   @override
-  State<GiftCardPage> createState() => _GiftCardPageState();
+  State<GiftCard> createState() => _GiftCardState();
 }
 
-class _GiftCardPageState extends State<GiftCardPage> {
+class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
   late TabController tabController;
   @override
   void initState() {
@@ -23,18 +22,14 @@ class _GiftCardPageState extends State<GiftCardPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: gethomeappbar(),
-      floatingActionButton: orderbutton(),
-      bottomNavigationBar: getbottombar(context),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      backgroundColor: HexColor("#175244"),
-      body: Column(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * .28,
-            color: Colors.white,
-            child: SingleChildScrollView(
+    return DefaultTabController(
+      initialIndex: 1,
+      length: 4,
+      child: Scaffold(
+        appBar: gethomeappbar(),
+        body: Column(
+          children: [
+            SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Column(
                 children: [
@@ -231,50 +226,43 @@ class _GiftCardPageState extends State<GiftCardPage> {
                 ],
               ),
             ),
-          ),
-          DefaultTabController(
-            initialIndex: 1,
-            length: 4,
-            child: Column(
-              children: [
-                TabBar(
-                  controller: tabController,
-                  labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                  indicatorSize: TabBarIndicatorSize.label,
-                  indicatorColor: Colors.lightGreen, //underline
-                  labelColor: Colors.white,
-                  unselectedLabelColor: Colors.grey,
-                  tabs: [
-                    Tab(
-                      text: 'ALL',
-                    ),
-                    Tab(
-                      text: 'FEATURED',
-                    ),
-                    Tab(
-                      text: 'CONGRATULATIONS',
-                    ),
-                    Tab(
-                      text: 'THANK YOU',
-                    ),
-                  ],
+            TabBar(
+              controller: tabController,
+              labelStyle: TextStyle(fontWeight: FontWeight.bold),
+              // indicatorSize: TabBarIndicatorSize.label,
+              indicatorColor: HexColor("#175244"),
+
+              labelColor: Colors.black,
+              // unselectedLabelColor: Colors.black,
+              isScrollable: true,
+              tabs: <Widget>[
+                Tab(
+                  text: 'ALL',
                 ),
-                Expanded(
-                  child: TabBarView(
-                    controller: tabController,
-                    children: [
-                      Text("yfvwdgcbhnj"),
-                      Text("yfvwdgcbhnj"),
-                      Text("yfvwdgcbhnj"),
-                      Text("yfvwdgcbhnj"),
-                      Text("yfvwdgcbhnj"),
-                    ],
-                  ),
+                Tab(
+                  text: 'FEATURED',
+                ),
+                Tab(
+                  text: 'CONGRATULATIONS',
+                ),
+                Tab(
+                  text: 'THANK YOU',
                 ),
               ],
             ),
-          ),
-        ],
+            Expanded(
+              child: TabBarView(
+                controller: tabController,
+                children: const <Widget>[
+                  Text("yfvwdgcbhnj1"),
+                  Text("yfvwdgcbhnj2"),
+                  Text("yfvwdgcbhnj3"),
+                  Text("yfvwdgcbhnj4"),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
