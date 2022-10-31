@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-import 'package:starshmucks/home_screen.dart';
-import 'package:starshmucks/providers/menu_provider.dart';
+
+import '/home_screen.dart';
+import '/providers/menu_provider.dart';
 import 'commonthings.dart';
 
 class OrderPage extends StatefulWidget {
@@ -21,6 +21,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
     super.initState();
     tabController = TabController(length: 3, vsync: this);
   }
+
   @override
   Widget build(BuildContext context) {
     final menup = Provider.of<Menudata>(context);
@@ -60,14 +61,13 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
             ),
             Expanded(
               child: TabBarView(
-                  controller: tabController,
-                  children:  <Widget>[
-                    getcoffee(context),
-                   getcake(context),
-                    getsmoothie(context),
-
-                  ],
-                ),
+                controller: tabController,
+                children: <Widget>[
+                  getcoffee(context),
+                  getcake(context),
+                  getsmoothie(context),
+                ],
+              ),
             ),
           ],
         ),
@@ -81,99 +81,102 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
 
 getcake(context) {
   final menup = Provider.of<Menudata>(context);
-  return Container(
-    child: ListView.builder(
-      itemCount: menup.cakemenudata.length,
-      itemBuilder: (context, index) {
-        return Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(color: Colors.white, border: Border(bottom: BorderSide(color: HexColor("#175244"), width: 1)),),
-          child: Row(
-            children: [
-              SizedBox(
-                width: 10,
+  return ListView.builder(
+    itemCount: menup.cakemenudata.length,
+    itemBuilder: (context, index) {
+      return Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border:
+              Border(bottom: BorderSide(color: HexColor("#175244"), width: 1)),
+        ),
+        child: Row(
+          children: [
+            const SizedBox(
+              width: 10,
+            ),
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
               ),
-              Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                height: MediaQuery.of(context).size.height * 0.18,
-                width: MediaQuery.of(context).size.width * 0.76,
-                child: Stack(
-                  children: [
-                    Container(
-                      transform: Matrix4.translationValues(-10, 20, 0),
-                      child: Image.asset(
-                        menup.cakemenudata[index].image,
-                        width: 150,
-                        height: 150,
+              height: MediaQuery.of(context).size.height * 0.18,
+              width: MediaQuery.of(context).size.width * 0.76,
+              child: Stack(
+                children: [
+                  Container(
+                    transform: Matrix4.translationValues(-10, 20, 0),
+                    child: Image.asset(
+                      menup.cakemenudata[index].image,
+                      width: 150,
+                      height: 150,
+                    ),
+                  ),
+                  Container(
+                    // transform: Matrix4.translationValues(-120, 10, 0),
+                    margin: EdgeInsets.only(
+                      top: 10,
+                      left: 130,
+                    ),
+                    child: Text(
+                      menup.cakemenudata[index].title,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
                       ),
                     ),
-                    Container(
-                      child: Container(
-                        // transform: Matrix4.translationValues(-120, 10, 0),
-                        margin: EdgeInsets.only(
-                          top: 10,
-                          left: 130,
-                        ),
-                        child: Text(
-                          menup.cakemenudata[index].title,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.06,
+                      left: 130,
+                    ),
+                    child: Text(
+                      menup.cakemenudata[index].price + " \$ ",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    // transform: Matrix4.translationValues(-320, 40, 0),
+                    margin: EdgeInsets.only(
+                      top: 85,
+                      left: 190,
+                    ),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text('Order Now'),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            index % 2 != 0
+                                ? Colors.teal
+                                : Colors.deepOrangeAccent),
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
                           ),
                         ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height*0.06,
-                        left: 130,
-                      ),
-                      child: Text(
-                        menup.cakemenudata[index].price +   " \$ ",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      // transform: Matrix4.translationValues(-320, 40, 0),
-                      margin: EdgeInsets.only(
-                        top: 85,
-                        left: 190,
-                      ),
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text('Order Now'),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(index % 2 != 0 ? Colors.teal : Colors.deepOrangeAccent),
-                          foregroundColor: MaterialStateProperty.all<Color>(
-                              Colors.white),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
-            ],
-          ),
-        );
-      },
-    ),
+            ),
+          ],
+        ),
+      );
+    },
   );
 }
+
 getsmoothie(context) {
   final menup = Provider.of<Menudata>(context);
   return Container(
@@ -182,7 +185,11 @@ getsmoothie(context) {
       itemBuilder: (context, index) {
         return Container(
           padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(color: Colors.white, border: Border(bottom: BorderSide(color: HexColor("#175244"), width: 1)),),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border(
+                bottom: BorderSide(color: HexColor("#175244"), width: 1)),
+          ),
           child: Row(
             children: [
               SizedBox(
@@ -210,8 +217,8 @@ getsmoothie(context) {
                       children: [
                         Container(
                           child: Container(
-                            width: MediaQuery.of(context).size.width*0.32,
-                             transform: Matrix4.translationValues(-30, 10, 0),
+                            width: MediaQuery.of(context).size.width * 0.32,
+                            transform: Matrix4.translationValues(-30, 10, 0),
                             child: Text(
                               menup.smoothiemenudata[index].title,
                               style: TextStyle(
@@ -224,7 +231,7 @@ getsmoothie(context) {
                         Container(
                           transform: Matrix4.translationValues(-30, 50, 0),
                           child: Text(
-                          menup.smoothiemenudata[index].price +  " \$ " ,
+                            menup.smoothiemenudata[index].price + " \$ ",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 18,
@@ -242,12 +249,14 @@ getsmoothie(context) {
                             onPressed: () {},
                             child: Text('Order Now'),
                             style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all<Color>(index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  index % 2 == 0
+                                      ? Colors.teal
+                                      : Colors.deepOrangeAccent),
                               foregroundColor: MaterialStateProperty.all<Color>(
                                   Colors.white),
-                              shape:
-                                  MaterialStateProperty.all<RoundedRectangleBorder>(
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0),
                                 ),
@@ -267,6 +276,7 @@ getsmoothie(context) {
     ),
   );
 }
+
 getcoffee(context) {
   final menup = Provider.of<Menudata>(context);
   return Container(
@@ -275,7 +285,11 @@ getcoffee(context) {
       itemBuilder: (context, index) {
         return Container(
           padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(color: Colors.white, border: Border(bottom: BorderSide(color: HexColor("#175244"), width: 1)),),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border(
+                bottom: BorderSide(color: HexColor("#175244"), width: 1)),
+          ),
           child: Row(
             children: [
               SizedBox(
@@ -284,7 +298,7 @@ getcoffee(context) {
               Container(
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color:  Colors.white,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 height: MediaQuery.of(context).size.height * 0.18,
@@ -321,7 +335,7 @@ getcoffee(context) {
                         left: 130,
                       ),
                       child: Text(
-                        menup.coffeemenudata[index].price+   " \$ ",
+                        menup.coffeemenudata[index].price + " \$ ",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -339,10 +353,12 @@ getcoffee(context) {
                         onPressed: () {},
                         child: Text('Order Now'),
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent),
-                          foregroundColor: MaterialStateProperty.all<Color>(
-                              Colors.white),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              index % 2 == 0
+                                  ? Colors.teal
+                                  : Colors.deepOrangeAccent),
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(

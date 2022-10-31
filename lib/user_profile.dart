@@ -40,7 +40,10 @@ class _UserProfileState extends State<UserProfile> {
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
-        title: Text("Profile", style: TextStyle(color: HexColor("#175244")),),
+        title: Text(
+          "Profile",
+          style: TextStyle(color: HexColor("#175244")),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         automaticallyImplyLeading: false,
@@ -48,13 +51,15 @@ class _UserProfileState extends State<UserProfile> {
           IconButton(
             onPressed: () {},
             icon: Icon(
-              Icons.notifications,color: HexColor("#175244"),
+              Icons.notifications,
+              color: HexColor("#175244"),
             ),
           ),
           IconButton(
             onPressed: () {},
-            icon:  Icon(
-              Icons.settings,color: HexColor("#175244"),
+            icon: Icon(
+              Icons.settings,
+              color: HexColor("#175244"),
             ),
           )
         ],
@@ -71,7 +76,7 @@ class _UserProfileState extends State<UserProfile> {
           return SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
@@ -92,7 +97,7 @@ class _UserProfileState extends State<UserProfile> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Align(
@@ -115,7 +120,7 @@ class _UserProfileState extends State<UserProfile> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -138,31 +143,31 @@ class _UserProfileState extends State<UserProfile> {
                         },
                         icon: Icons.account_circle_outlined,
                       ),
-                      DividerForTiles(),
+                      const DividerForTiles(),
                       profileTile(
                         text: 'Orders',
                         press: () {},
                         icon: Icons.coffee_outlined,
                       ),
-                      DividerForTiles(),
+                      const DividerForTiles(),
                       profileTile(
                         text: 'Rewards',
                         press: () {},
                         icon: Icons.star_outline_sharp,
                       ),
-                      DividerForTiles(),
+                      const DividerForTiles(),
                       profileTile(
                         text: 'Payment Mode',
                         press: () {},
                         icon: Icons.attach_money_sharp,
                       ),
-                      DividerForTiles(),
+                      const DividerForTiles(),
                       profileTile(
                         text: 'Help',
                         press: () {},
                         icon: Icons.help_outline_rounded,
                       ),
-                      DividerForTiles(),
+                      const DividerForTiles(),
                       profileTile(
                         text: 'Logout',
                         press: () async {
@@ -235,16 +240,17 @@ class profileTile extends StatelessWidget {
               size: 30,
               color: HexColor("#036635"),
             ),
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             Expanded(
               child: Text(
                 text,
                 style: TextStyle(
-                    color: HexColor("#036635"),
-                    fontWeight: FontWeight.w300,
-                    fontSize: 20),
+                  color: HexColor("#036635"),
+                  fontWeight: FontWeight.w300,
+                  fontSize: 20,
+                ),
               ),
             ),
             Icon(

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
-import 'package:starshmucks/money.dart';
-import 'package:starshmucks/order_page.dart';
 
 import '/home_screen.dart';
 import '/user_profile.dart';
 import 'gift_card.dart';
+import '/money.dart';
+import '/order_page.dart';
 
 Widget getbottombar(BuildContext context) {
   bool homeroute;
@@ -27,7 +27,7 @@ Widget getbottombar(BuildContext context) {
     ),
     child: ClipRRect(
       child: BottomAppBar(
-        child: new Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(

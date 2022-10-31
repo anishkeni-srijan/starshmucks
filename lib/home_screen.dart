@@ -135,15 +135,15 @@ gethomeappbar() {
 getbanner(context, username) {
   return Container(
     height: MediaQuery.of(context).size.height * 0.2,
-    decoration: new BoxDecoration(
+    decoration: BoxDecoration(
       color: HexColor("#175244"),
-      image: new DecorationImage(
+      image: DecorationImage(
         fit: BoxFit.cover,
-        colorFilter: new ColorFilter.mode(
+        colorFilter: ColorFilter.mode(
           Colors.black.withOpacity(0.05),
           BlendMode.dstATop,
         ),
-        image: new ExactAssetImage('images/shmucks.png'),
+        image: ExactAssetImage('images/shmucks.png'),
       ),
     ),
     child: Column(
@@ -151,7 +151,7 @@ getbanner(context, username) {
         Container(
           transform: Matrix4.translationValues(0, 28, 0),
           child: Text(
-            'Hi ' + username + '!',
+            '${'Hi ' + username}!',
             style: TextStyle(
               color: Colors.white,
               fontSize: 20,

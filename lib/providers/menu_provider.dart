@@ -1,35 +1,28 @@
-
 import 'package:flutter/material.dart';
-import 'package:starshmucks/repo/learnmore_repo.dart';
 
-import '../model/Learnmore_model.dart';
 import '../model/menu_model.dart';
 import '../repo/menu_repo.dart';
 
-
-
-
-class Menudata extends ChangeNotifier{
-
+class Menudata extends ChangeNotifier {
   late List<Menu> cakemenudata = [];
   late List<Menu> coffeemenudata = [];
   late List<Menu> smoothiemenudata = [];
 
-  cakefetchData(context) async{
+  cakefetchData(context) async {
     cakemenudata = await getcakedata(context);
     print(cakemenudata.length);
     notifyListeners();
   }
-  coffeefetchData(context) async{
+
+  coffeefetchData(context) async {
     coffeemenudata = await getcoffeedata(context);
     print(cakemenudata.length);
     notifyListeners();
   }
-  smoothiefetchData(context) async{
+
+  smoothiefetchData(context) async {
     smoothiemenudata = await getsmoothiedata(context);
     print(cakemenudata.length);
     notifyListeners();
   }
-
 }
-

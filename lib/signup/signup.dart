@@ -9,7 +9,6 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import '/model/user_model.dart';
 import '/signup/bloc/signup_bloc.dart';
 import '/signup/bloc/signup_events.dart';
-
 import '../boxes.dart';
 import '../signin/signin.dart';
 import 'bloc/signup_states.dart';
