@@ -38,185 +38,24 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
                       SizedBox(
                         width: 10,
                       ),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: HexColor("#ede38c"),
-                            borderRadius: BorderRadius.circular(20)),
-                        height: MediaQuery.of(context).size.height * 0.25,
-                        width: MediaQuery.of(context).size.width * 0.79,
-                        child: Stack(
-                          children: [
-                            Container(
-                              transform: Matrix4.translationValues(5, 12, 0),
-                              child: Image.asset(
-                                'images/giftdiwali.png',
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                            Container(
-                              child: Container(
-                                transform:
-                                    Matrix4.translationValues(100, 10, 0),
-                                child: Text(
-                                  'Celebrate With Starshmucks',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              transform: Matrix4.translationValues(
-                                100,
-                                40,
-                                0,
-                              ),
-                              child: AutoSizeText(
-                                'Gift For Diwali.\nYou can gift this to your \nsister for Bhai Dooj',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            ),
-                            Container(
-                              transform: Matrix4.translationValues(30, 130, 0),
-                              child: AutoSizeText(
-                                'Starting from',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              transform: Matrix4.translationValues(30, 145, 0),
-                              child: AutoSizeText(
-                                'Rs.659.00',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Container(
-                              transform: Matrix4.translationValues(200, 120, 0),
-                              child: TextButton(
-                                onPressed: () {},
-                                child: Text('Gift Now'),
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          HexColor("#175244")),
-                                  foregroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.white),
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                      giftCardDesign(
+                        image: 'images/giftdiwali.png',
+                        giftCardText:
+                            'Gift For Diwali.You can gift this to your sister for Bhai Dooj',
+                        price: 'Rs 659.00',
+                        titleText: 'Celebrate With Starshmucks',
+                        press: () {},
                       ),
                       SizedBox(
                         width: 10,
                       ),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: HexColor("#ede38c"),
-                            borderRadius: BorderRadius.circular(20)),
-                        height: MediaQuery.of(context).size.height * 0.25,
-                        width: MediaQuery.of(context).size.width * 0.79,
-                        child: Stack(
-                          children: [
-                            Container(
-                              transform: Matrix4.translationValues(5, 12, 0),
-                              child: Image.asset(
-                                'images/giftdiwali2.png',
-                                width: 100,
-                                height: 100,
-                              ),
-                            ),
-                            Container(
-                              child: Container(
-                                transform:
-                                    Matrix4.translationValues(100, 10, 0),
-                                child: Text(
-                                  'Celebrate With Starshmucks',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              transform: Matrix4.translationValues(
-                                100,
-                                40,
-                                0,
-                              ),
-                              child: AutoSizeText(
-                                'Gift For Diwali.\nYou can gift this to your \nsister for Bhai Dooj',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            ),
-                            Container(
-                              transform: Matrix4.translationValues(30, 130, 0),
-                              child: AutoSizeText(
-                                'Starting from',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              transform: Matrix4.translationValues(30, 145, 0),
-                              child: AutoSizeText(
-                                'Rs.999.00',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Container(
-                              transform: Matrix4.translationValues(200, 120, 0),
-                              child: TextButton(
-                                onPressed: () {},
-                                child: Text('Gift Now'),
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          HexColor("#175244")),
-                                  foregroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.white),
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                      giftCardDesign(
+                        image: 'images/giftdiwali2.png',
+                        giftCardText:
+                            'Gift For Diwali.You can gift this to your sister for Bhai Dooj',
+                        price: 'Rs.999.00',
+                        titleText: 'Celebrate With Starshmucks',
+                        press: () {},
                       ),
                       SizedBox(
                         width: 10,
@@ -263,6 +102,110 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class giftCardDesign extends StatelessWidget {
+  const giftCardDesign({
+    Key? key,
+    required this.image,
+    required this.giftCardText,
+    required this.price,
+    required this.titleText,
+    required this.press,
+  }) : super(key: key);
+  final String image;
+  final String titleText;
+  final String giftCardText;
+
+  final VoidCallback press;
+  final String price;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          color: HexColor("#ede38c"), borderRadius: BorderRadius.circular(20)),
+      height: MediaQuery.of(context).size.height * 0.25,
+      width: MediaQuery.of(context).size.width * 0.79,
+      child: Stack(
+        children: [
+          Container(
+            transform: Matrix4.translationValues(5, 12, 0),
+            child: Image.asset(
+              image,
+              width: 100,
+              height: 100,
+              fit: BoxFit.fill,
+            ),
+          ),
+          Container(
+            child: Container(
+              transform: Matrix4.translationValues(100, 10, 0),
+              child: Text(
+                titleText,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: 200,
+            transform: Matrix4.translationValues(
+              100,
+              40,
+              0,
+            ),
+            child: Text(
+              giftCardText,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800),
+            ),
+          ),
+          Container(
+            transform: Matrix4.translationValues(30, 130, 0),
+            child: AutoSizeText(
+              'Starting from',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 12,
+              ),
+            ),
+          ),
+          Container(
+            transform: Matrix4.translationValues(30, 145, 0),
+            child: AutoSizeText(
+              price,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          Container(
+            transform: Matrix4.translationValues(200, 120, 0),
+            child: TextButton(
+              onPressed: press,
+              child: Text('Gift Now'),
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(HexColor("#175244")),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

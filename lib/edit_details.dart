@@ -176,6 +176,7 @@ class EditableField extends StatelessWidget {
 
   final TextEditingController econtroller;
   final String lbltxt;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
