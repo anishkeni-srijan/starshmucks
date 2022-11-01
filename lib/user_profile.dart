@@ -20,7 +20,7 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   getemail() async {
     final keypref = await SharedPreferences.getInstance();
-    userkey = keypref.getInt('userkey');
+    userkey = keypref.getInt('userkey')!;
     setState(() {});
     print(userkey);
   }
@@ -42,8 +42,8 @@ class _UserProfileState extends State<UserProfile> {
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
           final data = box.values.toList().cast<UserData>();
-          print("pass  " + data[userkey]!.password);
-          print("email  " + data[userkey]!.email);
+          print("pass  " + data[userkey].password);
+          print("email  " + data[userkey].email);
 
           return SingleChildScrollView(
             child: Column(

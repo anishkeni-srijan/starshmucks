@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
           final data = box.values.toList().cast<UserData>();
-          username = data[userkey]!.name;
+          username = data[userkey].name;
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -284,6 +284,76 @@ getbanner(context, username) {
   );
 }
 
+getofferdetails(context, index){
+  final offersp = Provider.of<OffersData>(context, listen: false);
+  return showModalBottomSheet<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height*0.75,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Image.asset(offersp.offerdata[index].image, width: MediaQuery.of(context).size.width*0.52,height: MediaQuery.of(context).size.height*0.52,),
+              Container(  margin:EdgeInsets.all(20),
+                  alignment: Alignment.centerLeft,
+              child: AutoSizeText(offersp.offerdata[index].title)),
+              Container(margin:EdgeInsets.only(left: 20,right: 20),
+                  alignment: Alignment.centerLeft,child: AutoSizeText(offersp.offerdata[index].desc)),
+              Container(
+                  margin:EdgeInsets.only(left: 20,right: 20),
+                  alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    AutoSizeText("\$"+offersp.offerdata[index].price),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.52 ,),
+                    ElevatedButton(onPressed: (){}, child: Text('Order Now')),
+                  ],
+                ),
+              )
+
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+getnowservedetails(context, index){
+  final offersp = Provider.of<NowServing>(context, listen: false);
+  return showModalBottomSheet<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height*0.75,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Image.asset(offersp.nowdata[index].image, width: MediaQuery.of(context).size.width*0.52,height: MediaQuery.of(context).size.height*0.52,),
+          Container(margin:EdgeInsets.all(20),
+            alignment: Alignment.centerLeft,child: AutoSizeText(offersp.nowdata[index].title)),
+          Container(margin:EdgeInsets.only(left: 20,right: 20),
+            alignment: Alignment.centerLeft,child:   AutoSizeText(offersp.nowdata[index].desc), ),
+            Container(margin:EdgeInsets.only(left: 20,right: 20),
+        alignment: Alignment.centerLeft,child:  Row(
+                children: [
+                  AutoSizeText('\$'+offersp.nowdata[index].price),
+                  SizedBox(width: MediaQuery.of(context).size.width*0.52 ,),
+                  ElevatedButton(onPressed: (){}, child: Text('Order Now')),
+                ],
+              )),
+
+
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
 getoffers(context) {
   final offersp = Provider.of<OffersData>(context);
   return SizedBox(
@@ -297,78 +367,81 @@ getoffers(context) {
             SizedBox(
               width: 10,
             ),
-            Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              height: MediaQuery.of(context).size.height * 0.18,
-              width: MediaQuery.of(context).size.width * 0.76,
-              child: Stack(
-                children: [
-                  Container(
-                    transform: Matrix4.translationValues(-10, 20, 0),
-                    child: Image.asset(
-                      offersp.offerdata[index].image,
-                      width: 150,
-                      height: 150,
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      // transform: Matrix4.translationValues(-120, 10, 0),
-                      margin: EdgeInsets.only(
-                        top: 10,
-                        left: 130,
+            GestureDetector(
+              onTap:(){ getofferdetails(context, index);},
+              child: Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                height: MediaQuery.of(context).size.height * 0.18,
+                width: MediaQuery.of(context).size.width * 0.76,
+                child: Stack(
+                  children: [
+                    Container(
+                      transform: Matrix4.translationValues(-10, 20, 0),
+                      child: Image.asset(
+                        offersp.offerdata[index].image,
+                        width: 150,
+                        height: 150,
                       ),
-                      child: Text(
-                        offersp.offerdata[index].offer,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
+                    ),
+                    Container(
+                      child: Container(
+                        // transform: Matrix4.translationValues(-120, 10, 0),
+                        margin: EdgeInsets.only(
+                          top: 10,
+                          left: 130,
                         ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(
-                      top: 30,
-                      left: 130,
-                    ),
-                    child: Text(
-                      offersp.offerdata[index].title,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    // transform: Matrix4.translationValues(-320, 40, 0),
-                    margin: EdgeInsets.only(
-                      top: 85,
-                      left: 190,
-                    ),
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text('Order Now'),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                            HexColor('#175244')),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
+                        child: Text(
+                          offersp.offerdata[index].offer,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
                           ),
                         ),
                       ),
                     ),
-                  )
-                ],
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: 30,
+                        left: 130,
+                      ),
+                      child: Text(
+                        offersp.offerdata[index].title,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      // transform: Matrix4.translationValues(-320, 40, 0),
+                      margin: EdgeInsets.only(
+                        top: 85,
+                        left: 190,
+                      ),
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text('Order Now'),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              HexColor('#175244')),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ],
@@ -392,78 +465,83 @@ nowserving(context) {
             SizedBox(
               width: 10,
             ),
-            Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: index % 2 == 0 ? Colors.deepOrangeAccent : Colors.teal,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              height: MediaQuery.of(context).size.height * 0.18,
-              width: MediaQuery.of(context).size.width * 0.76,
-              child: Stack(
-                children: [
-                  Container(
-                    transform: Matrix4.translationValues(-10, 20, 0),
-                    child: Image.asset(
-                      nowservep.nowdata[index].image,
-                      width: 150,
-                      height: 150,
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      // transform: Matrix4.translationValues(-120, 10, 0),
-                      margin: EdgeInsets.only(
-                        top: 10,
-                        left: 130,
+            GestureDetector(
+              onTap: (){
+                getnowservedetails(context,index);
+              },
+              child: Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: index % 2 == 0 ? Colors.deepOrangeAccent : Colors.teal,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                height: MediaQuery.of(context).size.height * 0.18,
+                width: MediaQuery.of(context).size.width * 0.76,
+                child: Stack(
+                  children: [
+                    Container(
+                      transform: Matrix4.translationValues(-10, 20, 0),
+                      child: Image.asset(
+                        nowservep.nowdata[index].image,
+                        width: 150,
+                        height: 150,
                       ),
-                      child: Text(
-                        nowservep.nowdata[index].title,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
+                    ),
+                    Container(
+                      child: Container(
+                        // transform: Matrix4.translationValues(-120, 10, 0),
+                        margin: EdgeInsets.only(
+                          top: 10,
+                          left: 130,
                         ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(
-                      top: 30,
-                      left: 130,
-                    ),
-                    child: Text(
-                      nowservep.nowdata[index].tag,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    // transform: Matrix4.translationValues(-320, 40, 0),
-                    margin: EdgeInsets.only(
-                      top: 85,
-                      left: 190,
-                    ),
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text('Order Now'),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                            HexColor('#175244')),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
+                        child: Text(
+                          nowservep.nowdata[index].title,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
                           ),
                         ),
                       ),
                     ),
-                  )
-                ],
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: 30,
+                        left: 130,
+                      ),
+                      child: Text(
+                        nowservep.nowdata[index].tag,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      // transform: Matrix4.translationValues(-320, 40, 0),
+                      margin: EdgeInsets.only(
+                        top: 85,
+                        left: 190,
+                      ),
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text('Order Now'),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              HexColor('#175244')),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ],

@@ -32,7 +32,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
       initialIndex: 1,
       length: 3,
       child: Scaffold(
-
+        backgroundColor: Colors.white,
         body: Column(
           children: [
             TabBar(
@@ -79,13 +79,14 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
 
 getcoffee(context) {
   final menup = Provider.of<Menudata>(context);
-  return Container(
-    child: ListView.builder(
-      itemCount: menup.coffeemenudata.length,
-      itemBuilder: (context, index) {
-        return Container(
+  return ListView.builder(
+    itemCount: menup.coffeemenudata.length,
+    itemBuilder: (context, index) {
+      return GestureDetector(
+        onTap: (){getcoffeedetails(context, index);},
+        child: Container(
           height: MediaQuery.of(context).size.height * 0.18,
-          decoration: BoxDecoration(color: Colors.white, border: Border(bottom: BorderSide(color: HexColor("#175244"), width: 1)),),
+          decoration: BoxDecoration(color: Colors.white, border: Border(bottom: BorderSide(color: HexColor("#175244"), width: 0.2)),),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start, //change here don't //worked
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -161,21 +162,22 @@ getcoffee(context) {
               ),
             ],
           ),
-        );
-      },
-    ),
+        ),
+      );
+    },
   );
 }
 
 getcake(context) {
   final menup = Provider.of<Menudata>(context);
-  return Container(
-    child: ListView.builder(
-      itemCount: menup.cakemenudata.length,
-      itemBuilder: (context, index) {
-        return Container(
+  return ListView.builder(
+    itemCount: menup.cakemenudata.length,
+    itemBuilder: (context, index) {
+      return GestureDetector(
+        onTap: (){getcakedetails(context, index);},
+        child: Container(
           height: MediaQuery.of(context).size.height * 0.18,
-          decoration: BoxDecoration(color: Colors.white, border: Border(bottom: BorderSide(color: HexColor("#175244"), width: 1)),),
+          decoration: BoxDecoration(color: Colors.white, border: Border(bottom: BorderSide(color: HexColor("#175244"), width: 0.2)),),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start, //change here don't //worked
 
@@ -253,20 +255,23 @@ getcake(context) {
               ),
             ],
           ),
-        );
-      },
-    ),
+        ),
+      );
+    },
   );
 }
 getsmoothie(context) {
   final menup = Provider.of<Menudata>(context);
-  return Container(
-    child: ListView.builder(
-      itemCount: menup.smoothiemenudata.length,
-      itemBuilder: (context, index) {
-        return Container(
+  return ListView.builder(
+    itemCount: menup.smoothiemenudata.length,
+    itemBuilder: (context, index) {
+      return GestureDetector(
+        onTap: () {
+        getsmoothiedetails(context,index);
+      },
+        child: Container(
           height: MediaQuery.of(context).size.height * 0.18,
-          decoration: BoxDecoration(color: Colors.white, border: Border(bottom: BorderSide(color: HexColor("#175244"), width: 1)),),
+          decoration: BoxDecoration(color: Colors.white, border: Border(bottom: BorderSide(color: HexColor("#175244"), width: 0.2)),),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start, //change here don't //worked
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -341,8 +346,117 @@ getsmoothie(context) {
               ),
             ],
           ),
-        );
-      },
-    ),
+        ),
+      );
+    },
   );
 }
+getcoffeedetails(context, index){
+  final offersp = Provider.of<Menudata>(context, listen: false);
+  return showModalBottomSheet<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height*0.75,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Image.asset(offersp.coffeemenudata[index].image, width: MediaQuery.of(context).size.width*0.52,height: MediaQuery.of(context).size.height*0.52,),
+              Container(  margin:EdgeInsets.all(20),
+                  alignment: Alignment.centerLeft,
+                  child: AutoSizeText(offersp.coffeemenudata[index].title)),
+              Container(margin:EdgeInsets.only(left: 20,right: 20, bottom: 20),
+                  alignment: Alignment.centerLeft,child: AutoSizeText(offersp.coffeemenudata[index].description)),
+              Container(
+                margin:EdgeInsets.only(left: 20,right: 20),
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    AutoSizeText("\$"+offersp.coffeemenudata[index].price),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.52 ,),
+                    ElevatedButton(onPressed: (){}, child: Text('Order Now')),
+                  ],
+                ),
+              )
+
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+getsmoothiedetails(context, index){
+  final offersp = Provider.of<Menudata>(context, listen: false);
+  return showModalBottomSheet<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height*0.75,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Image.asset(offersp.smoothiemenudata[index].image, width: MediaQuery.of(context).size.width*0.52,height: MediaQuery.of(context).size.height*0.52,),
+              Container(  margin:EdgeInsets.all(20),
+                  alignment: Alignment.centerLeft,
+                  child: AutoSizeText(offersp.smoothiemenudata[index].title)),
+              Container(margin:EdgeInsets.only(left: 20,right: 20, bottom: 20),
+                  alignment: Alignment.centerLeft,child: AutoSizeText(offersp.smoothiemenudata[index].description)),
+              Container(
+                margin:EdgeInsets.only(left: 20,right: 20),
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    AutoSizeText("\$"+offersp.smoothiemenudata[index].price),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.52 ,),
+                    ElevatedButton(onPressed: (){}, child: Text('Order Now')),
+                  ],
+                ),
+              )
+
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+getcakedetails(context, index){
+  final offersp = Provider.of<Menudata>(context, listen: false);
+  return showModalBottomSheet<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height*0.75,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Image.asset(offersp.cakemenudata[index].image, width: MediaQuery.of(context).size.width*0.52,height: MediaQuery.of(context).size.height*0.52,),
+              Container(  margin:EdgeInsets.all(20),
+                  alignment: Alignment.centerLeft,
+                  child: AutoSizeText(offersp.cakemenudata[index].title)),
+              Container(margin:EdgeInsets.only(left: 20,right: 20, bottom: 20),
+                  alignment: Alignment.centerLeft,child: AutoSizeText(offersp.cakemenudata[index].description)),
+              Container(
+                margin:EdgeInsets.only(left: 20,right: 20),
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    AutoSizeText("\$"+offersp.cakemenudata[index].price),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.52 ,),
+                    ElevatedButton(onPressed: (){}, child: Text('Order Now')),
+                  ],
+                ),
+              )
+
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+

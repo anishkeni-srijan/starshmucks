@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:starshmucks/providers/menu_provider.dart';
+import 'package:starshmucks/providers/offers_provider.dart';
 import '/home_screen.dart';
 import '/user_profile.dart';
 import 'gift_card.dart';
 import '/money.dart';
 import '/order_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -72,9 +76,6 @@ class _bottomBarState extends State<bottomBar> {
     );
   }
 }
-
-
-
 
 orderbutton() {
   return FloatingActionButton(
