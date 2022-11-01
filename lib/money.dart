@@ -16,8 +16,6 @@ class _MoneyPageState extends State<MoneyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: gethomeappbar(),
-      floatingActionButton: orderbutton(),
-      bottomNavigationBar: getbottombar(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }

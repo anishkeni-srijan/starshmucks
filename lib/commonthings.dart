@@ -1,145 +1,80 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
-
 import '/home_screen.dart';
 import '/user_profile.dart';
 import 'gift_card.dart';
 import '/money.dart';
 import '/order_page.dart';
+import 'package:flutter/material.dart';
 
-Widget getbottombar(BuildContext context) {
-  bool homeroute;
-  return Container(
-    height: 60,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.only(
-        topRight: Radius.circular(30),
-        topLeft: Radius.circular(30),
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black38,
-          spreadRadius: 0,
-          blurRadius: 10,
-        ),
-      ],
-    ),
-    child: ClipRRect(
-      child: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              child: IconButton(
-                iconSize: 25,
-                icon: Icon(
-                  Icons.home_outlined,
-                  color: HexColor("#036635"),
-                ),
-                onPressed: () {
-                  Get.to(
-                    HomePage(),
-                    transition: Transition.leftToRight,
-                  );
-                },
-              ),
-            ),
-            Expanded(
-              child: IconButton(
-                iconSize: 25,
-                icon: Icon(
-                  Icons.card_giftcard,
-                  color: HexColor("#036635"),
-                ),
-                onPressed: () {
-                  Get.to(
-                    GiftCard(),
-                    transition: Transition.rightToLeft,
-                  );
-                  homeroute = false;
-                },
-              ),
-            ),
-            Expanded(child: new Text('')),
-            Expanded(
-              child: IconButton(
-                iconSize: 25,
-                icon: Icon(
-                  Icons.money,
-                  color: HexColor("#036635"),
-                ),
-                onPressed: () {
-                  Get.to(
-                    MoneyPage(),
-                    transition: Transition.rightToLeft,
-                  );
-                },
-              ),
-            ),
-            Expanded(
-              child: IconButton(
-                iconSize: 25,
-                icon: Icon(
-                  Icons.person_outline_outlined,
-                  color: HexColor("#036635"),
-                ),
-                onPressed: () {
-                  Get.to(
-                    UserProfile(),
-                    transition: Transition.rightToLeft,
-                  );
-                  homeroute = false;
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-      // BottomNavigationBar(
-      //   currentIndex: 1,
-      //   //iconSize: 24,
-      //   // selectedIconTheme: IconThemeData(size: 50),
-      //   backgroundColor: Colors.white,
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       label: 'Home',
-      //       backgroundColor: Colors.lightGreen,
-      //       icon: IconButton(
-      // onPressed: () {
-      //   homeroute = true;
-      //   homeroute
-      //       ? null
-      //       : Get.to(
-      //           HomePage(),
-      //         );
-      // },
-      //         icon: Icon(
-      //           Icons.home_outlined,
-      //           color: HexColor("#036635"),
-      //         ),
-      //       ),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       label: 'Profile',
-      //       icon: IconButton(
-      //         onPressed: () {
-      //           Get.to(
-      //             UserProfile(),
-      //           );
-      //           homeroute = false;
-      //         },
-      //         icon: Icon(
-      //           Icons.person_outline_outlined,
-      //           color: HexColor("#036635"),
-      //         ),
-      //       ),
-      //     ),
-      //   ],
-      // ),
-    ),
-  );
+
+
+class bottomBar extends StatefulWidget {
+  const bottomBar({super.key});
+
+  static const String _title = 'Flutter Code Sample';
+
+  @override
+  State<bottomBar> createState() => _bottomBarState();
 }
+
+class _bottomBarState extends State<bottomBar> {
+  int _selectedIndex = 0;
+ final List<Widget> _widgetOptions = [
+  HomePage(),
+  GiftCard(),
+  OrderPage(),
+  UserProfile(),
+
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: gethomeappbar(),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        items:  <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home, color: HexColor("#175244")),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.card_giftcard, color: HexColor("#175244"),),
+            label: 'Gift',
+
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu, color: HexColor("#175244")),
+            label: 'Order',
+
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person, color: HexColor("#175244")),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: HexColor("#175244"),
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+
+
 
 orderbutton() {
   return FloatingActionButton(

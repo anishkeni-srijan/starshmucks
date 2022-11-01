@@ -27,10 +27,6 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
       initialIndex: 1,
       length: 4,
       child: Scaffold(
-        appBar: gethomeappbar(),
-        floatingActionButton: orderbutton(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: getbottombar(context),
         body: Column(
           children: [
             SingleChildScrollView(

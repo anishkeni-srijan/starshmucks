@@ -32,7 +32,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
       initialIndex: 1,
       length: 3,
       child: Scaffold(
-        appBar: gethomeappbar(),
+
         body: Column(
           children: [
             TabBar(
@@ -72,10 +72,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
             ),
           ],
         ),
-        floatingActionButton: orderbutton(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: getbottombar(context),
-      ),
+        ),
     );
   }
 }

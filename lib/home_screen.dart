@@ -46,16 +46,11 @@ class _HomePageState extends State<HomePage> {
     final nowservep = Provider.of<OffersData>(context);
     nowservep.fetchData(context);
     return Scaffold(
-      floatingActionButton: orderbutton(),
-      appBar: gethomeappbar(),
-      bottomNavigationBar: getbottombar(context),
-      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: ValueListenableBuilder<Box<UserData>>(
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
           final data = box.values.toList().cast<UserData>();
-          username = data[userkey].name;
+          username = data[userkey]!.name;
           return SingleChildScrollView(
             child: Column(
               children: [

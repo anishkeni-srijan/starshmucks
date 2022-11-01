@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:starshmucks/commonthings.dart';
 import 'package:tbib_splash_screen/splash_screen_view.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -51,7 +52,7 @@ class _SplashState extends State<Splash> {
             child: SplashScreenView(
               duration: Duration(milliseconds: 1500),
               imageSrc: "images/shmucks.png",
-              navigateRoute: flag ? HomePage() : SigninPage(),
+              navigateRoute: flag ? bottomBar() : SigninPage(),
             ),
           );
         },

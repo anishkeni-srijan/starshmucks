@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:starshmucks/commonthings.dart';
 
 import '/home_screen.dart';
 import '/signin/bloc/signin_events.dart';
@@ -29,7 +30,7 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
 //user exists
         if (event.passwordvalue == event.obtainedpassword) {
           Get.to(
-            HomePage(),
+            bottomBar(),
           );
 
         } else if (event.passwordvalue == '' ||

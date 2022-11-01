@@ -20,7 +20,7 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   getemail() async {
     final keypref = await SharedPreferences.getInstance();
-    userkey = keypref.getInt('userkey')!;
+    userkey = keypref.getInt('userkey');
     setState(() {});
     print(userkey);
   }
@@ -36,42 +36,14 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: orderbutton(),
-      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      appBar: AppBar(
-        title: Text(
-          "Profile",
-          style: TextStyle(color: HexColor("#175244")),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.notifications,
-              color: HexColor("#175244"),
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.settings,
-              color: HexColor("#175244"),
-            ),
-          )
-        ],
-      ),
-      bottomNavigationBar: getbottombar(context),
+
       backgroundColor: HexColor("#175244"),
       body: ValueListenableBuilder<Box<UserData>>(
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
           final data = box.values.toList().cast<UserData>();
-          print("pass  " + data[userkey].password);
-          print("email  " + data[userkey].email);
+          print("pass  " + data[userkey]!.password);
+          print("email  " + data[userkey]!.email);
 
           return SingleChildScrollView(
             child: Column(
