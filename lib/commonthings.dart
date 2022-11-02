@@ -12,8 +12,6 @@ import '/order_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
-
 class bottomBar extends StatefulWidget {
   const bottomBar({super.key});
 
@@ -25,12 +23,11 @@ class bottomBar extends StatefulWidget {
 
 class _bottomBarState extends State<bottomBar> {
   int _selectedIndex = 0;
- final List<Widget> _widgetOptions = [
-  HomePage(),
-  GiftCard(),
-  OrderPage(),
-  UserProfile(),
-
+  final List<Widget> _widgetOptions = [
+    HomePage(),
+    GiftCard(),
+    OrderPage(),
+    UserProfile(),
   ];
 
   void _onItemTapped(int index) {
@@ -46,23 +43,23 @@ class _bottomBarState extends State<bottomBar> {
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
-        items:  <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home, color: HexColor("#175244")),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.card_giftcard, color: HexColor("#175244"),),
+            icon: Icon(
+              Icons.card_giftcard,
+              color: HexColor("#175244"),
+            ),
             label: 'Gift',
-
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu, color: HexColor("#175244")),
             label: 'Order',
-
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person, color: HexColor("#175244")),
