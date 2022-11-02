@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '/signin/signin.dart';
 import 'boxes.dart';
 import 'commonthings.dart';
-import 'edit_details.dart';
+import 'editdetails/edit_details.dart';
 import 'model/user_model.dart';
 
 class UserProfile extends StatefulWidget {

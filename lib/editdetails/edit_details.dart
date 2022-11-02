@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'boxes.dart';
-import 'model/user_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../boxes.dart';
+import '../model/user_model.dart';
+import 'bloc/editdetails_bloc.dart';
+import 'bloc/editdetails_events.dart';
+import 'bloc/editdetails_states.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -14,6 +17,11 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  late String obtainedemail;
+  late String obtainedphone;
+  late String obtainedname;
+  late int obtainedkey;
+
   getemail() async {
     final keypref = await SharedPreferences.getInstance();
     userkey = keypref.getInt('userkey')!;
@@ -83,7 +91,7 @@ class _EditProfileState extends State<EditProfile> {
                   height: 20,
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.60,
+                  height: MediaQuery.of(context).size.height * 0.70,
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -94,12 +102,30 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                   child: Column(
                     children: [
+                      BlocBuilder<EditdetailsBloc, EditdetailsState>(
+                        builder: (context, state) {
+                          //checking if There's an error in Loginstate
+                          if (state is EditdetailsErrorState) {
+                            return Text(
+                              state.errormessage,
+                              style: TextStyle(
+                                color: Colors.red,
+                              ),
+                            );
+                          }
+                          //if the login is valid
+                          else {
+                            return Container();
+                          }
+                        },
+                      ),
                       // DividerForTiles(),
                       Row(
                         children: [
                           EditableField(
                             econtroller: econtroller,
                             lbltxt: 'Email',
+
                           ),
                         ],
                       ),
@@ -131,6 +157,21 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ),
                         onPressed: () {
+                          BlocProvider.of<EditdetailsBloc>(context).add(
+                            EditdetailsemailChangedEvent(
+                              econtroller.text,
+                            ),
+                          );
+                          BlocProvider.of<EditdetailsBloc>(context).add(
+                            EditdetailsNameChangedEvent(
+                              ncontroller.text,
+                            ),
+                          );
+                          BlocProvider.of<EditdetailsBloc>(context).add(
+                            EditdetailsNumberChangedEvent(
+                              phcontroller.text,
+                            ),
+                          );
                           data[userkey].name = ncontroller.text;
                           data[userkey].email = econtroller.text;
                           data[userkey].phone = phcontroller.text;

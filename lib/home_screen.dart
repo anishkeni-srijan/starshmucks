@@ -329,7 +329,7 @@ getnowservedetails(context, index){
         child: Container(
           height: MediaQuery.of(context).size.height*0.75,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+
             children: <Widget>[
               Image.asset(offersp.nowdata[index].image, width: MediaQuery.of(context).size.width*0.52,height: MediaQuery.of(context).size.height*0.52,),
           Container(margin:EdgeInsets.all(20),
