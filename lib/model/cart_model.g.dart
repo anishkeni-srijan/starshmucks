@@ -8,7 +8,7 @@ part of 'cart_model.dart';
 
 class CartDataAdapter extends TypeAdapter<CartData> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
   CartData read(BinaryReader reader) {

@@ -26,9 +26,10 @@ import '/providers/menu_provider.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  Hive.registerAdapter(UserDataAdapter());
-  Hive.registerAdapter(CartDataAdapter());
+  Hive.registerAdapter(UserDataAdapter(),);
   await Hive.openBox<UserData>('signupdata');
+
+  Hive.registerAdapter(CartDataAdapter());
   await Hive.openBox<CartData>('cartdata');
   runApp(const MyApp());
 }

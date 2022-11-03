@@ -20,25 +20,24 @@ class HomePage extends StatefulWidget {
 }
 
 late String username;
-
+late int userkey = 0;
 class _HomePageState extends State<HomePage> {
-  late int userkey;
+
 
   getemail() async {
     final keypref = await SharedPreferences.getInstance();
     userkey = keypref.getInt('userkey')!;
     setState(() {});
-
+    print(userkey);
     return userkey;
   }
 
   @override
   void initState() {
     getemail();
+
     super.initState();
   }
-
-  final econtroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,12 +49,10 @@ class _HomePageState extends State<HomePage> {
         builder: (context, box, _) {
           final data = box.values.toList().cast<UserData>();
           username = data[userkey].name;
-
           return ValueListenableBuilder<Box<CartData>>(
             valueListenable: Boxes.getCartData().listenable(),
             builder: (context, box, _) {
               final data = box.values.toList().cast<CartData>();
-              // username = data[userkey].name;
 
               return SingleChildScrollView(
                 child: Column(
@@ -153,7 +150,7 @@ getbanner(context, username) {
       children: [
         Container(
           transform: Matrix4.translationValues(0, 28, 0),
-          child: Text(
+          child:  Text(
             '${'Hi ' + username}!',
             style: TextStyle(
               color: Colors.white,

@@ -17,7 +17,7 @@ class UserProfile extends StatefulWidget {
   State<UserProfile> createState() => _UserProfileState();
 }
 
-late var userkey;
+late int userkey = 0;
 
 class _UserProfileState extends State<UserProfile> {
   getemail() async {
