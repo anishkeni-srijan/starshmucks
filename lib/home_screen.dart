@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
+import 'package:starshmucks/model/cart_model.dart';
 
 import '/boxes.dart';
 import '/model/user_model.dart';
@@ -28,7 +29,6 @@ class _HomePageState extends State<HomePage> {
     userkey = keypref.getInt('userkey')!;
     setState(() {});
 
-
     return userkey;
   }
 
@@ -50,51 +50,60 @@ class _HomePageState extends State<HomePage> {
         builder: (context, box, _) {
           final data = box.values.toList().cast<UserData>();
           username = data[userkey].name;
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                getbanner(context, username),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  alignment: Alignment.topLeft,
-                  child: AutoSizeText(
-                    'Offers',
-                    style: TextStyle(
-                      color: HexColor("#175244"),
-                      fontWeight: FontWeight.w700,
+
+          return ValueListenableBuilder<Box<CartData>>(
+            valueListenable: Boxes.getCartData().listenable(),
+            builder: (context, box, _) {
+              final data = box.values.toList().cast<CartData>();
+              // username = data[userkey].name;
+
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    getbanner(context, username),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      alignment: Alignment.topLeft,
+                      child: AutoSizeText(
+                        'Offers',
+                        style: TextStyle(
+                          color: HexColor("#175244"),
+                          fontWeight: FontWeight.w700,
+                        ),
+                        minFontSize: 25,
+                      ),
                     ),
-                    minFontSize: 25,
-                  ),
-                ),
-                getoffers(context),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  alignment: Alignment.topLeft,
-                  child: AutoSizeText(
-                    'Now Serving',
-                    style: TextStyle(
-                      color: HexColor("#175244"),
-                      fontWeight: FontWeight.w700,
+                    getoffers(context),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      alignment: Alignment.topLeft,
+                      child: AutoSizeText(
+                        'Now Serving',
+                        style: TextStyle(
+                          color: HexColor("#175244"),
+                          fontWeight: FontWeight.w700,
+                        ),
+                        minFontSize: 25,
+                      ),
                     ),
-                    minFontSize: 25,
-                  ),
-                ),
-                nowserving(context),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  alignment: Alignment.topLeft,
-                  child: AutoSizeText(
-                    'Learn More About Our Drinks',
-                    style: TextStyle(
-                      color: HexColor("#175244"),
-                      fontWeight: FontWeight.w700,
+                    nowserving(context),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      alignment: Alignment.topLeft,
+                      child: AutoSizeText(
+                        'Learn More About Our Drinks',
+                        style: TextStyle(
+                          color: HexColor("#175244"),
+                          fontWeight: FontWeight.w700,
+                        ),
+                        minFontSize: 25,
+                      ),
                     ),
-                    minFontSize: 25,
-                  ),
+                    learnmore(context),
+                  ],
                 ),
-                learnmore(context),
-              ],
-            ),
+              );
+            },
           );
         },
       ),

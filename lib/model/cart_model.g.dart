@@ -19,7 +19,7 @@ class CartDataAdapter extends TypeAdapter<CartData> {
     return CartData()
       ..title = fields[0] as String
       ..price = fields[1] as String
-      ..qty = fields[2] as String
+      ..qty = fields[2] as int
       ..isInCart = fields[3] as bool
       ..image = fields[4] as String
       ..ttlPrice = fields[5] as double;

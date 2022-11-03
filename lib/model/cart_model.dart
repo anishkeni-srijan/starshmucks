@@ -11,7 +11,7 @@ class CartData extends HiveObject {
   late String price;
 
   @HiveField(2)
-  late String qty;
+  late int qty;
 
   @HiveField(3)
   late bool isInCart = false;

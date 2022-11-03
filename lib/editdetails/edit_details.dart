@@ -125,7 +125,6 @@ class _EditProfileState extends State<EditProfile> {
                           EditableField(
                             econtroller: econtroller,
                             lbltxt: 'Email',
-
                           ),
                         ],
                       ),

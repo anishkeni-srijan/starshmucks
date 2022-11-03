@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:starshmucks/model/cart_model.dart';
+
+import 'boxes.dart';
 
 class MyCart extends StatefulWidget {
   const MyCart({Key? key}) : super(key: key);
@@ -18,6 +21,20 @@ class _MyCartState extends State<MyCart> {
   void dispose() {
     Hive.box('cartdata').close();
     super.dispose();
+  }
+
+  void addToCart() {
+    final cartItem = CartData()
+      ..title = ""
+      ..price = ""
+      ..qty = 1
+      ..isInCart = true
+      ..image = " "
+      ..ttlPrice = 0.0;
+    final box = Boxes.getCartData();
+    box.add(cartItem);
+    print(cartItem.title);
+    print("product added");
   }
 
   @override

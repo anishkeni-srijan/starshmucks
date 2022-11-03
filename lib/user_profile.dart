@@ -16,10 +16,11 @@ class UserProfile extends StatefulWidget {
   @override
   State<UserProfile> createState() => _UserProfileState();
 }
+
 late var userkey;
+
 class _UserProfileState extends State<UserProfile> {
   getemail() async {
-
     final keypref = await SharedPreferences.getInstance();
     userkey = keypref.getInt('userkey')!;
 
@@ -28,7 +29,6 @@ class _UserProfileState extends State<UserProfile> {
   }
 
   @override
-
   void initState() {
     // TODO: implement initState
     getemail();
