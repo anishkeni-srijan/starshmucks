@@ -388,6 +388,7 @@ class getoffers extends StatefulWidget {
 class _getoffersState extends State<getoffers> {
 
   addToCart(context, index) {
+    print(index);
     final cartp = Provider.of<OffersData>(context, listen: false);
     final cartItem = CartData()
       ..title = cartp.offerdata[index].title
@@ -399,7 +400,9 @@ class _getoffersState extends State<getoffers> {
     final box = Boxes.getCartData();
     box.add(cartItem);
     print(cartItem.title);
+
     print("product added");
+
   }
 
   @override
@@ -492,23 +495,15 @@ class _getoffersState extends State<getoffers> {
                               child: TextButton(
                                 onPressed: () {
                                   addToCart(context, index);
-                                  // if(data.isEmpty){
-                                  //   flag = false;
-                                  //   setState(() {
-                                  //
-                                  //   });
-                                  // }else if(data[index].isInCart){
-                                  //   flag = true;
-                                  //   setState(() {
-                                  //
-                                  //   });
-                                  // }
-                                  // else flag = false;
+
+
+
+
                                   setState(() {
                                     cartinit = true;
                                   });
                                 },
-                                child: data.isEmpty?Text('Add'):Text('Added'),
+                                child: Text('Add'),
                                 style: ButtonStyle(
                                   backgroundColor:
                                   MaterialStateProperty.all<Color>(
