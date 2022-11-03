@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:hive/hive.dart';
 
 class MyCart extends StatefulWidget {
   const MyCart({Key? key}) : super(key: key);
@@ -8,39 +8,39 @@ class MyCart extends StatefulWidget {
   State<MyCart> createState() => _MyCartState();
 }
 
-
-
-var totalprice ;
-
 class _MyCartState extends State<MyCart> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
   }
 
   @override
+  void dispose() {
+    Hive.box('cartdata').close();
+    super.dispose();
+  }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar:  Container(
+      bottomNavigationBar: Container(
           padding: EdgeInsets.all(8.0),
           child: Row(
             children: [
               Text(
                 "Total: ",
-                style: TextStyle(
-                    fontSize: 22.0, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
               ),
-              SizedBox(width:160,),
-              ElevatedButton(onPressed: (){}, child: Text("Checkout")),
+              SizedBox(
+                width: 160,
+              ),
+              ElevatedButton(onPressed: () {}, child: Text("Checkout")),
             ],
           )),
       appBar: AppBar(
         title: Text("Cart"),
       ),
-      body:Text("cart"),
+      body: Text("cart"),
       // body:  ListView.builder(
       //       itemCount: loadedproduct.cartlistbyid.length,
       //       itemBuilder: (context,index) {
@@ -70,25 +70,25 @@ class _MyCartState extends State<MyCart> {
       //                     icon: Icon(Icons.remove),
       //                     onPressed: () {
       //                       loadedproduct.updateProduct(loadedproduct.cartlistbyid[index],
-  //                               loadedproduct.cartlistbyid[index].qty - 1);
-  //                           // model.removeProduct(model.cart[index]);
-  //                         },
-  //                       ),
-  //                     ]),
-  //                 ElevatedButton(onPressed: (){
-  //                   loadedproduct.removefromcart(loadedproduct.cartlistbyid[index]);
-  //                   loadedproduct.cartlistbyid[index].isincart=!loadedproduct.cartlistbyid[index].isincart;
-  //                   setState(() {
-  //
-  //                   });
-  //                 }, child: Icon(Icons.remove_circle_outline))
-  //               ],
-  //             );
-  //           }
-  //       );
-  //
-  //
-  //
+      //                               loadedproduct.cartlistbyid[index].qty - 1);
+      //                           // model.removeProduct(model.cart[index]);
+      //                         },
+      //                       ),
+      //                     ]),
+      //                 ElevatedButton(onPressed: (){
+      //                   loadedproduct.removefromcart(loadedproduct.cartlistbyid[index]);
+      //                   loadedproduct.cartlistbyid[index].isincart=!loadedproduct.cartlistbyid[index].isincart;
+      //                   setState(() {
+      //
+      //                   });
+      //                 }, child: Icon(Icons.remove_circle_outline))
+      //               ],
+      //             );
+      //           }
+      //       );
+      //
+      //
+      //
     );
   }
 }

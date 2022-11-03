@@ -18,4 +18,7 @@ class CartData extends HiveObject {
 
   @HiveField(4)
   late String image;
+
+  @HiveField(5)
+  late double ttlPrice;
 }
