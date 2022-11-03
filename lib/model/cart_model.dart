@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'cart_model.g.dart';
 
 @HiveType(typeId: 0)
-class UserData extends HiveObject {
+class CartData extends HiveObject {
   @HiveField(0)
   late String title;
 
@@ -15,4 +15,7 @@ class UserData extends HiveObject {
 
   @HiveField(3)
   late bool isInCart = false;
+
+  @HiveField(4)
+  late String image;
 }

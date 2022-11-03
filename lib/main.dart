@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:starshmucks/editdetails/bloc/editdetails_bloc.dart';
+import 'package:starshmucks/model/cart_model.dart';
 
 import '/forgotpassword/forgot_password.dart';
 import '/signup/bloc/signup_bloc.dart';
@@ -26,7 +27,9 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(UserDataAdapter());
+  Hive.registerAdapter(CartDataAdapter());
   await Hive.openBox<UserData>('signupdata');
+  await Hive.openBox<CartData>('cartdat');
   runApp(const MyApp());
 }
 
