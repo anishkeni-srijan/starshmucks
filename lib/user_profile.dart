@@ -16,17 +16,19 @@ class UserProfile extends StatefulWidget {
   @override
   State<UserProfile> createState() => _UserProfileState();
 }
-
+late var userkey;
 class _UserProfileState extends State<UserProfile> {
   getemail() async {
+
     final keypref = await SharedPreferences.getInstance();
     userkey = keypref.getInt('userkey')!;
+
     setState(() {});
     print(userkey);
   }
 
   @override
-  var userkey;
+
   void initState() {
     // TODO: implement initState
     getemail();
@@ -36,7 +38,6 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       backgroundColor: HexColor("#175244"),
       body: ValueListenableBuilder<Box<UserData>>(
         valueListenable: Boxes.getUserData().listenable(),
