@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
+import 'package:starshmucks/commonthings.dart';
 import 'package:starshmucks/model/cart_model.dart';
 
 import '/boxes.dart';
@@ -18,7 +19,7 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
-
+bool cartinit = false;
 late String username;
 late int userkey = 0;
 class _HomePageState extends State<HomePage> {
@@ -49,12 +50,7 @@ class _HomePageState extends State<HomePage> {
         builder: (context, box, _) {
           final data = box.values.toList().cast<UserData>();
           username = data[userkey].name;
-          return ValueListenableBuilder<Box<CartData>>(
-            valueListenable: Boxes.getCartData().listenable(),
-            builder: (context, box, _) {
-              final data = box.values.toList().cast<CartData>();
-
-              return SingleChildScrollView(
+          return SingleChildScrollView(
                 child: Column(
                   children: [
                     getbanner(context, username),
@@ -70,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                         minFontSize: 25,
                       ),
                     ),
-                    getoffers(context),
+                    getoffers(),
                     Container(
                       padding: EdgeInsets.all(10),
                       alignment: Alignment.topLeft,
@@ -97,13 +93,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     learnmore(context),
+
                   ],
                 ),
               );
             },
-          );
-        },
-      ),
+          ),
+
     );
   }
 }
@@ -322,7 +318,10 @@ getofferdetails(context, index) {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.52,
                     ),
-                    ElevatedButton(onPressed: () {}, child: Text('Order Now')),
+                    ElevatedButton(
+                        onPressed: () {
+
+                    }, child: Text('Order Now')),
                   ],
                 ),
               )
@@ -379,104 +378,167 @@ getnowservedetails(context, index) {
   );
 }
 
-getoffers(context) {
-  final offersp = Provider.of<OffersData>(context);
-  return SizedBox(
-    height: MediaQuery.of(context).size.height * 0.18,
-    child: ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: offersp.offerdata.length,
-      itemBuilder: (context, index) {
-        return Row(
-          children: [
-            SizedBox(
-              width: 10,
-            ),
-            GestureDetector(
-              onTap: () {
-                getofferdetails(context, index);
-              },
-              child: Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                height: MediaQuery.of(context).size.height * 0.18,
-                width: MediaQuery.of(context).size.width * 0.76,
-                child: Stack(
-                  children: [
-                    Container(
-                      transform: Matrix4.translationValues(-10, 20, 0),
-                      child: Image.asset(
-                        offersp.offerdata[index].image,
-                        width: 150,
-                        height: 150,
-                      ),
-                    ),
-                    Container(
-                      child: Container(
-                        // transform: Matrix4.translationValues(-120, 10, 0),
-                        margin: EdgeInsets.only(
-                          top: 10,
-                          left: 130,
-                        ),
-                        child: Text(
-                          offersp.offerdata[index].offer,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(
-                        top: 30,
-                        left: 130,
-                      ),
-                      child: Text(
-                        offersp.offerdata[index].title,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      // transform: Matrix4.translationValues(-320, 40, 0),
-                      margin: EdgeInsets.only(
-                        top: 85,
-                        left: 190,
-                      ),
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text('Order Now'),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          foregroundColor: MaterialStateProperty.all<Color>(
-                              HexColor('#175244')),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    ),
-  );
+class getoffers extends StatefulWidget {
+  const getoffers({Key? key}) : super(key: key);
+
+  @override
+  State<getoffers> createState() => _getoffersState();
 }
+
+class _getoffersState extends State<getoffers> {
+
+  addToCart(context, index) {
+    final cartp = Provider.of<OffersData>(context, listen: false);
+    final cartItem = CartData()
+      ..title = cartp.offerdata[index].title
+      ..price = cartp.offerdata[index].price
+      ..qty = 1
+      ..isInCart = true
+      ..image = cartp.offerdata[index].image
+      ..ttlPrice = 0.0;
+    final box = Boxes.getCartData();
+    box.add(cartItem);
+    print(cartItem.title);
+    print("product added");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final offersp = Provider.of<OffersData>(context);
+    return ValueListenableBuilder<Box<CartData>>(
+        valueListenable: Boxes.getCartData().listenable(),
+        builder: (context, box, _) {
+          final data = box.values.toList().cast<CartData>();
+          bool flag = false;
+          return SizedBox(
+            height: MediaQuery
+                .of(context)
+                .size
+                .height * 0.18,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: offersp.offerdata.length,
+              itemBuilder: (context, index) {
+                return Row(
+                  children: [
+                    SizedBox(
+                      width: 10,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        getofferdetails(context, index);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: index % 2 == 0 ? Colors.teal : Colors
+                              .deepOrangeAccent,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        height: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.18,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.76,
+                        child: Stack(
+                          children: [
+                            Container(
+                              transform: Matrix4.translationValues(-10, 20, 0),
+                              child: Image.asset(
+                                offersp.offerdata[index].image,
+                                width: 150,
+                                height: 150,
+                              ),
+                            ),
+                            Container(
+                              child: Container(
+                                // transform: Matrix4.translationValues(-120, 10, 0),
+                                margin: EdgeInsets.only(
+                                  top: 10,
+                                  left: 130,
+                                ),
+                                child: Text(
+                                  offersp.offerdata[index].offer,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(
+                                top: 30,
+                                left: 130,
+                              ),
+                              child: Text(
+                                offersp.offerdata[index].title,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              // transform: Matrix4.translationValues(-320, 40, 0),
+                              margin: EdgeInsets.only(
+                                top: 85,
+                                left: 190,
+                              ),
+                              child: TextButton(
+                                onPressed: () {
+                                  addToCart(context, index);
+                                  // if(data.isEmpty){
+                                  //   flag = false;
+                                  //   setState(() {
+                                  //
+                                  //   });
+                                  // }else if(data[index].isInCart){
+                                  //   flag = true;
+                                  //   setState(() {
+                                  //
+                                  //   });
+                                  // }
+                                  // else flag = false;
+                                  setState(() {
+                                    cartinit = true;
+                                  });
+                                },
+                                child: data.isEmpty?Text('Add'):Text('Added'),
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                  MaterialStateProperty.all<Color>(
+                                      Colors.white),
+                                  foregroundColor: MaterialStateProperty.all<
+                                      Color>(
+                                      HexColor('#175244')),
+                                  shape:
+                                  MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          );
+        });
+  }
+}
+
 
 nowserving(context) {
   final nowservep = Provider.of<NowServing>(context);

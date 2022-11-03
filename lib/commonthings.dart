@@ -6,11 +6,15 @@ import 'package:starshmucks/providers/menu_provider.dart';
 import 'package:starshmucks/providers/offers_provider.dart';
 import '/home_screen.dart';
 import '/user_profile.dart';
+import 'boxes.dart';
+import 'cart.dart';
 import 'gift_card.dart';
 import '/money.dart';
 import '/order_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'model/cart_model.dart';
 
 class bottomBar extends StatefulWidget {
   const bottomBar({super.key});
@@ -23,6 +27,7 @@ class bottomBar extends StatefulWidget {
 
 class _bottomBarState extends State<bottomBar> {
   int _selectedIndex = 0;
+
   final List<Widget> _widgetOptions = [
     HomePage(),
     GiftCard(),
@@ -41,8 +46,17 @@ class _bottomBarState extends State<bottomBar> {
     return Scaffold(
       appBar: gethomeappbar(),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+          child: _widgetOptions.elementAt(_selectedIndex)),
+     persistentFooterButtons: [
+       cartinit?Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            TextButton(child: Text("view in cart"),onPressed: (){ Get.to(MyCart());}),
+          ],
+        ):Container(),
+      ],
+
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         items: <BottomNavigationBarItem>[

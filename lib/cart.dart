@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:starshmucks/model/cart_model.dart';
+import 'package:provider/provider.dart';
+import 'package:starshmucks/providers/offers_provider.dart';
 
 import 'boxes.dart';
 
@@ -12,29 +15,12 @@ class MyCart extends StatefulWidget {
 }
 
 class _MyCartState extends State<MyCart> {
-  @override
-  void initState() {
-    super.initState();
-  }
+
 
   @override
   void dispose() {
     Hive.box('cartdata').close();
     super.dispose();
-  }
-
-  void addToCart() {
-    final cartItem = CartData()
-      ..title = ""
-      ..price = ""
-      ..qty = 1
-      ..isInCart = true
-      ..image = " "
-      ..ttlPrice = 0.0;
-    final box = Boxes.getCartData();
-    box.add(cartItem);
-    print(cartItem.title);
-    print("product added");
   }
 
   @override
@@ -57,7 +43,23 @@ class _MyCartState extends State<MyCart> {
       appBar: AppBar(
         title: Text("Cart"),
       ),
-      body: Text("cart"),
+      body: ValueListenableBuilder<Box<CartData>>(
+        valueListenable: Boxes.getCartData().listenable(),
+    builder: (context, box, _) {
+    final data = box.values.toList().cast<CartData>();
+    return Column(
+      children: [
+
+        Text(data.length.toString()),
+        TextButton(onPressed: (){
+       box.clear();
+            setState(() {
+
+            });
+        }, child: Text('clear'))
+      ],
+    );
+    }),
       // body:  ListView.builder(
       //       itemCount: loadedproduct.cartlistbyid.length,
       //       itemBuilder: (context,index) {
