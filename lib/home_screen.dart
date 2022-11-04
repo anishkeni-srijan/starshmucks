@@ -630,12 +630,13 @@ class _nowservingState extends State<nowserving> {
                             final box = Boxes.getCartData();
                             final data = box.values.toList().cast<CartData>();
 
-                            if (data.contains(data[index])) {
-                              //update qty
-                              print('imhere');
-                              return null;
-                            } else
-                              addToCart(context, index);
+                            // if (data.contains(data[index])) {
+                            //   //update qty
+                            //   print('imhere');
+                            //   return null;
+                            // } else
+                            //   addToCart(context, index);
+                            addToCart(context, index);
                             setState(() {
                               cartinit = true;
                             });
