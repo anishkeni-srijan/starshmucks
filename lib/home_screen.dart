@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
-import 'package:starshmucks/model/cart_model.dart';
+import '/model/cart_model.dart';
 
 import '/boxes.dart';
 import '/model/user_model.dart';
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                     minFontSize: 25,
                   ),
                 ),
-                nowserving(context),
+                nowserving(),
                 Container(
                   padding: EdgeInsets.all(10),
                   alignment: Alignment.topLeft,
@@ -315,7 +315,7 @@ getofferdetails(context, index) {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.52,
                     ),
-                    ElevatedButton(onPressed: () {}, child: Text('Order Now')),
+                    ElevatedButton(onPressed: () {}, child: Text('Add')),
                   ],
                 ),
               )
@@ -360,8 +360,7 @@ getnowservedetails(context, index) {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.52,
                       ),
-                      ElevatedButton(
-                          onPressed: () {}, child: Text('Order Now')),
+                      ElevatedButton(onPressed: () {}, child: Text('Add')),
                     ],
                   )),
             ],
@@ -381,8 +380,10 @@ class getoffers extends StatefulWidget {
 
 class _getoffersState extends State<getoffers> {
   addToCart(context, index) {
-    print(index);
+    print("in cart " + index.toString());
     final cartp = Provider.of<OffersData>(context, listen: false);
+
+    // result=cartItem.ttlPrice+double.parse(cartp.offerdata[index].price);
     final cartItem = CartData()
       ..title = cartp.offerdata[index].title
       ..price = cartp.offerdata[index].price
@@ -392,8 +393,10 @@ class _getoffersState extends State<getoffers> {
       ..ttlPrice = 0.0
       ..id = cartp.offerdata[index].id;
     final box = Boxes.getCartData();
+
     // if(){}
     // else
+
     box.add(cartItem);
     print(cartItem.title);
 
@@ -482,16 +485,6 @@ class _getoffersState extends State<getoffers> {
                               child: TextButton(
                                 onPressed: () {
                                   addToCart(context, index);
-
-                                  // for (var i = 0; i < data.length; i++) {
-                                  //   if (offersp.offerdata[index].id ==
-                                  //       data[i].id) {
-                                  //     flag = true;
-                                  //   } else
-                                  //     flag = false;
-                                  //   setState(() {});
-                                  // }
-
                                   setState(() {
                                     cartinit = true;
                                   });
@@ -526,104 +519,140 @@ class _getoffersState extends State<getoffers> {
   }
 }
 
-nowserving(context) {
-  final nowservep = Provider.of<NowServing>(context);
-  nowservep.fetchData(context);
-  return SizedBox(
-    height: MediaQuery.of(context).size.height * 0.18,
-    child: ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: nowservep.nowdata.length,
-      itemBuilder: (context, index) {
-        return Row(
-          children: [
-            SizedBox(
-              width: 10,
-            ),
-            GestureDetector(
-              onTap: () {
-                getnowservedetails(context, index);
-              },
-              child: Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: index % 2 == 0 ? Colors.deepOrangeAccent : Colors.teal,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                height: MediaQuery.of(context).size.height * 0.18,
-                width: MediaQuery.of(context).size.width * 0.76,
-                child: Stack(
-                  children: [
-                    Container(
-                      transform: Matrix4.translationValues(-10, 20, 0),
-                      child: Image.asset(
-                        nowservep.nowdata[index].image,
-                        width: 150,
-                        height: 150,
-                      ),
-                    ),
-                    Container(
-                      child: Container(
-                        // transform: Matrix4.translationValues(-120, 10, 0),
-                        margin: EdgeInsets.only(
-                          top: 10,
-                          left: 130,
+class nowserving extends StatefulWidget {
+  const nowserving({Key? key}) : super(key: key);
+
+  @override
+  State<nowserving> createState() => _nowservingState();
+}
+
+class _nowservingState extends State<nowserving> {
+  addToCart(context, index) {
+    print("in cart " + index.toString());
+    final cartp = Provider.of<NowServing>(context, listen: false);
+    final cartItem = CartData()
+      ..title = cartp.nowdata[index].title
+      ..price = cartp.nowdata[index].price
+      ..qty = 1
+      ..isInCart = true
+      ..image = cartp.nowdata[index].image
+      ..ttlPrice = 0.0
+      ..id = cartp.nowdata[index].id;
+    final box = Boxes.getCartData();
+    // if(){}
+    // else
+    box.add(cartItem);
+    print(cartItem.title);
+
+    print("product added " + cartp.nowdata[index].id);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final nowservep = Provider.of<NowServing>(context);
+    nowservep.fetchData(context);
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.18,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: nowservep.nowdata.length,
+        itemBuilder: (context, index) {
+          return Row(
+            children: [
+              SizedBox(
+                width: 10,
+              ),
+              GestureDetector(
+                onTap: () {
+                  getnowservedetails(context, index);
+                },
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color:
+                        index % 2 == 0 ? Colors.deepOrangeAccent : Colors.teal,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  height: MediaQuery.of(context).size.height * 0.18,
+                  width: MediaQuery.of(context).size.width * 0.76,
+                  child: Stack(
+                    children: [
+                      Container(
+                        transform: Matrix4.translationValues(-10, 20, 0),
+                        child: Image.asset(
+                          nowservep.nowdata[index].image,
+                          width: 150,
+                          height: 150,
                         ),
-                        child: Text(
-                          nowservep.nowdata[index].title,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
+                      ),
+                      Container(
+                        child: Container(
+                          // transform: Matrix4.translationValues(-120, 10, 0),
+                          margin: EdgeInsets.only(
+                            top: 10,
+                            left: 130,
                           ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(
-                        top: 30,
-                        left: 130,
-                      ),
-                      child: Text(
-                        nowservep.nowdata[index].tag,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      // transform: Matrix4.translationValues(-320, 40, 0),
-                      margin: EdgeInsets.only(
-                        top: 85,
-                        left: 190,
-                      ),
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text('Order Now'),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          foregroundColor: MaterialStateProperty.all<Color>(
-                              HexColor('#175244')),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
+                          child: Text(
+                            nowservep.nowdata[index].title,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
                             ),
                           ),
                         ),
                       ),
-                    )
-                  ],
+                      Container(
+                        margin: EdgeInsets.only(
+                          top: 30,
+                          left: 130,
+                        ),
+                        child: Text(
+                          nowservep.nowdata[index].tag,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        // transform: Matrix4.translationValues(-320, 40, 0),
+                        margin: EdgeInsets.only(
+                          top: 85,
+                          left: 190,
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            addToCart(context, index);
+                            setState(() {
+                              cartinit = true;
+                            });
+                          },
+                          child: Text('Add'),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.white),
+                            foregroundColor: MaterialStateProperty.all<Color>(
+                                HexColor('#175244')),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        );
-      },
-    ),
-  );
+            ],
+          );
+        },
+      ),
+    );
+  }
 }
 
 learnmore(context) {

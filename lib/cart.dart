@@ -64,7 +64,7 @@ class _MyCartState extends State<MyCart> {
                           Column(
                             children: [
                               Text(data[index].title),
-                              Text("Rs. " + data[index].price),
+                              Text("\$ " + data[index].price),
                               Text("Quntity: " + data[index].qty.toString()),
                               TextButton(
                                   onPressed: () {
