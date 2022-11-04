@@ -45,18 +45,22 @@ class _bottomBarState extends State<bottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: gethomeappbar(),
-      body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex)),
-     persistentFooterButtons: [
-       cartinit?Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextButton(child: Text("view in cart"),onPressed: (){ Get.to(MyCart());}),
-          ],
-        ):Container(),
+      body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
+      persistentFooterButtons: [
+        cartinit
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  TextButton(
+                      child: Text("view in cart"),
+                      onPressed: () {
+                        Get.to(MyCart());
+                      }),
+                ],
+              )
+            : Container(),
       ],
-
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         items: <BottomNavigationBarItem>[

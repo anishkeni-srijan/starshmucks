@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
-import 'package:starshmucks/commonthings.dart';
 import 'package:starshmucks/model/cart_model.dart';
 
 import '/boxes.dart';
