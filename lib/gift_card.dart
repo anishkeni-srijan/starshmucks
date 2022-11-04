@@ -213,7 +213,9 @@ class giftCardDesign extends StatelessWidget {
 
 getAllCards(context) {
   return Container(
-    margin: EdgeInsets.all(20),
+    //margin: EdgeInsets.all(),
+    color: HexColor("#175244"),
+    padding: EdgeInsets.only(left: 20, right: 20, top: 20),
     child: ListView(
       children: [
         Container(
