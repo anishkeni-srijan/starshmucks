@@ -79,6 +79,7 @@ class _MyCartState extends State<MyCart> {
                               TextButton(
                                   onPressed: () {
                                     box.delete(data[index].key);
+                                    data[index].isInCart = false;
                                     setState(() {});
                                   },
                                   child: Text('Remove'))

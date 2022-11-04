@@ -627,7 +627,15 @@ class _nowservingState extends State<nowserving> {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            addToCart(context, index);
+                            final box = Boxes.getCartData();
+                            final data = box.values.toList().cast<CartData>();
+
+                            if (data.contains(data[index])) {
+                              //update qty
+                              print('imhere');
+                              return null;
+                            } else
+                              addToCart(context, index);
                             setState(() {
                               cartinit = true;
                             });
