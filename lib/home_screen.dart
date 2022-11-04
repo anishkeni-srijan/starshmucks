@@ -19,12 +19,12 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
+
 bool cartinit = false;
 late String username;
 late int userkey = 0;
+
 class _HomePageState extends State<HomePage> {
-
-
   getemail() async {
     final keypref = await SharedPreferences.getInstance();
     userkey = keypref.getInt('userkey')!;
@@ -51,55 +51,53 @@ class _HomePageState extends State<HomePage> {
           final data = box.values.toList().cast<UserData>();
           username = data[userkey].name;
           return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    getbanner(context, username),
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      alignment: Alignment.topLeft,
-                      child: AutoSizeText(
-                        'Offers',
-                        style: TextStyle(
-                          color: HexColor("#175244"),
-                          fontWeight: FontWeight.w700,
-                        ),
-                        minFontSize: 25,
-                      ),
+            child: Column(
+              children: [
+                getbanner(context, username),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  alignment: Alignment.topLeft,
+                  child: AutoSizeText(
+                    'Offers',
+                    style: TextStyle(
+                      color: HexColor("#175244"),
+                      fontWeight: FontWeight.w700,
                     ),
-                    getoffers(),
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      alignment: Alignment.topLeft,
-                      child: AutoSizeText(
-                        'Now Serving',
-                        style: TextStyle(
-                          color: HexColor("#175244"),
-                          fontWeight: FontWeight.w700,
-                        ),
-                        minFontSize: 25,
-                      ),
-                    ),
-                    nowserving(context),
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      alignment: Alignment.topLeft,
-                      child: AutoSizeText(
-                        'Learn More About Our Drinks',
-                        style: TextStyle(
-                          color: HexColor("#175244"),
-                          fontWeight: FontWeight.w700,
-                        ),
-                        minFontSize: 25,
-                      ),
-                    ),
-                    learnmore(context),
-
-                  ],
+                    minFontSize: 25,
+                  ),
                 ),
-              );
-            },
-          ),
-
+                getoffers(),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  alignment: Alignment.topLeft,
+                  child: AutoSizeText(
+                    'Now Serving',
+                    style: TextStyle(
+                      color: HexColor("#175244"),
+                      fontWeight: FontWeight.w700,
+                    ),
+                    minFontSize: 25,
+                  ),
+                ),
+                nowserving(context),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  alignment: Alignment.topLeft,
+                  child: AutoSizeText(
+                    'Learn More About Our Drinks',
+                    style: TextStyle(
+                      color: HexColor("#175244"),
+                      fontWeight: FontWeight.w700,
+                    ),
+                    minFontSize: 25,
+                  ),
+                ),
+                learnmore(context),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -146,7 +144,7 @@ getbanner(context, username) {
       children: [
         Container(
           transform: Matrix4.translationValues(0, 28, 0),
-          child:  Text(
+          child: Text(
             '${'Hi ' + username}!',
             style: TextStyle(
               color: Colors.white,
@@ -318,10 +316,7 @@ getofferdetails(context, index) {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.52,
                     ),
-                    ElevatedButton(
-                        onPressed: () {
-
-                    }, child: Text('Order Now')),
+                    ElevatedButton(onPressed: () {}, child: Text('Order Now')),
                   ],
                 ),
               )
@@ -386,7 +381,6 @@ class getoffers extends StatefulWidget {
 }
 
 class _getoffersState extends State<getoffers> {
-
   addToCart(context, index) {
     print(index);
     final cartp = Provider.of<OffersData>(context, listen: false);
@@ -396,13 +390,13 @@ class _getoffersState extends State<getoffers> {
       ..qty = 1
       ..isInCart = true
       ..image = cartp.offerdata[index].image
-      ..ttlPrice = 0.0;
+      ..ttlPrice = 0.0
+      ..id = cartp.offerdata[index].id;
     final box = Boxes.getCartData();
     box.add(cartItem);
     print(cartItem.title);
 
-    print("product added");
-
+    print("product added " + cartp.offerdata[index].id);
   }
 
   @override
@@ -414,10 +408,7 @@ class _getoffersState extends State<getoffers> {
           final data = box.values.toList().cast<CartData>();
           bool flag = false;
           return SizedBox(
-            height: MediaQuery
-                .of(context)
-                .size
-                .height * 0.18,
+            height: MediaQuery.of(context).size.height * 0.18,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: offersp.offerdata.length,
@@ -434,18 +425,13 @@ class _getoffersState extends State<getoffers> {
                       child: Container(
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: index % 2 == 0 ? Colors.teal : Colors
-                              .deepOrangeAccent,
+                          color: index % 2 == 0
+                              ? Colors.teal
+                              : Colors.deepOrangeAccent,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.18,
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.76,
+                        height: MediaQuery.of(context).size.height * 0.18,
+                        width: MediaQuery.of(context).size.width * 0.76,
                         child: Stack(
                           children: [
                             Container(
@@ -495,24 +481,27 @@ class _getoffersState extends State<getoffers> {
                               child: TextButton(
                                 onPressed: () {
                                   addToCart(context, index);
-
-
-
-
+                                  for (var i = 0; i < data.length; i++) {
+                                    if (offersp.offerdata[index].id ==
+                                        data[i].id) {
+                                      flag = true;
+                                    } else
+                                      flag = false;
+                                    setState(() {});
+                                  }
                                   setState(() {
                                     cartinit = true;
                                   });
                                 },
-                                child: Text('Add'),
+                                child: flag ? Text('Added') : Text("Add"),
                                 style: ButtonStyle(
                                   backgroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      Colors.white),
-                                  foregroundColor: MaterialStateProperty.all<
-                                      Color>(
-                                      HexColor('#175244')),
-                                  shape:
-                                  MaterialStateProperty.all<
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.white),
+                                  foregroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          HexColor('#175244')),
+                                  shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(18.0),
@@ -533,7 +522,6 @@ class _getoffersState extends State<getoffers> {
         });
   }
 }
-
 
 nowserving(context) {
   final nowservep = Provider.of<NowServing>(context);

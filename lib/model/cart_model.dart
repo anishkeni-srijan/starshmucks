@@ -21,4 +21,7 @@ class CartData extends HiveObject {
 
   @HiveField(5)
   late double ttlPrice;
+
+  @HiveField(6)
+  late String id;
 }
