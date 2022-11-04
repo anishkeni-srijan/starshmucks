@@ -27,18 +27,26 @@ class _MyCartState extends State<MyCart> {
     return Scaffold(
       bottomNavigationBar: Container(
           padding: EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Text(
-                "Total: ",
-                style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                width: 160,
-              ),
-              ElevatedButton(onPressed: () {}, child: Text("Checkout")),
-            ],
-          )),
+          child: ValueListenableBuilder<Box<CartData>>(
+    valueListenable: Boxes.getCartData().listenable(),
+    builder: (context, box, _) {
+      final data = box.values.toList().cast<CartData>();
+
+      return Row(
+        children: [
+          Text(
+            "Total: " ,
+            style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            width: 160,
+          ),
+          ElevatedButton(onPressed: () {}, child: Text("Checkout")),
+        ],
+      );
+    }
+          )
+    ),
       appBar: AppBar(
         title: Text("Cart"),
       ),
