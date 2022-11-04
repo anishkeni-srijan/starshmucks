@@ -46,21 +46,21 @@ class _bottomBarState extends State<bottomBar> {
     return Scaffold(
       appBar: gethomeappbar(),
       body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
-      persistentFooterButtons: [
-        cartinit
-            ? Row(
+      persistentFooterButtons: cartinit
+          ? [
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   TextButton(
-                      child: Text("view in cart"),
+                      child: Text("View in Cart"),
                       onPressed: () {
                         Get.to(MyCart());
                       }),
                 ],
               )
-            : Container(),
-      ],
+            ]
+          : null,
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         items: <BottomNavigationBarItem>[

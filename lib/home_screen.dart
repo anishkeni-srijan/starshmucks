@@ -392,6 +392,8 @@ class _getoffersState extends State<getoffers> {
       ..ttlPrice = 0.0
       ..id = cartp.offerdata[index].id;
     final box = Boxes.getCartData();
+    // if(){}
+    // else
     box.add(cartItem);
     print(cartItem.title);
 
@@ -480,14 +482,16 @@ class _getoffersState extends State<getoffers> {
                               child: TextButton(
                                 onPressed: () {
                                   addToCart(context, index);
-                                  for (var i = 0; i < data.length; i++) {
-                                    if (offersp.offerdata[index].id ==
-                                        data[i].id) {
-                                      flag = true;
-                                    } else
-                                      flag = false;
-                                    setState(() {});
-                                  }
+
+                                  // for (var i = 0; i < data.length; i++) {
+                                  //   if (offersp.offerdata[index].id ==
+                                  //       data[i].id) {
+                                  //     flag = true;
+                                  //   } else
+                                  //     flag = false;
+                                  //   setState(() {});
+                                  // }
+
                                   setState(() {
                                     cartinit = true;
                                   });

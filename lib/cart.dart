@@ -46,18 +46,49 @@ class _MyCartState extends State<MyCart> {
           valueListenable: Boxes.getCartData().listenable(),
           builder: (context, box, _) {
             final data = box.values.toList().cast<CartData>();
-            return Column(
-              children: [
-                Text(data.length.toString()),
-                TextButton(
-                    onPressed: () {
-                      box.clear();
-                      cartinit = false;
-                      setState(() {});
+            return data.isEmpty
+                ? Text("No data in cart")
+                : ListView.builder(
+                    itemCount: data.length,
+                    itemBuilder: (context, index) {
+                      return Row(
+                        children: [
+                          Image.asset(
+                            data[index].image,
+                            height: 100,
+                            width: 100,
+                          ),
+                          Column(
+                            children: [
+                              Text(data[index].title),
+                              Text("Rs. " + data[index].price),
+                              Text("Quntity: " + data[index].qty.toString()),
+                              TextButton(
+                                  onPressed: () {
+                                    box.delete(data[index].key);
+                                    cartinit = false;
+                                    setState(() {});
+                                  },
+                                  child: Text('Remove'))
+                            ],
+                          ),
+                        ],
+                      );
                     },
-                    child: Text('clear'))
-              ],
-            );
+                  );
+
+            //   Column(
+            //   children: [
+            //     Text(data.length.toString()),
+            //     TextButton(
+            //         onPressed: () {
+            //           box.clear();
+            //           cartinit = false;
+            //           setState(() {});
+            //         },
+            //         child: Text('clear'))
+            //   ],
+            // );
           }),
       // body:  ListView.builder(
       //       itemCount: loadedproduct.cartlistbyid.length,
