@@ -46,6 +46,9 @@ class _MyCartState extends State<MyCart> {
           valueListenable: Boxes.getCartData().listenable(),
           builder: (context, box, _) {
             final data = box.values.toList().cast<CartData>();
+            if (data.isEmpty) {
+              cartinit = false;
+            }
             return data.isEmpty
                 ? Text("No data in cart")
                 : ListView.builder(
@@ -66,7 +69,6 @@ class _MyCartState extends State<MyCart> {
                               TextButton(
                                   onPressed: () {
                                     box.delete(data[index].key);
-                                    cartinit = false;
                                     setState(() {});
                                   },
                                   child: Text('Remove'))
