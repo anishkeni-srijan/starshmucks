@@ -526,10 +526,12 @@ class nowserving extends StatefulWidget {
   State<nowserving> createState() => _nowservingState();
 }
 
-class _nowservingState extends State<nowserving> {
+// final box = Boxes.getCartData();
+// final data = box.values.toList().cast<CartData>();
+// late double result = double.parse(data[0].price);
 
+class _nowservingState extends State<nowserving> {
   addToCart(context, index) {
-    late double result = 0;
     print("in cart " + index.toString());
     final cartp = Provider.of<NowServing>(context, listen: false);
     final cartItem = CartData()
@@ -538,13 +540,14 @@ class _nowservingState extends State<nowserving> {
       ..qty = 1
       ..isInCart = true
       ..image = cartp.nowdata[index].image
-      ..ttlPrice = result
+      ..ttlPrice = 0.0
       ..id = cartp.nowdata[index].id;
     final box = Boxes.getCartData();
-   result = cartItem.ttlPrice + double.parse(cartItem.price);
+    // result = cartItem.ttlPrice + double.parse(cartItem.price);
+    setState(() {});
     box.add(cartItem);
     print(cartItem.title);
-    print("total " + cartItem.ttlPrice.toString());
+    // print("total " + cartItem.ttlPrice.toString());
     print("product added " + cartp.nowdata[index].id);
   }
 
