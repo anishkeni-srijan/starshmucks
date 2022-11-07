@@ -27,7 +27,6 @@ class _MyCartState extends State<MyCart> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       bottomNavigationBar: Container(
           padding: EdgeInsets.all(8.0),
@@ -37,7 +36,8 @@ class _MyCartState extends State<MyCart> {
                 final data = box.values.toList().cast<CartData>();
                 late double result = 0;
                 for (int index = 0; index < data.length; index++) {
-                  result = result + double.parse(data[index].price) * data[index].qty;
+                  result = result +
+                      double.parse(data[index].price) * data[index].qty;
                 }
                 return Row(
                   children: [
@@ -49,7 +49,15 @@ class _MyCartState extends State<MyCart> {
                     SizedBox(
                       width: 120,
                     ),
-                    ElevatedButton(onPressed: () {Get.to(Checkout(), transition: Transition.rightToLeft);}, child: Text("Checkout") , style: ButtonStyle(backgroundColor: MaterialStateProperty.all(HexColor("#036635"))),),
+                    ElevatedButton(
+                      onPressed: () {
+                        Get.to(Checkout(), transition: Transition.rightToLeft);
+                      },
+                      child: Text("Checkout"),
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(HexColor("#036635"))),
+                    ),
                   ],
                 );
               })),
@@ -82,7 +90,11 @@ class _MyCartState extends State<MyCart> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(width:150,child: Text(data[index].title,maxLines: 2,overflow: TextOverflow.ellipsis)),
+                                Container(
+                                    width: 150,
+                                    child: Text(data[index].title,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis)),
                                 Text("\$ " + data[index].price),
                                 TextButton(
                                   child: Text('Remove'),
@@ -93,69 +105,53 @@ class _MyCartState extends State<MyCart> {
                                   },
                                   style: ButtonStyle(
                                       foregroundColor:
-                                      MaterialStateProperty.all(
-                                          HexColor("#036635"))),
-
+                                          MaterialStateProperty.all(
+                                              HexColor("#036635"))),
                                 ),
                               ],
                             ),
                           ),
-
                           Column(
-crossAxisAlignment: CrossAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Row(
-                                    children: [
-                                      IconButton(
-                                        icon: Icon(Icons.remove),
-                                        onPressed: () {
-                                          if(data[index].qty == 1){
-                                            box.delete(data[index].key);
-                                            data[index].isInCart = false;
-                                          }
-                                          else {
-                                            data[index].qty =
-                                                data[index].qty - 1;
-
-                                            box.putAt(index, data[index]);
-                                          }
-                                          setState(() {
-
-                                          });
-                                        },
-                                        style: ButtonStyle(
-                                            foregroundColor:
+                                Row(children: [
+                                  IconButton(
+                                    icon: Icon(Icons.remove),
+                                    onPressed: () {
+                                      if (data[index].qty == 1) {
+                                        box.delete(data[index].key);
+                                        data[index].isInCart = false;
+                                      } else {
+                                        data[index].qty = data[index].qty - 1;
+                                        box.putAt(index, data[index]);
+                                      }
+                                      setState(() {});
+                                    },
+                                    style: ButtonStyle(
+                                        foregroundColor:
                                             MaterialStateProperty.all(
                                                 HexColor("#036635"))),
+                                  ),
+                                  Text(data[index].qty.toString()),
+                                  IconButton(
+                                    icon: Icon(Icons.add),
+                                    onPressed: () {
+                                      data[index].qty = data[index].qty + 1;
+                                      box.putAt(index, data[index]);
 
-                                      ),
-                                      Text(data[index].qty.toString()),
-                                      IconButton(
-                                        icon: Icon(Icons.add),
-                                        onPressed: () {
-                                          data[index].qty  = data[index].qty +1;
-                                          box.putAt(index,data[index]);
-
-                                          setState(() {
-
-                                          });
-                                        },
-                                        style: ButtonStyle(
-                                            foregroundColor:
+                                      setState(() {});
+                                    },
+                                    style: ButtonStyle(
+                                        foregroundColor:
                                             MaterialStateProperty.all(
                                                 HexColor("#036635"))),
-
-                                      ),
-                                    ]),
-
+                                  ),
+                                ]),
                               ])
                         ],
                       );
                     },
                   );
-
-
-
           }),
       //
     );

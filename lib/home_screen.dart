@@ -8,6 +8,7 @@ import '/model/cart_model.dart';
 
 import '/boxes.dart';
 import '/model/user_model.dart';
+import 'commonthings.dart';
 import 'providers/learnmore_provider.dart';
 import '/providers/nowserving_provider.dart';
 import '/providers/offers_provider.dart';
@@ -101,29 +102,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-gethomeappbar() {
-  return AppBar(
-    backgroundColor: Colors.white,
-    title: Text(
-      'Starschmucks',
-      style: TextStyle(
-        color: HexColor("#175244"),
-        fontWeight: FontWeight.w600,
-      ),
-    ),
-    elevation: 0,
-    actions: [
-      IconButton(
-        color: HexColor("#175244"),
-        onPressed: () {},
-        icon: const Icon(
-          Icons.notifications_outlined,
-        ),
-      ),
-    ],
-    automaticallyImplyLeading: false,
-  );
-}
 
 getbanner(context, username) {
   return Container(
@@ -383,7 +361,6 @@ class _getoffersState extends State<getoffers> {
     print("in cart " + index.toString());
     final cartp = Provider.of<OffersData>(context, listen: false);
 
-    // result=cartItem.ttlPrice+double.parse(cartp.offerdata[index].price);
     final cartItem = CartData()
       ..title = cartp.offerdata[index].title
       ..price = cartp.offerdata[index].price
@@ -493,14 +470,19 @@ class _getoffersState extends State<getoffers> {
                                       cartinit = true;
                                     });
                                   } else {
-                                    if(data[index].isInCart == true) {
-                                      print("sdghjj");
-                                    }
-                                    else{
-                                      addToCart(context, index);
-                                      setState(() {
-                                        cartinit = true;
-                                      });
+                                    for (int i = 0; i < data.length; i++) {
+                                      if (data[i].id ==
+                                          offersp.offerdata[index].id) {
+                                        print("Already in cart");
+                                        setState(() {});
+
+                                      }
+                                      else {
+                                        addToCart(context, index);
+                                        setState(() {
+                                          cartinit = true;
+                                        });
+                                      }
                                     }
                                   }
                                 },

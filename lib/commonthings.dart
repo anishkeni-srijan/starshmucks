@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:starshmucks/providers/menu_provider.dart';
 import 'package:starshmucks/providers/offers_provider.dart';
 import '/home_screen.dart';
@@ -105,4 +107,40 @@ orderbutton() {
       color: Colors.white,
     ), //icon inside button
   );
+}
+
+gethomeappbar() {
+  return AppBar(
+    backgroundColor: Colors.white,
+    title: Text(
+      'Starschmucks',
+      style: TextStyle(
+        color: HexColor("#175244"),
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+    elevation: 0,
+    actions: [
+      IconButton(
+        color: HexColor("#175244"),
+        onPressed: () {
+          Get.to(MyCart());
+        },
+        icon: const Icon(
+          Icons.shopping_cart,
+        ),
+      ),
+    ],
+    automaticallyImplyLeading: false,
+  );
+}
+increaseqty(index){
+  ValueListenableBuilder<Box<CartData>>(
+      valueListenable: Boxes.getCartData().listenable(),
+  builder: (context, box, _) {
+  final data = box.values.toList().cast<CartData>();
+  data[index].qty = data[index].qty + 1;
+  box.putAt(index, data[index]);
+  return Container();
+});
 }
