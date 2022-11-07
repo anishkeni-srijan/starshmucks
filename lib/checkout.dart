@@ -3,7 +3,9 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get.dart';
 
+import 'Payment.dart';
 import 'boxes.dart';
 import 'model/cart_model.dart';
 import 'model/user_model.dart';
@@ -90,7 +92,7 @@ class _CheckoutState extends State<Checkout> {
                     SizedBox(
                       width: 150,
                     ),
-                    ElevatedButton(onPressed: () {}, child: Text("Pay") , style: ButtonStyle(backgroundColor: MaterialStateProperty.all(HexColor("#036635"))),),
+                    ElevatedButton(onPressed: () { Get.to(PaymentPage(),transition: Transition.rightToLeft);}, child: Text("Pay") , style: ButtonStyle(backgroundColor: MaterialStateProperty.all(HexColor("#036635"))),),
                   ],
                 );
               })),

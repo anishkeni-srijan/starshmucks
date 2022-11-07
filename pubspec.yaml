@@ -38,6 +38,8 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner: ^2.3.0
 
+  upi_india: ^3.0.1
+
 flutter:
   uses-material-design: true
 
