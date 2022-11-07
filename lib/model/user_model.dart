@@ -24,4 +24,7 @@ class UserData extends HiveObject {
 
   @HiveField(6)
   late bool isactive = false;
+
+  @HiveField(7)
+  late List? address;
 }

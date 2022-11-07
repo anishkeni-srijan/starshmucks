@@ -55,7 +55,7 @@ class _bottomBarState extends State<bottomBar> {
                   TextButton(
                       child: Text("View in Cart"),
                       onPressed: () {
-                        Get.to(MyCart());
+                        Get.to(MyCart(),transition: Transition.downToUp);
                       }),
                 ],
               )

@@ -22,7 +22,7 @@ class _EditProfileState extends State<EditProfile> {
   late String obtainedname;
   late int obtainedkey;
 
-  getemail() async {
+  getuserkey() async {
     final keypref = await SharedPreferences.getInstance();
     userkey = keypref.getInt('userkey')!;
     setState(() {});
@@ -33,7 +33,7 @@ class _EditProfileState extends State<EditProfile> {
   @override
   var userkey;
   void initState() {
-    getemail();
+    getuserkey();
     super.initState();
   }
 

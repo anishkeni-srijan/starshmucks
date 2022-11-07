@@ -3,10 +3,13 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:starshmucks/home_screen.dart';
 import 'package:starshmucks/model/cart_model.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:starshmucks/providers/offers_provider.dart';
+import 'package:get/get.dart';
 
 import 'boxes.dart';
+import 'checkout.dart';
 
 class MyCart extends StatefulWidget {
   const MyCart({Key? key}) : super(key: key);
@@ -24,6 +27,7 @@ class _MyCartState extends State<MyCart> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       bottomNavigationBar: Container(
           padding: EdgeInsets.all(8.0),
@@ -33,7 +37,7 @@ class _MyCartState extends State<MyCart> {
                 final data = box.values.toList().cast<CartData>();
                 late double result = 0;
                 for (int index = 0; index < data.length; index++) {
-                  result = result + double.parse(data[index].price);
+                  result = result + double.parse(data[index].price) * data[index].qty;
                 }
                 return Row(
                   children: [
@@ -45,11 +49,13 @@ class _MyCartState extends State<MyCart> {
                     SizedBox(
                       width: 120,
                     ),
-                    ElevatedButton(onPressed: () {}, child: Text("Checkout")),
+                    ElevatedButton(onPressed: () {Get.to(Checkout(), transition: Transition.rightToLeft);}, child: Text("Checkout") , style: ButtonStyle(backgroundColor: MaterialStateProperty.all(HexColor("#036635"))),),
                   ],
                 );
               })),
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: HexColor("#175244"),
         title: Text("Cart"),
       ),
       body: ValueListenableBuilder<Box<CartData>>(
@@ -60,7 +66,7 @@ class _MyCartState extends State<MyCart> {
               cartinit = false;
             }
             return data.isEmpty
-                ? Text("No data in cart")
+                ? Center(child: Text("No items in cart"))
                 : ListView.builder(
                     itemCount: data.length,
                     itemBuilder: (context, index) {
@@ -71,85 +77,86 @@ class _MyCartState extends State<MyCart> {
                             height: 100,
                             width: 100,
                           ),
-                          Column(
-                            children: [
-                              Text(data[index].title),
-                              Text("\$ " + data[index].price),
-                              Text("Quntity: " + data[index].qty.toString()),
-                              TextButton(
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(width:150,child: Text(data[index].title,maxLines: 2,overflow: TextOverflow.ellipsis)),
+                                Text("\$ " + data[index].price),
+                                TextButton(
+                                  child: Text('Remove'),
                                   onPressed: () {
                                     box.delete(data[index].key);
                                     data[index].isInCart = false;
                                     setState(() {});
                                   },
-                                  child: Text('Remove'))
-                            ],
+                                  style: ButtonStyle(
+                                      foregroundColor:
+                                      MaterialStateProperty.all(
+                                          HexColor("#036635"))),
+
+                                ),
+                              ],
+                            ),
                           ),
+
+                          Column(
+crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Row(
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(Icons.remove),
+                                        onPressed: () {
+                                          if(data[index].qty == 1){
+                                            box.delete(data[index].key);
+                                            data[index].isInCart = false;
+                                          }
+                                          else {
+                                            data[index].qty =
+                                                data[index].qty - 1;
+
+                                            box.putAt(index, data[index]);
+                                          }
+                                          setState(() {
+
+                                          });
+                                        },
+                                        style: ButtonStyle(
+                                            foregroundColor:
+                                            MaterialStateProperty.all(
+                                                HexColor("#036635"))),
+
+                                      ),
+                                      Text(data[index].qty.toString()),
+                                      IconButton(
+                                        icon: Icon(Icons.add),
+                                        onPressed: () {
+                                          data[index].qty  = data[index].qty +1;
+                                          box.putAt(index,data[index]);
+
+                                          setState(() {
+
+                                          });
+                                        },
+                                        style: ButtonStyle(
+                                            foregroundColor:
+                                            MaterialStateProperty.all(
+                                                HexColor("#036635"))),
+
+                                      ),
+                                    ]),
+
+                              ])
                         ],
                       );
                     },
                   );
 
-            //   Column(
-            //   children: [
-            //     Text(data.length.toString()),
-            //     TextButton(
-            //         onPressed: () {
-            //           box.clear();
-            //           cartinit = false;
-            //           setState(() {});
-            //         },
-            //         child: Text('clear'))
-            //   ],
-            // );
+
+
           }),
-      // body:  ListView.builder(
-      //       itemCount: loadedproduct.cartlistbyid.length,
-      //       itemBuilder: (context,index) {
-      //         return Column(
-      //           children: [
-      //             Image.network(
-      //               loadedproduct.cartlistbyid[index].image,
-      //               width: 100,
-      //               height: 100,
-      //             ),
-      //             Text(loadedproduct.cartlistbyid[index].title),
-      //             Text(loadedproduct.cartlistbyid[index].price.toString()),
-      //
-      //             Row(
-      //                 mainAxisSize: MainAxisSize.min,
-      //                 children: [
-      //                   IconButton(
-      //                     icon: Icon(Icons.add),
-      //                     onPressed: () {
-      //                       loadedproduct.updateProduct(loadedproduct.cartlistbyid[index],
-      //                           loadedproduct.cartlistbyid[index].qty + 1);
-      //                       // model.removeProduct(model.cart[index]);
-      //                     },
-      //                   ),
-      //                   Text(loadedproduct.cartlistbyid[index].qty.toString()),
-      //                   IconButton(
-      //                     icon: Icon(Icons.remove),
-      //                     onPressed: () {
-      //                       loadedproduct.updateProduct(loadedproduct.cartlistbyid[index],
-      //                               loadedproduct.cartlistbyid[index].qty - 1);
-      //                           // model.removeProduct(model.cart[index]);
-      //                         },
-      //                       ),
-      //                     ]),
-      //                 ElevatedButton(onPressed: (){
-      //                   loadedproduct.removefromcart(loadedproduct.cartlistbyid[index]);
-      //                   loadedproduct.cartlistbyid[index].isincart=!loadedproduct.cartlistbyid[index].isincart;
-      //                   setState(() {
-      //
-      //                   });
-      //                 }, child: Icon(Icons.remove_circle_outline))
-      //               ],
-      //             );
-      //           }
-      //       );
-      //
-      //
       //
     );
   }

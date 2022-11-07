@@ -23,13 +23,14 @@ class UserDataAdapter extends TypeAdapter<UserData> {
       ..dob = fields[3] as String
       ..password = fields[4] as String
       ..tnc = fields[5] as bool
-      ..isactive = fields[6] as bool;
+      ..isactive = fields[6] as bool
+      ..address = (fields[7] as List?)?.cast<dynamic>();
   }
 
   @override
   void write(BinaryWriter writer, UserData obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -43,7 +44,9 @@ class UserDataAdapter extends TypeAdapter<UserData> {
       ..writeByte(5)
       ..write(obj.tnc)
       ..writeByte(6)
-      ..write(obj.isactive);
+      ..write(obj.isactive)
+      ..writeByte(7)
+      ..write(obj.address);
   }
 
   @override
