@@ -396,7 +396,10 @@ class _getoffersState extends State<getoffers> {
 
     // if(){}
     // else
-
+/*
+    if (box.containsKey(cartp.offerdata[index].id)) {
+      print("Item ALready Added");
+    } else {*/
     box.add(cartItem);
     print(cartItem.title);
 
@@ -484,10 +487,14 @@ class _getoffersState extends State<getoffers> {
                               ),
                               child: TextButton(
                                 onPressed: () {
-                                  addToCart(context, index);
-                                  setState(() {
-                                    cartinit = true;
-                                  });
+                                  if (!data[index].isInCart || data.isEmpty) {
+                                    addToCart(context, index);
+                                    setState(() {
+                                      cartinit = true;
+                                    });
+                                  } else {
+                                    print("sdghjj");
+                                  }
                                 },
                                 child: flag ? Text('Added') : Text("Add"),
                                 style: ButtonStyle(
