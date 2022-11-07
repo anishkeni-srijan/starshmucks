@@ -358,6 +358,8 @@ class getoffers extends StatefulWidget {
 class _getoffersState extends State<getoffers> {
   addToCart(context, index) {
     print("in cart " + index.toString());
+   final box = Boxes.getCartData();
+          final data = box.values.toList().cast<CartData>();
     final cartp = Provider.of<OffersData>(context, listen: false);
 
     final cartItem = CartData()
@@ -368,11 +370,12 @@ class _getoffersState extends State<getoffers> {
       ..image = cartp.offerdata[index].image
       ..ttlPrice = 0.0
       ..id = cartp.offerdata[index].id;
-    final box = Boxes.getCartData();
+
     var test =
         box.values.where((element) => element.id == cartp.offerdata[index].id);
     if (test.isNotEmpty) {
-      cartItem.qty = cartItem.qty + 1;
+      data[index].qty  =  data[index].qty +1;
+      box.putAt(index, data[index]);
       setState(() {});
       print("already inn");
     } else {
