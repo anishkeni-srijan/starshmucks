@@ -102,7 +102,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-
 getbanner(context, username) {
   return Container(
     height: MediaQuery.of(context).size.height * 0.2,
@@ -370,17 +369,25 @@ class _getoffersState extends State<getoffers> {
       ..ttlPrice = 0.0
       ..id = cartp.offerdata[index].id;
     final box = Boxes.getCartData();
+    var test =
+        box.values.where((element) => element.id == cartp.offerdata[index].id);
+    if (test.isNotEmpty) {
+      cartItem.qty = cartItem.qty + 1;
+      setState(() {});
+      print("already inn");
+    } else {
+      box.add(cartItem);
+      print(cartItem.title);
 
+      print("product added " + cartp.offerdata[index].id);
+    }
+//if(box.values.where((element) => false))
     // if(){}
     // else
 /*
     if (box.containsKey(cartp.offerdata[index].id)) {
       print("Item ALready Added");
     } else {*/
-    box.add(cartItem);
-    print(cartItem.title);
-
-    print("product added " + cartp.offerdata[index].id);
   }
 
   @override
@@ -464,27 +471,27 @@ class _getoffersState extends State<getoffers> {
                               ),
                               child: TextButton(
                                 onPressed: () {
-                                  if (data.isEmpty) {
-                                    addToCart(context, index);
-                                    setState(() {
-                                      cartinit = true;
-                                    });
-                                  } else {
-                                    for (int i = 0; i < data.length; i++) {
-                                      if (data[i].id ==
-                                          offersp.offerdata[index].id) {
-                                        print("Already in cart");
-                                        setState(() {});
-
-                                      }
-                                      else {
-                                        addToCart(context, index);
-                                        setState(() {
-                                          cartinit = true;
-                                        });
-                                      }
-                                    }
-                                  }
+                                  //if (data.isEmpty) {
+                                  addToCart(context, index);
+                                  setState(() {
+                                    cartinit = true;
+                                  });
+                                  // } else {
+                                  //   for (int i = 0; i < data.length; i++) {
+                                  //     if (data[i].id ==
+                                  //         offersp.offerdata[index].id) {
+                                  //       print("Already in cart");
+                                  //       setState(() {});
+                                  //
+                                  //     }
+                                  //     else {
+                                  //       addToCart(context, index);
+                                  //       setState(() {
+                                  //         cartinit = true;
+                                  //       });
+                                  //     }
+                                  //   }
+                                  // }
                                 },
                                 child: flag ? Text('Added') : Text("Add"),
                                 style: ButtonStyle(
