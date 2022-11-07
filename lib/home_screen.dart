@@ -487,13 +487,21 @@ class _getoffersState extends State<getoffers> {
                               ),
                               child: TextButton(
                                 onPressed: () {
-                                  if (!data[index].isInCart || data.isEmpty) {
+                                  if (data.isEmpty) {
                                     addToCart(context, index);
                                     setState(() {
                                       cartinit = true;
                                     });
                                   } else {
-                                    print("sdghjj");
+                                    if(data[index].isInCart == true) {
+                                      print("sdghjj");
+                                    }
+                                    else{
+                                      addToCart(context, index);
+                                      setState(() {
+                                        cartinit = true;
+                                      });
+                                    }
                                   }
                                 },
                                 child: flag ? Text('Added') : Text("Add"),
