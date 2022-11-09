@@ -6,8 +6,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '/signin/signin.dart';
 import 'boxes.dart';
+import 'cart.dart';
 import 'commonthings.dart';
 import 'editdetails/edit_details.dart';
+import 'home_screen.dart';
 import 'model/user_model.dart';
 
 class UserProfile extends StatefulWidget {
@@ -38,6 +40,21 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      persistentFooterButtons: cartinit
+          ? [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            TextButton(
+                child: Text("View in Cart"),
+                onPressed: () {
+                  Get.to(MyCart(),transition: Transition.downToUp);
+                }),
+          ],
+        )
+      ]
+          : null,
       backgroundColor: HexColor("#175244"),
       body: ValueListenableBuilder<Box<UserData>>(
         valueListenable: Boxes.getUserData().listenable(),

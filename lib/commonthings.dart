@@ -48,21 +48,7 @@ class _bottomBarState extends State<bottomBar> {
     return Scaffold(
       appBar: gethomeappbar(),
       body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
-      persistentFooterButtons: cartinit
-          ? [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  TextButton(
-                      child: Text("View in Cart"),
-                      onPressed: () {
-                        Get.to(MyCart(),transition: Transition.downToUp);
-                      }),
-                ],
-              )
-            ]
-          : null,
+
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         items: <BottomNavigationBarItem>[
@@ -143,4 +129,17 @@ increaseqty(index){
   box.putAt(index, data[index]);
   return Container();
 });
+}
+viewincart(){
+ return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      TextButton(
+          child: Text("View in Cart"),
+          onPressed: () {
+            Get.to(MyCart(),transition: Transition.downToUp);
+          }),
+    ],
+  );
 }

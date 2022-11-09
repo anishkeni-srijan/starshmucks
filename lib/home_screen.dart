@@ -5,9 +5,11 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
 import '/model/cart_model.dart';
+import 'package:get/get.dart';
 
 import '/boxes.dart';
 import '/model/user_model.dart';
+import 'cart.dart';
 import 'commonthings.dart';
 import 'providers/learnmore_provider.dart';
 import '/providers/nowserving_provider.dart';
@@ -45,6 +47,11 @@ class _HomePageState extends State<HomePage> {
     final nowservep = Provider.of<OffersData>(context);
     nowservep.fetchData(context);
     return Scaffold(
+      persistentFooterButtons: cartinit
+          ? [
+        viewincart()
+      ]
+          : null,
       body: ValueListenableBuilder<Box<UserData>>(
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {

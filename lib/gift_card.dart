@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-
+import 'package:get/get.dart';
+import 'cart.dart';
 import 'commonthings.dart';
 import 'home_screen.dart';
 
@@ -27,6 +28,21 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
       initialIndex: 1,
       length: 4,
       child: Scaffold(
+        persistentFooterButtons: cartinit
+            ? [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              TextButton(
+                  child: Text("View in Cart"),
+                  onPressed: () {
+                    Get.to(MyCart(),transition: Transition.downToUp);
+                  }),
+            ],
+          )
+        ]
+            : null,
         body: Column(
           children: [
             SingleChildScrollView(
