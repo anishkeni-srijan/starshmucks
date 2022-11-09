@@ -47,12 +47,7 @@ class _HomePageState extends State<HomePage> {
     final nowservep = Provider.of<OffersData>(context);
     nowservep.fetchData(context);
     return Scaffold(
-      persistentFooterButtons: cartinit
-          ? [
-
-        viewincart()
-      ]
-          : null,
+      persistentFooterButtons: cartinit ? [viewincart()] : null,
       body: ValueListenableBuilder<Box<UserData>>(
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
@@ -366,8 +361,8 @@ class getoffers extends StatefulWidget {
 class _getoffersState extends State<getoffers> {
   addToCart(context, index) {
     print("in cart " + index.toString());
-   final box = Boxes.getCartData();
-          final data = box.values.toList().cast<CartData>();
+    final box = Boxes.getCartData();
+    final data = box.values.toList().cast<CartData>();
     final cartp = Provider.of<OffersData>(context, listen: false);
 
     final cartItem = CartData()
@@ -381,10 +376,13 @@ class _getoffersState extends State<getoffers> {
 
     var test =
         box.values.where((element) => element.id == cartp.offerdata[index].id);
-    if (test.isNotEmpty) {
-      data[index].qty  =  data[index].qty +1;
-      box.putAt(index, data[index]);
-      setState(() {});
+    int zindex =
+        data.indexWhere((item) => item.id == cartp.offerdata[index].id);
+    print(zindex);
+    if (zindex != -1) {
+      // data[index].qty = data[index].qty + 1;
+      // box.putAt(index, data[index]);
+      // setState(() {});
       print("already inn");
     } else {
       box.add(cartItem);
@@ -392,6 +390,17 @@ class _getoffersState extends State<getoffers> {
 
       print("product added " + cartp.offerdata[index].id);
     }
+    // if (test.isNotEmpty) {
+    //   data[index].qty = data[index].qty + 1;
+    //   box.putAt(index, data[index]);
+    //   setState(() {});
+    //   print("already inn");
+    // } else {
+    //   box.add(cartItem);
+    //   print(cartItem.title);
+    //
+    //   print("product added " + cartp.offerdata[index].id);
+    // }
 //if(box.values.where((element) => false))
     // if(){}
     // else
@@ -548,7 +557,10 @@ class nowserving extends StatefulWidget {
 class _nowservingState extends State<nowserving> {
   addToCart(context, index) {
     print("in cart " + index.toString());
+    final box = Boxes.getCartData();
+    final data = box.values.toList().cast<CartData>();
     final cartp = Provider.of<NowServing>(context, listen: false);
+
     final cartItem = CartData()
       ..title = cartp.nowdata[index].title
       ..price = cartp.nowdata[index].price
@@ -557,13 +569,42 @@ class _nowservingState extends State<nowserving> {
       ..image = cartp.nowdata[index].image
       ..ttlPrice = 0.0
       ..id = cartp.nowdata[index].id;
-    final box = Boxes.getCartData();
-    // result = cartItem.ttlPrice + double.parse(cartItem.price);
-    setState(() {});
-    box.add(cartItem);
-    print(cartItem.title);
-    // print("total " + cartItem.ttlPrice.toString());
-    print("product added " + cartp.nowdata[index].id);
+
+    var test =
+        box.values.where((element) => element.id == cartp.nowdata[index].id);
+    int zindex = data.indexWhere((item) => item.id == cartp.nowdata[index].id);
+    print(zindex);
+    if (zindex != -1) {
+      // data[index].qty = data[index].qty + 1;
+      // box.putAt(index, data[index]);
+
+      // setState(() {});
+      print("already inn");
+    } else {
+      // box.add(cartItem);
+
+      print(cartItem.title);
+
+      print("product added " + cartp.nowdata[index].id);
+    }
+    // if (test.isNotEmpty) {
+    //   data[index].qty = data[index].qty + 1;
+    //   box.putAt(index, data[index]);
+    //   setState(() {});
+    //   print("already inn");
+    // } else {
+    //   box.add(cartItem);
+    //   print(cartItem.title);
+    //
+    //   print("product added " + cartp.offerdata[index].id);
+    // }
+//if(box.values.where((element) => false))
+    // if(){}
+    // else
+/*
+    if (box.containsKey(cartp.offerdata[index].id)) {
+      print("Item ALready Added");
+    } else {*/
   }
 
   @override
