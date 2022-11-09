@@ -91,7 +91,10 @@ class getcoffe extends StatefulWidget {
 class _getcoffeState extends State<getcoffe> {
   addToCart(context, index) {
     print("in cart " + index.toString());
+    final box = Boxes.getCartData();
+    final data = box.values.toList().cast<CartData>();
     final cartp = Provider.of<Menudata>(context, listen: false);
+
     final cartItem = CartData()
       ..title = cartp.coffeemenudata[index].title
       ..price = cartp.coffeemenudata[index].price
@@ -100,13 +103,43 @@ class _getcoffeState extends State<getcoffe> {
       ..image = cartp.coffeemenudata[index].image
       ..ttlPrice = 0.0
       ..id = cartp.coffeemenudata[index].id;
-    final box = Boxes.getCartData();
+
+    var test = box.values
+        .where((element) => element.id == cartp.coffeemenudata[index].id);
+    int zindex =
+        data.indexWhere((item) => item.id == cartp.coffeemenudata[index].id);
+    print("test " + zindex.toString());
+    if (zindex != -1) {
+      data[zindex].qty++;
+      box.putAt(zindex, data[zindex]);
+      // data[index].qty = data[index].qty + 1;
+      // box.putAt(index, data[index]);
+      // setState(() {});
+      print("already inn");
+    } else {
+      box.add(cartItem);
+      print(cartItem.title);
+
+      //  print("product added " + cartp.offerdata[index].id);
+    }
+    // if (test.isNotEmpty) {
+    //   data[index].qty = data[index].qty + 1;
+    //   box.putAt(index, data[index]);
+    //   setState(() {});
+    //   print("already inn");
+    // } else {
+    //   box.add(cartItem);
+    //   print(cartItem.title);
+    //
+    //   print("product added " + cartp.offerdata[index].id);
+    // }
+//if(box.values.where((element) => false))
     // if(){}
     // else
-    box.add(cartItem);
-    print(cartItem.title);
-
-    print("product added " + cartp.coffeemenudata[index].id.toString());
+/*
+    if (box.containsKey(cartp.offerdata[index].id)) {
+      print("Item ALready Added");
+    } else {*/
   }
 
   @override
@@ -238,7 +271,10 @@ class getcake extends StatefulWidget {
 class _getcakeState extends State<getcake> {
   addToCart(context, index) {
     print("in cart " + index.toString());
+    final box = Boxes.getCartData();
+    final data = box.values.toList().cast<CartData>();
     final cartp = Provider.of<Menudata>(context, listen: false);
+
     final cartItem = CartData()
       ..title = cartp.cakemenudata[index].title
       ..price = cartp.cakemenudata[index].price
@@ -247,13 +283,43 @@ class _getcakeState extends State<getcake> {
       ..image = cartp.cakemenudata[index].image
       ..ttlPrice = 0.0
       ..id = cartp.cakemenudata[index].id;
-    final box = Boxes.getCartData();
+
+    var test = box.values
+        .where((element) => element.id == cartp.cakemenudata[index].id);
+    int zindex =
+        data.indexWhere((item) => item.id == cartp.cakemenudata[index].id);
+    print("test " + zindex.toString());
+    if (zindex != -1) {
+      data[zindex].qty++;
+      box.putAt(zindex, data[zindex]);
+      // data[index].qty = data[index].qty + 1;
+      // box.putAt(index, data[index]);
+      // setState(() {});
+      print("already inn");
+    } else {
+      box.add(cartItem);
+      print(cartItem.title);
+
+      //  print("product added " + cartp.offerdata[index].id);
+    }
+    // if (test.isNotEmpty) {
+    //   data[index].qty = data[index].qty + 1;
+    //   box.putAt(index, data[index]);
+    //   setState(() {});
+    //   print("already inn");
+    // } else {
+    //   box.add(cartItem);
+    //   print(cartItem.title);
+    //
+    //   print("product added " + cartp.offerdata[index].id);
+    // }
+//if(box.values.where((element) => false))
     // if(){}
     // else
-    box.add(cartItem);
-    print(cartItem.title);
-
-    print("product added " + cartp.cakemenudata[index].id.toString());
+/*
+    if (box.containsKey(cartp.offerdata[index].id)) {
+      print("Item ALready Added");
+    } else {*/
   }
 
   @override
@@ -387,7 +453,10 @@ class getsmoothie extends StatefulWidget {
 class _getsmoothieState extends State<getsmoothie> {
   addToCart(context, index) {
     print("in cart " + index.toString());
+    final box = Boxes.getCartData();
+    final data = box.values.toList().cast<CartData>();
     final cartp = Provider.of<Menudata>(context, listen: false);
+
     final cartItem = CartData()
       ..title = cartp.smoothiemenudata[index].title
       ..price = cartp.smoothiemenudata[index].price
@@ -396,13 +465,43 @@ class _getsmoothieState extends State<getsmoothie> {
       ..image = cartp.smoothiemenudata[index].image
       ..ttlPrice = 0.0
       ..id = cartp.smoothiemenudata[index].id;
-    final box = Boxes.getCartData();
+
+    var test = box.values
+        .where((element) => element.id == cartp.smoothiemenudata[index].id);
+    int zindex =
+        data.indexWhere((item) => item.id == cartp.smoothiemenudata[index].id);
+    print("test " + zindex.toString());
+    if (zindex != -1) {
+      data[zindex].qty++;
+      box.putAt(zindex, data[zindex]);
+      // data[index].qty = data[index].qty + 1;
+      // box.putAt(index, data[index]);
+      // setState(() {});
+      print("already inn");
+    } else {
+      box.add(cartItem);
+      print(cartItem.title);
+
+      //  print("product added " + cartp.offerdata[index].id);
+    }
+    // if (test.isNotEmpty) {
+    //   data[index].qty = data[index].qty + 1;
+    //   box.putAt(index, data[index]);
+    //   setState(() {});
+    //   print("already inn");
+    // } else {
+    //   box.add(cartItem);
+    //   print(cartItem.title);
+    //
+    //   print("product added " + cartp.offerdata[index].id);
+    // }
+//if(box.values.where((element) => false))
     // if(){}
     // else
-    box.add(cartItem);
-    print(cartItem.title);
-
-    print("product added " + cartp.smoothiemenudata[index].id.toString());
+/*
+    if (box.containsKey(cartp.offerdata[index].id)) {
+      print("Item ALready Added");
+    } else {*/
   }
 
   @override

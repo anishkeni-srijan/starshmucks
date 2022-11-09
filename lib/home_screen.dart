@@ -378,8 +378,10 @@ class _getoffersState extends State<getoffers> {
         box.values.where((element) => element.id == cartp.offerdata[index].id);
     int zindex =
         data.indexWhere((item) => item.id == cartp.offerdata[index].id);
-    print(zindex);
+    print("test " + zindex.toString());
     if (zindex != -1) {
+      data[zindex].qty++;
+      box.putAt(zindex, data[zindex]);
       // data[index].qty = data[index].qty + 1;
       // box.putAt(index, data[index]);
       // setState(() {});
@@ -573,19 +575,19 @@ class _nowservingState extends State<nowserving> {
     var test =
         box.values.where((element) => element.id == cartp.nowdata[index].id);
     int zindex = data.indexWhere((item) => item.id == cartp.nowdata[index].id);
-    print(zindex);
+    print("test " + zindex.toString());
     if (zindex != -1) {
+      data[zindex].qty++;
+      box.putAt(zindex, data[zindex]);
       // data[index].qty = data[index].qty + 1;
       // box.putAt(index, data[index]);
-
       // setState(() {});
       print("already inn");
     } else {
-      // box.add(cartItem);
-
+      box.add(cartItem);
       print(cartItem.title);
 
-      //print("product added " + cartp.nowdata[index].id);
+      //  print("product added " + cartp.offerdata[index].id);
     }
     // if (test.isNotEmpty) {
     //   data[index].qty = data[index].qty + 1;
