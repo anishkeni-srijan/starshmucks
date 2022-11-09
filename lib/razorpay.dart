@@ -1,18 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
-
 class razorpay extends StatefulWidget {
   const razorpay({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -25,11 +15,6 @@ class _razorpayState extends State<razorpay> {
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
     });
   }
@@ -71,25 +56,32 @@ class _razorpayState extends State<razorpay> {
             const Text(
               'Pay with Razorpay',
             ),
-            ElevatedButton(onPressed: (){
-              Razorpay razorpay = Razorpay();
-              var options = {
-                'key': 'rzp_live_ILgsfZCZoFIKMb',
-                'amount': 100,
-                'name': 'Acme Corp.',
-                'description': 'Fine T-Shirt',
-                'retry': {'enabled': true, 'max_count': 1},
-                'send_sms_hash': true,
-                'prefill': {'contact': '8888888888', 'email': 'test@razorpay.com'},
-                'external': {
-                  'wallets': ['paytm']
-                }
-              };
-              razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
-              razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlePaymentSuccessResponse);
-              razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handleExternalWalletSelected);
-              razorpay.open(options);
-            },
+            ElevatedButton(
+                onPressed: () {
+                  Razorpay razorpay = Razorpay();
+                  var options = {
+                    'key': 'rzp_live_ILgsfZCZoFIKMb',
+                    'amount': 100,
+                    'name': 'Acme Corp.',
+                    'description': 'Fine T-Shirt',
+                    'retry': {'enabled': true, 'max_count': 1},
+                    'send_sms_hash': true,
+                    'prefill': {
+                      'contact': '8888888888',
+                      'email': 'test@razorpay.com'
+                    },
+                    'external': {
+                      'wallets': ['paytm']
+                    }
+                  };
+                  razorpay.on(
+                      Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
+                  razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
+                      handlePaymentSuccessResponse);
+                  razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
+                      handleExternalWalletSelected);
+                  razorpay.open(options);
+                },
                 child: const Text("Pay with Razorpay")),
           ],
         ),
@@ -102,35 +94,38 @@ class _razorpayState extends State<razorpay> {
     );
   }
 
-  void handlePaymentErrorResponse(PaymentFailureResponse response){
+  void handlePaymentErrorResponse(PaymentFailureResponse response) {
     /*
     * PaymentFailureResponse contains three values:
     * 1. Error Code
     * 2. Error Description
     * 3. Metadata
     * */
-    showAlertDialog(context, "Payment Failed", "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
+    showAlertDialog(context, "Payment Failed",
+        "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
   }
 
-  void handlePaymentSuccessResponse(PaymentSuccessResponse response){
+  void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
     /*
     * Payment Success Response contains three values:
     * 1. Order ID
     * 2. Payment ID
     * 3. Signature
     * */
-    showAlertDialog(context, "Payment Successful", "Payment ID: ${response.paymentId}");
+    showAlertDialog(
+        context, "Payment Successful", "Payment ID: ${response.paymentId}");
   }
 
-  void handleExternalWalletSelected(ExternalWalletResponse response){
-    showAlertDialog(context, "External Wallet Selected", "${response.walletName}");
+  void handleExternalWalletSelected(ExternalWalletResponse response) {
+    showAlertDialog(
+        context, "External Wallet Selected", "${response.walletName}");
   }
 
-  void showAlertDialog(BuildContext context, String title, String message){
+  void showAlertDialog(BuildContext context, String title, String message) {
     // set up the buttons
     Widget continueButton = ElevatedButton(
       child: const Text("Continue"),
-      onPressed:  () {},
+      onPressed: () {},
     );
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
