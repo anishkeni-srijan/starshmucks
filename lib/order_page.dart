@@ -474,34 +474,12 @@ class _getsmoothieState extends State<getsmoothie> {
     if (zindex != -1) {
       data[zindex].qty++;
       box.putAt(zindex, data[zindex]);
-      // data[index].qty = data[index].qty + 1;
-      // box.putAt(index, data[index]);
-      // setState(() {});
+
       print("already inn");
     } else {
       box.add(cartItem);
       print(cartItem.title);
-
-      //  print("product added " + cartp.offerdata[index].id);
     }
-    // if (test.isNotEmpty) {
-    //   data[index].qty = data[index].qty + 1;
-    //   box.putAt(index, data[index]);
-    //   setState(() {});
-    //   print("already inn");
-    // } else {
-    //   box.add(cartItem);
-    //   print(cartItem.title);
-    //
-    //   print("product added " + cartp.offerdata[index].id);
-    // }
-//if(box.values.where((element) => false))
-    // if(){}
-    // else
-/*
-    if (box.containsKey(cartp.offerdata[index].id)) {
-      print("Item ALready Added");
-    } else {*/
   }
 
   @override
