@@ -364,7 +364,6 @@ class _getoffersState extends State<getoffers> {
     final box = Boxes.getCartData();
     final data = box.values.toList().cast<CartData>();
     final cartp = Provider.of<OffersData>(context, listen: false);
-
     final cartItem = CartData()
       ..title = cartp.offerdata[index].title
       ..price = cartp.offerdata[index].price
@@ -373,43 +372,17 @@ class _getoffersState extends State<getoffers> {
       ..image = cartp.offerdata[index].image
       ..ttlPrice = 0.0
       ..id = cartp.offerdata[index].id;
-
-    var test =
-        box.values.where((element) => element.id == cartp.offerdata[index].id);
     int zindex =
         data.indexWhere((item) => item.id == cartp.offerdata[index].id);
     print("test " + zindex.toString());
     if (zindex != -1) {
       data[zindex].qty++;
       box.putAt(zindex, data[zindex]);
-      // data[index].qty = data[index].qty + 1;
-      // box.putAt(index, data[index]);
-      // setState(() {});
       print("already inn");
     } else {
       box.add(cartItem);
       print(cartItem.title);
-
-      //  print("product added " + cartp.offerdata[index].id);
     }
-    // if (test.isNotEmpty) {
-    //   data[index].qty = data[index].qty + 1;
-    //   box.putAt(index, data[index]);
-    //   setState(() {});
-    //   print("already inn");
-    // } else {
-    //   box.add(cartItem);
-    //   print(cartItem.title);
-    //
-    //   print("product added " + cartp.offerdata[index].id);
-    // }
-//if(box.values.where((element) => false))
-    // if(){}
-    // else
-/*
-    if (box.containsKey(cartp.offerdata[index].id)) {
-      print("Item ALready Added");
-    } else {*/
   }
 
   @override
@@ -498,22 +471,6 @@ class _getoffersState extends State<getoffers> {
                                   setState(() {
                                     cartinit = true;
                                   });
-                                  // } else {
-                                  //   for (int i = 0; i < data.length; i++) {
-                                  //     if (data[i].id ==
-                                  //         offersp.offerdata[index].id) {
-                                  //       print("Already in cart");
-                                  //       setState(() {});
-                                  //
-                                  //     }
-                                  //     else {
-                                  //       addToCart(context, index);
-                                  //       setState(() {
-                                  //         cartinit = true;
-                                  //       });
-                                  //     }
-                                  //   }
-                                  // }
                                 },
                                 child: flag ? Text('Added') : Text("Add"),
                                 style: ButtonStyle(
@@ -552,17 +509,12 @@ class nowserving extends StatefulWidget {
   State<nowserving> createState() => _nowservingState();
 }
 
-// final box = Boxes.getCartData();
-// final data = box.values.toList().cast<CartData>();
-// late double result = double.parse(data[0].price);
-
 class _nowservingState extends State<nowserving> {
   addToCart(context, index) {
     print("in cart " + index.toString());
     final box = Boxes.getCartData();
     final data = box.values.toList().cast<CartData>();
     final cartp = Provider.of<NowServing>(context, listen: false);
-
     final cartItem = CartData()
       ..title = cartp.nowdata[index].title
       ..price = cartp.nowdata[index].price
@@ -571,42 +523,16 @@ class _nowservingState extends State<nowserving> {
       ..image = cartp.nowdata[index].image
       ..ttlPrice = 0.0
       ..id = cartp.nowdata[index].id;
-
-    var test =
-        box.values.where((element) => element.id == cartp.nowdata[index].id);
     int zindex = data.indexWhere((item) => item.id == cartp.nowdata[index].id);
     print("test " + zindex.toString());
     if (zindex != -1) {
       data[zindex].qty++;
       box.putAt(zindex, data[zindex]);
-      // data[index].qty = data[index].qty + 1;
-      // box.putAt(index, data[index]);
-      // setState(() {});
       print("already inn");
     } else {
       box.add(cartItem);
       print(cartItem.title);
-
-      //  print("product added " + cartp.offerdata[index].id);
     }
-    // if (test.isNotEmpty) {
-    //   data[index].qty = data[index].qty + 1;
-    //   box.putAt(index, data[index]);
-    //   setState(() {});
-    //   print("already inn");
-    // } else {
-    //   box.add(cartItem);
-    //   print(cartItem.title);
-    //
-    //   print("product added " + cartp.offerdata[index].id);
-    // }
-//if(box.values.where((element) => false))
-    // if(){}
-    // else
-/*
-    if (box.containsKey(cartp.offerdata[index].id)) {
-      print("Item ALready Added");
-    } else {*/
   }
 
   @override

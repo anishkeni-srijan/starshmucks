@@ -68,7 +68,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
               child: TabBarView(
                 controller: tabController,
                 children: <Widget>[
-                  getcoffe(),
+                  getcoffee(),
                   getcake(),
                   getsmoothie(),
                 ],
@@ -81,20 +81,19 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   }
 }
 
-class getcoffe extends StatefulWidget {
-  const getcoffe({Key? key}) : super(key: key);
+class getcoffee extends StatefulWidget {
+  const getcoffee({Key? key}) : super(key: key);
 
   @override
-  State<getcoffe> createState() => _getcoffeState();
+  State<getcoffee> createState() => _getcoffeeState();
 }
 
-class _getcoffeState extends State<getcoffe> {
+class _getcoffeeState extends State<getcoffee> {
   addToCart(context, index) {
     print("in cart " + index.toString());
     final box = Boxes.getCartData();
     final data = box.values.toList().cast<CartData>();
     final cartp = Provider.of<Menudata>(context, listen: false);
-
     final cartItem = CartData()
       ..title = cartp.coffeemenudata[index].title
       ..price = cartp.coffeemenudata[index].price
@@ -104,42 +103,17 @@ class _getcoffeState extends State<getcoffe> {
       ..ttlPrice = 0.0
       ..id = cartp.coffeemenudata[index].id;
 
-    var test = box.values
-        .where((element) => element.id == cartp.coffeemenudata[index].id);
     int zindex =
         data.indexWhere((item) => item.id == cartp.coffeemenudata[index].id);
     print("test " + zindex.toString());
     if (zindex != -1) {
       data[zindex].qty++;
       box.putAt(zindex, data[zindex]);
-      // data[index].qty = data[index].qty + 1;
-      // box.putAt(index, data[index]);
-      // setState(() {});
       print("already inn");
     } else {
       box.add(cartItem);
       print(cartItem.title);
-
-      //  print("product added " + cartp.offerdata[index].id);
     }
-    // if (test.isNotEmpty) {
-    //   data[index].qty = data[index].qty + 1;
-    //   box.putAt(index, data[index]);
-    //   setState(() {});
-    //   print("already inn");
-    // } else {
-    //   box.add(cartItem);
-    //   print(cartItem.title);
-    //
-    //   print("product added " + cartp.offerdata[index].id);
-    // }
-//if(box.values.where((element) => false))
-    // if(){}
-    // else
-/*
-    if (box.containsKey(cartp.offerdata[index].id)) {
-      print("Item ALready Added");
-    } else {*/
   }
 
   @override
@@ -274,7 +248,6 @@ class _getcakeState extends State<getcake> {
     final box = Boxes.getCartData();
     final data = box.values.toList().cast<CartData>();
     final cartp = Provider.of<Menudata>(context, listen: false);
-
     final cartItem = CartData()
       ..title = cartp.cakemenudata[index].title
       ..price = cartp.cakemenudata[index].price
@@ -284,42 +257,17 @@ class _getcakeState extends State<getcake> {
       ..ttlPrice = 0.0
       ..id = cartp.cakemenudata[index].id;
 
-    var test = box.values
-        .where((element) => element.id == cartp.cakemenudata[index].id);
     int zindex =
         data.indexWhere((item) => item.id == cartp.cakemenudata[index].id);
     print("test " + zindex.toString());
     if (zindex != -1) {
       data[zindex].qty++;
       box.putAt(zindex, data[zindex]);
-      // data[index].qty = data[index].qty + 1;
-      // box.putAt(index, data[index]);
-      // setState(() {});
       print("already inn");
     } else {
       box.add(cartItem);
       print(cartItem.title);
-
-      //  print("product added " + cartp.offerdata[index].id);
     }
-    // if (test.isNotEmpty) {
-    //   data[index].qty = data[index].qty + 1;
-    //   box.putAt(index, data[index]);
-    //   setState(() {});
-    //   print("already inn");
-    // } else {
-    //   box.add(cartItem);
-    //   print(cartItem.title);
-    //
-    //   print("product added " + cartp.offerdata[index].id);
-    // }
-//if(box.values.where((element) => false))
-    // if(){}
-    // else
-/*
-    if (box.containsKey(cartp.offerdata[index].id)) {
-      print("Item ALready Added");
-    } else {*/
   }
 
   @override
@@ -456,7 +404,6 @@ class _getsmoothieState extends State<getsmoothie> {
     final box = Boxes.getCartData();
     final data = box.values.toList().cast<CartData>();
     final cartp = Provider.of<Menudata>(context, listen: false);
-
     final cartItem = CartData()
       ..title = cartp.smoothiemenudata[index].title
       ..price = cartp.smoothiemenudata[index].price
@@ -466,8 +413,6 @@ class _getsmoothieState extends State<getsmoothie> {
       ..ttlPrice = 0.0
       ..id = cartp.smoothiemenudata[index].id;
 
-    var test = box.values
-        .where((element) => element.id == cartp.smoothiemenudata[index].id);
     int zindex =
         data.indexWhere((item) => item.id == cartp.smoothiemenudata[index].id);
     print("test " + zindex.toString());
