@@ -1,7 +1,7 @@
 
 
 class LearnMore{
-  late String id;
+
   late String image;
   late String title;
   late String tag;
@@ -9,7 +9,7 @@ class LearnMore{
 
 
   LearnMore({
-    required this.id,
+
 
     required this.title,
 
@@ -23,7 +23,7 @@ class LearnMore{
 
 
   factory LearnMore.fromJson(Map<String,dynamic> json){
-    return LearnMore(id: json['id'],title: json['title'], image: json['image'], desc: json['desc'], tag:  json['tag']);
+    return LearnMore(title: json['title'], image: json['image'], desc: json['desc'], tag:  json['tag']);
   }
 
 
