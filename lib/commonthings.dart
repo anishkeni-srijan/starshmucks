@@ -107,15 +107,15 @@ gethomeappbar() {
     ),
     elevation: 0,
     actions: [
-      IconButton(
-        color: HexColor("#175244"),
-        onPressed: () {
-          Get.to(MyCart());
-        },
-        icon: const Icon(
-          Icons.shopping_cart,
-        ),
-      ),
+      // IconButton(
+      //   color: HexColor("#175244"),
+      //   onPressed: () {
+      //     Get.to(MyCart());
+      //   },
+      //   icon: const Icon(
+      //     Icons.shopping_cart,
+      //   ),
+      // ),
     ],
     automaticallyImplyLeading: false,
   );
