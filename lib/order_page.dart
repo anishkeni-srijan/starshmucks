@@ -36,11 +36,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
       initialIndex: 1,
       length: 3,
       child: Scaffold(
-        persistentFooterButtons: cartinit
-            ? [
-         viewincart()
-        ]
-            : null,
+        persistentFooterButtons: cartinit ? [viewincart()] : null,
         backgroundColor: Colors.white,
         body: Column(
           children: [
@@ -103,7 +99,7 @@ class _getcoffeState extends State<getcoffe> {
       ..isInCart = true
       ..image = cartp.coffeemenudata[index].image
       ..ttlPrice = 0.0
-      ..id = cartp.coffeemenudata[index].id.toString();
+      ..id = cartp.coffeemenudata[index].id;
     final box = Boxes.getCartData();
     // if(){}
     // else
@@ -250,7 +246,7 @@ class _getcakeState extends State<getcake> {
       ..isInCart = true
       ..image = cartp.cakemenudata[index].image
       ..ttlPrice = 0.0
-      ..id = cartp.cakemenudata[index].id.toString();
+      ..id = cartp.cakemenudata[index].id;
     final box = Boxes.getCartData();
     // if(){}
     // else
@@ -399,7 +395,7 @@ class _getsmoothieState extends State<getsmoothie> {
       ..isInCart = true
       ..image = cartp.smoothiemenudata[index].image
       ..ttlPrice = 0.0
-      ..id = cartp.smoothiemenudata[index].id.toString();
+      ..id = cartp.smoothiemenudata[index].id;
     final box = Boxes.getCartData();
     // if(){}
     // else

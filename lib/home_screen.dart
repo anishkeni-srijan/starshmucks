@@ -388,7 +388,7 @@ class _getoffersState extends State<getoffers> {
       box.add(cartItem);
       print(cartItem.title);
 
-      print("product added " + cartp.offerdata[index].id);
+      //  print("product added " + cartp.offerdata[index].id);
     }
     // if (test.isNotEmpty) {
     //   data[index].qty = data[index].qty + 1;
@@ -585,7 +585,7 @@ class _nowservingState extends State<nowserving> {
 
       print(cartItem.title);
 
-      print("product added " + cartp.nowdata[index].id);
+      //print("product added " + cartp.nowdata[index].id);
     }
     // if (test.isNotEmpty) {
     //   data[index].qty = data[index].qty + 1;

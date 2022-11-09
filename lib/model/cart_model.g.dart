@@ -23,7 +23,7 @@ class CartDataAdapter extends TypeAdapter<CartData> {
       ..isInCart = fields[3] as bool
       ..image = fields[4] as String
       ..ttlPrice = fields[5] as double
-      ..id = fields[6] as String;
+      ..id = fields[6] as int;
   }
 
   @override

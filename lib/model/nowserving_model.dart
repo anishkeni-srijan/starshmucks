@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
-
-class NowServe{
-  late String id;
+class NowServe {
+  late int id;
   late String tag;
   late String price;
   late String image;
   late String title;
   late String rating;
   late String desc;
-  
 
   NowServe({
     required this.id,
@@ -19,17 +17,17 @@ class NowServe{
     required this.image,
     required this.rating,
     required this.desc,
-    
   });
 
-
-  factory NowServe.fromJson(Map<String,dynamic> json){
-    return NowServe(id: json['id'],title: json['title'], price: json['price'], rating: json['rating'], image: json['image'], desc: json['desc'], tag: json['tag'], );
+  factory NowServe.fromJson(Map<String, dynamic> json) {
+    return NowServe(
+      id: json['id'],
+      title: json['title'],
+      price: json['price'],
+      rating: json['rating'],
+      image: json['image'],
+      desc: json['desc'],
+      tag: json['tag'],
+    );
   }
-
-
 }
-
-
-
-
