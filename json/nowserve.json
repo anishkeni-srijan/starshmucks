@@ -7,7 +7,7 @@
     "bgcolor": "Colors.deepOrangeAccent",
     "desc": "We wish you a merry Christmas.",
     "rating": "4.3/5",
-    "id": "1"
+    "id": 10
   },{
   "image": "images/newtwo.png",
   "title": "Absolute Green",
@@ -16,6 +16,6 @@
   "bgcolor": "Colors.teal",
   "desc": "We wish you a merry Christmas.",
   "rating": "4.3/5",
-  "id": "2"
+  "id": 11
 }
 ]
