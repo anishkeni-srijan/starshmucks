@@ -24,7 +24,7 @@ class UserDataAdapter extends TypeAdapter<UserData> {
       ..password = fields[4] as String
       ..tnc = fields[5] as bool
       ..isactive = fields[6] as bool
-      ..address = (fields[7] as List?)?.cast<dynamic>();
+      ..address = (fields[7] as List).cast<dynamic>();
   }
 
   @override
