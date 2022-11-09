@@ -42,17 +42,7 @@ class _UserProfileState extends State<UserProfile> {
     return Scaffold(
       persistentFooterButtons: cartinit
           ? [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextButton(
-                child: Text("View in Cart"),
-                onPressed: () {
-                  Get.to(MyCart(),transition: Transition.downToUp);
-                }),
-          ],
-        )
+        viewincart()
       ]
           : null,
       backgroundColor: HexColor("#175244"),

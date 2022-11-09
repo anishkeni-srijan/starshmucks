@@ -3,6 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:get/get.dart';
+import 'package:starshmucks/commonthings.dart';
 import '/home_screen.dart';
 import '/providers/menu_provider.dart';
 import 'boxes.dart';
@@ -37,17 +38,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
       child: Scaffold(
         persistentFooterButtons: cartinit
             ? [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              TextButton(
-                  child: Text("View in Cart"),
-                  onPressed: () {
-                    Get.to(MyCart(),transition: Transition.downToUp);
-                  }),
-            ],
-          )
+         viewincart()
         ]
             : null,
         backgroundColor: Colors.white,

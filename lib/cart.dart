@@ -24,7 +24,16 @@ class _MyCartState extends State<MyCart> {
     Hive.box('cartdata').close();
     super.dispose();
   }
-
+getcarttotal(){
+    final box = Boxes.getCartData();
+  final data = box.values.toList().cast<CartData>();
+  late double result = 0;
+  for (int index = 0; index < data.length; index++) {
+    result = result +
+        double.parse(data[index].price) * data[index].qty;
+    return result;
+  }
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,31 +42,32 @@ class _MyCartState extends State<MyCart> {
           child: ValueListenableBuilder<Box<CartData>>(
               valueListenable: Boxes.getCartData().listenable(),
               builder: (context, box, _) {
-                final data = box.values.toList().cast<CartData>();
-                late double result = 0;
-                for (int index = 0; index < data.length; index++) {
-                  result = result +
-                      double.parse(data[index].price) * data[index].qty;
-                }
+               var result = getcarttotal();
                 return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+
+                   result ==null?
+                   Text(
+                     "Total: \$0",
+                     style: TextStyle(
+                         fontSize: 22.0, fontWeight: FontWeight.bold),
+                   ):
+                   Text(
                       "Total: \$" + result.toStringAsFixed(2),
                       style: TextStyle(
                           fontSize: 22.0, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
-                      width: 120,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Get.to(Checkout(), transition: Transition.rightToLeft);
-                      },
-                      child: Text("Checkout"),
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(HexColor("#036635"))),
-                    ),
+
+                   ElevatedButton(
+                     onPressed: () {
+                       Get.to(Checkout(), transition: Transition.rightToLeft);
+                     },
+                     child: Text("Checkout"),
+                     style: ButtonStyle(
+                         backgroundColor:
+                             MaterialStateProperty.all(HexColor("#036635"))),
+                   ),
                   ],
                 );
               })),

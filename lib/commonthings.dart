@@ -131,15 +131,36 @@ increaseqty(index){
 });
 }
 viewincart(){
+
+  final box = Boxes.getCartData();
+  final data = box.values.toList().cast<CartData>();
+  var size = data.length;
  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
+
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      TextButton(
-          child: Text("View in Cart"),
-          onPressed: () {
-            Get.to(MyCart(),transition: Transition.downToUp);
-          }),
+      Text(size.toString()),
+      size<2?
+       Text("item |",style: TextStyle(color: HexColor("#036635")),):Text("items |",style: TextStyle(color: HexColor("#036635")),),
+      Text("\$"+ getcarttotal().toString(),style: TextStyle(color: HexColor("#036635")),),
+      Container(
+       margin: EdgeInsets.only(left: 180),
+        child: TextButton(
+            child: Text("View in Cart", style: TextStyle(color: HexColor("#036635")),),
+            onPressed: () {
+              Get.to(MyCart(),transition: Transition.downToUp);
+            }),
+      ),
     ],
   );
+}
+getcarttotal(){
+  final box = Boxes.getCartData();
+  final data = box.values.toList().cast<CartData>();
+  late double result = 0;
+  for (int index = 0; index < data.length; index++) {
+    result = result +
+        double.parse(data[index].price) * data[index].qty;
+    return result;
+  }
 }
