@@ -48,6 +48,7 @@ class _EditProfileState extends State<EditProfile> {
           final econtroller = TextEditingController(text: data[userkey].email);
           final ncontroller = TextEditingController(text: data[userkey].name);
           final phcontroller = TextEditingController(text: data[userkey].phone);
+          //final address = TextEditingController(text: data[userkey].address);
 
           return SingleChildScrollView(
             child: Column(

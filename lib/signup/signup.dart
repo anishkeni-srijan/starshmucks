@@ -62,7 +62,8 @@ class _SignupPageState extends State<SignupPage> {
       ..dob = dob.text
       ..password = pass1.text
       ..tnc = true
-      ..isactive = true;
+      ..isactive = true
+      ..address = [];
     // print(name.text);
     final box = Boxes.getUserData();
     box.add(user);
