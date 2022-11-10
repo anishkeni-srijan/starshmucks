@@ -45,7 +45,7 @@ class _UserProfileState extends State<UserProfile> {
         viewincart()
       ]
           : null,
-      backgroundColor: HexColor("#175244"),
+      // backgroundColor: HexColor("#175244"),
       body: ValueListenableBuilder<Box<UserData>>(
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
@@ -56,53 +56,55 @@ class _UserProfileState extends State<UserProfile> {
           return SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(
-                  height: 20,
-                ),
+
                 Container(
-                  width: 150.0,
-                  height: 150.0,
-                  decoration: BoxDecoration(
-                    color: const Color(0xff7c94b6),
-                    image: DecorationImage(
-                      image: AssetImage('images/profile1.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(75.0),
-                    ),
-                    border: Border.all(
-                      color: Colors.white,
-                      width: 4.0,
-                    ),
+                  height: 250.0,
+                  color: HexColor("#175244"),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        width: 150.0,
+                        height: 150.0,
+                        decoration: BoxDecoration(
+                          color: const Color(0xff7c94b6),
+                          image: DecorationImage(
+                            image: AssetImage('images/profile1.jpg'),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(75.0),
+                          ),
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 4.0,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          data[userkey].name,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 35,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    data[userkey].name,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 35,
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Edit Profile',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
+
+
                 Container(
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(

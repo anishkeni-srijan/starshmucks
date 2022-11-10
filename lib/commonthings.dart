@@ -131,7 +131,6 @@ increaseqty(index){
 });
 }
 viewincart(){
-
   final box = Boxes.getCartData();
   final data = box.values.toList().cast<CartData>();
   var size = data.length;
@@ -147,8 +146,12 @@ viewincart(){
           Text("\$"+ getcarttotal().toString(),style: TextStyle(color: HexColor("#036635")),),
         ],
       ),
-      TextButton(
-          child: Text("View in Cart", style: TextStyle(color: HexColor("#036635")),),
+      TextButton(style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color?>(HexColor("#036635")),
+        foregroundColor:  MaterialStateProperty.all<Color?>(Colors.white),
+  ),
+
+          child: Text("View in Cart", ),
           onPressed: () {
             Get.to(MyCart(),transition: Transition.downToUp);
           }),

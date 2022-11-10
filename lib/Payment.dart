@@ -5,12 +5,15 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:starshmucks/razorpay.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/scheduler.dart' show timeDilation;
 
 import 'UpiPayment.dart';
 import 'boxes.dart';
 import 'home_screen.dart';
 import 'model/cart_model.dart';
 import 'model/user_model.dart';
+import 'ordersuccess.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({Key? key}) : super(key: key);
@@ -18,23 +21,82 @@ class PaymentPage extends StatefulWidget {
   @override
   State<PaymentPage> createState() => _PaymentPageState();
 }
-
+enum Pet {Upi, Razorpay}
 class _PaymentPageState extends State<PaymentPage> {
+  int _value = 1;
   @override
   Widget build(BuildContext context) {
+    Pet _pet = Pet.Upi;
     return Scaffold(
       appBar: AppBar(
         title: Text('Payment'),
         backgroundColor: Colors.white,
         foregroundColor: HexColor("#175244"),
       ),
-      body: Column(children: [
+      body:Column(
+       children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(
+                Icons.credit_card,
+                size: 50,
+                color: HexColor("#175244"),
+              ),
+
+
+              Column(
+                children: [
+                  Container(
+                      margin: EdgeInsets.only(top: 4, left: 0),
+                      child: AutoSizeText(
+                        'Payment Mode',
+                        style: TextStyle(
+                          color: HexColor("#175244"),
+                        ),
+                        minFontSize: 20,
+                        maxFontSize: 30,
+                      )),
+                  Container(
+                      transform: Matrix4.translationValues(15, 2, 0),
+                      child: AutoSizeText(
+                        'Select your prefered payment mode',
+                        style: TextStyle(
+                          color: HexColor("#38564F"),
+                        ),
+                        minFontSize: 8,
+                        maxFontSize: 10,
+                      ))
+                ],
+              ),
+            ],
+          ),
+        ),
+         Column(
+           children: <Widget>[
+             for (int i = 1; i <= 5; i++)
+               ListTile(
+                 title: Text(
+                   'Radio $i',
+                 ),
+                 leading: Radio(
+                   value: i,
+                   groupValue: _value,
+                   activeColor: Color(0xFF6200EE),
+                   onChanged: (value) => null,
+                 ),
+               ),
+           ],
+         ),
         ElevatedButton(
-          child: Text("upi"),
+          child: Text("Upi"),
           onPressed: () {
             Get.to(transition: Transition.rightToLeft, UpiPayment());
           },
-        ),  ElevatedButton(
+        ),
+        ElevatedButton(
           child: Text("Razorpay"),
           onPressed: () {
             Razorpay razorpay = Razorpay();
@@ -55,10 +117,10 @@ class _PaymentPageState extends State<PaymentPage> {
             };
             razorpay.on(
                 Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
-            razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
-                handlePaymentSuccessResponse);
-            razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
-                handleExternalWalletSelected);
+            razorpay.on(
+                Razorpay.EVENT_PAYMENT_SUCCESS, handlePaymentSuccessResponse);
+            razorpay.on(
+                Razorpay.EVENT_EXTERNAL_WALLET, handleExternalWalletSelected);
             razorpay.open(options);
           },
         ),
@@ -132,9 +194,7 @@ class _PaymentPageState extends State<PaymentPage> {
     Widget continueButton = ElevatedButton(
       child: const Text("Continue"),
       onPressed: () {
-        //payment success page
-
-
+       Get.to(Ordersuccess());
       },
     );
     // set up the AlertDialog
