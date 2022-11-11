@@ -17,7 +17,15 @@ signup works even if the form is empty (fixed)
 
 
 creds:(anish)
-test1
-test1
+test
+test
 anish.keni@srijan
 
+
+'name':'anish',
+    'phno':'9921',
+    'hno':'hno11keniwadda',
+    'area':'ward no. 10',
+    'city':'samsung',
+    'state':'gorrillaz',
+    'pincode':'20398'
