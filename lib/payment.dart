@@ -21,6 +21,7 @@ class PaymentPage extends StatefulWidget {
 }
 
 enum Pet { Upi, Razorpay }
+final offers = TextEditingController();
 
 class _PaymentPageState extends State<PaymentPage> {
   int _value = 1;
@@ -33,17 +34,15 @@ class _PaymentPageState extends State<PaymentPage> {
         backgroundColor: Colors.white,
         foregroundColor: HexColor("#175244"),
       ),
-      body: Column(children: [
+      body: Column(
+
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                Icons.credit_card,
-                size: 50,
-                color: HexColor("#175244"),
-              ),
               Column(
                 children: [
                   Container(
@@ -72,10 +71,15 @@ class _PaymentPageState extends State<PaymentPage> {
           ),
         ),
         Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+
           margin: EdgeInsets.all(10),
           child: Column(
             children: <Widget>[
-              // for (int i = 1; i <= 5; i++)
+
 
               RadioListTile(
                 value: 1,
@@ -85,16 +89,21 @@ class _PaymentPageState extends State<PaymentPage> {
                 activeColor: HexColor("#175244"),
                 groupValue: _value,
                 contentPadding: EdgeInsets.only(left: 10),
-                tileColor: Colors.green,
+                tileColor: Colors.white,
                 onChanged: (value) {
                   setState(() {
                     _value = value!;
                   });
                 },
               ),
-              SizedBox(
-                height: 5,
-              ),
+          Divider(
+            color: HexColor("#175244"),
+            height: 1,
+            thickness: 0.6,
+            indent: 10,
+            endIndent: 10,
+          ),
+
               RadioListTile(
                 value: 2,
                 title: Text("RazorPay"),
@@ -103,16 +112,67 @@ class _PaymentPageState extends State<PaymentPage> {
                 activeColor: HexColor("#175244"),
                 groupValue: _value,
                 contentPadding: EdgeInsets.only(left: 10),
-                tileColor: Colors.green,
+                tileColor: Colors.white,
                 onChanged: (value) {
                   setState(() {
                     _value = value!;
                   });
                 },
               ),
+
             ],
           ),
-        )
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: EdgeInsets.only(top:10,bottom: 10,left: 20),
+              child: AutoSizeText(
+                'Offers & benefits',
+                style: TextStyle(
+                  color: HexColor("#175244"),
+                ),
+                minFontSize: 20,
+                maxFontSize: 30,
+              ),
+            ),
+
+          Container(
+            color: Colors.white,
+            margin:  EdgeInsets.only(bottom: 10,left: 20, right: 20),
+            width: MediaQuery.of(context).size.width*0.89,
+            child: TextFormField(
+        style: const TextStyle(color: Colors.black), //<-- SEE HERE
+        controller: offers,
+        onChanged: (value) {
+        },
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(5),
+            labelText: 'Apply Coupon',
+            labelStyle: TextStyle(
+              color: HexColor("#175244"),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: HexColor("#175244"),
+                width: 2,
+              ),
+            ),
+            focusedBorder:OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: HexColor("#175244"),
+                width: 2,
+              ),
+            ),
+        ),
+            ),
+          ),
+
+          ],
+        ),
       ]),
       bottomNavigationBar: Container(
           padding: EdgeInsets.all(8.0),
