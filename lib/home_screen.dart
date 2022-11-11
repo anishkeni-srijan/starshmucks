@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import '/boxes.dart';
 import '/model/user_model.dart';
 import 'cart.dart';
-import 'commonthings.dart';
+import 'common_things.dart';
 import 'providers/learnmore_provider.dart';
 import '/providers/nowserving_provider.dart';
 import '/providers/offers_provider.dart';

@@ -6,8 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '/signin/signin.dart';
 import 'boxes.dart';
-import 'cart.dart';
-import 'commonthings.dart';
+import 'common_things.dart';
 import 'editdetails/edit_details.dart';
 import 'home_screen.dart';
 import 'model/user_model.dart';
@@ -40,11 +39,7 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      persistentFooterButtons: cartinit
-          ? [
-        viewincart()
-      ]
-          : null,
+      persistentFooterButtons: cartinit ? [viewincart()] : null,
       // backgroundColor: HexColor("#175244"),
       body: ValueListenableBuilder<Box<UserData>>(
         valueListenable: Boxes.getUserData().listenable(),
@@ -56,7 +51,6 @@ class _UserProfileState extends State<UserProfile> {
           return SingleChildScrollView(
             child: Column(
               children: [
-
                 Container(
                   height: 250.0,
                   color: HexColor("#175244"),
@@ -103,8 +97,6 @@ class _UserProfileState extends State<UserProfile> {
                     ],
                   ),
                 ),
-
-
                 Container(
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(

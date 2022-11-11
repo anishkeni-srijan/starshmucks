@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'commonthings.dart';
+import 'common_things.dart';
 import 'home_screen.dart';
 
 class MoneyPage extends StatefulWidget {

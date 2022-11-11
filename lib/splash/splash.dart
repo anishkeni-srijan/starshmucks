@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:starshmucks/commonthings.dart';
+import 'package:starshmucks/common_things.dart';
 import 'package:tbib_splash_screen/splash_screen_view.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';

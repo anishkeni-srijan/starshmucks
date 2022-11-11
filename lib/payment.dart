@@ -7,8 +7,9 @@ import 'package:starshmucks/razorpay.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:starshmucks/signin/signin.dart';
 
-import 'UpiPayment.dart';
+import 'upi_payment.dart';
 import 'boxes.dart';
 import 'home_screen.dart';
 import 'model/cart_model.dart';
@@ -21,7 +22,9 @@ class PaymentPage extends StatefulWidget {
   @override
   State<PaymentPage> createState() => _PaymentPageState();
 }
-enum Pet {Upi, Razorpay}
+
+enum Pet { Upi, Razorpay }
+
 class _PaymentPageState extends State<PaymentPage> {
   int _value = 1;
   @override
@@ -33,8 +36,7 @@ class _PaymentPageState extends State<PaymentPage> {
         backgroundColor: Colors.white,
         foregroundColor: HexColor("#175244"),
       ),
-      body:Column(
-       children: [
+      body: Column(children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -45,8 +47,6 @@ class _PaymentPageState extends State<PaymentPage> {
                 size: 50,
                 color: HexColor("#175244"),
               ),
-
-
               Column(
                 children: [
                   Container(
@@ -74,56 +74,48 @@ class _PaymentPageState extends State<PaymentPage> {
             ],
           ),
         ),
-         Column(
-           children: <Widget>[
-             for (int i = 1; i <= 5; i++)
-               ListTile(
-                 title: Text(
-                   'Radio $i',
-                 ),
-                 leading: Radio(
-                   value: i,
-                   groupValue: _value,
-                   activeColor: Color(0xFF6200EE),
-                   onChanged: (value) => null,
-                 ),
-               ),
-           ],
-         ),
-        ElevatedButton(
-          child: Text("Upi"),
-          onPressed: () {
-            Get.to(transition: Transition.rightToLeft, UpiPayment());
-          },
-        ),
-        ElevatedButton(
-          child: Text("Razorpay"),
-          onPressed: () {
-            Razorpay razorpay = Razorpay();
-            var options = {
-              'key': 'rzp_test_jrCnK1rxXepbtl',
-              'amount': 100,
-              'name': 'Starschmucks.',
-              'description': 'Fine Coffee',
-              'retry': {'enabled': true, 'max_count': 1},
-              'send_sms_hash': true,
-              'prefill': {
-                'contact': '8888888888',
-                'email': 'test@razorpay.com'
-              },
-              'external': {
-                'wallets': ['paytm']
-              }
-            };
-            razorpay.on(
-                Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
-            razorpay.on(
-                Razorpay.EVENT_PAYMENT_SUCCESS, handlePaymentSuccessResponse);
-            razorpay.on(
-                Razorpay.EVENT_EXTERNAL_WALLET, handleExternalWalletSelected);
-            razorpay.open(options);
-          },
-        ),
+        Container(
+          margin: EdgeInsets.all(10),
+          child: Column(
+            children: <Widget>[
+              // for (int i = 1; i <= 5; i++)
+
+              RadioListTile(
+                value: 1,
+                title: Text('UPI'),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                activeColor: HexColor("#175244"),
+                groupValue: _value,
+                contentPadding: EdgeInsets.only(left: 10),
+                tileColor: Colors.green,
+                onChanged: (value) {
+                  setState(() {
+                    _value = value!;
+                  });
+                },
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              RadioListTile(
+                value: 2,
+                title: Text("RazorPay"),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                activeColor: HexColor("#175244"),
+                groupValue: _value,
+                contentPadding: EdgeInsets.only(left: 10),
+                tileColor: Colors.green,
+                onChanged: (value) {
+                  setState(() {
+                    _value = value!;
+                  });
+                },
+              ),
+            ],
+          ),
+        )
       ]),
       bottomNavigationBar: Container(
           padding: EdgeInsets.all(8.0),
@@ -148,8 +140,33 @@ class _PaymentPageState extends State<PaymentPage> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Get.to(PaymentPage(),
-                            transition: Transition.rightToLeft);
+                        if (_value == 1) {
+                          Get.to(UpiPayment());
+                        } else {
+                          Razorpay razorpay = Razorpay();
+                          var options = {
+                            'key': 'rzp_test_jrCnK1rxXepbtl',
+                            'amount': result * 100,
+                            'name': 'Starschmucks.',
+                            'description': 'Fine Coffee',
+                            'retry': {'enabled': true, 'max_count': 1},
+                            'send_sms_hash': true,
+                            'prefill': {
+                              'contact': '8888888888',
+                              'email': 'test@razorpay.com'
+                            },
+                            'external': {
+                              'wallets': ['paytm']
+                            }
+                          };
+                          razorpay.on(Razorpay.EVENT_PAYMENT_ERROR,
+                              handlePaymentErrorResponse);
+                          razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
+                              handlePaymentSuccessResponse);
+                          razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
+                              handleExternalWalletSelected);
+                          razorpay.open(options);
+                        }
                       },
                       child: Text("Pay"),
                       style: ButtonStyle(
@@ -194,7 +211,7 @@ class _PaymentPageState extends State<PaymentPage> {
     Widget continueButton = ElevatedButton(
       child: const Text("Continue"),
       onPressed: () {
-       Get.to(Ordersuccess());
+        Get.to(Ordersuccess());
       },
     );
     // set up the AlertDialog

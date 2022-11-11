@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:starshmucks/user_profile.dart';
 
-import 'Payment.dart';
+import 'payment.dart';
 import 'boxes.dart';
 import 'model/cart_model.dart';
 import 'model/user_model.dart';
@@ -50,7 +50,8 @@ class _CheckoutState extends State<Checkout> {
 
     PhoneNumber number = PhoneNumber(isoCode: 'IN');
     return showModalBottomSheet(
-      isScrollControlled: true,
+      //isScrollControlled: true,
+      // enableDrag: true,
       context: context,
       builder: (BuildContext context) {
         return SingleChildScrollView(

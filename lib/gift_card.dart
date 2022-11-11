@@ -4,7 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:get/get.dart';
 import 'cart.dart';
-import 'commonthings.dart';
+import 'common_things.dart';
 import 'home_screen.dart';
 
 class GiftCard extends StatefulWidget {
@@ -28,11 +28,7 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
       initialIndex: 1,
       length: 4,
       child: Scaffold(
-        persistentFooterButtons: cartinit
-            ? [
-         viewincart()
-        ]
-            : null,
+        persistentFooterButtons: cartinit ? [viewincart()] : null,
         body: Column(
           children: [
             SingleChildScrollView(

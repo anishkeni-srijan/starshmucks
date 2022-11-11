@@ -3,7 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:get/get.dart';
-import 'package:starshmucks/commonthings.dart';
+import 'package:starshmucks/common_things.dart';
 import '/home_screen.dart';
 import '/providers/menu_provider.dart';
 import 'boxes.dart';
