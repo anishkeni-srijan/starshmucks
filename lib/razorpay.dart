@@ -113,7 +113,10 @@ class _razorpayState extends State<razorpay> {
     * 3. Signature
     * */
     showAlertDialog(
-        context, "Payment Successful", "Payment ID: ${response.paymentId}");
+      context,
+      "Payment Successful",
+      "Payment ID: ${response.paymentId}\n",
+    );
   }
 
   void handleExternalWalletSelected(ExternalWalletResponse response) {
@@ -143,5 +146,4 @@ class _razorpayState extends State<razorpay> {
       },
     );
   }
-
 }

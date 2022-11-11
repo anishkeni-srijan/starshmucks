@@ -14,8 +14,6 @@ import 'model/user_model.dart';
 
 // late List<Map<String,dynamic>>address2 = [];
 
-
-
 class Checkout extends StatefulWidget {
   const Checkout({Key? key}) : super(key: key);
 
@@ -39,8 +37,6 @@ class _CheckoutState extends State<Checkout> {
     super.initState();
   }
 
-
-
   addAddress(context) {
     final fname = TextEditingController();
     final phone = TextEditingController();
@@ -54,8 +50,6 @@ class _CheckoutState extends State<Checkout> {
 
     PhoneNumber number = PhoneNumber(isoCode: 'IN');
     return showModalBottomSheet(
-      //isScrollControlled: true,
-      // enableDrag: true,
       context: context,
       builder: (BuildContext context) {
         return SingleChildScrollView(
@@ -318,24 +312,20 @@ class _CheckoutState extends State<Checkout> {
                   width: 300,
                   child: ElevatedButton(
                     onPressed: () {
-
                       var xresult = {
-                        'name':fname.text,
-                        'phno':phone.text,
-                        'hno':hno.text,
-                        'area':roadname.text,
-                        'city':city.text,
-                        'state':state.text,
-                        'pincode':pincode.text,
+                        'name': fname.text,
+                        'phno': phone.text,
+                        'hno': hno.text,
+                        'area': roadname.text,
+                        'city': city.text,
+                        'state': state.text,
+                        'pincode': pincode.text,
                       };
 
                       data[0].address.add(xresult);
                       box.put(userkey, data[userkey]);
 
-                      setState(() {
-
-                      });
-
+                      setState(() {});
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -365,10 +355,12 @@ class _CheckoutState extends State<Checkout> {
     final fname = TextEditingController(text: data[0].address[index]['name']);
     final phone = TextEditingController(text: data[0].address[index]['phno']);
     final hno = TextEditingController(text: data[0].address[index]['hno']);
-    final roadname = TextEditingController(text: data[0].address[index]['area']);
+    final roadname =
+        TextEditingController(text: data[0].address[index]['area']);
     final city = TextEditingController(text: data[0].address[index]['city']);
     final state = TextEditingController(text: data[0].address[index]['state']);
-    final pincode = TextEditingController(text: data[0].address[index]['pincode']);
+    final pincode =
+        TextEditingController(text: data[0].address[index]['pincode']);
 
     PhoneNumber number = PhoneNumber(isoCode: 'IN');
     showModalBottomSheet(
@@ -635,23 +627,20 @@ class _CheckoutState extends State<Checkout> {
                   width: 300,
                   child: ElevatedButton(
                     onPressed: () {
-
                       // data[userkey].address[index]=result;
 
                       var xresult = {
-                        'name':fname.text,
-                        'phno':phone.text,
-                        'hno':hno.text,
-                        'area':roadname.text,
-                        'city':city.text,
-                        'state':state.text,
-                        'pincode':pincode.text,
+                        'name': fname.text,
+                        'phno': phone.text,
+                        'hno': hno.text,
+                        'area': roadname.text,
+                        'city': city.text,
+                        'state': state.text,
+                        'pincode': pincode.text,
                       };
-                      data[0].address[index]=xresult;
+                      data[0].address[index] = xresult;
                       box.put(userkey, data[userkey]);
-                      setState(() {
-
-                      });
+                      setState(() {});
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -706,22 +695,46 @@ class _CheckoutState extends State<Checkout> {
               );
             } else {
               //int? len = int?.parse(data[0].address.length! / 7);
+
               return Column(
                 children: [
                   Expanded(
                     child: ListView.builder(
                       itemCount: data[0].address.length,
                       itemBuilder: (context, index) {
+                        int _value = 0;
                         return Column(
                           children: [
                             //radio
-                            Text(data[0].address[index]['name']),
-                            Text(data[0].address[index]['phno']),
-                            Text(data[0].address[index]['hno']),
-                            Text(data[0].address[index]['area']),
-                            Text(data[0].address[index]['city']),
-                            Text(data[0].address[index]['state']),
-                            Text(data[0].address[index]['pincode']),
+                            RadioListTile(
+                              title: Text(data[0].address[index]['name'] +
+                                  ", " +
+                                  data[0].address[index]['hno'] +
+                                  ", " +
+                                  data[0].address[index]['area'] +
+                                  ", " +
+                                  data[0].address[index]['city'] +
+                                  ", " +
+                                  data[0].address[index]['state'] +
+                                  ", " +
+                                  data[0].address[index]['pincode']),
+                              subtitle: Text("Phone Number: " +
+                                  data[0].address[index]['phno']),
+                              value: index,
+                              groupValue: _value,
+                              onChanged: (value) {
+                                setState(() {
+                                  _value = value!;
+                                });
+                              },
+                            ),
+                            // Text(data[0].address[index]['name']),
+                            // Text(data[0].address[index]['phno']),
+                            // Text(data[0].address[index]['hno']),
+                            // Text(data[0].address[index]['area']),
+                            // Text(data[0].address[index]['city']),
+                            // Text(data[0].address[index]['state']),
+                            // Text(data[0].address[index]['pincode']),
                             // Row(
                             //   children: [
                             //     Container(
@@ -742,7 +755,6 @@ class _CheckoutState extends State<Checkout> {
                                       child: Text('Edit')),
                                   TextButton(
                                       onPressed: () {
-
                                         data[0].address.removeAt(index);
                                         setState(() {});
                                       },
@@ -758,7 +770,6 @@ class _CheckoutState extends State<Checkout> {
                   TextButton(
                       onPressed: () {
                         addAddress(context);
-
                       },
                       child: Text('Add a new address')),
                 ],
@@ -779,7 +790,7 @@ class _CheckoutState extends State<Checkout> {
                 return Row(
                   children: [
                     Text(
-                      "Total: \$" + result.toStringAsFixed(2),
+                      "Total: \$${result.toStringAsFixed(2)}",
                       style: TextStyle(
                           fontSize: 22.0, fontWeight: FontWeight.bold),
                     ),
