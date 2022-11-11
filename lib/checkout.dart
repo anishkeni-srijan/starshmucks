@@ -319,8 +319,6 @@ class _CheckoutState extends State<Checkout> {
                   child: ElevatedButton(
                     onPressed: () {
 
-
-
                       var xresult = {
                         'name':fname.text,
                         'phno':phone.text,
@@ -716,6 +714,7 @@ class _CheckoutState extends State<Checkout> {
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
+                            //radio
                             Text(data[0].address[index]['name']),
                             Text(data[0].address[index]['phno']),
                             Text(data[0].address[index]['hno']),
