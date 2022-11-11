@@ -6,15 +6,12 @@ import 'package:get/get.dart';
 import 'package:starshmucks/razorpay.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/scheduler.dart' show timeDilation;
-import 'package:starshmucks/signin/signin.dart';
 
 import 'upi_payment.dart';
 import 'boxes.dart';
 import 'home_screen.dart';
 import 'model/cart_model.dart';
-import 'model/user_model.dart';
-import 'ordersuccess.dart';
+import 'order_success.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({Key? key}) : super(key: key);
