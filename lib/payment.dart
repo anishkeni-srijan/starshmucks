@@ -3,13 +3,11 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
-import 'package:starshmucks/razorpay.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 import 'upi_payment.dart';
 import 'boxes.dart';
-import 'home_screen.dart';
 import 'model/cart_model.dart';
 import 'order_success.dart';
 

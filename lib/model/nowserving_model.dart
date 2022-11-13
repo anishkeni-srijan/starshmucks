@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class NowServe {
   late int id;
   late String tag;

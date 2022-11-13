@@ -5,14 +5,11 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:starshmucks/user_profile.dart';
 
 import 'payment.dart';
 import 'boxes.dart';
 import 'model/cart_model.dart';
 import 'model/user_model.dart';
-
-// late List<Map<String,dynamic>>address2 = [];
 
 class Checkout extends StatefulWidget {
   const Checkout({Key? key}) : super(key: key);

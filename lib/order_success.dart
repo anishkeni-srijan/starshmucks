@@ -1,4 +1,3 @@
-import 'package:animated_check/animated_check.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive/hive.dart';

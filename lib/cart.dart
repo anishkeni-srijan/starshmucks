@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:starshmucks/home_screen.dart';
-import 'package:starshmucks/model/cart_model.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:provider/provider.dart';
-import 'package:starshmucks/providers/offers_provider.dart';
 import 'package:get/get.dart';
 
 import 'boxes.dart';
 import 'checkout.dart';
+import '/home_screen.dart';
+import '/model/cart_model.dart';
 
 class MyCart extends StatefulWidget {
   const MyCart({Key? key}) : super(key: key);
@@ -24,16 +22,17 @@ class _MyCartState extends State<MyCart> {
     Hive.box('cartdata').close();
     super.dispose();
   }
-getcarttotal(){
+
+  getcarttotal() {
     final box = Boxes.getCartData();
-  final data = box.values.toList().cast<CartData>();
-  late double result = 0;
-  for (int index = 0; index < data.length; index++) {
-    result = result +
-        double.parse(data[index].price) * data[index].qty;
-    return result;
+    final data = box.values.toList().cast<CartData>();
+    late double result = 0;
+    for (int index = 0; index < data.length; index++) {
+      result = result + double.parse(data[index].price) * data[index].qty;
+      return result;
+    }
   }
-}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,32 +41,30 @@ getcarttotal(){
           child: ValueListenableBuilder<Box<CartData>>(
               valueListenable: Boxes.getCartData().listenable(),
               builder: (context, box, _) {
-               var result = getcarttotal();
+                var result = getcarttotal();
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-
-                   result ==null?
-                   Text(
-                     "Total: \$0",
-                     style: TextStyle(
-                         fontSize: 22.0, fontWeight: FontWeight.bold),
-                   ):
-                   Text(
-                      "Total: \$" + result.toStringAsFixed(2),
-                      style: TextStyle(
-                          fontSize: 22.0, fontWeight: FontWeight.bold),
+                    result == null
+                        ? Text(
+                            "Total: \$0",
+                            style: TextStyle(
+                                fontSize: 22.0, fontWeight: FontWeight.bold),
+                          )
+                        : Text(
+                            "Total: \$" + result.toStringAsFixed(2),
+                            style: TextStyle(
+                                fontSize: 22.0, fontWeight: FontWeight.bold),
+                          ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Get.to(Checkout(), transition: Transition.rightToLeft);
+                      },
+                      child: Text("Checkout"),
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(HexColor("#036635"))),
                     ),
-
-                   ElevatedButton(
-                     onPressed: () {
-                       Get.to(Checkout(), transition: Transition.rightToLeft);
-                     },
-                     child: Text("Checkout"),
-                     style: ButtonStyle(
-                         backgroundColor:
-                             MaterialStateProperty.all(HexColor("#036635"))),
-                   ),
                   ],
                 );
               })),

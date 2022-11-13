@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:starshmucks/editdetails/bloc/editdetails_bloc.dart';
-import 'package:starshmucks/model/cart_model.dart';
 
 import '/forgotpassword/forgot_password.dart';
 import '/signup/bloc/signup_bloc.dart';
@@ -22,11 +20,15 @@ import '/providers/learnmore_provider.dart';
 import '/providers/nowserving_provider.dart';
 import '/providers/offers_provider.dart';
 import '/providers/menu_provider.dart';
+import '/editdetails/bloc/editdetails_bloc.dart';
+import '/model/cart_model.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  Hive.registerAdapter(UserDataAdapter(),);
+  Hive.registerAdapter(
+    UserDataAdapter(),
+  );
   await Hive.openBox<UserData>('signupdata');
 
   Hive.registerAdapter(CartDataAdapter());
