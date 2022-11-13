@@ -42,6 +42,12 @@ dev_dependencies:
 
   dependencies:
   animated_check: ^1.0.0
+  flutter_launcher_icons: ^0.10.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "images/shmucks.png"
 
 flutter:
   uses-material-design: true
