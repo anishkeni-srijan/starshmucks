@@ -664,6 +664,13 @@ class _CheckoutState extends State<Checkout> {
     );
   }
 
+  var selectedVal;
+  setSelectedVal(var val) {
+    setState(() {
+      selectedVal = val;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -702,7 +709,7 @@ class _CheckoutState extends State<Checkout> {
                     child: ListView.builder(
                       itemCount: data[0].address.length,
                       itemBuilder: (context, index) {
-                        int _value = 0;
+                        var _value;
                         return Column(
                           children: [
                             //radio
@@ -720,31 +727,17 @@ class _CheckoutState extends State<Checkout> {
                                   data[0].address[index]['pincode']),
                               subtitle: Text("Phone Number: " +
                                   data[0].address[index]['phno']),
-                              value: index,
-                              groupValue: _value,
+                              value: data[0].address[index],
+                              groupValue: selectedVal,
                               onChanged: (value) {
                                 setState(() {
-                                  _value = value!;
+                                  setSelectedVal(value);
+                                  print(value);
+                                  // _value = value!;
                                 });
                               },
+                              selected: selectedVal == data[0].address[index],
                             ),
-                            // Text(data[0].address[index]['name']),
-                            // Text(data[0].address[index]['phno']),
-                            // Text(data[0].address[index]['hno']),
-                            // Text(data[0].address[index]['area']),
-                            // Text(data[0].address[index]['city']),
-                            // Text(data[0].address[index]['state']),
-                            // Text(data[0].address[index]['pincode']),
-                            // Row(
-                            //   children: [
-                            //     Container(
-                            //       width: 350,
-                            //       child: Text(
-                            //         data[0].address[index],
-                            //       ),
-                            //     ),
-                            //   ],
-                            // ),
                             Container(
                               child: Row(
                                 children: [
