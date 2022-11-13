@@ -21,6 +21,7 @@ class PaymentPage extends StatefulWidget {
 }
 
 enum Pet { Upi, Razorpay }
+
 final offers = TextEditingController();
 
 class _PaymentPageState extends State<PaymentPage> {
@@ -34,10 +35,7 @@ class _PaymentPageState extends State<PaymentPage> {
         backgroundColor: Colors.white,
         foregroundColor: HexColor("#175244"),
       ),
-      body: Column(
-
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -73,14 +71,11 @@ class _PaymentPageState extends State<PaymentPage> {
         Container(
           decoration: BoxDecoration(
             color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
-
           margin: EdgeInsets.all(10),
           child: Column(
             children: <Widget>[
-
-
               RadioListTile(
                 value: 1,
                 title: Text('UPI'),
@@ -96,14 +91,13 @@ class _PaymentPageState extends State<PaymentPage> {
                   });
                 },
               ),
-          Divider(
-            color: HexColor("#175244"),
-            height: 1,
-            thickness: 0.6,
-            indent: 10,
-            endIndent: 10,
-          ),
-
+              Divider(
+                color: HexColor("#175244"),
+                height: 1,
+                thickness: 0.6,
+                indent: 10,
+                endIndent: 10,
+              ),
               RadioListTile(
                 value: 2,
                 title: Text("RazorPay"),
@@ -119,7 +113,6 @@ class _PaymentPageState extends State<PaymentPage> {
                   });
                 },
               ),
-
             ],
           ),
         ),
@@ -127,7 +120,7 @@ class _PaymentPageState extends State<PaymentPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.only(top:10,bottom: 10,left: 20),
+              margin: EdgeInsets.only(top: 10, bottom: 10, left: 20),
               child: AutoSizeText(
                 'Offers & benefits',
                 style: TextStyle(
@@ -137,40 +130,37 @@ class _PaymentPageState extends State<PaymentPage> {
                 maxFontSize: 30,
               ),
             ),
-
-          Container(
-            color: Colors.white,
-            margin:  EdgeInsets.only(bottom: 10,left: 20, right: 20),
-            width: MediaQuery.of(context).size.width*0.89,
-            child: TextFormField(
-        style: const TextStyle(color: Colors.black), //<-- SEE HERE
-        controller: offers,
-        onChanged: (value) {
-        },
-        decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(5),
-            labelText: 'Apply Coupon',
-            labelStyle: TextStyle(
-              color: HexColor("#175244"),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: HexColor("#175244"),
-                width: 2,
+            Container(
+              color: Colors.white,
+              margin: EdgeInsets.only(bottom: 10, left: 20, right: 20),
+              width: MediaQuery.of(context).size.width * 0.89,
+              child: TextFormField(
+                style: const TextStyle(color: Colors.black), //<-- SEE HERE
+                controller: offers,
+                onChanged: (value) {},
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(5),
+                  labelText: 'Apply Coupon',
+                  labelStyle: TextStyle(
+                    color: HexColor("#175244"),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: HexColor("#175244"),
+                      width: 2,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: HexColor("#175244"),
+                      width: 2,
+                    ),
+                  ),
+                ),
               ),
             ),
-            focusedBorder:OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: HexColor("#175244"),
-                width: 2,
-              ),
-            ),
-        ),
-            ),
-          ),
-
           ],
         ),
       ]),
