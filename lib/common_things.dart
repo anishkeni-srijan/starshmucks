@@ -139,19 +139,24 @@ viewincart() {
     children: [
       Row(
         children: [
-          Text(size.toString()),
+          Text(
+            size.toString(),
+            style: TextStyle(
+                color: HexColor("#036635"), fontWeight: FontWeight.w600),
+          ),
           size < 2
               ? Text(
-                  "item |",
+                  " item | ",
                   style: TextStyle(color: HexColor("#036635")),
                 )
               : Text(
-                  "items |",
+                  " items | ",
                   style: TextStyle(color: HexColor("#036635")),
                 ),
           Text(
             "\$" + result.toString(),
-            style: TextStyle(color: HexColor("#036635")),
+            style: TextStyle(
+                color: HexColor("#036635"), fontWeight: FontWeight.w600),
           ),
         ],
       ),
@@ -170,5 +175,3 @@ viewincart() {
     ],
   );
 }
-
-

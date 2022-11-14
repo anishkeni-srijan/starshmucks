@@ -47,298 +47,309 @@ class _AddressState extends State<Address> {
 
     PhoneNumber number = PhoneNumber(isoCode: 'IN');
     return showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
       builder: (BuildContext context) {
         return SingleChildScrollView(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.70,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                    margin: EdgeInsets.all(20),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "New Address",
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: HexColor("#175244"),
-                      ),
-                    )),
-                //full name
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: fname,
+          child: Container(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.70,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                      margin: EdgeInsets.all(20),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "New Address",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: HexColor("#175244"),
+                        ),
+                      )),
+                  //full name
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.005,
+                    ),
+                    child: TextFormField(
+                      style:
+                          const TextStyle(color: Colors.black), //<-- SEE HERE
+                      controller: fname,
 
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Full Name',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(5),
+                        labelText: 'Full Name',
+                        labelStyle: TextStyle(
                           color: HexColor("#175244"),
-                          width: 2,
                         ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
+                        enabledBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                ),
-                //phone number
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: 80,
-                  child: InternationalPhoneNumberInput(
-                    selectorConfig: SelectorConfig(
-                        trailingSpace: false,
-                        selectorType: PhoneInputSelectorType.DROPDOWN),
-                    autoValidateMode: AutovalidateMode.disabled,
-                    selectorTextStyle: TextStyle(color: HexColor("#175244")),
-                    initialValue: number,
-                    textFieldController: phone,
-                    inputDecoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Phone Number',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
+                        focusedBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
                         ),
                       ),
                     ),
-                    keyboardType: TextInputType.number,
-                    onInputChanged: (PhoneNumber value) {},
                   ),
-                ),
-                //house no, building name
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
+                  //phone number
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: 80,
+                    child: InternationalPhoneNumberInput(
+                      selectorConfig: SelectorConfig(
+                          trailingSpace: false,
+                          selectorType: PhoneInputSelectorType.DROPDOWN),
+                      autoValidateMode: AutovalidateMode.disabled,
+                      selectorTextStyle: TextStyle(color: HexColor("#175244")),
+                      initialValue: number,
+                      textFieldController: phone,
+                      inputDecoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(5),
+                        labelText: 'Phone Number',
+                        labelStyle: TextStyle(
+                          color: HexColor("#175244"),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
+                        ),
+                      ),
+                      keyboardType: TextInputType.number,
+                      onInputChanged: (PhoneNumber value) {},
+                    ),
                   ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: hno,
+                  //house no, building name
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.005,
+                    ),
+                    child: TextFormField(
+                      style:
+                          const TextStyle(color: Colors.black), //<-- SEE HERE
+                      controller: hno,
 
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'House No., Building Name',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(5),
+                        labelText: 'House No., Building Name',
+                        labelStyle: TextStyle(
                           color: HexColor("#175244"),
-                          width: 2,
                         ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
+                        enabledBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                //road name,area,colony
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: roadname,
+                  //road name,area,colony
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.005,
+                    ),
+                    child: TextFormField(
+                      style:
+                          const TextStyle(color: Colors.black), //<-- SEE HERE
+                      controller: roadname,
 
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Road Name, Area, Colony',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(5),
+                        labelText: 'Road Name, Area, Colony',
+                        labelStyle: TextStyle(
                           color: HexColor("#175244"),
-                          width: 2,
                         ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
+                        enabledBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                //city
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: city,
+                  //city
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.005,
+                    ),
+                    child: TextFormField(
+                      style:
+                          const TextStyle(color: Colors.black), //<-- SEE HERE
+                      controller: city,
 
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'City',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(5),
+                        labelText: 'City',
+                        labelStyle: TextStyle(
                           color: HexColor("#175244"),
-                          width: 2,
                         ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
+                        enabledBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                //state
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: state,
+                  //state
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.005,
+                    ),
+                    child: TextFormField(
+                      style:
+                          const TextStyle(color: Colors.black), //<-- SEE HERE
+                      controller: state,
 
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'State',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(5),
+                        labelText: 'State',
+                        labelStyle: TextStyle(
                           color: HexColor("#175244"),
-                          width: 2,
                         ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
+                        enabledBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                //pincode
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: pincode,
+                  //pincode
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.005,
+                    ),
+                    child: TextFormField(
+                      style:
+                          const TextStyle(color: Colors.black), //<-- SEE HERE
+                      controller: pincode,
 
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Pincode',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(5),
+                        labelText: 'Pincode',
+                        labelStyle: TextStyle(
                           color: HexColor("#175244"),
-                          width: 2,
                         ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
+                        enabledBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-                  // height: 100,
-                  width: 300,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      var xresult = {
-                        'name': fname.text,
-                        'phno': phone.text,
-                        'hno': hno.text,
-                        'area': roadname.text,
-                        'city': city.text,
-                        'state': state.text,
-                        'pincode': pincode.text,
-                      };
+                  SizedBox(
+                    height: 15,
+                  ),
+                  SizedBox(
+                    // height: 100,
+                    width: 300,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        var xresult = {
+                          'name': fname.text,
+                          'phno': phone.text,
+                          'hno': hno.text,
+                          'area': roadname.text,
+                          'city': city.text,
+                          'state': state.text,
+                          'pincode': pincode.text,
+                        };
 
-                      data[0].address.add(xresult);
-                      box.put(userkey, data[userkey]);
+                        data[0].address.add(xresult);
+                        box.put(userkey, data[userkey]);
 
-                      setState(() {});
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(60)),
-                      backgroundColor: HexColor("#036635"),
-                    ),
-                    child: Text(
-                      'Add',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
+                        setState(() {});
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(60)),
+                        backgroundColor: HexColor("#036635"),
+                      ),
+                      child: Text(
+                        'Add',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
