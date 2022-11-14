@@ -129,6 +129,10 @@ viewincart() {
   final box = Boxes.getCartData();
   final data = box.values.toList().cast<CartData>();
   var size = data.length;
+  late double result = 0;
+  for (int index = 0; index < data.length; index++) {
+    result = result + double.parse(data[index].price) * data[index].qty;
+  }
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     crossAxisAlignment: CrossAxisAlignment.center,
@@ -146,7 +150,7 @@ viewincart() {
                   style: TextStyle(color: HexColor("#036635")),
                 ),
           Text(
-            "\$" + getcarttotal().toString(),
+            "\$" + result.toString(),
             style: TextStyle(color: HexColor("#036635")),
           ),
         ],
@@ -167,12 +171,4 @@ viewincart() {
   );
 }
 
-getcarttotal() {
-  final box = Boxes.getCartData();
-  final data = box.values.toList().cast<CartData>();
-  late double result = 0;
-  for (int index = 0; index < data.length; index++) {
-    result = result + double.parse(data[index].price) * data[index].qty;
-    return result;
-  }
-}
+

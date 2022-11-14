@@ -17,6 +17,7 @@ class MyCart extends StatefulWidget {
 }
 
 class _MyCartState extends State<MyCart> {
+  var result;
   @override
   void dispose() {
     Hive.box('cartdata').close();
@@ -29,8 +30,17 @@ class _MyCartState extends State<MyCart> {
     late double result = 0;
     for (int index = 0; index < data.length; index++) {
       result = result + double.parse(data[index].price) * data[index].qty;
-      return result;
     }
+    setState(() {
+
+    });
+    return result;
+
+  }
+  @override
+  void initState() {
+    result = getcarttotal();
+    super.initState();
   }
 
   @override
@@ -41,13 +51,18 @@ class _MyCartState extends State<MyCart> {
           child: ValueListenableBuilder<Box<CartData>>(
               valueListenable: Boxes.getCartData().listenable(),
               builder: (context, box, _) {
-                var result = getcarttotal();
+                final data = box.values.toList().cast<CartData>();
+                late double result = 0;
+                for (int index = 0; index < data.length; index++) {
+                  result = result +
+                      double.parse(data[index].price) * data[index].qty;
+                }
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    result == null
+                    result == null || data.isEmpty
                         ? Text(
-                            "Total: \$0",
+                            "Total: \$0.00",
                             style: TextStyle(
                                 fontSize: 22.0, fontWeight: FontWeight.bold),
                           )
@@ -145,7 +160,6 @@ class _MyCartState extends State<MyCart> {
                                     onPressed: () {
                                       data[index].qty = data[index].qty + 1;
                                       box.putAt(index, data[index]);
-
                                       setState(() {});
                                     },
                                     style: ButtonStyle(
