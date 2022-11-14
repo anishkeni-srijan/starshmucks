@@ -13,7 +13,7 @@ otp auth using email(test)
 bugs found
 signup works even if the form is empty (fixed)
 
-
+flutter packages pub run build_runner build
 
 
 creds:(anish)

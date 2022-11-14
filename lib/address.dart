@@ -668,14 +668,28 @@ class _AddressState extends State<Address> {
     });
   }
 
-  late String k = "";
+  bool k = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Address'),
+        //  title: Text('Delivery Address'),
         backgroundColor: Colors.white,
         foregroundColor: HexColor("#175244"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              addAddress(context);
+            },
+            child: Container(
+              margin: EdgeInsets.only(right: 10),
+              child: Text(
+                '+ Add Address',
+                style: TextStyle(color: HexColor("#036635")),
+              ),
+            ),
+          ),
+        ],
       ),
       body: ValueListenableBuilder<Box<UserData>>(
           valueListenable: Boxes.getUserData().listenable(),
@@ -686,15 +700,7 @@ class _AddressState extends State<Address> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('No saved address'),
-                    Container(
-                      //height: MediaQuery.of(context).size.height * 0.80,
-                      child: TextButton(
-                          onPressed: () {
-                            addAddress(context);
-                          },
-                          child: Text('Add a new address')),
-                    )
+                    Text('No Address'),
                   ],
                 ),
               );
@@ -702,14 +708,32 @@ class _AddressState extends State<Address> {
               //int? len = int?.parse(data[0].address.length! / 7);
 
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  k
+                      ? Container()
+                      : Center(
+                          child: Container(
+                              padding: EdgeInsets.all(8),
+                              child: Text(
+                                "Select a Address",
+                                style: TextStyle(color: Colors.red),
+                              ))),
+                  Padding(
+                      padding: EdgeInsets.only(left: 20, top: 10),
+                      child: Text(
+                        'Delivery Address',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      )),
                   Expanded(
                     child: ListView.builder(
                       itemCount: data[0].address.length,
                       itemBuilder: (context, index) {
                         String addressSendToOtherPage = data[0].address[index]
                                 ['name'] +
-                            ", " +
+                            "\n" +
                             data[0].address[index]['hno'] +
                             ", " +
                             data[0].address[index]['area'] +
@@ -717,58 +741,100 @@ class _AddressState extends State<Address> {
                             data[0].address[index]['city'] +
                             ", " +
                             data[0].address[index]['state'] +
-                            ", " +
+                            "." +
+                            "\n" +
                             data[0].address[index]['pincode'];
 
-                        return Column(
-                          children: [
-                            //radio
-                            RadioListTile(
-                              title: Text(addressSendToOtherPage),
-                              subtitle: Text("Phone Number: " +
-                                  data[0].address[index]['phno']),
-                              value: data[0].address[index],
-                              groupValue: selectedVal,
-                              onChanged: (value) async {
-                                setState(() {
-                                  setSelectedVal(value);
-                                  k = value.toString();
-                                  print(k);
-                                });
-                                final addressSharedPred =
-                                    await SharedPreferences.getInstance();
-                                await addressSharedPred.setString(
-                                    'selectedAddress', addressSendToOtherPage);
-                              },
-                              selected: selectedVal == data[0].address[index],
-                            ),
-                            Container(
-                              child: Row(
+                        return Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          margin: EdgeInsets.only(left: 20, right: 20, top: 15),
+                          shadowColor: HexColor("#036635"),
+                          elevation: 4,
+                          child: Column(
+                            children: [
+                              //radio
+                              RadioListTile(
+                                title: Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 5, bottom: 5),
+                                  child: Text(
+                                    addressSendToOtherPage,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                                subtitle: Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 5, bottom: 8),
+                                  child: Text(
+                                    "Phone : " + data[0].address[index]['phno'],
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w100,
+                                    ),
+                                  ),
+                                ),
+                                value: data[0].address[index],
+                                groupValue: selectedVal,
+                                onChanged: (value) async {
+                                  setState(() {
+                                    setSelectedVal(value);
+                                    k = true;
+                                  });
+                                  final addressSharedPred =
+                                      await SharedPreferences.getInstance();
+                                  await addressSharedPred.setString(
+                                      'selectedAddress',
+                                      addressSendToOtherPage);
+                                },
+                                selected: selectedVal == data[0].address[index],
+                                activeColor: HexColor("#036635"),
+
+                                //selectedTileColor: Colors.red,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 8, right: 8),
+                                child: Divider(
+                                  color: Colors.grey,
+                                  height: 1,
+                                  thickness: 0.2,
+                                  indent: 0,
+                                  endIndent: 0,
+                                ),
+                              ),
+                              Row(
                                 children: [
-                                  TextButton(
-                                      onPressed: () {
-                                        editAddress(context, index);
-                                      },
-                                      child: Text('Edit')),
                                   TextButton(
                                       onPressed: () {
                                         data[0].address.removeAt(index);
                                         setState(() {});
                                       },
-                                      child: Text('Remove'))
+                                      child: Text(
+                                        'Delete',
+                                        style: TextStyle(color: Colors.red),
+                                      )),
+                                  TextButton(
+                                    onPressed: () {
+                                      editAddress(context, index);
+                                    },
+                                    child: Text(
+                                      'Edit',
+                                      style:
+                                          TextStyle(color: HexColor("#036635")),
+                                    ),
+                                  ),
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         );
                       },
                     ),
                   ),
-                  TextButton(
-                      onPressed: () {
-                        addAddress(context);
-                      },
-                      child: Text('Add a new address')),
                 ],
               );
             }
@@ -796,12 +862,10 @@ class _AddressState extends State<Address> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        k.isEmpty
-                            ? Dialog(
-                                child: Text("Select Address"),
-                              )
-                            : Get.to(PaymentPage(),
-                                transition: Transition.rightToLeft);
+                        k
+                            ? Get.to(PaymentPage(),
+                                transition: Transition.rightToLeft)
+                            : Container();
                       },
                       child: Text("Pay"),
                       style: ButtonStyle(

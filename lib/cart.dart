@@ -31,12 +31,10 @@ class _MyCartState extends State<MyCart> {
     for (int index = 0; index < data.length; index++) {
       result = result + double.parse(data[index].price) * data[index].qty;
     }
-    setState(() {
-
-    });
+    setState(() {});
     return result;
-
   }
+
   @override
   void initState() {
     result = getcarttotal();
@@ -100,75 +98,90 @@ class _MyCartState extends State<MyCart> {
                 : ListView.builder(
                     itemCount: data.length,
                     itemBuilder: (context, index) {
-                      return Row(
+                      return Column(
                         children: [
-                          Image.asset(
-                            data[index].image,
-                            height: 100,
-                            width: 100,
+                          Row(
+                            children: [
+                              Image.asset(
+                                data[index].image,
+                                height: 100,
+                                width: 100,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                        width: 150,
+                                        child: Text(data[index].title,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis)),
+                                    Text("\$ " + data[index].price),
+                                    TextButton(
+                                      child: Text('Remove'),
+                                      onPressed: () {
+                                        box.delete(data[index].key);
+                                        data[index].isInCart = false;
+                                        setState(() {});
+                                      },
+                                      style: ButtonStyle(
+                                          foregroundColor:
+                                              MaterialStateProperty.all(
+                                                  HexColor("#036635"))),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Row(children: [
+                                      IconButton(
+                                        icon: Icon(Icons.remove),
+                                        onPressed: () {
+                                          if (data[index].qty == 1) {
+                                            box.delete(data[index].key);
+                                            data[index].isInCart = false;
+                                          } else {
+                                            data[index].qty =
+                                                data[index].qty - 1;
+                                            box.putAt(index, data[index]);
+                                          }
+                                          setState(() {});
+                                        },
+                                        style: ButtonStyle(
+                                            foregroundColor:
+                                                MaterialStateProperty.all(
+                                                    HexColor("#036635"))),
+                                      ),
+                                      Text(data[index].qty.toString()),
+                                      IconButton(
+                                        icon: Icon(Icons.add),
+                                        onPressed: () {
+                                          data[index].qty = data[index].qty + 1;
+                                          box.putAt(index, data[index]);
+                                          setState(() {});
+                                        },
+                                        style: ButtonStyle(
+                                            foregroundColor:
+                                                MaterialStateProperty.all(
+                                                    HexColor("#036635"))),
+                                      ),
+                                    ]),
+                                  ]),
+                            ],
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                    width: 150,
-                                    child: Text(data[index].title,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis)),
-                                Text("\$ " + data[index].price),
-                                TextButton(
-                                  child: Text('Remove'),
-                                  onPressed: () {
-                                    box.delete(data[index].key);
-                                    data[index].isInCart = false;
-                                    setState(() {});
-                                  },
-                                  style: ButtonStyle(
-                                      foregroundColor:
-                                          MaterialStateProperty.all(
-                                              HexColor("#036635"))),
-                                ),
-                              ],
+                            child: Divider(
+                              color: HexColor("#036635"),
+                              height: 1,
+                              thickness: 0.5,
+                              indent: 0,
+                              endIndent: 0,
                             ),
                           ),
-                          Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Row(children: [
-                                  IconButton(
-                                    icon: Icon(Icons.remove),
-                                    onPressed: () {
-                                      if (data[index].qty == 1) {
-                                        box.delete(data[index].key);
-                                        data[index].isInCart = false;
-                                      } else {
-                                        data[index].qty = data[index].qty - 1;
-                                        box.putAt(index, data[index]);
-                                      }
-                                      setState(() {});
-                                    },
-                                    style: ButtonStyle(
-                                        foregroundColor:
-                                            MaterialStateProperty.all(
-                                                HexColor("#036635"))),
-                                  ),
-                                  Text(data[index].qty.toString()),
-                                  IconButton(
-                                    icon: Icon(Icons.add),
-                                    onPressed: () {
-                                      data[index].qty = data[index].qty + 1;
-                                      box.putAt(index, data[index]);
-                                      setState(() {});
-                                    },
-                                    style: ButtonStyle(
-                                        foregroundColor:
-                                            MaterialStateProperty.all(
-                                                HexColor("#036635"))),
-                                  ),
-                                ]),
-                              ])
                         ],
                       );
                     },
