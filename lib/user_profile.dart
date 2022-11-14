@@ -3,6 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io';
 
 import '/signin/signin.dart';
 import 'boxes.dart';
@@ -68,8 +69,9 @@ class _UserProfileState extends State<UserProfile> {
                         height: 150.0,
                         decoration: BoxDecoration(
                           color: const Color(0xff7c94b6),
-                          image: DecorationImage(
-                            image: AssetImage('images/profile1.jpg'),
+                          image: data[userkey].profileimage == null ? DecorationImage(
+                              image: AssetImage('images/profile1.jpg') )// set a placeholder image when no photo is set
+                              :DecorationImage(image: FileImage(File(data[userkey].profileimage!.path)),
                             fit: BoxFit.cover,
                           ),
                           borderRadius: BorderRadius.all(

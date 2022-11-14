@@ -227,8 +227,14 @@ class _EditProfileState extends State<EditProfile> {
   }
   takepicture(ImageSource source)async{
     final pickedfile = await picker.pickImage(source: source);
+    imagefile = File(pickedfile!.path);
+
+    final box = Boxes.getUserData();
+    final data = box.values.toList().cast<UserData>();
+    data[userkey].profileimage = imagefile;
+    box.putAt(userkey, data[userkey]);
     setState(() {
-      imagefile = File(pickedfile!.path);
+
     });
 
   }

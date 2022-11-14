@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-
+import 'dart:io';
 part 'user_model.g.dart';
 
 @HiveType(typeId: 0)
@@ -27,4 +27,9 @@ class UserData extends HiveObject {
 
   @HiveField(7)
   late List<Map<dynamic, dynamic>> address = [];
+
+  @HiveField(8)
+  File? profileimage;
+
+
 }
