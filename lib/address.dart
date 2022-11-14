@@ -668,6 +668,7 @@ class _AddressState extends State<Address> {
     });
   }
 
+  late String k = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -706,32 +707,38 @@ class _AddressState extends State<Address> {
                     child: ListView.builder(
                       itemCount: data[0].address.length,
                       itemBuilder: (context, index) {
-                        var _value;
+                        String addressSendToOtherPage = data[0].address[index]
+                                ['name'] +
+                            ", " +
+                            data[0].address[index]['hno'] +
+                            ", " +
+                            data[0].address[index]['area'] +
+                            ", " +
+                            data[0].address[index]['city'] +
+                            ", " +
+                            data[0].address[index]['state'] +
+                            ", " +
+                            data[0].address[index]['pincode'];
+
                         return Column(
                           children: [
                             //radio
                             RadioListTile(
-                              title: Text(data[0].address[index]['name'] +
-                                  ", " +
-                                  data[0].address[index]['hno'] +
-                                  ", " +
-                                  data[0].address[index]['area'] +
-                                  ", " +
-                                  data[0].address[index]['city'] +
-                                  ", " +
-                                  data[0].address[index]['state'] +
-                                  ", " +
-                                  data[0].address[index]['pincode']),
+                              title: Text(addressSendToOtherPage),
                               subtitle: Text("Phone Number: " +
                                   data[0].address[index]['phno']),
                               value: data[0].address[index],
                               groupValue: selectedVal,
-                              onChanged: (value) {
+                              onChanged: (value) async {
                                 setState(() {
                                   setSelectedVal(value);
-                                  print(value);
-                                  // _value = value!;
+                                  k = value.toString();
+                                  print(k);
                                 });
+                                final addressSharedPred =
+                                    await SharedPreferences.getInstance();
+                                await addressSharedPred.setString(
+                                    'selectedAddress', addressSendToOtherPage);
                               },
                               selected: selectedVal == data[0].address[index],
                             ),
@@ -789,8 +796,12 @@ class _AddressState extends State<Address> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Get.to(PaymentPage(),
-                            transition: Transition.rightToLeft);
+                        k.isEmpty
+                            ? Dialog(
+                                child: Text("Select Address"),
+                              )
+                            : Get.to(PaymentPage(),
+                                transition: Transition.rightToLeft);
                       },
                       child: Text("Pay"),
                       style: ButtonStyle(

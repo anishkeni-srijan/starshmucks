@@ -4,7 +4,10 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:starshmucks/home_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:get/get.dart';
+
 import 'boxes.dart';
 import 'model/cart_model.dart';
 
@@ -18,7 +21,17 @@ class Ordersuccess extends StatefulWidget {
 class _OrdersuccessState extends State<Ordersuccess> {
   @override
   void initState() {
+    getAddress();
     super.initState();
+  }
+
+  late String selectedAddress = '';
+  getAddress() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    selectedAddress = prefs.getString("selectedAddress")!;
+    setState(() {});
+    print("test " + selectedAddress);
+    return selectedAddress;
   }
 
   @override
@@ -28,7 +41,13 @@ class _OrdersuccessState extends State<Ordersuccess> {
           automaticallyImplyLeading: false,
           title: Row(
             children: [
-              TextButton.icon(icon: Icon(Icons.arrow_back),label: Text(''),onPressed: (){Get.to(HomePage());},),
+              TextButton.icon(
+                icon: Icon(Icons.arrow_back),
+                label: Text(''),
+                onPressed: () {
+                  Get.to(HomePage());
+                },
+              ),
               Text(
                 "Order details",
                 style: TextStyle(color: HexColor("#175244")),
@@ -88,7 +107,7 @@ class _OrdersuccessState extends State<Ordersuccess> {
                         ? Center(child: Text("No items in cart"))
                         : SizedBox(
                             width: 400,
-                             height: 600,
+                            height: 400,
                             child: ListView.builder(
                               itemCount: data.length,
                               itemBuilder: (context, index) {
@@ -152,6 +171,9 @@ class _OrdersuccessState extends State<Ordersuccess> {
                             ),
                           );
                   }),
+              Container(
+                child: Text("Delivering to:\n" + selectedAddress.toString()),
+              )
             ],
           ),
         ));
