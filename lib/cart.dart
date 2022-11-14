@@ -5,7 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 
 import 'boxes.dart';
-import 'checkout.dart';
+import 'address.dart';
 import '/home_screen.dart';
 import '/model/cart_model.dart';
 
@@ -58,7 +58,7 @@ class _MyCartState extends State<MyCart> {
                           ),
                     ElevatedButton(
                       onPressed: () {
-                        Get.to(Checkout(), transition: Transition.rightToLeft);
+                        Get.to(Address(), transition: Transition.rightToLeft);
                       },
                       child: Text("Checkout"),
                       style: ButtonStyle(

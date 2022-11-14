@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -29,258 +31,283 @@ class _SigninPageState extends State<SigninPage> {
   late int obtainedkey ;
 
   bool keeploggedin = false;
+
+  Future<bool>onWillPop() async {
+    return (await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: new Text('Are you sure?'),
+        content: new Text('Do you want to exit an App'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: new Text('No', style: TextStyle(color: HexColor("#175244"))),
+          ),
+          TextButton(
+            onPressed: () => exit(0),
+            child: new Text('Yes', style: TextStyle(color: HexColor("#175244")),),
+          ),
+        ],
+      ),
+    )) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: null,
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.12,
-                ),
-                child: getlogo(context),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 50.0,
-                  left: 48,
-                ),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AutoSizeText(
-                    'Sign In.',
-                    style: TextStyle(
-                      color: HexColor("#036635"),
-                      fontWeight: FontWeight.bold,
-                    ),
-                    minFontSize: 28,
+    return WillPopScope(
+      onWillPop: onWillPop,
+      child: Scaffold(
+        appBar: null,
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.12,
                   ),
+                  child: getlogo(context),
                 ),
-              ),
-              Divider(
-                color: HexColor("#036635"),
-                height: MediaQuery.of(context).size.height * 0.015,
-                thickness: MediaQuery.of(context).size.height * 0.004,
-                indent: MediaQuery.of(context).size.width * 0.119,
-                endIndent: MediaQuery.of(context).size.width * 0.746,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              BlocBuilder<SigninBloc, SigninState>(
-                builder: (context, state) {
-                  //checking if There's an error in Loginstate
-                  if (state is SigninErrorState) {
-                    return Text(
-                      state.errormessage,
+
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 50.0,
+                    left: 48,
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: AutoSizeText(
+                      'Sign In.',
                       style: TextStyle(
-                        color: Colors.red,
+                        color: HexColor("#036635"),
+                        fontWeight: FontWeight.bold,
                       ),
-                    );
-                  }
-                  //if the login is valid
-                  else {
-                    return Container();
-                  }
-                },
-              ),
-              ValueListenableBuilder<Box<UserData>>(
-                valueListenable: Boxes.getUserData().listenable(),
-                builder: (context, box, _) {
-                  final data = box.values.toList().cast<UserData>();
-
-                  for (int i = 0; i < data.length; i++) {
-                    obtainedemail = data[i].email;
-                    obtainedpassword = data[i].password;
-                    obtainedkey = data[i].key;
-                  }
-                  return Column(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        child: TextFormField(
-                          autocorrect: false,
-                          style: const TextStyle(
-                            color: Colors.black,
-                          ),
-                          controller: econtroller,
-                          onChanged: (value) {
-                            BlocProvider.of<SigninBloc>(context).add(
-                              SigninemailChangedEvent(
-                                econtroller.text,
-                                obtainedemail,
-                              ),
-                            );
-                          },
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(10),
-                            labelText: 'Email',
-                            labelStyle: TextStyle(
-                              color: HexColor("#036635"),
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                color: HexColor("#036635"),
-                                width: 2,
-                              ),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                color: HexColor("#036635"),
-                                width: 2,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      SizedBox(height: 20),
-                      //password
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        child: TextFormField(
-                          style: const TextStyle(color: Colors.black),
-                          controller: pcontroller,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(10),
-                            labelText: 'Password',
-                            labelStyle: TextStyle(
-                              color: HexColor("#036635"),
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                color: HexColor("#036635"),
-                                width: 2,
-                              ),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                color: HexColor("#036635"),
-                                width: 2,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                child: TextButton(
-                  child: Text(
-                    'Forgot Password?',
-                    style: TextStyle(
-                      color: HexColor("#036635"),
+                      minFontSize: 28,
                     ),
                   ),
-                  onPressed: () {
-                    Get.to(
-                      // ForgotPasswordPage(),
-                      ForgotPasswordPage(),
+                ),
+                Divider(
+                  color: HexColor("#036635"),
+                  height: MediaQuery.of(context).size.height * 0.015,
+                  thickness: MediaQuery.of(context).size.height * 0.004,
+                  indent: MediaQuery.of(context).size.width * 0.119,
+                  endIndent: MediaQuery.of(context).size.width * 0.746,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                BlocBuilder<SigninBloc, SigninState>(
+                  builder: (context, state) {
+                    //checking if There's an error in Loginstate
+                    if (state is SigninErrorState) {
+                      return Text(
+                        state.errormessage,
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                      );
+                    }
+                    //if the login is valid
+                    else {
+                      return Container();
+                    }
+                  },
+                ),
+                ValueListenableBuilder<Box<UserData>>(
+                  valueListenable: Boxes.getUserData().listenable(),
+                  builder: (context, box, _) {
+                    final data = box.values.toList().cast<UserData>();
+
+                    for (int i = 0; i < data.length; i++) {
+                      obtainedemail = data[i].email;
+                      obtainedpassword = data[i].password;
+                      obtainedkey = data[i].key;
+                    }
+                    return Column(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          margin: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.01,
+                          ),
+                          child: TextFormField(
+                            autocorrect: false,
+                            style: const TextStyle(
+                              color: Colors.black,
+                            ),
+                            controller: econtroller,
+                            onChanged: (value) {
+                              BlocProvider.of<SigninBloc>(context).add(
+                                SigninemailChangedEvent(
+                                  econtroller.text,
+                                  obtainedemail,
+                                ),
+                              );
+                            },
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(10),
+                              labelText: 'Email',
+                              labelStyle: TextStyle(
+                                color: HexColor("#036635"),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                  color: HexColor("#036635"),
+                                  width: 2,
+                                ),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                  color: HexColor("#036635"),
+                                  width: 2,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(height: 20),
+                        //password
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: TextFormField(
+                            style: const TextStyle(color: Colors.black),
+                            controller: pcontroller,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(10),
+                              labelText: 'Password',
+                              labelStyle: TextStyle(
+                                color: HexColor("#036635"),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                  color: HexColor("#036635"),
+                                  width: 2,
+                                ),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                  color: HexColor("#036635"),
+                                  width: 2,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     );
                   },
                 ),
-              ),
-              //submit button,
-              BlocBuilder<SigninBloc, SigninState>(
-                builder: (context, state) {
-                  return Container(
-                    transform: Matrix4.translationValues(0, -15, 0),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: (state is SigninValidState)
-                            ? MaterialStateProperty.all<Color>(
-                                Colors.white,
-                              )
-                            : MaterialStateProperty.all<Color>(
-                                HexColor("#036635"),
-                              ),
-                        foregroundColor: (state is SigninValidState)
-                            ? MaterialStateProperty.all<Color>(
-                                HexColor("#036635"),
-                              )
-                            : MaterialStateProperty.all<Color>(Colors.white),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            side: BorderSide(
-                              color: HexColor("#036635"),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ),
-                      onPressed: () async {
-                        final keypref = await SharedPreferences.getInstance();
-                        await keypref.setInt('userkey', obtainedkey);
-                        BlocProvider.of<SigninBloc>(context).add(
-                          SigninpassChangedEvent(
-                            pcontroller.text,
-                            obtainedpassword,
-                          ),
-                        );
-
-                        // setState(() {});
-                      },
-                      child: const Text(
-                        'Sign in',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-
-              Container(
-                transform: Matrix4.translationValues(
-                  135,
-                  -20,
-                  0,
-                ),
-                child: Row(
-                  children: [
-                    Text(
-                      'New User?',
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  child: TextButton(
+                    child: Text(
+                      'Forgot Password?',
                       style: TextStyle(
                         color: HexColor("#036635"),
                       ),
                     ),
-                    TextButton(
-                      onPressed: () {
-                        Get.to(
-                          SignupPage(),
-                        );
-                      },
-                      child: Text(
-                        'Sign Up.',
-                        style: TextStyle(
-                          color: HexColor("#036635"),
-                          decoration: TextDecoration.underline,
+                    onPressed: () {
+                      Get.to(
+                        // ForgotPasswordPage(),
+                        ForgotPasswordPage(),
+                      );
+                    },
+                  ),
+                ),
+                //submit button,
+                BlocBuilder<SigninBloc, SigninState>(
+                  builder: (context, state) {
+                    return Container(
+                      transform: Matrix4.translationValues(0, -15, 0),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: (state is SigninValidState)
+                              ? MaterialStateProperty.all<Color>(
+                                  Colors.white,
+                                )
+                              : MaterialStateProperty.all<Color>(
+                                  HexColor("#036635"),
+                                ),
+                          foregroundColor: (state is SigninValidState)
+                              ? MaterialStateProperty.all<Color>(
+                                  HexColor("#036635"),
+                                )
+                              : MaterialStateProperty.all<Color>(Colors.white),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: HexColor("#036635"),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ),
+                        onPressed: () async {
+                          final keypref = await SharedPreferences.getInstance();
+                          await keypref.setInt('userkey', obtainedkey);
+                          BlocProvider.of<SigninBloc>(context).add(
+                            SigninpassChangedEvent(
+                              pcontroller.text,
+                              obtainedpassword,
+                            ),
+                          );
+
+                          // setState(() {});
+                        },
+                        child: const Text(
+                          'Sign in',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
-              )
-            ],
+
+                Container(
+                  transform: Matrix4.translationValues(
+                    135,
+                    -20,
+                    0,
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        'New User?',
+                        style: TextStyle(
+                          color: HexColor("#036635"),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Get.to(
+                            SignupPage(),
+                          );
+                        },
+                        child: Text(
+                          'Sign Up.',
+                          style: TextStyle(
+                            color: HexColor("#036635"),
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

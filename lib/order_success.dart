@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:starshmucks/home_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-
+import 'package:get/get.dart';
 import 'boxes.dart';
 import 'model/cart_model.dart';
 
@@ -25,9 +25,15 @@ class _OrdersuccessState extends State<Ordersuccess> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            "Order details",
-            style: TextStyle(color: HexColor("#175244")),
+          automaticallyImplyLeading: false,
+          title: Row(
+            children: [
+              TextButton.icon(icon: Icon(Icons.arrow_back),label: Text(''),onPressed: (){Get.to(HomePage());},),
+              Text(
+                "Order details",
+                style: TextStyle(color: HexColor("#175244")),
+              ),
+            ],
           ),
           backgroundColor: Colors.white,
           foregroundColor: HexColor("#175244"),
@@ -82,7 +88,7 @@ class _OrdersuccessState extends State<Ordersuccess> {
                         ? Center(child: Text("No items in cart"))
                         : SizedBox(
                             width: 400,
-                            height: 600,
+                             height: 600,
                             child: ListView.builder(
                               itemCount: data.length,
                               itemBuilder: (context, index) {

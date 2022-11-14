@@ -11,14 +11,14 @@ import 'boxes.dart';
 import 'model/cart_model.dart';
 import 'model/user_model.dart';
 
-class Checkout extends StatefulWidget {
-  const Checkout({Key? key}) : super(key: key);
+class Address extends StatefulWidget {
+  const Address({Key? key}) : super(key: key);
 
   @override
-  State<Checkout> createState() => _CheckoutState();
+  State<Address> createState() => _AddressState();
 }
 
-class _CheckoutState extends State<Checkout> {
+class _AddressState extends State<Address> {
   getuserkey() async {
     final keypref = await SharedPreferences.getInstance();
     userkey = keypref.getInt('userkey')!;
