@@ -21,6 +21,8 @@ class UserProfile extends StatefulWidget {
 late int userkey = 0;
 
 class _UserProfileState extends State<UserProfile> {
+
+
   getemail() async {
     final keypref = await SharedPreferences.getInstance();
     userkey = keypref.getInt('userkey')!;
@@ -31,7 +33,8 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   void initState() {
-    // TODO: implement initState
+
+
     getemail();
     super.initState();
   }
@@ -51,6 +54,7 @@ class _UserProfileState extends State<UserProfile> {
           return SingleChildScrollView(
             child: Column(
               children: [
+
                 Container(
                   height: 250.0,
                   color: HexColor("#175244"),

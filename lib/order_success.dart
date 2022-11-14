@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:starshmucks/common_things.dart';
 import 'package:starshmucks/home_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,6 +24,7 @@ class _OrdersuccessState extends State<Ordersuccess> {
   void initState() {
     getAddress();
     super.initState();
+    cartinit = false;
   }
 
   late String selectedAddress = '';
@@ -45,7 +47,7 @@ class _OrdersuccessState extends State<Ordersuccess> {
                 icon: Icon(Icons.arrow_back),
                 label: Text(''),
                 onPressed: () {
-                  Get.to(HomePage());
+                  Get.to(bottomBar());
                 },
               ),
               Text(
@@ -109,6 +111,8 @@ class _OrdersuccessState extends State<Ordersuccess> {
                             width: 400,
                             height: 400,
                             child: ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
                               itemCount: data.length,
                               itemBuilder: (context, index) {
                                 return Column(
