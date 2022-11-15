@@ -679,7 +679,7 @@ class _AddressState extends State<Address> {
     });
   }
 
-  bool k = false;
+  bool afterSelecting = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -721,7 +721,7 @@ class _AddressState extends State<Address> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  k
+                  afterSelecting
                       ? Container()
                       : Center(
                           child: Container(
@@ -794,7 +794,7 @@ class _AddressState extends State<Address> {
                                 onChanged: (value) async {
                                   setState(() {
                                     setSelectedVal(value);
-                                    k = true;
+                                    afterSelecting = true;
                                   });
                                   final addressSharedPred =
                                       await SharedPreferences.getInstance();
@@ -873,7 +873,7 @@ class _AddressState extends State<Address> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        k
+                        afterSelecting
                             ? Get.to(PaymentPage(),
                                 transition: Transition.rightToLeft)
                             : Container();

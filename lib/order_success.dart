@@ -111,8 +111,7 @@ class _OrdersuccessState extends State<Ordersuccess> {
                             width: 400,
                             height: 400,
                             child: ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
+                              //shrinkWrap: true,
                               itemCount: data.length,
                               itemBuilder: (context, index) {
                                 return Column(
