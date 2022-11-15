@@ -6,7 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
+import 'package:starshmucks/rewards.dart';
 import '/model/cart_model.dart';
+import 'package:get/get.dart';
 
 import '/boxes.dart';
 import '/model/user_model.dart';
@@ -235,7 +237,9 @@ getbanner(context, username) {
                   0,
                 ),
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(Rewards());
+                  },
                   icon: Icon(
                     Icons.play_arrow_sharp,
                     color: Colors.white,
