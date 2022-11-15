@@ -50,7 +50,7 @@ class _OrderFailState extends State<OrderFail> {
                     Container(
                       transform: Matrix4.translationValues(0, 28, 0),
                       child: Text(
-                        'Order Placed!',
+                        'Order Failed!',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 40,

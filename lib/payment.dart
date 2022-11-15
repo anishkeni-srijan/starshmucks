@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+import 'order_failed.dart';
 import 'upi_payment.dart';
 import 'boxes.dart';
 import 'model/cart_model.dart';
@@ -23,6 +24,7 @@ enum Pet { Upi, Razorpay }
 final offers = TextEditingController();
 
 class _PaymentPageState extends State<PaymentPage> {
+  bool paid = false;
   int _value = 1;
   @override
   Widget build(BuildContext context) {
@@ -231,6 +233,9 @@ class _PaymentPageState extends State<PaymentPage> {
     * 2. Error Description
     * 3. Metadata
     * */
+    setState(() {
+      paid = false;
+    });
     showAlertDialog(context, "Payment Failed",
         "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
   }
@@ -242,6 +247,9 @@ class _PaymentPageState extends State<PaymentPage> {
     * 2. Payment ID
     * 3. Signature
     * */
+    setState(() {
+      paid = true;
+    });
     showAlertDialog(
         context, "Payment Successful", "Payment ID: ${response.paymentId}");
   }
@@ -256,7 +264,7 @@ class _PaymentPageState extends State<PaymentPage> {
     Widget continueButton = ElevatedButton(
       child: const Text("Continue"),
       onPressed: () {
-        Get.to(Ordersuccess());
+       paid? Get.to(Ordersuccess()):Get.to(OrderFail());
       },
     );
     // set up the AlertDialog
