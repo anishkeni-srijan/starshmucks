@@ -28,28 +28,31 @@ class _SigninPageState extends State<SigninPage> {
   final econtroller = TextEditingController();
   late String obtainedemail;
   late String obtainedpassword;
-  late int obtainedkey ;
 
   bool keeploggedin = false;
 
-  Future<bool>onWillPop() async {
+  Future<bool> onWillPop() async {
     return (await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: new Text('Are you sure?'),
-        content: new Text('Do you want to exit an App'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: new Text('No', style: TextStyle(color: HexColor("#175244"))),
+          context: context,
+          builder: (context) => AlertDialog(
+            title: new Text('Are you sure?'),
+            content: new Text('Do you want to exit an App'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: new Text('No',
+                    style: TextStyle(color: HexColor("#175244"))),
+              ),
+              TextButton(
+                onPressed: () => exit(0),
+                child: new Text(
+                  'Yes',
+                  style: TextStyle(color: HexColor("#175244")),
+                ),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () => exit(0),
-            child: new Text('Yes', style: TextStyle(color: HexColor("#175244")),),
-          ),
-        ],
-      ),
-    )) ??
+        )) ??
         false;
   }
 
@@ -118,15 +121,14 @@ class _SigninPageState extends State<SigninPage> {
                 ValueListenableBuilder<Box<UserData>>(
                   valueListenable: Boxes.getUserData().listenable(),
                   builder: (context, box, _) {
-                     final data = box.values.toList().cast<UserData>();
-                    // obtainedemail = d1;
-                    // obtainedpassword = d1.password;
-                    // obtainedkey = d1.key;
-
-
+                    final data = box.values.toList().cast<UserData>();
+                    if (data.isEmpty) {
+                      obtainedemail = '';
+                      obtainedpassword = '';
+                    } else {
                       obtainedemail = data[0].email;
                       obtainedpassword = data[0].password;
-                      obtainedkey = data[0].key;
+                    }
 
                     return Column(
                       children: [
@@ -255,8 +257,6 @@ class _SigninPageState extends State<SigninPage> {
                           ),
                         ),
                         onPressed: () async {
-                          final keypref = await SharedPreferences.getInstance();
-                          await keypref.setInt('0', obtainedkey);
                           BlocProvider.of<SigninBloc>(context).add(
                             SigninpassChangedEvent(
                               pcontroller.text,

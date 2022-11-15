@@ -23,8 +23,6 @@ class _SplashState extends State<Splash> {
 
   check(List<UserData> data) async {
 
-
-
     for (int i = 0; i < data.length; i++) {
       if (data[i].email == data[0].email &&
           data[i].password == data[0].password) {
