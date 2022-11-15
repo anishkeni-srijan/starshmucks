@@ -21,6 +21,7 @@ class PaymentPage extends StatefulWidget {
 
 enum Pet { Upi, Razorpay }
 
+String message = '';
 final offers = TextEditingController();
 
 class _PaymentPageState extends State<PaymentPage> {
@@ -238,6 +239,7 @@ class _PaymentPageState extends State<PaymentPage> {
     });
     showAlertDialog(context, "Payment Failed",
         "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
+    message = "${response.message}";
   }
 
   void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
@@ -264,7 +266,7 @@ class _PaymentPageState extends State<PaymentPage> {
     Widget continueButton = ElevatedButton(
       child: const Text("Continue"),
       onPressed: () {
-       paid? Get.to(Ordersuccess()):Get.to(OrderFail());
+        paid ? Get.to(Ordersuccess()) : Get.to(OrderFail(message));
       },
     );
     // set up the AlertDialog
@@ -283,4 +285,8 @@ class _PaymentPageState extends State<PaymentPage> {
       },
     );
   }
+}
+
+getMessage() {
+  return message;
 }
