@@ -856,15 +856,10 @@ class _AddressState extends State<Address> {
               valueListenable: Boxes.getCartData().listenable(),
               builder: (context, box, _) {
                 final data = box.values.toList().cast<CartData>();
-                late double result = 0;
-                for (int index = 0; index < data.length; index++) {
-                  result = result +
-                      double.parse(data[index].price) * data[index].qty;
-                }
                 return Row(
                   children: [
                     Text(
-                      "Total: \$${result.toStringAsFixed(2)}",
+                      "Total: \$${data[userkey].ttlPrice.toStringAsFixed(2)}",
                       style: TextStyle(
                           fontSize: 22.0, fontWeight: FontWeight.bold),
                     ),

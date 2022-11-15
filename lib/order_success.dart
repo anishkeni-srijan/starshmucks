@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive/hive.dart';
@@ -38,22 +39,22 @@ class _OrdersuccessState extends State<Ordersuccess> {
 
   @override
   Widget build(BuildContext context) {
+    final box = Boxes.getCartData();
+    final data = box.values.toList().cast<CartData>();
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextButton.icon(
-                icon: Icon(Icons.arrow_back),
+                icon: Icon(Icons.arrow_back, color:HexColor("#175244") ,),
                 label: Text(''),
                 onPressed: () {
                   Get.to(bottomBar());
                 },
               ),
-              Text(
-                "Order details",
-                style: TextStyle(color: HexColor("#175244")),
-              ),
+              TextButton(child: Text('Help', style: TextStyle(color: HexColor("#175244")),), onPressed: (){},),
             ],
           ),
           backgroundColor: Colors.white,
@@ -61,7 +62,7 @@ class _OrdersuccessState extends State<Ordersuccess> {
         ),
         body: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width * 1,
@@ -98,6 +99,21 @@ class _OrdersuccessState extends State<Ordersuccess> {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  "Order details",
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                ),
+              ),
+              Divider(
+                  color: HexColor("#175244"),
+                  height: 1,
+                  thickness: 0.5,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+
               ValueListenableBuilder<Box<CartData>>(
                   valueListenable: Boxes.getCartData().listenable(),
                   builder: (context, box, _) {
@@ -109,28 +125,20 @@ class _OrdersuccessState extends State<Ordersuccess> {
                         ? Center(child: Text("No items in cart"))
                         : SizedBox(
                             width: 400,
-                            height: 400,
                             child: ListView.builder(
-                              //shrinkWrap: true,
+                              shrinkWrap: true,
                               itemCount: data.length,
                               itemBuilder: (context, index) {
                                 return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Image.asset(
-                                          data[index].image,
-                                          height: 100,
-                                          width: 100,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 10,right: 10,bottom: 5,top: 5),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
@@ -144,28 +152,18 @@ class _OrdersuccessState extends State<Ordersuccess> {
                                                   ' x qty'),
                                             ],
                                           ),
-                                        ),
-                                        Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              Row(children: [
-                                                AutoSizeText(
-                                                  "\$ " + data[index].price,
-                                                  minFontSize: 20,
-                                                ),
-                                              ]),
-                                            ])
-                                      ],
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Divider(
-                                        color: HexColor("#036635"),
-                                        height: 1,
-                                        thickness: 0.5,
-                                        indent: 0,
-                                        endIndent: 0,
+                                          Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Row(children: [
+                                                  AutoSizeText(
+                                                    "\$ " + data[index].price,
+                                                    minFontSize: 10,
+                                                  ),
+                                                ]),
+                                              ])
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -174,9 +172,106 @@ class _OrdersuccessState extends State<Ordersuccess> {
                             ),
                           );
                   }),
-              Container(
-                child: Text("Delivering to:\n" + selectedAddress.toString()),
-              )
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Divider(
+                  color: HexColor("#175244"),
+                  height: 1,
+                  thickness: 0.5,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Cart total",
+                          style: TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                        Text(
+                          "\$ " + data[userkey].ttlPrice.toStringAsFixed(2),
+                          style: TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Points savings",
+                          style: TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                        Text(
+                          '-\$ 10.00',
+                          style: TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Delivery fee",
+                          style: TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                        Text(
+                          "\$ 5.00",
+                          style: TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Total Amount",
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          "\$ " +
+                              (data[userkey].ttlPrice - 10.0 + 5.00).toString(),
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Divider(
+                  color: HexColor("#175244"),
+                  height: 1,
+                  thickness: 0.5,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      "Deliver to:",
+                      style: TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      selectedAddress.toString(),
+                      style: TextStyle(fontWeight: FontWeight.w300),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ));

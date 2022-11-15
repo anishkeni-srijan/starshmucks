@@ -55,6 +55,10 @@ class _MyCartState extends State<MyCart> {
                   result = result +
                       double.parse(data[index].price) * data[index].qty;
                 }
+
+                //change to index
+                data[userkey].ttlPrice = result;
+                box.putAt(userkey, data[userkey]);
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

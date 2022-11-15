@@ -51,7 +51,7 @@ class _UserProfileState extends State<UserProfile> {
           final data = box.values.toList().cast<UserData>();
           print("pass  " + data[userkey].password);
           print("email  " + data[userkey].email);
-
+print(data[userkey].profileimage.toString());
           return SingleChildScrollView(
             child: Column(
               children: [

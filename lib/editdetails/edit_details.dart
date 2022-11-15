@@ -77,7 +77,7 @@ class _EditProfileState extends State<EditProfile> {
                           color: const Color(0xff7c94b6),
                           image: imagefile == null ? DecorationImage(
                              image: AssetImage('images/profile1.jpg') )// set a placeholder image when no photo is set
-                                :DecorationImage(image: FileImage(File(imagefile!.path)),
+                                :DecorationImage(image: FileImage(File(data[userkey].profileimage!.path)),
                             fit: BoxFit.cover,
                           ),
                           borderRadius: BorderRadius.all(
@@ -196,6 +196,7 @@ class _EditProfileState extends State<EditProfile> {
                           data[userkey].name = ncontroller.text;
                           data[userkey].email = econtroller.text;
                           data[userkey].phone = phcontroller.text;
+                          print("imagevalue1" + data[userkey].profileimage!.path);
                           box.putAt(userkey, data[userkey]);
                           setState(() {});
                         },
@@ -228,11 +229,12 @@ class _EditProfileState extends State<EditProfile> {
   takepicture(ImageSource source)async{
     final pickedfile = await picker.pickImage(source: source);
     imagefile = File(pickedfile!.path);
-
     final box = Boxes.getUserData();
     final data = box.values.toList().cast<UserData>();
     data[userkey].profileimage = imagefile;
-    box.putAt(userkey, data[userkey]);
+    print("imagevalue2" + data[userkey].profileimage!.path);
+    // box.putAt(userkey, data[userkey]);
+
     setState(() {
 
     });
