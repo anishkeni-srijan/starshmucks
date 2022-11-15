@@ -197,7 +197,7 @@ class _OrdersuccessState extends State<Ordersuccess> {
                             style: TextStyle(fontWeight: FontWeight.w300),
                           ),
                           Text(
-                            "\$ " + data[userkey].ttlPrice.toStringAsFixed(2),
+                            "\$ " + data[0].ttlPrice.toStringAsFixed(2),
                             style: TextStyle(fontWeight: FontWeight.w300),
                           ),
                         ],
@@ -237,7 +237,7 @@ class _OrdersuccessState extends State<Ordersuccess> {
                           ),
                           Text(
                             "\$ " +
-                                (data[userkey].ttlPrice - 10.0 + 5.00).toString(),
+                                (data[0].ttlPrice - 10.0 + 5.00).toString(),
                             style: TextStyle(fontWeight: FontWeight.w600),
                           ),
                         ],

@@ -19,20 +19,7 @@ class Address extends StatefulWidget {
 }
 
 class _AddressState extends State<Address> {
-  getuserkey() async {
-    final keypref = await SharedPreferences.getInstance();
-    userkey = keypref.getInt('userkey')!;
-    setState(() {});
-    print(userkey);
-    return userkey;
-  }
-
   @override
-  var userkey = 0;
-  void initState() {
-    getuserkey();
-    super.initState();
-  }
 
   addAddress(context) {
     final fname = TextEditingController();
@@ -330,7 +317,7 @@ class _AddressState extends State<Address> {
                         };
 
                         data[0].address.add(xresult);
-                        box.put(userkey, data[userkey]);
+                        box.putAt(0, data[0]);
 
                         setState(() {});
                       },
@@ -635,7 +622,7 @@ class _AddressState extends State<Address> {
                   width: 300,
                   child: ElevatedButton(
                     onPressed: () {
-                      // data[userkey].address[index]=result;
+                      // data[0].address[index]=result;
 
                       var xresult = {
                         'name': fname.text,
@@ -647,7 +634,7 @@ class _AddressState extends State<Address> {
                         'pincode': pincode.text,
                       };
                       data[0].address[index] = xresult;
-                      box.put(userkey, data[userkey]);
+                      box.put(0, data[0]);
                       setState(() {});
                     },
                     style: ElevatedButton.styleFrom(
@@ -706,7 +693,7 @@ class _AddressState extends State<Address> {
           valueListenable: Boxes.getUserData().listenable(),
           builder: (context, box, _) {
             final data = box.values.toList().cast<UserData>();
-            if (data[userkey].address.isEmpty) {
+            if (data[0].address.isEmpty) {
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -859,7 +846,7 @@ class _AddressState extends State<Address> {
                 return Row(
                   children: [
                     Text(
-                      "Total: \$${data[userkey].ttlPrice.toStringAsFixed(2)}",
+                      "Total: \$${data[0].ttlPrice.toStringAsFixed(2)}",
                       style: TextStyle(
                           fontSize: 22.0, fontWeight: FontWeight.bold),
                     ),

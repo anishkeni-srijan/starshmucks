@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
@@ -102,7 +104,7 @@ class _getcoffeeState extends State<getcoffee> {
       ..ttlPrice = 0.0
       ..id = cartp.coffeemenudata[index].id;
 
-    int zindex =
+    var zindex =
         data.indexWhere((item) => item.id == cartp.coffeemenudata[index].id);
     print("test " + zindex.toString());
     if (zindex != -1) {
@@ -256,7 +258,7 @@ class _getcakeState extends State<getcake> {
       ..ttlPrice = 0.0
       ..id = cartp.cakemenudata[index].id;
 
-    int zindex =
+    var zindex =
         data.indexWhere((item) => item.id == cartp.cakemenudata[index].id);
     print("test " + zindex.toString());
     if (zindex != -1) {
@@ -412,8 +414,7 @@ class _getsmoothieState extends State<getsmoothie> {
       ..ttlPrice = 0.0
       ..id = cartp.smoothiemenudata[index].id;
 
-    int zindex =
-        data.indexWhere((item) => item.id == cartp.smoothiemenudata[index].id);
+    var zindex = data.indexWhere((item) => item.id == cartp.smoothiemenudata[index].id);
     print("test " + zindex.toString());
     if (zindex != -1) {
       data[zindex].qty++;

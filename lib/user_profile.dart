@@ -19,26 +19,12 @@ class UserProfile extends StatefulWidget {
   State<UserProfile> createState() => _UserProfileState();
 }
 
-late int userkey = 0;
+
 
 class _UserProfileState extends State<UserProfile> {
 
 
-  getemail() async {
-    final keypref = await SharedPreferences.getInstance();
-    userkey = keypref.getInt('userkey')!;
 
-    setState(() {});
-    print(userkey);
-  }
-
-  @override
-  void initState() {
-
-
-    getemail();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +35,9 @@ class _UserProfileState extends State<UserProfile> {
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
           final data = box.values.toList().cast<UserData>();
-          print("pass  " + data[userkey].password);
-          print("email  " + data[userkey].email);
-print(data[userkey].profileimage.toString());
+          print("pass  " + data[0].password);
+          print("email  " + data[0].email);
+print(data[0].profileimage.toString());
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -69,9 +55,9 @@ print(data[userkey].profileimage.toString());
                         height: 150.0,
                         decoration: BoxDecoration(
                           color: const Color(0xff7c94b6),
-                          image: data[userkey].profileimage == null ? DecorationImage(
+                          image: data[0].profileimage == null ? DecorationImage(
                               image: AssetImage('images/profile1.jpg') )// set a placeholder image when no photo is set
-                              :DecorationImage(image: FileImage(File(data[userkey].profileimage!.path)),
+                              :DecorationImage(image: FileImage(File(data[0].profileimage!.path)),
                             fit: BoxFit.cover,
                           ),
                           borderRadius: BorderRadius.all(
@@ -89,7 +75,7 @@ print(data[userkey].profileimage.toString());
                       Align(
                         alignment: Alignment.center,
                         child: Text(
-                          data[userkey].name,
+                          data[0].name,
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -153,7 +139,7 @@ print(data[userkey].profileimage.toString());
                         press: () async {
                           SharedPreferences prefs =
                               await SharedPreferences.getInstance();
-                          prefs.remove('userkey');
+                          prefs.remove('0');
                           Get.to(
                             SigninPage(),
                           );

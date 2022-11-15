@@ -24,24 +24,12 @@ class HomePage extends StatefulWidget {
 
 bool cartinit = false;
 late String username;
-late int userkey = 0;
 
 class _HomePageState extends State<HomePage> {
 
-  getemail() async {
-    final keypref = await SharedPreferences.getInstance();
-    userkey = keypref.getInt('userkey')!;
-    setState(() {});
-    print(userkey);
-    return userkey;
-  }
 
-  @override
-  void initState() {
-    getemail();
 
-    super.initState();
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +41,7 @@ class _HomePageState extends State<HomePage> {
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
           final data = box.values.toList().cast<UserData>();
-          username = data[userkey].name;
+          username = data[0].name;
           return SingleChildScrollView(
             child: Column(
               children: [

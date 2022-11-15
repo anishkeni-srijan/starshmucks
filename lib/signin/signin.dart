@@ -118,13 +118,16 @@ class _SigninPageState extends State<SigninPage> {
                 ValueListenableBuilder<Box<UserData>>(
                   valueListenable: Boxes.getUserData().listenable(),
                   builder: (context, box, _) {
-                    final data = box.values.toList().cast<UserData>();
+                     final data = box.values.toList().cast<UserData>();
+                    // obtainedemail = d1;
+                    // obtainedpassword = d1.password;
+                    // obtainedkey = d1.key;
 
-                    for (int i = 0; i < data.length; i++) {
-                      obtainedemail = data[i].email;
-                      obtainedpassword = data[i].password;
-                      obtainedkey = data[i].key;
-                    }
+
+                      obtainedemail = data[0].email;
+                      obtainedpassword = data[0].password;
+                      obtainedkey = data[0].key;
+
                     return Column(
                       children: [
                         Container(
@@ -253,7 +256,7 @@ class _SigninPageState extends State<SigninPage> {
                         ),
                         onPressed: () async {
                           final keypref = await SharedPreferences.getInstance();
-                          await keypref.setInt('userkey', obtainedkey);
+                          await keypref.setInt('0', obtainedkey);
                           BlocProvider.of<SigninBloc>(context).add(
                             SigninpassChangedEvent(
                               pcontroller.text,

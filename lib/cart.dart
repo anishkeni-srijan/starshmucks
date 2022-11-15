@@ -57,8 +57,8 @@ class _MyCartState extends State<MyCart> {
                 }
 
                 //change to index
-                data[userkey].ttlPrice = result;
-                box.putAt(userkey, data[userkey]);
+                data[0].ttlPrice = result;
+                box.putAt(0, data[0]);
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

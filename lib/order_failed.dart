@@ -24,7 +24,7 @@ class _OrderFailState extends State<OrderFail> {
     final box = Boxes.getCartData();
     final data = box.values.toList().cast<CartData>();
     late double result = 0;
-    for (int index = 0; index < data.length; index++) {
+    for (var index = 0; index < data.length; index++) {
       result = result + double.parse(data[index].price) * data[index].qty;
     }
     setState(() {});

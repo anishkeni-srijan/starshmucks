@@ -223,7 +223,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     child: ElevatedButton(
                       onPressed: () async {
                         final resetkey = await SharedPreferences.getInstance();
-                        await resetkey.setInt('resetuserkey', obtainedkey);
+                        await resetkey.setInt('reset0', obtainedkey);
                         if (userfound) {
                           submitValid ? verify() : sendOtp();
                         } else

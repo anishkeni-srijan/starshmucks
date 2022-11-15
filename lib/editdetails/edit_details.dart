@@ -31,20 +31,10 @@ class _EditProfileState extends State<EditProfile> {
   late String obtainedname;
   late int obtainedkey;
 
-  getuserkey() async {
-    final keypref = await SharedPreferences.getInstance();
-    userkey = keypref.getInt('userkey')!;
-    setState(() {});
-    print(userkey);
-    return userkey;
-  }
+
 
   @override
-  var userkey;
-  void initState() {
-    getuserkey();
-    super.initState();
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +67,7 @@ class _EditProfileState extends State<EditProfile> {
                           color: const Color(0xff7c94b6),
                           image: imagefile == null ? DecorationImage(
                              image: AssetImage('images/profile1.jpg') )// set a placeholder image when no photo is set
-                                :DecorationImage(image: FileImage(File(data[userkey].profileimage!.path)),
+                                :DecorationImage(image: FileImage(File(data[0].profileimage!.path)),
                             fit: BoxFit.cover,
                           ),
                           borderRadius: BorderRadius.all(
@@ -101,7 +91,7 @@ class _EditProfileState extends State<EditProfile> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    data[userkey].name,
+                    data[0].name,
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -193,11 +183,11 @@ class _EditProfileState extends State<EditProfile> {
                               phcontroller.text,
                             ),
                           );
-                          data[userkey].name = ncontroller.text;
-                          data[userkey].email = econtroller.text;
-                          data[userkey].phone = phcontroller.text;
-                          print("imagevalue1" + data[userkey].profileimage!.path);
-                          box.putAt(userkey, data[userkey]);
+                          data[0].name = ncontroller.text;
+                          data[0].email = econtroller.text;
+                          data[0].phone = phcontroller.text;
+                          print("imagevalue1" + data[0].profileimage!.path);
+                          box.putAt(0, data[0]);
                           setState(() {});
                         },
                         child: Text('UPDATE'),
@@ -231,9 +221,9 @@ class _EditProfileState extends State<EditProfile> {
     imagefile = File(pickedfile!.path);
     final box = Boxes.getUserData();
     final data = box.values.toList().cast<UserData>();
-    data[userkey].profileimage = imagefile;
-    print("imagevalue2" + data[userkey].profileimage!.path);
-    // box.putAt(userkey, data[userkey]);
+    data[0].profileimage = imagefile;
+    print("imagevalue2" + data[0].profileimage!.path);
+    // box.putAt(0, data[0]);
 
     setState(() {
 

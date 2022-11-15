@@ -22,13 +22,12 @@ class _SplashState extends State<Splash> {
   }
 
   check(List<UserData> data) async {
-    int userKey;
 
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    userKey = prefs.getInt("userkey")!;
+
+
     for (int i = 0; i < data.length; i++) {
-      if (data[i].email == data[userKey].email &&
-          data[i].password == data[userKey].password) {
+      if (data[i].email == data[0].email &&
+          data[i].password == data[0].password) {
         flag = true;
         setState(() {});
       } else {

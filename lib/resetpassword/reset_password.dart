@@ -19,19 +19,19 @@ class ResetPasswordPage extends StatefulWidget {
 }
 
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
-  late int resetuserkey;
-  geteuserkey() async {
+  late int reset0;
+  gete0() async {
     final keypref = await SharedPreferences.getInstance();
-    resetuserkey = keypref.getInt('resetuserkey')!;
+    reset0 = keypref.getInt('reset0')!;
     setState(() {});
-    print(resetuserkey);
-    return resetuserkey;
+    print(reset0);
+    return reset0;
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    geteuserkey();
+    gete0();
     super.initState();
   }
 
@@ -243,9 +243,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                               width: 300,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  data[resetuserkey].password =
+                                  data[reset0].password =
                                       passwordcontroller.text;
-                                  box.putAt(resetuserkey, data[resetuserkey]);
+                                  box.putAt(reset0, data[reset0]);
                                   reset = true;
                                   setState(() {});
                                   BlocProvider.of<ResetpasswordBloc>(context)
