@@ -54,9 +54,9 @@ class _EditProfileState extends State<EditProfile> {
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
           final data = box.values.toList().cast<UserData>();
-          final econtroller = TextEditingController(text: data[userkey].email);
-          final ncontroller = TextEditingController(text: data[userkey].name);
-          final phcontroller = TextEditingController(text: data[userkey].phone);
+          final econtroller = TextEditingController(text: data[0].email);
+          final ncontroller = TextEditingController(text: data[0].name);
+          final phcontroller = TextEditingController(text: data[0].phone);
           return SingleChildScrollView(
             child: Column(
               children: [

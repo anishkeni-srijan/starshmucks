@@ -194,7 +194,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           Razorpay razorpay = Razorpay();
                           var options = {
                             'key': 'rzp_test_jrCnK1rxXepbtl',
-                            'amount': result * 100,
+                            'amount': 100,
                             'name': 'Starschmucks.',
                             'description': 'Fine Coffee',
                             'retry': {'enabled': true, 'max_count': 1},

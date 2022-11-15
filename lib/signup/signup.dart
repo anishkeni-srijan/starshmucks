@@ -20,7 +20,7 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  final List<UserData> signupdata = [];
+   // final List<UserData> signupdata = [];
   @override
   void dispose() {
     Hive.box('signupdata').close();

@@ -175,3 +175,9 @@ viewincart() {
     ],
   );
 }
+Future<bool>gohome() async {
+  return (await
+  Get.to(bottomBar())
+  ) ??
+      false;
+}
