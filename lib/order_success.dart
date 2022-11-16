@@ -4,6 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:starshmucks/common_things.dart';
+import 'package:starshmucks/help_page.dart';
 import 'package:starshmucks/home_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -71,7 +72,9 @@ class _OrdersuccessState extends State<Ordersuccess> {
                     'Help',
                     style: TextStyle(color: HexColor("#175244")),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(Help());
+                  },
                 ),
               ],
             ),
