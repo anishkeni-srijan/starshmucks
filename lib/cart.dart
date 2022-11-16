@@ -43,8 +43,12 @@ class _MyCartState extends State<MyCart> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: Container(
+    final box = Boxes.getCartData();
+    final data = box.values.toList().cast<CartData>();
+    return
+    Scaffold(
+      bottomNavigationBar: data.isEmpty
+          ? Center(child: Text("No items in cart")):Container(
           padding: EdgeInsets.all(8.0),
           child: ValueListenableBuilder<Box<CartData>>(
               valueListenable: Boxes.getCartData().listenable(),
@@ -98,9 +102,7 @@ class _MyCartState extends State<MyCart> {
             if (data.isEmpty) {
               cartinit = false;
             }
-            return data.isEmpty
-                ? Center(child: Text("No items in cart"))
-                : ListView.builder(
+            return ListView.builder(
                     itemCount: data.length,
                     itemBuilder: (context, index) {
                       return Card(
