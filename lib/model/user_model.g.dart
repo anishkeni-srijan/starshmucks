@@ -27,13 +27,16 @@ class UserDataAdapter extends TypeAdapter<UserData> {
       ..address = (fields[7] as List)
           .map((dynamic e) => (e as Map).cast<dynamic, dynamic>())
           .toList()
-      ..profileimage = fields[8] as File?;
+      ..profileimage = fields[8] as File?
+      ..orders = (fields[9] as List)
+          .map((dynamic e) => (e as List).cast<dynamic>())
+          .toList();
   }
 
   @override
   void write(BinaryWriter writer, UserData obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -51,7 +54,9 @@ class UserDataAdapter extends TypeAdapter<UserData> {
       ..writeByte(7)
       ..write(obj.address)
       ..writeByte(8)
-      ..write(obj.profileimage);
+      ..write(obj.profileimage)
+      ..writeByte(9)
+      ..write(obj.orders);
   }
 
   @override

@@ -176,6 +176,9 @@ viewincart() {
   );
 }
 Future<bool>gohome() async {
+  final box = Boxes.getCartData();
+  final data = box.values.toList().cast<CartData>();
+ box.clear();
   return (await
   Get.to(bottomBar())
   ) ??

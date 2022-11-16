@@ -9,6 +9,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:get/get.dart';
+import 'package:starshmucks/model/user_model.dart';
 
 import 'boxes.dart';
 import 'model/cart_model.dart';
@@ -39,8 +40,12 @@ class _OrdersuccessState extends State<Ordersuccess> {
 
   @override
   Widget build(BuildContext context) {
+    final box2 = Boxes.getUserData();
+    final data2 = box2.values.toList().cast<UserData>();
     final box = Boxes.getCartData();
     final data = box.values.toList().cast<CartData>();
+
+    data2[0].orders = data.cast<List>();
     return WillPopScope(
       onWillPop: gohome,
       child: Scaffold(
@@ -56,6 +61,7 @@ class _OrdersuccessState extends State<Ordersuccess> {
                   ),
                   label: Text(''),
                   onPressed: () {
+                    box.clear();
                     Get.to(bottomBar());
                   },
                 ),

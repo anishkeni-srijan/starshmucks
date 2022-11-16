@@ -30,4 +30,7 @@ class UserData extends HiveObject {
 
   @HiveField(8)
   File? profileimage;
+
+  @HiveField(9)
+  late List<List<dynamic>> orders = [];
 }

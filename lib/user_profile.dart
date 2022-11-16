@@ -13,6 +13,7 @@ import 'common_things.dart';
 import 'editdetails/edit_details.dart';
 import 'home_screen.dart';
 import 'model/user_model.dart';
+import 'orders.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
@@ -111,7 +112,9 @@ class _UserProfileState extends State<UserProfile> {
                       const DividerForTiles(),
                       profileTile(
                         text: 'Orders',
-                        press: () {},
+                        press: () {
+                          Get.to(Orders());
+                        },
                         icon: Icons.coffee_outlined,
                       ),
                       const DividerForTiles(),

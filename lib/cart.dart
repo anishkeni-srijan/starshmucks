@@ -8,6 +8,7 @@ import 'boxes.dart';
 import 'address.dart';
 import '/home_screen.dart';
 import '/model/cart_model.dart';
+import 'model/user_model.dart';
 
 class MyCart extends StatefulWidget {
   const MyCart({Key? key}) : super(key: key);
@@ -43,6 +44,9 @@ class _MyCartState extends State<MyCart> {
 
   @override
   Widget build(BuildContext context) {
+    final box2 = Boxes.getUserData();
+    final data2 = box2.values.toList().cast<UserData>();
+
     final box = Boxes.getCartData();
     final data = box.values.toList().cast<CartData>();
     return
