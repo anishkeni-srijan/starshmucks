@@ -89,6 +89,7 @@ class _MyCartState extends State<MyCart> {
         backgroundColor: Colors.white,
         foregroundColor: HexColor("#175244"),
         title: Text("Cart"),
+        elevation: 2,
       ),
       body: ValueListenableBuilder<Box<CartData>>(
           valueListenable: Boxes.getCartData().listenable(),
@@ -102,91 +103,88 @@ class _MyCartState extends State<MyCart> {
                 : ListView.builder(
                     itemCount: data.length,
                     itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset(
-                                data[index].image,
-                                height: 100,
-                                width: 100,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                        width: 150,
-                                        child: Text(data[index].title,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis)),
-                                    Text("\$ " + data[index].price),
-                                    TextButton(
-                                      child: Text('Remove'),
-                                      onPressed: () {
-                                        box.delete(data[index].key);
-                                        data[index].isInCart = false;
-                                        setState(() {});
-                                      },
-                                      style: ButtonStyle(
-                                          foregroundColor:
-                                              MaterialStateProperty.all(
-                                                  HexColor("#036635"))),
-                                    ),
-                                  ],
+                      return Card(
+                        elevation: 8,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(
+                                  data[index].image,
+                                  height: 100,
+                                  width: 100,
                                 ),
-                              ),
-                              Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Row(children: [
-                                      IconButton(
-                                        icon: Icon(Icons.remove),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                          width: 150,
+                                          child: Text(data[index].title,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis)),
+                                      Text("\$ " + data[index].price),
+                                      TextButton(
                                         onPressed: () {
-                                          if (data[index].qty == 1) {
-                                            box.delete(data[index].key);
-                                            data[index].isInCart = false;
-                                          } else {
+                                          box.delete(data[index].key);
+                                          data[index].isInCart = false;
+                                          setState(() {});
+                                        },
+                                        style: ButtonStyle(
+                                            foregroundColor:
+                                                MaterialStateProperty.all(
+                                                    HexColor("#036635"))),
+                                        child: Text(
+                                          'Remove',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Row(children: [
+                                        IconButton(
+                                          icon: Icon(Icons.remove),
+                                          onPressed: () {
+                                            if (data[index].qty == 1) {
+                                              box.delete(data[index].key);
+                                              data[index].isInCart = false;
+                                            } else {
+                                              data[index].qty =
+                                                  data[index].qty - 1;
+                                              box.putAt(index, data[index]);
+                                            }
+                                            setState(() {});
+                                          },
+                                          style: ButtonStyle(
+                                              foregroundColor:
+                                                  MaterialStateProperty.all(
+                                                      HexColor("#036635"))),
+                                        ),
+                                        Text(data[index].qty.toString()),
+                                        IconButton(
+                                          icon: Icon(Icons.add),
+                                          onPressed: () {
                                             data[index].qty =
-                                                data[index].qty - 1;
+                                                data[index].qty + 1;
                                             box.putAt(index, data[index]);
-                                          }
-                                          setState(() {});
-                                        },
-                                        style: ButtonStyle(
-                                            foregroundColor:
-                                                MaterialStateProperty.all(
-                                                    HexColor("#036635"))),
-                                      ),
-                                      Text(data[index].qty.toString()),
-                                      IconButton(
-                                        icon: Icon(Icons.add),
-                                        onPressed: () {
-                                          data[index].qty = data[index].qty + 1;
-                                          box.putAt(index, data[index]);
-                                          setState(() {});
-                                        },
-                                        style: ButtonStyle(
-                                            foregroundColor:
-                                                MaterialStateProperty.all(
-                                                    HexColor("#036635"))),
-                                      ),
+                                            setState(() {});
+                                          },
+                                          style: ButtonStyle(
+                                              foregroundColor:
+                                                  MaterialStateProperty.all(
+                                                      HexColor("#036635"))),
+                                        ),
+                                      ]),
                                     ]),
-                                  ]),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Divider(
-                              color: HexColor("#036635"),
-                              height: 1,
-                              thickness: 0.5,
-                              indent: 0,
-                              endIndent: 0,
+                              ],
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       );
                     },
                   );

@@ -50,13 +50,22 @@ class _OrdersuccessState extends State<Ordersuccess> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton.icon(
-                  icon: Icon(Icons.arrow_back, color:HexColor("#175244") ,),
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: HexColor("#175244"),
+                  ),
                   label: Text(''),
                   onPressed: () {
                     Get.to(bottomBar());
                   },
                 ),
-                TextButton(child: Text('Help', style: TextStyle(color: HexColor("#175244")),), onPressed: (){},),
+                TextButton(
+                  child: Text(
+                    'Help',
+                    style: TextStyle(color: HexColor("#175244")),
+                  ),
+                  onPressed: () {},
+                ),
               ],
             ),
             backgroundColor: Colors.white,
@@ -109,13 +118,12 @@ class _OrdersuccessState extends State<Ordersuccess> {
                   ),
                 ),
                 Divider(
-                    color: HexColor("#175244"),
-                    height: 1,
-                    thickness: 0.5,
-                    indent: 0,
-                    endIndent: 0,
-                  ),
-
+                  color: HexColor("#175244"),
+                  height: 1,
+                  thickness: 0.5,
+                  indent: 0,
+                  endIndent: 0,
+                ),
                 ValueListenableBuilder<Box<CartData>>(
                     valueListenable: Boxes.getCartData().listenable(),
                     builder: (context, box, _) {
@@ -132,10 +140,15 @@ class _OrdersuccessState extends State<Ordersuccess> {
                                 itemCount: data.length,
                                 itemBuilder: (context, index) {
                                   return Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 10,right: 10,bottom: 5,top: 5),
+                                        padding: const EdgeInsets.only(
+                                            left: 10,
+                                            right: 10,
+                                            bottom: 5,
+                                            top: 5),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -146,12 +159,14 @@ class _OrdersuccessState extends State<Ordersuccess> {
                                               children: [
                                                 Container(
                                                     width: 150,
-                                                    child: Text(data[index].title,
+                                                    child: Text(
+                                                        data[index].title,
                                                         maxLines: 2,
                                                         overflow: TextOverflow
                                                             .ellipsis)),
-                                                Text(data[index].qty.toString() +
-                                                    ' x qty'),
+                                                Text(
+                                                    data[index].qty.toString() +
+                                                        ' x qty'),
                                               ],
                                             ),
                                             Column(
@@ -219,7 +234,7 @@ class _OrdersuccessState extends State<Ordersuccess> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Delivery fee",
+                            "Delivery Charges",
                             style: TextStyle(fontWeight: FontWeight.w300),
                           ),
                           Text(
@@ -237,7 +252,8 @@ class _OrdersuccessState extends State<Ordersuccess> {
                           ),
                           Text(
                             "\$ " +
-                                (data[0].ttlPrice - 10.0 + 5.00).toString(),
+                                (data[0].ttlPrice - 10.0 + 5.00)
+                                    .toStringAsFixed(2),
                             style: TextStyle(fontWeight: FontWeight.w600),
                           ),
                         ],

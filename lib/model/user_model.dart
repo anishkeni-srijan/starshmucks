@@ -30,6 +30,4 @@ class UserData extends HiveObject {
 
   @HiveField(8)
   File? profileimage;
-
-
 }

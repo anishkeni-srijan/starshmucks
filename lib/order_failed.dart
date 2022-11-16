@@ -150,7 +150,7 @@ class _OrderFailState extends State<OrderFail> {
                           Expanded(
                             child: Text("Delivery Charges"),
                           ),
-                          Text("\$ 5"),
+                          Text("\$ 5.00"),
                         ],
                       ),
                       SizedBox(
