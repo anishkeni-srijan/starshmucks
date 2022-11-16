@@ -34,23 +34,36 @@ class Help extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                    onPressed: () {
-                      // final call = Uri.parse('tel:+91 9830268966');
-                      // if (await canLaunchUrl(call)) {
-                      //   launchUrl(call);
-                      // } else {
-                      //   throw 'Could not launch $call';
-                      // }
-                    },
-                    child: Text(
-                      "1800 999 999",
-                      style: TextStyle(color: HexColor("#036635")),
-                    )),
+                  onPressed: () async {
+                    final call = Uri.parse('tel:1800999999');
+                    if (await canLaunchUrl(call)) {
+                      print("CALLING");
+                      launchUrl(call);
+                    } else {
+                      throw 'Could not launch $call';
+                    }
+                  },
+                  child: Text(
+                    "1800999999",
+                    style: TextStyle(
+                      color: HexColor("#036635"),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   width: 10,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    final mailUrl = Uri.parse(
+                        'mailto:smith@example.org?subject=News&body=New%20plugin');
+                    if (await canLaunchUrl(mailUrl)) {
+                      print("CALLING");
+                      launchUrl(mailUrl);
+                    } else {
+                      throw 'Could not launch $mailUrl';
+                    }
+                  },
                   child: Text("Write to Us"),
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -67,6 +80,7 @@ class Help extends StatelessWidget {
                 child: Text(
               "Frequently Asked Questions",
               style: TextStyle(
+                decoration: TextDecoration.underline,
                 fontWeight: FontWeight.w600,
                 fontSize: 25,
                 color: HexColor("#036635"),

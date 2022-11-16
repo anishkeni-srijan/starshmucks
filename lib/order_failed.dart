@@ -44,6 +44,7 @@ class _OrderFailState extends State<OrderFail> {
       onWillPop: gohome,
       child: Scaffold(
           appBar: AppBar(
+            titleSpacing: 0,
             automaticallyImplyLeading: false,
             title: Row(
               children: [
@@ -58,7 +59,7 @@ class _OrderFailState extends State<OrderFail> {
                   },
                 ),
                 Text(
-                  "Order details",
+                  "Order Details",
                   style: TextStyle(color: HexColor("#175244")),
                 ),
               ],
