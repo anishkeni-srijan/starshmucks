@@ -45,6 +45,7 @@ class _OrdersuccessState extends State<Ordersuccess> {
     final box = Boxes.getCartData();
     final data = box.values.toList().cast<CartData>();
 
+   //to copy list
     data2[0].orders = data.cast<List>();
     return WillPopScope(
       onWillPop: gohome,
