@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import 'boxes.dart';
+import 'model/cart_model.dart';
 import 'model/user_model.dart';
 
 class Orders extends StatefulWidget {
@@ -16,7 +17,16 @@ class _OrdersState extends State<Orders> {
     final box = Boxes.getUserData();
     final data = box.values.toList().cast<UserData>();
     return Scaffold(
-      body: Text(data[0].orders.toString()),
+      appBar: AppBar(
+        title: Text('Order'),
+      ),
+        body: Text('')
+      // ListView.builder(
+      //   itemCount: data.length,
+      //   itemBuilder: (context, index) =>
+      //
+      //
+      //   ,),
     );
   }
 }

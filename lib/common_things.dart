@@ -3,6 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:starshmucks/order_success.dart';
 
 import '/home_screen.dart';
 import '/user_profile.dart';
@@ -176,9 +177,20 @@ viewincart() {
   );
 }
 Future<bool>gohome() async {
-  final box = Boxes.getCartData();
-  final data = box.values.toList().cast<CartData>();
- box.clear();
+  // final box = Boxes.getCartData();
+  // final data = box.values.toList().cast<CartData>();
+ // box.clear();
+
+  return (await
+  Get.to(bottomBar())
+  ) ??
+      false;
+}
+Future<bool>gohomesuccess() async {
+  // final box = Boxes.getCartData();
+  // final data = box.values.toList().cast<CartData>();
+ // box.clear();
+  gainrewards();
   return (await
   Get.to(bottomBar())
   ) ??

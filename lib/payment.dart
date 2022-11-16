@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+import 'model/user_model.dart';
 import 'order_failed.dart';
 import 'upi_payment.dart';
 import 'boxes.dart';
@@ -25,10 +26,14 @@ String message = '';
 final offers = TextEditingController();
 
 class _PaymentPageState extends State<PaymentPage> {
+  bool isChecked = false;
   bool paid = false;
   int _value = 1;
   @override
   Widget build(BuildContext context) {
+    final box2 = Boxes.getUserData();
+    final data2 = box2.values.toList().cast<UserData>();
+
     Pet _pet = Pet.Upi;
     return Scaffold(
       appBar: AppBar(
@@ -43,9 +48,10 @@ class _PaymentPageState extends State<PaymentPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      margin: EdgeInsets.only(top: 4, left: 0),
+                      margin: EdgeInsets.only(top: 4, left: 15),
                       child: AutoSizeText(
                         'Payment Mode',
                         style: TextStyle(
@@ -55,14 +61,13 @@ class _PaymentPageState extends State<PaymentPage> {
                         maxFontSize: 30,
                       )),
                   Container(
-                      transform: Matrix4.translationValues(15, 2, 0),
+                      margin: EdgeInsets.only(top: 4, left: 15),
                       child: AutoSizeText(
                         'Select your prefered payment mode',
                         style: TextStyle(
                           color: HexColor("#38564F"),
                         ),
-                        minFontSize: 8,
-                        maxFontSize: 10,
+                        minFontSize: 10,
                       ))
                 ],
               ),
@@ -109,6 +114,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 contentPadding: EdgeInsets.only(left: 10),
                 tileColor: Colors.white,
                 onChanged: (value) {
+
                   setState(() {
                     _value = value!;
                   });
@@ -164,6 +170,84 @@ class _PaymentPageState extends State<PaymentPage> {
             ),
           ],
         ),
+        Container(
+          margin: EdgeInsets.only(top: 10, bottom: 10, left: 20),
+          child: AutoSizeText(
+            'Use Your Rewards',
+            style: TextStyle(
+              color: HexColor("#175244"),
+            ),
+            minFontSize: 20,
+            maxFontSize: 30,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AutoSizeText(
+                        'Available Rewards ',
+                        style: TextStyle(
+                          color: HexColor("#175244"),
+                        ),
+                        minFontSize: 20,
+                        maxFontSize: 30,
+                      ),
+                      AutoSizeText(
+                        data2[0].rewards.toString(),
+                        style: TextStyle(
+                          color: HexColor("#175244"),
+                        ),
+                        minFontSize: 20,
+                        maxFontSize: 30,
+                      ),
+
+                    ],
+                  ),
+                ),
+                Row(
+                  children: [
+                    Checkbox(
+                      checkColor: Colors.white,
+                      fillColor: MaterialStateProperty.all(HexColor("#175244")),
+                      focusColor: Colors.green,
+                      value: isChecked,
+                      onChanged: (bool? value) {
+                        isChecked = !isChecked;
+                        final box = Boxes.getCartData();
+                        final data = box.values.toList().cast<CartData>();
+                        data[0].ttlPrice =  data[0].ttlPrice - data2[0].rewards!.toDouble();
+                        box.putAt(0, data[0]);
+                        setState(
+                          () {
+
+                          },
+                        );
+                      },
+                    ),
+                    AutoSizeText(
+                      'Use my rewards',
+                      minFontSize: 20,
+                      style: TextStyle(
+                        color: HexColor("#175244"),
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
       ]),
       bottomNavigationBar: Container(
           padding: EdgeInsets.all(8.0),
@@ -171,15 +255,10 @@ class _PaymentPageState extends State<PaymentPage> {
               valueListenable: Boxes.getCartData().listenable(),
               builder: (context, box, _) {
                 final data = box.values.toList().cast<CartData>();
-                late double result = 0;
-                for (int index = 0; index < data.length; index++) {
-                  result = result +
-                      double.parse(data[index].price) * data[index].qty;
-                }
                 return Row(
                   children: [
                     Text(
-                      "Total: \$" + result.toStringAsFixed(2),
+                      "Total: \$" + data[0].ttlPrice.toStringAsFixed(2),
                       style: TextStyle(
                           fontSize: 22.0, fontWeight: FontWeight.bold),
                     ),

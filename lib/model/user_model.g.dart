@@ -28,9 +28,7 @@ class UserDataAdapter extends TypeAdapter<UserData> {
           .map((dynamic e) => (e as Map).cast<dynamic, dynamic>())
           .toList()
       ..profileimage = fields[8] as File?
-      ..orders = (fields[9] as List)
-          .map((dynamic e) => (e as List).cast<dynamic>())
-          .toList();
+      ..rewards = fields[10] as double?;
   }
 
   @override
@@ -55,8 +53,8 @@ class UserDataAdapter extends TypeAdapter<UserData> {
       ..write(obj.address)
       ..writeByte(8)
       ..write(obj.profileimage)
-      ..writeByte(9)
-      ..write(obj.orders);
+      ..writeByte(10)
+      ..write(obj.rewards);
   }
 
   @override

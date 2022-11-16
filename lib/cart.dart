@@ -18,6 +18,7 @@ class MyCart extends StatefulWidget {
 }
 
 class _MyCartState extends State<MyCart> {
+  bool ischecked = false;
   var result;
   @override
   void dispose() {

@@ -1,5 +1,7 @@
 import 'package:hive/hive.dart';
 import 'dart:io';
+
+import 'package:starshmucks/model/cart_model.dart';
 part 'user_model.g.dart';
 
 @HiveType(typeId: 0)
@@ -31,6 +33,9 @@ class UserData extends HiveObject {
   @HiveField(8)
   File? profileimage;
 
-  @HiveField(9)
-  late List<List<dynamic>> orders = [];
+  // @HiveField(9)
+  // late List<List<CartData>> orders = [];
+
+  @HiveField(10)
+  late double? rewards;
 }
