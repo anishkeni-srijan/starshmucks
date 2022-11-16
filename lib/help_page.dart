@@ -80,6 +80,7 @@ class Help extends StatelessWidget {
                 child: Text(
               "Frequently Asked Questions",
               style: TextStyle(
+                decoration: TextDecoration.underline,
                 fontWeight: FontWeight.w600,
                 fontSize: 25,
                 color: HexColor("#036635"),
