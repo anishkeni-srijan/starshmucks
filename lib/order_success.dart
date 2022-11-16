@@ -52,6 +52,7 @@ class _OrdersuccessState extends State<Ordersuccess> {
       onWillPop: gohome,
       child: Scaffold(
           appBar: AppBar(
+            titleSpacing: 0,
             automaticallyImplyLeading: false,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
