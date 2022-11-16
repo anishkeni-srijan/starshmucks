@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:get/get.dart';
 
 import '/model/user_model.dart';
 import '/signup/bloc/signup_bloc.dart';
@@ -20,7 +21,7 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-   // final List<UserData> signupdata = [];
+  // final List<UserData> signupdata = [];
   @override
   void dispose() {
     Hive.box('signupdata').close();
@@ -71,391 +72,398 @@ class _SignupPageState extends State<SignupPage> {
     print("added");
   }
 
+  Future<bool> getToSignin() async {
+    return (await Get.to(SigninPage())) ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: null,
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              backbutton(context),
-              getlogo(context),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 10.0,
-                  left: 46,
-                ),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AutoSizeText(
-                    'Sign up.',
-                    style: TextStyle(
-                      color: HexColor("#036635"),
-                      fontWeight: FontWeight.bold,
-                    ),
-                    minFontSize: 28,
+    return WillPopScope(
+      onWillPop: getToSignin,
+      child: Scaffold(
+        appBar: null,
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                backbutton(context),
+                getlogo(context),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 10.0,
+                    left: 46,
                   ),
-                ),
-              ),
-              Divider(
-                color: HexColor("#036635"),
-                height: MediaQuery.of(context).size.height * 0.015,
-                thickness: MediaQuery.of(context).size.height * 0.004,
-                indent: MediaQuery.of(context).size.width * 0.119,
-                endIndent: MediaQuery.of(context).size.width * 0.746,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-
-              BlocBuilder<SignupBloc, SignupState>(
-                builder: (context, state) {
-                  //checking if There's an error in Loginstate
-                  if (state is SignupErrorState) {
-                    return Text(
-                      state.errormessage,
-                      style: TextStyle(color: Colors.red),
-                    );
-                  }
-                  //if the login is valid
-                  else if (state is SignupValidState) {
-                    return Container();
-                  } else
-                    return Container();
-                },
-              ),
-
-              //Name
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.01,
-                ),
-                child: TextFormField(
-                  style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                  controller: name,
-                  onChanged: (value) {
-                    BlocProvider.of<SignupBloc>(context).add(
-                      SignupNameChangedEvent(name.text),
-                    );
-                  },
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(5),
-                    labelText: 'Name',
-                    labelStyle: TextStyle(
-                      color: HexColor("#175244"),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: HexColor("#175244"),
-                        width: 2,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: AutoSizeText(
+                      'Sign up.',
+                      style: TextStyle(
+                        color: HexColor("#036635"),
+                        fontWeight: FontWeight.bold,
                       ),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: HexColor("#175244"),
-                        width: 2,
-                      ),
+                      minFontSize: 28,
                     ),
                   ),
                 ),
-              ),
-              //Date of Birth
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.005,
+                Divider(
+                  color: HexColor("#036635"),
+                  height: MediaQuery.of(context).size.height * 0.015,
+                  thickness: MediaQuery.of(context).size.height * 0.004,
+                  indent: MediaQuery.of(context).size.width * 0.119,
+                  endIndent: MediaQuery.of(context).size.width * 0.746,
                 ),
-                child: TextField(
-                  controller: dob, //editing controller of this TextField
-                  onChanged: (value) {
-                    BlocProvider.of<SignupBloc>(context).add(
-                      SignupDobChangedEvent(dob.text),
-                    );
-                  },
-                  decoration: InputDecoration(
-                    //label text of field
-                    contentPadding: EdgeInsets.all(5),
-                    labelText: 'Date Of Birth',
-                    labelStyle: TextStyle(
-                      color: HexColor("#175244"),
-                    ),
-                    prefixIcon: Icon(
-                      Icons.calendar_month_rounded,
-                      color: HexColor("#175244"),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: HexColor("#175244"),
-                        width: 2,
-                      ),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: HexColor("#175244"),
-                        width: 2,
-                      ),
-                    ),
-                  ),
-                  readOnly:
-                      true, //set it true, so that user will not able to edit text
-                  onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(
-                        1900,
-                        1,
-                        1,
-                      ), //DateTime.now() - not to allow to choose before today.
-                      lastDate: DateTime(2101),
-                    );
+                SizedBox(
+                  height: 10,
+                ),
 
-                    if (pickedDate != null) {
-                      print(
-                          pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                      String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(pickedDate);
-                      print(formattedDate);
-                      setState(
-                        () {
-                          dob.text =
-                              formattedDate; //set output date to TextField value.
-                        },
+                BlocBuilder<SignupBloc, SignupState>(
+                  builder: (context, state) {
+                    //checking if There's an error in Loginstate
+                    if (state is SignupErrorState) {
+                      return Text(
+                        state.errormessage,
+                        style: TextStyle(color: Colors.red),
                       );
-                    } else {
-                      print("Date is not selected");
                     }
+                    //if the login is valid
+                    else if (state is SignupValidState) {
+                      return Container();
+                    } else
+                      return Container();
                   },
                 ),
-              ),
-              //Email
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.005,
-                ),
-                child: TextFormField(
-                  autocorrect: false,
-                  style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                  controller: email,
-                  onChanged: (value) {
-                    BlocProvider.of<SignupBloc>(context)
-                        .add(SignupEmailChangedEvent(email.text));
-                  },
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(5),
-                    labelText: 'Email',
-                    labelStyle: TextStyle(
-                      color: HexColor("#175244"),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: HexColor("#175244"),
-                        width: 2,
-                      ),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: HexColor("#175244"),
-                        width: 2,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              //Phone Number
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                height: 80,
-                child: InternationalPhoneNumberInput(
-                  onInputChanged: (PhoneNumber number) {
-                    BlocProvider.of<SignupBloc>(context).add(
-                      SignupNumberChangedEvent(phone.text),
-                    );
-                  },
-                  selectorConfig: SelectorConfig(
-                      trailingSpace: false,
-                      selectorType: PhoneInputSelectorType.DROPDOWN),
-                  autoValidateMode: AutovalidateMode.disabled,
-                  selectorTextStyle: TextStyle(color: HexColor("#175244")),
-                  initialValue: number,
-                  textFieldController: phone,
-                  inputDecoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(5),
-                    labelText: 'Phone Number',
-                    labelStyle: TextStyle(
-                      color: HexColor("#175244"),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: HexColor("#175244"),
-                        width: 2,
-                      ),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: HexColor("#175244"),
-                        width: 2,
-                      ),
-                    ),
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-              ),
-              //Password
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.005,
-                ),
-                child: TextFormField(
-                  obscureText: true,
-                  style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                  controller: pass1,
-                  onChanged: (value) {
-                    BlocProvider.of<SignupBloc>(context).add(
-                      SignupPasswordChangedEvent(pass1.text),
-                    );
-                  },
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(5),
-                    labelText: 'Password',
-                    labelStyle: TextStyle(
-                      color: HexColor("#175244"),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: HexColor("#175244"),
-                        width: 2,
-                      ),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: HexColor("#175244"),
-                        width: 2,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              //Confirm Password
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.005,
-                ),
-                child: TextFormField(
-                  obscureText: true,
-                  style: const TextStyle(
-                    color: Colors.black,
-                  ),
-                  controller: pass2,
-                  onChanged: (value) {
-                    BlocProvider.of<SignupBloc>(context).add(
-                      SignupConfirmPasswordChangedEvent(
-                        pass2.text,
-                        pass1.text,
-                      ),
-                    );
-                  },
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(5),
-                    labelText: 'Confirm Password',
-                    labelStyle: TextStyle(
-                      color: HexColor("#175244"),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: HexColor("#175244"),
-                        width: 2,
-                      ),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: HexColor("#175244"),
-                        width: 2,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              //CheckBox
-              Container(
-                transform: Matrix4.translationValues(
-                  30,
-                  0,
-                  0,
-                ),
-                child: Row(
-                  children: [
-                    Checkbox(
-                      checkColor: Colors.white,
-                      fillColor: MaterialStateProperty.resolveWith(getColor),
-                      focusColor: Colors.green,
-                      value: isChecked,
-                      onChanged: (bool? value) {
-                        BlocProvider.of<SignupBloc>(context).add(
-                          SignuptandcChangedEvent(isChecked),
-                        );
 
+                //Name
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                  child: TextFormField(
+                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
+                    controller: name,
+                    onChanged: (value) {
+                      BlocProvider.of<SignupBloc>(context).add(
+                        SignupNameChangedEvent(name.text),
+                      );
+                    },
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(5),
+                      labelText: 'Name',
+                      labelStyle: TextStyle(
+                        color: HexColor("#175244"),
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: HexColor("#175244"),
+                          width: 2,
+                        ),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: HexColor("#175244"),
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                //Date of Birth
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.005,
+                  ),
+                  child: TextField(
+                    controller: dob, //editing controller of this TextField
+                    onChanged: (value) {
+                      BlocProvider.of<SignupBloc>(context).add(
+                        SignupDobChangedEvent(dob.text),
+                      );
+                    },
+                    decoration: InputDecoration(
+                      //label text of field
+                      contentPadding: EdgeInsets.all(5),
+                      labelText: 'Date Of Birth',
+                      labelStyle: TextStyle(
+                        color: HexColor("#175244"),
+                      ),
+                      prefixIcon: Icon(
+                        Icons.calendar_month_rounded,
+                        color: HexColor("#175244"),
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: HexColor("#175244"),
+                          width: 2,
+                        ),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: HexColor("#175244"),
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                    readOnly:
+                        true, //set it true, so that user will not able to edit text
+                    onTap: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(
+                          1900,
+                          1,
+                          1,
+                        ), //DateTime.now() - not to allow to choose before today.
+                        lastDate: DateTime(2101),
+                      );
+
+                      if (pickedDate != null) {
+                        print(
+                            pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                        String formattedDate =
+                            DateFormat('yyyy-MM-dd').format(pickedDate);
+                        print(formattedDate);
                         setState(
                           () {
-                            isChecked = !isChecked;
+                            dob.text =
+                                formattedDate; //set output date to TextField value.
                           },
                         );
-                      },
-                    ),
-                    AutoSizeText(
-                      'T&C, I agree.',
-                      style: TextStyle(
+                      } else {
+                        print("Date is not selected");
+                      }
+                    },
+                  ),
+                ),
+                //Email
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.005,
+                  ),
+                  child: TextFormField(
+                    autocorrect: false,
+                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
+                    controller: email,
+                    onChanged: (value) {
+                      BlocProvider.of<SignupBloc>(context)
+                          .add(SignupEmailChangedEvent(email.text));
+                    },
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(5),
+                      labelText: 'Email',
+                      labelStyle: TextStyle(
                         color: HexColor("#175244"),
                       ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                width: 300,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (isChecked) {
-                      BlocProvider.of<SignupBloc>(context).add(
-                        SignupSumittedEvent(),
-                      );
-                      addUserData();
-                    } else
-                      return null;
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(60)),
-                    backgroundColor: HexColor("#036635"),
-                  ),
-                  child: const Text(
-                    'SIGN UP',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
+                      enabledBorder: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: HexColor("#175244"),
+                          width: 2,
+                        ),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: HexColor("#175244"),
+                          width: 2,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+                //Phone Number
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: 80,
+                  child: InternationalPhoneNumberInput(
+                    onInputChanged: (PhoneNumber number) {
+                      BlocProvider.of<SignupBloc>(context).add(
+                        SignupNumberChangedEvent(phone.text),
+                      );
+                    },
+                    selectorConfig: SelectorConfig(
+                        trailingSpace: false,
+                        selectorType: PhoneInputSelectorType.DROPDOWN),
+                    autoValidateMode: AutovalidateMode.disabled,
+                    selectorTextStyle: TextStyle(color: HexColor("#175244")),
+                    initialValue: number,
+                    textFieldController: phone,
+                    inputDecoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(5),
+                      labelText: 'Phone Number',
+                      labelStyle: TextStyle(
+                        color: HexColor("#175244"),
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: HexColor("#175244"),
+                          width: 2,
+                        ),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: HexColor("#175244"),
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+                //Password
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.005,
+                  ),
+                  child: TextFormField(
+                    obscureText: true,
+                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
+                    controller: pass1,
+                    onChanged: (value) {
+                      BlocProvider.of<SignupBloc>(context).add(
+                        SignupPasswordChangedEvent(pass1.text),
+                      );
+                    },
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(5),
+                      labelText: 'Password',
+                      labelStyle: TextStyle(
+                        color: HexColor("#175244"),
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: HexColor("#175244"),
+                          width: 2,
+                        ),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: HexColor("#175244"),
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                //Confirm Password
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.005,
+                  ),
+                  child: TextFormField(
+                    obscureText: true,
+                    style: const TextStyle(
+                      color: Colors.black,
+                    ),
+                    controller: pass2,
+                    onChanged: (value) {
+                      BlocProvider.of<SignupBloc>(context).add(
+                        SignupConfirmPasswordChangedEvent(
+                          pass2.text,
+                          pass1.text,
+                        ),
+                      );
+                    },
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(5),
+                      labelText: 'Confirm Password',
+                      labelStyle: TextStyle(
+                        color: HexColor("#175244"),
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: HexColor("#175244"),
+                          width: 2,
+                        ),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: HexColor("#175244"),
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                //CheckBox
+                Container(
+                  transform: Matrix4.translationValues(
+                    30,
+                    0,
+                    0,
+                  ),
+                  child: Row(
+                    children: [
+                      Checkbox(
+                        checkColor: Colors.white,
+                        fillColor: MaterialStateProperty.resolveWith(getColor),
+                        focusColor: Colors.green,
+                        value: isChecked,
+                        onChanged: (bool? value) {
+                          BlocProvider.of<SignupBloc>(context).add(
+                            SignuptandcChangedEvent(isChecked),
+                          );
+
+                          setState(
+                            () {
+                              isChecked = !isChecked;
+                            },
+                          );
+                        },
+                      ),
+                      AutoSizeText(
+                        'T&C, I agree.',
+                        style: TextStyle(
+                          color: HexColor("#175244"),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 300,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (isChecked) {
+                        BlocProvider.of<SignupBloc>(context).add(
+                          SignupSumittedEvent(),
+                        );
+                        addUserData();
+                      } else
+                        return null;
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(60)),
+                      backgroundColor: HexColor("#036635"),
+                    ),
+                    child: const Text(
+                      'SIGN UP',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -475,7 +483,7 @@ class _SignupPageState extends State<SignupPage> {
           color: HexColor("#036635"),
         ),
         onPressed: () {
-          Navigator.of(context).pop(context);
+          Get.to(SigninPage());
         },
         label: Text(''),
       ),

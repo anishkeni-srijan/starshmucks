@@ -51,15 +51,18 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             valueListenable: Boxes.getUserData().listenable(),
             builder: (context, box, _) {
               final data = box.values.toList().cast<UserData>();
-              if (data.isEmpty) {
-                Get.to(
-                  SignupPage(),
-                );
-              } else {
-                for (int i = 0; i < data.length; i++) {
-                  obtainedkey = data[i].key;
+              Future.delayed(Duration.zero, () {
+                if (data.isEmpty) {
+                  Get.to(
+                    SignupPage(),
+                  );
+                } else {
+                  for (int i = 0; i < data.length; i++) {
+                    obtainedkey = data[i].key;
+                  }
                 }
-              }
+              });
+
               return Column(
                 children: <Widget>[
                   Container(
