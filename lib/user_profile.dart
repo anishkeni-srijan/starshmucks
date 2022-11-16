@@ -3,6 +3,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:starshmucks/help_page.dart';
+import 'package:starshmucks/rewards.dart';
 import 'dart:io';
 
 import '/signin/signin.dart';
@@ -19,8 +21,6 @@ class UserProfile extends StatefulWidget {
   State<UserProfile> createState() => _UserProfileState();
 }
 
-
-
 class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
@@ -33,11 +33,10 @@ class _UserProfileState extends State<UserProfile> {
           final data = box.values.toList().cast<UserData>();
           print("pass  " + data[0].password);
           print("email  " + data[0].email);
-print(data[0].profileimage.toString());
+          print(data[0].profileimage.toString());
           return SingleChildScrollView(
             child: Column(
               children: [
-
                 Container(
                   height: 250.0,
                   color: HexColor("#175244"),
@@ -51,11 +50,15 @@ print(data[0].profileimage.toString());
                         height: 150.0,
                         decoration: BoxDecoration(
                           color: const Color(0xff7c94b6),
-                          image: data[0].profileimage == null ? DecorationImage(
-                              image: AssetImage('images/profile1.jpg') )// set a placeholder image when no photo is set
-                              :DecorationImage(image: FileImage(File(data[0].profileimage!.path)),
-                            fit: BoxFit.cover,
-                          ),
+                          image: data[0].profileimage == null
+                              ? DecorationImage(
+                                  image: AssetImage(
+                                      'images/profile1.jpg')) // set a placeholder image when no photo is set
+                              : DecorationImage(
+                                  image: FileImage(
+                                      File(data[0].profileimage!.path)),
+                                  fit: BoxFit.cover,
+                                ),
                           borderRadius: BorderRadius.all(
                             Radius.circular(75.0),
                           ),
@@ -114,7 +117,9 @@ print(data[0].profileimage.toString());
                       const DividerForTiles(),
                       profileTile(
                         text: 'Rewards',
-                        press: () {},
+                        press: () {
+                          Get.to(Rewards());
+                        },
                         icon: Icons.star_outline_sharp,
                       ),
                       const DividerForTiles(),
@@ -126,7 +131,9 @@ print(data[0].profileimage.toString());
                       const DividerForTiles(),
                       profileTile(
                         text: 'Help',
-                        press: () {},
+                        press: () {
+                          Get.to(Help());
+                        },
                         icon: Icons.help_outline_rounded,
                       ),
                       const DividerForTiles(),
