@@ -23,4 +23,8 @@ class Menu {
     id: json["id"],
     rating: json["rating"]
   );
+
+
 }
+
+

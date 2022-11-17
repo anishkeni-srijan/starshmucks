@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => OffersData()),
         ChangeNotifierProvider(create: (context) => NowServing()),
         ChangeNotifierProvider(create: (context) => Learnmore()),
-        ChangeNotifierProvider(create: (context) => Menudata()),
+      //  ChangeNotifierProvider(create: (context) => Menudata()),
       ],
       child: GestureDetector(
         onTap: () {

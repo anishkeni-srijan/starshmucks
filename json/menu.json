@@ -1,6 +1,6 @@
 [
   {
-    "cake": [
+    "menu": [
       {
         "title": "Double Chocolate Brownie",
         "price": "2.99",
@@ -24,12 +24,8 @@
         "image": "images/cakes/berliner.png",
         "id": 3,
         "rating": "4.0"
-      }
-    ],
-
-    "coffee": [
+      },
       {
-
         "title": "Caffè Americano",
         "price": "4",
         "description": "Espresso shots topped with hot water create a light layer of crema culminating in this wonderfully rich cup with depth and nuance.",
@@ -52,10 +48,7 @@
         "image": "images/coffee/latte.png",
         "id": 6,
         "rating": "4.0"
-      }
-    ],
-
-    "smoothie": [
+      },
       {
         "title": "A Schtarry Decade",
         "price": "10",
