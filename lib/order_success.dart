@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:starshmucks/model/user_model.dart';
 
 import 'boxes.dart';
+import 'help_page.dart';
 import 'model/cart_model.dart';
 
 class Ordersuccess extends StatefulWidget {
@@ -45,8 +46,8 @@ class _OrdersuccessState extends State<Ordersuccess> {
     final box = Boxes.getCartData();
     final data = box.values.toList().cast<CartData>();
 
-   //to copy list
-    data2[0].orders = data.cast<List>();
+    //to copy list
+    // data2[0].orders = data.cast<List>();
     return WillPopScope(
       onWillPop: gohome,
       child: Scaffold(
@@ -306,19 +307,18 @@ class _OrdersuccessState extends State<Ordersuccess> {
   }
 }
 
-
-gainrewards(){
+gainrewards() {
   final box = Boxes.getUserData();
   final data = box.values.toList().cast<UserData>();
 
   final box2 = Boxes.getCartData();
   final datab = box2.values.toList().cast<CartData>();
   var items = 0;
-  for(var i = 0; i< datab.length;i++) {
+  for (var i = 0; i < datab.length; i++) {
     items = items + datab[i].qty;
     data[0].rewards = items * 10;
   }
-  print("no. of items "+ items.toString());
+  print("no. of items " + items.toString());
   box.putAt(0, data[0]);
-   print('total rewards: ' + data[0].rewards.toString());
+  print('total rewards: ' + data[0].rewards.toString());
 }

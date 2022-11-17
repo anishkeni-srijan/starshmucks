@@ -12,6 +12,8 @@ import 'cart.dart';
 import '/order_page.dart';
 import 'gift_card.dart';
 import 'model/cart_model.dart';
+import 'order_success.dart';
+import 'order_failed.dart';
 
 class bottomBar extends StatefulWidget {
   const bottomBar({super.key});
@@ -176,23 +178,27 @@ viewincart() {
     ],
   );
 }
-Future<bool>gohome() async {
-  // final box = Boxes.getCartData();
-  // final data = box.values.toList().cast<CartData>();
- // box.clear();
 
-  return (await
-  Get.to(bottomBar())
-  ) ??
-      false;
-}
-Future<bool>gohomesuccess() async {
+Future<bool> gohome() async {
   // final box = Boxes.getCartData();
   // final data = box.values.toList().cast<CartData>();
- // box.clear();
+  // box.clear();
+
+  return (await Get.to(bottomBar())) ?? false;
+}
+
+Future<bool> gohomesuccess() async {
+  // final box = Boxes.getCartData();
+  // final data = box.values.toList().cast<CartData>();
+  // box.clear();
   gainrewards();
-  return (await
-  Get.to(bottomBar())
-  ) ??
-      false;
+  return (await Get.to(bottomBar())) ?? false;
+}
+
+goToSuccess() {
+  return Get.to(Ordersuccess());
+}
+
+goToFailed(String message) {
+  return Get.to(OrderFail(message));
 }

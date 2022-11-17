@@ -5,6 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:starshmucks/common_things.dart';
 
 import 'model/user_model.dart';
 import 'order_failed.dart';
@@ -114,7 +115,6 @@ class _PaymentPageState extends State<PaymentPage> {
                 contentPadding: EdgeInsets.only(left: 10),
                 tileColor: Colors.white,
                 onChanged: (value) {
-
                   setState(() {
                     _value = value!;
                   });
@@ -211,7 +211,6 @@ class _PaymentPageState extends State<PaymentPage> {
                         minFontSize: 20,
                         maxFontSize: 30,
                       ),
-
                     ],
                   ),
                 ),
@@ -226,12 +225,11 @@ class _PaymentPageState extends State<PaymentPage> {
                         isChecked = !isChecked;
                         final box = Boxes.getCartData();
                         final data = box.values.toList().cast<CartData>();
-                        data[0].ttlPrice =  data[0].ttlPrice - data2[0].rewards!.toDouble();
+                        data[0].ttlPrice =
+                            data[0].ttlPrice - data2[0].rewards!.toDouble();
                         box.putAt(0, data[0]);
                         setState(
-                          () {
-
-                          },
+                          () {},
                         );
                       },
                     ),
@@ -313,11 +311,14 @@ class _PaymentPageState extends State<PaymentPage> {
     * 2. Error Description
     * 3. Metadata
     * */
+
     setState(() {
       paid = false;
+      goToFailed(message);
     });
-    showAlertDialog(context, "Payment Failed",
-        "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
+
+    // showAlertDialog(context, "Payment Failed",
+    //     "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
     message = "${response.message}";
   }
 
@@ -329,10 +330,12 @@ class _PaymentPageState extends State<PaymentPage> {
     * 3. Signature
     * */
     setState(() {
+      goToSuccess();
       paid = true;
     });
-    showAlertDialog(
-        context, "Payment Successful", "Payment ID: ${response.paymentId}");
+
+    // showAlertDialog(
+    //     context, "Payment Successful", "Payment ID: ${response.paymentId}");
   }
 
   void handleExternalWalletSelected(ExternalWalletResponse response) {
