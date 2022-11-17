@@ -178,23 +178,16 @@ viewincart() {
     ],
   );
 }
-
-Future<bool> gohome() async {
+Future<bool>gohome() async {
   // final box = Boxes.getCartData();
   // final data = box.values.toList().cast<CartData>();
-  // box.clear();
+ // box.clear();
 
-  return (await Get.to(bottomBar())) ?? false;
+  return (await
+  Get.to(bottomBar())
+  ) ??
+      false;
 }
-
-Future<bool> gohomesuccess() async {
-  // final box = Boxes.getCartData();
-  // final data = box.values.toList().cast<CartData>();
-  // box.clear();
-  gainrewards();
-  return (await Get.to(bottomBar())) ?? false;
-}
-
 goToSuccess() {
   return Get.to(Ordersuccess());
 }

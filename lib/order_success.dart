@@ -25,6 +25,7 @@ class Ordersuccess extends StatefulWidget {
 class _OrdersuccessState extends State<Ordersuccess> {
   @override
   void initState() {
+    gainrewards();
     getAddress();
     super.initState();
     cartinit = false;
@@ -41,13 +42,13 @@ class _OrdersuccessState extends State<Ordersuccess> {
 
   @override
   Widget build(BuildContext context) {
-    final box2 = Boxes.getUserData();
-    final data2 = box2.values.toList().cast<UserData>();
+    // final box2 = Boxes.getUserData();
+    // final data2 = box2.values.toList().cast<UserData>();
     final box = Boxes.getCartData();
     final data = box.values.toList().cast<CartData>();
-
-    //to copy list
-    // data2[0].orders = data.cast<List>();
+   //
+   // //to copy list
+   //  data2[0].orders = data.cast<List>();
     return WillPopScope(
       onWillPop: gohome,
       child: Scaffold(
@@ -307,18 +308,21 @@ class _OrdersuccessState extends State<Ordersuccess> {
   }
 }
 
-gainrewards() {
+
+gainrewards(){
   final box = Boxes.getUserData();
   final data = box.values.toList().cast<UserData>();
 
   final box2 = Boxes.getCartData();
   final datab = box2.values.toList().cast<CartData>();
   var items = 0;
-  for (var i = 0; i < datab.length; i++) {
+  for(var i = 0; i< datab.length;i++) {
     items = items + datab[i].qty;
-    data[0].rewards = items * 10;
+
   }
-  print("no. of items " + items.toString());
+  print("before" + data[0].rewards.toString());
+  data[0].rewards = data[0].rewards!.toDouble() + ( items * 10);
+  print("no. of items "+ items.toString());
   box.putAt(0, data[0]);
-  print('total rewards: ' + data[0].rewards.toString());
+   print('total rewards: ' + data[0].rewards.toString());
 }

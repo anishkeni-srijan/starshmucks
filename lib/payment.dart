@@ -5,8 +5,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:starshmucks/common_things.dart';
 
+import 'common_things.dart';
 import 'model/user_model.dart';
 import 'order_failed.dart';
 import 'upi_payment.dart';
@@ -115,6 +115,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 contentPadding: EdgeInsets.only(left: 10),
                 tileColor: Colors.white,
                 onChanged: (value) {
+
                   setState(() {
                     _value = value!;
                   });
@@ -211,6 +212,7 @@ class _PaymentPageState extends State<PaymentPage> {
                         minFontSize: 20,
                         maxFontSize: 30,
                       ),
+
                     ],
                   ),
                 ),
@@ -222,16 +224,20 @@ class _PaymentPageState extends State<PaymentPage> {
                       focusColor: Colors.green,
                       value: isChecked,
                       onChanged: (bool? value) {
-                        isChecked = !isChecked;
-                        final box = Boxes.getCartData();
-                        final data = box.values.toList().cast<CartData>();
-                        data[0].ttlPrice =
-                            data[0].ttlPrice - data2[0].rewards!.toDouble();
-                        box.putAt(0, data[0]);
-                        setState(
-                          () {},
-                        );
-                      },
+                        setState(() {
+                          isChecked = !isChecked;
+
+                          final box = Boxes.getCartData();
+                          final data = box.values.toList().cast<CartData>();
+                          var res = data[0].ttlPrice - (data2[0].rewards!.toDouble()/10);
+                          data[0].ttlPrice = res;
+                          print('reward calc: '+ data[0].ttlPrice.toString());
+                          box.putAt(0, data[0]);
+
+
+                        });
+
+                       },
                     ),
                     AutoSizeText(
                       'Use my rewards',
@@ -372,3 +378,4 @@ class _PaymentPageState extends State<PaymentPage> {
 getMessage() {
   return message;
 }
+
