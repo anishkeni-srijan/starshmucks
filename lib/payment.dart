@@ -226,14 +226,12 @@ class _PaymentPageState extends State<PaymentPage> {
                       onChanged: (bool? value) {
                         setState(() {
                           isChecked = !isChecked;
-
                           final box = Boxes.getCartData();
                           final data = box.values.toList().cast<CartData>();
                           var res = data[0].ttlPrice - (data2[0].rewards!.toDouble()/10);
                           data[0].ttlPrice = res;
                           print('reward calc: '+ data[0].ttlPrice.toString());
                           box.putAt(0, data[0]);
-
 
                         });
 
