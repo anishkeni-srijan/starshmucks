@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:core';
 
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import '/providers/menu_provider.dart';
 import 'boxes.dart';
 import 'db/Database.dart';
 import 'model/cart_model.dart';
+import 'model/menu_model.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({Key? key}) : super(key: key);
@@ -21,11 +23,8 @@ class OrderPage extends StatefulWidget {
 
 class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   late TabController tabController;
-  late DB db;
-
   @override
   void initState() {
-    db = DB();
     super.initState();
     tabController = TabController(length: 3, vsync: this);
   }
@@ -72,6 +71,8 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
               child: TabBarView(
                 controller: tabController,
                 children: <Widget>[
+                  getdbdata(),
+                  getdbdata(),
                   getdbdata()
                   // getcoffee(),
                   // getcake(),
@@ -94,12 +95,62 @@ class getdbdata extends StatefulWidget {
 }
 
 class _getdbdataState extends State<getdbdata> {
+  late DB db;
+  bool fetching = false;
+  late var product;
+  List<Menu> data = [];
+
+  @override
+  void initState() {
+    db = DB();
+    db.initDB();
+    getdata();
+    super.initState();
+  }
+  getdata()async{
+    data = await db.getdata();
+
+    putdata();
+    setState(() {
+      fetching = true;
+    });
+  }
+  putdata() async {
+
+    final String response = await DefaultAssetBundle.of(context).loadString("json/menu.json");
+    final responseData = jsonDecode(response);
+    print("items in json: "+responseData['Menu'].length.toString() );
+    for(var item = 0; item<responseData['Menu'].length;item++) {
+      product = Menu.fromJson(responseData['Menu'][item]);
+      print('adding ' + responseData['Menu'][item].toString());
+      if(data.isNotEmpty && data.contains(product)){
+        print('items already exists');
+      }
+      else {
+        db.insertData(product);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(child: Text('hi'),);
+    print('items in db: '+ data.length.toString());
+    return Center(
+        child: Column(
+      children: [
+
+        Container(
+          child: fetching
+              ? ListView.builder(
+            shrinkWrap: true,
+            itemCount: data.length,
+            itemBuilder: (context, index) => Text(data[index].title),)
+              : CircularProgressIndicator(),
+        ),
+      ],
+    ));
   }
 }
-
 
 // class getcoffee extends StatefulWidget {
 //   const getcoffee({Key? key}) : super(key: key);

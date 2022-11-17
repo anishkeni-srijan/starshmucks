@@ -23,8 +23,19 @@ class Menu {
     id: json["id"],
     rating: json["rating"]
   );
+  Map<String, dynamic> toMap() => {
+    "id": id,
+    "title": title,
+    "description": description,
+    "image": image,
+    "rating": rating,
+    "price": price,
+  };
 
 
 }
+
+
+
 
 
