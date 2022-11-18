@@ -157,7 +157,7 @@ viewincart() {
                   style: TextStyle(color: HexColor("#036635")),
                 ),
           Text(
-            "\$" + result.toString(),
+            "\$" + result.toStringAsFixed(2),
             style: TextStyle(
                 color: HexColor("#036635"), fontWeight: FontWeight.w600),
           ),

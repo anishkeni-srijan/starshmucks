@@ -29,10 +29,6 @@ late String username;
 
 class _HomePageState extends State<HomePage> {
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
     final nowservep = Provider.of<OffersData>(context);
