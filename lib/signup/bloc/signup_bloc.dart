@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:starshmucks/common_things.dart';
 import 'package:starshmucks/signin/signin.dart';
 import 'package:starshmucks/signup/bloc/signup_states.dart';
 
@@ -129,7 +130,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<SignupSumittedEvent>(
       (event, emit) {
         if (state is SignupNoerrorState) {
-          Get.to(SigninPage());
+          Get.to(bottomBar());
         } else  {
           emit(SignupErrorState("Please fill out all the fields"));
         }

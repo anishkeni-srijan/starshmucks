@@ -420,7 +420,6 @@ class _SignupPageState extends State<SignupPage> {
                           BlocProvider.of<SignupBloc>(context).add(
                             SignuptandcChangedEvent(isChecked),
                           );
-
                           setState(
                             () {
                               isChecked = !isChecked;

@@ -24,16 +24,15 @@ class DB {
           rating TEXT NOT NULL,
           price TEXT NOT NULL,
           category TEXT NOT NULL
-          
           )
           """);
       },
       version: 1,
     );
   }
-  Future<bool> insertData(Menu menuitem) async{
+  Future<bool> insertData(Menu menu) async{
     final Database db = await initDB();
-    db.insert("Menu", menuitem.toMap());
+    db.insert("Menu", menu.toMap());
     return true;
   }
 

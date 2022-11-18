@@ -33,18 +33,17 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
     db = DB();
     db.initDB();
     getdata();
+    putdata();
     tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
   getdata()async{
     data = await db.getdata();
-    putdata();
     setState(() {
       fetching = true;
     });
   }
   putdata() async {
-
     final String response = await DefaultAssetBundle.of(context).loadString("json/menu.json");
     final responseData = jsonDecode(response);
     for(var item = 0; item<responseData['Menu'].length;item++) {
@@ -100,7 +99,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
               child: TabBarView(
                 controller: tabController,
                 children: <Widget>[
-                  getcoffeedata(),
+                 fetching?getcoffeedata():Center(child: CircularProgressIndicator()),
                   getcakedata(),
                   getsmoothiedata(),
                   // getcoffee(),
@@ -127,7 +126,6 @@ class _getcakedataState extends State<getcakedata> {
   late DB db;
  bool getdataf = false;
   List<Menu> data = [];
-
   @override
   void initState() {
     db = DB();
@@ -137,7 +135,6 @@ class _getcakedataState extends State<getcakedata> {
   }
   getdata()async{
     data = await db.cakedata();
-
     setState(() {
       getdataf = true;
     });
@@ -151,6 +148,7 @@ class _getcakedataState extends State<getcakedata> {
         shrinkWrap: true,
         itemCount: data.length,
         itemBuilder: (context, index) {
+          print(data[0].title);
           return GestureDetector(
             onTap: () {
               // getcoffeedetails(context, index);
