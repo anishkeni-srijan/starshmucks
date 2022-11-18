@@ -5,7 +5,8 @@
   "description": "Rich chocolate brownie with generous chunks of semisweet chocolate.- VEGETARIAN",
   "image": "images/cakes/brownie.png",
   "id": 1,
-  "rating": "4.0"
+  "rating": "4.0",
+  "category": "cake"
 },
 {
 "title": "Tiramisu Torte",
@@ -13,7 +14,8 @@
 "description": "A coffee-flavoured Italian dessert. It is made of ladyfingers dipped in coffee, layered with a whipped mixture of eggs, sugar, and mascarpone cheese, flavoured with cocoa.",
 "image": "images/cakes/tiramisu.png",
 "id": 2,
-"rating": "4.0"
+"rating": "4.0",
+  "category": "cake"
 },
 {
 "title": "Jam Filled Berliner with Cinnamon",
@@ -21,7 +23,8 @@
 "description": "Classically filled with jam, the round yeast pastries, which depending on the region are also known as crepes, pancakes and donuts",
 "image": "images/cakes/berliner.png",
 "id": 3,
-"rating": "4.0"
+"rating": "4.0",
+  "category": "cake"
 },
 {
 "title": "Caffè Americano",
@@ -29,7 +32,8 @@
 "description": "Espresso shots topped with hot water create a light layer of crema culminating in this wonderfully rich cup with depth and nuance.",
 "image": "images/coffee/americano.png",
 "id": 4,
-"rating": "4.0"
+"rating": "4.0",
+  "category": "coffee"
 },
 {
 "title": "Dark Chocolate Mocha",
@@ -37,7 +41,8 @@
 "description": "Our small-lot  espresso combined with cocoa, ground chocolate and topped with steamed milk delivers a brilliant combination of sweetness.",
 "image": "images/coffee/mocha.png",
 "id": 5,
-"rating": "4.0"
+"rating": "4.0",
+  "category": "coffee"
 },
 {
 "title": "Latte macchiato",
@@ -45,7 +50,8 @@
 "description": "Handcrafted in small batches daily, slow-steeped in cool water for 20 hours, without touching Cold Brew is made from our custom blend of beans grown to steep long and cold for a super-smooth flavor.",
 "image": "images/coffee/latte.png",
 "id": 6,
-"rating": "4.0"
+"rating": "4.0",
+  "category": "coffee"
 },
 {
 "title": "A Schtarry Decade",
@@ -53,7 +59,8 @@
 "description": "We blend mocha sauce and Frappuccino® chips with coffee, milk and ice, then top it off with whipped cream and a mocha drizzle to bring you endless java joy.",
 "image": "images/christmas.png",
 "id": 7,
-"rating": "4.0"
+"rating": "4.0",
+  "category": "smoothie"
 },
 {
 "title": "Berries and Cherries",
@@ -61,7 +68,8 @@
 "description": "White chocolate, Blue berries, Strawberries, milk and ice get together for what might be the best thing that happens to you all day.",
 "image": "images/buytwo.png",
 "id": 8,
-"rating": "4.0"
+"rating": "4.0",
+  "category": "smoothie"
 },
 {
 "title": "Schtrawberry",
@@ -69,7 +77,8 @@
 "description": "Our homegrown Schtrawberries and milk, then blended with ice to give you a nice little jolt and lots of sipping joy.",
 "image": "images/seasonal.png",
 "id": 9,
-"rating": "4.0"
+"rating": "4.0",
+  "category": "smoothie"
 }
 ]
 }

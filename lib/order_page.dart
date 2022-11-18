@@ -23,12 +23,41 @@ class OrderPage extends StatefulWidget {
 
 class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   late TabController tabController;
+  late DB db;
+  bool fetching = false;
+  late var product;
+  List<Menu> data = [];
+
   @override
   void initState() {
-    super.initState();
+    db = DB();
+    db.initDB();
+    getdata();
     tabController = TabController(length: 3, vsync: this);
+    super.initState();
   }
+  getdata()async{
+    data = await db.getdata();
+    putdata();
+    setState(() {
+      fetching = true;
+    });
+  }
+  putdata() async {
 
+    final String response = await DefaultAssetBundle.of(context).loadString("json/menu.json");
+    final responseData = jsonDecode(response);
+    for(var item = 0; item<responseData['Menu'].length;item++) {
+      product = Menu.fromJson(responseData['Menu'][item]);
+      print('adding ' + responseData['Menu'][item].toString());
+      if(data.isNotEmpty && data.contains(product)){
+        print('items already exists');
+      }
+      else {
+        db.insertData(product);
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     // final menup = Provider.of<Menudata>(context);//
@@ -71,9 +100,9 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
               child: TabBarView(
                 controller: tabController,
                 children: <Widget>[
-                  getdbdata(),
-                  getdbdata(),
-                  getdbdata()
+                  getcoffeedata(),
+                  getcakedata(),
+                  getsmoothiedata(),
                   // getcoffee(),
                   // getcake(),
                   // getsmoothie(),
@@ -87,17 +116,16 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   }
 }
 
-class getdbdata extends StatefulWidget {
-  const getdbdata({Key? key}) : super(key: key);
+class getcakedata extends StatefulWidget {
+  const getcakedata({Key? key}) : super(key: key);
 
   @override
-  State<getdbdata> createState() => _getdbdataState();
+  State<getcakedata> createState() => _getcakedataState();
 }
 
-class _getdbdataState extends State<getdbdata> {
+class _getcakedataState extends State<getcakedata> {
   late DB db;
-  bool fetching = false;
-  late var product;
+ bool getdataf = false;
   List<Menu> data = [];
 
   @override
@@ -108,47 +136,429 @@ class _getdbdataState extends State<getdbdata> {
     super.initState();
   }
   getdata()async{
-    data = await db.getdata();
+    data = await db.cakedata();
 
-    putdata();
     setState(() {
-      fetching = true;
+      getdataf = true;
     });
   }
-  putdata() async {
-
-    final String response = await DefaultAssetBundle.of(context).loadString("json/menu.json");
-    final responseData = jsonDecode(response);
-    print("items in json: "+responseData['Menu'].length.toString() );
-    for(var item = 0; item<responseData['Menu'].length;item++) {
-      product = Menu.fromJson(responseData['Menu'][item]);
-      print('adding ' + responseData['Menu'][item].toString());
-      if(data.isNotEmpty && data.contains(product)){
-        print('items already exists');
-      }
-      else {
-        db.insertData(product);
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     print('items in db: '+ data.length.toString());
-    return Center(
-        child: Column(
-      children: [
+    return Container(
+      child: getdataf
+          ? ListView.builder(
+        shrinkWrap: true,
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              // getcoffeedetails(context, index);
+            },
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.18,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                    bottom: BorderSide(color: HexColor("#175244"), width: 0.2)),
+              ),
+              child: Row(
+                mainAxisAlignment:
+                MainAxisAlignment.start, //change here don't //worked
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(left: 10, bottom: 20),
+                    transform: Matrix4.translationValues(-10, 20, 0),
+                    child: Image.asset(
+                      data[index].image,
+                      width: 150,
+                      height: 150,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(
+                      top: 15,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        AutoSizeText(
+                          data[index].title,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                          maxFontSize: 18,
+                          maxLines: 1,
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.width * 0.03,
+                        ),
+                        Text(
+                          " \$ " + data[index].price,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.width * 0.06,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            AutoSizeText(
+                              data[index].rating,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w800,
+                              ),
+                              minFontSize: 12,
+                              maxFontSize: 18,
+                            ),
+                            Icon(
+                              Icons.star,
+                              size: 20,
+                              color: Colors.amberAccent,
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: MediaQuery.of(context).size.width * 0.22),
+                              child: TextButton(
+                                onPressed: () {
+                                  // addToCart(context, index);
+                                  setState(() {
+                                    cartinit = true;
+                                  });
+                                },
+                                child: Text('Add'),
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                  MaterialStateProperty.all<Color>(
+                                      index % 2 == 0
+                                          ? Colors.teal
+                                          : Colors.deepOrangeAccent),
+                                  foregroundColor:
+                                  MaterialStateProperty.all<Color>(
+                                      Colors.white),
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ):CircularProgressIndicator(),
+    );
+  }
+}
 
-        Container(
-          child: fetching
-              ? ListView.builder(
-            shrinkWrap: true,
-            itemCount: data.length,
-            itemBuilder: (context, index) => Text(data[index].title),)
-              : CircularProgressIndicator(),
+class getcoffeedata extends StatefulWidget {
+  const getcoffeedata({Key? key}) : super(key: key);
+
+  @override
+  State<getcoffeedata> createState() => _getcoffeedataState();
+}
+
+class _getcoffeedataState extends State<getcoffeedata> {
+  late DB db;
+ bool getdataf = false;
+  List<Menu> data = [];
+
+  @override
+  void initState() {
+    db = DB();
+    db.initDB();
+    getdata();
+    super.initState();
+  }
+  getdata()async{
+    data = await db.coffeedata();
+
+    setState(() {
+      getdataf = true;
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    print('items in db: '+ data.length.toString());
+    return Container(
+      child: getdataf
+          ? ListView.builder(
+        shrinkWrap: true,
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              // getcoffeedetails(context, index);
+            },
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.18,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                    bottom: BorderSide(color: HexColor("#175244"), width: 0.2)),
+              ),
+              child: Row(
+                mainAxisAlignment:
+                MainAxisAlignment.start, //change here don't //worked
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(left: 10, bottom: 20),
+                    transform: Matrix4.translationValues(-10, 20, 0),
+                    child: Image.asset(
+                      data[index].image,
+                      width: 150,
+                      height: 150,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(
+                      top: 15,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        AutoSizeText(
+                          data[index].title,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                          maxFontSize: 18,
+                          maxLines: 1,
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.width * 0.03,
+                        ),
+                        Text(
+                          " \$ " + data[index].price,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.width * 0.06,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            AutoSizeText(
+                              data[index].rating,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w800,
+                              ),
+                              minFontSize: 12,
+                              maxFontSize: 18,
+                            ),
+                            Icon(
+                              Icons.star,
+                              size: 20,
+                              color: Colors.amberAccent,
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: MediaQuery.of(context).size.width * 0.22),
+                              child: TextButton(
+                                onPressed: () {
+                                  // addToCart(context, index);
+                                  setState(() {
+                                    cartinit = true;
+                                  });
+                                },
+                                child: Text('Add'),
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                  MaterialStateProperty.all<Color>(
+                                      index % 2 == 0
+                                          ? Colors.teal
+                                          : Colors.deepOrangeAccent),
+                                  foregroundColor:
+                                  MaterialStateProperty.all<Color>(
+                                      Colors.white),
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ):CircularProgressIndicator(),
+    );
+  }
+}
+
+class getsmoothiedata extends StatefulWidget {
+  const getsmoothiedata({Key? key}) : super(key: key);
+
+  @override
+  State<getsmoothiedata> createState() => _getsmoothiedataState();
+}
+
+class _getsmoothiedataState extends State<getsmoothiedata> {
+  late DB db;
+ bool getdataf = false;
+  List<Menu> data = [];
+
+  @override
+  void initState() {
+    db = DB();
+    db.initDB();
+    getdata();
+    super.initState();
+  }
+  getdata()async{
+    data = await db.smoothiedata();
+    setState(() {
+      getdataf = true;
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    print('items in db: '+ data.length.toString());
+    return Container(
+      child: getdataf
+          ? ListView.builder(
+        shrinkWrap: true,
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+          onTap: () {
+        // getcoffeedetails(context, index);
+      },
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.18,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(
+              bottom: BorderSide(color: HexColor("#175244"), width: 0.2)),
         ),
-      ],
-    ));
+        child: Row(
+          mainAxisAlignment:
+              MainAxisAlignment.start, //change here don't //worked
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.only(left: 10, bottom: 20),
+              transform: Matrix4.translationValues(-10, 20, 0),
+              child: Image.asset(
+                data[index].image,
+                width: 150,
+                height: 150,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(
+                top: 15,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  AutoSizeText(
+                    data[index].title,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    maxFontSize: 18,
+                    maxLines: 1,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.03,
+                  ),
+                  Text(
+                    " \$ " + data[index].price,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.06,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      AutoSizeText(
+                        data[index].rating,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w800,
+                        ),
+                        minFontSize: 12,
+                        maxFontSize: 18,
+                      ),
+                      Icon(
+                        Icons.star,
+                        size: 20,
+                        color: Colors.amberAccent,
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width * 0.22),
+                        child: TextButton(
+                          onPressed: () {
+                            // addToCart(context, index);
+                            setState(() {
+                              cartinit = true;
+                            });
+                          },
+                          child: Text('Add'),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(
+                                    index % 2 == 0
+                                        ? Colors.teal
+                                        : Colors.deepOrangeAccent),
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(
+                                    Colors.white),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+      },
+    ):CircularProgressIndicator(),
+    );
   }
 }
 

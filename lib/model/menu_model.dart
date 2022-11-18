@@ -1,4 +1,11 @@
 class Menu {
+  String title;
+  String price;
+  String description;
+  String image;
+  String rating;
+  int id;
+  String category;
   Menu({
     required this.title,
     required this.price,
@@ -6,14 +13,10 @@ class Menu {
     required this.image,
     required this.id,
     required this.rating,
+    required this.category,
   });
 
-  String title;
-  String price;
-  String description;
-  String image;
-  String rating;
-  int id;
+
 
   factory Menu.fromJson(Map<String, dynamic> json) => Menu(
     title: json["title"],
@@ -21,7 +24,8 @@ class Menu {
     description: json["description"],
     image: json["image"],
     id: json["id"],
-    rating: json["rating"]
+    rating: json["rating"],
+      category: json['category']
   );
   Map<String, dynamic> toMap() => {
     "id": id,
@@ -30,6 +34,7 @@ class Menu {
     "image": image,
     "rating": rating,
     "price": price,
+    "category":category,
   };
 
 
