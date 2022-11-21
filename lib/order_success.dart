@@ -17,7 +17,6 @@ import 'model/cart_model.dart';
 
 class Ordersuccess extends StatefulWidget {
   Ordersuccess({Key? key}) : super(key: key);
-
   @override
   _OrdersuccessState createState() => _OrdersuccessState();
 }
