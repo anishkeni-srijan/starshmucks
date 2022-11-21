@@ -8,7 +8,7 @@ import 'package:starshmucks/model/orderHistory.dart';
 
 import '../model/menu_model.dart';
 
-class DB {
+class MenuDB {
   Future<Database> initDBMenu() async {
     print("initialising db...");
     String databasepath = await getDatabasesPath();
@@ -63,41 +63,5 @@ class DB {
     final List<Map<String, dynamic?>> data =
         await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['smoothie']);
     return data.map((e) => Menu.fromJson(e)).toList();
-  }
-
-  //Orders DB
-  Future<Database> initDBOrders() async {
-    print("initialising db orders");
-    String databasepath = await getDatabasesPath();
-    final path = join(databasepath, "Orders.db");
-    return openDatabase(
-      path,
-      onCreate: (database, version) async {
-        await database.execute("""
-          CREATE TABLE IF NOT EXISTS OrdersTable(
-          id INTEGER PRIMARY KEY,
-          title TEXT NOT NULL,
-          price TEXT NOT NULL,
-          qty INT NOT NULL,
-          isInCart BOOLEAN NOT NULL,
-          image TEXT NOT NULL,
-          ttlPrice DOUBLE NOT NULL
-          )
-          """);
-      },
-      version: 1,
-    );
-  }
-
-  Future<bool> insertDataOrders(OrderHistory orders) async {
-    final Database db = await initDBOrders();
-    db.insert("OrdersTable", orders.toMap());
-    return true;
-  }
-
-  Future<List<OrderHistory>> getDataOrders() async {
-    final Database db = await initDBOrders();
-    final List<Map<String, dynamic?>> data = await db.query("OrdersTable");
-    return data.map((e) => OrderHistory.fromJson(e)).toList();
   }
 }

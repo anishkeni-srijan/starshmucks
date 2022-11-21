@@ -13,9 +13,10 @@ import 'package:starshmucks/model/orderHistory.dart';
 import 'package:starshmucks/model/user_model.dart';
 
 import 'boxes.dart';
-import 'db/Database.dart';
+import 'db/menu_db.dart';
 import 'help_page.dart';
 import 'model/cart_model.dart';
+import 'db/orders_db.dart';
 
 class Ordersuccess extends StatefulWidget {
   Ordersuccess({Key? key}) : super(key: key);
@@ -25,12 +26,12 @@ class Ordersuccess extends StatefulWidget {
 }
 
 class _OrdersuccessState extends State<Ordersuccess> {
-  late DB db;
+  late OrdersDB db;
   late var item;
   List<OrderHistory> OrderData = [];
   @override
   void initState() {
-    db = DB();
+    db = OrdersDB();
     db.initDBOrders();
     putdata();
     gainrewards();

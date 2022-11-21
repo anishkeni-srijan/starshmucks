@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 
 part 'cart_model.g.dart';
+//not req
 
 @HiveType(typeId: 1)
 class CartData extends HiveObject {
