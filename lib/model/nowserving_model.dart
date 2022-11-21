@@ -6,6 +6,7 @@ class NowServe {
   late String title;
   late String rating;
   late String desc;
+  late String category;
 
   NowServe({
     required this.id,
@@ -15,6 +16,7 @@ class NowServe {
     required this.image,
     required this.rating,
     required this.desc,
+    required this.category,
   });
 
   factory NowServe.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,17 @@ class NowServe {
       image: json['image'],
       desc: json['desc'],
       tag: json['tag'],
+      category:json['category']
     );
   }
+  Map<String, dynamic> toMap() => {
+    "id": id,
+    "title": title,
+    "desc": desc,
+    "tag":tag,
+    "image": image,
+    "rating": rating,
+    "price": price,
+    "category":category,
+  };
 }

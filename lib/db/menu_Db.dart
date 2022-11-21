@@ -6,7 +6,7 @@ import 'package:path/path.dart';
 
 import '../model/menu_model.dart';
 
-class DB {
+class MenuDb {
 
 
   Future<Database> initDB() async {

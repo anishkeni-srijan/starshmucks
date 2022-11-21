@@ -1,5 +1,7 @@
 
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,6 +15,10 @@ import 'package:get/get.dart';
 import '/boxes.dart';
 import '/model/user_model.dart';
 import 'common_things.dart';
+import 'db/nowserve_db.dart';
+import 'db/offers_db.dart';
+import 'model/nowserving_model.dart';
+import 'model/offers_model.dart';
 import 'providers/learnmore_provider.dart';
 import '/providers/nowserving_provider.dart';
 import '/providers/offers_provider.dart';
@@ -28,18 +34,63 @@ bool cartinit = false;
 late String username;
 
 class _HomePageState extends State<HomePage> {
+  late NowServeDb nowdb;
+  late OffersDb offerdb;
+
+  List<NowServe> nowdata = [];
+  List<Offer> offerdata = [];
+
+  @override
+  void initState() {
+    nowdb = NowServeDb();
+    nowdb.initNowServedb();
+    offerdb = OffersDb();
+    offerdb.initOffersdb();
+    getdata();
+    // putnowdata();
+    putofferdata();
+    super.initState();
+  }
+
+  getdata() async {
+    nowdata = await nowdb.NowServedata();
+    offerdata = (await offerdb.Offersdata()).cast<Offer>();
+    setState(() {
+    });
+  }
+  putnowdata() async {
+    final String response =
+    await DefaultAssetBundle.of(context).loadString("json/nowserve.json");
+    final responseData = jsonDecode(response);
+    for (var item = 0; item < responseData['NowServe'].length; item++) {
+     var product = NowServe.fromJson(responseData['NowServe'][item]);
+      print('adding ' + responseData['NowServe'][item].toString());
+      nowdb.insertnowserveData(product);
+
+    }
+  }
+
+  putofferdata() async {
+    final String response =
+    await DefaultAssetBundle.of(context).loadString("json/offers.json");
+    final responseData = jsonDecode(response);
+    for (var item = 0; item < responseData['Offers'].length; item++) {
+      var offproduct = Offer.fromJson(responseData['Offers'][item]);
+      print('adding ' + responseData['Offers'][item].toString());
+      offerdb.insertOffersData(offproduct);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    final nowservep = Provider.of<OffersData>(context);
-    nowservep.fetchData(context);
     return Scaffold(
       persistentFooterButtons: cartinit ? [viewincart()] : null,
       body: ValueListenableBuilder<Box<UserData>>(
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
-          final data = box.values.toList().cast<UserData>();
-          username = data[0].name;
+          final udata = box.values.toList().cast<UserData>();
+          username = udata[0].name;
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -251,94 +302,94 @@ getbanner(context, username) {
   );
 }
 
-getofferdetails(context, index) {
-  final offersp = Provider.of<OffersData>(context, listen: false);
-  return showModalBottomSheet<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.75,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Image.asset(
-                offersp.offerdata[index].image,
-                width: MediaQuery.of(context).size.width * 0.52,
-                height: MediaQuery.of(context).size.height * 0.52,
-              ),
-              Container(
-                  margin: EdgeInsets.all(20),
-                  alignment: Alignment.centerLeft,
-                  child: AutoSizeText(offersp.offerdata[index].title)),
-              Container(
-                  margin: EdgeInsets.only(left: 20, right: 20),
-                  alignment: Alignment.centerLeft,
-                  child: AutoSizeText(offersp.offerdata[index].desc)),
-              Container(
-                margin: EdgeInsets.only(left: 20, right: 20),
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  children: [
-                    AutoSizeText("\$" + offersp.offerdata[index].price),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.52,
-                    ),
-                    ElevatedButton(onPressed: () {}, child: Text('Add')),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      );
-    },
-  );
-}
+// getofferdetails(context, index) {
+//   final offersp = Provider.of<Offers>(context, listen: false);
+//   return showModalBottomSheet<void>(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return SingleChildScrollView(
+//         child: SizedBox(
+//           height: MediaQuery.of(context).size.height * 0.75,
+//           child: Column(
+//             mainAxisAlignment: MainAxisAlignment.start,
+//             children: <Widget>[
+//               Image.asset(
+//                 data[index].image,
+//                 width: MediaQuery.of(context).size.width * 0.52,
+//                 height: MediaQuery.of(context).size.height * 0.52,
+//               ),
+//               Container(
+//                   margin: EdgeInsets.all(20),
+//                   alignment: Alignment.centerLeft,
+//                   child: AutoSizeText(offersp.offerdata[index].title)),
+//               Container(
+//                   margin: EdgeInsets.only(left: 20, right: 20),
+//                   alignment: Alignment.centerLeft,
+//                   child: AutoSizeText(offersp.offerdata[index].desc)),
+//               Container(
+//                 margin: EdgeInsets.only(left: 20, right: 20),
+//                 alignment: Alignment.centerLeft,
+//                 child: Row(
+//                   children: [
+//                     AutoSizeText("\$" + offersp.offerdata[index].price),
+//                     SizedBox(
+//                       width: MediaQuery.of(context).size.width * 0.52,
+//                     ),
+//                     ElevatedButton(onPressed: () {}, child: Text('Add')),
+//                   ],
+//                 ),
+//               )
+//             ],
+//           ),
+//         ),
+//       );
+//     },
+//   );
+// }
 
-getnowservedetails(context, index) {
-  final offersp = Provider.of<NowServing>(context, listen: false);
-  return showModalBottomSheet<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height * 0.75,
-          child: Column(
-            children: <Widget>[
-              Image.asset(
-                offersp.nowdata[index].image,
-                width: MediaQuery.of(context).size.width * 0.52,
-                height: MediaQuery.of(context).size.height * 0.52,
-              ),
-              Container(
-                  margin: EdgeInsets.all(20),
-                  alignment: Alignment.centerLeft,
-                  child: AutoSizeText(offersp.nowdata[index].title)),
-              Container(
-                margin: EdgeInsets.only(left: 20, right: 20),
-                alignment: Alignment.centerLeft,
-                child: AutoSizeText(offersp.nowdata[index].desc),
-              ),
-              Container(
-                  margin: EdgeInsets.only(left: 20, right: 20),
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    children: [
-                      AutoSizeText('\$' + offersp.nowdata[index].price),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.52,
-                      ),
-                      ElevatedButton(onPressed: () {}, child: Text('Add')),
-                    ],
-                  )),
-            ],
-          ),
-        ),
-      );
-    },
-  );
-}
+// getnowservedetails(context, index) {
+//   final Offerp = Provider.of<NowServing>(context, listen: false);
+//   return showModalBottomSheet<void>(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return SingleChildScrollView(
+//         child: Container(
+//           height: MediaQuery.of(context).size.height * 0.75,
+//           child: Column(
+//             children: <Widget>[
+//               Image.asset(
+//                 Offerp.nowdata[index].image,
+//                 width: MediaQuery.of(context).size.width * 0.52,
+//                 height: MediaQuery.of(context).size.height * 0.52,
+//               ),
+//               Container(
+//                   margin: EdgeInsets.all(20),
+//                   alignment: Alignment.centerLeft,
+//                   child: AutoSizeText(Offerp.nowdata[index].title)),
+//               Container(
+//                 margin: EdgeInsets.only(left: 20, right: 20),
+//                 alignment: Alignment.centerLeft,
+//                 child: AutoSizeText(Offerp.nowdata[index].desc),
+//               ),
+//               Container(
+//                   margin: EdgeInsets.only(left: 20, right: 20),
+//                   alignment: Alignment.centerLeft,
+//                   child: Row(
+//                     children: [
+//                       AutoSizeText('\$' + Offerp.nowdata[index].price),
+//                       SizedBox(
+//                         width: MediaQuery.of(context).size.width * 0.52,
+//                       ),
+//                       ElevatedButton(onPressed: () {}, child: Text('Add')),
+//                     ],
+//                   )),
+//             ],
+//           ),
+//         ),
+//       );
+//     },
+//   );
+// }
 
 class getoffers extends StatefulWidget {
   const getoffers({Key? key}) : super(key: key);
@@ -348,10 +399,31 @@ class getoffers extends StatefulWidget {
 }
 
 class _getoffersState extends State<getoffers> {
+
+  late OffersDb db;
+  bool getdataf = false;
+  late var product;
+  List<Offer> odata = [];
+
+  @override
+  void initState() {
+    db = OffersDb();
+    db.initOffersdb();
+    getdata();
+    super.initState();
+  }
+
+  getdata() async {
+    odata = (await db.Offersdata()).cast<Offer>();
+    setState(() {
+      getdataf = true;
+    });
+  }
+
   addToCart(context, index) {
     print("in cart " + index.toString());
     final box = Boxes.getCartData();
-    final data = box.values.toList().cast<CartData>();
+    final cdata = box.values.toList().cast<CartData>();
     final cartp = Provider.of<OffersData>(context, listen: false);
     final cartItem = CartData()
       ..title = cartp.offerdata[index].title
@@ -362,31 +434,29 @@ class _getoffersState extends State<getoffers> {
       ..ttlPrice = 0.0
       ..id = cartp.offerdata[index].id;
     int zindex =
-        data.indexWhere((item) => item.id == cartp.offerdata[index].id);
+        cdata.indexWhere((item) => item.id == cartp.offerdata[index].id);
     print("test " + zindex.toString());
     if (zindex != -1) {
-      data[zindex].qty++;
-      box.putAt(zindex, data[zindex]);
+      cdata[zindex].qty++;
+      box.putAt(zindex, cdata[zindex]);
       print("already inn");
     } else {
       box.add(cartItem);
       print(cartItem.title);
     }
   }
-
   @override
   Widget build(BuildContext context) {
-    final offersp = Provider.of<OffersData>(context);
+    print('offerdata len' + odata.length.toString());
     return ValueListenableBuilder<Box<CartData>>(
         valueListenable: Boxes.getCartData().listenable(),
         builder: (context, box, _) {
-          final data = box.values.toList().cast<CartData>();
           bool flag = false;
           return SizedBox(
             height: MediaQuery.of(context).size.height * 0.18,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: offersp.offerdata.length,
+              itemCount: odata.length,
               itemBuilder: (context, index) {
                 return Row(
                   children: [
@@ -395,7 +465,7 @@ class _getoffersState extends State<getoffers> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        getofferdetails(context, index);
+                       // getofferdetails(context, index);
                       },
                       child: Container(
                         padding: EdgeInsets.all(10),
@@ -412,7 +482,7 @@ class _getoffersState extends State<getoffers> {
                             Container(
                               transform: Matrix4.translationValues(-10, 20, 0),
                               child: Image.asset(
-                                offersp.offerdata[index].image,
+                                odata[index].image,
                                 width: 150,
                                 height: 150,
                               ),
@@ -425,7 +495,7 @@ class _getoffersState extends State<getoffers> {
                                   left: 130,
                                 ),
                                 child: Text(
-                                  offersp.offerdata[index].offer,
+                                  odata[index].tag,
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
@@ -439,7 +509,7 @@ class _getoffersState extends State<getoffers> {
                                 left: 130,
                               ),
                               child: Text(
-                                offersp.offerdata[index].title,
+                                odata[index].title,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -502,7 +572,7 @@ class _nowservingState extends State<nowserving> {
   addToCart(context, index) {
     print("in cart " + index.toString());
     final box = Boxes.getCartData();
-    final data = box.values.toList().cast<CartData>();
+    final cdata = box.values.toList().cast<CartData>();
     final cartp = Provider.of<NowServing>(context, listen: false);
     final cartItem = CartData()
       ..title = cartp.nowdata[index].title
@@ -512,27 +582,45 @@ class _nowservingState extends State<nowserving> {
       ..image = cartp.nowdata[index].image
       ..ttlPrice = 0.0
       ..id = cartp.nowdata[index].id;
-    int zindex = data.indexWhere((item) => item.id == cartp.nowdata[index].id);
+    int zindex = cdata.indexWhere((item) => item.id == cartp.nowdata[index].id);
     print("test " + zindex.toString());
     if (zindex != -1) {
-      data[zindex].qty++;
-      box.putAt(zindex, data[zindex]);
+      cdata[zindex].qty++;
+      box.putAt(zindex, cdata[zindex]);
       print("already inn");
     } else {
       box.add(cartItem);
       print(cartItem.title);
     }
   }
+  late NowServeDb db;
+  bool getdataf = false;
+  List<NowServe> nowdata = [];
+  late var product;
+  @override
+  void initState() {
+    db = NowServeDb();
+    db.initNowServedb();
+    getdata();
+    super.initState();
+  }
+
+  getdata() async {
+    nowdata = await db.NowServedata();
+    setState(() {
+      getdataf = true;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    final nowservep = Provider.of<NowServing>(context);
-    nowservep.fetchData(context);
+    print('nowdata len' + nowdata.length.toString());
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.18,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: nowservep.nowdata.length,
+        itemCount: nowdata.length,
         itemBuilder: (context, index) {
           return Row(
             children: [
@@ -541,7 +629,7 @@ class _nowservingState extends State<nowserving> {
               ),
               GestureDetector(
                 onTap: () {
-                  getnowservedetails(context, index);
+                  //getnowservedetails(context, index);
                 },
                 child: Container(
                   padding: EdgeInsets.all(10),
@@ -557,7 +645,7 @@ class _nowservingState extends State<nowserving> {
                       Container(
                         transform: Matrix4.translationValues(-10, 20, 0),
                         child: Image.asset(
-                          nowservep.nowdata[index].image,
+                          nowdata[index].image,
                           width: 150,
                           height: 150,
                         ),
@@ -570,7 +658,7 @@ class _nowservingState extends State<nowserving> {
                             left: 130,
                           ),
                           child: Text(
-                            nowservep.nowdata[index].title,
+                            nowdata[index].title,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
@@ -584,7 +672,7 @@ class _nowservingState extends State<nowserving> {
                           left: 130,
                         ),
                         child: Text(
-                          nowservep.nowdata[index].tag,
+                          nowdata[index].tag,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15,
@@ -600,8 +688,8 @@ class _nowservingState extends State<nowserving> {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            final box = Boxes.getCartData();
-                            final data = box.values.toList().cast<CartData>();
+                          //   final box = Boxes.getCartData();
+                          //   final data = box.values.toList().cast<CartData>();
 
                             // if (data.contains(data[index])) {
                             //   //update qty
