@@ -6,11 +6,8 @@ import 'package:path/path.dart';
 
 import '../model/menu_model.dart';
 
-<<<<<<<< HEAD:lib/db/menu_Db.dart
-class MenuDb {
-========
+
 class MenuDB {
->>>>>>>> origin/sqliflite:lib/db/Menu_Database.dart
 
 
   Future<Database> initDB() async {
