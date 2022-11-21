@@ -26,127 +26,88 @@ class _RewardsState extends State<Rewards> {
         ),
         body: SingleChildScrollView(
             child: Column(
-
           children: [
-            Container(
-              margin: EdgeInsets.only(top: 20, left: 20),
-              alignment: Alignment.topLeft,
-              child: Row(
-                children: [
-                  Text(
-                    '${'Hi ' + username}',
+            Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    'Welcome back!',
                     style: TextStyle(
-                      color: HexColor("#175244"),
-                      fontSize: 25,
+                      color:HexColor("#175244"),
+                      fontSize: 35,
                     ),
                   ),
-                  Icon(
-                    Icons.stars_sharp,
-                    color: Colors.amberAccent,
-                  )
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10, left: 20),
-              alignment: Alignment.topLeft,
-              child: Text(
-                'Welcome back!',
-                style: TextStyle(
-                  color: HexColor("#175244"),
-                  fontSize: 35,
                 ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(
-                top: 40,
-                bottom: 20,
-              ),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      child: Image.asset(
-                        'images/stars.png',
-                        width: 30,
-                      ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10),
+                  child: Card(
+                    color: HexColor("#175244"),
+                    margin: EdgeInsets.only(top:90),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    Column(
-                      children: [
-                        AutoSizeText(
-                          '1/5',
-                          style: TextStyle(
-                            color: HexColor("#175244"),
-                          ),
-                          minFontSize: 15,
+                    shadowColor: Colors.black,
+                    elevation: 4,
+                    child: Container(
+                      margin: EdgeInsets.only(left: 30),
+                     transform: Matrix4.translationValues(-10, 20, 0),
+                      height: 200,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AutoSizeText(
+                                'My Points',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                                minFontSize: 23,
+                              ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 5.0,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 5.0,
+                        child:Row(
+                                children: [
+                                  AutoSizeText(
+                                      data[0].rewards.toString(),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white,
+                                      ),
+                                      minFontSize: 23,
+                                    ),
+
+                                  Padding(
+                                    padding: const EdgeInsets.only(top:2.0, left: 5),
+                                    child: Icon(
+                                      Icons.stars_sharp,
+                                      color: Colors.amberAccent,
+                                    ),
+                                  ),
+                                ],
+                              ),),
+                              SizedBox(height: 70,),
+                              Text(
+                                '${ username}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                ),
+                              ),
+                               ],
                           ),
-                          child: AutoSizeText(
-                            'Stars',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: HexColor("#175244"),
-                            ),
-                            minFontSize: 18,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                      child: Icon(
-                        Icons.card_giftcard,
-                        color: Colors.amber,
-                        size: 23,
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          child: AutoSizeText(
-                            '1',
-                            style: TextStyle(
-                              color: HexColor("#175244"),
-                            ),
-                            minFontSize: 15,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 5.0,
-                          ),
-                          child: AutoSizeText(
-                            'Rewards',
-                            style: TextStyle(
-                              color: HexColor("#175244"),
-                              fontWeight: FontWeight.w600,
-                            ),
-                            minFontSize: 18,
-                          ),
-                        )
-                      ],
-                    ),
-                  ]),
-            ),
-            SizedBox(height: 20,),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Image.asset(
-                  'images/leaf.png',
-                  width: 250,
+                        Container(transform:Matrix4.translationValues(20, -20, 0),child: Image.asset("images/shmucks.png"),)
+                        ]),
+                    ),),
                 ),
-                Container(
-                    margin: EdgeInsets.only(left: 8),
-                    child: Image.asset('images/trophy.png', width: 360)),
               ],
             ),
+            SizedBox(height: 20,),
+
             SizedBox(height: 20,),
             Container(
               margin: EdgeInsets.all(10),
@@ -159,16 +120,28 @@ class _RewardsState extends State<Rewards> {
               ),
             ),
             SizedBox(height: 20,),
-            ExpansionTile(
-              childrenPadding: const EdgeInsets.all(20.0),
-              iconColor: HexColor("#175244"),
-              collapsedIconColor:HexColor("#175244") ,
-              title: Text('Know more', style: TextStyle(color: HexColor("#175244")),),
-              children: [
-                Text(
-                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.')
-              ],
-            )
+           Padding(
+             padding: const EdgeInsets.all(10.0),
+             child: Column(
+               crossAxisAlignment: CrossAxisAlignment.start,
+               children: [
+                 Text('Reward History'),
+                 ListView.builder(
+                   shrinkWrap: true,
+                   itemCount: 2,
+                   itemBuilder: (context, index) {
+                   return Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                     children: [
+                       Text('order1'),
+                       Text('20.0')
+                     ],
+                   );
+                 },)
+
+               ],
+             ),
+           )
           ],
         )));
   }
