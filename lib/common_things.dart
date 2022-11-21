@@ -9,7 +9,7 @@ import '/home_screen.dart';
 import '/user_profile.dart';
 import 'boxes.dart';
 import 'cart.dart';
-import '/order_page.dart';
+import 'order/order_page.dart';
 import 'gift_card.dart';
 import 'model/cart_model.dart';
 import 'order_success.dart';
@@ -178,16 +178,15 @@ viewincart() {
     ],
   );
 }
-Future<bool>gohome() async {
+
+Future<bool> gohome() async {
   // final box = Boxes.getCartData();
   // final data = box.values.toList().cast<CartData>();
- // box.clear();
+  // box.clear();
 
-  return (await
-  Get.to(bottomBar())
-  ) ??
-      false;
+  return (await Get.to(bottomBar())) ?? false;
 }
+
 goToSuccess() {
   return Get.to(Ordersuccess());
 }

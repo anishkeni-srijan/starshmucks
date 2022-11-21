@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../model/menu_model.dart';
-import '../order_page.dart';
+import '../order/order_page.dart';
 import '../repo/menu_repo.dart';
 
 class Menudata extends ChangeNotifier {

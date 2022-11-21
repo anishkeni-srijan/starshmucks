@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:starshmucks/model/cartDBModel.dart';
+import 'menu_db.dart';
 
 class CartDB {
   Future<Database> initDBCart() async {
@@ -21,7 +22,7 @@ class CartDB {
   }
 
   Future<bool> insertDataCart(CartModel item) async {
-    print("inserting in cart");
+    // print("inserting in cart");
     final Database db = await initDBCart();
     db.insert("CartTable", item.toMap());
     return true;
@@ -30,7 +31,7 @@ class CartDB {
   Future<List<CartModel>> getDataCart() async {
     final Database db = await initDBCart();
     final List<Map<String, dynamic?>> data = await db.query("CartTable");
-    print("after query");
+    //print("after query");
     return data.map((e) => CartModel.fromJson(e)).toList();
   }
 }
