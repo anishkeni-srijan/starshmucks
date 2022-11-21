@@ -13,27 +13,24 @@ import 'package:starshmucks/model/orderHistory.dart';
 import 'package:starshmucks/model/user_model.dart';
 
 import 'boxes.dart';
-import 'db/menu_db.dart';
 import 'help_page.dart';
 import 'model/cart_model.dart';
-import 'db/orders_db.dart';
 
 class Ordersuccess extends StatefulWidget {
   Ordersuccess({Key? key}) : super(key: key);
-
   @override
   _OrdersuccessState createState() => _OrdersuccessState();
 }
 
 class _OrdersuccessState extends State<Ordersuccess> {
-  late OrdersDB db;
+  // late DB db;
   late var item;
   List<OrderHistory> OrderData = [];
   @override
   void initState() {
-    db = OrdersDB();
-    db.initDBOrders();
-    putdata();
+    // db = MenuDB();
+    // db.initDBOrders();
+    // putdata();
     gainrewards();
     getAddress();
     printData();
@@ -48,25 +45,25 @@ class _OrdersuccessState extends State<Ordersuccess> {
     }
   }
 
-  putdata() async {
-    final box = Boxes.getCartData();
-    final data = box.values.toList().cast<CartData>();
-    for (var index = 0; index < data.length; index++) {
-      db.insertDataOrders(OrderHistory(
-          title: data[index].title,
-          price: data[index].price,
-          qty: data[index].qty,
-          isInCart: data[index].isInCart,
-          image: data[index].image,
-          ttlPrice: data[index].ttlPrice,
-          id: data[index].id));
-    }
-  }
+  // putdata() async {
+  //   final box = Boxes.getCartData();
+  //   final data = box.values.toList().cast<CartData>();
+  //   for (var index = 0; index < data.length; index++) {
+  //     // db.insertDataOrders(OrderHistory(
+  //         title: data[index].title,
+  //         price: data[index].price,
+  //         qty: data[index].qty,
+  //         isInCart: data[index].isInCart,
+  //         image: data[index].image,
+  //         ttlPrice: data[index].ttlPrice,
+  //         id: data[index].id));
+  //   }
+  // }
 
-  getdata() async {
-    OrderData = await db.getDataOrders();
-    setState(() {});
-  }
+  // getdata() async {
+  //   OrderData = await db.getDataOrders();
+  //   setState(() {});
+  // }
 
   late String selectedAddress = '';
   getAddress() async {

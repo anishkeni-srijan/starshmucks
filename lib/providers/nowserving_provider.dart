@@ -13,7 +13,6 @@ class NowServing extends ChangeNotifier{
 
   fetchData(context) async{
 
-    nowdata = await nowservingdata(context);
     notifyListeners();
   }
 

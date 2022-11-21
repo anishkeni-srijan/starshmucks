@@ -1,21 +1,26 @@
-[
-  {
-    "image": "images/newone.png",
-    "title": "Watermelon Sugar",
-    "tag": "Tastes like strawberries on a summer evenin'",
-    "price": "13.5",
-    "bgcolor": "Colors.deepOrangeAccent",
-    "desc": "We wish you a merry Christmas.",
-    "rating": "4.3/5",
-    "id": 10
-  },{
-  "image": "images/newtwo.png",
-  "title": "Absolute Green",
-  "tag": "Kiwi is here to make you happy.",
-  "price": "13.6",
-  "bgcolor": "Colors.teal",
-  "desc": "We wish you a merry Christmas.",
-  "rating": "4.3/5",
-  "id": 11
+{
+  "NowServe": [
+    {
+      "image": "images/newone.png",
+      "title": "Watermelon Sugar",
+      "tag": "Tastes like strawberries on a summer evenin'",
+      "price": "13.5",
+      "bgcolor": "Colors.deepOrangeAccent",
+      "desc": "We wish you a merry Christmas.",
+      "category": "nowserve",
+      "rating": "4.3/5",
+      "id": 10
+    },
+    {
+      "image": "images/newtwo.png",
+      "title": "Absolute Green",
+      "tag": "Kiwi is here to make you happy.",
+      "price": "13.6",
+      "bgcolor": "Colors.teal",
+      "desc": "We wish you a merry Christmas.",
+      "rating": "4.3/5",
+      "category": "nowserve",
+      "id": 11
+    }
+  ]
 }
-]
