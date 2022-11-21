@@ -24,7 +24,7 @@ class _getsmoothiedataState extends State<getsmoothiedata> {
   addToCart(context, index) async {
     late MenuDB db;
     db = MenuDB();
-    print("in cart " + index.toString());
+    // print("in cart " + index.toString());
     final box = Boxes.getCartData();
     final data = box.values.toList().cast<CartData>();
     final cartp = await db.smoothiedata();
@@ -41,14 +41,14 @@ class _getsmoothiedataState extends State<getsmoothiedata> {
       ..id = cartp[index].id;
 
     var zindex = data.indexWhere((item) => item.id == cartp[index].id);
-    print("test " + zindex.toString());
+    // print("test " + zindex.toString());
     if (zindex != -1) {
       data[zindex].qty++;
       box.putAt(zindex, data[zindex]);
-      print("already inn");
+      // print("already inn");
     } else {
       box.add(cartItem);
-      print(cartItem.title);
+      // print(cartItem.title);
     }
     setState(() {});
   }
@@ -77,7 +77,7 @@ class _getsmoothiedataState extends State<getsmoothiedata> {
 
   @override
   Widget build(BuildContext context) {
-    print('items in db: ' + data.length.toString());
+    // print('items in db: ' + data.length.toString());
     return Scaffold(
       persistentFooterButtons: cartinit ? [viewincart()] : null,
       body: getdataf

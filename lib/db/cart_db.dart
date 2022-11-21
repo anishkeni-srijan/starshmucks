@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:starshmucks/model/cartDBModel.dart';
+import '../model/menu_model.dart';
 import 'menu_db.dart';
 
 class CartDB {
@@ -34,4 +35,6 @@ class CartDB {
     //print("after query");
     return data.map((e) => CartModel.fromJson(e)).toList();
   }
+
 }
+

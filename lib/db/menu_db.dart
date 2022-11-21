@@ -64,4 +64,9 @@ class MenuDB {
         await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['smoothie']);
     return data.map((e) => Menu.fromJson(e)).toList();
   }
+  Future<List<Menu>> ffeedata(getid) async {
+    final Database db = await initDBMenu();
+    final List<Map<String, dynamic?>> coffee = await db.rawQuery("SELECT * FROM Menu WHERE id=?", [getid]);
+    return coffee.map((e) => Menu.fromJson(e)).toList();
+  }
 }

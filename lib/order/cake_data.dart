@@ -22,7 +22,7 @@ class getcakedata extends StatefulWidget {
 
 class _getcakedataState extends State<getcakedata> {
   addToCart(context, index) async {
-    print("in cart " + index.toString());
+    // print("in cart " + index.toString());
     final box = Boxes.getCartData();
     final data = box.values.toList().cast<CartData>();
     final cartp = await db.cakedata();
@@ -40,14 +40,14 @@ class _getcakedataState extends State<getcakedata> {
       ..id = cartp[index].id;
 
     var zindex = data.indexWhere((item) => item.id == cartp[index].id);
-    print("test " + zindex.toString());
+    // print("test " + zindex.toString());
     if (zindex != -1) {
       data[zindex].qty++;
       box.putAt(zindex, data[zindex]);
-      print("already inn");
+      // print("already inn");
     } else {
       box.add(cartItem);
-      print(cartItem.title);
+      // print(cartItem.title);
     }
     setState(() {});
   }
@@ -78,7 +78,7 @@ class _getcakedataState extends State<getcakedata> {
 
   @override
   Widget build(BuildContext context) {
-    print('items in db: ' + data.length.toString());
+    // print('items in db: ' + data.length.toString());
     return Scaffold(
       persistentFooterButtons: cartinit ? [viewincart()] : null,
       body: getdataf
@@ -86,7 +86,7 @@ class _getcakedataState extends State<getcakedata> {
               shrinkWrap: true,
               itemCount: data.length,
               itemBuilder: (context, index) {
-                print(data[0].title);
+                // print(data[0].title);
                 return GestureDetector(
                   onTap: () {
                     //getcoffeedetails(context, index);

@@ -43,7 +43,7 @@ class _getcoffeedataState extends State<getcoffeedata> {
     db = MenuDB();
     final cartp = await db.coffeedata();
 
-    print(cartp[index].id);
+    // print(cartp[index].id);
     cdb.insertDataCart(
       CartModel(id: cartp[index].id),
     );
@@ -67,7 +67,7 @@ class _getcoffeedataState extends State<getcoffeedata> {
       //print("already inn");
     } else {
       box.add(cartItem);
-      print(cartItem.title);
+      // print(cartItem.title);
     }
     setState(() {});
   }
@@ -87,10 +87,10 @@ class _getcoffeedataState extends State<getcoffeedata> {
 
   @override
   Widget build(BuildContext context) {
-    print("Len of cart" + cartData.length.toString());
+    // print("Len of cart" + cartData.length.toString());
     for (int i = 0; i < cartData.length; i++) {
-      print("Ids in cart ");
-      print(cartData[i].id);
+      // print("Ids in cart ");
+      // print(cartData[i].id);
     }
     // print('items in db: ' + data.length.toString());
     return Scaffold(

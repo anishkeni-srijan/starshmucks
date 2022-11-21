@@ -4,12 +4,15 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:starshmucks/db/cart_db.dart';
+import 'package:starshmucks/model/cartDBModel.dart';
 
 import 'boxes.dart';
 import 'address.dart';
 import '/home_screen.dart';
 import '/model/cart_model.dart';
 import 'db/menu_db.dart';
+import 'model/menu_model.dart';
 import 'model/user_model.dart';
 
 class MyCart extends StatefulWidget {
@@ -38,19 +41,34 @@ class _MyCartState extends State<MyCart> {
     setState(() {});
     return result;
   }
-
+  late CartDB cartdb;
   late MenuDB menudb;
-  late Future<Database> k;
+  List<Menu> kart = [];
+  List<CartModel> idlist= [];
+
   @override
   void initState() {
-    menudb = MenuDB();
-    k = menudb.initDBMenu();
+   menudb = MenuDB();
+   menudb.initDBMenu();
+   cartdb = CartDB();
+   cartdb.initDBCart();
     result = getcarttotal();
     getDataOnIds();
     super.initState();
   }
 
-  Future<dynamic> getDataOnIds() async {
+  getDataOnIds() async {
+    idlist = await cartdb.getDataCart();
+    print("size"+ idlist.length.toString());
+   // kart= await menudb.ffeedata(1); // prints product at id 1
+
+    //logic for sending ids from cart list to get details from menu db
+    for(var i= 0; i< idlist.length; i++) {
+      kart= await menudb.ffeedata(kart[i]);
+
+     }
+
+
     //final item = await k.rawQuery("SELECT * FROM Menu WHERE id=1");
     //print(item.toString());
   }
@@ -123,7 +141,7 @@ class _MyCartState extends State<MyCart> {
               cartinit = false;
             }
             return ListView.builder(
-              itemCount: data.length,
+              itemCount: kart.length,
               itemBuilder: (context, index) {
                 return Card(
                   elevation: 8,
@@ -132,7 +150,7 @@ class _MyCartState extends State<MyCart> {
                       Row(
                         children: [
                           Image.asset(
-                            data[index].image,
+                            kart[index].image,
                             height: 100,
                             width: 100,
                           ),
@@ -143,7 +161,7 @@ class _MyCartState extends State<MyCart> {
                               children: [
                                 SizedBox(
                                     width: 150,
-                                    child: Text(data[index].title,
+                                    child: Text(kart[index].title,
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis)),
                                 Text("\$ " + data[index].price),
