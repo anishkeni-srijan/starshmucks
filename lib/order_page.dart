@@ -31,7 +31,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   @override
   void initState() {
     db = DB();
-    db.initDB();
+    db.initDBMenu();
     getdata();
     putdata();
     tabController = TabController(length: 3, vsync: this);
@@ -39,7 +39,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   }
 
   getdata() async {
-    data = await db.getdata();
+    data = await db.getDataMenu();
     setState(() {
       fetching = true;
     });
@@ -55,7 +55,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
       if (data.isNotEmpty && data.contains(product)) {
         print('items already exists');
       } else {
-        db.insertData(product);
+        db.insertDataMenu(product);
       }
     }
   }
@@ -159,7 +159,7 @@ class _getcakedataState extends State<getcakedata> {
   @override
   void initState() {
     db = DB();
-    db.initDB();
+    db.initDBMenu();
     getdata();
     super.initState();
   }
@@ -347,7 +347,7 @@ class _getcoffeedataState extends State<getcoffeedata> {
   @override
   void initState() {
     db = DB();
-    db.initDB();
+    db.initDBMenu();
     getdata();
     super.initState();
   }
@@ -535,7 +535,7 @@ class _getsmoothiedataState extends State<getsmoothiedata> {
   @override
   void initState() {
     db = DB();
-    db.initDB();
+    db.initDBMenu();
     getdata();
     super.initState();
   }
