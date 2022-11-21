@@ -51,8 +51,8 @@ class _MyCartState extends State<MyCart> {
   }
 
   Future<dynamic> getDataOnIds() async {
-    final item = await k.rawQuery("SELECT * FROM Menu WHERE id=1");
-    print(item.toString());
+    //final item = await k.rawQuery("SELECT * FROM Menu WHERE id=1");
+    //print(item.toString());
   }
 
   @override
