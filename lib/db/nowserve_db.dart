@@ -7,13 +7,12 @@ import 'package:path/path.dart';
 import '../model/nowserving_model.dart';
 
 class NowServeDb {
-
-
   Future<Database> initNowServedb() async {
     print("initialising db...");
     String databasepath = await getDatabasesPath();
-    final path = join(databasepath, "NowServe1.db");
-    return openDatabase(path,
+    final path = join(databasepath, "NowServe145.db");
+    return openDatabase(
+      path,
       onCreate: (database, version) async {
         await database.execute("""
           CREATE TABLE IF NOT EXISTS NowServe(
@@ -31,23 +30,23 @@ class NowServeDb {
       version: 1,
     );
   }
-  Future<bool> insertnowserveData(NowServe nowserve) async{
+
+  Future<bool> insertnowserveData(NowServe nowserve) async {
     final Database db = await initNowServedb();
     db.insert("NowServe", nowserve.toMap());
     return true;
   }
 
-  Future<List<NowServe>> getnowservedata() async{
+  Future<List<NowServe>> getnowservedata() async {
     final Database db = await initNowServedb();
-    final List<Map<String,dynamic?>> data = await db.query("NowServe");
+    final List<Map<String, dynamic?>> data = await db.query("NowServe");
     return data.map((e) => NowServe.fromJson(e)).toList();
   }
-  Future<List<NowServe>> NowServedata() async{
+
+  Future<List<NowServe>> NowServedata() async {
     final Database db = await initNowServedb();
-    final List<Map<String,dynamic?>> nowserve = await db.rawQuery("SELECT * FROM NowServe WHERE category=?", ['nowserve']);
+    final List<Map<String, dynamic?>> nowserve = await db
+        .rawQuery("SELECT * FROM NowServe WHERE category=?", ['nowserve']);
     return nowserve.map((e) => NowServe.fromJson(e)).toList();
   }
 }
-
-
-

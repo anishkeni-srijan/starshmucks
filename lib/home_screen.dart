@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
     offerdb = OffersDb();
     offerdb.initOffersdb();
     getdata();
-    // putnowdata();
+    putnowdata();
     putofferdata();
     super.initState();
   }
