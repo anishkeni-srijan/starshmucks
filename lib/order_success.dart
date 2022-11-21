@@ -9,9 +9,11 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:get/get.dart';
+import 'package:starshmucks/model/orderHistory.dart';
 import 'package:starshmucks/model/user_model.dart';
 
 import 'boxes.dart';
+import 'db/Database.dart';
 import 'help_page.dart';
 import 'model/cart_model.dart';
 
@@ -22,12 +24,46 @@ class Ordersuccess extends StatefulWidget {
 }
 
 class _OrdersuccessState extends State<Ordersuccess> {
+  late DB db;
+  late var item;
+  List<OrderHistory> OrderData = [];
   @override
   void initState() {
+    db = DB();
+    db.initDBOrders();
+    putdata();
     gainrewards();
     getAddress();
+    printData();
     super.initState();
     cartinit = false;
+  }
+
+  printData() {
+    print("testty " + OrderData.toString());
+    for (var i = 0; i < OrderData.length; i++) {
+      print("Titlke is " + OrderData[i].title);
+    }
+  }
+
+  putdata() async {
+    final box = Boxes.getCartData();
+    final data = box.values.toList().cast<CartData>();
+    for (var index = 0; index < data.length; index++) {
+      db.insertDataOrders(OrderHistory(
+          title: data[index].title,
+          price: data[index].price,
+          qty: data[index].qty,
+          isInCart: data[index].isInCart,
+          image: data[index].image,
+          ttlPrice: data[index].ttlPrice,
+          id: data[index].id));
+    }
+  }
+
+  getdata() async {
+    OrderData = await db.getDataOrders();
+    setState(() {});
   }
 
   late String selectedAddress = '';
@@ -45,9 +81,9 @@ class _OrdersuccessState extends State<Ordersuccess> {
     // final data2 = box2.values.toList().cast<UserData>();
     final box = Boxes.getCartData();
     final data = box.values.toList().cast<CartData>();
-   //
-   // //to copy list
-   //  data2[0].orders = data.cast<List>();
+    //
+    // //to copy list
+    //  data2[0].orders = data.cast<List>();
     return WillPopScope(
       onWillPop: gohome,
       child: Scaffold(
@@ -307,21 +343,19 @@ class _OrdersuccessState extends State<Ordersuccess> {
   }
 }
 
-
-gainrewards(){
+gainrewards() {
   final box = Boxes.getUserData();
   final data = box.values.toList().cast<UserData>();
 
   final box2 = Boxes.getCartData();
   final datab = box2.values.toList().cast<CartData>();
   var items = 0;
-  for(var i = 0; i< datab.length;i++) {
+  for (var i = 0; i < datab.length; i++) {
     items = items + datab[i].qty;
-
   }
   print("before" + data[0].rewards.toString());
-  data[0].rewards = data[0].rewards!.toDouble() + ( items * 10);
-  print("no. of items "+ items.toString());
+  data[0].rewards = data[0].rewards!.toDouble() + (items * 10);
+  print("no. of items " + items.toString());
   box.putAt(0, data[0]);
-   print('total rewards: ' + data[0].rewards.toString());
+  print('total rewards: ' + data[0].rewards.toString());
 }
