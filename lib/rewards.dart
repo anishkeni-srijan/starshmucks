@@ -29,67 +29,32 @@ class _RewardsState extends State<Rewards> {
           children: [
             Stack(
               children: [
-                Container(
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color: HexColor("#175244"),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(
-                        Colors.black.withOpacity(0.05),
-                        BlendMode.dstATop,
-                      ),
-                      image: ExactAssetImage('images/shmucks.png'),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    'Welcome back!',
+                    style: TextStyle(
+                      color:HexColor("#175244"),
+                      fontSize: 35,
                     ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0, left: 10.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              '${'Hi ' + username}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                              ),
-                            ),
-                            Icon(
-                              Icons.stars_sharp,
-                              color: Colors.amberAccent,
-                            )
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          'Welcome back!',
-                          style: TextStyle(
-                            color:Colors.white,
-                            fontSize: 35,
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.only(left: 10.0, right: 10),
                   child: Card(
+                    color: HexColor("#175244"),
                     margin: EdgeInsets.only(top:90),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    shadowColor: HexColor("#036635"),
+                    shadowColor: Colors.black,
                     elevation: 4,
                     child: Container(
+                      margin: EdgeInsets.only(left: 30),
                      transform: Matrix4.translationValues(-10, 20, 0),
                       height: 200,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,39 +62,45 @@ class _RewardsState extends State<Rewards> {
                               AutoSizeText(
                                 'My Points',
                                 style: TextStyle(
-                                  color: HexColor("#175244"),
+                                  color: Colors.white,
                                 ),
                                 minFontSize: 23,
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  top: 5.0,
-                                ),
-                                child: AutoSizeText(
-                                  data[0].rewards.toString(),
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: HexColor("#175244"),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 5.0,
+                        ),
+                        child:Row(
+                                children: [
+                                  AutoSizeText(
+                                      data[0].rewards.toString(),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white,
+                                      ),
+                                      minFontSize: 23,
+                                    ),
+
+                                  Padding(
+                                    padding: const EdgeInsets.only(top:2.0, left: 5),
+                                    child: Icon(
+                                      Icons.stars_sharp,
+                                      color: Colors.amberAccent,
+                                    ),
                                   ),
-                                  minFontSize: 23,
+                                ],
+                              ),),
+                              SizedBox(height: 70,),
+                              Text(
+                                '${ username}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
                                 ),
                               ),
-                              SizedBox(height: 60,),
-                              ElevatedButton(style: ButtonStyle(backgroundColor:
-                              MaterialStateProperty.all<Color>(HexColor('#175244')
-                                 ),
-                                foregroundColor:
-                                MaterialStateProperty.all<Color>(
-                                    Colors.white   ),  ),onPressed: (){}, child: Text('Know More'))
-                            ],
+                               ],
                           ),
-                          Container(
-                            transform: Matrix4.translationValues(45, -15,0),
-                            child: Image.asset(
-                              'images/icon.png',
-                              width: 120,
-                            ),
-                          ),
+                        Container(transform:Matrix4.translationValues(20, -20, 0),child: Image.asset("images/shmucks.png"),)
                         ]),
                     ),),
                 ),

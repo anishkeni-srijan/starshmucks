@@ -10,7 +10,7 @@ import '/common_things.dart';
 import '/home_screen.dart';
 import '/providers/menu_provider.dart';
 import 'boxes.dart';
-import 'db/Database.dart';
+import 'db/Menu_Database.dart';
 import 'model/cart_model.dart';
 import 'model/menu_model.dart';
 
@@ -23,14 +23,14 @@ class OrderPage extends StatefulWidget {
 
 class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   late TabController tabController;
-  late DB db;
+  late MenuDB db;
   bool fetching = false;
   late var product;
   List<Menu> data = [];
 
   @override
   void initState() {
-    db = DB();
+    db = MenuDB();
     db.initDB();
     getdata();
     putdata();
@@ -125,8 +125,8 @@ class getcakedata extends StatefulWidget {
 
 class _getcakedataState extends State<getcakedata> {
   addToCart(context, index) async {
-    late DB db;
-    db = DB();
+    late MenuDB db;
+    db = MenuDB();
     print("in cart " + index.toString());
     final box = Boxes.getCartData();
     final data = box.values.toList().cast<CartData>();
@@ -153,12 +153,12 @@ class _getcakedataState extends State<getcakedata> {
     setState(() {});
   }
 
-  late DB db;
+  late MenuDB db;
   bool getdataf = false;
   List<Menu> data = [];
   @override
   void initState() {
-    db = DB();
+    db = MenuDB();
     db.initDB();
     getdata();
     super.initState();
@@ -312,8 +312,8 @@ class getcoffeedata extends StatefulWidget {
 
 class _getcoffeedataState extends State<getcoffeedata> {
   addToCart(context, index) async {
-    late DB db;
-    db = DB();
+    late MenuDB db;
+    db = MenuDB();
     print("in cart " + index.toString());
     final box = Boxes.getCartData();
     final data = box.values.toList().cast<CartData>();
@@ -340,13 +340,13 @@ class _getcoffeedataState extends State<getcoffeedata> {
     setState(() {});
   }
 
-  late DB db;
+  late MenuDB db;
   bool getdataf = false;
   List<Menu> data = [];
 
   @override
   void initState() {
-    db = DB();
+    db = MenuDB();
     db.initDB();
     getdata();
     super.initState();
@@ -500,8 +500,8 @@ class getsmoothiedata extends StatefulWidget {
 
 class _getsmoothiedataState extends State<getsmoothiedata> {
   addToCart(context, index) async {
-    late DB db;
-    db = DB();
+    late MenuDB db;
+    db = MenuDB();
     print("in cart " + index.toString());
     final box = Boxes.getCartData();
     final data = box.values.toList().cast<CartData>();
@@ -528,13 +528,13 @@ class _getsmoothiedataState extends State<getsmoothiedata> {
     setState(() {});
   }
 
-  late DB db;
+  late MenuDB db;
   bool getdataf = false;
   List<Menu> data = [];
 
   @override
   void initState() {
-    db = DB();
+    db = MenuDB();
     db.initDB();
     getdata();
     super.initState();
