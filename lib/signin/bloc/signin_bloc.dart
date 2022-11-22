@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:starshmucks/common_things.dart';
 
-import '/home_screen.dart';
+import '../../home/home_screen.dart';
 import '/signin/bloc/signin_events.dart';
 import '/signin/bloc/signin_states.dart';
 

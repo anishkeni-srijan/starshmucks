@@ -9,7 +9,7 @@ import 'package:starshmucks/model/cartDBModel.dart';
 
 import 'boxes.dart';
 import 'address.dart';
-import '/home_screen.dart';
+import 'home/home_screen.dart';
 import '/model/cart_model.dart';
 import 'db/menu_db.dart';
 import 'model/menu_model.dart';
@@ -139,8 +139,6 @@ class _MyCartState extends State<MyCart> {
             if (data.isEmpty) {
               cartinit = false;
             }
-            print("hsgv");
-            print(kart1.length);
             return ListView.builder(
               itemCount: kart.length,
               itemBuilder: (context, index) {

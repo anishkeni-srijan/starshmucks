@@ -4,7 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 import 'common_things.dart';
-import 'home_screen.dart';
+import 'home/home_screen.dart';
 
 class GiftCard extends StatefulWidget {
   const GiftCard({Key? key}) : super(key: key);

@@ -26,15 +26,15 @@ class CartDB {
     // print("inserting in cart");
     final Database db = await initDBCart();
     db.insert("CartTable", item.toMap());
+
     return true;
   }
 
   Future<List<CartModel>> getDataCart() async {
     final Database db = await initDBCart();
     final List<Map<String, dynamic?>> data = await db.query("CartTable");
-    //print("after query");
+    print("after query");
+    print(data.length);
     return data.map((e) => CartModel.fromJson(e)).toList();
   }
-
 }
-

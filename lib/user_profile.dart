@@ -11,7 +11,7 @@ import '/signin/signin.dart';
 import 'boxes.dart';
 import 'common_things.dart';
 import 'editdetails/edit_details.dart';
-import 'home_screen.dart';
+import 'home/home_screen.dart';
 import 'model/user_model.dart';
 import 'orders.dart';
 

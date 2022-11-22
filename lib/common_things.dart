@@ -6,7 +6,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:starshmucks/order_success.dart';
 
-import '/home_screen.dart';
+import 'home/home_screen.dart';
 import '/user_profile.dart';
 import 'boxes.dart';
 import 'cart.dart';
