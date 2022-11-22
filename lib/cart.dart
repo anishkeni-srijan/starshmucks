@@ -65,12 +65,12 @@ class _MyCartState extends State<MyCart> {
     // kart= await menudb.ffeedata(1); // prints product at id 1
     //logic for sending ids from cart list to get details from menu db
     for (var i = 0; i < idlist.length; i++) {
-      kart = await menudb.ffeedata(idlist[i].id);
+      kart = await menudb.fefe(idlist[i].id);
       print("init cart " + kart.length.toString());
 
-      if (kart.length == 1) {
-        kart1.add(kart.first);
-      }
+
+        kart1.add(kart[i]);
+
 
       //print("fdg " + kart.runtimeType.toString());
       print("added to cart: " + kart1.toString());

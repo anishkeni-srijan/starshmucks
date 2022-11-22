@@ -64,10 +64,26 @@ class MenuDB {
         await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['smoothie']);
     return data.map((e) => Menu.fromJson(e)).toList();
   }
-  Future<dynamic> ffeedata(getid) async {
+  ffeedata(getid) async {
     final Database db = await initDBMenu();
-    dynamic data = await db.query("Menu",  where: "id = ?", whereArgs: [getid]) ;
-    print(data);
+    dynamic data = await db.query("Menu",  where: "id = ?", whereArgs: [getid]) as Menu;
+    print(data.runtimeType);
     return data;
+  }
+  // A method that retrieves all the dogs from the dogs table.
+  Future<List<Menu>> fefe(getit) async {
+    final db = await initDBMenu();
+    final List<Map<String, dynamic>> maps = await db.query('Menu',where: "id = ?", whereArgs: [getit]);
+    return List.generate(maps.length, (i) {
+      return Menu(
+        id: maps[i]['id'],
+        title: maps[i]['title'],
+        price: maps[i]['price'],
+        description: maps[i]['description'],
+        category: maps[i]['category'],
+        image: maps[i]['image'],
+        rating: maps[i]['rating'],
+      );
+    });
   }
 }

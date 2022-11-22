@@ -26,7 +26,6 @@ class CartDB {
     // print("inserting in cart");
     final Database db = await initDBCart();
     db.insert("CartTable", item.toMap());
-
     return true;
   }
 
