@@ -60,17 +60,16 @@ class _MyCartState extends State<MyCart> {
   getDataOnIds() async {
     idlist = await cartdb.getDataCart();
     print("size"+ idlist.length.toString());
-   // kart= await menudb.ffeedata(1); // prints product at id 1
+    kart= await menudb.ffeedata(1); // prints product at id 1
 
     //logic for sending ids from cart list to get details from menu db
-    for(var i= 0; i< idlist.length; i++) {
-      kart= await menudb.ffeedata(kart[i]);
+    // for(var i= 0; i< idlist.length; i++) {
+    //
+    //   kart= await menudb.ffeedata(idlist[i]);
+    //   print(idlist[i]);
+    //  }
 
-     }
 
-
-    //final item = await k.rawQuery("SELECT * FROM Menu WHERE id=1");
-    //print(item.toString());
   }
 
   @override
