@@ -45,6 +45,7 @@ class _MyCartState extends State<MyCart> {
   late CartDB cartdb;
   late MenuDB menudb;
   List<Menu> kart = [];
+  List<Menu> kart1 = [];
   List<CartModel> idlist = [];
 
   @override
@@ -65,7 +66,9 @@ class _MyCartState extends State<MyCart> {
     //logic for sending ids from cart list to get details from menu db
     for (var i = 0; i < idlist.length; i++) {
       kart = await menudb.ffeedata(idlist[i].id);
-      print("added to cart: "+ idlist[i].id.toString());
+
+      //print("fdg " + kart.runtimeType.toString());
+      print("added to cart: " + idlist[i].id.toString());
     }
   }
 
@@ -136,6 +139,8 @@ class _MyCartState extends State<MyCart> {
             if (data.isEmpty) {
               cartinit = false;
             }
+            print("hsgv");
+            print(kart1.length);
             return ListView.builder(
               itemCount: kart.length,
               itemBuilder: (context, index) {
