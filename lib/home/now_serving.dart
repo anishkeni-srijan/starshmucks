@@ -1,50 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:starshmucks/db/menu_db.dart';
 
-import '../boxes.dart';
+import '/db/menu_db.dart';
 import '../db/cart_db.dart';
-import '../model/cartDBModel.dart';
-
+import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 import 'home_screen.dart';
 
-class nowserving extends StatefulWidget {
-  const nowserving({Key? key}) : super(key: key);
+class NowServing extends StatefulWidget {
+  const NowServing({Key? key}) : super(key: key);
 
   @override
-  State<nowserving> createState() => _nowservingState();
+  State<NowServing> createState() => _NowServingState();
 }
 
-class _nowservingState extends State<nowserving> {
-  addToCart(context, index) async {
-    late MenuDB db;
-    db = MenuDB();
-    final cartp = await db.getDataMenu();
-    cdb.insertDataCart(
-      CartModel(id: cartp[index].id),
-    );
-
-    // int zindex = cdata.indexWhere((item) => item.id == cartp[index].id);
-    // print("test " + zindex.toString());
-    // if (zindex != -1) {
-    //   cdata[zindex].qty++;
-    //   box.putAt(zindex, cdata[zindex]);
-    //   print("already inn");
-    // } else {
-    //   box.add(cartItem);
-    //   print(cartItem.title);
-    // }
-  }
-
+class _NowServingState extends State<NowServing> {
   late MenuDB db;
   bool getdataf = false;
-  List<Menu> nowdata = [];
+  List<MenuModel> nowdata = [];
   late var product;
 
   late CartDB cdb;
+
   @override
   void initState() {
     cdb = CartDB();
@@ -53,6 +31,14 @@ class _nowservingState extends State<nowserving> {
     db.initDBMenu();
     getdata();
     super.initState();
+  }
+
+  addToCart(context, index) async {
+    final cartp = await db.NowServedata();
+    cdb.insertDataCart(
+      CartModel(id: cartp[index].id),
+    );
+    setState(() {});
   }
 
   getdata() async {

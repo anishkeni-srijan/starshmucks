@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:starshmucks/db/cart_db.dart';
-import 'package:starshmucks/model/cartDBModel.dart';
 
+import '/db/cart_db.dart';
+import '/model/cart_model.dart';
 import 'boxes.dart';
 import 'address.dart';
-import 'home/home_screen.dart';
-
 import 'db/menu_db.dart';
 import 'model/menu_model.dart';
 import 'model/user_model.dart';
@@ -26,8 +21,6 @@ class _MyCartState extends State<MyCart> {
   bool ischecked = false;
   var result;
   @override
-
-
   getcarttotal() {
     // final box = Boxes.getCartData();
     // final data = box.values.toList().cast<CartData>();
@@ -41,15 +34,15 @@ class _MyCartState extends State<MyCart> {
 
   late CartDB cartdb;
   late MenuDB menudb;
-  List<Menu> kart = [];
-  List<Menu> kart1 = [];
+  List<MenuModel> kart = [];
+  List<MenuModel> kart1 = [];
   List<CartModel> idlist = [];
 
   @override
-  clearcart(){
+  clearcart() {
     cartdb.clear();
-
   }
+
   void initState() {
     menudb = MenuDB();
     menudb.initDBMenu();
@@ -73,15 +66,13 @@ class _MyCartState extends State<MyCart> {
       //print("fdg " + kart.runtimeType.toString());
       print("added to cart: " + kart1.toString());
     }
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     final box2 = Boxes.getUserData();
-    final data2 = box2.values.toList().cast<UserData>();
+    final data2 = box2.values.toList().cast<UserDataModel>();
 
     // final box = Boxes.getCartData();
     // final data = box.values.toList().cast<CartData>();
@@ -92,8 +83,7 @@ class _MyCartState extends State<MyCart> {
           //     ? Center(child: Text("No items in cart"))
           Container(
         padding: EdgeInsets.all(8.0),
-        child:
-            ElevatedButton(
+        child: ElevatedButton(
           onPressed: () {
             Get.to(Address(), transition: Transition.rightToLeft);
           },
@@ -115,7 +105,7 @@ class _MyCartState extends State<MyCart> {
           IconButton(
             color: HexColor("#175244"),
             onPressed: () {
-               clearcart();
+              clearcart();
             },
             icon: const Icon(
               Icons.clear,

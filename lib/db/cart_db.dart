@@ -1,8 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:starshmucks/model/cartDBModel.dart';
-import '../model/menu_model.dart';
-import 'menu_db.dart';
+
+import '/model/cart_model.dart';
 
 class CartDB {
   Future<Database> initDBCart() async {
@@ -37,8 +36,9 @@ class CartDB {
     print(data.length);
     return data.map((e) => CartModel.fromJson(e)).toList();
   }
+
   //temp
-   clear() async {
+  clear() async {
     final Database db = await initDBCart();
     db.delete("CartTable");
   }

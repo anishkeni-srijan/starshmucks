@@ -1,26 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../boxes.dart';
 import '../db/cart_db.dart';
 import '../db/menu_db.dart';
-import '../model/cartDBModel.dart';
+import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 import 'home_screen.dart';
 
-class getoffers extends StatefulWidget {
-  const getoffers({Key? key}) : super(key: key);
+class GetOffers extends StatefulWidget {
+  const GetOffers({Key? key}) : super(key: key);
 
   @override
-  State<getoffers> createState() => _getoffersState();
+  State<GetOffers> createState() => _GetOffersState();
 }
 
-class _getoffersState extends State<getoffers> {
+class _GetOffersState extends State<GetOffers> {
   late MenuDB db;
   bool getdataf = false;
-  List<Menu> odata = [];
+  List<MenuModel> odata = [];
   late var product;
 
   late CartDB cdb;
@@ -41,10 +39,8 @@ class _getoffersState extends State<getoffers> {
     });
   }
 
-
   addToCart(context, index) async {
     final cartp = await db.Offersdata();
-    //print("in cart " + index.toString());
     print("Cartpindex");
     print(cartp[index].id);
     cdb.insertDataCart(
