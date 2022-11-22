@@ -44,9 +44,9 @@ class _MyCartState extends State<MyCart> {
 
   late CartDB cartdb;
   late MenuDB menudb;
-  List<Menu> kart = [];
   List<Menu> kart1 = [];
   List<CartModel> idlist = [];
+
 
   @override
   void initState() {
@@ -55,22 +55,30 @@ class _MyCartState extends State<MyCart> {
     cartdb = CartDB();
     cartdb.initDBCart();
     result = getcarttotal();
+
     getDataOnIds();
     super.initState();
   }
 
   getDataOnIds() async {
     idlist = await cartdb.getDataCart();
-    print("size" + idlist.length.toString());
-    // kart= await menudb.ffeedata(1); // prints product at id 1
-    //logic for sending ids from cart list to get details from menu db
+    // print("size" + idlist.length.toString());
+    // // kart= await menudb.ffeedata(1); // prints product at id 1
+    // //logic for sending ids from cart list to get details from menu db
     for (var i = 0; i < idlist.length; i++) {
-      kart = await menudb.ffeedata(idlist[i].id);
+      var itxx =await menudb.ffeedata(idlist[i].id);
+      kart1.add(itxx);
 
       //print("fdg " + kart.runtimeType.toString());
-      print("added to cart: " + idlist[i].id.toString());
+      // print("added to cart: " + idlist[i].id.toString());
+      // kart1.add(kart);
     }
   }
+  clearcart(){
+    cartdb = CartDB();
+    cartdb.clearcart();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +137,12 @@ class _MyCartState extends State<MyCart> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         foregroundColor: HexColor("#175244"),
-        title: Text("Cart"),
+        title: Row(
+          children: [
+            Text("Cart"),
+            ElevatedButton(onPressed: (){}, child:Text('clear'))
+          ],
+        ),
         elevation: 2,
       ),
       body: ValueListenableBuilder<Box<CartData>>(
@@ -139,10 +152,8 @@ class _MyCartState extends State<MyCart> {
             if (data.isEmpty) {
               cartinit = false;
             }
-            print("hsgv");
-            print(kart1.length);
             return ListView.builder(
-              itemCount: kart.length,
+              itemCount: kart1.length,
               itemBuilder: (context, index) {
                 return Card(
                   elevation: 8,
@@ -151,7 +162,7 @@ class _MyCartState extends State<MyCart> {
                       Row(
                         children: [
                           Image.asset(
-                            kart[index].image,
+                           kart1[index].image,
                             height: 100,
                             width: 100,
                           ),
@@ -162,7 +173,7 @@ class _MyCartState extends State<MyCart> {
                               children: [
                                 SizedBox(
                                     width: 150,
-                                    child: Text(kart[index].title,
+                                    child: Text(kart1[index].title,
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis)),
                                 Text("\$ " + data[index].price),

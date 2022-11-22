@@ -35,6 +35,12 @@ class CartDB {
     //print("after query");
     return data.map((e) => CartModel.fromJson(e)).toList();
   }
+  Future<Future<int>> clearcart() async {
+    final Database db = await initDBCart();
+    return db.delete("CartTable");
+
+  }
+
 
 }
 
