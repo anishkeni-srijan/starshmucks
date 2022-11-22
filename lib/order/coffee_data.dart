@@ -3,24 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../common_things.dart';
 import '../home/home_screen.dart';
-import '../model/cartDBModel.dart';
+import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 import '/db/cart_db.dart';
 import '/db/menu_db.dart';
 
-class getcoffeedata extends StatefulWidget {
-  const getcoffeedata({Key? key}) : super(key: key);
+class GetCoffeeData extends StatefulWidget {
+  const GetCoffeeData({Key? key}) : super(key: key);
 
   @override
-  State<getcoffeedata> createState() => _getcoffeedataState();
+  State<GetCoffeeData> createState() => _GetCoffeeDataState();
 }
 
-class _getcoffeedataState extends State<getcoffeedata> {
+class _GetCoffeeDataState extends State<GetCoffeeData> {
   late MenuDB menuDB;
   bool getdataf = false;
-  List<Menu> data = [];
+  List<MenuModel> data = [];
 
   late CartDB cdb;
   @override
@@ -41,17 +40,17 @@ class _getcoffeedataState extends State<getcoffeedata> {
 
     var zindex = data.indexWhere((item) => item.id == cartp[index].id);
     // // print("test " + zindex.toString());
-     if (zindex != -1) {
-       cdb.insertDataCart(
-         CartModel(id: cartp[index].id),
-       );
+    if (zindex != -1) {
+      cdb.insertDataCart(
+        CartModel(id: cartp[index].id),
+      );
 
-       db.updateqty(cartp[index]);
-     } else {
-       print('already added');
-       cartp[index].qty = cartp[index].qty + 1;
-       db.updateqty(cartp[index]);
-     }
+      db.updateqty(cartp[index]);
+    } else {
+      print('already added');
+      cartp[index].qty = cartp[index].qty + 1;
+      db.updateqty(cartp[index]);
+    }
     setState(() {});
   }
 

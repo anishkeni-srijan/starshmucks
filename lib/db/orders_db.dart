@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import '../model/orderHistory.dart';
+import '../model/order_history.dart';
 
 class OrdersDB {
   Future<Database> initDBOrders() async {
@@ -27,15 +27,15 @@ class OrdersDB {
     );
   }
 
-  Future<bool> insertDataOrders(OrderHistory orders) async {
+  Future<bool> insertDataOrders(OrderHistoryModel orders) async {
     final Database db = await initDBOrders();
     db.insert("OrdersTable", orders.toMap());
     return true;
   }
 
-  Future<List<OrderHistory>> getDataOrders() async {
+  Future<List<OrderHistoryModel>> getDataOrders() async {
     final Database db = await initDBOrders();
     final List<Map<String, dynamic?>> data = await db.query("OrdersTable");
-    return data.map((e) => OrderHistory.fromJson(e)).toList();
+    return data.map((e) => OrderHistoryModel.fromJson(e)).toList();
   }
 }

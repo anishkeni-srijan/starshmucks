@@ -6,7 +6,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../boxes.dart';
 import '../model/user_model.dart';
@@ -118,10 +117,10 @@ class _SigninPageState extends State<SigninPage> {
                     }
                   },
                 ),
-                ValueListenableBuilder<Box<UserData>>(
+                ValueListenableBuilder<Box<UserDataModel>>(
                   valueListenable: Boxes.getUserData().listenable(),
                   builder: (context, box, _) {
-                    final data = box.values.toList().cast<UserData>();
+                    final data = box.values.toList().cast<UserDataModel>();
                     if (data.isEmpty) {
                       obtainedemail = '';
                       obtainedpassword = '';

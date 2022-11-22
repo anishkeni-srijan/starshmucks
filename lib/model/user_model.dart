@@ -4,7 +4,7 @@ import 'dart:io';
 part 'user_model.g.dart';
 
 @HiveType(typeId: 0)
-class UserData extends HiveObject {
+class UserDataModel extends HiveObject {
   @HiveField(0)
   late String name;
 

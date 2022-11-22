@@ -45,10 +45,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       appBar: null,
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: ValueListenableBuilder<Box<UserData>>(
+        child: ValueListenableBuilder<Box<UserDataModel>>(
           valueListenable: Boxes.getUserData().listenable(),
           builder: (context, box, _) {
-            final data = box.values.toList().cast<UserData>();
+            final data = box.values.toList().cast<UserDataModel>();
             return Center(
               child: Column(
                 children: <Widget>[

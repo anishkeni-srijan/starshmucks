@@ -1,17 +1,17 @@
-class LearnMore {
+class LearnMoreModel {
   late String image;
   late String title;
   late String tag;
   late String desc;
 
-  LearnMore({
+  LearnMoreModel({
     required this.title,
     required this.tag,
     required this.image,
     required this.desc,
   });
 
-  factory LearnMore.fromJson(Map<String, dynamic> json) => LearnMore(
+  factory LearnMoreModel.fromJson(Map<String, dynamic> json) => LearnMoreModel(
       title: json['title'],
       image: json['image'],
       desc: json['desc'],

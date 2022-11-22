@@ -1,4 +1,4 @@
-class Menu {
+class MenuModel {
   String title;
   String price;
   String description;
@@ -9,7 +9,7 @@ class Menu {
   late int qty;
   String category;
 
-  Menu({
+  MenuModel({
     required this.title,
     required this.tag,
     required this.price,
@@ -20,33 +20,23 @@ class Menu {
     required this.category,
   });
 
-
-
-  factory Menu.fromJson(Map<String, dynamic> json) => Menu(
-    title: json["title"],
-    tag: json["tag"],
-    price: json["price"],
-    description: json["description"],
-    image: json["image"],
-    id: json["id"],
-    rating: json["rating"],
-      category: json['category']
-  );
+  factory MenuModel.fromJson(Map<String, dynamic> json) => MenuModel(
+      title: json["title"],
+      tag: json["tag"],
+      price: json["price"],
+      description: json["description"],
+      image: json["image"],
+      id: json["id"],
+      rating: json["rating"],
+      category: json['category']);
   Map<String, dynamic> toMap() => {
-    "id": id,
-    "tag": tag,
-    "title": title,
-    "description": description,
-    "image": image,
-    "rating": rating,
-    "price": price,
-    "category":category,
-  };
-
-
+        "id": id,
+        "tag": tag,
+        "title": title,
+        "description": description,
+        "image": image,
+        "rating": rating,
+        "price": price,
+        "category": category,
+      };
 }
-
-
-
-
-

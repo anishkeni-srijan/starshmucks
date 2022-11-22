@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+
 import '../boxes.dart';
 import '../model/user_model.dart';
 import 'bloc/editdetails_bloc.dart';
 import 'bloc/editdetails_events.dart';
 import 'bloc/editdetails_states.dart';
 import 'dart:io';
-
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -20,30 +18,25 @@ class EditProfile extends StatefulWidget {
   State<EditProfile> createState() => _EditProfileState();
 }
 
-
 final picker = ImagePicker();
 
 class _EditProfileState extends State<EditProfile> {
- File? imagefile;
+  File? imagefile;
   final ImagePicker picker = ImagePicker();
   late String obtainedemail;
   late String obtainedphone;
   late String obtainedname;
   late int obtainedkey;
 
-
-
   @override
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: HexColor("#175244"),
-      body: ValueListenableBuilder<Box<UserData>>(
+      body: ValueListenableBuilder<Box<UserDataModel>>(
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
-          final data = box.values.toList().cast<UserData>();
+          final data = box.values.toList().cast<UserDataModel>();
           final econtroller = TextEditingController(text: data[0].email);
           final ncontroller = TextEditingController(text: data[0].name);
           final phcontroller = TextEditingController(text: data[0].phone);
@@ -55,21 +48,26 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 GestureDetector(
                   onTap: () {
-                   showModalBottomSheet(context: context, builder: (context)=>showSelectionDialog());
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) => showSelectionDialog());
                   },
                   child: Stack(
                     children: [
-
                       Container(
                         height: 150,
                         width: 150,
                         decoration: BoxDecoration(
                           color: const Color(0xff7c94b6),
-                          image: imagefile == null ? DecorationImage(
-                             image: AssetImage('images/profile1.jpg') )// set a placeholder image when no photo is set
-                                :DecorationImage(image: FileImage(File(data[0].profileimage!.path)),
-                            fit: BoxFit.cover,
-                          ),
+                          image: imagefile == null
+                              ? DecorationImage(
+                                  image: AssetImage(
+                                      'images/profile1.jpg')) // set a placeholder image when no photo is set
+                              : DecorationImage(
+                                  image: FileImage(
+                                      File(data[0].profileimage!.path)),
+                                  fit: BoxFit.cover,
+                                ),
                           borderRadius: BorderRadius.all(
                             Radius.circular(75.0),
                           ),
@@ -78,13 +76,17 @@ class _EditProfileState extends State<EditProfile> {
                             width: 4.0,
                           ),
                         ),
-                       ),
-                      Container(transform: Matrix4.translationValues(60, 150,0) ,child: Icon(Icons.add_a_photo, color: Colors.white,)),
+                      ),
+                      Container(
+                          transform: Matrix4.translationValues(60, 150, 0),
+                          child: Icon(
+                            Icons.add_a_photo,
+                            color: Colors.white,
+                          )),
                     ],
                   ),
                 ),
                 SizedBox(height: 30),
-
                 SizedBox(
                   height: 20,
                 ),
@@ -206,33 +208,46 @@ class _EditProfileState extends State<EditProfile> {
   showSelectionDialog() {
     return Container(
       height: 100,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                TextButton.icon(onPressed: (){ takepicture(ImageSource.camera);}, icon: Icon(Icons.camera_alt_outlined, color: HexColor("#175244"),),label: Text('Click a picture now',  style: TextStyle(color: HexColor("#175244")),),),
-                TextButton.icon(onPressed: (){
-                  takepicture(ImageSource.gallery);
-                }, icon: Icon(Icons.image, color: HexColor("#175244")), label: Text('Choose one from galary', style: TextStyle(color: HexColor("#175244")),),)
-              ]),
-            );
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        TextButton.icon(
+          onPressed: () {
+            takepicture(ImageSource.camera);
+          },
+          icon: Icon(
+            Icons.camera_alt_outlined,
+            color: HexColor("#175244"),
+          ),
+          label: Text(
+            'Click a picture now',
+            style: TextStyle(color: HexColor("#175244")),
+          ),
+        ),
+        TextButton.icon(
+          onPressed: () {
+            takepicture(ImageSource.gallery);
+          },
+          icon: Icon(Icons.image, color: HexColor("#175244")),
+          label: Text(
+            'Choose one from galary',
+            style: TextStyle(color: HexColor("#175244")),
+          ),
+        )
+      ]),
+    );
   }
-  takepicture(ImageSource source)async{
+
+  takepicture(ImageSource source) async {
     final pickedfile = await picker.pickImage(source: source);
     imagefile = File(pickedfile!.path);
     final box = Boxes.getUserData();
-    final data = box.values.toList().cast<UserData>();
+    final data = box.values.toList().cast<UserDataModel>();
     data[0].profileimage = imagefile;
     print("imagevalue2" + data[0].profileimage!.path);
     // box.putAt(0, data[0]);
 
-    setState(() {
-
-    });
-
+    setState(() {});
   }
 }
-
-
 
 class EditableField extends StatelessWidget {
   const EditableField({

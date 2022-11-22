@@ -21,8 +21,7 @@ class _SplashState extends State<Splash> {
     super.initState();
   }
 
-  check(List<UserData> data) async {
-
+  check(List<UserDataModel> data) async {
     for (int i = 0; i < data.length; i++) {
       if (data[i].email == data[0].email &&
           data[i].password == data[0].password) {
@@ -39,10 +38,10 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: HexColor("#175244"),
-      body: ValueListenableBuilder<Box<UserData>>(
+      body: ValueListenableBuilder<Box<UserDataModel>>(
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
-          final data = box.values.toList().cast<UserData>();
+          final data = box.values.toList().cast<UserDataModel>();
           check(data);
           return Container(
             child: SplashScreenView(

@@ -1,9 +1,5 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:starshmucks/model/orderHistory.dart';
 
 import '../model/menu_model.dart';
 
@@ -33,67 +29,62 @@ class MenuDB {
     );
   }
 
-  Future<bool> insertDataMenu(Menu menu) async {
+  Future<bool> insertDataMenu(MenuModel menu) async {
     final Database db = await initDBMenu();
     db.insert("Menu", menu.toMap());
     return true;
   }
 
-  Future<List<Menu>> getDataMenu() async {
+  Future<List<MenuModel>> getDataMenu() async {
     final Database db = await initDBMenu();
     final List<Map<String, dynamic?>> data = await db.query("Menu");
-    return data.map((e) => Menu.fromJson(e)).toList();
+    return data.map((e) => MenuModel.fromJson(e)).toList();
   }
 
-  Future<List<Menu>> coffeedata() async {
+  Future<List<MenuModel>> coffeedata() async {
     final Database db = await initDBMenu();
     final List<Map<String, dynamic?>> coffee =
         await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['coffee']);
-    return coffee.map((e) => Menu.fromJson(e)).toList();
+    return coffee.map((e) => MenuModel.fromJson(e)).toList();
   }
 
-  Future<List<Menu>> cakedata() async {
+  Future<List<MenuModel>> cakedata() async {
     final Database db = await initDBMenu();
     final List<Map<String, dynamic?>> cake =
         await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['cake']);
-    return cake.map((e) => Menu.fromJson(e)).toList();
+    return cake.map((e) => MenuModel.fromJson(e)).toList();
   }
 
-  Future<List<Menu>> smoothiedata() async {
+  Future<List<MenuModel>> smoothiedata() async {
     final Database db = await initDBMenu();
     final List<Map<String, dynamic?>> data =
         await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['smoothie']);
-    return data.map((e) => Menu.fromJson(e)).toList();
+    return data.map((e) => MenuModel.fromJson(e)).toList();
   }
-  Future<List<Menu>> NowServedata() async {
+
+  Future<List<MenuModel>> NowServedata() async {
     final Database db = await initDBMenu();
-    final List<Map<String, dynamic?>> nowserve = await db
-        .rawQuery("SELECT * FROM Menu WHERE category=?", ['nowserve']);
-    return nowserve.map((e) => Menu.fromJson(e)).toList();
+    final List<Map<String, dynamic?>> nowserve =
+        await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['nowserve']);
+    return nowserve.map((e) => MenuModel.fromJson(e)).toList();
   }
-  Future<List<Menu>> Offersdata() async {
+
+  Future<List<MenuModel>> Offersdata() async {
     final Database db = await initDBMenu();
     final List<Map<String, dynamic>> offerlist =
-    await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['offers']);
-    return offerlist.map((e) => Menu.fromJson(e)).toList();
-  }
-  ffeedata(getid) async {
-    final Database db = await initDBMenu();
-    dynamic data =
-        await db.query("Menu", where: "id = ?", whereArgs: [getid]) as Menu;
-    print(data.runtimeType);
-    return data;
+        await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['offers']);
+    return offerlist.map((e) => MenuModel.fromJson(e)).toList();
   }
 
   // A method that retrieves all the dogs from the dogs table.
-  Future<List<Menu>> getElementOnId_Menu(getit) async {
+  Future<List<MenuModel>> getElementOnId_Menu(getit) async {
     final db = await initDBMenu();
     final List<Map<String, dynamic>> maps =
         await db.query('Menu', where: "id = ?", whereArgs: [getit]);
     return List.generate(maps.length, (i) {
-      return Menu(
+      return MenuModel(
         id: maps[i]['id'],
-        tag:maps[i]['tag'],
+        tag: maps[i]['tag'],
         title: maps[i]['title'],
         price: maps[i]['price'],
         description: maps[i]['description'],
@@ -103,7 +94,8 @@ class MenuDB {
       );
     });
   }
-  Future<void> updateqty(Menu menu) async {
+
+  Future<void> updateqty(MenuModel menu) async {
     // Get a reference to the database.
     final db = await initDBMenu();
 

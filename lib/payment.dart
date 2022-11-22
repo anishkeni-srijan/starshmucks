@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -11,7 +9,6 @@ import 'model/user_model.dart';
 import 'order_failed.dart';
 import 'upi_payment.dart';
 import 'boxes.dart';
-
 import 'order_success.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -33,7 +30,7 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     final box2 = Boxes.getUserData();
-    final data2 = box2.values.toList().cast<UserData>();
+    final data2 = box2.values.toList().cast<UserDataModel>();
 
     Pet _pet = Pet.Upi;
     return Scaffold(
@@ -351,7 +348,7 @@ class _PaymentPageState extends State<PaymentPage> {
     Widget continueButton = ElevatedButton(
       child: const Text("Continue"),
       onPressed: () {
-        paid ? Get.to(Ordersuccess()) : Get.to(OrderFail(message));
+        paid ? Get.to(OrderSuccess()) : Get.to(OrderFail(message));
       },
     );
     // set up the AlertDialog

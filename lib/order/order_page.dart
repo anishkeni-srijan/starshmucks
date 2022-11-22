@@ -21,7 +21,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   late MenuDB db;
   bool fetching = false;
   late var product;
-  List<Menu> data = [];
+  List<MenuModel> data = [];
   //
   // late CartDB cdb;
   @override
@@ -48,7 +48,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
         await DefaultAssetBundle.of(context).loadString("json/menu.json");
     final responseData = jsonDecode(response);
     for (var item = 0; item < responseData['Menu'].length; item++) {
-      product = Menu.fromJson(responseData['Menu'][item]);
+      product = MenuModel.fromJson(responseData['Menu'][item]);
       // print('adding ' + responseData['Menu'][item].toString());
       if (data.isNotEmpty && data.contains(product)) {
         //  print('items already exists');
@@ -99,9 +99,9 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
               child: TabBarView(
                 controller: tabController,
                 children: <Widget>[
-                  getcoffeedata(),
-                  getcakedata(),
-                  getsmoothiedata(context),
+                  GetCoffeeData(),
+                  GetCakeData(),
+                  GetSmoothieData(context),
                 ],
               ),
             ),

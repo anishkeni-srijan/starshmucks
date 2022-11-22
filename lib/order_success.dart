@@ -1,30 +1,26 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
-import 'package:starshmucks/common_things.dart';
-import 'package:starshmucks/home/home_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:get/get.dart';
-import 'package:starshmucks/model/orderHistory.dart';
-import 'package:starshmucks/model/user_model.dart';
+import '/model/order_history.dart';
+import '/common_things.dart';
+import '/home/home_screen.dart';
 
-import 'boxes.dart';
 import 'help_page.dart';
 
-class Ordersuccess extends StatefulWidget {
-  Ordersuccess({Key? key}) : super(key: key);
+class OrderSuccess extends StatefulWidget {
+  OrderSuccess({Key? key}) : super(key: key);
   @override
-  _OrdersuccessState createState() => _OrdersuccessState();
+  _OrderSuccessState createState() => _OrderSuccessState();
 }
 
-class _OrdersuccessState extends State<Ordersuccess> {
+class _OrderSuccessState extends State<OrderSuccess> {
   // late DB db;
   late var item;
-  List<OrderHistory> OrderData = [];
+  List<OrderHistoryModel> OrderData = [];
   @override
   void initState() {
     // db = MenuDB();

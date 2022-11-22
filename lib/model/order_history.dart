@@ -1,4 +1,4 @@
-class OrderHistory {
+class OrderHistoryModel {
   late String title;
   late String price;
   late int qty;
@@ -6,7 +6,7 @@ class OrderHistory {
   late String image;
   late double ttlPrice;
   late int id;
-  OrderHistory({
+  OrderHistoryModel({
     required this.title,
     required this.price,
     required this.qty,
@@ -16,7 +16,8 @@ class OrderHistory {
     required this.id,
   });
 
-  factory OrderHistory.fromJson(Map<String, dynamic> json) => OrderHistory(
+  factory OrderHistoryModel.fromJson(Map<String, dynamic> json) =>
+      OrderHistoryModel(
         title: json["title"],
         price: json["price"],
         qty: json["qty"],

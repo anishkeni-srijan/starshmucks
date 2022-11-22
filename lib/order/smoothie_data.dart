@@ -1,25 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../boxes.dart';
-import '../common_things.dart';
-
 import '../home/home_screen.dart';
-import '../model/cartDBModel.dart';
+import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 import '/db/cart_db.dart';
 import '/db/menu_db.dart';
 
-class getsmoothiedata extends StatefulWidget {
-  const getsmoothiedata(context, {Key? key}) : super(key: key);
+class GetSmoothieData extends StatefulWidget {
+  const GetSmoothieData(context, {Key? key}) : super(key: key);
 
   @override
-  State<getsmoothiedata> createState() => _getsmoothiedataState();
+  State<GetSmoothieData> createState() => _GetSmoothieDataState();
 }
 
-class _getsmoothiedataState extends State<getsmoothiedata> {
+class _GetSmoothieDataState extends State<GetSmoothieData> {
   addToCart(context, index) async {
     late MenuDB db;
     db = MenuDB();
@@ -46,7 +42,7 @@ class _getsmoothiedataState extends State<getsmoothiedata> {
 
   late MenuDB db;
   bool getdataf = false;
-  List<Menu> data = [];
+  List<MenuModel> data = [];
   late CartDB cdb;
   @override
   void initState() {

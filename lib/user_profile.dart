@@ -3,8 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:starshmucks/help_page.dart';
-import 'package:starshmucks/rewards.dart';
+
 import 'dart:io';
 
 import '/signin/signin.dart';
@@ -14,6 +13,8 @@ import 'editdetails/edit_details.dart';
 import 'home/home_screen.dart';
 import 'model/user_model.dart';
 import 'orders.dart';
+import '/help_page.dart';
+import '/rewards.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
@@ -28,10 +29,10 @@ class _UserProfileState extends State<UserProfile> {
     return Scaffold(
       persistentFooterButtons: cartinit ? [viewincart()] : null,
       // backgroundColor: HexColor("#175244"),
-      body: ValueListenableBuilder<Box<UserData>>(
+      body: ValueListenableBuilder<Box<UserDataModel>>(
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
-          final data = box.values.toList().cast<UserData>();
+          final data = box.values.toList().cast<UserDataModel>();
           print("pass  " + data[0].password);
           print("email  " + data[0].email);
           print(data[0].profileimage.toString());

@@ -8,7 +8,6 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import 'payment.dart';
 import 'boxes.dart';
-
 import 'model/user_model.dart';
 
 class Address extends StatefulWidget {
@@ -29,7 +28,7 @@ class _AddressState extends State<Address> {
     final state = TextEditingController();
     final pincode = TextEditingController();
     final box = Boxes.getUserData();
-    final data = box.values.toList().cast<UserData>();
+    final data = box.values.toList().cast<UserDataModel>();
 
     PhoneNumber number = PhoneNumber(isoCode: 'IN');
     return showModalBottomSheet(
@@ -345,7 +344,7 @@ class _AddressState extends State<Address> {
 
   editAddress(context, index) {
     final box = Boxes.getUserData();
-    final data = box.values.toList().cast<UserData>();
+    final data = box.values.toList().cast<UserDataModel>();
     final fname = TextEditingController(text: data[0].address[index]['name']);
     final phone = TextEditingController(text: data[0].address[index]['phno']);
     final hno = TextEditingController(text: data[0].address[index]['hno']);
@@ -688,10 +687,10 @@ class _AddressState extends State<Address> {
           ),
         ],
       ),
-      body: ValueListenableBuilder<Box<UserData>>(
+      body: ValueListenableBuilder<Box<UserDataModel>>(
           valueListenable: Boxes.getUserData().listenable(),
           builder: (context, box, _) {
-            final data = box.values.toList().cast<UserData>();
+            final data = box.values.toList().cast<UserDataModel>();
             if (data[0].address.isEmpty) {
               return Center(
                 child: Column(

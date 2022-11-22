@@ -56,7 +56,7 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   void addUserData() {
-    final user = UserData()
+    final user = UserDataModel()
       ..name = name.text
       ..email = email.text
       ..phone = phone.text

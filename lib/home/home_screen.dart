@@ -1,21 +1,19 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
-import 'package:starshmucks/db/menu_db.dart';
-import 'package:starshmucks/rewards.dart';
 import 'package:get/get.dart';
 
 import '../model/menu_model.dart';
 import '/boxes.dart';
 import '/model/user_model.dart';
-import '../common_things.dart';
 import '../providers/learnmore_provider.dart';
 import 'now_serving.dart';
 import 'offers_data.dart';
+import '/db/menu_db.dart';
+import '/rewards.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,8 +26,8 @@ bool cartinit = false;
 late String username;
 
 class _HomePageState extends State<HomePage> {
-  late MenuDB db ;
- List<Menu> data  = [];
+  late MenuDB db;
+  List<MenuModel> data = [];
   late var product;
   bool fetching = false;
   void initState() {
@@ -51,10 +49,10 @@ class _HomePageState extends State<HomePage> {
 
   putdata() async {
     final String response =
-    await DefaultAssetBundle.of(context).loadString("json/menu.json");
+        await DefaultAssetBundle.of(context).loadString("json/menu.json");
     final responseData = jsonDecode(response);
     for (var item = 0; item < responseData['Menu'].length; item++) {
-      product = Menu.fromJson(responseData['Menu'][item]);
+      product = MenuModel.fromJson(responseData['Menu'][item]);
       // print('adding ' + responseData['Menu'][item].toString());
       if (data.isNotEmpty && data.contains(product)) {
         //  print('items already exists');
@@ -64,18 +62,14 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // persistentFooterButtons: cartinit ? [viewincart()] : null,
-      body: ValueListenableBuilder<Box<UserData>>(
+      body: ValueListenableBuilder<Box<UserDataModel>>(
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
-          final udata = box.values.toList().cast<UserData>();
+          final udata = box.values.toList().cast<UserDataModel>();
           username = udata[0].name;
           return SingleChildScrollView(
             child: Column(
@@ -93,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                     minFontSize: 25,
                   ),
                 ),
-                getoffers(),
+                GetOffers(),
                 Container(
                   padding: EdgeInsets.all(10),
                   alignment: Alignment.topLeft,
@@ -106,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                     minFontSize: 25,
                   ),
                 ),
-                nowserving(),
+                NowServing(),
                 Container(
                   padding: EdgeInsets.all(10),
                   alignment: Alignment.topLeft,

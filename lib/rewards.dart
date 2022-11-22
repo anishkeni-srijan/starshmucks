@@ -17,7 +17,7 @@ class _RewardsState extends State<Rewards> {
   @override
   Widget build(BuildContext context) {
     final box = Boxes.getUserData();
-    final data = box.values.toList().cast<UserData>();
+    final data = box.values.toList().cast<UserDataModel>();
     return Scaffold(
         appBar: AppBar(
           title: Text('Rewards'),

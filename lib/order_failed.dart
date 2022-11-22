@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:get/get.dart';
-import 'package:starshmucks/common_things.dart';
 
+import '/common_things.dart';
 import 'payment.dart';
 
 class OrderFail extends StatefulWidget {

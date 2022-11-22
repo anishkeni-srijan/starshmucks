@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+
 import '../model/menu_model.dart';
-import '../order/order_page.dart';
 
 class Menudata extends ChangeNotifier {
-  late List<Menu> cakemenudata = [];
-  late List<Menu> coffeemenudata = [];
-  late List<Menu> smoothiemenudata = [];
+  late List<MenuModel> cakemenudata = [];
+  late List<MenuModel> coffeemenudata = [];
+  late List<MenuModel> smoothiemenudata = [];
 
   cakefetchData(context) async {
     print(cakemenudata.length);

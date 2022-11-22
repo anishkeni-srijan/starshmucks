@@ -17,16 +17,15 @@ import 'model/user_model.dart';
 import 'resetpassword/bloc/resetpassword_bloc.dart';
 import 'resetpassword/reset_password.dart';
 import '/providers/learnmore_provider.dart';
-import '/providers/menu_provider.dart';
 import '/editdetails/bloc/editdetails_bloc.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(
-    UserDataAdapter(),
+    UserDataModelAdapter(),
   );
-  await Hive.openBox<UserData>('signupdata');
+  await Hive.openBox<UserDataModel>('signupdata');
 
   // Hive.registerAdapter(CartDataAdapter());
   // await Hive.openBox<CartData>('cartdata');

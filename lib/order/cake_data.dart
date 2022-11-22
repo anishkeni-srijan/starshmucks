@@ -3,25 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../boxes.dart';
-import '../common_things.dart';
 import '../home/home_screen.dart';
-import '../model/cartDBModel.dart';
+import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 import '/db/cart_db.dart';
 import '/db/menu_db.dart';
 
-class getcakedata extends StatefulWidget {
-  const getcakedata({Key? key}) : super(key: key);
+class GetCakeData extends StatefulWidget {
+  const GetCakeData({Key? key}) : super(key: key);
 
   @override
-  State<getcakedata> createState() => _getcakedataState();
+  State<GetCakeData> createState() => _GetCakeDataState();
 }
 
-class _getcakedataState extends State<getcakedata> {
+class _GetCakeDataState extends State<GetCakeData> {
   late MenuDB db;
   bool getdataf = false;
-  List<Menu> data = [];
+  List<MenuModel> data = [];
 
   late CartDB cdb;
   @override

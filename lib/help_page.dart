@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'common_things.dart';
-
 class Help extends StatelessWidget {
   const Help({Key? key}) : super(key: key);
 

@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:starshmucks/order_success.dart';
 
 import 'home/home_screen.dart';
 import '/user_profile.dart';
-import 'boxes.dart';
 import 'cart.dart';
-import 'db/menu_db.dart';
-import 'model/menu_model.dart';
 import 'order/order_page.dart';
 import 'gift_card.dart';
 import 'order_success.dart';
@@ -183,7 +176,7 @@ Future<bool> gohome() async {
 }
 
 goToSuccess() {
-  return Get.to(Ordersuccess());
+  return Get.to(OrderSuccess());
 }
 
 goToFailed(String message) {

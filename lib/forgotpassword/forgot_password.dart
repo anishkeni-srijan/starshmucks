@@ -47,10 +47,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Center(
-          child: ValueListenableBuilder<Box<UserData>>(
+          child: ValueListenableBuilder<Box<UserDataModel>>(
             valueListenable: Boxes.getUserData().listenable(),
             builder: (context, box, _) {
-              final data = box.values.toList().cast<UserData>();
+              final data = box.values.toList().cast<UserDataModel>();
               Future.delayed(Duration.zero, () {
                 if (data.isEmpty) {
                   Get.to(
