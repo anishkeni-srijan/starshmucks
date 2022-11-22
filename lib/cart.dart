@@ -44,9 +44,9 @@ class _MyCartState extends State<MyCart> {
 
   late CartDB cartdb;
   late MenuDB menudb;
+  List<Menu> kart = [];
   List<Menu> kart1 = [];
   List<CartModel> idlist = [];
-
 
   @override
   void initState() {
@@ -55,30 +55,27 @@ class _MyCartState extends State<MyCart> {
     cartdb = CartDB();
     cartdb.initDBCart();
     result = getcarttotal();
-
     getDataOnIds();
     super.initState();
   }
 
   getDataOnIds() async {
     idlist = await cartdb.getDataCart();
-    // print("size" + idlist.length.toString());
-    // // kart= await menudb.ffeedata(1); // prints product at id 1
-    // //logic for sending ids from cart list to get details from menu db
+    print("size" + idlist.length.toString());
+    // kart= await menudb.ffeedata(1); // prints product at id 1
+    //logic for sending ids from cart list to get details from menu db
     for (var i = 0; i < idlist.length; i++) {
-      var itxx =await menudb.ffeedata(idlist[i].id);
-      kart1.add(itxx);
+      kart = await menudb.ffeedata(idlist[i].id);
+      print("init cart " + kart.length.toString());
+
+      if (kart.length == 1) {
+        kart1.add(kart.first);
+      }
 
       //print("fdg " + kart.runtimeType.toString());
-      // print("added to cart: " + idlist[i].id.toString());
-      // kart1.add(kart);
+      print("added to cart: " + kart1.toString());
     }
   }
-  clearcart(){
-    cartdb = CartDB();
-    cartdb.clearcart();
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -137,12 +134,7 @@ class _MyCartState extends State<MyCart> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         foregroundColor: HexColor("#175244"),
-        title: Row(
-          children: [
-            Text("Cart"),
-            ElevatedButton(onPressed: (){}, child:Text('clear'))
-          ],
-        ),
+        title: Text("Cart"),
         elevation: 2,
       ),
       body: ValueListenableBuilder<Box<CartData>>(
@@ -162,7 +154,7 @@ class _MyCartState extends State<MyCart> {
                       Row(
                         children: [
                           Image.asset(
-                           kart1[index].image,
+                            kart1[index].image,
                             height: 100,
                             width: 100,
                           ),
