@@ -17,8 +17,6 @@ import 'model/user_model.dart';
 import 'resetpassword/bloc/resetpassword_bloc.dart';
 import 'resetpassword/reset_password.dart';
 import '/providers/learnmore_provider.dart';
-import '/providers/nowserving_provider.dart';
-import '/providers/offers_provider.dart';
 import '/providers/menu_provider.dart';
 import '/editdetails/bloc/editdetails_bloc.dart';
 
@@ -62,8 +60,6 @@ class MyApp extends StatelessWidget {
           create: (context) => ResetpasswordBloc(),
           child: ResetPasswordPage(),
         ),
-        ChangeNotifierProvider(create: (context) => OffersData()),
-        ChangeNotifierProvider(create: (context) => NowServing()),
         ChangeNotifierProvider(create: (context) => Learnmore()),
         //  ChangeNotifierProvider(create: (context) => Menudata()),
       ],

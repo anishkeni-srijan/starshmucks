@@ -23,10 +23,9 @@ class CartDB {
   }
 
   Future<bool> insertDataCart(CartModel item) async {
+    // print("inserting in cart");
     final Database db = await initDBCart();
     db.insert("CartTable", item.toMap());
-    print("inserted in cart");
-
     //db.delete("CartTable");
     return true;
   }
@@ -38,9 +37,8 @@ class CartDB {
     print(data.length);
     return data.map((e) => CartModel.fromJson(e)).toList();
   }
-
   //temp
-  clear() async {
+   clear() async {
     final Database db = await initDBCart();
     db.delete("CartTable");
   }

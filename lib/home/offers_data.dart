@@ -5,9 +5,9 @@ import 'package:hexcolor/hexcolor.dart';
 
 import '../boxes.dart';
 import '../db/cart_db.dart';
-import '../db/offers_db.dart';
+import '../db/menu_db.dart';
 import '../model/cartDBModel.dart';
-import '../model/offers_model.dart';
+import '../model/menu_model.dart';
 import 'home_screen.dart';
 
 class getoffers extends StatefulWidget {
@@ -18,27 +18,29 @@ class getoffers extends StatefulWidget {
 }
 
 class _getoffersState extends State<getoffers> {
-  late OffersDb db;
+  late MenuDB db;
   bool getdataf = false;
+  List<Menu> odata = [];
   late var product;
-  List<Offer> odata = [];
+
   late CartDB cdb;
   @override
   void initState() {
     cdb = CartDB();
     cdb.initDBCart();
-    db = OffersDb();
-    db.initOffersdb();
+    db = MenuDB();
+    db.initDBMenu();
     getdata();
     super.initState();
   }
 
   getdata() async {
-    odata = (await db.Offersdata()).cast<Offer>();
+    odata = await db.Offersdata();
     setState(() {
       getdataf = true;
     });
   }
+
 
   addToCart(context, index) async {
     final cartp = await db.Offersdata();

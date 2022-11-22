@@ -11,7 +11,7 @@ class MenuDB {
   Future<Database> initDBMenu() async {
     print("initialising db... menu");
     String databasepath = await getDatabasesPath();
-    final path = join(databasepath, "Menutable.db");
+    final path = join(databasepath, "Menu1.db");
     return openDatabase(
       path,
       onCreate: (database, version) async {
@@ -23,6 +23,8 @@ class MenuDB {
           image TEXT NOT NULL,
           rating TEXT NOT NULL,
           price TEXT NOT NULL,
+          tag TEXT NOT NULL,
+          qty INT,
           category TEXT NOT NULL
           )
           """);
@@ -63,7 +65,18 @@ class MenuDB {
         await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['smoothie']);
     return data.map((e) => Menu.fromJson(e)).toList();
   }
-
+  Future<List<Menu>> NowServedata() async {
+    final Database db = await initDBMenu();
+    final List<Map<String, dynamic?>> nowserve = await db
+        .rawQuery("SELECT * FROM Menu WHERE category=?", ['nowserve']);
+    return nowserve.map((e) => Menu.fromJson(e)).toList();
+  }
+  Future<List<Menu>> Offersdata() async {
+    final Database db = await initDBMenu();
+    final List<Map<String, dynamic>> offerlist =
+    await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['offers']);
+    return offerlist.map((e) => Menu.fromJson(e)).toList();
+  }
   ffeedata(getid) async {
     final Database db = await initDBMenu();
     dynamic data =
@@ -80,6 +93,7 @@ class MenuDB {
     return List.generate(maps.length, (i) {
       return Menu(
         id: maps[i]['id'],
+        tag:maps[i]['tag'],
         title: maps[i]['title'],
         price: maps[i]['price'],
         description: maps[i]['description'],
@@ -88,5 +102,20 @@ class MenuDB {
         rating: maps[i]['rating'],
       );
     });
+  }
+  Future<void> updateqty(Menu menu) async {
+    // Get a reference to the database.
+    final db = await initDBMenu();
+
+    // Update the given Dog.
+    await db.update(
+      'Menu',
+      menu.toMap(),
+      // Ensure that the Dog has a matching id.
+      where: 'id = ?',
+      // Pass the Dog's id as a whereArg to prevent SQL injection.
+      whereArgs: [menu.id],
+    );
+    print(menu.qty);
   }
 }

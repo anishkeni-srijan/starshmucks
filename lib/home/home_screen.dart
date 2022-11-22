@@ -5,16 +5,14 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
+import 'package:starshmucks/db/menu_db.dart';
 import 'package:starshmucks/rewards.dart';
 import 'package:get/get.dart';
 
+import '../model/menu_model.dart';
 import '/boxes.dart';
 import '/model/user_model.dart';
 import '../common_things.dart';
-import '../db/nowserve_db.dart';
-import '../db/offers_db.dart';
-import '../model/nowserving_model.dart';
-import '../model/offers_model.dart';
 import '../providers/learnmore_provider.dart';
 import 'now_serving.dart';
 import 'offers_data.dart';
@@ -30,51 +28,45 @@ bool cartinit = false;
 late String username;
 
 class _HomePageState extends State<HomePage> {
-  late NowServeDb nowdb;
-  late OffersDb offerdb;
-
-  List<NowServe> nowdata = [];
-  List<Offer> offerdata = [];
-
-  @override
+  late MenuDB db ;
+ List<Menu> data  = [];
+  late var product;
+  bool fetching = false;
   void initState() {
-    nowdb = NowServeDb();
-    nowdb.initNowServedb();
-    offerdb = OffersDb();
-    offerdb.initOffersdb();
+    db = MenuDB();
+    db.initDBMenu();
     getdata();
-    putnowdata();
-    putofferdata();
+    putdata();
+    // cdb = CartDB();
+    // cdb.initDBCart();
     super.initState();
   }
 
   getdata() async {
-    nowdata = await nowdb.NowServedata();
-    offerdata = (await offerdb.Offersdata()).cast<Offer>();
-    setState(() {});
+    data = await db.getDataMenu();
+    setState(() {
+      fetching = true;
+    });
   }
 
-  putnowdata() async {
+  putdata() async {
     final String response =
-        await DefaultAssetBundle.of(context).loadString("json/nowserve.json");
+    await DefaultAssetBundle.of(context).loadString("json/menu.json");
     final responseData = jsonDecode(response);
-    for (var item = 0; item < responseData['NowServe'].length; item++) {
-      var product = NowServe.fromJson(responseData['NowServe'][item]);
-      print('adding ' + responseData['NowServe'][item].toString());
-      nowdb.insertnowserveData(product);
+    for (var item = 0; item < responseData['Menu'].length; item++) {
+      product = Menu.fromJson(responseData['Menu'][item]);
+      // print('adding ' + responseData['Menu'][item].toString());
+      if (data.isNotEmpty && data.contains(product)) {
+        //  print('items already exists');
+      } else {
+        db.insertDataMenu(product);
+      }
     }
   }
 
-  putofferdata() async {
-    final String response =
-        await DefaultAssetBundle.of(context).loadString("json/offers.json");
-    final responseData = jsonDecode(response);
-    for (var item = 0; item < responseData['Offers'].length; item++) {
-      var offproduct = Offer.fromJson(responseData['Offers'][item]);
-      print('adding ' + responseData['Offers'][item].toString());
-      offerdb.insertOffersData(offproduct);
-    }
-  }
+
+
+
 
   @override
   Widget build(BuildContext context) {

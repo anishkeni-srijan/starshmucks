@@ -6,6 +6,7 @@
   "image": "images/cakes/brownie.png",
   "id": 1,
   "rating": "4.0",
+  "tag": "Tastes like strawberries on a summer evenin'",
   "category": "cake"
 },
 {
@@ -15,6 +16,7 @@
 "image": "images/cakes/tiramisu.png",
 "id": 2,
 "rating": "4.0",
+  "tag": "Tastes like strawberries on a summer evenin'",
   "category": "cake"
 },
 {
@@ -24,6 +26,7 @@
 "image": "images/cakes/berliner.png",
 "id": 3,
 "rating": "4.0",
+  "tag": "Tastes like strawberries on a summer evenin'",
   "category": "cake"
 },
 {
@@ -33,6 +36,7 @@
 "image": "images/coffee/americano.png",
 "id": 4,
 "rating": "4.0",
+  "tag": "Tastes like strawberries on a summer evenin'",
   "category": "coffee"
 },
 {
@@ -42,6 +46,7 @@
 "image": "images/coffee/mocha.png",
 "id": 5,
 "rating": "4.0",
+  "tag": "Tastes like strawberries on a summer evenin'",
   "category": "coffee"
 },
 {
@@ -51,6 +56,7 @@
 "image": "images/coffee/latte.png",
 "id": 6,
 "rating": "4.0",
+  "tag": "Tastes like strawberries on a summer evenin'",
   "category": "coffee"
 },
 {
@@ -60,6 +66,7 @@
 "image": "images/christmas.png",
 "id": 7,
 "rating": "4.0",
+  "tag": "Tastes like strawberries on a summer evenin'",
   "category": "smoothie"
 },
 {
@@ -69,6 +76,7 @@
 "image": "images/buytwo.png",
 "id": 8,
 "rating": "4.0",
+  "tag": "Tastes like strawberries on a summer evenin'",
   "category": "smoothie"
 },
 {
@@ -78,7 +86,62 @@
 "image": "images/seasonal.png",
 "id": 9,
 "rating": "4.0",
+  "tag": "Tastes like strawberries on a summer evenin'",
   "category": "smoothie"
-}
+},
+
+  {
+    "image": "images/newone.png",
+    "title": "Watermelon Sugar",
+    "tag": "Tastes like strawberries on a summer evenin'",
+    "price": "13.5",
+    "bgcolor": "Colors.deepOrangeAccent",
+    "description": "We wish you a merry Christmas.",
+    "category": "nowserve",
+    "rating": "4.3/5",
+    "id": 10
+  },
+  {
+    "image": "images/newtwo.png",
+    "title": "Absolute Green",
+    "tag": "Kiwi is here to make you happy.",
+    "price": "13.6",
+    "bgcolor": "Colors.teal",
+    "description": "We wish you a merry Christmas.",
+    "rating": "4.3/5",
+    "category": "nowserve",
+    "id": 11
+  },
+  {
+    "image": "images/christmas.png",
+    "tag": "Join us this Christmas",
+    "title": "A Schtarry Decade",
+    "price": "13.5",
+    "description": "We wish you a merry Christmas.",
+    "rating": "4.3/5",
+    "category": "offers",
+    "id": 12
+  },
+  {
+    "image": "images/buytwo.png",
+    "tag": "Join us this Christmas",
+    "title": "Berries and Cherries",
+    "price": "13.5",
+    "description": "We wish you a merry Christmas.",
+    "rating": "4.3/5",
+    "category": "offers",
+    "id": 13
+  },
+  {
+    "image": "images/seasonal.png",
+    "tag": "Join us this Christmas",
+    "title": "Schtrawberry",
+    "price": "13.5",
+    "description": "We wish you a merry Christmas.",
+    "rating": "4.3/5",
+    "category": "offers",
+    "id": 14
+  }
+
 ]
 }

@@ -31,7 +31,6 @@ class _getcoffeedataState extends State<getcoffeedata> {
     menuDB = MenuDB();
     menuDB.initDBMenu();
     getMenuData_coffee();
-
     super.initState();
   }
 
@@ -39,19 +38,20 @@ class _getcoffeedataState extends State<getcoffeedata> {
     late MenuDB db;
     db = MenuDB();
     final cartp = await db.coffeedata();
-    cdb.insertDataCart(
-      CartModel(id: cartp[index].id),
-    );
-    // var zindex = data.indexWhere((item) => item.id == cartp[index].id);
+
+    var zindex = data.indexWhere((item) => item.id == cartp[index].id);
     // // print("test " + zindex.toString());
-    // if (zindex != -1) {
-    //   data[zindex].qty++;
-    //   box.putAt(zindex, data[zindex]);
-    //   //print("already inn");
-    // } else {
-    //   box.add(cartItem);
-    //   // print(cartItem.title);
-    // }
+     if (zindex != -1) {
+       cdb.insertDataCart(
+         CartModel(id: cartp[index].id),
+       );
+
+       db.updateqty(cartp[index]);
+     } else {
+       print('already added');
+       cartp[index].qty = cartp[index].qty + 1;
+       db.updateqty(cartp[index]);
+     }
     setState(() {});
   }
 

@@ -120,14 +120,7 @@ gethomeappbar() {
 }
 
 increaseqty(index) {
-  // ValueListenableBuilder<Box<CartData>>(
-  //     valueListenable: Boxes.getCartData().listenable(),
-  //     builder: (context, box, _) {
-  //       final data = box.values.toList().cast<CartData>();
-  //       data[index].qty = data[index].qty + 1;
-  //       box.putAt(index, data[index]);
-  //       return Container();
-  //     });
+  // qty[index] = qty[index]+1;
 }
 
 viewincart() {

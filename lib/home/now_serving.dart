@@ -2,14 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:starshmucks/db/menu_db.dart';
 
 import '../boxes.dart';
 import '../db/cart_db.dart';
-import '../db/nowserve_db.dart';
 import '../model/cartDBModel.dart';
 
-import '../model/nowserving_model.dart';
-import '../providers/nowserving_provider.dart';
+import '../model/menu_model.dart';
 import 'home_screen.dart';
 
 class nowserving extends StatefulWidget {
@@ -21,9 +20,9 @@ class nowserving extends StatefulWidget {
 
 class _nowservingState extends State<nowserving> {
   addToCart(context, index) async {
-    late NowServeDb db;
-    db = NowServeDb();
-    final cartp = await db.NowServedata();
+    late MenuDB db;
+    db = MenuDB();
+    final cartp = await db.getDataMenu();
     cdb.insertDataCart(
       CartModel(id: cartp[index].id),
     );
@@ -40,9 +39,9 @@ class _nowservingState extends State<nowserving> {
     // }
   }
 
-  late NowServeDb db;
+  late MenuDB db;
   bool getdataf = false;
-  List<NowServe> nowdata = [];
+  List<Menu> nowdata = [];
   late var product;
 
   late CartDB cdb;
@@ -50,8 +49,8 @@ class _nowservingState extends State<nowserving> {
   void initState() {
     cdb = CartDB();
     cdb.initDBCart();
-    db = NowServeDb();
-    db.initNowServedb();
+    db = MenuDB();
+    db.initDBMenu();
     getdata();
     super.initState();
   }
