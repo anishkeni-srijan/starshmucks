@@ -66,9 +66,14 @@ class _MyCartState extends State<MyCart> {
     //logic for sending ids from cart list to get details from menu db
     for (var i = 0; i < idlist.length; i++) {
       kart = await menudb.ffeedata(idlist[i].id);
+      print("init cart " + kart.length.toString());
+
+      if (kart.length == 1) {
+        kart1.add(kart.first);
+      }
 
       //print("fdg " + kart.runtimeType.toString());
-      print("added to cart: " + idlist[i].id.toString());
+      print("added to cart: " + kart1.toString());
     }
   }
 
@@ -140,7 +145,7 @@ class _MyCartState extends State<MyCart> {
               cartinit = false;
             }
             return ListView.builder(
-              itemCount: kart.length,
+              itemCount: kart1.length,
               itemBuilder: (context, index) {
                 return Card(
                   elevation: 8,
@@ -149,7 +154,7 @@ class _MyCartState extends State<MyCart> {
                       Row(
                         children: [
                           Image.asset(
-                            kart[index].image,
+                            kart1[index].image,
                             height: 100,
                             width: 100,
                           ),
@@ -160,7 +165,7 @@ class _MyCartState extends State<MyCart> {
                               children: [
                                 SizedBox(
                                     width: 150,
-                                    child: Text(kart[index].title,
+                                    child: Text(kart1[index].title,
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis)),
                                 Text("\$ " + data[index].price),
