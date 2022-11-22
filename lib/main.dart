@@ -21,7 +21,6 @@ import '/providers/nowserving_provider.dart';
 import '/providers/offers_provider.dart';
 import '/providers/menu_provider.dart';
 import '/editdetails/bloc/editdetails_bloc.dart';
-import '/model/cart_model.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,8 +30,8 @@ Future main() async {
   );
   await Hive.openBox<UserData>('signupdata');
 
-  Hive.registerAdapter(CartDataAdapter());
-  await Hive.openBox<CartData>('cartdata');
+  // Hive.registerAdapter(CartDataAdapter());
+  // await Hive.openBox<CartData>('cartdata');
   runApp(const MyApp());
 }
 
@@ -66,7 +65,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => OffersData()),
         ChangeNotifierProvider(create: (context) => NowServing()),
         ChangeNotifierProvider(create: (context) => Learnmore()),
-      //  ChangeNotifierProvider(create: (context) => Menudata()),
+        //  ChangeNotifierProvider(create: (context) => Menudata()),
       ],
       child: GestureDetector(
         onTap: () {

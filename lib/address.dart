@@ -8,7 +8,7 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import 'payment.dart';
 import 'boxes.dart';
-import 'model/cart_model.dart';
+
 import 'model/user_model.dart';
 
 class Address extends StatefulWidget {
@@ -20,7 +20,6 @@ class Address extends StatefulWidget {
 
 class _AddressState extends State<Address> {
   @override
-
   addAddress(context) {
     final fname = TextEditingController();
     final phone = TextEditingController();
@@ -838,36 +837,31 @@ class _AddressState extends State<Address> {
             }
           }),
       bottomNavigationBar: Container(
-          padding: EdgeInsets.all(8.0),
-          child: ValueListenableBuilder<Box<CartData>>(
-              valueListenable: Boxes.getCartData().listenable(),
-              builder: (context, box, _) {
-                final data = box.values.toList().cast<CartData>();
-                return Row(
-                  children: [
-                    Text(
-                      "Total: \$${data[0].ttlPrice.toStringAsFixed(2)}",
-                      style: TextStyle(
-                          fontSize: 22.0, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      width: 150,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        afterSelecting
-                            ? Get.to(PaymentPage(),
-                                transition: Transition.rightToLeft)
-                            : Container();
-                      },
-                      child: Text("Pay"),
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(HexColor("#036635"))),
-                    ),
-                  ],
-                );
-              })),
+        padding: EdgeInsets.all(8.0),
+        child:
+            // ValueListenableBuilder<Box<CartData>>(
+            //     valueListenable: Boxes.getCartData().listenable(),
+            //     builder: (context, box, _) {
+            //       final data = box.values.toList().cast<CartData>();
+            Row(
+          children: [
+            SizedBox(
+              width: 150,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                afterSelecting
+                    ? Get.to(PaymentPage(), transition: Transition.rightToLeft)
+                    : Container();
+              },
+              child: Text("Pay"),
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(HexColor("#036635"))),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

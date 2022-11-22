@@ -5,9 +5,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:get/get.dart';
 import 'package:starshmucks/common_things.dart';
 
-import 'boxes.dart';
-import 'home/home_screen.dart';
-import 'model/cart_model.dart';
 import 'payment.dart';
 
 class OrderFail extends StatefulWidget {
@@ -21,14 +18,14 @@ class OrderFail extends StatefulWidget {
 class _OrderFailState extends State<OrderFail> {
   var result;
   getcarttotal() {
-    final box = Boxes.getCartData();
-    final data = box.values.toList().cast<CartData>();
-    late double result = 0;
-    for (var index = 0; index < data.length; index++) {
-      result = result + double.parse(data[index].price) * data[index].qty;
-    }
-    setState(() {});
-    return result;
+    // final box = Boxes.getCartData();
+    // final data = box.values.toList().cast<CartData>();
+    // late double result = 0;
+    // for (var index = 0; index < data.length; index++) {
+    //   result = result + double.parse(data[index].price) * data[index].qty;
+    // }
+    // setState(() {});
+    // return result;
   }
 
   String failedMessage = getMessage();

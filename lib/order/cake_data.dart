@@ -5,10 +5,8 @@ import 'package:hexcolor/hexcolor.dart';
 
 import '../boxes.dart';
 import '../common_things.dart';
-
 import '../home/home_screen.dart';
 import '../model/cartDBModel.dart';
-import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 import '/db/cart_db.dart';
 import '/db/menu_db.dart';
@@ -23,32 +21,23 @@ class getcakedata extends StatefulWidget {
 class _getcakedataState extends State<getcakedata> {
   addToCart(context, index) async {
     // print("in cart " + index.toString());
-    final box = Boxes.getCartData();
-    final data = box.values.toList().cast<CartData>();
+
     final cartp = await db.cakedata();
 
     cdb.insertDataCart(
       CartModel(id: cartp[index].id),
     );
-    final cartItem = CartData()
-      ..title = cartp[index].title
-      ..price = cartp[index].price
-      ..qty = 1
-      ..isInCart = true
-      ..image = cartp[index].image
-      ..ttlPrice = 0.0
-      ..id = cartp[index].id;
 
-    var zindex = data.indexWhere((item) => item.id == cartp[index].id);
-    // print("test " + zindex.toString());
-    if (zindex != -1) {
-      data[zindex].qty++;
-      box.putAt(zindex, data[zindex]);
-      // print("already inn");
-    } else {
-      box.add(cartItem);
-      // print(cartItem.title);
-    }
+    // var zindex = data.indexWhere((item) => item.id == cartp[index].id);
+    // // print("test " + zindex.toString());
+    // if (zindex != -1) {
+    //   data[zindex].qty++;
+    //   box.putAt(zindex, data[zindex]);
+    //   // print("already inn");
+    // } else {
+    //   box.add(cartItem);
+    //   // print(cartItem.title);
+    // }
     setState(() {});
   }
 

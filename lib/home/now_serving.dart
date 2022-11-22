@@ -7,7 +7,7 @@ import '../boxes.dart';
 import '../db/cart_db.dart';
 import '../db/nowserve_db.dart';
 import '../model/cartDBModel.dart';
-import '../model/cart_model.dart';
+
 import '../model/nowserving_model.dart';
 import '../providers/nowserving_provider.dart';
 import 'home_screen.dart';
@@ -24,33 +24,20 @@ class _nowservingState extends State<nowserving> {
     late NowServeDb db;
     db = NowServeDb();
     final cartp = await db.NowServedata();
-    print("in cart " + index.toString());
-    final box = Boxes.getCartData();
-    final cdata = box.values.toList().cast<CartData>();
-    //final cartp = Provider.of<NowServing>(context, listen: false);
-    print("Cartpindex");
-    print(cartp[index].id);
     cdb.insertDataCart(
       CartModel(id: cartp[index].id),
     );
-    final cartItem = CartData()
-      ..title = cartp[index].title
-      ..price = cartp[index].price
-      ..qty = 1
-      ..isInCart = true
-      ..image = cartp[index].image
-      ..ttlPrice = 0.0
-      ..id = cartp[index].id;
-    int zindex = cdata.indexWhere((item) => item.id == cartp[index].id);
-    print("test " + zindex.toString());
-    if (zindex != -1) {
-      cdata[zindex].qty++;
-      box.putAt(zindex, cdata[zindex]);
-      print("already inn");
-    } else {
-      box.add(cartItem);
-      print(cartItem.title);
-    }
+
+    // int zindex = cdata.indexWhere((item) => item.id == cartp[index].id);
+    // print("test " + zindex.toString());
+    // if (zindex != -1) {
+    //   cdata[zindex].qty++;
+    //   box.putAt(zindex, cdata[zindex]);
+    //   print("already inn");
+    // } else {
+    //   box.add(cartItem);
+    //   print(cartItem.title);
+    // }
   }
 
   late NowServeDb db;

@@ -1,7 +1,6 @@
 import 'package:hive/hive.dart';
 import 'dart:io';
 
-import 'package:starshmucks/model/cart_model.dart';
 part 'user_model.g.dart';
 
 @HiveType(typeId: 0)

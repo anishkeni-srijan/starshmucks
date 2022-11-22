@@ -14,7 +14,6 @@ import 'package:starshmucks/model/user_model.dart';
 
 import 'boxes.dart';
 import 'help_page.dart';
-import 'model/cart_model.dart';
 
 class Ordersuccess extends StatefulWidget {
   Ordersuccess({Key? key}) : super(key: key);
@@ -78,8 +77,8 @@ class _OrdersuccessState extends State<Ordersuccess> {
   Widget build(BuildContext context) {
     // final box2 = Boxes.getUserData();
     // final data2 = box2.values.toList().cast<UserData>();
-    final box = Boxes.getCartData();
-    final data = box.values.toList().cast<CartData>();
+    // final box = Boxes.getCartData();
+    // final data = box.values.toList().cast<CartData>();
     //
     // //to copy list
     //  data2[0].orders = data.cast<List>();
@@ -98,7 +97,7 @@ class _OrdersuccessState extends State<Ordersuccess> {
                   ),
                   label: Text(''),
                   onPressed: () {
-                    box.clear();
+                    //box.clear();
                     Get.to(bottomBar());
                   },
                 ),
@@ -169,71 +168,71 @@ class _OrdersuccessState extends State<Ordersuccess> {
                   indent: 0,
                   endIndent: 0,
                 ),
-                ValueListenableBuilder<Box<CartData>>(
-                    valueListenable: Boxes.getCartData().listenable(),
-                    builder: (context, box, _) {
-                      final data = box.values.toList().cast<CartData>();
-                      if (data.isEmpty) {
-                        cartinit = false;
-                      }
-                      return data.isEmpty
-                          ? Center(child: Text("No items in cart"))
-                          : SizedBox(
-                              width: 400,
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: data.length,
-                                itemBuilder: (context, index) {
-                                  return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10,
-                                            right: 10,
-                                            bottom: 5,
-                                            top: 5),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                    width: 150,
-                                                    child: Text(
-                                                        data[index].title,
-                                                        maxLines: 2,
-                                                        overflow: TextOverflow
-                                                            .ellipsis)),
-                                                Text(
-                                                    data[index].qty.toString() +
-                                                        ' x qty'),
-                                              ],
-                                            ),
-                                            Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.end,
-                                                children: [
-                                                  Row(children: [
-                                                    AutoSizeText(
-                                                      "\$ " + data[index].price,
-                                                      minFontSize: 10,
-                                                    ),
-                                                  ]),
-                                                ])
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
-                            );
-                    }),
+                // ValueListenableBuilder<Box<CartData>>(
+                //     valueListenable: Boxes.getCartData().listenable(),
+                //     builder: (context, box, _) {
+                //       final data = box.values.toList().cast<CartData>();
+                //       if (data.isEmpty) {
+                //         cartinit = false;
+                //       }
+                //       return data.isEmpty
+                //           ? Center(child: Text("No items in cart"))
+                //           : SizedBox(
+                //               width: 400,
+                //               child: ListView.builder(
+                //                 shrinkWrap: true,
+                //                 itemCount: data.length,
+                //                 itemBuilder: (context, index) {
+                //                   return Column(
+                //                     crossAxisAlignment:
+                //                         CrossAxisAlignment.start,
+                //                     children: [
+                //                       Padding(
+                //                         padding: const EdgeInsets.only(
+                //                             left: 10,
+                //                             right: 10,
+                //                             bottom: 5,
+                //                             top: 5),
+                //                         child: Row(
+                //                           mainAxisAlignment:
+                //                               MainAxisAlignment.spaceBetween,
+                //                           children: [
+                //                             Column(
+                //                               crossAxisAlignment:
+                //                                   CrossAxisAlignment.start,
+                //                               children: [
+                //                                 Container(
+                //                                     width: 150,
+                //                                     child: Text(
+                //                                         data[index].title,
+                //                                         maxLines: 2,
+                //                                         overflow: TextOverflow
+                //                                             .ellipsis)),
+                //                                 Text(
+                //                                     data[index].qty.toString() +
+                //                                         ' x qty'),
+                //                               ],
+                //                             ),
+                //                             Column(
+                //                                 crossAxisAlignment:
+                //                                     CrossAxisAlignment.end,
+                //                                 children: [
+                //                                   Row(children: [
+                //                                     AutoSizeText(
+                //                                       "\$ " + data[index].price,
+                //                                       minFontSize: 10,
+                //                                     ),
+                //                                   ]),
+                //                                 ])
+                //                           ],
+                //                         ),
+                //                       ),
+                //                     ],
+                //                   );
+                //                 },
+                //               ),
+                //             );
+                //
                 Padding(
                   padding: const EdgeInsets.only(top: 5, bottom: 5),
                   child: Divider(
@@ -256,10 +255,10 @@ class _OrdersuccessState extends State<Ordersuccess> {
                             "Cart total",
                             style: TextStyle(fontWeight: FontWeight.w300),
                           ),
-                          Text(
-                            "\$ " + data[0].ttlPrice.toStringAsFixed(2),
-                            style: TextStyle(fontWeight: FontWeight.w300),
-                          ),
+                          // Text(
+                          //   "\$ " + data[0].ttlPrice.toStringAsFixed(2),
+                          //   style: TextStyle(fontWeight: FontWeight.w300),
+                          // ),
                         ],
                       ),
                       Row(
@@ -295,12 +294,12 @@ class _OrdersuccessState extends State<Ordersuccess> {
                             "Total Amount",
                             style: TextStyle(fontWeight: FontWeight.w600),
                           ),
-                          Text(
-                            "\$ " +
-                                (data[0].ttlPrice - 10.0 + 5.00)
-                                    .toStringAsFixed(2),
-                            style: TextStyle(fontWeight: FontWeight.w600),
-                          ),
+                          // Text(
+                          //   "\$ " +
+                          //       (data[0].ttlPrice - 10.0 + 5.00)
+                          //           .toStringAsFixed(2),
+                          //   style: TextStyle(fontWeight: FontWeight.w600),
+                          // ),
                         ],
                       )
                     ],
@@ -343,18 +342,18 @@ class _OrdersuccessState extends State<Ordersuccess> {
 }
 
 gainrewards() {
-  final box = Boxes.getUserData();
-  final data = box.values.toList().cast<UserData>();
-
-  final box2 = Boxes.getCartData();
-  final datab = box2.values.toList().cast<CartData>();
-  var items = 0;
-  for (var i = 0; i < datab.length; i++) {
-    items = items + datab[i].qty;
-  }
-  print("before" + data[0].rewards.toString());
-  data[0].rewards = data[0].rewards!.toDouble() + (items * 10);
-  print("no. of items " + items.toString());
-  box.putAt(0, data[0]);
-  print('total rewards: ' + data[0].rewards.toString());
+  // final box = Boxes.getUserData();
+  // final data = box.values.toList().cast<UserData>();
+  //
+  // final box2 = Boxes.getCartData();
+  // final datab = box2.values.toList().cast<CartData>();
+  // var items = 0;
+  // for (var i = 0; i < datab.length; i++) {
+  //   items = items + datab[i].qty;
+  // }
+  // print("before" + data[0].rewards.toString());
+  // data[0].rewards = data[0].rewards!.toDouble() + (items * 10);
+  // print("no. of items " + items.toString());
+  // box.putAt(0, data[0]);
+  // print('total rewards: ' + data[0].rewards.toString());
 }

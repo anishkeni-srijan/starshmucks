@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:starshmucks/model/cart_model.dart';
 import 'package:starshmucks/model/orderHistory.dart';
 
 import '../model/menu_model.dart';
@@ -64,16 +63,20 @@ class MenuDB {
         await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['smoothie']);
     return data.map((e) => Menu.fromJson(e)).toList();
   }
+
   ffeedata(getid) async {
     final Database db = await initDBMenu();
-    dynamic data = await db.query("Menu",  where: "id = ?", whereArgs: [getid]) as Menu;
+    dynamic data =
+        await db.query("Menu", where: "id = ?", whereArgs: [getid]) as Menu;
     print(data.runtimeType);
     return data;
   }
+
   // A method that retrieves all the dogs from the dogs table.
   Future<List<Menu>> fefe(getit) async {
     final db = await initDBMenu();
-    final List<Map<String, dynamic>> maps = await db.query('Menu',where: "id = ?", whereArgs: [getit]);
+    final List<Map<String, dynamic>> maps =
+        await db.query('Menu', where: "id = ?", whereArgs: [getit]);
     return List.generate(maps.length, (i) {
       return Menu(
         id: maps[i]['id'],

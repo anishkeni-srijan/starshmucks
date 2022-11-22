@@ -14,7 +14,6 @@ import 'db/menu_db.dart';
 import 'model/menu_model.dart';
 import 'order/order_page.dart';
 import 'gift_card.dart';
-import 'model/cart_model.dart';
 import 'order_success.dart';
 import 'order_failed.dart';
 
@@ -121,65 +120,65 @@ gethomeappbar() {
 }
 
 increaseqty(index) {
-  ValueListenableBuilder<Box<CartData>>(
-      valueListenable: Boxes.getCartData().listenable(),
-      builder: (context, box, _) {
-        final data = box.values.toList().cast<CartData>();
-        data[index].qty = data[index].qty + 1;
-        box.putAt(index, data[index]);
-        return Container();
-      });
+  // ValueListenableBuilder<Box<CartData>>(
+  //     valueListenable: Boxes.getCartData().listenable(),
+  //     builder: (context, box, _) {
+  //       final data = box.values.toList().cast<CartData>();
+  //       data[index].qty = data[index].qty + 1;
+  //       box.putAt(index, data[index]);
+  //       return Container();
+  //     });
 }
 
 viewincart() {
-  final box = Boxes.getCartData();
-  final data = box.values.toList().cast<CartData>();
-  var size = data.length;
-  late double result = 0;
-  for (int index = 0; index < data.length; index++) {
-    result = result + double.parse(data[index].price) * data[index].qty;
-  }
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      Row(
-        children: [
-          Text(
-            size.toString(),
-            style: TextStyle(
-                color: HexColor("#036635"), fontWeight: FontWeight.w600),
-          ),
-          size < 2
-              ? Text(
-                  " item | ",
-                  style: TextStyle(color: HexColor("#036635")),
-                )
-              : Text(
-                  " items | ",
-                  style: TextStyle(color: HexColor("#036635")),
-                ),
-          Text(
-            "\$" + result.toStringAsFixed(2),
-            style: TextStyle(
-                color: HexColor("#036635"), fontWeight: FontWeight.w600),
-          ),
-        ],
-      ),
-      TextButton(
-          style: ButtonStyle(
-            backgroundColor:
-                MaterialStateProperty.all<Color?>(HexColor("#036635")),
-            foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
-          ),
-          child: Text(
-            "View in Cart",
-          ),
-          onPressed: () {
-            Get.to(MyCart(), transition: Transition.downToUp);
-          }),
-    ],
-  );
+  // final box = Boxes.getCartData();
+  // final data = box.values.toList().cast<CartData>();
+  // var size = data.length;
+  // late double result = 0;
+  // for (int index = 0; index < data.length; index++) {
+  //   result = result + double.parse(data[index].price) * data[index].qty;
+  // }
+  // return Row(
+  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //   crossAxisAlignment: CrossAxisAlignment.center,
+  //   children: [
+  //     Row(
+  //       children: [
+  //         Text(
+  //           size.toString(),
+  //           style: TextStyle(
+  //               color: HexColor("#036635"), fontWeight: FontWeight.w600),
+  //         ),
+  //         size < 2
+  //             ? Text(
+  //                 " item | ",
+  //                 style: TextStyle(color: HexColor("#036635")),
+  //               )
+  //             : Text(
+  //                 " items | ",
+  //                 style: TextStyle(color: HexColor("#036635")),
+  //               ),
+  //         Text(
+  //           "\$" + result.toStringAsFixed(2),
+  //           style: TextStyle(
+  //               color: HexColor("#036635"), fontWeight: FontWeight.w600),
+  //         ),
+  //       ],
+  //     ),
+  //     TextButton(
+  //         style: ButtonStyle(
+  //           backgroundColor:
+  //               MaterialStateProperty.all<Color?>(HexColor("#036635")),
+  //           foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
+  //         ),
+  //         child: Text(
+  //           "View in Cart",
+  //         ),
+  //         onPressed: () {
+  //           Get.to(MyCart(), transition: Transition.downToUp);
+  //         }),
+  //   ],
+  // );
 }
 
 Future<bool> gohome() async {
