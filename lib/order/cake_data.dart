@@ -19,34 +19,11 @@ class getcakedata extends StatefulWidget {
 }
 
 class _getcakedataState extends State<getcakedata> {
-  addToCart(context, index) async {
-    // print("in cart " + index.toString());
-
-    final cartp = await db.cakedata();
-
-    cdb.insertDataCart(
-      CartModel(id: cartp[index].id),
-    );
-
-    // var zindex = data.indexWhere((item) => item.id == cartp[index].id);
-    // // print("test " + zindex.toString());
-    // if (zindex != -1) {
-    //   data[zindex].qty++;
-    //   box.putAt(zindex, data[zindex]);
-    //   // print("already inn");
-    // } else {
-    //   box.add(cartItem);
-    //   // print(cartItem.title);
-    // }
-    setState(() {});
-  }
-
   late MenuDB db;
   bool getdataf = false;
   List<Menu> data = [];
 
   late CartDB cdb;
-
   @override
   void initState() {
     cdb = CartDB();
@@ -56,6 +33,15 @@ class _getcakedataState extends State<getcakedata> {
     db.initDBMenu();
     getdata();
     super.initState();
+  }
+
+  addToCart(context, index) async {
+    final cartp = await db.cakedata();
+    cdb.insertDataCart(
+      CartModel(id: cartp[index].id),
+    );
+
+    setState(() {});
   }
 
   getdata() async {

@@ -5,7 +5,9 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:starshmucks/db/cart_db.dart';
+import 'package:starshmucks/db/offers_db.dart';
 import 'package:starshmucks/model/cartDBModel.dart';
+import 'package:starshmucks/model/offers_model.dart';
 
 import 'boxes.dart';
 import 'address.dart';
@@ -26,8 +28,6 @@ class _MyCartState extends State<MyCart> {
   bool ischecked = false;
   var result;
   @override
-
-
   getcarttotal() {
     // final box = Boxes.getCartData();
     // final data = box.values.toList().cast<CartData>();
@@ -41,20 +41,25 @@ class _MyCartState extends State<MyCart> {
 
   late CartDB cartdb;
   late MenuDB menudb;
-  List<Menu> kart = [];
-  List<Menu> kart1 = [];
+  late OffersDb offerdb;
+  List<Menu> kartmenu = [];
+  List<Offer> kartOffer = [];
+  List<dynamic> kart1 = [];
   List<CartModel> idlist = [];
 
   @override
-  clearcart(){
+  clearcart() {
     cartdb.clear();
-
   }
+
   void initState() {
     menudb = MenuDB();
     menudb.initDBMenu();
     cartdb = CartDB();
     cartdb.initDBCart();
+    offerdb = OffersDb();
+    offerdb.initOffersdb();
+
     result = getcarttotal();
     getDataOnIds();
     super.initState();
@@ -63,19 +68,16 @@ class _MyCartState extends State<MyCart> {
   getDataOnIds() async {
     idlist = await cartdb.getDataCart();
     print("size" + idlist.length.toString());
-    // kart= await menudb.ffeedata(1); // prints product at id 1
-    //logic for sending ids from cart list to get details from menu db
     for (var i = 0; i < idlist.length; i++) {
-      kart = await menudb.fefe(idlist[i].id);
-      print("init cart " + kart.length.toString());
-      if (kart.length == 1) kart1.add(kart.first);
-
+      kartmenu = await menudb.getElementOnId_Menu(idlist[i].id);
+      if (kartmenu.length == 1) kart1.add(kartmenu.first);
+      kartOffer = await offerdb.getElementOnId_Offer(idlist[i].id);
+      if (kartOffer.length == 1) kart1.add(kartOffer.first);
       //print("fdg " + kart.runtimeType.toString());
       print("added to cart: " + kart1.toString());
     }
-    setState(() {
 
-    });
+    setState(() {});
   }
 
   @override
@@ -92,8 +94,7 @@ class _MyCartState extends State<MyCart> {
           //     ? Center(child: Text("No items in cart"))
           Container(
         padding: EdgeInsets.all(8.0),
-        child:
-            ElevatedButton(
+        child: ElevatedButton(
           onPressed: () {
             Get.to(Address(), transition: Transition.rightToLeft);
           },
@@ -115,7 +116,7 @@ class _MyCartState extends State<MyCart> {
           IconButton(
             color: HexColor("#175244"),
             onPressed: () {
-               clearcart();
+              clearcart();
             },
             icon: const Icon(
               Icons.clear,

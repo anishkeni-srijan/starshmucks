@@ -41,29 +41,14 @@ class _getoffersState extends State<getoffers> {
   }
 
   addToCart(context, index) async {
-    late OffersDb db;
-    db = OffersDb();
     final cartp = await db.Offersdata();
-    print("in cart " + index.toString());
-    // final box = Boxes.getCartData();
-    // final cdata = box.values.toList().cast<CartData>();
+    //print("in cart " + index.toString());
     print("Cartpindex");
     print(cartp[index].id);
     cdb.insertDataCart(
       CartModel(id: cartp[index].id),
     );
-    // final cartp = Provider.of<OffersData>(context, listen: false);
-
-    // int zindex = cdata.indexWhere((item) => item.id == cartp[index].id);
-    // print("test " + zindex.toString());
-    // if (zindex != -1) {
-    //   cdata[zindex].qty++;
-    //   box.putAt(zindex, cdata[zindex]);
-    //   print("already inn");
-    // } else {
-    //   box.add(cartItem);
-    //   print(cartItem.title);
-    // }
+    setState(() {});
   }
 
   @override

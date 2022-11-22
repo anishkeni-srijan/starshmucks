@@ -9,7 +9,7 @@ import '../model/menu_model.dart';
 
 class MenuDB {
   Future<Database> initDBMenu() async {
-    print("initialising db...");
+    print("initialising db... menu");
     String databasepath = await getDatabasesPath();
     final path = join(databasepath, "Menutable.db");
     return openDatabase(
@@ -73,7 +73,7 @@ class MenuDB {
   }
 
   // A method that retrieves all the dogs from the dogs table.
-  Future<List<Menu>> fefe(getit) async {
+  Future<List<Menu>> getElementOnId_Menu(getit) async {
     final db = await initDBMenu();
     final List<Map<String, dynamic>> maps =
         await db.query('Menu', where: "id = ?", whereArgs: [getit]);

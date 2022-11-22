@@ -8,13 +8,12 @@ import '../model/nowserving_model.dart';
 import '../model/offers_model.dart';
 
 class OffersDb {
-
-
   Future<Database> initOffersdb() async {
-    print("initialising db...");
+    print("initialising db... offers");
     String databasepath = await getDatabasesPath();
     final path = join(databasepath, "Offers3.db");
-    return openDatabase(path,
+    return openDatabase(
+      path,
       onCreate: (database, version) async {
         await database.execute("""
           CREATE TABLE IF NOT EXISTS Offers(
@@ -32,23 +31,42 @@ class OffersDb {
       version: 1,
     );
   }
-  Future<bool> insertOffersData(Offer offers) async{
+
+  Future<bool> insertOffersData(Offer offers) async {
     final Database db = await initOffersdb();
     db.insert("Offers", offers.toMap());
     return true;
   }
 
-  Future<List<Offer>> getOffersdata() async{
+  Future<List<Offer>> getOffersdata() async {
     final Database db = await initOffersdb();
-    final List<Map<String,dynamic>> data = await db.query("Offers");
+    final List<Map<String, dynamic>> data = await db.query("Offers");
     return data.map((e) => Offer.fromJson(e)).toList();
   }
-  Future<List<Offer>> Offersdata() async{
+
+  Future<List<Offer>> Offersdata() async {
     final Database db = await initOffersdb();
-    final List<Map<String,dynamic>> offerlist = await db.rawQuery("SELECT * FROM Offers WHERE category=?", ['offers']);
+    final List<Map<String, dynamic>> offerlist =
+        await db.rawQuery("SELECT * FROM Offers WHERE category=?", ['offers']);
     return offerlist.map((e) => Offer.fromJson(e)).toList();
   }
+
+  Future<List<Offer>> getElementOnId_Offer(getit) async {
+    final db = await initOffersdb();
+    final List<Map<String, dynamic>> maps =
+        await db.query('Menu', where: "id = ?", whereArgs: [getit]);
+    return List.generate(maps.length, (i) {
+      return Offer(
+        id: maps[i]['id'],
+        title: maps[i]['title'],
+        price: maps[i]['price'],
+        //description: maps[i]['description'],
+        category: maps[i]['category'],
+        image: maps[i]['image'],
+        rating: maps[i]['rating'],
+        tag: maps[i]['tag'],
+        desc: maps[i]['desc'],
+      );
+    });
+  }
 }
-
-
-

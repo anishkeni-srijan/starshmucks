@@ -8,7 +8,7 @@ import '../model/nowserving_model.dart';
 
 class NowServeDb {
   Future<Database> initNowServedb() async {
-    print("initialising db...");
+    print("initialising db... NS");
     String databasepath = await getDatabasesPath();
     final path = join(databasepath, "NowServe145.db");
     return openDatabase(
