@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:starshmucks/home_screen.dart';
+import 'package:starshmucks/home/home_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 import 'boxes.dart';
@@ -34,7 +34,7 @@ class _RewardsState extends State<Rewards> {
                   child: Text(
                     'Welcome back!',
                     style: TextStyle(
-                      color:HexColor("#175244"),
+                      color: HexColor("#175244"),
                       fontSize: 35,
                     ),
                   ),
@@ -43,7 +43,7 @@ class _RewardsState extends State<Rewards> {
                   padding: const EdgeInsets.only(left: 10.0, right: 10),
                   child: Card(
                     color: HexColor("#175244"),
-                    margin: EdgeInsets.only(top:90),
+                    margin: EdgeInsets.only(top: 90),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -51,64 +51,74 @@ class _RewardsState extends State<Rewards> {
                     elevation: 4,
                     child: Container(
                       margin: EdgeInsets.only(left: 30),
-                     transform: Matrix4.translationValues(-10, 20, 0),
+                      transform: Matrix4.translationValues(-10, 20, 0),
                       height: 200,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              AutoSizeText(
-                                'My Points',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                                minFontSize: 23,
-                              ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 5.0,
-                        ),
-                        child:Row(
-                                children: [
-                                  AutoSizeText(
-                                      data[0].rewards.toString(),
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white,
-                                      ),
-                                      minFontSize: 23,
-                                    ),
-
-                                  Padding(
-                                    padding: const EdgeInsets.only(top:2.0, left: 5),
-                                    child: Icon(
-                                      Icons.stars_sharp,
-                                      color: Colors.amberAccent,
-                                    ),
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                AutoSizeText(
+                                  'My Points',
+                                  style: TextStyle(
+                                    color: Colors.white,
                                   ),
-                                ],
-                              ),),
-                              SizedBox(height: 70,),
-                              Text(
-                                '${ username}',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
+                                  minFontSize: 23,
                                 ),
-                              ),
-                               ],
-                          ),
-                        Container(transform:Matrix4.translationValues(20, -20, 0),child: Image.asset("images/shmucks.png"),)
-                        ]),
-                    ),),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 5.0,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      AutoSizeText(
+                                        data[0].rewards.toString(),
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white,
+                                        ),
+                                        minFontSize: 23,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 2.0, left: 5),
+                                        child: Icon(
+                                          Icons.stars_sharp,
+                                          color: Colors.amberAccent,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 70,
+                                ),
+                                Text(
+                                  '${username}',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 25,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              transform: Matrix4.translationValues(20, -20, 0),
+                              child: Image.asset("images/shmucks.png"),
+                            )
+                          ]),
+                    ),
+                  ),
                 ),
               ],
             ),
-            SizedBox(height: 20,),
-
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               margin: EdgeInsets.all(10),
               child: AutoSizeText(
@@ -119,29 +129,28 @@ class _RewardsState extends State<Rewards> {
                 minFontSize: 18,
               ),
             ),
-            SizedBox(height: 20,),
-           Padding(
-             padding: const EdgeInsets.all(10.0),
-             child: Column(
-               crossAxisAlignment: CrossAxisAlignment.start,
-               children: [
-                 Text('Reward History'),
-                 ListView.builder(
-                   shrinkWrap: true,
-                   itemCount: 2,
-                   itemBuilder: (context, index) {
-                   return Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Text('order1'),
-                       Text('20.0')
-                     ],
-                   );
-                 },)
-
-               ],
-             ),
-           )
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Reward History'),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 2,
+                    itemBuilder: (context, index) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [Text('order1'), Text('20.0')],
+                      );
+                    },
+                  )
+                ],
+              ),
+            )
           ],
         )));
   }

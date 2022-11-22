@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:starshmucks/common_things.dart';
 
 import 'boxes.dart';
-import 'home_screen.dart';
+import 'home/home_screen.dart';
 import 'model/cart_model.dart';
 import 'payment.dart';
 

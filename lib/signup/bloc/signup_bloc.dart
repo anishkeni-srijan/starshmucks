@@ -7,7 +7,7 @@ import 'package:starshmucks/signup/bloc/signup_states.dart';
 
 import '/signup/bloc/signup_events.dart';
 import 'signup_states.dart';
-import '../../home_screen.dart';
+import '../../home/home_screen.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc() : super(SignupInitialState()) {
@@ -121,8 +121,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           emit(
             SignupErrorState("Please agree to the T&C."),
           );
-        }
-       else return emit(SignupNoerrorState(''));
+        } else
+          return emit(SignupNoerrorState(''));
       },
     );
 
@@ -131,10 +131,9 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       (event, emit) {
         if (state is SignupNoerrorState) {
           Get.to(bottomBar());
-        } else  {
+        } else {
           emit(SignupErrorState("Please fill out all the fields"));
         }
-
       },
     );
   }
