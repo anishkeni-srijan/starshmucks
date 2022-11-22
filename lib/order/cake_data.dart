@@ -69,7 +69,7 @@ class _getcakedataState extends State<getcakedata> {
   Widget build(BuildContext context) {
     // print('items in db: ' + data.length.toString());
     return Scaffold(
-      persistentFooterButtons: cartinit ? [viewincart()] : null,
+      // persistentFooterButtons: cartinit ? [viewincart()] : null,
       body: getdataf
           ? ListView.builder(
               shrinkWrap: true,

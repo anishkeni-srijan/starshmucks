@@ -26,10 +26,7 @@ class _MyCartState extends State<MyCart> {
   bool ischecked = false;
   var result;
   @override
-  void dispose() {
-    Hive.box('cartdata').close();
-    super.dispose();
-  }
+
 
   getcarttotal() {
     // final box = Boxes.getCartData();
@@ -49,6 +46,10 @@ class _MyCartState extends State<MyCart> {
   List<CartModel> idlist = [];
 
   @override
+  clearcart(){
+    cartdb.clear();
+
+  }
   void initState() {
     menudb = MenuDB();
     menudb.initDBMenu();
@@ -72,6 +73,9 @@ class _MyCartState extends State<MyCart> {
       //print("fdg " + kart.runtimeType.toString());
       print("added to cart: " + kart1.toString());
     }
+    setState(() {
+
+    });
   }
 
   @override
@@ -89,35 +93,6 @@ class _MyCartState extends State<MyCart> {
           Container(
         padding: EdgeInsets.all(8.0),
         child:
-            // ValueListenableBuilder<Box<CartData>>(
-            //     valueListenable: Boxes.getCartData().listenable(),
-            //     builder: (context, box, _) {
-            //       final data = box.values.toList().cast<CartData>();
-            //       late double result = 0;
-            //       for (int index = 0; index < data.length; index++) {
-            //         result = result +
-            //             double.parse(data[index].price) * data[index].qty;
-            //       }
-            //
-            //       //change to index
-            //       data[0].ttlPrice = result;
-            //       box.putAt(0, data[0]);
-            //       return Row(
-            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //         children: [
-            //           result == null || data.isEmpty
-            //               ? Text(
-            //                   "Total: \$0.00",
-            //                   style: TextStyle(
-            //                       fontSize: 22.0,
-            //                       fontWeight: FontWeight.bold),
-            //                 )
-            //               : Text(
-            //                   "Total: \$" + result.toStringAsFixed(2),
-            //                   style: TextStyle(
-            //                       fontSize: 22.0,
-            //                       fontWeight: FontWeight.bold),
-            //                 ),
             ElevatedButton(
           onPressed: () {
             Get.to(Address(), transition: Transition.rightToLeft);
@@ -136,6 +111,17 @@ class _MyCartState extends State<MyCart> {
         foregroundColor: HexColor("#175244"),
         title: Text("Cart"),
         elevation: 2,
+        actions: [
+          IconButton(
+            color: HexColor("#175244"),
+            onPressed: () {
+               clearcart();
+            },
+            icon: const Icon(
+              Icons.clear,
+            ),
+          ),
+        ],
       ),
       body: ListView.builder(
         itemCount: kart1.length,

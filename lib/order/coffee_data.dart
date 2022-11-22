@@ -39,12 +39,9 @@ class _getcoffeedataState extends State<getcoffeedata> {
     late MenuDB db;
     db = MenuDB();
     final cartp = await db.coffeedata();
-
-    // print(cartp[index].id);
     cdb.insertDataCart(
       CartModel(id: cartp[index].id),
     );
-
     // var zindex = data.indexWhere((item) => item.id == cartp[index].id);
     // // print("test " + zindex.toString());
     // if (zindex != -1) {
@@ -80,7 +77,7 @@ class _getcoffeedataState extends State<getcoffeedata> {
     }
     // print('items in db: ' + data.length.toString());
     return Scaffold(
-      persistentFooterButtons: cartinit ? [viewincart()] : null,
+      // persistentFooterButtons: cartinit ? [viewincart()] : null,
       body: getdataf
           ? ListView.builder(
               shrinkWrap: true,

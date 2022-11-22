@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      persistentFooterButtons: cartinit ? [viewincart()] : null,
+      // persistentFooterButtons: cartinit ? [viewincart()] : null,
       body: ValueListenableBuilder<Box<UserData>>(
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {

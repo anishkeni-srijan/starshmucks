@@ -37,4 +37,9 @@ class CartDB {
     print(data.length);
     return data.map((e) => CartModel.fromJson(e)).toList();
   }
+  //temp
+   clear() async {
+    final Database db = await initDBCart();
+    db.delete("CartTable");
+  }
 }

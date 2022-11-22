@@ -99,9 +99,9 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
               child: TabBarView(
                 controller: tabController,
                 children: <Widget>[
-                  fetching
-                      ? getcoffeedata()
-                      : Center(child: CircularProgressIndicator()),
+
+                  getcoffeedata(),
+
                   getcakedata(),
                   getsmoothiedata(context),
                 ],
