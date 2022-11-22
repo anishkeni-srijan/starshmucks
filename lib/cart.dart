@@ -41,17 +41,18 @@ class _MyCartState extends State<MyCart> {
     setState(() {});
     return result;
   }
+
   late CartDB cartdb;
   late MenuDB menudb;
   List<Menu> kart = [];
-  List<CartModel> idlist= [];
+  List<CartModel> idlist = [];
 
   @override
   void initState() {
-   menudb = MenuDB();
-   menudb.initDBMenu();
-   cartdb = CartDB();
-   cartdb.initDBCart();
+    menudb = MenuDB();
+    menudb.initDBMenu();
+    cartdb = CartDB();
+    cartdb.initDBCart();
     result = getcarttotal();
     getDataOnIds();
     super.initState();
@@ -59,17 +60,13 @@ class _MyCartState extends State<MyCart> {
 
   getDataOnIds() async {
     idlist = await cartdb.getDataCart();
-    print("size"+ idlist.length.toString());
-    kart= await menudb.ffeedata(1); // prints product at id 1
-
+    print("size" + idlist.length.toString());
+    // kart= await menudb.ffeedata(1); // prints product at id 1
     //logic for sending ids from cart list to get details from menu db
-    // for(var i= 0; i< idlist.length; i++) {
-    //
-    //   kart= await menudb.ffeedata(idlist[i]);
-    //   print(idlist[i]);
-    //  }
-
-
+    for (var i = 0; i < idlist.length; i++) {
+      kart = await menudb.ffeedata(idlist[i].id);
+      print("added to cart: "+ idlist[i].id.toString());
+    }
   }
 
   @override
