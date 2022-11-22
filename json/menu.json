@@ -7,6 +7,7 @@
   "id": 1,
   "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
+  "qty": 1,
   "category": "cake"
 },
 {
@@ -17,6 +18,7 @@
 "id": 2,
 "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
+  "qty": 1,
   "category": "cake"
 },
 {
@@ -27,6 +29,7 @@
 "id": 3,
 "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
+  "qty": 1,
   "category": "cake"
 },
 {
@@ -37,6 +40,7 @@
 "id": 4,
 "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
+  "qty": 1,
   "category": "coffee"
 },
 {
@@ -47,6 +51,7 @@
 "id": 5,
 "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
+  "qty": 1,
   "category": "coffee"
 },
 {
@@ -57,6 +62,7 @@
 "id": 6,
 "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
+  "qty": 1,
   "category": "coffee"
 },
 {
@@ -67,6 +73,7 @@
 "id": 7,
 "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
+  "qty": 1,
   "category": "smoothie"
 },
 {
@@ -77,6 +84,7 @@
 "id": 8,
 "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
+  "qty": 1,
   "category": "smoothie"
 },
 {
@@ -87,6 +95,7 @@
 "id": 9,
 "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
+  "qty": 1,
   "category": "smoothie"
 },
 
@@ -99,6 +108,7 @@
     "description": "We wish you a merry Christmas.",
     "category": "nowserve",
     "rating": "4.3/5",
+    "qty": 1,
     "id": 10
   },
   {
@@ -110,6 +120,7 @@
     "description": "We wish you a merry Christmas.",
     "rating": "4.3/5",
     "category": "nowserve",
+    "qty": 1,
     "id": 11
   },
   {
@@ -120,6 +131,7 @@
     "description": "We wish you a merry Christmas.",
     "rating": "4.3/5",
     "category": "offers",
+    "qty": 1,
     "id": 12
   },
   {
@@ -130,6 +142,7 @@
     "description": "We wish you a merry Christmas.",
     "rating": "4.3/5",
     "category": "offers",
+    "qty": 1,
     "id": 13
   },
   {
@@ -140,6 +153,7 @@
     "description": "We wish you a merry Christmas.",
     "rating": "4.3/5",
     "category": "offers",
+    "qty": 1,
     "id": 14
   }
 

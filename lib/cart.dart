@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
+import 'package:starshmucks/common_things.dart';
 
 import '/db/cart_db.dart';
 import '/model/cart_model.dart';
@@ -68,19 +69,17 @@ class _MyCartState extends State<MyCart> {
     }
     setState(() {});
   }
+  removefromcart(sendid){
+    cartdb.deleteitem(sendid);
+  }
+  increaseqty(sendid) {
 
+   menudb.increseqty(sendid);
+  }
   @override
   Widget build(BuildContext context) {
-    final box2 = Boxes.getUserData();
-    final data2 = box2.values.toList().cast<UserDataModel>();
-
-    // final box = Boxes.getCartData();
-    // final data = box.values.toList().cast<CartData>();
     return Scaffold(
       bottomNavigationBar:
-          //
-          // data.isEmpty
-          //     ? Center(child: Text("No items in cart"))
           Container(
         padding: EdgeInsets.all(8.0),
         child: ElevatedButton(
@@ -140,9 +139,10 @@ class _MyCartState extends State<MyCart> {
                           Text("\$ " + kart1[index].price),
                           TextButton(
                             onPressed: () {
-                              // box.delete(data[index].key);
-                              // data[index].isInCart = false;
-                              setState(() {});
+                              removefromcart(kart1[index].id);
+
+                              setState(() {
+                              });
                             },
                             style: ButtonStyle(
                                 foregroundColor: MaterialStateProperty.all(
@@ -175,12 +175,13 @@ class _MyCartState extends State<MyCart> {
                                   foregroundColor: MaterialStateProperty.all(
                                       HexColor("#036635"))),
                             ),
-                            // Text(data[index].qty.toString()),
+                             Text(kart1[index].qty.toString()),
                             IconButton(
                               icon: Icon(Icons.add),
                               onPressed: () {
-                                // data[index].qty = data[index].qty + 1;
-                                // box.putAt(index, data[index]);
+
+                                 increaseqty(kart1[index]);
+
                                 setState(() {});
                               },
                               style: ButtonStyle(

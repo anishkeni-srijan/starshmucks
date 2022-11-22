@@ -7,7 +7,7 @@ class MenuDB {
   Future<Database> initDBMenu() async {
     print("initialising db... menu");
     String databasepath = await getDatabasesPath();
-    final path = join(databasepath, "Menu1.db");
+    final path = join(databasepath, "Menu2.db");
     return openDatabase(
       path,
       onCreate: (database, version) async {
@@ -20,7 +20,7 @@ class MenuDB {
           rating TEXT NOT NULL,
           price TEXT NOT NULL,
           tag TEXT NOT NULL,
-          qty INT,
+          qty INT NOT NULL,
           category TEXT NOT NULL
           )
           """);
@@ -84,6 +84,7 @@ class MenuDB {
     return List.generate(maps.length, (i) {
       return MenuModel(
         id: maps[i]['id'],
+        qty: maps[i]['qty'],
         tag: maps[i]['tag'],
         title: maps[i]['title'],
         price: maps[i]['price'],
@@ -94,7 +95,22 @@ class MenuDB {
       );
     });
   }
+  increseqty(MenuModel menu) async{
+    final db = await initDBMenu();
 
+     var fido = MenuModel(
+       title: menu.title,
+       category: menu.category,
+       description: menu.description,
+       id: menu.id,
+       image: menu.image,
+       price:menu.price,
+       rating: menu.rating,
+       tag: menu.tag,
+       qty: menu.qty +1,
+      );
+      updateqty(fido);
+  }
   Future<void> updateqty(MenuModel menu) async {
     // Get a reference to the database.
     final db = await initDBMenu();
@@ -108,6 +124,8 @@ class MenuDB {
       // Pass the Dog's id as a whereArg to prevent SQL injection.
       whereArgs: [menu.id],
     );
-    print(menu.qty);
+
   }
+
+
 }

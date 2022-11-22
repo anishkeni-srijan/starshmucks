@@ -112,9 +112,7 @@ gethomeappbar() {
   );
 }
 
-increaseqty(index) {
-  // qty[index] = qty[index]+1;
-}
+
 
 viewincart() {
   // final box = Boxes.getCartData();

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '/repo/learnmore_repo.dart';
-import '../model/Learnmore_model.dart';
+import '../model/learnmore_model.dart';
+import '../repo/learnmore_repo.dart';
+
 
 class Learnmore extends ChangeNotifier {
-  late List<LearnMore> learnmore = [];
+  late List<LearnMoreModel> learnmore = [];
 
   fetchData(context) async {
-    learnmore = await learnmoredata(context);
+    learnmore = await LearnMoreModeldata(context);
     notifyListeners();
   }
 }
