@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -24,33 +26,36 @@ class OrderSuccess extends StatefulWidget {
 
 class _OrderSuccessState extends State<OrderSuccess> {
   late OrdersDB db;
+  late  CartDB cartdb;
   List<OrderHistoryModel> OrderData = [];
   List<CartModel> cartlist = [];
  List<String> idlistfromstring = [];
  List<String> qtylistfromstring = [];
  List<MenuModel> items = [];
  List<MenuModel> items1 = [];
+ late Timer timer;
 
   @override
   void initState() {
     db= OrdersDB();
-     db.initDBOrders();
-    putData();
+    db.initDBOrders();
+    cartdb = CartDB();
+    cartdb.initDBCart();
+    timer = Timer.periodic(Duration(seconds: 5), (Timer t) => putData());
+    getDataIds();
     gainrewards();
     getAddress();
-    getDataIds();
+
     super.initState();
     cartinit = false;
   }
   getDataIds() async {
     MenuDB menudb = MenuDB();
     OrderData = await db.getDataOrders();
-
     print("Order size:" + OrderData.length.toString());
     for (var i = 0; i < OrderData.length; i++) {
-       idlistfromstring = OrderData[i].id.split(' ');
-       qtylistfromstring = OrderData[i].qty.split(' ');
-
+       idlistfromstring = OrderData[i].id!.split(' ');
+       qtylistfromstring = OrderData[i].qty!.split(' ');
      }
     for (var i =0;i<idlistfromstring.length;i++){
       items = await menudb.getitemwithId_order(idlistfromstring[i]);
@@ -63,7 +68,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
   putData() async {
     String idar = '';
     String qtyar = '';
-    CartDB cartdb = CartDB();
+
     cartlist = await cartdb.getDataCart();
     for(var i = 0; i < cartlist.length; i ++) {
       if(idar.isEmpty)
@@ -79,6 +84,9 @@ class _OrderSuccessState extends State<OrderSuccess> {
     print("im idar:" +idar);
     print("im qtyar:" +qtyar);
    db.createarr(idar,qtyar);
+   setState(() {
+
+   });
   }
 
 

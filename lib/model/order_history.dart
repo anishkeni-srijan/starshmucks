@@ -1,8 +1,8 @@
 class OrderHistoryModel {
 
-  late String qty;
+  late String? qty;
 
-  late String id;
+  late String? id;
   OrderHistoryModel({
 
     required this.qty,

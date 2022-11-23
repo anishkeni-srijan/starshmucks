@@ -16,25 +16,24 @@ class Orders extends StatefulWidget {
 class _OrdersState extends State<Orders> {
   var idlistfromstring;
   var qtylistfromstring;
-  List<OrderHistoryModel>data = [];
-  List<OrderHistoryModel>data1 = [];
+  List<dynamic>data = [];
+  List<dynamic>data1 = [];
   List<OrderHistoryModel>Orderdata = [];
-  OrdersDB orderdb = OrdersDB();
+  late OrdersDB orderdb;
   @override
   void initState() {
+    orderdb = OrdersDB();
+    orderdb.initDBOrders();
     getorderdata();
     super.initState();
   }
   getorderdata()async{
-    orderdb.initDBOrders();
-    Orderdata = await orderdb.getOrderId();
-    for(var i = 0; i < Orderdata.length; i++)
-      {
-        print(Orderdata[i]);
-      }
-    print('screendata:' +data.toString());
-    setState(() {
 
+    data = await orderdb.getOrderId();
+    for(var i = 0; i < data.length; i++)
+    data1.add(data.first);
+    print(data1);
+    setState(() {
     });
   }
   // getDataIds() async {
@@ -59,7 +58,7 @@ class _OrdersState extends State<Orders> {
           title: Text('Order'),
         ),
         body: ListView.builder(
-          itemCount: data.length,
+          itemCount: data1.length,
           itemBuilder: (context, index) =>
                   Container(child: Text(data1[index].toString()),)
           ),

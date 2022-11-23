@@ -42,10 +42,12 @@ class OrdersDB {
     final List<Map<String, dynamic?>> data = await db.query("OrdersTable");
     return data.map((e) => OrderHistoryModel.fromJson(e)).toList();
   }
-  Future<List<OrderHistoryModel>> getOrderId() async {
+  Future<dynamic> getOrderId() async {
     final Database db = await initDBOrders();
     final List<Map<String, dynamic?>> data = await db.rawQuery("Select orderid from OrdersTable");
     print(data);
-    return data.map((e) => OrderHistoryModel.fromJson(e)).toList();
+    var res = data.toList();
+    print(res);
+    return res;
   }
 }
