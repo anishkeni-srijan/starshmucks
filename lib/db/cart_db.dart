@@ -1,12 +1,11 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import '../model/menu_model.dart';
 import '/model/cart_model.dart';
 
 class CartDB {
   Future<Database> initDBCart() async {
-    print("initialising db Cart");
+    //print("initialising db Cart");
     String databasepath = await getDatabasesPath();
     final path = join(databasepath, "Cart.db");
     return openDatabase(
@@ -14,7 +13,7 @@ class CartDB {
       onCreate: (database, version) async {
         await database.execute("""
           CREATE TABLE IF NOT EXISTS CartTable(
-          id INT NOT NULL,
+          id INT NOT NULL UNIQUE,
           qty INT NOT NULL
           )
           """);
@@ -26,14 +25,34 @@ class CartDB {
   Future<bool> insertDataCart(CartModel item) async {
     // print("inserting in cart");
     final Database db = await initDBCart();
-    db.insert("CartTable", item.toMap());
+    int count = await db.insert("CartTable", item.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.ignore);
+
+    //print("Count= " + count.toString());
+    if (count > 0) {
+      //added
+      print("added");
+    } else {
+      final List<Map<String, dynamic>> maps = await db.query(
+        "CartTable",
+        where: 'id = ?',
+        whereArgs: [item.id],
+      );
+      var test = CartModel(id: maps[0]['id'], qty: maps[0]['qty']);
+
+      increseqty(test);
+    }
     //db.delete("CartTable");
     return true;
   }
 
   Future<List<CartModel>> getDataCart() async {
     final Database db = await initDBCart();
-    final List<Map<String, dynamic?>> data = await db.query("CartTable");
+    final List<Map<String, dynamic?>> data = await db.query(
+      "CartTable",
+    );
+    //  print("after query");
+    // print(data.length);
     return data.map((e) => CartModel.fromJson(e)).toList();
   }
 
@@ -42,6 +61,7 @@ class CartDB {
     final Database db = await initDBCart();
     db.delete("CartTable");
   }
+
   Future<void> deleteitem(int id) async {
     // Get a reference to the database.
     final db = await initDBCart();
@@ -55,37 +75,38 @@ class CartDB {
       whereArgs: [id],
     );
   }
-increseqty(CartModel cartitem) async{
-  final db = await initDBCart();
 
-   var fido = CartModel(
-     id: cartitem.id,
-     qty: cartitem.qty +1,
+  increseqty(CartModel cartitem) async {
+    final db = await initDBCart();
+    // print("QTY before increasing " + cartitem.qty.toString());
+    var fido = CartModel(
+      id: cartitem.id,
+      qty: cartitem.qty + 1,
     );
     updateqty(fido);
-}
-  decreaseqty(CartModel cartitem) async{
-  final db = await initDBCart();
+  }
 
-   var fido = CartModel(
-     id: cartitem.id,
-     qty: cartitem.qty -1,
+  decreaseqty(CartModel cartitem) async {
+    final db = await initDBCart();
+
+    var fido = CartModel(
+      id: cartitem.id,
+      qty: cartitem.qty - 1,
     );
     updateqty(fido);
-}
-Future<void> updateqty(CartModel cartitem) async {
-  // Get a reference to the database.
-  final db = await initDBCart();
+  }
 
-  // Update the given Dog.
-  await db.update(
-    'CartTable', cartitem.toMap(),
-    // Ensure that the Dog has a matching id.
-    where: 'id = ?',
-    // Pass the Dog's id as a whereArg to prevent SQL injection.
-    whereArgs: [cartitem.id],
-  );
+  Future<void> updateqty(CartModel cartitem) async {
+    // Get a reference to the database.
+    final db = await initDBCart();
 
-}
-
+    // Update the given Dog.
+    await db.update(
+      'CartTable', cartitem.toMap(),
+      // Ensure that the Dog has a matching id.
+      where: 'id = ?',
+      // Pass the Dog's id as a whereArg to prevent SQL injection.
+      whereArgs: [cartitem.id],
+    );
+  }
 }

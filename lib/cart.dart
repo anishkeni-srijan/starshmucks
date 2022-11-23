@@ -63,29 +63,31 @@ class _MyCartState extends State<MyCart> {
     //logic for sending ids from cart list to get details from menu db
     for (var i = 0; i < idlist.length; i++) {
       kart = await menudb.getElementOnId_Menu(idlist[i].id);
-      print("init cart " + kart.length.toString());
+      // print("init cart " + kart.length.toString());
       if (kart.length == 1) kart1.add(kart.first);
 
       //print("fdg " + kart.runtimeType.toString());
-      print("added to cart: " + kart1.toString());
+      //print("added to cart: " + kart1.toString());
     }
     setState(() {});
   }
 
-  removefromcart(sendid){
+  removefromcart(sendid) {
     cartdb.deleteitem(sendid);
   }
+
   increaseqty(sendid) {
     cartdb.increseqty(sendid);
   }
+
   decreaseqty(sendid) {
     cartdb.decreaseqty(sendid);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar:
-          Container(
+      bottomNavigationBar: Container(
         padding: EdgeInsets.all(8.0),
         child: ElevatedButton(
           onPressed: () {
@@ -120,6 +122,7 @@ class _MyCartState extends State<MyCart> {
       body: ListView.builder(
         itemCount: kart1.length,
         itemBuilder: (context, index) {
+          //print("qty= " + idlist[index].qty.toString());
           return Card(
             elevation: 8,
             child: Column(
@@ -146,8 +149,7 @@ class _MyCartState extends State<MyCart> {
                             onPressed: () {
                               removefromcart(kart1[index].id);
 
-                              setState(() {
-                              });
+                              setState(() {});
                             },
                             style: ButtonStyle(
                                 foregroundColor: MaterialStateProperty.all(
@@ -167,10 +169,10 @@ class _MyCartState extends State<MyCart> {
                             IconButton(
                               icon: Icon(Icons.remove),
                               onPressed: () {
-                               if (idlist[index].qty == 1) {
-                                removefromcart(kart1[index].id);
-                                 } else {
-                                 decreaseqty(idlist[index]);
+                                if (idlist[index].qty == 1) {
+                                  removefromcart(kart1[index].id);
+                                } else {
+                                  decreaseqty(idlist[index]);
                                 }
                                 setState(() {});
                               },
@@ -178,12 +180,11 @@ class _MyCartState extends State<MyCart> {
                                   foregroundColor: MaterialStateProperty.all(
                                       HexColor("#036635"))),
                             ),
-                             Text(idlist[index].qty.toString()),
+                            Text(idlist[index].qty.toString()),
                             IconButton(
                               icon: Icon(Icons.add),
                               onPressed: () {
-
-                                 increaseqty(idlist[index]);
+                                increaseqty(idlist[index]);
 
                                 setState(() {});
                               },

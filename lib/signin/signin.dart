@@ -6,8 +6,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:starshmucks/model/user_model_new.dart';
 
 import '../boxes.dart';
+import '../db/user_db.dart';
 import '../model/user_model.dart';
 import 'bloc/signin_bloc.dart';
 import 'bloc/signin_events.dart';
@@ -29,6 +31,13 @@ class _SigninPageState extends State<SigninPage> {
   late String obtainedpassword;
 
   bool keeploggedin = false;
+  late UserDB udb;
+  void initState() {
+    udb = UserDB();
+    udb.initDBUserData();
+    getUser();
+    super.initState();
+  }
 
   Future<bool> onWillPop() async {
     return (await showDialog(
@@ -53,6 +62,11 @@ class _SigninPageState extends State<SigninPage> {
           ),
         )) ??
         false;
+  }
+
+  List<Map<String, dynamic>> userddt = [];
+  getUser() async {
+    userddt = await udb.getDataUserData();
   }
 
   @override
@@ -121,12 +135,17 @@ class _SigninPageState extends State<SigninPage> {
                   valueListenable: Boxes.getUserData().listenable(),
                   builder: (context, box, _) {
                     final data = box.values.toList().cast<UserDataModel>();
-                    if (data.isEmpty) {
+                    // List<Map<String, dynamic?>> data1 = udb.getDataUserData();
+                    if (userddt.isEmpty) {
                       obtainedemail = '';
                       obtainedpassword = '';
                     } else {
-                      obtainedemail = data[0].email;
-                      obtainedpassword = data[0].password;
+                      // for (var i = 0; i < userddt.length; i++) {
+                      //   obtainedemail = userddt[i]['email'];
+                      //   obtainedpassword = userddt[i]['password'];
+                      // }
+                      obtainedemail = userddt[0]['email'];
+                      obtainedpassword = userddt[0]['password'];
                     }
 
                     return Column(
