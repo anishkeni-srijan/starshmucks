@@ -49,12 +49,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
     final responseData = jsonDecode(response);
     for (var item = 0; item < responseData['Menu'].length; item++) {
       product = MenuModel.fromJson(responseData['Menu'][item]);
-      // print('adding ' + responseData['Menu'][item].toString());
-      if (data.isNotEmpty && data.contains(product)) {
-        //  print('items already exists');
-      } else {
-        db.insertDataMenu(product);
-      }
+      db.insertDataMenu(product);
     }
   }
 

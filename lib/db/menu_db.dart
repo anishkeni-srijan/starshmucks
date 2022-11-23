@@ -5,7 +5,7 @@ import '../model/menu_model.dart';
 
 class MenuDB {
   Future<Database> initDBMenu() async {
-    print("initialising db... menu");
+    //print("initialising db... menu");
     String databasepath = await getDatabasesPath();
     final path = join(databasepath, "Menu2.db");
     return openDatabase(
@@ -30,7 +30,9 @@ class MenuDB {
 
   Future<bool> insertDataMenu(MenuModel menu) async {
     final Database db = await initDBMenu();
-    db.insert("Menu", menu.toMap());
+    int count = 0;
+    db.insert("Menu", menu.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.ignore);
     return true;
   }
 
@@ -93,7 +95,4 @@ class MenuDB {
       );
     });
   }
-
-
-
 }
