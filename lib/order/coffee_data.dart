@@ -42,14 +42,13 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     // // print("test " + zindex.toString());
     if (zindex != -1) {
       cdb.insertDataCart(
-        CartModel(id: cartp[index].id),
+        CartModel(id: cartp[index].id,qty: 1),
       );
-
-      db.updateqty(cartp[index]);
+      // db.updateqty(cartp[index]);
     } else {
       print('already added');
-      cartp[index].qty = cartp[index].qty + 1;
-      db.updateqty(cartp[index]);
+      // cartp[index].qty = cartp[index].qty + 1;
+      // db.updateqty(cartp[index]);
     }
     setState(() {});
   }

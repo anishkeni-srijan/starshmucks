@@ -24,7 +24,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     // final data = box.values.toList().cast<CartData>();
     final cartp = await db.smoothiedata();
     cdb.insertDataCart(
-      CartModel(id: cartp[index].id),
+      CartModel(id: cartp[index].id,qty: 1),
     );
 
     // var zindex = data.indexWhere((item) => item.id == cartp[index].id);

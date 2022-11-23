@@ -36,7 +36,7 @@ class _GetCakeDataState extends State<GetCakeData> {
   addToCart(context, index) async {
     final cartp = await db.cakedata();
     cdb.insertDataCart(
-      CartModel(id: cartp[index].id),
+      CartModel(id: cartp[index].id,qty: 1),
     );
 
     setState(() {});

@@ -38,6 +38,7 @@ class _MyCartState extends State<MyCart> {
   List<MenuModel> kart = [];
   List<MenuModel> kart1 = [];
   List<CartModel> idlist = [];
+  List<CartModel> qtylist = [];
 
   @override
   clearcart() {
@@ -69,12 +70,15 @@ class _MyCartState extends State<MyCart> {
     }
     setState(() {});
   }
+
   removefromcart(sendid){
     cartdb.deleteitem(sendid);
   }
   increaseqty(sendid) {
-
-   menudb.increseqty(sendid);
+    cartdb.increseqty(sendid);
+  }
+  decreaseqty(sendid) {
+    cartdb.decreaseqty(sendid);
   }
   @override
   Widget build(BuildContext context) {
@@ -162,25 +166,23 @@ class _MyCartState extends State<MyCart> {
                             IconButton(
                               icon: Icon(Icons.remove),
                               onPressed: () {
-                                // if (data[index].qty == 1) {
-                                //   box.delete(data[index].key);
-                                //   data[index].isInCart = false;
-                                // } else {
-                                //   data[index].qty = data[index].qty - 1;
-                                //   box.putAt(index, data[index]);
-                                // }
+                               if (idlist[index].qty == 1) {
+                                removefromcart(kart1[index].id);
+                                 } else {
+                                 decreaseqty(idlist[index]);
+                                }
                                 setState(() {});
                               },
                               style: ButtonStyle(
                                   foregroundColor: MaterialStateProperty.all(
                                       HexColor("#036635"))),
                             ),
-                             Text(kart1[index].qty.toString()),
+                             Text(idlist[index].qty.toString()),
                             IconButton(
                               icon: Icon(Icons.add),
                               onPressed: () {
 
-                                 increaseqty(kart1[index]);
+                                 increaseqty(idlist[index]);
 
                                 setState(() {});
                               },

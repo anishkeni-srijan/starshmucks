@@ -44,7 +44,7 @@ class _GetOffersState extends State<GetOffers> {
     print("Cartpindex");
     print(cartp[index].id);
     cdb.insertDataCart(
-      CartModel(id: cartp[index].id),
+      CartModel(id: cartp[index].id,qty: 1),
     );
     setState(() {});
   }

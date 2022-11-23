@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+import '../model/menu_model.dart';
 import '/model/cart_model.dart';
 
 class CartDB {
@@ -13,7 +14,8 @@ class CartDB {
       onCreate: (database, version) async {
         await database.execute("""
           CREATE TABLE IF NOT EXISTS CartTable(
-          id INT NOT NULL
+          id INT NOT NULL,
+          qty INT NOT NULL
           )
           """);
       },
@@ -55,5 +57,37 @@ class CartDB {
       whereArgs: [id],
     );
   }
+increseqty(CartModel cartitem) async{
+  final db = await initDBCart();
+
+   var fido = CartModel(
+     id: cartitem.id,
+     qty: cartitem.qty +1,
+    );
+    updateqty(fido);
+}
+  decreaseqty(CartModel cartitem) async{
+  final db = await initDBCart();
+
+   var fido = CartModel(
+     id: cartitem.id,
+     qty: cartitem.qty -1,
+    );
+    updateqty(fido);
+}
+Future<void> updateqty(CartModel cartitem) async {
+  // Get a reference to the database.
+  final db = await initDBCart();
+
+  // Update the given Dog.
+  await db.update(
+    'CartTable', cartitem.toMap(),
+    // Ensure that the Dog has a matching id.
+    where: 'id = ?',
+    // Pass the Dog's id as a whereArg to prevent SQL injection.
+    whereArgs: [cartitem.id],
+  );
+
+}
 
 }

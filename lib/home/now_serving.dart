@@ -36,7 +36,7 @@ class _NowServingState extends State<NowServing> {
   addToCart(context, index) async {
     final cartp = await db.NowServedata();
     cdb.insertDataCart(
-      CartModel(id: cartp[index].id),
+      CartModel(id: cartp[index].id,qty: 1),
     );
     setState(() {});
   }

@@ -27,8 +27,6 @@ Future main() async {
   );
   await Hive.openBox<UserDataModel>('signupdata');
 
-  // Hive.registerAdapter(CartDataAdapter());
-  // await Hive.openBox<CartData>('cartdata');
   runApp(const MyApp());
 }
 
