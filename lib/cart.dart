@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:starshmucks/common_things.dart';
+import 'package:starshmucks/order_success.dart';
 
 import '/db/cart_db.dart';
 import '/model/cart_model.dart';
@@ -88,7 +89,7 @@ class _MyCartState extends State<MyCart> {
         padding: EdgeInsets.all(8.0),
         child: ElevatedButton(
           onPressed: () {
-            Get.to(Address(), transition: Transition.rightToLeft);
+            Get.to(OrderSuccess(), transition: Transition.rightToLeft);
           },
           child: Text("Checkout"),
           style: ButtonStyle(

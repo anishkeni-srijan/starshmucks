@@ -5,11 +5,16 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:get/get.dart';
+import 'package:starshmucks/db/cart_db.dart';
+import 'package:starshmucks/db/menu_db.dart';
+import 'package:starshmucks/db/orders_db.dart';
+import 'package:starshmucks/model/menu_model.dart';
 import '/model/order_history.dart';
 import '/common_things.dart';
 import '/home/home_screen.dart';
 
 import 'help_page.dart';
+import 'model/cart_model.dart';
 
 class OrderSuccess extends StatefulWidget {
   OrderSuccess({Key? key}) : super(key: key);
@@ -18,47 +23,64 @@ class OrderSuccess extends StatefulWidget {
 }
 
 class _OrderSuccessState extends State<OrderSuccess> {
-  // late DB db;
-  late var item;
+  late OrdersDB db;
   List<OrderHistoryModel> OrderData = [];
+  List<CartModel> cartlist = [];
+ List<String> idlistfromstring = [];
+ List<String> qtylistfromstring = [];
+ List<MenuModel> items = [];
+ List<MenuModel> items1 = [];
+
   @override
   void initState() {
-    // db = MenuDB();
-    // db.initDBOrders();
-    // putdata();
+    db= OrdersDB();
+     db.initDBOrders();
+    putData();
     gainrewards();
     getAddress();
-    printData();
+    getDataIds();
     super.initState();
     cartinit = false;
   }
+  getDataIds() async {
+    MenuDB menudb = MenuDB();
+    OrderData = await db.getDataOrders();
 
-  printData() {
-    print("testty " + OrderData.toString());
+    print("Order size:" + OrderData.length.toString());
     for (var i = 0; i < OrderData.length; i++) {
-      print("Titlke is " + OrderData[i].title);
+       idlistfromstring = OrderData[i].id.split(' ');
+       qtylistfromstring = OrderData[i].qty.split(' ');
+
+     }
+    for (var i =0;i<idlistfromstring.length;i++){
+      items = await menudb.getitemwithId_order(idlistfromstring[i]);
+      items1.add(items.first);
     }
+
+    setState(() {});
   }
 
-  // putdata() async {
-  //   final box = Boxes.getCartData();
-  //   final data = box.values.toList().cast<CartData>();
-  //   for (var index = 0; index < data.length; index++) {
-  //     // db.insertDataOrders(OrderHistory(
-  //         title: data[index].title,
-  //         price: data[index].price,
-  //         qty: data[index].qty,
-  //         isInCart: data[index].isInCart,
-  //         image: data[index].image,
-  //         ttlPrice: data[index].ttlPrice,
-  //         id: data[index].id));
-  //   }
-  // }
+  putData() async {
+    String idar = '';
+    String qtyar = '';
+    CartDB cartdb = CartDB();
+    cartlist = await cartdb.getDataCart();
+    for(var i = 0; i < cartlist.length; i ++) {
+      if(idar.isEmpty)
+        {
+          idar= idar+ cartlist[i].id.toString();
+          qtyar=  qtyar+cartlist[i].qty.toString();
+        }
+      else {
+        idar = idar + ' ' + cartlist[i].id.toString();
+        qtyar = qtyar + ' ' + cartlist[i].qty.toString();
+      }
+  }
+    print("im idar:" +idar);
+    print("im qtyar:" +qtyar);
+   db.createarr(idar,qtyar);
+  }
 
-  // getdata() async {
-  //   OrderData = await db.getDataOrders();
-  //   setState(() {});
-  // }
 
   late String selectedAddress = '';
   getAddress() async {
@@ -69,15 +91,9 @@ class _OrderSuccessState extends State<OrderSuccess> {
     return selectedAddress;
   }
 
+
   @override
   Widget build(BuildContext context) {
-    // final box2 = Boxes.getUserData();
-    // final data2 = box2.values.toList().cast<UserData>();
-    // final box = Boxes.getCartData();
-    // final data = box.values.toList().cast<CartData>();
-    //
-    // //to copy list
-    //  data2[0].orders = data.cast<List>();
     return WillPopScope(
       onWillPop: gohome,
       child: Scaffold(
@@ -164,71 +180,65 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   indent: 0,
                   endIndent: 0,
                 ),
-                // ValueListenableBuilder<Box<CartData>>(
-                //     valueListenable: Boxes.getCartData().listenable(),
-                //     builder: (context, box, _) {
-                //       final data = box.values.toList().cast<CartData>();
-                //       if (data.isEmpty) {
-                //         cartinit = false;
-                //       }
-                //       return data.isEmpty
-                //           ? Center(child: Text("No items in cart"))
-                //           : SizedBox(
-                //               width: 400,
-                //               child: ListView.builder(
-                //                 shrinkWrap: true,
-                //                 itemCount: data.length,
-                //                 itemBuilder: (context, index) {
-                //                   return Column(
-                //                     crossAxisAlignment:
-                //                         CrossAxisAlignment.start,
-                //                     children: [
-                //                       Padding(
-                //                         padding: const EdgeInsets.only(
-                //                             left: 10,
-                //                             right: 10,
-                //                             bottom: 5,
-                //                             top: 5),
-                //                         child: Row(
-                //                           mainAxisAlignment:
-                //                               MainAxisAlignment.spaceBetween,
-                //                           children: [
-                //                             Column(
-                //                               crossAxisAlignment:
-                //                                   CrossAxisAlignment.start,
-                //                               children: [
-                //                                 Container(
-                //                                     width: 150,
-                //                                     child: Text(
-                //                                         data[index].title,
-                //                                         maxLines: 2,
-                //                                         overflow: TextOverflow
-                //                                             .ellipsis)),
-                //                                 Text(
-                //                                     data[index].qty.toString() +
-                //                                         ' x qty'),
-                //                               ],
-                //                             ),
-                //                             Column(
-                //                                 crossAxisAlignment:
-                //                                     CrossAxisAlignment.end,
-                //                                 children: [
-                //                                   Row(children: [
-                //                                     AutoSizeText(
-                //                                       "\$ " + data[index].price,
-                //                                       minFontSize: 10,
-                //                                     ),
-                //                                   ]),
-                //                                 ])
-                //                           ],
-                //                         ),
-                //                       ),
-                //                     ],
-                //                   );
-                //                 },
-                //               ),
-                //             );
-                //
+
+                  OrderData.isEmpty
+                          ? Center(child: Text("No items in cart"))
+                          : SizedBox(
+                              width: 400,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: items1.length,
+                                itemBuilder: (context, index) {
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 10,
+                                            right: 10,
+                                            bottom: 5,
+                                            top: 5),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                    width: 150,
+                                                    child: Text(
+                                                        items1[index].title.toString(),
+                                                        maxLines: 2,
+                                                        overflow: TextOverflow
+                                                            .ellipsis)),
+                                                Text(
+                                                   qtylistfromstring[index]+
+                                                        ' x qty'),
+                                              ],
+                                            ),
+                                            // Column(
+                                            //     crossAxisAlignment:
+                                            //         CrossAxisAlignment.end,
+                                            //     children: [
+                                            //       Row(children: [
+                                            //         AutoSizeText(
+                                            //           "\$ " + data[index].price,
+                                            //           minFontSize: 10,
+                                            //         ),
+                                            //       ]),
+                                            //      ])
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+
                 Padding(
                   padding: const EdgeInsets.only(top: 5, bottom: 5),
                   child: Divider(

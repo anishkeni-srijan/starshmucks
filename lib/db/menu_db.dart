@@ -95,5 +95,21 @@ class MenuDB {
   }
 
 
-
+  Future<List<MenuModel>> getitemwithId_order(getit) async {
+    final db = await initDBMenu();
+    final List<Map<String, dynamic>> maps =
+    await db.query('Menu', where: "id = ?", whereArgs: [getit]);
+    return List.generate(maps.length, (i) {
+      return MenuModel(
+        id: maps[i]['id'],
+        tag: maps[i]['tag'],
+        title: maps[i]['title'],
+        price: maps[i]['price'],
+        description: maps[i]['description'],
+        category: maps[i]['category'],
+        image: maps[i]['image'],
+        rating: maps[i]['rating'],
+      );
+    });
+  }
 }

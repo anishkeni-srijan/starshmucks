@@ -13,29 +13,39 @@ class OrdersDB {
       onCreate: (database, version) async {
         await database.execute("""
           CREATE TABLE IF NOT EXISTS OrdersTable(
-          id INTEGER PRIMARY KEY,
-          title TEXT NOT NULL,
-          price TEXT NOT NULL,
-          qty INT NOT NULL,
-          isInCart BOOLEAN NOT NULL,
-          image TEXT NOT NULL,
-          ttlPrice DOUBLE NOT NULL
+          orderid INTEGER PRIMARY KEY AUTOINCREMENT,
+           id TEXT NOT NULL,
+           qty TEXT NOT NULL
           )
           """);
       },
       version: 1,
     );
   }
+  createarr(idarr,qtyarr)async{
+    var fido = await OrderHistoryModel(
+      id:idarr,
+      qty:qtyarr,
+    );
+    insertDataOrders(fido);
 
-  Future<bool> insertDataOrders(OrderHistoryModel orders) async {
+  }
+  Future<bool> insertDataOrders(OrderHistoryModel fido) async {
     final Database db = await initDBOrders();
-    db.insert("OrdersTable", orders.toMap());
+    db.insert("OrdersTable", fido.toMap());
     return true;
   }
+
 
   Future<List<OrderHistoryModel>> getDataOrders() async {
     final Database db = await initDBOrders();
     final List<Map<String, dynamic?>> data = await db.query("OrdersTable");
+    return data.map((e) => OrderHistoryModel.fromJson(e)).toList();
+  }
+  Future<List<OrderHistoryModel>> getOrderId() async {
+    final Database db = await initDBOrders();
+    final List<Map<String, dynamic?>> data = await db.rawQuery("Select orderid from OrdersTable");
+    print(data);
     return data.map((e) => OrderHistoryModel.fromJson(e)).toList();
   }
 }

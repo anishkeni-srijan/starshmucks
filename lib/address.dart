@@ -316,7 +316,7 @@ class _AddressState extends State<Address> {
 
                         data[0].address.add(xresult);
                         box.putAt(0, data[0]);
-
+                        Navigator.of(context).pop();
                         setState(() {});
                       },
                       style: ElevatedButton.styleFrom(
@@ -621,7 +621,6 @@ class _AddressState extends State<Address> {
                   child: ElevatedButton(
                     onPressed: () {
                       // data[0].address[index]=result;
-
                       var xresult = {
                         'name': fname.text,
                         'phno': phone.text,
@@ -634,6 +633,7 @@ class _AddressState extends State<Address> {
                       data[0].address[index] = xresult;
                       box.put(0, data[0]);
                       setState(() {});
+                      Navigator.of(context).pop();
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
