@@ -55,11 +55,11 @@ class _MyCartState extends State<MyCart> {
     cartdb = CartDB();
     cartdb.initDBCart();
     result = getcarttotal();
-    // getDataOnIds();
+    getDataOnIds();
     super.initState();
   }
 
-  Future<dynamic>getDataOnIds() async {
+getDataOnIds() async {
     datalist = await cartdb.getDataCart();
     for (var i = 0; i < datalist.length; i++) {
       kart = await menudb.getElementOnId_Menu(datalist[i].id);
@@ -128,9 +128,7 @@ class _MyCartState extends State<MyCart> {
           ),
         ],
       ),
-      body: FutureBuilder(
-        future: getDataOnIds(),
-        builder: (context, AsyncSnapshot snapshot) =>  ListView.builder(
+      body: ListView.builder(
           itemCount: kart1.length,
           itemBuilder: (context, index) {
             //print("qty= " + idlist[index].qty.toString());
@@ -213,7 +211,7 @@ class _MyCartState extends State<MyCart> {
               ),
             );
           },
-        ),
+
       ),
     );
   }
