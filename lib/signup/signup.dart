@@ -6,7 +6,9 @@ import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:get/get.dart';
+import 'package:starshmucks/db/user_db.dart';
 
+import '../model/user_model_new.dart';
 import '/model/user_model.dart';
 import '/signup/bloc/signup_bloc.dart';
 import '/signup/bloc/signup_events.dart';
@@ -49,13 +51,30 @@ class _SignupPageState extends State<SignupPage> {
   final pass2 = TextEditingController();
   String initialCountry = 'IN';
   PhoneNumber number = PhoneNumber(isoCode: 'IN');
+  late UserDB udb;
 
   void initState() {
+    udb = UserDB();
+    udb.initDBUserData();
+
     dob.text = ""; //set the initial value of text field
     super.initState();
   }
 
   void addUserData() {
+    //sqflite UserModel
+    var userSQL = UserModel(
+      name: name.text,
+      email: email.text,
+      phone: phone.text,
+      dob: dob.text,
+      password: pass1.text,
+      tnc: true.toString(),
+      rewards: 0,
+    );
+    udb.insertUserData(userSQL);
+    udb.getDataUserData();
+    //hive
     final user = UserDataModel()
       ..name = name.text
       ..email = email.text

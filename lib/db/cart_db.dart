@@ -1,7 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import '../model/menu_model.dart';
 import '/model/cart_model.dart';
 
 class CartDB {

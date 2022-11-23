@@ -27,14 +27,14 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      persistentFooterButtons: cartinit ? [viewincart()] : null,
+      // persistentFooterButtons: cartinit ? [viewincart()] : null,
       // backgroundColor: HexColor("#175244"),
       body: ValueListenableBuilder<Box<UserDataModel>>(
         valueListenable: Boxes.getUserData().listenable(),
         builder: (context, box, _) {
           final data = box.values.toList().cast<UserDataModel>();
-          print("pass  " + data[0].password);
-          print("email  " + data[0].email);
+          // print("pass  " + data[0].password);
+          // print("email  " + data[0].email);
           print(data[0].profileimage.toString());
           return SingleChildScrollView(
             child: Column(
