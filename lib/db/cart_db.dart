@@ -88,7 +88,6 @@ class CartDB {
 
   decreaseqty(CartModel cartitem) async {
     final db = await initDBCart();
-
     var fido = CartModel(
       id: cartitem.id,
       qty: cartitem.qty - 1,
