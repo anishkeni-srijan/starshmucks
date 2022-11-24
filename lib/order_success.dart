@@ -33,7 +33,6 @@ class _OrderSuccessState extends State<OrderSuccess> {
  List<String> qtylistfromstring = [];
  List<MenuModel> items = [];
  List<MenuModel> items1 = [];
- late Timer timer;
 
   @override
   void initState() {
@@ -41,8 +40,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
     db.initDBOrders();
     cartdb = CartDB();
     cartdb.initDBCart();
-    timer = Timer.periodic(Duration(seconds: 5), (Timer t) => putData());
-    getDataIds();
+     putData();
     gainrewards();
     getAddress();
     super.initState();
@@ -101,6 +99,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
 
   @override
   Widget build(BuildContext context) {
+    getDataIds();
     return WillPopScope(
       onWillPop: gohome,
       child: Scaffold(
@@ -189,12 +188,12 @@ class _OrderSuccessState extends State<OrderSuccess> {
                 ),
 
                   OrderData.isEmpty
-                          ? Center(child: Text("No items in cart"))
+                          ? Center(child: Text('updating...'),)
                           : SizedBox(
                                 width: 400,
                                 child: ListView.builder(
                                   shrinkWrap: true,
-                                  itemCount: items1.length,
+                                  itemCount:  qtylistfromstring.length,
                                   itemBuilder: (context, index) {
                                     return Column(
                                       crossAxisAlignment:

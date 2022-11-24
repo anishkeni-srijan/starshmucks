@@ -55,7 +55,6 @@ class _MyCartState extends State<MyCart> {
     cartdb = CartDB();
     cartdb.initDBCart();
     result = getcarttotal();
-
     super.initState();
   }
 
