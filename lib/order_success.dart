@@ -45,7 +45,6 @@ class _OrderSuccessState extends State<OrderSuccess> {
     getDataIds();
     gainrewards();
     getAddress();
-
     super.initState();
     cartinit = false;
   }
@@ -192,60 +191,61 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   OrderData.isEmpty
                           ? Center(child: Text("No items in cart"))
                           : SizedBox(
-                              width: 400,
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: items1.length,
-                                itemBuilder: (context, index) {
-                                  return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10,
-                                            right: 10,
-                                            bottom: 5,
-                                            top: 5),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                    width: 150,
-                                                    child: Text(
-                                                        items1[index].title.toString(),
-                                                        maxLines: 2,
-                                                        overflow: TextOverflow
-                                                            .ellipsis)),
-                                                Text(
-                                                   qtylistfromstring[index]+
-                                                        ' x qty'),
-                                              ],
-                                            ),
-                                            // Column(
-                                            //     crossAxisAlignment:
-                                            //         CrossAxisAlignment.end,
-                                            //     children: [
-                                            //       Row(children: [
-                                            //         AutoSizeText(
-                                            //           "\$ " + data[index].price,
-                                            //           minFontSize: 10,
-                                            //         ),
-                                            //       ]),
-                                            //      ])
-                                          ],
+                                width: 400,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: items1.length,
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10,
+                                              right: 10,
+                                              bottom: 5,
+                                              top: 5),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                      width: 150,
+                                                      child: Text(
+                                                          items1[index].title.toString(),
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow
+                                                              .ellipsis)),
+                                                  Text(
+                                                     qtylistfromstring[index]+
+                                                          ' x qty'),
+                                                ],
+                                              ),
+                                              // Column(
+                                              //     crossAxisAlignment:
+                                              //         CrossAxisAlignment.end,
+                                              //     children: [
+                                              //       Row(children: [
+                                              //         AutoSizeText(
+                                              //           "\$ " + data[index].price,
+                                              //           minFontSize: 10,
+                                              //         ),
+                                              //       ]),
+                                              //      ])
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  );
-                                },
+                                      ],
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
+
 
                 Padding(
                   padding: const EdgeInsets.only(top: 5, bottom: 5),

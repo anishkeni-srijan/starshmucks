@@ -36,10 +36,10 @@ class _MyCartState extends State<MyCart> {
 
   late CartDB cartdb;
   late MenuDB menudb;
-  List<MenuModel> kart = [];
-  List<MenuModel> kart1 = [];
-  List<CartModel> datalist = [];
-  List<CartModel> qtylist = [];
+  late List<MenuModel> kart = [];
+  late List<MenuModel> kart1 = [];
+  late List<CartModel> datalist = [];
+  late List<CartModel> qtylist = [];
 
   @override
   clearcart() {
@@ -55,7 +55,7 @@ class _MyCartState extends State<MyCart> {
     cartdb = CartDB();
     cartdb.initDBCart();
     result = getcarttotal();
-    getDataOnIds();
+
     super.initState();
   }
 
@@ -66,8 +66,6 @@ getDataOnIds() async {
       // print("init cart " + kart.length.toString());
       if (kart.length == 1) kart1.add(kart.first);
 
-      //print("fdg " + kart.runtimeType.toString());
-      //print("added to cart: " + kart1.toString());
     }
     setState(() {});
   }
@@ -95,6 +93,7 @@ getDataOnIds() async {
 
   @override
   Widget build(BuildContext context) {
+    getDataOnIds();
     return Scaffold(
       bottomNavigationBar: Container(
         padding: EdgeInsets.all(8.0),
@@ -128,8 +127,8 @@ getDataOnIds() async {
           ),
         ],
       ),
-      body: ListView.builder(
-          itemCount: kart1.length,
+      body:datalist==null?CircularProgressIndicator():ListView.builder(
+          itemCount: datalist.length,
           itemBuilder: (context, index) {
             //print("qty= " + idlist[index].qty.toString());
             return Card(
