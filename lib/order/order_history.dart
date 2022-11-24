@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:starshmucks/db/menu_db.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:starshmucks/db/orders_db.dart';
 import 'package:starshmucks/model/order_history.dart';
-import 'boxes.dart';
 
-import 'model/user_model.dart';
+import 'order_details.dart';
+
 
 class Orders extends StatefulWidget {
   const Orders({Key? key}) : super(key: key);
@@ -16,8 +18,8 @@ class Orders extends StatefulWidget {
 class _OrdersState extends State<Orders> {
   var idlistfromstring;
   var qtylistfromstring;
-  List<dynamic>data = [];
-  List<dynamic>data1 = [];
+  late Map<dynamic,dynamic>data = {};
+  late List<dynamic>data1= [];
   List<OrderHistoryModel>Orderdata = [];
   late OrdersDB orderdb;
   @override
@@ -30,12 +32,15 @@ class _OrdersState extends State<Orders> {
   getorderdata()async{
 
     data = await orderdb.getOrderId();
-    for(var i = 0; i < data.length; i++)
-    data1.add(data.first);
-    print(data1);
+    data1.addAll(data.keys);
+
+    print(data.keys);
+    // data1.addAll(data);
+    // print(data1);
     setState(() {
     });
   }
+
   // getDataIds() async {
   //   MenuDB menudb = MenuDB();
   //   Orderdata = await orderdb.getDataOrders();
@@ -60,7 +65,10 @@ class _OrdersState extends State<Orders> {
         body: ListView.builder(
           itemCount: data1.length,
           itemBuilder: (context, index) =>
-                  Container(child: Text(data1[index].toString()),)
+                  ListTile(title: Text(data1[index].toString()),onTap:() async{
+                    final prefs = await SharedPreferences.getInstance();
+                    await prefs.setInt('orderid', data1[index]);
+                    Get.to(transition: Transition.rightToLeft,Orderdetail()); },)
           ),
         );
   }

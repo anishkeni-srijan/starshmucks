@@ -6,10 +6,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 import 'common_things.dart';
 import 'model/user_model.dart';
-import 'order_failed.dart';
+import 'order/order_failed.dart';
+import 'order/order_success.dart';
 import 'upi_payment.dart';
 import 'boxes.dart';
-import 'order_success.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({Key? key}) : super(key: key);

@@ -11,12 +11,13 @@ import 'package:starshmucks/db/cart_db.dart';
 import 'package:starshmucks/db/menu_db.dart';
 import 'package:starshmucks/db/orders_db.dart';
 import 'package:starshmucks/model/menu_model.dart';
+import '../help_page.dart';
+import '../model/cart_model.dart';
 import '/model/order_history.dart';
 import '/common_things.dart';
 import '/home/home_screen.dart';
 
-import 'help_page.dart';
-import 'model/cart_model.dart';
+
 
 class OrderSuccess extends StatefulWidget {
   OrderSuccess({Key? key}) : super(key: key);
@@ -40,16 +41,18 @@ class _OrderSuccessState extends State<OrderSuccess> {
     db.initDBOrders();
     cartdb = CartDB();
     cartdb.initDBCart();
-     putData();
+     putDatafromcart();
     gainrewards();
     getAddress();
     super.initState();
     cartinit = false;
   }
   getDataIds() async {
+
     MenuDB menudb = MenuDB();
+    menudb.initDBMenu();
+    db.initDBOrders();
     OrderData = await db.getDataOrders();
-    print("Order size:" + OrderData.length.toString());
     for (var i = 0; i < OrderData.length; i++) {
        idlistfromstring = OrderData[i].id!.split(' ');
        qtylistfromstring = OrderData[i].qty!.split(' ');
@@ -58,14 +61,12 @@ class _OrderSuccessState extends State<OrderSuccess> {
       items = await menudb.getitemwithId_order(idlistfromstring[i]);
       items1.add(items.first);
     }
-
     setState(() {});
   }
 
-  putData() async {
+  putDatafromcart() async {
     String idar = '';
     String qtyar = '';
-
     cartlist = await cartdb.getDataCart();
     for(var i = 0; i < cartlist.length; i ++) {
       if(idar.isEmpty)
@@ -101,7 +102,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
   Widget build(BuildContext context) {
     getDataIds();
     return WillPopScope(
-      onWillPop: gohome,
+      onWillPop: gohomefromsuccess,
       child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -116,7 +117,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   label: Text(''),
                   onPressed: () {
                     //box.clear();
-                    Get.to(bottomBar());
+                    gohomefromsuccess();
                   },
                 ),
                 TextButton(
@@ -187,13 +188,13 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   endIndent: 0,
                 ),
 
-                  OrderData.isEmpty
+                  OrderData.isEmpty || items1.isEmpty
                           ? Center(child: Text('updating...'),)
                           : SizedBox(
                                 width: 400,
                                 child: ListView.builder(
                                   shrinkWrap: true,
-                                  itemCount:  qtylistfromstring.length,
+                                  itemCount: qtylistfromstring.length,
                                   itemBuilder: (context, index) {
                                     return Column(
                                       crossAxisAlignment:

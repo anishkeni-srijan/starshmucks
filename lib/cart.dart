@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:starshmucks/common_things.dart';
-import 'package:starshmucks/order_success.dart';
 
 import '/db/cart_db.dart';
 import '/model/cart_model.dart';
@@ -11,6 +10,7 @@ import 'address.dart';
 import 'db/menu_db.dart';
 import 'model/menu_model.dart';
 import 'model/user_model.dart';
+import 'order/order_success.dart';
 
 class MyCart extends StatefulWidget {
   const MyCart({Key? key}) : super(key: key);
@@ -64,7 +64,6 @@ getDataOnIds() async {
       kart = await menudb.getElementOnId_Menu(datalist[i].id);
       // print("init cart " + kart.length.toString());
       if (kart.length == 1) kart1.add(kart.first);
-
     }
     setState(() {});
   }
@@ -95,14 +94,14 @@ getDataOnIds() async {
     getDataOnIds();
     return Scaffold(
       bottomNavigationBar: Container(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
           onPressed: () {
             Get.to(OrderSuccess(), transition: Transition.rightToLeft);
           },
-          child: Text("Checkout"),
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(HexColor("#036635"))),
+          child: const Text("Checkout"),
           //   ),
           // ],
         ),
@@ -112,7 +111,7 @@ getDataOnIds() async {
       appBar: AppBar(
         backgroundColor: Colors.white,
         foregroundColor: HexColor("#175244"),
-        title: Text("Cart"),
+        title: const Text("Cart"),
         elevation: 2,
         actions: [
           IconButton(
@@ -126,7 +125,8 @@ getDataOnIds() async {
           ),
         ],
       ),
-      body:datalist==null?CircularProgressIndicator():ListView.builder(
+      body:datalist==null?const CircularProgressIndicator()
+          :ListView.builder(
           itemCount: datalist.length,
           itemBuilder: (context, index) {
             //print("qty= " + idlist[index].qty.toString());
@@ -161,7 +161,7 @@ getDataOnIds() async {
                               style: ButtonStyle(
                                   foregroundColor: MaterialStateProperty.all(
                                       HexColor("#036635"))),
-                              child: Text(
+                              child: const Text(
                                 'Remove',
                               ),
                             ),
@@ -174,7 +174,7 @@ getDataOnIds() async {
                           Row(
                             children: [
                               IconButton(
-                                icon: Icon(Icons.remove),
+                                icon: const Icon(Icons.remove),
                                 onPressed: () {
                                   if (datalist[index].qty == 1) {
                                     removefromcart(kart1[index].id);
@@ -189,7 +189,7 @@ getDataOnIds() async {
                               ),
                               Text(datalist[index].qty.toString()),
                               IconButton(
-                                icon: Icon(Icons.add),
+                                icon: const Icon(Icons.add),
                                 onPressed: () {
                                   increaseqty(datalist[index]);
 

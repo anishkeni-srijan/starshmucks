@@ -6,7 +6,6 @@ import '/model/user_model_new.dart';
 class UserDB {
   //user Data
   Future<Database> initDBUserData() async {
-    print("initialising db... user data");
     String databasepath = await getDatabasesPath();
     final path = join(databasepath, "User.db");
     return openDatabase(

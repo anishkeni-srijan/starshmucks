@@ -5,7 +5,6 @@ import '../model/order_history.dart';
 
 class OrdersDB {
   Future<Database> initDBOrders() async {
-    print("initialising db orders");
     String databasepath = await getDatabasesPath();
     final path = join(databasepath, "Orders.db");
     return openDatabase(
@@ -35,19 +34,19 @@ class OrdersDB {
     db.insert("OrdersTable", fido.toMap());
     return true;
   }
-
-
   Future<List<OrderHistoryModel>> getDataOrders() async {
     final Database db = await initDBOrders();
     final List<Map<String, dynamic?>> data = await db.query("OrdersTable");
     return data.map((e) => OrderHistoryModel.fromJson(e)).toList();
   }
+  Future<List<OrderHistoryModel>> getDataOrderswrtID(id) async {
+    final Database db = await initDBOrders();
+    final List<Map<String, dynamic?>> data = await db.query("OrdersTable", where: 'orderid = ?', whereArgs: [id]);
+    return data.map((e) => OrderHistoryModel.fromJson(e)).toList();
+  }
   Future<dynamic> getOrderId() async {
     final Database db = await initDBOrders();
     final List<Map<String, dynamic?>> data = await db.rawQuery("Select orderid from OrdersTable");
-    print(data);
-    var res = data.toList();
-    print(res);
-    return res;
+    return data.asMap();
   }
 }
