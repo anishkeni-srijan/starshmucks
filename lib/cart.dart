@@ -8,6 +8,7 @@ import '/model/cart_model.dart';
 import 'boxes.dart';
 import 'address.dart';
 import 'db/menu_db.dart';
+import 'db/orders_db.dart';
 import 'model/menu_model.dart';
 import 'model/user_model.dart';
 import 'order/order_success.dart';
@@ -36,10 +37,12 @@ class _MyCartState extends State<MyCart> {
 
   late CartDB cartdb;
   late MenuDB menudb;
+  late OrdersDB orderdb;
   late List<MenuModel> kart = [];
   late List<MenuModel> kart1 = [];
   late List<CartModel> datalist = [];
   late List<CartModel> qtylist = [];
+  List<CartModel> cartlist = [];
 
   @override
   clearcart() {
@@ -88,6 +91,28 @@ getDataOnIds() async {
 
     });
   }
+  putDatafromcart() async {
+    orderdb = OrdersDB();
+    String idar = '';
+    String qtyar = '';
+    cartlist = await cartdb.getDataCart();
+    for(var i = 0; i < cartlist.length; i ++) {
+      if(idar.isEmpty)
+      {
+        idar= idar+ cartlist[i].id.toString();
+        qtyar=  qtyar+cartlist[i].qty.toString();
+      }
+      else {
+        idar = idar + ' ' + cartlist[i].id.toString();
+        qtyar = qtyar + ' ' + cartlist[i].qty.toString();
+      }
+    }
+    print("im idar:" +idar);
+    print("im qtyar:" +qtyar);
+    orderdb.createarr(idar,qtyar);
+    setState(() {
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +122,9 @@ getDataOnIds() async {
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
           onPressed: () {
+            putDatafromcart();
+            setState(() {
+            });
             Get.to(OrderSuccess(), transition: Transition.rightToLeft);
           },
           style: ButtonStyle(
@@ -154,8 +182,7 @@ getDataOnIds() async {
                             Text("\$ " + kart1[index].price),
                             TextButton(
                               onPressed: () {
-                                removefromcart(kart1[index].id);
-
+                                removefromcart(datalist[index]);
                                 setState(() {});
                               },
                               style: ButtonStyle(
@@ -177,7 +204,7 @@ getDataOnIds() async {
                                 icon: const Icon(Icons.remove),
                                 onPressed: () {
                                   if (datalist[index].qty == 1) {
-                                    removefromcart(kart1[index].id);
+                                    removefromcart(datalist[index]);
                                   } else {
                                     decreaseqty(datalist[index]);
                                   }
@@ -192,7 +219,6 @@ getDataOnIds() async {
                                 icon: const Icon(Icons.add),
                                 onPressed: () {
                                   increaseqty(datalist[index]);
-
                                   setState(() {});
                                 },
                                 style: ButtonStyle(

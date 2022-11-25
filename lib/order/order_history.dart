@@ -59,17 +59,17 @@ class _OrdersState extends State<Orders> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Order'),
-        ),
-        body: ListView.builder(
+      appBar: AppBar(
+        title: Text('Order'),
+      ),
+      body: ListView.builder(
           itemCount: data1.length,
           itemBuilder: (context, index) =>
-                  ListTile(title: Text(data1[index].toString()),onTap:() async{
-                    final prefs = await SharedPreferences.getInstance();
-                    await prefs.setInt('orderid', data1[index]);
-                    Get.to(transition: Transition.rightToLeft,Orderdetail()); },)
-          ),
-        );
+              ListTile(title: Text(data1[index].toString()),onTap:() async{
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.setInt('orderid', data1[index]);
+                Get.to(transition: Transition.rightToLeft,Orderdetail()); },)
+      ),
+    );
   }
 }

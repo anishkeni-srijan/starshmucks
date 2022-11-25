@@ -17,8 +17,6 @@ import '/model/order_history.dart';
 import '/common_things.dart';
 import '/home/home_screen.dart';
 
-
-
 class OrderSuccess extends StatefulWidget {
   OrderSuccess({Key? key}) : super(key: key);
   @override
@@ -34,6 +32,8 @@ class _OrderSuccessState extends State<OrderSuccess> {
  List<String> qtylistfromstring = [];
  List<MenuModel> items = [];
  List<MenuModel> items1 = [];
+ List<dynamic> orderid =[];
+ List<dynamic> orderid1 =[];
 
   @override
   void initState() {
@@ -41,14 +41,13 @@ class _OrderSuccessState extends State<OrderSuccess> {
     db.initDBOrders();
     cartdb = CartDB();
     cartdb.initDBCart();
-     putDatafromcart();
+    // getorderid();
     gainrewards();
     getAddress();
     super.initState();
     cartinit = false;
   }
   getDataIds() async {
-
     MenuDB menudb = MenuDB();
     menudb.initDBMenu();
     db.initDBOrders();
@@ -63,29 +62,17 @@ class _OrderSuccessState extends State<OrderSuccess> {
     }
     setState(() {});
   }
+  // getorderid() async {
+  //   db.initDBOrders();
+  //   orderid = db.getOrderId() as List;
+  //   print('ordid'+orderid.toString());
+  //   if(orderid.length==1)
+  //   orderid1.add(orderid.first);
+  //   setState(() {
+  //   });
+  //
+  // }
 
-  putDatafromcart() async {
-    String idar = '';
-    String qtyar = '';
-    cartlist = await cartdb.getDataCart();
-    for(var i = 0; i < cartlist.length; i ++) {
-      if(idar.isEmpty)
-        {
-          idar= idar+ cartlist[i].id.toString();
-          qtyar=  qtyar+cartlist[i].qty.toString();
-        }
-      else {
-        idar = idar + ' ' + cartlist[i].id.toString();
-        qtyar = qtyar + ' ' + cartlist[i].qty.toString();
-      }
-  }
-    print("im idar:" +idar);
-    print("im qtyar:" +qtyar);
-   db.createarr(idar,qtyar);
-   setState(() {
-
-   });
-  }
 
 
   late String selectedAddress = '';
@@ -155,6 +142,16 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   child: Column(
                     children: [
                       Container(
+                        transform: Matrix4.translationValues(0, 12, 0),
+                        child: Text(
+                          'Order id: #'+orderid.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 40,
+                          ),
+                        ),
+                      ),
+                      Container(
                         transform: Matrix4.translationValues(0, 28, 0),
                         child: Text(
                           'Order Placed!',
@@ -188,62 +185,63 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   endIndent: 0,
                 ),
 
-                  OrderData.isEmpty || items1.isEmpty
+                  OrderData.isEmpty || items1.isEmpty ||qtylistfromstring.isEmpty
                           ? Center(child: Text('updating...'),)
                           : SizedBox(
                                 width: 400,
                                 child: ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: qtylistfromstring.length,
-                                  itemBuilder: (context, index) {
-                                    return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10,
-                                              right: 10,
-                                              bottom: 5,
-                                              top: 5),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Container(
-                                                      width: 150,
-                                                      child: Text(
-                                                          items1[index].title.toString(),
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow
-                                                              .ellipsis)),
-                                                  Text(
-                                                     qtylistfromstring[index]+
-                                                          ' x qty'),
-                                                ],
-                                              ),
-                                              // Column(
-                                              //     crossAxisAlignment:
-                                              //         CrossAxisAlignment.end,
-                                              //     children: [
-                                              //       Row(children: [
-                                              //         AutoSizeText(
-                                              //           "\$ " + data[index].price,
-                                              //           minFontSize: 10,
-                                              //         ),
-                                              //       ]),
-                                              //      ])
-                                            ],
+                                    shrinkWrap: true,
+                                    itemCount:qtylistfromstring.length,
+                                    itemBuilder: (context, index) {
+                                      return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 10,
+                                                right: 10,
+                                                bottom: 5,
+                                                top: 5),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                        width: 150,
+                                                        child: Text(
+                                                            items1[index].title.toString(),
+                                                            maxLines: 2,
+                                                            overflow: TextOverflow
+                                                                .ellipsis)),
+                                                    Text(
+                                                       qtylistfromstring[index]+
+                                                            ' x qty'),
+                                                  ],
+                                                ),
+                                                // Column(
+                                                //     crossAxisAlignment:
+                                                //         CrossAxisAlignment.end,
+                                                //     children: [
+                                                //       Row(children: [
+                                                //         AutoSizeText(
+                                                //           "\$ " + data[index].price,
+                                                //           minFontSize: 10,
+                                                //         ),
+                                                //       ]),
+                                                //      ])
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+
                               ),
 
 

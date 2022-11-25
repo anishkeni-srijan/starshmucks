@@ -62,7 +62,7 @@ class CartDB {
     db.delete("CartTable");
   }
 
-  Future<void> deleteitem(int id) async {
+  Future<void> deleteitem(CartModel cartitem) async {
     // Get a reference to the database.
     final db = await initDBCart();
 
@@ -72,7 +72,7 @@ class CartDB {
       // Use a `where` clause to delete a specific dog.
       where: 'id = ?',
       // Pass the Dog's id as a whereArg to prevent SQL injection.
-      whereArgs: [id],
+      whereArgs: [cartitem.id],
     );
   }
 
