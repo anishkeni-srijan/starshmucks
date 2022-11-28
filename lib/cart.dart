@@ -47,9 +47,7 @@ class _MyCartState extends State<MyCart> {
   @override
   clearcart() {
     cartdb.clear();
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   void initState() {
@@ -61,7 +59,7 @@ class _MyCartState extends State<MyCart> {
     super.initState();
   }
 
-getDataOnIds() async {
+  getDataOnIds() async {
     datalist = await cartdb.getDataCart();
     for (var i = 0; i < datalist.length; i++) {
       kart = await menudb.getElementOnId_Menu(datalist[i].id);
@@ -73,44 +71,37 @@ getDataOnIds() async {
 
   removefromcart(sendid) {
     cartdb.deleteitem(sendid);
-    setState(() {
-    });
+    setState(() {});
   }
 
   increaseqty(sendid) {
     cartdb.increseqty(sendid);
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   decreaseqty(sendid) {
     cartdb.decreaseqty(sendid);
-    setState(() {
-
-    });
+    setState(() {});
   }
+
   putDatafromcart() async {
     orderdb = OrdersDB();
     String idar = '';
     String qtyar = '';
     cartlist = await cartdb.getDataCart();
-    for(var i = 0; i < cartlist.length; i ++) {
-      if(idar.isEmpty)
-      {
-        idar= idar+ cartlist[i].id.toString();
-        qtyar=  qtyar+cartlist[i].qty.toString();
-      }
-      else {
+    for (var i = 0; i < cartlist.length; i++) {
+      if (idar.isEmpty) {
+        idar = idar + cartlist[i].id.toString();
+        qtyar = qtyar + cartlist[i].qty.toString();
+      } else {
         idar = idar + ' ' + cartlist[i].id.toString();
         qtyar = qtyar + ' ' + cartlist[i].qty.toString();
       }
     }
-    print("im idar:" +idar);
-    print("im qtyar:" +qtyar);
-    orderdb.createarr(idar,qtyar);
-    setState(() {
-    });
+    print("im idar:" + idar);
+    print("im qtyar:" + qtyar);
+    orderdb.createarr(idar, qtyar);
+    setState(() {});
   }
 
   @override
@@ -122,8 +113,7 @@ getDataOnIds() async {
         child: ElevatedButton(
           onPressed: () {
             putDatafromcart();
-            setState(() {
-            });
+            setState(() {});
             Get.to(OrderSuccess(), transition: Transition.rightToLeft);
           },
           style: ButtonStyle(
@@ -152,77 +142,83 @@ getDataOnIds() async {
           ),
         ],
       ),
-      body:datalist==null?const CircularProgressIndicator()
-          :ListView.builder(
-          itemCount: datalist.length,
-          itemBuilder: (context, index) {
-            //print("qty= " + idlist[index].qty.toString());
-            return Card(
-              elevation: 8,
-              child: Column(
-                children: [
-                  Row(
+      body: datalist == null
+          ? const CircularProgressIndicator()
+          : ListView.builder(
+              itemCount: datalist.length,
+              itemBuilder: (context, index) {
+                //print("qty= " + idlist[index].qty.toString());
+                return Card(
+                  elevation: 8,
+                  child: Column(
                     children: [
-                      Image.asset(
-                        kart1[index].image,
-                        height: 100,
-                        width: 100,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                                width: 150,
-                                child: Text(kart1[index].title,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis)),
-                            Text("\$ " + kart1[index].price),
-                            TextButton(
-                              onPressed: () {
-                                removefromcart(datalist[index]);
-                                setState(() {});
-                              },
-                              style: ButtonStyle(
-                                  foregroundColor: MaterialStateProperty.all(
-                                      HexColor("#036635"))),
-                              child: const Text(
-                                'Remove',
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                      Row(
                         children: [
-                          Row(
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.remove),
-                                onPressed: () {
-                                  if (datalist[index].qty == 1) {
+                          Image.asset(
+                            kart1[index].image,
+                            height: 100,
+                            width: 100,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                    width: 150,
+                                    child: Text(kart1[index].title,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis)),
+                                Text("\$ " + kart1[index].price),
+                                TextButton(
+                                  onPressed: () {
                                     removefromcart(datalist[index]);
-                                  } else {
-                                    decreaseqty(datalist[index]);
-                                  }
-                                  setState(() {});
-                                },
-                                style: ButtonStyle(
-                                    foregroundColor: MaterialStateProperty.all(
-                                        HexColor("#036635"))),
-                              ),
-                              Text(datalist[index].qty.toString()),
-                              IconButton(
-                                icon: const Icon(Icons.add),
-                                onPressed: () {
-                                  increaseqty(datalist[index]);
-                                  setState(() {});
-                                },
-                                style: ButtonStyle(
-                                    foregroundColor: MaterialStateProperty.all(
-                                        HexColor("#036635"))),
+                                    setState(() {});
+                                  },
+                                  style: ButtonStyle(
+                                      foregroundColor:
+                                          MaterialStateProperty.all(
+                                              HexColor("#036635"))),
+                                  child: const Text(
+                                    'Remove',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Row(
+                                children: [
+                                  IconButton(
+                                    icon: const Icon(Icons.remove),
+                                    onPressed: () {
+                                      if (datalist[index].qty == 1) {
+                                        removefromcart(datalist[index]);
+                                      } else {
+                                        decreaseqty(datalist[index]);
+                                      }
+                                      setState(() {});
+                                    },
+                                    style: ButtonStyle(
+                                        foregroundColor:
+                                            MaterialStateProperty.all(
+                                                HexColor("#036635"))),
+                                  ),
+                                  Text(datalist[index].qty.toString()),
+                                  IconButton(
+                                    icon: const Icon(Icons.add),
+                                    onPressed: () {
+                                      increaseqty(datalist[index]);
+                                      setState(() {});
+                                    },
+                                    style: ButtonStyle(
+                                        foregroundColor:
+                                            MaterialStateProperty.all(
+                                                HexColor("#036635"))),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -230,12 +226,9 @@ getDataOnIds() async {
                       ),
                     ],
                   ),
-                ],
-              ),
-            );
-          },
-
-      ),
+                );
+              },
+            ),
     );
   }
 }
