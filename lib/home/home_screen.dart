@@ -5,7 +5,10 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
+import 'package:starshmucks/model/user_model_new.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../db/user_db.dart';
 import '../model/menu_model.dart';
 import '/boxes.dart';
 import '/model/user_model.dart';
@@ -28,15 +31,17 @@ late String username;
 class _HomePageState extends State<HomePage> {
   late MenuDB db;
   List<MenuModel> data = [];
+  List<Map<String, dynamic>> userddt = [];
   late var product;
   bool fetching = false;
+  late UserDB udb;
   void initState() {
+    udb = UserDB();
+    udb.initDBUserData();
     db = MenuDB();
     db.initDBMenu();
     getdata();
     putdata();
-    // cdb = CartDB();
-    // cdb.initDBCart();
     super.initState();
   }
 

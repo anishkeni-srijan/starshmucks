@@ -6,7 +6,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:starshmucks/model/user_model_new.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../boxes.dart';
 import '../db/user_db.dart';
@@ -39,21 +39,25 @@ class _SigninPageState extends State<SigninPage> {
     super.initState();
   }
 
+  List<Map<String, dynamic>> userddt = [];
+  getUser() async {
+    userddt = await udb.getDataUserData();
+  }
+
   Future<bool> onWillPop() async {
     return (await showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: new Text('Are you sure?'),
-            content: new Text('Do you want to exit an App'),
+            title: Text('Are you sure?'),
+            content: Text('Do you want to exit an App'),
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
-                child: new Text('No',
-                    style: TextStyle(color: HexColor("#175244"))),
+                child: Text('No', style: TextStyle(color: HexColor("#175244"))),
               ),
               TextButton(
                 onPressed: () => exit(0),
-                child: new Text(
+                child: Text(
                   'Yes',
                   style: TextStyle(color: HexColor("#175244")),
                 ),
@@ -62,11 +66,6 @@ class _SigninPageState extends State<SigninPage> {
           ),
         )) ??
         false;
-  }
-
-  List<Map<String, dynamic>> userddt = [];
-  getUser() async {
-    userddt = await udb.getDataUserData();
   }
 
   @override

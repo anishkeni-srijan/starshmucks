@@ -5,7 +5,9 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:starshmucks/model/address_model.dart';
 
+import 'db/user_db.dart';
 import 'payment.dart';
 import 'boxes.dart';
 import 'model/user_model.dart';
@@ -18,6 +20,31 @@ class Address extends StatefulWidget {
 }
 
 class _AddressState extends State<Address> {
+  late UserDB udb;
+  late List<AddressModel> addressList = [];
+  void initState() {
+    udb = UserDB();
+    udb.initDBUserData();
+
+    super.initState();
+  }
+
+  List<Map<String, dynamic>> userddt = [];
+  getUser() async {
+    userddt = await udb.getDataUserData();
+    addressList = await udb.getAddressList();
+    setState(() {});
+    //  print("gotlist");
+    //print("mynameis" + addressList[1].fname);
+    // print("object");
+    // print(userddt[0]['id']);
+  }
+
+  deleteAddress(sendingID) {
+    udb.deleteitem(sendingID);
+    setState(() {});
+  }
+
   @override
   addAddress(context) {
     final fname = TextEditingController();
@@ -304,6 +331,17 @@ class _AddressState extends State<Address> {
                     width: 300,
                     child: ElevatedButton(
                       onPressed: () {
+                        var addressStore = AddressModel(
+                          userID: userddt[0]['id'],
+                          fname: fname.text,
+                          phone: phone.text,
+                          hno: hno.text,
+                          road: roadname.text,
+                          city: city.text,
+                          state: state.text,
+                          pincode: pincode.text,
+                        );
+                        udb.insertUserAddress(addressStore);
                         var xresult = {
                           'name': fname.text,
                           'phno': phone.text,
@@ -314,8 +352,7 @@ class _AddressState extends State<Address> {
                           'pincode': pincode.text,
                         };
 
-                        data[0].address.add(xresult);
-                        box.putAt(0, data[0]);
+                        // box.putAt(0, data[0]);
                         Navigator.of(context).pop();
                         setState(() {});
                       },
@@ -345,15 +382,13 @@ class _AddressState extends State<Address> {
   editAddress(context, index) {
     final box = Boxes.getUserData();
     final data = box.values.toList().cast<UserDataModel>();
-    final fname = TextEditingController(text: data[0].address[index]['name']);
-    final phone = TextEditingController(text: data[0].address[index]['phno']);
-    final hno = TextEditingController(text: data[0].address[index]['hno']);
-    final roadname =
-        TextEditingController(text: data[0].address[index]['area']);
-    final city = TextEditingController(text: data[0].address[index]['city']);
-    final state = TextEditingController(text: data[0].address[index]['state']);
-    final pincode =
-        TextEditingController(text: data[0].address[index]['pincode']);
+    final fname = TextEditingController(text: addressList[index].fname);
+    final phone = TextEditingController(text: "temp");
+    final hno = TextEditingController(text: addressList[index].hno);
+    final roadname = TextEditingController(text: addressList[index].road);
+    final city = TextEditingController(text: addressList[index].city);
+    final state = TextEditingController(text: addressList[index].state);
+    final pincode = TextEditingController(text: addressList[index].pincode);
 
     PhoneNumber number = PhoneNumber(isoCode: 'IN');
     showModalBottomSheet(
@@ -620,7 +655,6 @@ class _AddressState extends State<Address> {
                   width: 300,
                   child: ElevatedButton(
                     onPressed: () {
-                      // data[0].address[index]=result;
                       var xresult = {
                         'name': fname.text,
                         'phno': phone.text,
@@ -667,6 +701,7 @@ class _AddressState extends State<Address> {
   bool afterSelecting = false;
   @override
   Widget build(BuildContext context) {
+    getUser();
     return Scaffold(
       appBar: AppBar(
         //  title: Text('Delivery Address'),
@@ -691,7 +726,7 @@ class _AddressState extends State<Address> {
           valueListenable: Boxes.getUserData().listenable(),
           builder: (context, box, _) {
             final data = box.values.toList().cast<UserDataModel>();
-            if (data[0].address.isEmpty) {
+            if (addressList.isEmpty) {
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -725,21 +760,21 @@ class _AddressState extends State<Address> {
                       )),
                   Expanded(
                     child: ListView.builder(
-                      itemCount: data[0].address.length,
+                      itemCount: addressList.length,
                       itemBuilder: (context, index) {
-                        String addressSendToOtherPage = data[0].address[index]
-                                ['name'] +
-                            "\n" +
-                            data[0].address[index]['hno'] +
-                            ", " +
-                            data[0].address[index]['area'] +
-                            ", " +
-                            data[0].address[index]['city'] +
-                            ", " +
-                            data[0].address[index]['state'] +
-                            "." +
-                            "\n" +
-                            data[0].address[index]['pincode'];
+                        String addressSendToOtherPage =
+                            addressList[index].fname +
+                                "\n" +
+                                addressList[index].hno +
+                                ", " +
+                                addressList[index].road +
+                                ", " +
+                                addressList[index].city +
+                                ", " +
+                                addressList[index].state +
+                                "." +
+                                "\n" +
+                                addressList[index].pincode;
 
                         return Card(
                           shape: RoundedRectangleBorder(
@@ -767,14 +802,14 @@ class _AddressState extends State<Address> {
                                   padding:
                                       const EdgeInsets.only(top: 5, bottom: 8),
                                   child: Text(
-                                    "Phone : " + data[0].address[index]['phno'],
+                                    "Phone : 98765678temp",
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w100,
                                     ),
                                   ),
                                 ),
-                                value: data[0].address[index],
+                                value: addressList[index],
                                 groupValue: selectedVal,
                                 onChanged: (value) async {
                                   setState(() {
@@ -787,7 +822,7 @@ class _AddressState extends State<Address> {
                                       'selectedAddress',
                                       addressSendToOtherPage);
                                 },
-                                selected: selectedVal == data[0].address[index],
+                                selected: selectedVal == addressList[index],
                                 activeColor: HexColor("#036635"),
 
                                 //selectedTileColor: Colors.red,
@@ -806,7 +841,7 @@ class _AddressState extends State<Address> {
                                 children: [
                                   TextButton(
                                       onPressed: () {
-                                        data[0].address.removeAt(index);
+                                        deleteAddress(index);
                                         setState(() {});
                                       },
                                       child: Text(
