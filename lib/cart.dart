@@ -74,7 +74,6 @@ getDataOnIds() async {
   removefromcart(sendid) {
     cartdb.deleteitem(sendid);
     setState(() {
-
     });
   }
 

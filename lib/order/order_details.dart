@@ -52,188 +52,258 @@ class _OrderdetailState extends State<Orderdetail> {
     setState(() {});
   }
 
-  @override
   Widget build(BuildContext context) {
     getorderdetails(id);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Orders'),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                "Order id: #" + id.toString(),
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-              ),
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics()),
+        slivers: <Widget>[
+          SliverAppBar(
+            pinned: true,
+            snap: false,
+            floating: false,
+            backgroundColor: Colors.white,
+            foregroundColor: HexColor("#175244"),
+            expandedHeight: 150.0,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text('Order id: #' + id.toString(),
+                  style: TextStyle(
+                    color: HexColor("#175244"),
+                  )),
             ),
-            Divider(
-              color: HexColor("#175244"),
-              height: 1,
-              thickness: 0.5,
-              indent: 0,
-              endIndent: 0,
-            ),
-            SizedBox(
-              width: 400,
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: qtylistfromstring.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 10, right: 10, bottom: 5, top: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      width: MediaQuery.of(context).size.width * 1,
+                      child: Card(
+                        elevation: 8,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 20.0, bottom: 20.0, left: 30),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                "Amount paid:",
+                                style: TextStyle(fontSize: 22),
+                              ),
+                              Text(
+                                "Mode of payment:",
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Card(
+                        elevation: 8,
+                        child: Column(
                           children: [
-                            orderdata.isEmpty || items1.isEmpty
-                                ? Center(
-                                    child: Text('updating...'),
-                                  )
-                                : Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Order placed",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Container(
-                                          width: 150,
-                                          child: Text(
-                                              items1[index].title.toString(),
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis)),
-                                      Text(qtylistfromstring[index] + ' x qty'),
+                                      const Text(
+                                        "on Wednesday ,08 September",
+                                        style: TextStyle(fontSize: 13),
+                                      ),
+                                      Text(
+                                        "items: " + idlistfromstring.length.toString(),
+                                        style: const TextStyle(fontSize: 13),
+                                      ),
                                     ],
                                   ),
-                            // Column(
-                            //     crossAxisAlignment:
-                            //         CrossAxisAlignment.end,
-                            //     children: [
-                            //       Row(children: [
-                            //         AutoSizeText(
-                            //           "\$ " + data[index].price,
-                            //           minFontSize: 10,
-                            //         ),
-                            //       ]),
-                            //      ])
+                                ],
+                              ),
+                            ),
+                            ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: qtylistfromstring.length,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 20, right: 20, bottom: 20, top: 5),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          orderdata.isEmpty || items1.isEmpty
+                                              ? const Center(
+                                                  child: Text('updating...'),
+                                                )
+                                              : Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                        width: 150,
+                                                        child: Text(
+                                                            items1[index]
+                                                                .title
+                                                                .toString(),
+                                                            maxLines: 2,
+                                                            overflow:
+                                                                TextOverflow.ellipsis)),
+                                                    Text(qtylistfromstring[index] +
+                                                        ' x qty'),
+                                                  ],
+                                                ),
+                                          Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Row(children: const [
+                                                  Text(
+                                                    "\$ ",
+                                                  ),
+                                                ]),
+                                              ])
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
                           ],
                         ),
                       ),
-                    ],
-                  );
-                },
-              ),
-            ),
-
-
-            Padding(
-              padding: const EdgeInsets.only(top: 5, bottom: 5),
-              child: Divider(
-                color: HexColor("#175244"),
-                height: 1,
-                thickness: 0.5,
-                indent: 0,
-                endIndent: 0,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Cart total",
-                        style: TextStyle(fontWeight: FontWeight.w300),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                      width: MediaQuery.of(context).size.width * 1,
+                      child: Card(
+                        elevation: 8,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 20.0, bottom: 20.0, left: 20,right: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Order Details",
+                                style: TextStyle(fontSize: 22),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Text(
+                                    "Cart total",
+                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                  ),
+                                  // Text(
+                                  //   "\$ " + data[0].ttlPrice.toStringAsFixed(2),
+                                  //   style: TextStyle(fontWeight: FontWeight.w300),
+                                  // ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Text(
+                                    "Points savings",
+                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                  ),
+                                  Text(
+                                    '-\$ 10.00',
+                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Text(
+                                    "Delivery Charges",
+                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                  ),
+                                  Text(
+                                    "\$ 5.00",
+                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Text(
+                                    "Total Amount",
+                                    style: TextStyle(fontWeight: FontWeight.w600),
+                                  ),
+                                  // Text(
+                                  //   "\$ " +
+                                  //       (data[0].ttlPrice - 10.0 + 5.00)
+                                  //           .toStringAsFixed(2),
+                                  //   style: TextStyle(fontWeight: FontWeight.w600),
+                                  // ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      // Text(
-                      //   "\$ " + data[0].ttlPrice.toStringAsFixed(2),
-                      //   style: TextStyle(fontWeight: FontWeight.w300),
-                      // ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Points savings",
-                        style: TextStyle(fontWeight: FontWeight.w300),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(left: 10, right: 10, top: 10,),
+                      width: MediaQuery.of(context).size.width * 1,
+                      child: Card(
+                      elevation: 8,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text("Deliver to:"),
                       ),
-                      Text(
-                        '-\$ 10.00',
-                        style: TextStyle(fontWeight: FontWeight.w300),
+                    ),) , Container(
+                      padding: const EdgeInsets.only(left: 10, right: 10, top: 10,),
+                      width: MediaQuery.of(context).size.width * 1,
+                      child: Card(
+                      elevation: 8,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text("Deliver to:"),
                       ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Delivery Charges",
-                        style: TextStyle(fontWeight: FontWeight.w300),
+                    ),),  Container(
+                      padding: const EdgeInsets.only(left: 10, right: 10, top: 10,),
+                      width: MediaQuery.of(context).size.width * 1,
+                      child: Card(
+                      elevation: 8,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text("Deliver to:"),
                       ),
-                      Text(
-                        "\$ 5.00",
-                        style: TextStyle(fontWeight: FontWeight.w300),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Total Amount",
-                        style: TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                      // Text(
-                      //   "\$ " +
-                      //       (data[0].ttlPrice - 10.0 + 5.00)
-                      //           .toStringAsFixed(2),
-                      //   style: TextStyle(fontWeight: FontWeight.w600),
-                      // ),
-                    ],
-                  )
-                ],
-              ),
+                    ),)
+                  ],
+                );
+              },
+              childCount: 1,
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 5, bottom: 5),
-              child: Divider(
-                color: HexColor("#175244"),
-                height: 1,
-                thickness: 0.5,
-                indent: 0,
-                endIndent: 0,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    "Deliver to:",
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  // Text(
-                  //   selectedAddress.toString(),
-                  //   style: TextStyle(fontWeight: FontWeight.w300),
-                  // ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
-
     );
   }
 }

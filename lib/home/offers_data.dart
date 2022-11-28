@@ -28,7 +28,7 @@ class _GetOffersState extends State<GetOffers> {
     cdb.initDBCart();
     db = MenuDB();
     db.initDBMenu();
-    getdata();
+
     super.initState();
   }
 
@@ -51,7 +51,7 @@ class _GetOffersState extends State<GetOffers> {
 
   @override
   Widget build(BuildContext context) {
-    // print('offerdata len' + odata.length.toString());
+    getdata();
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.18,
       child: ListView.builder(

@@ -41,7 +41,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
     db.initDBOrders();
     cartdb = CartDB();
     cartdb.initDBCart();
-    // getorderid();
+    getorderid();
     gainrewards();
     getAddress();
     super.initState();
@@ -62,16 +62,16 @@ class _OrderSuccessState extends State<OrderSuccess> {
     }
     setState(() {});
   }
-  // getorderid() async {
-  //   db.initDBOrders();
-  //   orderid = db.getOrderId() as List;
-  //   print('ordid'+orderid.toString());
-  //   if(orderid.length==1)
-  //   orderid1.add(orderid.first);
-  //   setState(() {
-  //   });
-  //
-  // }
+  getorderid() async {
+    db.initDBOrders();
+    orderid = db.getOrderId() as List;
+    print('ordid'+orderid.toString());
+    if(orderid.length==1)
+    orderid1.add(orderid.first);
+    setState(() {
+    });
+
+  }
 
 
 
@@ -144,7 +144,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                       Container(
                         transform: Matrix4.translationValues(0, 12, 0),
                         child: Text(
-                          'Order id: #'+orderid.toString(),
+                          'Order id:'+orderid.toString(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 40,
