@@ -127,6 +127,8 @@ class _OrderdetailState extends State<Orderdetail> {
                 },
               ),
             ),
+
+
             Padding(
               padding: const EdgeInsets.only(top: 5, bottom: 5),
               child: Divider(
@@ -231,6 +233,7 @@ class _OrderdetailState extends State<Orderdetail> {
           ],
         ),
       ),
+
     );
   }
 }

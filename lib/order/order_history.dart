@@ -30,30 +30,14 @@ class _OrdersState extends State<Orders> {
   }
 
   getorderdata() async {
-    data = await orderdb.getOrderId();
+    data = await orderdb.getalldata();
     data1.addAll(data.keys);
 
-    print(data.keys);
+    // print("order ids: "+ data.keys.toString());
     // data1.addAll(data);
     // print(data1);
     setState(() {});
   }
-
-  // getDataIds() async {
-  //   MenuDB menudb = MenuDB();
-  //   Orderdata = await orderdb.getDataOrders();
-  //   print("Order size:" + Orderdata.length.toString());
-  //   for (var i = 0; i < Orderdata.length; i++) {
-  //      idlistfromstring = Orderdata[i].id.split(' ');
-  //      qtylistfromstring = Orderdata[i].qty.split(' ');
-  //   }
-  //   for (var i =0;i<idlistfromstring.length;i++){
-  //     items = await menudb.getitemwithId_order(idlistfromstring[i]);
-  //     items1.add(items.first);
-  //   }
-  //
-  //   setState(() {});
-  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,14 +54,17 @@ class _OrdersState extends State<Orders> {
       ),
       body: ListView.builder(
           itemCount: data1.length,
-          itemBuilder: (context, index) => ListTile(
-                title: Text(data1[index].toString()),
+          itemBuilder: (context, index) {
+            var res = index + 1;
+            return ListTile(
+                title: Text(res.toString()),
                 onTap: () async {
                   final prefs = await SharedPreferences.getInstance();
-                  await prefs.setInt('orderid', data1[index]);
+                  await prefs.setInt('orderid', res);
                   Get.to(transition: Transition.rightToLeft, Orderdetail());
                 },
-              )),
+           );
+          }),
     );
   }
 }

@@ -52,8 +52,13 @@ class OrdersDB {
 
   Future<dynamic> getOrderId() async {
     final Database db = await initDBOrders();
-    final List<Map<String, dynamic?>> data =
-        await db.rawQuery("Select orderid from OrdersTable");
+    final List<Map<String, dynamic?>> data = await db.rawQuery("Select orderid from OrdersTable");
     return data.asMap();
   }
+  Future<dynamic> getalldata() async{
+    final Database db = await initDBOrders();
+    final List<Map<String, dynamic?>> data = await db.rawQuery("Select * from OrdersTable");
+    return data.asMap();
+  }
+
 }
