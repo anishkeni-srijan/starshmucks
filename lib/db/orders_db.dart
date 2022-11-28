@@ -21,33 +21,39 @@ class OrdersDB {
       version: 1,
     );
   }
-  createarr(idarr,qtyarr)async{
+
+  createarr(idarr, qtyarr) async {
     var fido = await OrderHistoryModel(
-      id:idarr,
-      qty:qtyarr,
+      id: idarr,
+      qty: qtyarr,
     );
     insertDataOrders(fido);
-
   }
+
   Future<bool> insertDataOrders(OrderHistoryModel fido) async {
     final Database db = await initDBOrders();
     db.insert("OrdersTable", fido.toMap());
+    //db.delete("OrdersTable");
     return true;
   }
+
   Future<List<OrderHistoryModel>> getDataOrders() async {
     final Database db = await initDBOrders();
     final List<Map<String, dynamic?>> data = await db.query("OrdersTable");
     return data.map((e) => OrderHistoryModel.fromJson(e)).toList();
   }
+
   Future<List<OrderHistoryModel>> getDataOrderswrtID(id) async {
     final Database db = await initDBOrders();
-    final List<Map<String, dynamic?>> data = await db.query("OrdersTable", where: 'orderid = ?', whereArgs: [id]);
+    final List<Map<String, dynamic?>> data =
+        await db.query("OrdersTable", where: 'orderid = ?', whereArgs: [id]);
     return data.map((e) => OrderHistoryModel.fromJson(e)).toList();
   }
+
   Future<dynamic> getOrderId() async {
     final Database db = await initDBOrders();
-    final List<Map<String, dynamic?>> data = await db.rawQuery("Select orderid from OrdersTable");
+    final List<Map<String, dynamic?>> data =
+        await db.rawQuery("Select orderid from OrdersTable");
     return data.asMap();
   }
-
 }

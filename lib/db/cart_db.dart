@@ -31,7 +31,7 @@ class CartDB {
     //print("Count= " + count.toString());
     if (count > 0) {
       //added
-      print("added");
+      // print("added");
     } else {
       final List<Map<String, dynamic>> maps = await db.query(
         "CartTable",

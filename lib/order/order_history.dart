@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hexcolor/hexcolor.dart';
 
-import 'package:starshmucks/db/orders_db.dart';
-import 'package:starshmucks/model/order_history.dart';
-
+import '/db/orders_db.dart';
+import '/model/order_history.dart';
 import 'order_details.dart';
-
 
 class Orders extends StatefulWidget {
   const Orders({Key? key}) : super(key: key);
@@ -18,9 +17,9 @@ class Orders extends StatefulWidget {
 class _OrdersState extends State<Orders> {
   var idlistfromstring;
   var qtylistfromstring;
-  late Map<dynamic,dynamic>data = {};
-  late List<dynamic>data1= [];
-  List<OrderHistoryModel>Orderdata = [];
+  late Map<dynamic, dynamic> data = {};
+  late List<dynamic> data1 = [];
+  List<OrderHistoryModel> Orderdata = [];
   late OrdersDB orderdb;
   @override
   void initState() {
@@ -29,16 +28,15 @@ class _OrdersState extends State<Orders> {
     getorderdata();
     super.initState();
   }
-  getorderdata()async{
 
+  getorderdata() async {
     data = await orderdb.getOrderId();
     data1.addAll(data.keys);
 
     print(data.keys);
     // data1.addAll(data);
     // print(data1);
-    setState(() {
-    });
+    setState(() {});
   }
 
   // getDataIds() async {
@@ -60,16 +58,26 @@ class _OrdersState extends State<Orders> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order'),
+        title: Text(
+          'Orders',
+          style: TextStyle(
+            color: HexColor("#175244"),
+          ),
+        ),
+        titleSpacing: 0,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: HexColor("#175244")),
       ),
       body: ListView.builder(
           itemCount: data1.length,
-          itemBuilder: (context, index) =>
-              ListTile(title: Text(data1[index].toString()),onTap:() async{
-                final prefs = await SharedPreferences.getInstance();
-                await prefs.setInt('orderid', data1[index]);
-                Get.to(transition: Transition.rightToLeft,Orderdetail()); },)
-      ),
+          itemBuilder: (context, index) => ListTile(
+                title: Text(data1[index].toString()),
+                onTap: () async {
+                  final prefs = await SharedPreferences.getInstance();
+                  await prefs.setInt('orderid', data1[index]);
+                  Get.to(transition: Transition.rightToLeft, Orderdetail());
+                },
+              )),
     );
   }
 }

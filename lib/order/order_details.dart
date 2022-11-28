@@ -19,8 +19,8 @@ class _OrderdetailState extends State<Orderdetail> {
   List<OrderHistoryModel> orderdata = [];
   List<dynamic> idlistfromstring = [];
   List<dynamic> qtylistfromstring = [];
-  List<MenuModel> items= [];
-  List<MenuModel> items1= [];
+  List<MenuModel> items = [];
+  List<MenuModel> items1 = [];
 
   @override
   void initState() {
@@ -31,10 +31,7 @@ class _OrderdetailState extends State<Orderdetail> {
   getorderid() async {
     final prefs = await SharedPreferences.getInstance();
     id = (await prefs.getInt('orderid'))!;
-    setState(() {
-
-    });
-
+    setState(() {});
   }
 
   getorderdetails(id) async {
@@ -44,18 +41,15 @@ class _OrderdetailState extends State<Orderdetail> {
     orderdb = OrdersDB();
     orderdb.initDBOrders();
     orderdata = await orderdb.getDataOrderswrtID(id);
-    for(var i = 0; i < orderdata.length;i++)
-    {
+    for (var i = 0; i < orderdata.length; i++) {
       idlistfromstring = orderdata[i].id!.split(' ');
       qtylistfromstring = orderdata[i].qty!.split(' ');
     }
-    for (var i =0;i<idlistfromstring.length;i++){
+    for (var i = 0; i < idlistfromstring.length; i++) {
       items = await menudb.getitemwithId_order(idlistfromstring[i]);
       items1.add(items.first);
     }
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
@@ -63,15 +57,15 @@ class _OrderdetailState extends State<Orderdetail> {
     getorderdetails(id);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order'),
+        title: Text('Orders'),
       ),
-      body:SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
-                "Order id: #"+id.toString(),
+                "Order id: #" + id.toString(),
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
             ),
@@ -89,37 +83,31 @@ class _OrderdetailState extends State<Orderdetail> {
                 itemCount: qtylistfromstring.length,
                 itemBuilder: (context, index) {
                   return Column(
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(
-                            left: 10,
-                            right: 10,
-                            bottom: 5,
-                            top: 5),
+                            left: 10, right: 10, bottom: 5, top: 5),
                         child: Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             orderdata.isEmpty || items1.isEmpty
-                                ? Center(child: Text('updating...'),)
-                                :Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                    width: 150,
-                                    child: Text(
-                                        items1[index].title.toString(),
-                                        maxLines: 2,
-                                        overflow: TextOverflow
-                                            .ellipsis)),
-                                Text(
-                                    qtylistfromstring[index]+
-                                        ' x qty'),
-                              ],
-                            ),
+                                ? Center(
+                                    child: Text('updating...'),
+                                  )
+                                : Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: 150,
+                                          child: Text(
+                                              items1[index].title.toString(),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis)),
+                                      Text(qtylistfromstring[index] + ' x qty'),
+                                    ],
+                                  ),
                             // Column(
                             //     crossAxisAlignment:
                             //         CrossAxisAlignment.end,
@@ -139,8 +127,6 @@ class _OrderdetailState extends State<Orderdetail> {
                 },
               ),
             ),
-
-
             Padding(
               padding: const EdgeInsets.only(top: 5, bottom: 5),
               child: Divider(
@@ -245,7 +231,6 @@ class _OrderdetailState extends State<Orderdetail> {
           ],
         ),
       ),
-
     );
   }
 }
