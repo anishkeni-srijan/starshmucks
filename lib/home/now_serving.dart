@@ -36,7 +36,7 @@ class _NowServingState extends State<NowServing> {
   addToCart(context, index) async {
     final cartp = await db.NowServedata();
     cdb.insertDataCart(
-      CartModel(id: cartp[index].id,qty: 1),
+      CartModel(id: cartp[index].id, qty: 1),
     );
     setState(() {});
   }
@@ -124,15 +124,6 @@ class _NowServingState extends State<NowServing> {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            //   final box = Boxes.getCartData();
-                            //   final data = box.values.toList().cast<CartData>();
-
-                            // if (data.contains(data[index])) {
-                            //   //update qty
-                            //   print('imhere');
-                            //   return null;
-                            // } else
-                            //   addToCart(context, index);
                             addToCart(context, index);
                             setState(() {
                               cartinit = true;

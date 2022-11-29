@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:starshmucks/db/menu_db.dart';
-import 'package:starshmucks/db/orders_db.dart';
-import 'package:starshmucks/model/menu_model.dart';
-import 'package:starshmucks/model/order_history.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '/db/menu_db.dart';
+import '/db/orders_db.dart';
+import '/model/menu_model.dart';
+import '/model/order_history.dart';
 
 class Orderdetail extends StatefulWidget {
   const Orderdetail({Key? key}) : super(key: key);
@@ -122,14 +123,16 @@ class _OrderdetailState extends State<Orderdetail> {
                                     height: 5,
                                   ),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       const Text(
                                         "on Wednesday ,08 September",
                                         style: TextStyle(fontSize: 13),
                                       ),
                                       Text(
-                                        "items: " + idlistfromstring.length.toString(),
+                                        "items: " +
+                                            idlistfromstring.length.toString(),
                                         style: const TextStyle(fontSize: 13),
                                       ),
                                     ],
@@ -147,7 +150,10 @@ class _OrderdetailState extends State<Orderdetail> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          left: 20, right: 20, bottom: 20, top: 5),
+                                          left: 20,
+                                          right: 20,
+                                          bottom: 20,
+                                          top: 5),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -168,8 +174,10 @@ class _OrderdetailState extends State<Orderdetail> {
                                                                 .toString(),
                                                             maxLines: 2,
                                                             overflow:
-                                                                TextOverflow.ellipsis)),
-                                                    Text(qtylistfromstring[index] +
+                                                                TextOverflow
+                                                                    .ellipsis)),
+                                                    Text(qtylistfromstring[
+                                                            index] +
                                                         ' x qty'),
                                                   ],
                                                 ),
@@ -195,13 +203,14 @@ class _OrderdetailState extends State<Orderdetail> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                      padding:
+                          const EdgeInsets.only(left: 10, right: 10, top: 10),
                       width: MediaQuery.of(context).size.width * 1,
                       child: Card(
                         elevation: 8,
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              top: 20.0, bottom: 20.0, left: 20,right: 20),
+                              top: 20.0, bottom: 20.0, left: 20, right: 20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -210,11 +219,13 @@ class _OrderdetailState extends State<Orderdetail> {
                                 style: TextStyle(fontSize: 22),
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: const [
                                   Text(
                                     "Cart total",
-                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w300),
                                   ),
                                   // Text(
                                   //   "\$ " + data[0].ttlPrice.toStringAsFixed(2),
@@ -223,37 +234,45 @@ class _OrderdetailState extends State<Orderdetail> {
                                 ],
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: const [
                                   Text(
                                     "Points savings",
-                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w300),
                                   ),
                                   Text(
                                     '-\$ 10.00',
-                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w300),
                                   ),
                                 ],
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: const [
                                   Text(
                                     "Delivery Charges",
-                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w300),
                                   ),
                                   Text(
                                     "\$ 5.00",
-                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w300),
                                   ),
                                 ],
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: const [
                                   Text(
                                     "Total Amount",
-                                    style: TextStyle(fontWeight: FontWeight.w600),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600),
                                   ),
                                   // Text(
                                   //   "\$ " +
@@ -269,33 +288,50 @@ class _OrderdetailState extends State<Orderdetail> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(left: 10, right: 10, top: 10,),
+                      padding: const EdgeInsets.only(
+                        left: 10,
+                        right: 10,
+                        top: 10,
+                      ),
                       width: MediaQuery.of(context).size.width * 1,
                       child: Card(
-                      elevation: 8,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Text("Deliver to:"),
+                        elevation: 8,
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Text("Deliver to:"),
+                        ),
                       ),
-                    ),) , Container(
-                      padding: const EdgeInsets.only(left: 10, right: 10, top: 10,),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(
+                        left: 10,
+                        right: 10,
+                        top: 10,
+                      ),
                       width: MediaQuery.of(context).size.width * 1,
                       child: Card(
-                      elevation: 8,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Text("Deliver to:"),
+                        elevation: 8,
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Text("Deliver to:"),
+                        ),
                       ),
-                    ),),  Container(
-                      padding: const EdgeInsets.only(left: 10, right: 10, top: 10,),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(
+                        left: 10,
+                        right: 10,
+                        top: 10,
+                      ),
                       width: MediaQuery.of(context).size.width * 1,
                       child: Card(
-                      elevation: 8,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Text("Deliver to:"),
+                        elevation: 8,
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Text("Deliver to:"),
+                        ),
                       ),
-                    ),)
+                    )
                   ],
                 );
               },

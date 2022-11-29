@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -259,11 +258,6 @@ class _EditProfileState extends State<EditProfile> {
   takepicture(ImageSource source) async {
     final pickedfile = await picker.pickImage(source: source);
     imagefile = File(pickedfile!.path);
-    // final box = Boxes.getUserData();
-    // final data = box.values.toList().cast<UserDataModel>();
-    // data[0].profileimage = imagefile;
-    //print("imagevalue2" + data[0].profileimage!.path);
-    // box.putAt(0, data[0]);
 
     setState(() {});
   }

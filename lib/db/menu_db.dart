@@ -5,7 +5,6 @@ import '../model/menu_model.dart';
 
 class MenuDB {
   Future<Database> initDBMenu() async {
-    //print("initialising db... menu");
     String databasepath = await getDatabasesPath();
     final path = join(databasepath, "Menu2.db");
     return openDatabase(
@@ -30,7 +29,6 @@ class MenuDB {
 
   Future<bool> insertDataMenu(MenuModel menu) async {
     final Database db = await initDBMenu();
-    int count = 0;
     db.insert("Menu", menu.toMap(),
         conflictAlgorithm: ConflictAlgorithm.ignore);
     return true;
@@ -77,46 +75,47 @@ class MenuDB {
     return offerlist.map((e) => MenuModel.fromJson(e)).toList();
   }
 
-  // A method that retrieves all the dogs from the dogs table.
   Future<List<MenuModel>> getElementOnId_Menu(getit) async {
     final db = await initDBMenu();
     final List<Map<String, dynamic>> maps =
         await db.query('Menu', where: "id = ?", whereArgs: [getit]);
-    return List.generate(maps.length, (i) {
-      return MenuModel(
-        id: maps[i]['id'],
-        tag: maps[i]['tag'],
-        title: maps[i]['title'],
-        price: maps[i]['price'],
-        description: maps[i]['description'],
-        category: maps[i]['category'],
-        image: maps[i]['image'],
-        rating: maps[i]['rating'],
-      );
-    });
+    return List.generate(
+      maps.length,
+      (i) {
+        return MenuModel(
+          id: maps[i]['id'],
+          tag: maps[i]['tag'],
+          title: maps[i]['title'],
+          price: maps[i]['price'],
+          description: maps[i]['description'],
+          category: maps[i]['category'],
+          image: maps[i]['image'],
+          rating: maps[i]['rating'],
+        );
+      },
+    );
   }
+
   Future<List<MenuModel>> getitemwithId_order(getit) async {
-      // print('id recieved from cart' + getit.toString());
     final db = await initDBMenu();
-    final List<Map<String, dynamic>> maps = await db.query('Menu', where: "id = ?", whereArgs: [getit]);
-    for(var i =0;i<maps.length;i++) {
-      // print('id sending from db' + maps[i]['id'].toString());
-    }
-   var res =  List.generate(maps.length, (i) {
-      return MenuModel(
-        id: maps[i]['id'],
-        tag: maps[i]['tag'],
-        title: maps[i]['title'],
-        price: maps[i]['price'],
-        description: maps[i]['description'],
-        category: maps[i]['category'],
-        image: maps[i]['image'],
-        rating: maps[i]['rating'],
-      );
-    });
-   return res;
+    final List<Map<String, dynamic>> maps =
+        await db.query('Menu', where: "id = ?", whereArgs: [getit]);
+    for (var i = 0; i < maps.length; i++) {}
+    var res = List.generate(
+      maps.length,
+      (i) {
+        return MenuModel(
+          id: maps[i]['id'],
+          tag: maps[i]['tag'],
+          title: maps[i]['title'],
+          price: maps[i]['price'],
+          description: maps[i]['description'],
+          category: maps[i]['category'],
+          image: maps[i]['image'],
+          rating: maps[i]['rating'],
+        );
+      },
+    );
+    return res;
   }
 }
-
-
-

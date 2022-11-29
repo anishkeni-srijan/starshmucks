@@ -41,8 +41,6 @@ class _GetOffersState extends State<GetOffers> {
 
   addToCart(context, index) async {
     final cartp = await db.Offersdata();
-    //print("Cartpindex");
-    // print(cartp[index].id);
     cdb.insertDataCart(
       CartModel(id: cartp[index].id, qty: 1),
     );

@@ -39,8 +39,6 @@ class UserDB {
           )
           """);
       },
-
-      // onConfigure: _onConfigure,
       version: 1,
     );
   }
@@ -55,73 +53,53 @@ class UserDB {
   Future<List<Map<String, dynamic>>> getDataUserData() async {
     final Database db = await initDBUserData();
     final List<Map<String, dynamic?>> data = await db.query("UserData");
-    //print("Getting user data");
-    //print(data[0]['email']);
+
     return data;
   }
 
   Future<void> updateUserData(id, um) async {
-    // Get a reference to the database.
     final db = await initDBUserData();
-
-    // Update the given Dog.
     await db.update(
-      "UserData", um.toMap(),
-      // Ensure that the Dog has a matching id.
+      "UserData",
+      um.toMap(),
       where: 'id = ?',
-      // Pass the Dog's id as a whereArg to prevent SQL injection.
       whereArgs: [id],
     );
-    print("updared userr");
   }
 
   Future<bool> insertUserAddress(AddressModel address) async {
     final Database db = await initDBUserData();
     db.insert("UserAddress", address.toMap());
-    print("Added address");
     return true;
   }
 
   Future<List<AddressModel>> getDataUserAddress() async {
-    //print("getting all usrs");
     final Database db = await initDBUserData();
     final List<Map<String, dynamic?>> data = await db.query("UserAddress");
-    // print(data[1]["addressID"]);
     return data.map((e) => AddressModel.fromJson(e)).toList();
   }
 
   Future<List<Map<String, dynamic?>>> getDataUserAddress1() async {
-    //print("getting all usrs");
     final Database db = await initDBUserData();
     final List<Map<String, dynamic?>> data = await db.query("UserAddress");
-    // print(data[1]["addressID"]);
     return data;
   }
 
   Future<void> deleteitem(id) async {
-    // Get a reference to the database.
     final db = await initDBUserData();
-
-    // Remove the Dog from the database.
     await db.delete(
       "UserAddress",
-      // Use a `where` clause to delete a specific dog.
       where: 'addressID = ?',
-      // Pass the Dog's id as a whereArg to prevent SQL injection.
       whereArgs: [id],
     );
   }
 
   Future<void> updateAddress(id, am) async {
-    // Get a reference to the database.
     final db = await initDBUserData();
-
-    // Update the given Dog.
     await db.update(
-      "UserAddress", am.toMap(),
-      // Ensure that the Dog has a matching id.
+      "UserAddress",
+      am.toMap(),
       where: 'addressID = ?',
-      // Pass the Dog's id as a whereArg to prevent SQL injection.
       whereArgs: [id],
     );
     print("updared");

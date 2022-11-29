@@ -23,15 +23,11 @@ class CartDB {
   }
 
   Future<bool> insertDataCart(CartModel item) async {
-    // print("inserting in cart");
     final Database db = await initDBCart();
     int count = await db.insert("CartTable", item.toMap(),
         conflictAlgorithm: ConflictAlgorithm.ignore);
 
-    //print("Count= " + count.toString());
     if (count > 0) {
-      //added
-      // print("added");
     } else {
       final List<Map<String, dynamic>> maps = await db.query(
         "CartTable",
@@ -39,10 +35,9 @@ class CartDB {
         whereArgs: [item.id],
       );
       var test = CartModel(id: maps[0]['id'], qty: maps[0]['qty']);
-
       increseqty(test);
     }
-    //db.delete("CartTable");
+
     return true;
   }
 
@@ -51,8 +46,7 @@ class CartDB {
     final List<Map<String, dynamic?>> data = await db.query(
       "CartTable",
     );
-    //  print("after query");
-    // print(data.length);
+
     return data.map((e) => CartModel.fromJson(e)).toList();
   }
 
@@ -63,21 +57,16 @@ class CartDB {
   }
 
   Future<void> deleteitem(CartModel cartitem) async {
-    // Get a reference to the database.
     final db = await initDBCart();
-    // Remove the Dog from the database.
     await db.delete(
       'CartTable',
-      // Use a `where` clause to delete a specific dog.
       where: 'id = ?',
-      // Pass the Dog's id as a whereArg to prevent SQL injection.
       whereArgs: [cartitem.id],
     );
   }
 
   increseqty(CartModel cartitem) async {
     final db = await initDBCart();
-    // print("QTY before increasing " + cartitem.qty.toString());
     var fido = CartModel(
       id: cartitem.id,
       qty: cartitem.qty + 1,
@@ -86,7 +75,6 @@ class CartDB {
   }
 
   decreaseqty(CartModel cartitem) async {
-    final db = await initDBCart();
     var fido = CartModel(
       id: cartitem.id,
       qty: cartitem.qty - 1,
@@ -95,15 +83,11 @@ class CartDB {
   }
 
   Future<void> updateqty(CartModel cartitem) async {
-    // Get a reference to the database.
     final db = await initDBCart();
-
-    // Update the given Dog.
     await db.update(
-      'CartTable', cartitem.toMap(),
-      // Ensure that the Dog has a matching id.
+      'CartTable',
+      cartitem.toMap(),
       where: 'id = ?',
-      // Pass the Dog's id as a whereArg to prevent SQL injection.
       whereArgs: [cartitem.id],
     );
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
-import 'package:starshmucks/db/cart_db.dart';
 
+import '/db/cart_db.dart';
 import 'home/home_screen.dart';
 import '/user_profile.dart';
 import 'cart.dart';
@@ -10,7 +10,6 @@ import 'gift_card.dart';
 import 'menu/menu_page.dart';
 import 'order/order_failed.dart';
 import 'order/order_success.dart';
-
 
 class bottomBar extends StatefulWidget {
   const bottomBar({super.key});
@@ -114,8 +113,6 @@ gethomeappbar() {
   );
 }
 
-
-
 viewincart() {
   // final box = Boxes.getCartData();
   // final data = box.values.toList().cast<CartData>();
@@ -168,15 +165,15 @@ viewincart() {
 }
 
 Future<bool> gohome() async {
-
   return (await Get.to(bottomBar())) ?? false;
 }
-Future<bool> gohomefromsuccess() async {
 
+Future<bool> gohomefromsuccess() async {
   CartDB cartdb = CartDB();
   cartdb.clear();
   return (await Get.to(bottomBar())) ?? false;
 }
+
 goToSuccess() {
   return Get.to(OrderSuccess());
 }

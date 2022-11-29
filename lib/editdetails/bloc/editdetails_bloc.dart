@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:starshmucks/common_things.dart';
 
 import 'editdetails_events.dart';
 import 'editdetails_states.dart';

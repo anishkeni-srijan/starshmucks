@@ -19,24 +19,10 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
   addToCart(context, index) async {
     late MenuDB db;
     db = MenuDB();
-    // print("in cart " + index.toString());
-    // final box = Boxes.getCartData();
-    // final data = box.values.toList().cast<CartData>();
     final cartp = await db.smoothiedata();
     cdb.insertDataCart(
-      CartModel(id: cartp[index].id,qty: 1),
+      CartModel(id: cartp[index].id, qty: 1),
     );
-
-    // var zindex = data.indexWhere((item) => item.id == cartp[index].id);
-    // // print("test " + zindex.toString());
-    // if (zindex != -1) {
-    //   data[zindex].qty++;
-    //   box.putAt(zindex, data[zindex]);
-    //   // print("already inn");
-    // } else {
-    //   box.add(cartItem);
-    //   // print(cartItem.title);
-    // }
     setState(() {});
   }
 
@@ -85,8 +71,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                               color: HexColor("#175244"), width: 0.2)),
                     ),
                     child: Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.start, //change here don't //worked
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(

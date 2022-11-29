@@ -32,7 +32,6 @@ class OrdersDB {
   Future<bool> insertDataOrders(OrderHistoryModel fido) async {
     final Database db = await initDBOrders();
     db.insert("OrdersTable", fido.toMap());
-    //db.delete("OrdersTable");
     return true;
   }
 
@@ -51,13 +50,16 @@ class OrdersDB {
 
   Future<dynamic> getOrderId() async {
     final Database db = await initDBOrders();
-    final List<Map<String, dynamic?>> data = await db.rawQuery("Select orderid FROM OrdersTable ORDER BY column DESC LIMIT 1");
+    final List<Map<String, dynamic?>> data = await db.rawQuery(
+        "Select orderid FROM OrdersTable ORDER BY column DESC LIMIT 1");
     print(data);
     return data.asMap();
   }
-  Future<dynamic> getalldata() async{
+
+  Future<dynamic> getalldata() async {
     final Database db = await initDBOrders();
-    final List<Map<String, dynamic?>> data = await db.rawQuery("Select * from OrdersTable");
+    final List<Map<String, dynamic?>> data =
+        await db.rawQuery("Select * from OrdersTable");
     return data.asMap();
   }
   // gainrewards(OrderHistoryModel cartitem,res) async {

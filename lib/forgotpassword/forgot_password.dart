@@ -4,10 +4,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:email_auth/email_auth.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../signup/signup.dart';
 import '/resetpassword/reset_password.dart';
 import 'bloc/forgotpassword_event.dart';
 import '/forgotpassword/bloc/forgotpassword_bloc.dart';

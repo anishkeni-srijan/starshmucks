@@ -32,10 +32,6 @@ class _OrdersState extends State<Orders> {
   getorderdata() async {
     data = await orderdb.getalldata();
     data1.addAll(data.keys);
-
-    // print("order ids: "+ data.keys.toString());
-    // data1.addAll(data);
-    // print(data1);
     setState(() {});
   }
 
@@ -58,7 +54,7 @@ class _OrdersState extends State<Orders> {
           itemBuilder: (context, index) {
             var res = index + 1;
             return Padding(
-              padding: const EdgeInsets.only(left:8.0,right: 8.0),
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
               child: ListTile(
                 trailing: TextButton.icon(
                     onPressed: () {
@@ -85,7 +81,7 @@ class _OrdersState extends State<Orders> {
                     style: TextStyle(fontSize: 14, color: Colors.black38)),
                 onTap: () async {
                   getdetails(res);
-                  },
+                },
               ),
             );
           },
@@ -97,6 +93,7 @@ class _OrdersState extends State<Orders> {
     );
   }
 }
+
 getdetails(res) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setInt('orderid', res);

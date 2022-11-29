@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
@@ -67,10 +66,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    username = usernames[0]['name'];
     if (usernames.isEmpty)
       return CircularProgressIndicator(backgroundColor: HexColor("#175244"));
     else {
+      username = usernames[0]['name'];
       return Scaffold(
           // persistentFooterButtons: cartinit ? [viewincart()] : null,
           body: SingleChildScrollView(

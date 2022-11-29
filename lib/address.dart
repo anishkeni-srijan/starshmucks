@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -31,9 +29,6 @@ class _AddressState extends State<Address> {
   getUser() async {
     userddt = await udb.getDataUserData();
     addressList = await udb.getDataUserAddress1();
-    //print(addressList[2]['addressID']);
-    //print(addressList[0].addressID);
-    //  addressList = await udb.getDataUserAddress();
     setState(() {});
   }
 
@@ -338,17 +333,6 @@ class _AddressState extends State<Address> {
                           // addressID: ,
                         );
                         udb.insertUserAddress(addressStore);
-                        var xresult = {
-                          'name': fname.text,
-                          'phno': phone.text,
-                          'hno': hno.text,
-                          'area': roadname.text,
-                          'city': city.text,
-                          'state': state.text,
-                          'pincode': pincode.text,
-                        };
-
-                        // box.putAt(0, data[0]);
                         Navigator.of(context).pop();
                         setState(() {});
                       },
