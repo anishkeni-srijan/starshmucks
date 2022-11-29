@@ -7,7 +7,7 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:get/get.dart';
 
 import '/db/user_db.dart';
-import '../model/user_model_new.dart';
+import '../model/user_model.dart';
 import '/signup/bloc/signup_bloc.dart';
 import '/signup/bloc/signup_events.dart';
 import '../signin/signin.dart';

@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '/model/address_model.dart';
-import '/model/user_model_new.dart';
+import '/model/user_model.dart';
 
 class UserDB {
   //user Data
@@ -106,7 +106,8 @@ class UserDB {
     );
     print("updared");
   }
-  Future<void> updaterewards( am) async {
+
+  Future<void> updaterewards(am) async {
     // Get a reference to the database.
     final db = await initDBUserData();
 

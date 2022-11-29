@@ -9,7 +9,7 @@ import '/user_profile.dart';
 import 'cart.dart';
 import 'gift_card.dart';
 import 'menu/menu_page.dart';
-import 'model/user_model_new.dart';
+import 'model/user_model.dart';
 import 'order/order_failed.dart';
 import 'order/order_success.dart';
 
