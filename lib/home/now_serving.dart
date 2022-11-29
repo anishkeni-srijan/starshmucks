@@ -29,7 +29,7 @@ class _NowServingState extends State<NowServing> {
     cdb.initDBCart();
     db = MenuDB();
     db.initDBMenu();
-    getdata();
+
     super.initState();
   }
 
@@ -51,6 +51,7 @@ class _NowServingState extends State<NowServing> {
   @override
   Widget build(BuildContext context) {
     // print('nowdata len' + nowdata.length.toString());
+    getdata();
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.18,
       child: ListView.builder(

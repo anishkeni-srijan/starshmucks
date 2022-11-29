@@ -73,7 +73,10 @@ class _OrderSuccessState extends State<OrderSuccess> {
 
   }
 
-
+gainrewards(item)async{
+  db.initDBOrders();
+  db.gainrewards(item);
+}
 
   late String selectedAddress = '';
   getAddress() async {

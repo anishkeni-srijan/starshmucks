@@ -30,7 +30,7 @@ class _RewardsState extends State<Rewards> {
             Stack(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(30.0),
                   child: Text(
                     'Welcome back!',
                     style: TextStyle(
