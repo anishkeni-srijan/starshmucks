@@ -1,5 +1,5 @@
 class AddressModel {
-  //int addressID;
+  // late int addressID;
   int userID;
   String fname;
   String phone;
@@ -23,7 +23,7 @@ class AddressModel {
   });
 
   factory AddressModel.fromJson(Map<String, dynamic> json) => AddressModel(
-        //  addressID: json["addressID"],
+        // addressID: json["addressID"],
         userID: json["userID"],
         fname: json["fname"],
         phone: json["phone"],
@@ -35,7 +35,7 @@ class AddressModel {
       );
 
   Map<String, dynamic> toMap() => {
-        // "addressID": addressID,
+        //"addressID": addressID,
         "userID": userID,
         "fname": fname,
         "phone": phone,
