@@ -40,224 +40,219 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(
+      Duration.zero,
+      () {
+        //   if (data.isEmpty) {
+        //     Get.to(
+        //       SignupPage(),
+        //     );
+        //   } else {
+        //     for (int i = 0; i < data.length; i++) {
+        //       obtainedkey = data[i].key;
+        //     }
+        //   }
+      },
+    );
     return Scaffold(
       appBar: null,
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Center(
-          child: ValueListenableBuilder<Box<UserDataModel>>(
-            valueListenable: Boxes.getUserData().listenable(),
-            builder: (context, box, _) {
-              final data = box.values.toList().cast<UserDataModel>();
-              Future.delayed(Duration.zero, () {
-                if (data.isEmpty) {
-                  Get.to(
-                    SignupPage(),
-                  );
-                } else {
-                  for (int i = 0; i < data.length; i++) {
-                    obtainedkey = data[i].key;
-                  }
-                }
-              });
-
-              return Column(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(top: 30, left: 0),
-                    alignment: Alignment.topLeft,
-                    child: TextButton.icon(
-                      icon: Icon(Icons.arrow_back_ios_new_rounded,
-                          color: HexColor("#036635")),
-                      onPressed: () {
-                        Navigator.of(context).pop(context);
-                      },
-                      label: Text(''),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 130.0,
-                      left: 48,
-                    ),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: AutoSizeText(
-                        'Forgot Password',
-                        style: TextStyle(
-                          color: HexColor("#036635"),
-                          fontWeight: FontWeight.bold,
-                        ),
-                        minFontSize: 28,
-                      ),
-                    ),
-                  ),
-                  Divider(
+            child: Column(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(top: 30, left: 0),
+              alignment: Alignment.topLeft,
+              child: TextButton.icon(
+                icon: Icon(Icons.arrow_back_ios_new_rounded,
+                    color: HexColor("#036635")),
+                onPressed: () {
+                  Navigator.of(context).pop(context);
+                },
+                label: Text(''),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 130.0,
+                left: 48,
+              ),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: AutoSizeText(
+                  'Forgot Password',
+                  style: TextStyle(
                     color: HexColor("#036635"),
-                    height: MediaQuery.of(context).size.height * 0.015,
-                    thickness: MediaQuery.of(context).size.height * 0.004,
-                    indent: MediaQuery.of(context).size.width * 0.126,
-                    endIndent: MediaQuery.of(context).size.width * 0.658,
+                    fontWeight: FontWeight.bold,
                   ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                    width: 300,
-                    child: AutoSizeText(
-                      'Please enter your details and We\'ll send you an OTP.',
-                      style: TextStyle(
-                        color: HexColor("#175244"),
+                  minFontSize: 28,
+                ),
+              ),
+            ),
+            Divider(
+              color: HexColor("#036635"),
+              height: MediaQuery.of(context).size.height * 0.015,
+              thickness: MediaQuery.of(context).size.height * 0.004,
+              indent: MediaQuery.of(context).size.width * 0.126,
+              endIndent: MediaQuery.of(context).size.width * 0.658,
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Container(
+              width: 300,
+              child: AutoSizeText(
+                'Please enter your details and We\'ll send you an OTP.',
+                style: TextStyle(
+                  color: HexColor("#175244"),
+                ),
+              ),
+            ),
+            BlocBuilder<ForgotpasswordBloc, ForgotpasswordState>(
+              builder: (context, state) {
+                //checking if There's an error in Loginstate
+                if (state is ForgotpasswordErrorState) {
+                  return Text(
+                    state.errormessage,
+                    style: TextStyle(color: Colors.red),
+                  );
+                }
+                //if the login is valid
+                else if (state is ForgotpasswordValidState) {
+                  return Text(
+                    state.validity,
+                    style: TextStyle(
+                      color: HexColor("#036635"),
+                    ),
+                  );
+                } else
+                  return Container();
+              },
+            ),
+            submitValid
+                ? Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.005,
+                    ),
+                    child: TextFormField(
+                      style: const TextStyle(
+                        color: Colors.black,
+                      ),
+                      controller: otpinput,
+                      onChanged: (value) {},
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10),
+                        labelText: 'Enter the Verification Code',
+                        labelStyle: TextStyle(
+                          color: HexColor("#175244"),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  BlocBuilder<ForgotpasswordBloc, ForgotpasswordState>(
-                    builder: (context, state) {
-                      //checking if There's an error in Loginstate
-                      if (state is ForgotpasswordErrorState) {
-                        return Text(
-                          state.errormessage,
-                          style: TextStyle(color: Colors.red),
-                        );
-                      }
-                      //if the login is valid
-                      else if (state is ForgotpasswordValidState) {
-                        return Text(
-                          state.validity,
-                          style: TextStyle(
-                            color: HexColor("#036635"),
-                          ),
-                        );
-                      } else
-                        return Container();
-                    },
-                  ),
-                  submitValid
-                      ? Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          margin: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.005,
-                          ),
-                          child: TextFormField(
-                            style: const TextStyle(
-                              color: Colors.black,
-                            ),
-                            controller: otpinput,
-                            onChanged: (value) {},
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.all(10),
-                              labelText: 'Enter the Verification Code',
-                              labelStyle: TextStyle(
-                                color: HexColor("#175244"),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: HexColor("#175244"),
-                                  width: 2,
-                                ),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: HexColor("#175244"),
-                                  width: 2,
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                      : Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          margin: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.005,
-                          ),
-                          child: TextFormField(
-                            autocorrect: false,
-                            style: const TextStyle(color: Colors.black),
-                            controller: forgotpasswordinput,
-                            onChanged: (value) {
-                              for (int i = 0; i < data.length; i++) {
-                                if (data[i].email == forgotpasswordinput.text) {
-                                  setState(
-                                    () {
-                                      userfound = true;
-                                    },
-                                  );
-                                }
-                              }
+                  )
+                : Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.005,
+                    ),
+                    child: TextFormField(
+                      autocorrect: false,
+                      style: const TextStyle(color: Colors.black),
+                      controller: forgotpasswordinput,
+                      onChanged: (value) {
+                        // for (int i = 0; i < data.length; i++) {
+                        //   if (data[i].email == forgotpasswordinput.text) {
+                        //     setState(
+                        //       () {
+                        //         userfound = true;
+                        //       },
+                        //     );
+                        //   }
+                        // }
 
-                              BlocProvider.of<ForgotpasswordBloc>(context).add(
-                                ForgotpasswordInputChangedEvent(
-                                  forgotpasswordinput.text,
-                                ),
-                              );
-                            },
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.all(10),
-                              labelText: 'Email or Phone Number',
-                              labelStyle: TextStyle(
-                                color: HexColor("#175244"),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: HexColor("#175244"),
-                                  width: 2,
-                                ),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: HexColor("#175244"),
-                                  width: 2,
-                                ),
-                              ),
-                            ),
+                        BlocProvider.of<ForgotpasswordBloc>(context).add(
+                          ForgotpasswordInputChangedEvent(
+                            forgotpasswordinput.text,
+                          ),
+                        );
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10),
+                        labelText: 'Email or Phone Number',
+                        labelStyle: TextStyle(
+                          color: HexColor("#175244"),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
                           ),
                         ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  SizedBox(
-                    width: 300,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        final resetkey = await SharedPreferences.getInstance();
-                        await resetkey.setInt('reset0', obtainedkey);
-                        if (userfound) {
-                          submitValid ? verify() : sendOtp();
-                        } else
-                          print('nootpfor you');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(60),
+                        focusedBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
                         ),
-                        backgroundColor: HexColor("#036635"),
                       ),
-                      child: submitValid
-                          ? Text(
-                              'Verify',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                            )
-                          : Text(
-                              'Reset Password',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                            ),
                     ),
                   ),
-                ],
-              );
-            },
-          ),
-        ),
+            SizedBox(
+              height: 15,
+            ),
+            SizedBox(
+              width: 300,
+              child: ElevatedButton(
+                onPressed: () async {
+                  final resetkey = await SharedPreferences.getInstance();
+                  await resetkey.setInt('reset0', obtainedkey);
+                  if (userfound) {
+                    submitValid ? verify() : sendOtp();
+                  } else
+                    print('nootpfor you');
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(60),
+                  ),
+                  backgroundColor: HexColor("#036635"),
+                ),
+                child: submitValid
+                    ? Text(
+                        'Verify',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      )
+                    : Text(
+                        'Reset Password',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+              ),
+            ),
+          ],
+        )),
       ),
     );
   }

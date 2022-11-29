@@ -66,6 +66,13 @@ class _SigninPageState extends State<SigninPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (userddt.isEmpty) {
+      obtainedemail = '';
+      obtainedpassword = '';
+    } else {
+      obtainedemail = userddt[0]['email'];
+      obtainedpassword = userddt[0]['password'];
+    }
     return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
@@ -126,102 +133,84 @@ class _SigninPageState extends State<SigninPage> {
                     }
                   },
                 ),
-                ValueListenableBuilder<Box<UserDataModel>>(
-                  valueListenable: Boxes.getUserData().listenable(),
-                  builder: (context, box, _) {
-                    final data = box.values.toList().cast<UserDataModel>();
-                    // List<Map<String, dynamic?>> data1 = udb.getDataUserData();
-                    if (userddt.isEmpty) {
-                      obtainedemail = '';
-                      obtainedpassword = '';
-                    } else {
-                      // for (var i = 0; i < userddt.length; i++) {
-                      //   obtainedemail = userddt[i]['email'];
-                      //   obtainedpassword = userddt[i]['password'];
-                      // }
-                      obtainedemail = userddt[0]['email'];
-                      obtainedpassword = userddt[0]['password'];
-                    }
 
-                    return Column(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          margin: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.01,
-                          ),
-                          child: TextFormField(
-                            autocorrect: false,
-                            style: const TextStyle(
-                              color: Colors.black,
+                Column(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      margin: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.01,
+                      ),
+                      child: TextFormField(
+                        autocorrect: false,
+                        style: const TextStyle(
+                          color: Colors.black,
+                        ),
+                        controller: econtroller,
+                        onChanged: (value) {
+                          BlocProvider.of<SigninBloc>(context).add(
+                            SigninemailChangedEvent(
+                              econtroller.text,
+                              obtainedemail,
                             ),
-                            controller: econtroller,
-                            onChanged: (value) {
-                              BlocProvider.of<SigninBloc>(context).add(
-                                SigninemailChangedEvent(
-                                  econtroller.text,
-                                  obtainedemail,
-                                ),
-                              );
-                            },
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.all(10),
-                              labelText: 'Email',
-                              labelStyle: TextStyle(
-                                color: HexColor("#036635"),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: HexColor("#036635"),
-                                  width: 2,
-                                ),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: HexColor("#036635"),
-                                  width: 2,
-                                ),
-                              ),
+                          );
+                        },
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(10),
+                          labelText: 'Email',
+                          labelStyle: TextStyle(
+                            color: HexColor("#036635"),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(
+                              color: HexColor("#036635"),
+                              width: 2,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(
+                              color: HexColor("#036635"),
+                              width: 2,
                             ),
                           ),
                         ),
+                      ),
+                    ),
 
-                        SizedBox(height: 20),
-                        //password
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          child: TextFormField(
-                            style: const TextStyle(color: Colors.black),
-                            controller: pcontroller,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.all(10),
-                              labelText: 'Password',
-                              labelStyle: TextStyle(
-                                color: HexColor("#036635"),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: HexColor("#036635"),
-                                  width: 2,
-                                ),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: HexColor("#036635"),
-                                  width: 2,
-                                ),
-                              ),
+                    SizedBox(height: 20),
+                    //password
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: TextFormField(
+                        style: const TextStyle(color: Colors.black),
+                        controller: pcontroller,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(10),
+                          labelText: 'Password',
+                          labelStyle: TextStyle(
+                            color: HexColor("#036635"),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(
+                              color: HexColor("#036635"),
+                              width: 2,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(
+                              color: HexColor("#036635"),
+                              width: 2,
                             ),
                           ),
                         ),
-                      ],
-                    );
-                  },
+                      ),
+                    ),
+                  ],
                 ),
                 Container(
                   padding: const EdgeInsets.all(10),
