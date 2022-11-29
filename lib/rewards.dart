@@ -3,8 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:starshmucks/home/home_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-import 'boxes.dart';
-import 'model/user_model.dart';
+// import 'boxes.dart';
 
 class Rewards extends StatefulWidget {
   const Rewards({Key? key}) : super(key: key);
@@ -16,7 +15,6 @@ class Rewards extends StatefulWidget {
 class _RewardsState extends State<Rewards> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: AppBar(
           title: Text('Rewards'),

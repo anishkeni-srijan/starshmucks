@@ -6,13 +6,11 @@ import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:get/get.dart';
-import 'package:starshmucks/db/user_db.dart';
 
+import '/db/user_db.dart';
 import '../model/user_model_new.dart';
-import '/model/user_model.dart';
 import '/signup/bloc/signup_bloc.dart';
 import '/signup/bloc/signup_events.dart';
-import '../boxes.dart';
 import '../signin/signin.dart';
 import 'bloc/signup_states.dart';
 
@@ -74,22 +72,6 @@ class _SignupPageState extends State<SignupPage> {
     );
     udb.insertUserData(userSQL);
     udb.getDataUserData();
-    //hive
-    final user = UserDataModel()
-      ..name = name.text
-      ..email = email.text
-      ..phone = phone.text
-      ..dob = dob.text
-      ..password = pass1.text
-      ..tnc = true
-      ..isactive = true
-      ..address = []
-      ..rewards = 0;
-    // print(name.text);
-    final box = Boxes.getUserData();
-    box.add(user);
-    print(user.name);
-    print("added");
   }
 
   Future<bool> getToSignin() async {

@@ -7,8 +7,6 @@ import 'package:email_auth/email_auth.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../boxes.dart';
-import '../model/user_model.dart';
 import '../signup/signup.dart';
 import '/resetpassword/reset_password.dart';
 import 'bloc/forgotpassword_event.dart';

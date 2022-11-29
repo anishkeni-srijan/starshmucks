@@ -8,8 +8,6 @@ import 'package:get/get.dart';
 
 import '../db/user_db.dart';
 import '../model/menu_model.dart';
-import '/boxes.dart';
-import '/model/user_model.dart';
 import '../providers/learnmore_provider.dart';
 import 'now_serving.dart';
 import 'offers_data.dart';
@@ -69,65 +67,59 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    username = usernames[0]['name'];
     if (usernames.isEmpty)
       return CircularProgressIndicator(backgroundColor: HexColor("#175244"));
-    else
+    else {
       return Scaffold(
-        // persistentFooterButtons: cartinit ? [viewincart()] : null,
-        body: ValueListenableBuilder<Box<UserDataModel>>(
-          valueListenable: Boxes.getUserData().listenable(),
-          builder: (context, box, _) {
-            final udata = box.values.toList().cast<UserDataModel>();
-            username = usernames[0]['name'];
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  getbanner(context, username),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    alignment: Alignment.topLeft,
-                    child: AutoSizeText(
-                      'Offers',
-                      style: TextStyle(
-                        color: HexColor("#175244"),
-                        fontWeight: FontWeight.w700,
-                      ),
-                      minFontSize: 25,
-                    ),
-                  ),
-                  GetOffers(),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    alignment: Alignment.topLeft,
-                    child: AutoSizeText(
-                      'Now Serving',
-                      style: TextStyle(
-                        color: HexColor("#175244"),
-                        fontWeight: FontWeight.w700,
-                      ),
-                      minFontSize: 25,
-                    ),
-                  ),
-                  NowServing(),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    alignment: Alignment.topLeft,
-                    child: AutoSizeText(
-                      'Learn More About Our Drinks',
-                      style: TextStyle(
-                        color: HexColor("#175244"),
-                        fontWeight: FontWeight.w700,
-                      ),
-                      minFontSize: 25,
-                    ),
-                  ),
-                  learnmore(context),
-                ],
+          // persistentFooterButtons: cartinit ? [viewincart()] : null,
+          body: SingleChildScrollView(
+        child: Column(
+          children: [
+            getbanner(context, username),
+            Container(
+              padding: EdgeInsets.all(10),
+              alignment: Alignment.topLeft,
+              child: AutoSizeText(
+                'Offers',
+                style: TextStyle(
+                  color: HexColor("#175244"),
+                  fontWeight: FontWeight.w700,
+                ),
+                minFontSize: 25,
               ),
-            );
-          },
+            ),
+            GetOffers(),
+            Container(
+              padding: EdgeInsets.all(10),
+              alignment: Alignment.topLeft,
+              child: AutoSizeText(
+                'Now Serving',
+                style: TextStyle(
+                  color: HexColor("#175244"),
+                  fontWeight: FontWeight.w700,
+                ),
+                minFontSize: 25,
+              ),
+            ),
+            NowServing(),
+            Container(
+              padding: EdgeInsets.all(10),
+              alignment: Alignment.topLeft,
+              child: AutoSizeText(
+                'Learn More About Our Drinks',
+                style: TextStyle(
+                  color: HexColor("#175244"),
+                  fontWeight: FontWeight.w700,
+                ),
+                minFontSize: 25,
+              ),
+            ),
+            learnmore(context),
+          ],
         ),
-      );
+      ));
+    }
   }
 }
 

@@ -13,7 +13,6 @@ import '/signin/signin.dart';
 import '/splash/splash.dart';
 import 'editdetails/edit_details.dart';
 import 'forgotpassword/bloc/forgotpassword_bloc.dart';
-import 'model/user_model.dart';
 import 'resetpassword/bloc/resetpassword_bloc.dart';
 import 'resetpassword/reset_password.dart';
 import '/providers/learnmore_provider.dart';
@@ -21,11 +20,6 @@ import '/editdetails/bloc/editdetails_bloc.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter();
-  Hive.registerAdapter(
-    UserDataModelAdapter(),
-  );
-  await Hive.openBox<UserDataModel>('signupdata');
 
   runApp(const MyApp());
 }

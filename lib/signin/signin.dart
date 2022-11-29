@@ -1,16 +1,12 @@
 import 'dart:io';
-
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../boxes.dart';
 import '../db/user_db.dart';
-import '../model/user_model.dart';
 import 'bloc/signin_bloc.dart';
 import 'bloc/signin_events.dart';
 import 'bloc/signin_states.dart';

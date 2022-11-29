@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
-import 'package:starshmucks/common_things.dart';
 
 import '/db/cart_db.dart';
 import '/model/cart_model.dart';
-import 'boxes.dart';
 import 'address.dart';
 import 'db/menu_db.dart';
 import 'db/orders_db.dart';
 import 'model/menu_model.dart';
-import 'model/user_model.dart';
 import 'order/order_success.dart';
 
 class MyCart extends StatefulWidget {
@@ -24,8 +21,6 @@ class _MyCartState extends State<MyCart> {
   bool ischecked = false;
   var result;
   @override
-
-
   late CartDB cartdb;
   late MenuDB menudb;
   late OrdersDB orderdb;
@@ -95,17 +90,16 @@ class _MyCartState extends State<MyCart> {
     orderdb.createarr(idar, qtyar);
     setState(() {});
   }
-  getttl(){
-    for(var i = 0; i<kart1.length;i++) {
+
+  getttl() {
+    for (var i = 0; i < kart1.length; i++) {
       ttl = ttl + double.parse(kart1[i].price);
     }
-    setState(() {
-
-    });
+    setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
-
     getDataOnIds();
     return Scaffold(
       bottomNavigationBar: Row(
@@ -120,7 +114,8 @@ class _MyCartState extends State<MyCart> {
                 Get.to(Address(), transition: Transition.rightToLeft);
               },
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(HexColor("#036635"))),
+                  backgroundColor:
+                      MaterialStateProperty.all(HexColor("#036635"))),
               child: const Text("Checkout"),
               //   ),
               // ],
@@ -178,7 +173,7 @@ class _MyCartState extends State<MyCart> {
                                 TextButton(
                                   onPressed: () {
                                     removefromcart(datalist[index]);
-                                    print("removing: "+index.toString());
+                                    print("removing: " + index.toString());
                                     setState(() {});
                                   },
                                   style: ButtonStyle(

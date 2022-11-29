@@ -5,11 +5,9 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 import 'common_things.dart';
-import 'model/user_model.dart';
 import 'order/order_failed.dart';
 import 'order/order_success.dart';
 import 'upi_payment.dart';
-import 'boxes.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({Key? key}) : super(key: key);
@@ -29,8 +27,8 @@ class _PaymentPageState extends State<PaymentPage> {
   int _value = 1;
   @override
   Widget build(BuildContext context) {
-    final box2 = Boxes.getUserData();
-    final data2 = box2.values.toList().cast<UserDataModel>();
+    // final box2 = Boxes.getUserData();
+    // final data2 = box2.values.toList().cast<UserDataModel>();
 
     Pet _pet = Pet.Upi;
     return Scaffold(
@@ -201,7 +199,8 @@ class _PaymentPageState extends State<PaymentPage> {
                           maxFontSize: 30,
                         ),
                         AutoSizeText(
-                          data2[0].rewards.toString(),
+                          "temp rewards",
+                          //data2[0].rewards.toString(),
                           style: TextStyle(
                             color: HexColor("#175244"),
                           ),

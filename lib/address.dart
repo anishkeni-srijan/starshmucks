@@ -9,8 +9,6 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import '/model/address_model.dart';
 import 'db/user_db.dart';
 import 'payment.dart';
-import 'boxes.dart';
-import 'model/user_model.dart';
 
 class Address extends StatefulWidget {
   const Address({Key? key}) : super(key: key);
@@ -53,8 +51,6 @@ class _AddressState extends State<Address> {
     final city = TextEditingController();
     final state = TextEditingController();
     final pincode = TextEditingController();
-    final box = Boxes.getUserData();
-    final data = box.values.toList().cast<UserDataModel>();
 
     PhoneNumber number = PhoneNumber(isoCode: 'IN');
     return showModalBottomSheet(
@@ -380,8 +376,6 @@ class _AddressState extends State<Address> {
   }
 
   editAddress(context, index, addid) {
-    final box = Boxes.getUserData();
-    final data = box.values.toList().cast<UserDataModel>();
     final fname = TextEditingController(text: addressList[index]['fname']);
     final phone = TextEditingController(text: "temp");
     final hno = TextEditingController(text: addressList[index]['hno']);
@@ -726,161 +720,153 @@ class _AddressState extends State<Address> {
           ),
         ],
       ),
-      body: ValueListenableBuilder<Box<UserDataModel>>(
-          valueListenable: Boxes.getUserData().listenable(),
-          builder: (context, box, _) {
-            final data = box.values.toList().cast<UserDataModel>();
-            if (addressList.isEmpty) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('No Address'),
-                  ],
-                ),
-              );
-            } else {
-              //int? len = int?.parse(data[0].address.length! / 7);
-
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      body: addressList.isEmpty
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  afterSelecting
-                      ? Container()
-                      : Center(
-                          child: Container(
-                              padding: EdgeInsets.all(8),
-                              child: Text(
-                                "Select a Address",
-                                style: TextStyle(color: Colors.red),
-                              ))),
-                  Padding(
-                      padding: EdgeInsets.only(left: 20, top: 10),
-                      child: Text(
-                        'Delivery Address',
-                        style: TextStyle(
-                          fontSize: 20,
+                  Text('No Address'),
+                ],
+              ),
+            )
+
+          //int? len = int?.parse(data[0].address.length! / 7);
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                afterSelecting
+                    ? Container()
+                    : Center(
+                        child: Container(
+                            padding: EdgeInsets.all(8),
+                            child: Text(
+                              "Select a Address",
+                              style: TextStyle(color: Colors.red),
+                            ))),
+                Padding(
+                    padding: EdgeInsets.only(left: 20, top: 10),
+                    child: Text(
+                      'Delivery Address',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    )),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: addressList.length,
+                    itemBuilder: (context, index) {
+                      String addressSendToOtherPage = addressList[index]
+                              ['fname'] +
+                          "\n" +
+                          addressList[index]['hno'] +
+                          ", " +
+                          addressList[index]['road'] +
+                          ", " +
+                          addressList[index]['city'] +
+                          ", " +
+                          addressList[index]['state'] +
+                          "." +
+                          "\n" +
+                          addressList[index]['pincode'];
+
+                      return Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      )),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: addressList.length,
-                      itemBuilder: (context, index) {
-                        String addressSendToOtherPage = addressList[index]
-                                ['fname'] +
-                            "\n" +
-                            addressList[index]['hno'] +
-                            ", " +
-                            addressList[index]['road'] +
-                            ", " +
-                            addressList[index]['city'] +
-                            ", " +
-                            addressList[index]['state'] +
-                            "." +
-                            "\n" +
-                            addressList[index]['pincode'];
-
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          margin: EdgeInsets.only(left: 20, right: 20, top: 15),
-                          shadowColor: HexColor("#036635"),
-                          elevation: 4,
-                          child: Column(
-                            children: [
-                              //radio
-                              RadioListTile(
-                                title: Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 5, bottom: 5),
-                                  child: Text(
-                                    addressSendToOtherPage,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                        margin: EdgeInsets.only(left: 20, right: 20, top: 15),
+                        shadowColor: HexColor("#036635"),
+                        elevation: 4,
+                        child: Column(
+                          children: [
+                            //radio
+                            RadioListTile(
+                              title: Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 5, bottom: 5),
+                                child: Text(
+                                  addressSendToOtherPage,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w400,
                                   ),
                                 ),
-                                subtitle: Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 5, bottom: 8),
-                                  child: Text(
-                                    "Phone : 98765678temp",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w100,
-                                    ),
+                              ),
+                              subtitle: Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 5, bottom: 8),
+                                child: Text(
+                                  "Phone : 98765678temp",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w100,
                                   ),
                                 ),
-                                value: addressList[index]['addressID'],
-                                groupValue: selectedVal,
-                                onChanged: (value) async {
-                                  setState(() {
-                                    print("onchange");
-                                    // print(value);
-                                    print(index);
-                                    setSelectedVal(value);
-                                    afterSelecting = true;
-                                  });
-                                  final addressSharedPred =
-                                      await SharedPreferences.getInstance();
-                                  await addressSharedPred.setString(
-                                      'selectedAddress',
-                                      addressSendToOtherPage);
-                                },
-                                selected: selectedVal ==
-                                    addressList[index]['addressID'],
-                                activeColor: HexColor("#036635"),
+                              ),
+                              value: addressList[index]['addressID'],
+                              groupValue: selectedVal,
+                              onChanged: (value) async {
+                                setState(() {
+                                  print("onchange");
+                                  // print(value);
+                                  print(index);
+                                  setSelectedVal(value);
+                                  afterSelecting = true;
+                                });
+                                final addressSharedPred =
+                                    await SharedPreferences.getInstance();
+                                await addressSharedPred.setString(
+                                    'selectedAddress', addressSendToOtherPage);
+                              },
+                              selected: selectedVal ==
+                                  addressList[index]['addressID'],
+                              activeColor: HexColor("#036635"),
 
-                                //selectedTileColor: Colors.red,
+                              //selectedTileColor: Colors.red,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 8, right: 8),
+                              child: Divider(
+                                color: Colors.grey,
+                                height: 1,
+                                thickness: 0.2,
+                                indent: 0,
+                                endIndent: 0,
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 8, right: 8),
-                                child: Divider(
-                                  color: Colors.grey,
-                                  height: 1,
-                                  thickness: 0.2,
-                                  indent: 0,
-                                  endIndent: 0,
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  TextButton(
-                                      onPressed: () {
-                                        deleteAddress(
-                                            addressList[index]['addressID']);
-                                        setState(() {});
-                                      },
-                                      child: Text(
-                                        'Delete',
-                                        style: TextStyle(color: Colors.red),
-                                      )),
-                                  TextButton(
+                            ),
+                            Row(
+                              children: [
+                                TextButton(
                                     onPressed: () {
-                                      print(addressList[index]['addressID']);
-                                      editAddress(context, index,
+                                      deleteAddress(
                                           addressList[index]['addressID']);
+                                      setState(() {});
                                     },
                                     child: Text(
-                                      'Edit',
-                                      style:
-                                          TextStyle(color: HexColor("#036635")),
-                                    ),
+                                      'Delete',
+                                      style: TextStyle(color: Colors.red),
+                                    )),
+                                TextButton(
+                                  onPressed: () {
+                                    print(addressList[index]['addressID']);
+                                    editAddress(context, index,
+                                        addressList[index]['addressID']);
+                                  },
+                                  child: Text(
+                                    'Edit',
+                                    style:
+                                        TextStyle(color: HexColor("#036635")),
                                   ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
-                ],
-              );
-            }
-          }),
+                ),
+              ],
+            ),
       bottomNavigationBar: Container(
         padding: EdgeInsets.all(8.0),
         child:
