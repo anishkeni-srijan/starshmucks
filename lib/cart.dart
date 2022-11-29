@@ -114,7 +114,7 @@ class _MyCartState extends State<MyCart> {
           onPressed: () {
             putDatafromcart();
             setState(() {});
-            Get.to(OrderSuccess(), transition: Transition.rightToLeft);
+            Get.to(Address(), transition: Transition.rightToLeft);
           },
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(HexColor("#036635"))),
