@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:starshmucks/common_things.dart';
 import 'package:starshmucks/home/home_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-// import 'boxes.dart';
+import 'db/user_db.dart';
+
+
 
 class Rewards extends StatefulWidget {
   const Rewards({Key? key}) : super(key: key);
@@ -13,8 +16,19 @@ class Rewards extends StatefulWidget {
 }
 
 class _RewardsState extends State<Rewards> {
+
+  List<Map<String, dynamic>> usernames = [];
+  getuser()async{
+    UserDB udb = UserDB();
+
+    usernames = await udb.getDataUserData();
+    setState(() {
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    getuser();
     return Scaffold(
         appBar: AppBar(
           title: Text('Rewards'),
@@ -70,7 +84,7 @@ class _RewardsState extends State<Rewards> {
                                   child: Row(
                                     children: [
                                       AutoSizeText(
-                                        'hi',
+                                        usernames[0]['rewards'].toString(),
                                         style: TextStyle(
                                           fontWeight: FontWeight.w600,
                                           color: Colors.white,
@@ -92,7 +106,7 @@ class _RewardsState extends State<Rewards> {
                                   height: 70,
                                 ),
                                 Text(
-                                  '${username}',
+                                  usernames[0]['name'],
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 25,

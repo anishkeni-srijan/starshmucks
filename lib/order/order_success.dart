@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -5,10 +7,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:get/get.dart';
-import '/db/cart_db.dart';
-import '/db/menu_db.dart';
-import '/db/orders_db.dart';
-import '/model/menu_model.dart';
+import 'package:starshmucks/db/cart_db.dart';
+import 'package:starshmucks/db/menu_db.dart';
+import 'package:starshmucks/db/orders_db.dart';
+import 'package:starshmucks/model/menu_model.dart';
 import '../help_page.dart';
 import '../model/cart_model.dart';
 import '/model/order_history.dart';
@@ -23,19 +25,18 @@ class OrderSuccess extends StatefulWidget {
 
 class _OrderSuccessState extends State<OrderSuccess> {
   late OrdersDB db;
-  late CartDB cartdb;
+  late  CartDB cartdb;
   List<OrderHistoryModel> OrderData = [];
   List<CartModel> cartlist = [];
-  List<String> idlistfromstring = [];
-  List<String> qtylistfromstring = [];
-  List<MenuModel> items = [];
-  List<MenuModel> items1 = [];
-  List<dynamic> orderid = [];
-  List<dynamic> orderid1 = [];
+ List<String> idlistfromstring = [];
+ List<String> qtylistfromstring = [];
+ List<MenuModel> items = [];
+ List<MenuModel> items1 = [];
+
 
   @override
   void initState() {
-    db = OrdersDB();
+    db= OrdersDB();
     db.initDBOrders();
     cartdb = CartDB();
     cartdb.initDBCart();
@@ -44,23 +45,21 @@ class _OrderSuccessState extends State<OrderSuccess> {
     super.initState();
     cartinit = false;
   }
-
   getDataIds() async {
     MenuDB menudb = MenuDB();
     menudb.initDBMenu();
     db.initDBOrders();
     OrderData = await db.getDataOrders();
     for (var i = 0; i < OrderData.length; i++) {
-      idlistfromstring = OrderData[i].id!.split(' ');
-      qtylistfromstring = OrderData[i].qty!.split(' ');
-    }
-    for (var i = 0; i < idlistfromstring.length; i++) {
+       idlistfromstring = OrderData[i].id!.split(' ');
+       qtylistfromstring = OrderData[i].qty!.split(' ');
+     }
+    for (var i =0;i<idlistfromstring.length;i++){
       items = await menudb.getitemwithId_order(idlistfromstring[i]);
       items1.add(items.first);
     }
     setState(() {});
   }
-
   getorderid() async {
     db.initDBOrders();
     // orderid = db.getOrderId() as List;
@@ -69,6 +68,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
     // orderid1.add(orderid.first);
     // setState(() {
     // });
+
   }
 
 // gainrewards()async{
@@ -151,7 +151,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                       Container(
                         transform: Matrix4.translationValues(0, 12, 0),
                         child: Text(
-                          'Order id:' + orderid.toString(),
+                          'Order id:',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 40,
@@ -191,62 +191,66 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   indent: 0,
                   endIndent: 0,
                 ),
-                OrderData.isEmpty || items1.isEmpty || qtylistfromstring.isEmpty
-                    ? Center(
-                        child: Text('updating...'),
-                      )
-                    : SizedBox(
-                        width: 400,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: qtylistfromstring.length,
-                          itemBuilder: (context, index) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10, bottom: 5, top: 5),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
+                  OrderData.isEmpty || items1.isEmpty ||qtylistfromstring.isEmpty
+                          ? Center(child: Text('updating...'),)
+                          : SizedBox(
+                                width: 400,
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount:qtylistfromstring.length,
+                                    itemBuilder: (context, index) {
+                                      return Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Container(
-                                              width: 150,
-                                              child: Text(
-                                                  items1[index]
-                                                      .title
-                                                      .toString(),
-                                                  maxLines: 2,
-                                                  overflow:
-                                                      TextOverflow.ellipsis)),
-                                          Text(qtylistfromstring[index] +
-                                              ' x qty'),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 10,
+                                                right: 10,
+                                                bottom: 5,
+                                                top: 5),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                        width: 150,
+                                                        child: Text(
+                                                            items1[index].title.toString(),
+                                                            maxLines: 2,
+                                                            overflow: TextOverflow
+                                                                .ellipsis)),
+                                                    Text(
+                                                       qtylistfromstring[index]+
+                                                            ' x qty'),
+                                                  ],
+                                                ),
+                                                // Column(
+                                                //     crossAxisAlignment:
+                                                //         CrossAxisAlignment.end,
+                                                //     children: [
+                                                //       Row(children: [
+                                                //         AutoSizeText(
+                                                //           "\$ " + data[index].price,
+                                                //           minFontSize: 10,
+                                                //         ),
+                                                //       ]),
+                                                //      ])
+                                              ],
+                                            ),
+                                          ),
                                         ],
-                                      ),
-                                      // Column(
-                                      //     crossAxisAlignment:
-                                      //         CrossAxisAlignment.end,
-                                      //     children: [
-                                      //       Row(children: [
-                                      //         AutoSizeText(
-                                      //           "\$ " + data[index].price,
-                                      //           minFontSize: 10,
-                                      //         ),
-                                      //       ]),
-                                      //      ])
-                                    ],
+                                      );
+                                    },
                                   ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      ),
+
+                              ),
+
+
                 Padding(
                   padding: const EdgeInsets.only(top: 5, bottom: 5),
                   child: Divider(
@@ -354,3 +358,5 @@ class _OrderSuccessState extends State<OrderSuccess> {
     );
   }
 }
+
+

@@ -39,6 +39,8 @@ class UserDB {
           )
           """);
       },
+
+      // onConfigure: _onConfigure,
       version: 1,
     );
   }
@@ -101,6 +103,20 @@ class UserDB {
       am.toMap(),
       where: 'addressID = ?',
       whereArgs: [id],
+    );
+    print("updared");
+  }
+  Future<void> updaterewards( am) async {
+    // Get a reference to the database.
+    final db = await initDBUserData();
+
+    // Update the given Dog.
+    await db.update(
+      "UserData", am.toMap(),
+      // Ensure that the Dog has a matching id.
+      where: 'id= ?',
+      // Pass the Dog's id as a whereArg to prevent SQL injection.
+      whereArgs: [1],
     );
     print("updared");
   }

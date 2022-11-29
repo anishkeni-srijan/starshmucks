@@ -3,11 +3,13 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 
 import '/db/cart_db.dart';
+import 'db/user_db.dart';
 import 'home/home_screen.dart';
 import '/user_profile.dart';
 import 'cart.dart';
 import 'gift_card.dart';
 import 'menu/menu_page.dart';
+import 'model/user_model_new.dart';
 import 'order/order_failed.dart';
 import 'order/order_success.dart';
 
@@ -169,6 +171,7 @@ Future<bool> gohome() async {
 }
 
 Future<bool> gohomefromsuccess() async {
+  calcrewards();
   CartDB cartdb = CartDB();
   cartdb.clear();
   return (await Get.to(bottomBar())) ?? false;
@@ -180,4 +183,24 @@ goToSuccess() {
 
 goToFailed(String message) {
   return Get.to(OrderFail(message));
+}
+
+calcrewards() async {
+  UserDB udb = UserDB();
+  List<Map<String, dynamic>> usernames = [];
+  usernames = await udb.getDataUserData();
+
+  var res = usernames[0]['rewards'] + 100;
+  var rewardUpdate = UserModel(
+    rewards: res,
+    dob: usernames[0]['dob'],
+    email: usernames[0]['email'],
+    name: usernames[0]['name'],
+    password: usernames[0]['password'],
+    phone: usernames[0]['phone'],
+    tnc: usernames[0]['tnc'],
+    // addressID: ,
+  );
+  print(usernames[0]['rewards']);
+  udb.updaterewards(rewardUpdate);
 }
