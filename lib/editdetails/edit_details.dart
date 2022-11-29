@@ -3,8 +3,10 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:starshmucks/model/user_model_new.dart';
 
 import '../boxes.dart';
+import '../db/user_db.dart';
 import '../model/user_model.dart';
 import 'bloc/editdetails_bloc.dart';
 import 'bloc/editdetails_events.dart';
@@ -27,182 +29,215 @@ class _EditProfileState extends State<EditProfile> {
   late String obtainedphone;
   late String obtainedname;
   late int obtainedkey;
+// late String name
+  // List<Map<String, dynamic>> userddt = [];
+  List<Map<String, dynamic>> usernames = [];
+  getUser() async {
+    usernames = await udb.getDataUserData();
+    // name=
+    // print("id ");
+    // print(usernames[0]['id']);
+    setState(() {});
+  }
 
-  @override
+  late UserDB udb;
+  void initState() {
+    udb = UserDB();
+    udb.initDBUserData();
+    getUser();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: HexColor("#175244"),
-      body: ValueListenableBuilder<Box<UserDataModel>>(
-        valueListenable: Boxes.getUserData().listenable(),
-        builder: (context, box, _) {
-          final data = box.values.toList().cast<UserDataModel>();
-          final econtroller = TextEditingController(text: data[0].email);
-          final ncontroller = TextEditingController(text: data[0].name);
-          final phcontroller = TextEditingController(text: data[0].phone);
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 50,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) => showSelectionDialog());
-                  },
-                  child: Stack(
-                    children: [
-                      Container(
-                        height: 150,
-                        width: 150,
-                        decoration: BoxDecoration(
-                          color: const Color(0xff7c94b6),
-                          image: imagefile == null
-                              ? DecorationImage(
-                                  image: AssetImage(
-                                      'images/profile1.jpg')) // set a placeholder image when no photo is set
-                              : DecorationImage(
-                                  image: FileImage(
-                                      File(data[0].profileimage!.path)),
-                                  fit: BoxFit.cover,
-                                ),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(75.0),
-                          ),
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 4.0,
+    if (usernames.isEmpty)
+      return CircularProgressIndicator();
+    else {
+      return Scaffold(
+        backgroundColor: HexColor("#175244"),
+        body: ValueListenableBuilder<Box<UserDataModel>>(
+          valueListenable: Boxes.getUserData().listenable(),
+          builder: (context, box, _) {
+            final data = box.values.toList().cast<UserDataModel>();
+            final econtroller =
+                TextEditingController(text: usernames[0]['email']);
+            final ncontroller =
+                TextEditingController(text: usernames[0]['name']);
+            final phcontroller =
+                TextEditingController(text: usernames[0]['phone']);
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 50,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) => showSelectionDialog());
+                    },
+                    child: Stack(
+                      children: [
+                        Container(
+                          height: 150,
+                          width: 150,
+                          decoration: BoxDecoration(
+                            color: const Color(0xff7c94b6),
+                            image: imagefile == null
+                                ? DecorationImage(
+                                    image: AssetImage(
+                                        'images/profile1.jpg')) // set a placeholder image when no photo is set
+                                : DecorationImage(
+                                    image: FileImage(
+                                        File(data[0].profileimage!.path)),
+                                    fit: BoxFit.cover,
+                                  ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(75.0),
+                            ),
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 4.0,
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                          transform: Matrix4.translationValues(60, 150, 0),
-                          child: Icon(
-                            Icons.add_a_photo,
-                            color: Colors.white,
-                          )),
-                    ],
+                        Container(
+                            transform: Matrix4.translationValues(60, 150, 0),
+                            child: Icon(
+                              Icons.add_a_photo,
+                              color: Colors.white,
+                            )),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(height: 30),
-                SizedBox(
-                  height: 20,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    data[0].name,
-                    style: TextStyle(
+                  SizedBox(height: 30),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      usernames[0]['name'],
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 35,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.70,
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
                       color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 35,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(40),
+                        topLeft: Radius.circular(40),
+                      ),
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.70,
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(40),
-                      topLeft: Radius.circular(40),
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      BlocBuilder<EditdetailsBloc, EditdetailsState>(
-                        builder: (context, state) {
-                          //checking if There's an error in Loginstate
-                          if (state is EditdetailsErrorState) {
-                            return Text(
-                              state.errormessage,
-                              style: TextStyle(
-                                color: Colors.red,
-                              ),
-                            );
-                          }
-                          //if the login is valid
-                          else {
-                            return Container();
-                          }
-                        },
-                      ),
-                      // DividerForTiles(),
-                      Row(
-                        children: [
-                          EditableField(
-                            econtroller: econtroller,
-                            lbltxt: 'Email',
-                          ),
-                        ],
-                      ),
-
-                      Row(
-                        children: [
-                          EditableField(
-                            econtroller: phcontroller,
-                            lbltxt: 'Phone',
-                          ),
-                        ],
-                      ),
-
-                      Row(
-                        children: [
-                          EditableField(
-                            econtroller: ncontroller,
-                            lbltxt: 'Name',
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            HexColor("#175244"),
-                          ),
+                    child: Column(
+                      children: [
+                        BlocBuilder<EditdetailsBloc, EditdetailsState>(
+                          builder: (context, state) {
+                            //checking if There's an error in Loginstate
+                            if (state is EditdetailsErrorState) {
+                              return Text(
+                                state.errormessage,
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
+                              );
+                            }
+                            //if the login is valid
+                            else {
+                              return Container();
+                            }
+                          },
                         ),
-                        onPressed: () {
-                          BlocProvider.of<EditdetailsBloc>(context).add(
-                            EditdetailsemailChangedEvent(
-                              econtroller.text,
+                        // DividerForTiles(),
+                        Row(
+                          children: [
+                            EditableField(
+                              econtroller: econtroller,
+                              lbltxt: 'Email',
                             ),
-                          );
-                          BlocProvider.of<EditdetailsBloc>(context).add(
-                            EditdetailsNameChangedEvent(
-                              ncontroller.text,
+                          ],
+                        ),
+
+                        Row(
+                          children: [
+                            EditableField(
+                              econtroller: phcontroller,
+                              lbltxt: 'Phone',
                             ),
-                          );
-                          BlocProvider.of<EditdetailsBloc>(context).add(
-                            EditdetailsNumberChangedEvent(
-                              phcontroller.text,
+                          ],
+                        ),
+
+                        Row(
+                          children: [
+                            EditableField(
+                              econtroller: ncontroller,
+                              lbltxt: 'Name',
                             ),
-                          );
-                          data[0].name = ncontroller.text;
-                          data[0].email = econtroller.text;
-                          data[0].phone = phcontroller.text;
-                          print("imagevalue1" + data[0].profileimage!.path);
-                          box.putAt(0, data[0]);
-                          setState(() {});
-                        },
-                        child: Text('UPDATE'),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          );
-        },
-      ),
-    );
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              HexColor("#175244"),
+                            ),
+                          ),
+                          onPressed: () {
+                            // BlocProvider.of<EditdetailsBloc>(context).add(
+                            //   EditdetailsemailChangedEvent(
+                            //     econtroller.text,
+                            //   ),
+                            // );
+                            // BlocProvider.of<EditdetailsBloc>(context).add(
+                            //   EditdetailsNameChangedEvent(
+                            //     ncontroller.text,
+                            //   ),
+                            // );
+                            // BlocProvider.of<EditdetailsBloc>(context).add(
+                            //   EditdetailsNumberChangedEvent(
+                            //     phcontroller.text,
+                            //   ),
+                            // );
+                            // data[0].name = ncontroller.text;
+                            // data[0].email = econtroller.text;
+                            // data[0].phone = phcontroller.text;
+                            // print("imagevalue1" + data[0].profileimage!.path);
+                            // box.putAt(0, data[0]);
+                            var updateData = UserModel(
+                                dob: usernames[0]['dob'],
+                                email: econtroller.text,
+                                phone: phcontroller.text,
+                                name: ncontroller.text,
+                                password: usernames[0]['password'],
+                                rewards: usernames[0]['rewards'],
+                                tnc: usernames[0]['tnc']);
+                            udb.updateUserData(usernames[0]['id'], updateData);
+                            setState(() {});
+                          },
+                          child: Text('UPDATE'),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            );
+          },
+        ),
+      );
+    }
   }
 
   showSelectionDialog() {

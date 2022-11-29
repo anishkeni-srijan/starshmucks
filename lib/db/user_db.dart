@@ -60,6 +60,21 @@ class UserDB {
     return data;
   }
 
+  Future<void> updateUserData(id, um) async {
+    // Get a reference to the database.
+    final db = await initDBUserData();
+
+    // Update the given Dog.
+    await db.update(
+      "UserData", um.toMap(),
+      // Ensure that the Dog has a matching id.
+      where: 'id = ?',
+      // Pass the Dog's id as a whereArg to prevent SQL injection.
+      whereArgs: [id],
+    );
+    print("updared userr");
+  }
+
   Future<bool> insertUserAddress(AddressModel address) async {
     final Database db = await initDBUserData();
     db.insert("UserAddress", address.toMap());

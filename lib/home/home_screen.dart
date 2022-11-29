@@ -5,8 +5,6 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
-import 'package:starshmucks/model/user_model_new.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../db/user_db.dart';
 import '../model/menu_model.dart';
@@ -38,11 +36,18 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
+    getUser();
     db = MenuDB();
     db.initDBMenu();
     getdata();
     putdata();
     super.initState();
+  }
+
+  List<Map<String, dynamic>> usernames = [];
+  getUser() async {
+    usernames = await udb.getDataUserData();
+    setState(() {});
   }
 
   getdata() async {
@@ -64,62 +69,65 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // persistentFooterButtons: cartinit ? [viewincart()] : null,
-      body: ValueListenableBuilder<Box<UserDataModel>>(
-        valueListenable: Boxes.getUserData().listenable(),
-        builder: (context, box, _) {
-          final udata = box.values.toList().cast<UserDataModel>();
-          username = udata[0].name;
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                getbanner(context, username),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  alignment: Alignment.topLeft,
-                  child: AutoSizeText(
-                    'Offers',
-                    style: TextStyle(
-                      color: HexColor("#175244"),
-                      fontWeight: FontWeight.w700,
+    if (usernames.isEmpty)
+      return CircularProgressIndicator(backgroundColor: HexColor("#175244"));
+    else
+      return Scaffold(
+        // persistentFooterButtons: cartinit ? [viewincart()] : null,
+        body: ValueListenableBuilder<Box<UserDataModel>>(
+          valueListenable: Boxes.getUserData().listenable(),
+          builder: (context, box, _) {
+            final udata = box.values.toList().cast<UserDataModel>();
+            username = usernames[0]['name'];
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  getbanner(context, username),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    alignment: Alignment.topLeft,
+                    child: AutoSizeText(
+                      'Offers',
+                      style: TextStyle(
+                        color: HexColor("#175244"),
+                        fontWeight: FontWeight.w700,
+                      ),
+                      minFontSize: 25,
                     ),
-                    minFontSize: 25,
                   ),
-                ),
-                GetOffers(),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  alignment: Alignment.topLeft,
-                  child: AutoSizeText(
-                    'Now Serving',
-                    style: TextStyle(
-                      color: HexColor("#175244"),
-                      fontWeight: FontWeight.w700,
+                  GetOffers(),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    alignment: Alignment.topLeft,
+                    child: AutoSizeText(
+                      'Now Serving',
+                      style: TextStyle(
+                        color: HexColor("#175244"),
+                        fontWeight: FontWeight.w700,
+                      ),
+                      minFontSize: 25,
                     ),
-                    minFontSize: 25,
                   ),
-                ),
-                NowServing(),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  alignment: Alignment.topLeft,
-                  child: AutoSizeText(
-                    'Learn More About Our Drinks',
-                    style: TextStyle(
-                      color: HexColor("#175244"),
-                      fontWeight: FontWeight.w700,
+                  NowServing(),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    alignment: Alignment.topLeft,
+                    child: AutoSizeText(
+                      'Learn More About Our Drinks',
+                      style: TextStyle(
+                        color: HexColor("#175244"),
+                        fontWeight: FontWeight.w700,
+                      ),
+                      minFontSize: 25,
                     ),
-                    minFontSize: 25,
                   ),
-                ),
-                learnmore(context),
-              ],
-            ),
-          );
-        },
-      ),
-    );
+                  learnmore(context),
+                ],
+              ),
+            );
+          },
+        ),
+      );
   }
 }
 
