@@ -16,8 +16,7 @@ class Rewards extends StatefulWidget {
 class _RewardsState extends State<Rewards> {
   @override
   Widget build(BuildContext context) {
-    final box = Boxes.getUserData();
-    final data = box.values.toList().cast<UserDataModel>();
+
     return Scaffold(
         appBar: AppBar(
           title: Text('Rewards'),
@@ -73,7 +72,7 @@ class _RewardsState extends State<Rewards> {
                                   child: Row(
                                     children: [
                                       AutoSizeText(
-                                        data[0].rewards.toString(),
+                                        'hi',
                                         style: TextStyle(
                                           fontWeight: FontWeight.w600,
                                           color: Colors.white,

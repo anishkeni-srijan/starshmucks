@@ -42,7 +42,6 @@ class _OrderSuccessState extends State<OrderSuccess> {
     cartdb = CartDB();
     cartdb.initDBCart();
     getorderid();
-    // gainrewards();
     getAddress();
     super.initState();
     cartinit = false;
@@ -64,19 +63,27 @@ class _OrderSuccessState extends State<OrderSuccess> {
   }
   getorderid() async {
     db.initDBOrders();
-    orderid = db.getOrderId() as List;
-    print('ordid'+orderid.toString());
-    if(orderid.length==1)
-    orderid1.add(orderid.first);
-    setState(() {
-    });
+    // orderid = db.getOrderId() as List;
+    // print('ordid'+orderid.toString());
+    // if(orderid.length==1)
+    // orderid1.add(orderid.first);
+    // setState(() {
+    // });
 
   }
 
-gainrewards(item)async{
-  db.initDBOrders();
-  // db.gainrewards(item);
-}
+// gainrewards()async{
+//   var items = 0;
+//   for (var i = 0; i < OrderData.length; i++) {
+//     items = items + int.parse(OrderData[i].qty.toString());
+//   }
+//   var res  = (double.parse(OrderData[0].rewards.toString()) + (items * 10)) as String?;
+//
+//   print("no. of items " + items.toString());
+//   print('total rewards: ' + OrderData[0].rewards.toString());
+//   db.initDBOrders();
+//   // db.gainrewards(OrderData[0],res);
+// }
 
   late String selectedAddress = '';
   getAddress() async {
@@ -86,7 +93,6 @@ gainrewards(item)async{
     print("test " + selectedAddress);
     return selectedAddress;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +112,6 @@ gainrewards(item)async{
                   ),
                   label: Text(''),
                   onPressed: () {
-                    //box.clear();
                     gohomefromsuccess();
                   },
                 ),
@@ -187,7 +192,6 @@ gainrewards(item)async{
                   indent: 0,
                   endIndent: 0,
                 ),
-
                   OrderData.isEmpty || items1.isEmpty ||qtylistfromstring.isEmpty
                           ? Center(child: Text('updating...'),)
                           : SizedBox(
@@ -356,19 +360,4 @@ gainrewards(item)async{
   }
 }
 
-gainrewards() {
-  // final box = Boxes.getUserData();
-  // final data = box.values.toList().cast<UserData>();
-  //
-  // final box2 = Boxes.getCartData();
-  // final datab = box2.values.toList().cast<CartData>();
-  // var items = 0;
-  // for (var i = 0; i < datab.length; i++) {
-  //   items = items + datab[i].qty;
-  // }
-  // print("before" + data[0].rewards.toString());
-  // data[0].rewards = data[0].rewards!.toDouble() + (items * 10);
-  // print("no. of items " + items.toString());
-  // box.putAt(0, data[0]);
-  // print('total rewards: ' + data[0].rewards.toString());
-}
+
