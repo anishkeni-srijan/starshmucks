@@ -46,9 +46,9 @@ class _MyCartState extends State<MyCart> {
     menudb.initDBMenu();
     cartdb = CartDB();
     cartdb.initDBCart();
-    getttl();
 
     super.initState();
+    getttl();
   }
 
   getDataOnIds() async {
@@ -105,22 +105,28 @@ class _MyCartState extends State<MyCart> {
   }
   @override
   Widget build(BuildContext context) {
+
     getDataOnIds();
     return Scaffold(
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(8.0),
-        child: ElevatedButton(
-          onPressed: () {
-            putDatafromcart();
-            setState(() {});
-            Get.to(Address(), transition: Transition.rightToLeft);
-          },
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(HexColor("#036635"))),
-          child: const Text("Checkout"),
-          //   ),
-          // ],
-        ),
+      bottomNavigationBar: Row(
+        children: [
+          Text(ttl.toString()),
+          Container(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () {
+                putDatafromcart();
+                setState(() {});
+                Get.to(Address(), transition: Transition.rightToLeft);
+              },
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(HexColor("#036635"))),
+              child: const Text("Checkout"),
+              //   ),
+              // ],
+            ),
+          ),
+        ],
       ),
 
       // })),
@@ -172,6 +178,7 @@ class _MyCartState extends State<MyCart> {
                                 TextButton(
                                   onPressed: () {
                                     removefromcart(datalist[index]);
+                                    print("removing: "+index.toString());
                                     setState(() {});
                                   },
                                   style: ButtonStyle(

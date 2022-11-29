@@ -42,7 +42,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
     cartdb = CartDB();
     cartdb.initDBCart();
     getorderid();
-    gainrewards();
+    // gainrewards();
     getAddress();
     super.initState();
     cartinit = false;
@@ -75,7 +75,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
 
 gainrewards(item)async{
   db.initDBOrders();
-  db.gainrewards(item);
+  // db.gainrewards(item);
 }
 
   late String selectedAddress = '';

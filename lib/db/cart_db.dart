@@ -65,7 +65,6 @@ class CartDB {
   Future<void> deleteitem(CartModel cartitem) async {
     // Get a reference to the database.
     final db = await initDBCart();
-
     // Remove the Dog from the database.
     await db.delete(
       'CartTable',
