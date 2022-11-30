@@ -58,7 +58,7 @@ class _MyCartState extends State<MyCart> {
   }
 
   removefromcart(sendid) {
-    kart1.isEmpty? cartinit = false: cartinit=true;
+    kart1.isEmpty ? cartinit = false : cartinit = true;
     cartdb.deleteitem(sendid);
     setState(() {});
   }
@@ -102,7 +102,6 @@ class _MyCartState extends State<MyCart> {
 
   @override
   Widget build(BuildContext context) {
-
     getDataOnIds();
     return Scaffold(
       bottomNavigationBar: Container(
@@ -114,8 +113,7 @@ class _MyCartState extends State<MyCart> {
             Get.to(Address(), transition: Transition.rightToLeft);
           },
           style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all(HexColor("#036635"))),
+              backgroundColor: MaterialStateProperty.all(HexColor("#036635"))),
           child: const Text("Checkout"),
           //   ),
           // ],
@@ -130,51 +128,74 @@ class _MyCartState extends State<MyCart> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Total",style: TextStyle(fontSize: 35,color: HexColor("#175244"),fontWeight: FontWeight.w600),),
-                  Text("\$999",style: TextStyle(fontSize: 35,color: HexColor("#175244"),fontWeight: FontWeight.w600),),
+                  Text(
+                    "Total",
+                    style: TextStyle(
+                        fontSize: 35,
+                        color: HexColor("#175244"),
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    "\$999",
+                    style: TextStyle(
+                        fontSize: 35,
+                        color: HexColor("#175244"),
+                        fontWeight: FontWeight.w600),
+                  ),
                 ],
               ),
-              Text("( Inclusive of packaging charge )",),
+              Text(
+                "( Inclusive of packaging charge )",
+              ),
             ],
           ),
         )
       ],
 
       // })),
-      appBar:AppBar(
+      appBar: AppBar(
         toolbarHeight: 120,
         backgroundColor: Colors.white,
         foregroundColor: HexColor("#175244"),
-        title:Text(''),
+        title: Text(''),
         elevation: 0,
-        flexibleSpace:
-          Container(
-            padding: EdgeInsets.all(20),
-            child: Column(
+        flexibleSpace: Container(
+          padding: EdgeInsets.all(20),
+          child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text("Order",style: TextStyle(fontSize: 30,color: HexColor("#175244")), ),
-                Text("Summary",style: TextStyle(fontSize: 35,color: HexColor("#175244"),fontWeight: FontWeight.w600),),
-                ]
-            ),
-          ),
-
+                Text(
+                  "Order",
+                  style: TextStyle(fontSize: 30, color: HexColor("#175244")),
+                ),
+                Text(
+                  "Summary",
+                  style: TextStyle(
+                      fontSize: 35,
+                      color: HexColor("#175244"),
+                      fontWeight: FontWeight.w600),
+                ),
+              ]),
+        ),
       ),
       body: datalist == null
           ? const CircularProgressIndicator()
           : Column(
-            children: [
-              SizedBox(height: 20,),
-              ListView.builder(
-                shrinkWrap: true,
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
                   itemCount: datalist.length,
                   itemBuilder: (context, index) {
                     //print("qty= " + idlist[index].qty.toString());
                     return Card(
                       elevation: 10,
                       child: Padding(
-                        padding: const EdgeInsets.only(top:8.0,bottom: 8),
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 8),
                         child: Column(
                           children: [
                             Row(
@@ -187,18 +208,25 @@ class _MyCartState extends State<MyCart> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(
                                           width: 150,
                                           child: Text(kart1[index].title,
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis)),
-                                      Text("\$ " + kart1[index].price, style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
+                                      Text(
+                                        "\$ " + kart1[index].price,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                       TextButton(
                                         onPressed: () {
                                           removefromcart(datalist[index]);
-                                          print("removing: " + index.toString());
+                                          print(
+                                              "removing: " + index.toString());
                                           setState(() {});
                                         },
                                         style: ButtonStyle(
@@ -256,10 +284,8 @@ class _MyCartState extends State<MyCart> {
                     );
                   },
                 ),
-            ],
-          ),
+              ],
+            ),
     );
   }
 }
-
-
