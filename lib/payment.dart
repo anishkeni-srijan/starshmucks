@@ -5,6 +5,9 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 import 'common_things.dart';
+import 'db/cart_db.dart';
+import 'db/orders_db.dart';
+import 'model/cart_model.dart';
 import 'order/order_failed.dart';
 import 'order/order_success.dart';
 import 'upi_payment.dart';
@@ -328,6 +331,7 @@ class _PaymentPageState extends State<PaymentPage> {
     * 2. Payment ID
     * 3. Signature
     * */
+    putDatafromcart();
     setState(() {
       goToSuccess();
       paid = true;
@@ -335,6 +339,31 @@ class _PaymentPageState extends State<PaymentPage> {
 
     // showAlertDialog(
     //     context, "Payment Successful", "Payment ID: ${response.paymentId}");
+  }
+
+  List<CartModel> cartlist = [];
+
+  putDatafromcart() async {
+    OrdersDB orderdb = OrdersDB();
+    CartDB cartdb = CartDB();
+    orderdb.initDBOrders();
+    cartdb.initDBCart();
+    String idar = '';
+    String qtyar = '';
+    cartlist = await cartdb.getDataCart();
+    for (var i = 0; i < cartlist.length; i++) {
+      if (idar.isEmpty) {
+        idar = idar + cartlist[i].id.toString();
+        qtyar = qtyar + cartlist[i].qty.toString();
+      } else {
+        idar = idar + ' ' + cartlist[i].id.toString();
+        qtyar = qtyar + ' ' + cartlist[i].qty.toString();
+      }
+    }
+    print("im idar:" + idar);
+    print("im qtyar:" + qtyar);
+    orderdb.createarr(idar, qtyar);
+    setState(() {});
   }
 
   void handleExternalWalletSelected(ExternalWalletResponse response) {
