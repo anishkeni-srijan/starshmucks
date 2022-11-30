@@ -58,8 +58,8 @@ class _MyCartState extends State<MyCart> {
   }
 
   removefromcart(sendid) {
-    kart1.isEmpty ? cartinit = false : cartinit = true;
     cartdb.deleteitem(sendid);
+    datalist.isEmpty ? cartinit = false : cartinit = true;
     setState(() {});
   }
 
@@ -152,143 +152,149 @@ class _MyCartState extends State<MyCart> {
         )
       ],
 
-      // })),
-      appBar: AppBar(
-        toolbarHeight: 120,
-        backgroundColor: Colors.white,
-        foregroundColor: HexColor("#175244"),
-        title: Text(''),
-        elevation: 0,
-        flexibleSpace: Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  "Order",
-                  style: TextStyle(fontSize: 30, color: HexColor("#175244")),
-                ),
-                Text(
-                  "Summary",
-                  style: TextStyle(
-                      fontSize: 35,
-                      color: HexColor("#175244"),
-                      fontWeight: FontWeight.w600),
-                ),
-              ]),
-        ),
-      ),
+
       body: datalist == null
           ? const CircularProgressIndicator()
-          : SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: datalist.length,
-                    itemBuilder: (context, index) {
-                      //print("qty= " + idlist[index].qty.toString());
-                      return Card(
-                        elevation: 10,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+          : NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              toolbarHeight: 120,
+              backgroundColor: Colors.white,
+              foregroundColor: HexColor("#175244"),
+              title: Text(''),
+              pinned: false,
+              flexibleSpace: Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        "Order",
+                        style: TextStyle(fontSize: 30, color: HexColor("#175244")),
+                      ),
+                      Text(
+                        "Summary",
+                        style: TextStyle(
+                            fontSize: 35,
+                            color: HexColor("#175244"),
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ]),
+              ),
+            ),
+          ];
+        },
+          body: SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            child: Column(
+      children: [
+      SizedBox(
+      height: 20,
+      ),
+      ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: datalist.length,
+        itemBuilder: (context, index) {
+            //print("qty= " + idlist[index].qty.toString());
+            return Card(
+              elevation: 10,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Image.asset(
+                          kart1[index].image,
+                          height: 100,
+                          width: 100,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: Column(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    kart1[index].image,
-                                    height: 100,
-                                    width: 100,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                            width: 150,
-                                            child: Text(kart1[index].title,
-                                                maxLines: 2,
-                                                overflow:
-                                                    TextOverflow.ellipsis)),
-                                        Text(
-                                          "\$ " + kart1[index].price,
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            removefromcart(datalist[index]);
-                                            print("removing: " +
-                                                index.toString());
-                                            setState(() {});
-                                          },
-                                          style: ButtonStyle(
-                                              foregroundColor:
-                                                  MaterialStateProperty.all(
-                                                      HexColor("#036635"))),
-                                          child: const Text(
-                                            'Remove',
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          IconButton(
-                                            icon: const Icon(Icons.remove),
-                                            onPressed: () {
-                                              if (datalist[index].qty == 1) {
-                                                removefromcart(datalist[index]);
-                                              } else {
-                                                decreaseqty(datalist[index]);
-                                              }
-                                              setState(() {});
-                                            },
-                                            style: ButtonStyle(
-                                                foregroundColor:
-                                                    MaterialStateProperty.all(
-                                                        HexColor("#036635"))),
-                                          ),
-                                          Text(datalist[index].qty.toString()),
-                                          IconButton(
-                                            icon: const Icon(Icons.add),
-                                            onPressed: () {
-                                              increaseqty(datalist[index]);
-                                              setState(() {});
-                                            },
-                                            style: ButtonStyle(
-                                                foregroundColor:
-                                                    MaterialStateProperty.all(
-                                                        HexColor("#036635"))),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                              SizedBox(
+                                  width: 150,
+                                  child: Text(kart1[index].title,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis)),
+                              Text(
+                                "\$ " + kart1[index].price,
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  removefromcart(datalist[index]);
+                                  print(
+                                      "removing: " + index.toString());
+                                  setState(() {});
+                                },
+                                style: ButtonStyle(
+                                    foregroundColor:
+                                    MaterialStateProperty.all(
+                                        HexColor("#036635"))),
+                                child: const Text(
+                                  'Remove',
+                                ),
                               ),
                             ],
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ],
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Row(
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.remove),
+                                  onPressed: () {
+                                    if (datalist[index].qty == 1) {
+                                      removefromcart(datalist[index]);
+                                    } else {
+                                      decreaseqty(datalist[index]);
+                                    }
+                                    setState(() {});
+                                  },
+                                  style: ButtonStyle(
+                                      foregroundColor:
+                                      MaterialStateProperty.all(
+                                          HexColor("#036635"))),
+                                ),
+                                Text(datalist[index].qty.toString()),
+                                IconButton(
+                                  icon: const Icon(Icons.add),
+                                  onPressed: () {
+                                    increaseqty(datalist[index]);
+                                    setState(() {});
+                                  },
+                                  style: ButtonStyle(
+                                      foregroundColor:
+                                      MaterialStateProperty.all(
+                                          HexColor("#036635"))),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
+            );
+        },
+      ),
+      ],
+    ),
+          ),
+          ),
     );
   }
 }
