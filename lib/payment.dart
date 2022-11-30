@@ -33,7 +33,6 @@ class _PaymentPageState extends State<PaymentPage> {
     // final box2 = Boxes.getUserData();
     // final data2 = box2.values.toList().cast<UserDataModel>();
 
-    Pet _pet = Pet.Upi;
     return Scaffold(
         appBar: AppBar(
           title: Text('Payment'),
