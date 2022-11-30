@@ -37,6 +37,41 @@ class _AddressState extends State<Address> {
     setState(() {});
   }
 
+  textfieldCommon() {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
+      margin: EdgeInsets.only(
+        top: MediaQuery.of(context).size.height * 0.005,
+      ),
+      child: TextFormField(
+        style: const TextStyle(color: Colors.black), //<-- SEE HERE
+        // controller: fname,
+
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(5),
+          labelText: 'Full Name',
+          labelStyle: TextStyle(
+            color: HexColor("#175244"),
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              color: HexColor("#175244"),
+              width: 2,
+            ),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              color: HexColor("#175244"),
+              width: 2,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   addAddress(context) {
     final fname = TextEditingController();
@@ -73,38 +108,13 @@ class _AddressState extends State<Address> {
                         ),
                       )),
                   //full name
+
                   Container(
                     width: MediaQuery.of(context).size.width * 0.8,
                     margin: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.005,
                     ),
-                    child: TextFormField(
-                      style:
-                          const TextStyle(color: Colors.black), //<-- SEE HERE
-                      controller: fname,
-
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'Full Name',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                    ),
+                    child: commonTextWidget(fname: fname, lbltxt: "Full Name1"),
                   ),
                   //phone number
                   Container(
@@ -881,6 +891,46 @@ class _AddressState extends State<Address> {
                       MaterialStateProperty.all(HexColor("#036635"))),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class commonTextWidget extends StatelessWidget {
+  const commonTextWidget({
+    Key? key,
+    required this.fname,
+    required lbltxt,
+  }) : super(key: key);
+
+  final TextEditingController fname;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      style: const TextStyle(color: Colors.black), //<-- SEE HERE
+      controller: fname,
+
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.all(5),
+        labelText: 'Full Name',
+        labelStyle: TextStyle(
+          color: HexColor("#175244"),
+        ),
+        enabledBorder: UnderlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: HexColor("#175244"),
+            width: 2,
+          ),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: HexColor("#175244"),
+            width: 2,
+          ),
         ),
       ),
     );
