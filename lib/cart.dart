@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
+import 'package:starshmucks/home/home_screen.dart';
 
 import '/db/cart_db.dart';
 import '/model/cart_model.dart';
@@ -100,6 +101,7 @@ class _MyCartState extends State<MyCart> {
 
   @override
   Widget build(BuildContext context) {
+    datalist.isEmpty? cartinit = false: cartinit=true;
     getDataOnIds();
     return Scaffold(
       bottomNavigationBar: Row(

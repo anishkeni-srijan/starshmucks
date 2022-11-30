@@ -187,7 +187,6 @@ class _AddressState extends State<Address> {
                       style:
                           const TextStyle(color: Colors.black), //<-- SEE HERE
                       controller: roadname,
-
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(5),
                         labelText: 'Road Name, Area, Colony',

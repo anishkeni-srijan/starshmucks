@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../common_things.dart';
 import '../db/user_db.dart';
 import '../model/menu_model.dart';
 import '../providers/learnmore_provider.dart';
@@ -81,7 +82,7 @@ class _HomePageState extends State<HomePage> {
       String email = usernames[0]['email'];
       setUserForLogin(email);
       return Scaffold(
-          // persistentFooterButtons: cartinit ? [viewincart()] : null,
+          persistentFooterButtons: cartinit ? [viewincart()]: null,
           body: SingleChildScrollView(
         child: Column(
           children: [

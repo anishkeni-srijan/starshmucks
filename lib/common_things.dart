@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
+import 'package:starshmucks/model/cart_model.dart';
 
 import '/db/cart_db.dart';
 import 'db/user_db.dart';
@@ -101,69 +102,74 @@ gethomeappbar() {
     ),
     elevation: 0,
     actions: [
-      IconButton(
-        color: HexColor("#175244"),
-        onPressed: () {
-          Get.to(MyCart());
-        },
-        icon: const Icon(
-          Icons.shopping_cart,
-        ),
-      ),
+      // IconButton(
+      //   color: HexColor("#175244"),
+      //   onPressed: () {
+      //     Get.to(MyCart());
+      //   },
+      //   icon: const Icon(
+      //     Icons.shopping_cart,
+      //   ),
+      // ),
     ],
     automaticallyImplyLeading: false,
   );
 }
+late double result = 0;
+late  var size = 0;
+getdata() async {
+  CartDB cdb = CartDB();
+  List<CartModel> data = await cdb.getDataCart();
+  size = data.length;
 
-viewincart() {
-  // final box = Boxes.getCartData();
-  // final data = box.values.toList().cast<CartData>();
-  // var size = data.length;
-  // late double result = 0;
-  // for (int index = 0; index < data.length; index++) {
-  //   result = result + double.parse(data[index].price) * data[index].qty;
-  // }
-  // return Row(
-  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //   crossAxisAlignment: CrossAxisAlignment.center,
-  //   children: [
-  //     Row(
-  //       children: [
-  //         Text(
-  //           size.toString(),
-  //           style: TextStyle(
-  //               color: HexColor("#036635"), fontWeight: FontWeight.w600),
-  //         ),
-  //         size < 2
-  //             ? Text(
-  //                 " item | ",
-  //                 style: TextStyle(color: HexColor("#036635")),
-  //               )
-  //             : Text(
-  //                 " items | ",
-  //                 style: TextStyle(color: HexColor("#036635")),
-  //               ),
-  //         Text(
-  //           "\$" + result.toStringAsFixed(2),
-  //           style: TextStyle(
-  //               color: HexColor("#036635"), fontWeight: FontWeight.w600),
-  //         ),
-  //       ],
-  //     ),
-  //     TextButton(
-  //         style: ButtonStyle(
-  //           backgroundColor:
-  //               MaterialStateProperty.all<Color?>(HexColor("#036635")),
-  //           foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
-  //         ),
-  //         child: Text(
-  //           "View in Cart",
-  //         ),
-  //         onPressed: () {
-  //           Get.to(MyCart(), transition: Transition.downToUp);
-  //         }),
-  //   ],
-  // );
+  for (int index = 0; index < data.length; index++) {
+    result = result  * data[index].qty;
+  }
+
+  return size;
+
+}
+viewincart(){
+  getdata();
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Row(
+        children: [
+          Text(
+            size.toString(),
+            style: TextStyle(
+                color: HexColor("#036635"), fontWeight: FontWeight.w600),
+          ),
+          if (size<2) Text(
+                  " item | ",
+                  style: TextStyle(color: HexColor("#036635")),
+                ) else Text(
+                  " items | ",
+                  style: TextStyle(color: HexColor("#036635")),
+                ),
+          Text(
+            "\$" + result.toStringAsFixed(2),
+            style: TextStyle(
+                color: HexColor("#036635"), fontWeight: FontWeight.w600),
+          ),
+        ],
+      ),
+      TextButton(
+          style: ButtonStyle(
+            backgroundColor:
+                MaterialStateProperty.all<Color?>(HexColor("#036635")),
+            foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
+          ),
+          child: Text(
+            "View in Cart",
+          ),
+          onPressed: () {
+            Get.to(MyCart(), transition: Transition.downToUp);
+          }),
+    ],
+  );
 }
 
 Future<bool> gohome() async {
