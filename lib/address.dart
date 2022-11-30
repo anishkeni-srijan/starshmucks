@@ -683,6 +683,9 @@ class _AddressState extends State<Address> {
   @override
   Widget build(BuildContext context) {
     getUser();
+    bool isChecked = false;
+    bool paid = false;
+    int _value = 1;
     return Scaffold(
       appBar: AppBar(
         //  title: Text('Delivery Address'),
@@ -715,6 +718,7 @@ class _AddressState extends State<Address> {
 
           //int? len = int?.parse(data[0].address.length! / 7);
           : Column(
+              //mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 afterSelecting
@@ -734,8 +738,11 @@ class _AddressState extends State<Address> {
                         fontSize: 20,
                       ),
                     )),
+                //list view
                 Expanded(
                   child: ListView.builder(
+                    // scrollDirection: Axis.horizontal,
+                    // shrinkWrap: true,
                     itemCount: addressList.length,
                     itemBuilder: (context, index) {
                       String addressSendToOtherPage = addressList[index]

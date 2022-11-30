@@ -181,110 +181,113 @@ class _MyCartState extends State<MyCart> {
       ),
       body: datalist == null
           ? const CircularProgressIndicator()
-          : Column(
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: datalist.length,
-                  itemBuilder: (context, index) {
-                    //print("qty= " + idlist[index].qty.toString());
-                    return Card(
-                      elevation: 10,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Image.asset(
-                                  kart1[index].image,
-                                  height: 100,
-                                  width: 100,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                          width: 150,
-                                          child: Text(kart1[index].title,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis)),
-                                      Text(
-                                        "\$ " + kart1[index].price,
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          removefromcart(datalist[index]);
-                                          print(
-                                              "removing: " + index.toString());
-                                          setState(() {});
-                                        },
-                                        style: ButtonStyle(
-                                            foregroundColor:
-                                                MaterialStateProperty.all(
-                                                    HexColor("#036635"))),
-                                        child: const Text(
-                                          'Remove',
-                                        ),
-                                      ),
-                                    ],
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: datalist.length,
+                    itemBuilder: (context, index) {
+                      //print("qty= " + idlist[index].qty.toString());
+                      return Card(
+                        elevation: 10,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Image.asset(
+                                    kart1[index].image,
+                                    height: 100,
+                                    width: 100,
                                   ),
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Row(
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        IconButton(
-                                          icon: const Icon(Icons.remove),
-                                          onPressed: () {
-                                            if (datalist[index].qty == 1) {
-                                              removefromcart(datalist[index]);
-                                            } else {
-                                              decreaseqty(datalist[index]);
-                                            }
-                                            setState(() {});
-                                          },
-                                          style: ButtonStyle(
-                                              foregroundColor:
-                                                  MaterialStateProperty.all(
-                                                      HexColor("#036635"))),
+                                        SizedBox(
+                                            width: 150,
+                                            child: Text(kart1[index].title,
+                                                maxLines: 2,
+                                                overflow:
+                                                    TextOverflow.ellipsis)),
+                                        Text(
+                                          "\$ " + kart1[index].price,
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600),
                                         ),
-                                        Text(datalist[index].qty.toString()),
-                                        IconButton(
-                                          icon: const Icon(Icons.add),
+                                        TextButton(
                                           onPressed: () {
-                                            increaseqty(datalist[index]);
+                                            removefromcart(datalist[index]);
+                                            print("removing: " +
+                                                index.toString());
                                             setState(() {});
                                           },
                                           style: ButtonStyle(
                                               foregroundColor:
                                                   MaterialStateProperty.all(
                                                       HexColor("#036635"))),
+                                          child: const Text(
+                                            'Remove',
+                                          ),
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          IconButton(
+                                            icon: const Icon(Icons.remove),
+                                            onPressed: () {
+                                              if (datalist[index].qty == 1) {
+                                                removefromcart(datalist[index]);
+                                              } else {
+                                                decreaseqty(datalist[index]);
+                                              }
+                                              setState(() {});
+                                            },
+                                            style: ButtonStyle(
+                                                foregroundColor:
+                                                    MaterialStateProperty.all(
+                                                        HexColor("#036635"))),
+                                          ),
+                                          Text(datalist[index].qty.toString()),
+                                          IconButton(
+                                            icon: const Icon(Icons.add),
+                                            onPressed: () {
+                                              increaseqty(datalist[index]);
+                                              setState(() {});
+                                            },
+                                            style: ButtonStyle(
+                                                foregroundColor:
+                                                    MaterialStateProperty.all(
+                                                        HexColor("#036635"))),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              ],
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
     );
   }
