@@ -197,11 +197,6 @@ class _EditProfileState extends State<EditProfile> {
                           //     phcontroller.text,
                           //   ),
                           // );
-                          // data[0].name = ncontroller.text;
-                          // data[0].email = econtroller.text;
-                          // data[0].phone = phcontroller.text;
-                          // print("imagevalue1" + data[0].profileimage!.path);
-                          // box.putAt(0, data[0]);
                           var updateData = UserModel(
                               dob: usernames[0]['dob'],
                               email: econtroller.text,

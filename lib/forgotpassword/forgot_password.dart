@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:email_auth/email_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../db/user_db.dart';
+import '../signup/signup.dart';
 import '/resetpassword/reset_password.dart';
 import 'bloc/forgotpassword_event.dart';
 import '/forgotpassword/bloc/forgotpassword_bloc.dart';
@@ -26,9 +28,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   bool userfound = false;
   late int obtainedkey;
   late EmailAuth emailAuth;
+  late UserDB udb;
 
   @override
   void initState() {
+    udb = UserDB();
+    udb.initDBUserData();
+    getUser();
     super.initState();
     // Initialize the package
     emailAuth = new EmailAuth(
@@ -36,22 +42,30 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     );
   }
 
+  List<Map<String, dynamic>> userddt = [];
+  getUser() async {
+    userddt = await udb.getDataUserData();
+    obtainedkey = userddt[0]['id'];
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future.delayed(
-      Duration.zero,
-      () {
-        //   if (data.isEmpty) {
-        //     Get.to(
-        //       SignupPage(),
-        //     );
-        //   } else {
-        //     for (int i = 0; i < data.length; i++) {
-        //       obtainedkey = data[i].key;
-        //     }
-        //   }
-      },
-    );
+    // Future.delayed(
+    //   Duration.zero,
+    //   () {
+    //     if (userddt.isEmpty) {
+    //       Get.to(
+    //         SignupPage(),
+    //       );
+    //     } else {
+    //       for (int i = 0; i < userddt.length; i++) {
+    //         obtainedkey = userddt[i]['id'];
+    //       }
+    //     }
+    //   },
+    // );
+
     return Scaffold(
       appBar: null,
       backgroundColor: Colors.white,
@@ -173,15 +187,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       style: const TextStyle(color: Colors.black),
                       controller: forgotpasswordinput,
                       onChanged: (value) {
-                        // for (int i = 0; i < data.length; i++) {
-                        //   if (data[i].email == forgotpasswordinput.text) {
-                        //     setState(
-                        //       () {
-                        //         userfound = true;
-                        //       },
-                        //     );
-                        //   }
-                        // }
+                        for (int i = 0; i < userddt.length; i++) {
+                          if (userddt[i]['email'] == forgotpasswordinput.text) {
+                            setState(
+                              () {
+                                userfound = true;
+                              },
+                            );
+                          }
+                        }
 
                         BlocProvider.of<ForgotpasswordBloc>(context).add(
                           ForgotpasswordInputChangedEvent(
@@ -249,6 +263,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       ),
               ),
             ),
+            TextButton(
+                onPressed: () {
+                  Get.to(ResetPasswordPage());
+                },
+                child: Text("Skip"))
           ],
         )),
       ),
