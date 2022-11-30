@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
       String email = usernames[0]['email'];
       setUserForLogin(email);
       return Scaffold(
-          persistentFooterButtons: cartinit ? [viewincart()]: null,
+          persistentFooterButtons: [cartinit ? viewincart(): null],
           body: SingleChildScrollView(
         child: Column(
           children: [
@@ -357,51 +357,8 @@ learnmore(context) {
   );
 }
 
-// getofferdetails(context, index) {
-//   final offersp = Provider.of<Offers>(context, listen: false);
-//   return showModalBottomSheet<void>(
-//     context: context,
-//     builder: (BuildContext context) {
-//       return SingleChildScrollView(
-//         child: SizedBox(
-//           height: MediaQuery.of(context).size.height * 0.75,
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.start,
-//             children: <Widget>[
-//               Image.asset(
-//                 data[index].image,
-//                 width: MediaQuery.of(context).size.width * 0.52,
-//                 height: MediaQuery.of(context).size.height * 0.52,
-//               ),
-//               Container(
-//                   margin: EdgeInsets.all(20),
-//                   alignment: Alignment.centerLeft,
-//                   child: AutoSizeText(offersp.offerdata[index].title)),
-//               Container(
-//                   margin: EdgeInsets.only(left: 20, right: 20),
-//                   alignment: Alignment.centerLeft,
-//                   child: AutoSizeText(offersp.offerdata[index].desc)),
-//               Container(
-//                 margin: EdgeInsets.only(left: 20, right: 20),
-//                 alignment: Alignment.centerLeft,
-//                 child: Row(
-//                   children: [
-//                     AutoSizeText("\$" + offersp.offerdata[index].price),
-//                     SizedBox(
-//                       width: MediaQuery.of(context).size.width * 0.52,
-//                     ),
-//                     ElevatedButton(onPressed: () {}, child: Text('Add')),
-//                   ],
-//                 ),
-//               )
-//             ],
-//           ),
-//         ),
-//       );
-//     },
-//   );
-// }
 
+//
 // getnowservedetails(context, index) {
 //   final Offerp = Provider.of<NowServing>(context, listen: false);
 //   return showModalBottomSheet<void>(

@@ -735,118 +735,122 @@ class _AddressState extends State<Address> {
                       ),
                     )),
                 Expanded(
+
+                  // height: 200,
                   child: ListView.builder(
-                    itemCount: addressList.length,
-                    itemBuilder: (context, index) {
-                      String addressSendToOtherPage = addressList[index]
-                              ['fname'] +
-                          "\n" +
-                          addressList[index]['hno'] +
-                          ", " +
-                          addressList[index]['road'] +
-                          ", " +
-                          addressList[index]['city'] +
-                          ", " +
-                          addressList[index]['state'] +
-                          "." +
-                          "\n" +
-                          addressList[index]['pincode'];
-
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        margin: EdgeInsets.only(left: 20, right: 20, top: 15),
-                        shadowColor: HexColor("#036635"),
-                        elevation: 4,
-                        child: Column(
-                          children: [
-                            //radio
-                            RadioListTile(
-                              title: Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                child: Text(
-                                  addressSendToOtherPage,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w400,
+                      itemCount: addressList.length,
+                       // scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        String addressSendToOtherPage = addressList[index]
+                                ['fname'] +
+                            "\n" +
+                            addressList[index]['hno'] +
+                            ", " +
+                            addressList[index]['road'] +
+                            ", " +
+                            addressList[index]['city'] +
+                            ", " +
+                            addressList[index]['state'] +
+                            "." +
+                            "\n" +
+                            addressList[index]['pincode'];
+                        return Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          margin:
+                              EdgeInsets.only(left: 20, right: 20, top: 15),
+                          shadowColor: HexColor("#036635"),
+                          elevation: 4,
+                          child: Column(
+                            children: [
+                              //radio
+                              RadioListTile(
+                                title: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 5, bottom: 5),
+                                  child: Text(
+                                    addressSendToOtherPage,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              subtitle: Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 8),
-                                child: Text(
-                                  "Phone : 98765678temp",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w100,
+                                subtitle: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 5, bottom: 8),
+                                  child: Text(
+                                    "Phone : 98765678temp",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w100,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              value: addressList[index]['addressID'],
-                              groupValue: selectedVal,
-                              onChanged: (value) async {
-                                setState(() {
-                                  print("onchange");
-                                  // print(value);
-                                  print(index);
-                                  setSelectedVal(value);
-                                  afterSelecting = true;
-                                });
-                                final addressSharedPred =
-                                    await SharedPreferences.getInstance();
-                                await addressSharedPred.setString(
-                                    'selectedAddress', addressSendToOtherPage);
-                              },
-                              selected: selectedVal ==
-                                  addressList[index]['addressID'],
-                              activeColor: HexColor("#036635"),
+                                value: addressList[index]['addressID'],
+                                groupValue: selectedVal,
+                                onChanged: (value) async {
+                                  setState(() {
+                                    print("onchange");
+                                    // print(value);
+                                    print(index);
+                                    setSelectedVal(value);
+                                    afterSelecting = true;
+                                  });
+                                  final addressSharedPred =
+                                      await SharedPreferences.getInstance();
+                                  await addressSharedPred.setString(
+                                      'selectedAddress',
+                                      addressSendToOtherPage);
+                                },
+                                selected: selectedVal ==
+                                    addressList[index]['addressID'],
+                                activeColor: HexColor("#036635"),
 
-                              //selectedTileColor: Colors.red,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 8, right: 8),
-                              child: Divider(
-                                color: Colors.grey,
-                                height: 1,
-                                thickness: 0.2,
-                                indent: 0,
-                                endIndent: 0,
+                                //selectedTileColor: Colors.red,
                               ),
-                            ),
-                            Row(
-                              children: [
-                                TextButton(
+                              Padding(
+                                padding: EdgeInsets.only(left: 8, right: 8),
+                                child: Divider(
+                                  color: Colors.grey,
+                                  height: 1,
+                                  thickness: 0.2,
+                                  indent: 0,
+                                  endIndent: 0,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  TextButton(
+                                      onPressed: () {
+                                        deleteAddress(addressList[index]
+                                            ['addressID']);
+                                        setState(() {});
+                                      },
+                                      child: Text(
+                                        'Delete',
+                                        style: TextStyle(color: Colors.red),
+                                      )),
+                                  TextButton(
                                     onPressed: () {
-                                      deleteAddress(
+                                      print(
                                           addressList[index]['addressID']);
-                                      setState(() {});
+                                      editAddress(context, index,
+                                          addressList[index]['addressID']);
                                     },
                                     child: Text(
-                                      'Delete',
-                                      style: TextStyle(color: Colors.red),
-                                    )),
-                                TextButton(
-                                  onPressed: () {
-                                    print(addressList[index]['addressID']);
-                                    editAddress(context, index,
-                                        addressList[index]['addressID']);
-                                  },
-                                  child: Text(
-                                    'Edit',
-                                    style:
-                                        TextStyle(color: HexColor("#036635")),
+                                      'Edit',
+                                      style: TextStyle(
+                                          color: HexColor("#036635")),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
                 ),
               ],
             ),
