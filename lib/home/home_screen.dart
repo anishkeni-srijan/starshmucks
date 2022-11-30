@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
       String email = usernames[0]['email'];
       setUserForLogin(email);
       return Scaffold(
-          persistentFooterButtons: [cartinit ? viewincart(): null],
+          persistentFooterButtons: cartinit ? [viewincart()]: null,
           body: SingleChildScrollView(
         child: Column(
           children: [

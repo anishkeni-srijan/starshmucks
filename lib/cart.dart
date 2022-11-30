@@ -9,7 +9,6 @@ import 'address.dart';
 import 'db/menu_db.dart';
 import 'db/orders_db.dart';
 import 'model/menu_model.dart';
-import 'order/order_success.dart';
 
 class MyCart extends StatefulWidget {
   const MyCart({Key? key}) : super(key: key);
@@ -59,7 +58,7 @@ class _MyCartState extends State<MyCart> {
 
   removefromcart(sendid) {
     cartdb.deleteitem(sendid);
-    datalist.isEmpty ? cartinit = false : cartinit = true;
+    cartlist.isEmpty ? cartinit = false : cartinit = true;
     setState(() {});
   }
 
@@ -104,6 +103,7 @@ class _MyCartState extends State<MyCart> {
   Widget build(BuildContext context) {
     getDataOnIds();
     return Scaffold(
+      backgroundColor: Colors.white,
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
