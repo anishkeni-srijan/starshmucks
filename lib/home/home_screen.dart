@@ -4,6 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../db/user_db.dart';
 import '../model/menu_model.dart';
@@ -38,6 +39,7 @@ class _HomePageState extends State<HomePage> {
     db.initDBMenu();
     getdata();
     putdata();
+    // setUserForLogin();
     super.initState();
   }
 
@@ -64,12 +66,20 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  setUserForLogin(email) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('signedInEmail', email);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     if (usernames.isEmpty)
       return CircularProgressIndicator(backgroundColor: HexColor("#175244"));
     else {
       username = usernames[0]['name'];
+      String email = usernames[0]['email'];
+      setUserForLogin(email);
       return Scaffold(
           // persistentFooterButtons: cartinit ? [viewincart()] : null,
           body: SingleChildScrollView(

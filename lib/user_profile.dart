@@ -159,7 +159,7 @@ class _UserProfileState extends State<UserProfile> {
                       press: () async {
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
-                        prefs.remove('0');
+                        prefs.remove('signedInEmail');
                         Get.to(
                           SigninPage(),
                         );
