@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../common_things.dart';
 import '../home/home_screen.dart';
 import '../model/cart_model.dart';
 import '../model/menu_model.dart';
@@ -51,11 +52,9 @@ class _GetCakeDataState extends State<GetCakeData> {
 
   @override
   Widget build(BuildContext context) {
-    // print('items in db: ' + data.length.toString());
     return Scaffold(
-      // persistentFooterButtons: cartinit ? [viewincart()] : null,
-      body: getdataf
-          ? ListView.builder(
+      persistentFooterButtons: cartinit ? [viewincart()]: null,
+      body: ListView.builder(
               shrinkWrap: true,
               itemCount: data.length,
               itemBuilder: (context, index) {
@@ -179,7 +178,7 @@ class _GetCakeDataState extends State<GetCakeData> {
                 );
               },
             )
-          : CircularProgressIndicator(),
+
     );
   }
 }

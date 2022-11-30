@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../common_things.dart';
 import '../home/home_screen.dart';
 import '../model/cart_model.dart';
 import '../model/menu_model.dart';
@@ -71,7 +72,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     }
     // print('items in db: ' + data.length.toString());
     return Scaffold(
-      // persistentFooterButtons: cartinit ? [viewincart()] : null,
+      persistentFooterButtons: cartinit ? [viewincart()]: null,
       body: getdataf
           ? ListView.builder(
               shrinkWrap: true,

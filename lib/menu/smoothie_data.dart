@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../common_things.dart';
 import '../home/home_screen.dart';
 import '../model/cart_model.dart';
 import '../model/menu_model.dart';
@@ -37,7 +38,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
 
     db = MenuDB();
     db.initDBMenu();
-    getdata();
+
     super.initState();
   }
 
@@ -50,9 +51,9 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
 
   @override
   Widget build(BuildContext context) {
-    // print('items in db: ' + data.length.toString());
+    getdata();
     return Scaffold(
-      // persistentFooterButtons: cartinit ? [viewincart()] : null,
+      persistentFooterButtons: cartinit ? [viewincart()]: null,
       body: getdataf
           ? ListView.builder(
               shrinkWrap: true,
