@@ -4,6 +4,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../db/user_db.dart';
+import '../model/user_model.dart';
 import 'bloc/resetpassword_bloc.dart';
 import 'bloc/resetpassword_event.dart';
 import 'bloc/resetpassword_state.dart';
@@ -25,11 +27,20 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     return reset0;
   }
 
+  late UserDB udb;
   @override
   void initState() {
     // TODO: implement initState
+    udb = UserDB();
+    udb.initDBUserData();
+    getUser();
     gete0();
     super.initState();
+  }
+
+  List<Map<String, dynamic>> userddt = [];
+  getUser() async {
+    userddt = await udb.getDataUserData();
   }
 
   bool reset = false;
@@ -234,9 +245,17 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         width: 300,
                         child: ElevatedButton(
                           onPressed: () {
-                            // data[reset0].password =
-                            //     passwordcontroller.text;
-                            // box.putAt(reset0, data[reset0]);
+                            var updateData = UserModel(
+                                dob: userddt[0]['dob'],
+                                email: userddt[0]['email'],
+                                phone: userddt[0]['phone'],
+                                name: userddt[0]['name'],
+                                password: passwordcontroller.text,
+                                rewards: userddt[0]['rewards'],
+                                tnc: userddt[0]['tnc']);
+                            udb.updateUserData(userddt[0]['id'], updateData);
+                            setState(() {});
+
                             reset = true;
                             setState(() {});
                             BlocProvider.of<ResetpasswordBloc>(context)
