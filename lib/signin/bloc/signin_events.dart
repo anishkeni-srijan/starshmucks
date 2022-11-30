@@ -6,12 +6,12 @@ class SigninpassChangedEvent extends SigninEvent {
 
   SigninpassChangedEvent(this.passwordvalue, this.obtainedpassword);
 }
+
 class SigninemailChangedEvent extends SigninEvent {
   String emailvalue = '';
   String obtainedemail = '';
 
-  SigninemailChangedEvent(this.emailvalue,
-      this.obtainedemail);
+  SigninemailChangedEvent(this.emailvalue, this.obtainedemail);
 }
 
 class SigninSumittedEvent extends SigninEvent {
@@ -23,3 +23,5 @@ class SigninSumittedEvent extends SigninEvent {
     this.password,
   );
 }
+
+class SignupRedirect extends SigninEvent {}

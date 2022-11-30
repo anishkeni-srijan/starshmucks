@@ -101,7 +101,7 @@ class _MyCartState extends State<MyCart> {
 
   @override
   Widget build(BuildContext context) {
-    datalist.isEmpty? cartinit = false: cartinit=true;
+    datalist.isEmpty ? cartinit = false : cartinit = true;
     getDataOnIds();
     return Scaffold(
       bottomNavigationBar: Row(
@@ -111,7 +111,7 @@ class _MyCartState extends State<MyCart> {
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () {
-                putDatafromcart();
+                // putDatafromcart();
                 setState(() {});
                 Get.to(Address(), transition: Transition.rightToLeft);
               },

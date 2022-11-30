@@ -21,9 +21,9 @@ class _SplashState extends State<Splash> {
 
   checkifloggedin() async {
     final prefs = await SharedPreferences.getInstance();
-    final String? useremail = prefs.getString('signedInEmail');
+    String? useremail = prefs.getString('signedInEmail');
     setState(() {});
-    if (useremail!.isNotEmpty) flag = true;
+    if (useremail != null) flag = true;
   }
 
   @override

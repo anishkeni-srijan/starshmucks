@@ -38,12 +38,12 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
     });
 
     //works if login is valid
-    // on<SigninSumittedEvent>(
-    //   (event, emit) {
-    //     if (state is SigninValidState) {
-    //
-    //     }
-    //   },
-    // );
+    on<SignupRedirect>(
+      (event, emit) {
+        emit(
+          SigninErrorState("User already exists Please Signin.."),
+        );
+      },
+    );
   }
 }

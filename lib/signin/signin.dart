@@ -298,7 +298,9 @@ class _SigninPageState extends State<SigninPage> {
                           if (userddt.isEmpty)
                             Get.to(SignupPage());
                           else
-                            print("User Already there");
+                            BlocProvider.of<SigninBloc>(context).add(
+                              SignupRedirect(),
+                            );
                         },
                         child: Text(
                           'Sign Up.',
