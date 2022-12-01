@@ -16,6 +16,7 @@ import '../db/user_db.dart';
 import '../model/cart_model.dart';
 import '../order/order_failed.dart';
 import '../order/order_success.dart';
+import 'common_widgets.dart';
 
 class Address extends StatefulWidget {
   const Address({Key? key}) : super(key: key);
@@ -54,7 +55,6 @@ class _AddressState extends State<Address> {
     setState(() {});
   }
 
-  @override
   addAddress(context) {
     final fname = TextEditingController();
     final phone = TextEditingController();
@@ -90,36 +90,20 @@ class _AddressState extends State<Address> {
                     ),
                   ),
                   //full name
-                  commonTextWidget(txtcontroler: fname, lbltxt: "Full Name1"),
-
+                  commonTextIPWidget(context, fname, "Full Name"),
                   //phone number
-                  commonPhoneNumberIP(context, phone),
+                  commonPhoneNumberWidget(context, phone),
                   //house no, building name
-                  commonTextWidget(
-                    txtcontroler: hno,
-                    lbltxt: 'House No., Building Name1',
-                  ),
-
+                  commonTextIPWidget(context, hno, 'House No., Building Name'),
                   //road name,area,colony
-                  commonTextWidget(
-                    txtcontroler: roadname,
-                    lbltxt: 'Road Name, Area, Colony',
-                  ),
+                  commonTextIPWidget(
+                      context, roadname, 'Road Name, Area, Colony'),
                   //city
-                  commonTextWidget(
-                    txtcontroler: city,
-                    lbltxt: 'City',
-                  ),
+                  commonTextIPWidget(context, city, 'City'),
                   //state
-                  commonTextWidget(
-                    txtcontroler: state,
-                    lbltxt: 'State',
-                  ),
+                  commonTextIPWidget(context, state, 'State'),
                   //pincode
-                  commonTextWidget(
-                    txtcontroler: pincode,
-                    lbltxt: 'Pincode',
-                  ),
+                  commonTextIPWidget(context, pincode, 'Pincode'),
                   SizedBox(
                     height: 15,
                   ),
@@ -166,49 +150,6 @@ class _AddressState extends State<Address> {
     );
   }
 
-  commonPhoneNumberIP(
-    BuildContext context,
-    TextEditingController phone,
-  ) {
-    PhoneNumber number = PhoneNumber(isoCode: 'IN');
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.8,
-      height: 80,
-      child: InternationalPhoneNumberInput(
-        selectorConfig: SelectorConfig(
-            trailingSpace: false,
-            selectorType: PhoneInputSelectorType.DROPDOWN),
-        autoValidateMode: AutovalidateMode.disabled,
-        selectorTextStyle: TextStyle(color: HexColor("#175244")),
-        initialValue: number,
-        textFieldController: phone,
-        inputDecoration: InputDecoration(
-          contentPadding: EdgeInsets.all(5),
-          labelText: 'Phone Number123',
-          labelStyle: TextStyle(
-            color: HexColor("#175244"),
-          ),
-          enabledBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: HexColor("#175244"),
-              width: 2,
-            ),
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: HexColor("#175244"),
-              width: 2,
-            ),
-          ),
-        ),
-        keyboardType: TextInputType.number,
-        onInputChanged: (PhoneNumber value) {},
-      ),
-    );
-  }
-
   editAddress(context, index, addid) {
     final fname = TextEditingController(text: addressList[index]['fname']);
     final phone = TextEditingController(text: addressList[index]['phone']);
@@ -240,206 +181,21 @@ class _AddressState extends State<Address> {
                         color: HexColor("#175244"),
                       ),
                     )),
-
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: fname,
-
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Full Name',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                //full name
+                commonTextIPWidget(context, fname, "Full Name"),
                 //phone number
-                commonPhoneNumberIP(context, phone),
+                commonPhoneNumberWidget(context, phone),
                 //house no, building name
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: hno,
-
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'House No., Building Name',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                commonTextIPWidget(context, hno, 'House No., Building Name'),
                 //road name,area,colony
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: roadname,
-
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Road Name, Area, Colony',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                commonTextIPWidget(
+                    context, roadname, 'Road Name, Area, Colony'),
                 //city
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: city,
-
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'City',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                commonTextIPWidget(context, city, 'City'),
                 //state
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: state,
-
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'State',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                commonTextIPWidget(context, state, 'State'),
                 //pincode
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: pincode,
-
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Pincode',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                commonTextIPWidget(context, pincode, 'Pincode'),
                 SizedBox(
                   height: 15,
                 ),
@@ -1106,50 +862,4 @@ class _AddressState extends State<Address> {
 
 getMessage() {
   return message;
-}
-
-class commonTextWidget extends StatelessWidget {
-  final String lbltxt;
-  final TextEditingController txtcontroler;
-  const commonTextWidget({
-    Key? key,
-    required this.txtcontroler,
-    required this.lbltxt,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.8,
-      margin: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.005,
-      ),
-      child: TextFormField(
-        style: const TextStyle(color: Colors.black), //<-- SEE HERE
-        controller: txtcontroler,
-
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(5),
-          labelText: lbltxt,
-          labelStyle: TextStyle(
-            color: HexColor("#175244"),
-          ),
-          enabledBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: HexColor("#175244"),
-              width: 2,
-            ),
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: HexColor("#175244"),
-              width: 2,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }
