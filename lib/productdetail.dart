@@ -90,7 +90,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 50),
+                margin: EdgeInsets.only(top: 60),
                 padding: EdgeInsets.only(
 
                   left: MediaQuery.of(context).size.width * 0.2,
@@ -168,7 +168,7 @@ class _ProductDetailState extends State<ProductDetail> {
               ),
               Container(
                 transform: Matrix4.translationValues(
-                    -15, MediaQuery.of(context).size.height * -0.05, 0),
+                    0, MediaQuery.of(context).size.height * -0.05, 0),
                 child:
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -178,7 +178,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   style: TextStyle(fontSize: 30),
                 ),
                       Container(
-                        transform: Matrix4.translationValues(MediaQuery.of(context).size.width * 0.45, 0, 0),
+                        transform: Matrix4.translationValues(MediaQuery.of(context).size.width * 0.42, 0, 0),
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
@@ -195,9 +195,10 @@ class _ProductDetailState extends State<ProductDetail> {
                             child: Icon(Icons.favorite_border,color: Colors.white,),
                           )
                       ),
-                      SizedBox(width:  MediaQuery.of(context).size.width * 0.02,),
+                      SizedBox(width:  MediaQuery.of(context).size.width * 0.2,),
                       Container(
-                          transform: Matrix4.translationValues(MediaQuery.of(context).size.width * 0.1, 0, 0),
+                          margin: EdgeInsets.only(right:20 ),
+                          transform: Matrix4.translationValues(MediaQuery.of(context).size.width * 0.07, 0, 0),
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
