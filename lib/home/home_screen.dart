@@ -82,53 +82,53 @@ class _HomePageState extends State<HomePage> {
       String email = usernames[0]['email'];
       setUserForLogin(email);
       return Scaffold(
-          persistentFooterButtons: cartinit ? [viewincart()]: null,
+          persistentFooterButtons: cartinit ? [viewincart()] : null,
           body: SingleChildScrollView(
-        child: Column(
-          children: [
-            getbanner(context, username),
-            Container(
-              padding: EdgeInsets.all(10),
-              alignment: Alignment.topLeft,
-              child: AutoSizeText(
-                'Offers',
-                style: TextStyle(
-                  color: HexColor("#175244"),
-                  fontWeight: FontWeight.w700,
+            child: Column(
+              children: [
+                getbanner(context, username),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  alignment: Alignment.topLeft,
+                  child: AutoSizeText(
+                    'Offers',
+                    style: TextStyle(
+                      color: HexColor("#175244"),
+                      fontWeight: FontWeight.w700,
+                    ),
+                    minFontSize: 25,
+                  ),
                 ),
-                minFontSize: 25,
-              ),
-            ),
-            GetOffers(),
-            Container(
-              padding: EdgeInsets.all(10),
-              alignment: Alignment.topLeft,
-              child: AutoSizeText(
-                'Now Serving',
-                style: TextStyle(
-                  color: HexColor("#175244"),
-                  fontWeight: FontWeight.w700,
+                GetOffers(),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  alignment: Alignment.topLeft,
+                  child: AutoSizeText(
+                    'Now Serving',
+                    style: TextStyle(
+                      color: HexColor("#175244"),
+                      fontWeight: FontWeight.w700,
+                    ),
+                    minFontSize: 25,
+                  ),
                 ),
-                minFontSize: 25,
-              ),
-            ),
-            NowServing(),
-            Container(
-              padding: EdgeInsets.all(10),
-              alignment: Alignment.topLeft,
-              child: AutoSizeText(
-                'Learn More About Our Drinks',
-                style: TextStyle(
-                  color: HexColor("#175244"),
-                  fontWeight: FontWeight.w700,
+                NowServing(),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  alignment: Alignment.topLeft,
+                  child: AutoSizeText(
+                    'Learn More About Our Drinks',
+                    style: TextStyle(
+                      color: HexColor("#175244"),
+                      fontWeight: FontWeight.w700,
+                    ),
+                    minFontSize: 25,
+                  ),
                 ),
-                minFontSize: 25,
-              ),
+                learnmore(context),
+              ],
             ),
-            learnmore(context),
-          ],
-        ),
-      ));
+          ));
     }
   }
 }
@@ -356,7 +356,6 @@ learnmore(context) {
     ),
   );
 }
-
 
 //
 // getnowservedetails(context, index) {
