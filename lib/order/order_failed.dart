@@ -18,7 +18,6 @@ class OrderFail extends StatefulWidget {
 class _OrderFailState extends State<OrderFail> {
   var result;
   getcarttotal() {}
-
   String failedMessage = getMessage();
   @override
   void initState() {

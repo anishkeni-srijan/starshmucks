@@ -50,7 +50,6 @@ class _AddressState extends State<Address> {
       child: TextFormField(
         style: const TextStyle(color: Colors.black), //<-- SEE HERE
         // controller: fname,
-
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(5),
           labelText: 'Full Name',
@@ -692,7 +691,7 @@ class _AddressState extends State<Address> {
       selectedVal = val;
     });
   }
-
+  final offers = TextEditingController();
   bool afterSelecting = false;
   @override
   Widget build(BuildContext context) {
@@ -753,7 +752,7 @@ class _AddressState extends State<Address> {
                   ),
                   Container(
                     color: HexColor("#eeeeee"),
-                    height: 190,
+                    height: 200,
                     padding: EdgeInsets.only(bottom: 15),
                     child: SizedBox(
                       //height: 180,
@@ -805,8 +804,8 @@ class _AddressState extends State<Address> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          //Text("Address"),
-                                          Text("Address: " +
+                                          Text("Address",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black38),),
+                                          Text(
                                               addressList[index]['hno'] +
                                               ", " +
                                               addressList[index]['road'] +
@@ -814,21 +813,32 @@ class _AddressState extends State<Address> {
                                               addressList[index]['city'] +
                                               ", " +
                                               addressList[index]['state'] +
-                                              ".")
+                                              ".",style: TextStyle(color: Colors.black),),
+                                          Row(
+                                            children: [
+                                              Text("Pincode: ",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black38),),Text(addressList[index]['pincode'],style: TextStyle(color: Colors.black),),
+                                            ],
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 5, bottom: 0),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  "Phone :",
+                                                  style: TextStyle(
+                                                    color: Colors.black38,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(" 98765678temp",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),),
+                                              ],
+                                            ),
+                                          ),
                                         ],
                                       ),
 
-                                      // Padding(
-                                      //   padding: const EdgeInsets.only(
-                                      //       top: 5, bottom: 8),
-                                      //   child: Text(
-                                      //     "Phone : 98765678temp",
-                                      //     style: TextStyle(
-                                      //       color: Colors.black,
-                                      //       fontWeight: FontWeight.w100,
-                                      //     ),
-                                      //   ),
-                                      // ),
+
                                       value: addressList[index]['addressID'],
                                       groupValue: selectedVal,
                                       onChanged: (value) async {
@@ -854,7 +864,7 @@ class _AddressState extends State<Address> {
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(
-                                          left: 8, right: 8, top: 20),
+                                          left: 8, right: 8, top: 10),
                                       child: Divider(
                                         color: Colors.grey,
                                         height: 1,
