@@ -54,40 +54,6 @@ class _AddressState extends State<Address> {
     setState(() {});
   }
 
-  textfieldCommon() {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.8,
-      margin: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.005,
-      ),
-      child: TextFormField(
-        style: const TextStyle(color: Colors.black), //<-- SEE HERE
-        // controller: fname,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(5),
-          labelText: 'Full Name',
-          labelStyle: TextStyle(
-            color: HexColor("#175244"),
-          ),
-          enabledBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: HexColor("#175244"),
-              width: 2,
-            ),
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: HexColor("#175244"),
-              width: 2,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   addAddress(context) {
     final fname = TextEditingController();
@@ -124,14 +90,8 @@ class _AddressState extends State<Address> {
                         ),
                       )),
                   //full name
+                  commonTextWidget(txtcontroler: fname, lbltxt: "Full Name1"),
 
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.005,
-                    ),
-                    child: commonTextWidget(fname: fname, lbltxt: "Full Name1"),
-                  ),
                   //phone number
                   Container(
                     width: MediaQuery.of(context).size.width * 0.8,
@@ -170,173 +130,30 @@ class _AddressState extends State<Address> {
                     ),
                   ),
                   //house no, building name
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.005,
-                    ),
-                    child: TextFormField(
-                      style:
-                          const TextStyle(color: Colors.black), //<-- SEE HERE
-                      controller: hno,
-
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'House No., Building Name',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                    ),
+                  commonTextWidget(
+                    txtcontroler: hno,
+                    lbltxt: 'House No., Building Name1',
                   ),
+
                   //road name,area,colony
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.005,
-                    ),
-                    child: TextFormField(
-                      style:
-                          const TextStyle(color: Colors.black), //<-- SEE HERE
-                      controller: roadname,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'Road Name, Area, Colony',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                    ),
+                  commonTextWidget(
+                    txtcontroler: roadname,
+                    lbltxt: 'Road Name, Area, Colony',
                   ),
                   //city
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.005,
-                    ),
-                    child: TextFormField(
-                      style:
-                          const TextStyle(color: Colors.black), //<-- SEE HERE
-                      controller: city,
-
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'City',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                    ),
+                  commonTextWidget(
+                    txtcontroler: city,
+                    lbltxt: 'City',
                   ),
                   //state
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.005,
-                    ),
-                    child: TextFormField(
-                      style:
-                          const TextStyle(color: Colors.black), //<-- SEE HERE
-                      controller: state,
-
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'State',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                    ),
+                  commonTextWidget(
+                    txtcontroler: state,
+                    lbltxt: 'State',
                   ),
                   //pincode
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.005,
-                    ),
-                    child: TextFormField(
-                      style:
-                          const TextStyle(color: Colors.black), //<-- SEE HERE
-                      controller: pincode,
-
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'Pincode',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                    ),
+                  commonTextWidget(
+                    txtcontroler: pincode,
+                    lbltxt: 'Pincode',
                   ),
                   SizedBox(
                     height: 15,
@@ -1318,38 +1135,44 @@ getMessage() {
 }
 
 class commonTextWidget extends StatelessWidget {
+  final String lbltxt;
+  final TextEditingController txtcontroler;
   const commonTextWidget({
     Key? key,
-    required this.fname,
-    required lbltxt,
+    required this.txtcontroler,
+    required this.lbltxt,
   }) : super(key: key);
-
-  final TextEditingController fname;
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      style: const TextStyle(color: Colors.black), //<-- SEE HERE
-      controller: fname,
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
+      margin: EdgeInsets.only(
+        top: MediaQuery.of(context).size.height * 0.005,
+      ),
+      child: TextFormField(
+        style: const TextStyle(color: Colors.black), //<-- SEE HERE
+        controller: txtcontroler,
 
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(5),
-        labelText: 'Full Name',
-        labelStyle: TextStyle(
-          color: HexColor("#175244"),
-        ),
-        enabledBorder: UnderlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(5),
+          labelText: lbltxt,
+          labelStyle: TextStyle(
             color: HexColor("#175244"),
-            width: 2,
           ),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-            color: HexColor("#175244"),
-            width: 2,
+          enabledBorder: UnderlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              color: HexColor("#175244"),
+              width: 2,
+            ),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              color: HexColor("#175244"),
+              width: 2,
+            ),
           ),
         ),
       ),
