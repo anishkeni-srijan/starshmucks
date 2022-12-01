@@ -9,13 +9,13 @@ import 'package:intl/intl.dart';
 
 import '/upi_payment.dart';
 import '/model/address_model.dart';
-import 'common_things.dart';
-import 'db/cart_db.dart';
-import 'db/orders_db.dart';
-import 'db/user_db.dart';
-import 'model/cart_model.dart';
-import 'order/order_failed.dart';
-import 'order/order_success.dart';
+import '../common_things.dart';
+import '../db/cart_db.dart';
+import '../db/orders_db.dart';
+import '../db/user_db.dart';
+import '../model/cart_model.dart';
+import '../order/order_failed.dart';
+import '../order/order_success.dart';
 
 class Address extends StatefulWidget {
   const Address({Key? key}) : super(key: key);
@@ -64,7 +64,6 @@ class _AddressState extends State<Address> {
     final state = TextEditingController();
     final pincode = TextEditingController();
 
-    PhoneNumber number = PhoneNumber(isoCode: 'IN');
     return showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -79,56 +78,22 @@ class _AddressState extends State<Address> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                      margin: EdgeInsets.all(20),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "New Address",
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: HexColor("#175244"),
-                        ),
-                      )),
+                    margin: EdgeInsets.all(20),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "New Address",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: HexColor("#175244"),
+                      ),
+                    ),
+                  ),
                   //full name
                   commonTextWidget(txtcontroler: fname, lbltxt: "Full Name1"),
 
                   //phone number
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: 80,
-                    child: InternationalPhoneNumberInput(
-                      selectorConfig: SelectorConfig(
-                          trailingSpace: false,
-                          selectorType: PhoneInputSelectorType.DROPDOWN),
-                      autoValidateMode: AutovalidateMode.disabled,
-                      selectorTextStyle: TextStyle(color: HexColor("#175244")),
-                      initialValue: number,
-                      textFieldController: phone,
-                      inputDecoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'Phone Number',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                      keyboardType: TextInputType.number,
-                      onInputChanged: (PhoneNumber value) {},
-                    ),
-                  ),
+                  commonPhoneNumberIP(context, phone),
                   //house no, building name
                   commonTextWidget(
                     txtcontroler: hno,
@@ -201,9 +166,52 @@ class _AddressState extends State<Address> {
     );
   }
 
+  commonPhoneNumberIP(
+    BuildContext context,
+    TextEditingController phone,
+  ) {
+    PhoneNumber number = PhoneNumber(isoCode: 'IN');
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
+      height: 80,
+      child: InternationalPhoneNumberInput(
+        selectorConfig: SelectorConfig(
+            trailingSpace: false,
+            selectorType: PhoneInputSelectorType.DROPDOWN),
+        autoValidateMode: AutovalidateMode.disabled,
+        selectorTextStyle: TextStyle(color: HexColor("#175244")),
+        initialValue: number,
+        textFieldController: phone,
+        inputDecoration: InputDecoration(
+          contentPadding: EdgeInsets.all(5),
+          labelText: 'Phone Number123',
+          labelStyle: TextStyle(
+            color: HexColor("#175244"),
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              color: HexColor("#175244"),
+              width: 2,
+            ),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              color: HexColor("#175244"),
+              width: 2,
+            ),
+          ),
+        ),
+        keyboardType: TextInputType.number,
+        onInputChanged: (PhoneNumber value) {},
+      ),
+    );
+  }
+
   editAddress(context, index, addid) {
     final fname = TextEditingController(text: addressList[index]['fname']);
-    final phone = TextEditingController(text: "temp");
+    final phone = TextEditingController(text: addressList[index]['phone']);
     final hno = TextEditingController(text: addressList[index]['hno']);
     final roadname = TextEditingController(text: addressList[index]['road']);
     final city = TextEditingController(text: addressList[index]['city']);
@@ -266,42 +274,7 @@ class _AddressState extends State<Address> {
                   ),
                 ),
                 //phone number
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: 80,
-                  child: InternationalPhoneNumberInput(
-                    selectorConfig: SelectorConfig(
-                        trailingSpace: false,
-                        selectorType: PhoneInputSelectorType.DROPDOWN),
-                    autoValidateMode: AutovalidateMode.disabled,
-                    selectorTextStyle: TextStyle(color: HexColor("#175244")),
-                    initialValue: number,
-                    textFieldController: phone,
-                    inputDecoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Phone Number',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                    keyboardType: TextInputType.number,
-                    onInputChanged: (PhoneNumber value) {},
-                  ),
-                ),
+                commonPhoneNumberIP(context, phone),
                 //house no, building name
                 Container(
                   width: MediaQuery.of(context).size.width * 0.8,
@@ -682,7 +655,7 @@ class _AddressState extends State<Address> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  " 98765678temp",
+                                                  addressList[index]['phone'],
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,

@@ -4,7 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:get/get.dart';
 
-import '../address.dart';
+import '../address_payment_page/address.dart';
 import '/common_things.dart';
 
 class OrderFail extends StatefulWidget {
