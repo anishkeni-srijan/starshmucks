@@ -1056,6 +1056,7 @@ class _AddressState extends State<Address> {
     String idar = '';
     String qtyar = '';
     String date = DateFormat.yMMMMd('en_US').format(DateTime.now());
+    String time = DateFormat.jm().format(DateTime.now());
     cartlist = await cartdb.getDataCart();
     for (var i = 0; i < cartlist.length; i++) {
       if (idar.isEmpty) {
@@ -1068,7 +1069,7 @@ class _AddressState extends State<Address> {
     }
     print("im idar:" + idar);
     print("im qtyar:" + qtyar);
-    orderdb.createarr(idar, qtyar, date);
+    orderdb.createarr(idar, qtyar, date, time);
     setState(() {});
   }
 
