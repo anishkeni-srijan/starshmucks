@@ -311,7 +311,6 @@ class _AddressState extends State<Address> {
                   child: TextFormField(
                     style: const TextStyle(color: Colors.black), //<-- SEE HERE
                     controller: hno,
-
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(5),
                       labelText: 'House No., Building Name',
