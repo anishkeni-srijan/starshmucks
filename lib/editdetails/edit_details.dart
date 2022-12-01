@@ -256,7 +256,6 @@ class _EditProfileState extends State<EditProfile> {
   takepicture(ImageSource source) async {
     final pickedfile = await picker.pickImage(source: source);
     imagefile = File(pickedfile!.path);
-
     setState(() {});
   }
 }
