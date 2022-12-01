@@ -28,7 +28,6 @@ class _EditProfileState extends State<EditProfile> {
   List<Map<String, dynamic>> usernames = [];
   getUser() async {
     usernames = await udb.getDataUserData();
-
     setState(() {});
   }
 
@@ -42,6 +41,7 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+
     if (usernames.isEmpty)
       return CircularProgressIndicator();
     else {
@@ -197,6 +197,8 @@ class _EditProfileState extends State<EditProfile> {
                           //     phcontroller.text,
                           //   ),
                           // );
+
+
                           var updateData = UserModel(
                               dob: usernames[0]['dob'],
                               email: econtroller.text,
@@ -206,7 +208,8 @@ class _EditProfileState extends State<EditProfile> {
                               rewards: usernames[0]['rewards'],
                               tnc: usernames[0]['tnc']);
                           udb.updateUserData(usernames[0]['id'], updateData);
-                          setState(() {});
+                          getUser();
+                      setState(() {});
                         },
                         child: Text('UPDATE'),
                       )

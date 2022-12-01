@@ -295,9 +295,12 @@ class _SigninPageState extends State<SigninPage> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Get.to(
-                            SignupPage(),
-                          );
+                          if (userddt.isEmpty)
+                            Get.to(SignupPage());
+                          else
+                            BlocProvider.of<SigninBloc>(context).add(
+                              SignupRedirect(),
+                            );
                         },
                         child: Text(
                           'Sign Up.',

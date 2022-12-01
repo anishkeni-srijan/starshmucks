@@ -34,18 +34,19 @@ class _UserProfileState extends State<UserProfile> {
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
-    getUser();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    getUser();
     if (usernames.isEmpty)
       return CircularProgressIndicator();
     else {
       return Scaffold(
-        // persistentFooterButtons: cartinit ? [viewincart()] : null,
-        // backgroundColor: HexColor("#175244"),
+        persistentFooterButtons: cartinit ? [viewincart()] : [Container()],
+         backgroundColor:Colors.white,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -159,7 +160,7 @@ class _UserProfileState extends State<UserProfile> {
                       press: () async {
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
-                        prefs.remove('0');
+                        prefs.remove('signedInEmail');
                         Get.to(
                           SigninPage(),
                         );

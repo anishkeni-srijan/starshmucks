@@ -27,6 +27,7 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
       initialIndex: 1,
       length: 4,
       child: Scaffold(
+        persistentFooterButtons: cartinit ? [viewincart()] : [Container()],
         body: Column(
           children: [
             SingleChildScrollView(
@@ -221,7 +222,7 @@ getAllCards(context) {
         Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-              color: HexColor("#ede38c"),
+              color: HexColor("#ade38c"),
               borderRadius: BorderRadius.circular(20)),
           height: MediaQuery.of(context).size.height * 0.25,
           width: MediaQuery.of(context).size.width * 0.50,
@@ -407,7 +408,7 @@ getAllCards(context) {
         Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-              color: HexColor("#ede38c"),
+              color: HexColor("#ade38c"),
               borderRadius: BorderRadius.circular(20)),
           height: MediaQuery.of(context).size.height * 0.25,
           width: MediaQuery.of(context).size.width * 0.50,

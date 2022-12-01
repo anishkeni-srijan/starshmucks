@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
-
+import 'package:get/get.dart';
+import '../common_things.dart';
 import '../home/home_screen.dart';
 import '../model/cart_model.dart';
 import '../model/menu_model.dart';
+import '../productdetail.dart';
 import '/db/cart_db.dart';
 import '/db/menu_db.dart';
 
@@ -51,18 +53,16 @@ class _GetCakeDataState extends State<GetCakeData> {
 
   @override
   Widget build(BuildContext context) {
-    // print('items in db: ' + data.length.toString());
     return Scaffold(
-      // persistentFooterButtons: cartinit ? [viewincart()] : null,
-      body: getdataf
-          ? ListView.builder(
+      persistentFooterButtons: cartinit ? [viewincart()]: null,
+      body: ListView.builder(
               shrinkWrap: true,
               itemCount: data.length,
               itemBuilder: (context, index) {
-                // print(data[0].title);
                 return GestureDetector(
                   onTap: () {
-                    //getcoffeedetails(context, index);
+                    getpdata(data[index]);
+                    Get.to(ProductDetail(),transition: Transition.downToUp);
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.18,
@@ -179,7 +179,7 @@ class _GetCakeDataState extends State<GetCakeData> {
                 );
               },
             )
-          : CircularProgressIndicator(),
+
     );
   }
 }

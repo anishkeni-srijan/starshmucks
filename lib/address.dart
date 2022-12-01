@@ -3,6 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 import '/model/address_model.dart';
 import 'db/user_db.dart';
@@ -18,6 +19,9 @@ class Address extends StatefulWidget {
 class _AddressState extends State<Address> {
   late UserDB udb;
   late List<Map<String, dynamic?>> addressList = [];
+  bool isChecked = false;
+  bool paid = false;
+  int _value = 1;
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
@@ -35,6 +39,41 @@ class _AddressState extends State<Address> {
   deleteAddress(sendingID) {
     udb.deleteitem(sendingID);
     setState(() {});
+  }
+
+  textfieldCommon() {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
+      margin: EdgeInsets.only(
+        top: MediaQuery.of(context).size.height * 0.005,
+      ),
+      child: TextFormField(
+        style: const TextStyle(color: Colors.black), //<-- SEE HERE
+        // controller: fname,
+
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(5),
+          labelText: 'Full Name',
+          labelStyle: TextStyle(
+            color: HexColor("#175244"),
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              color: HexColor("#175244"),
+              width: 2,
+            ),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              color: HexColor("#175244"),
+              width: 2,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -73,38 +112,13 @@ class _AddressState extends State<Address> {
                         ),
                       )),
                   //full name
+
                   Container(
                     width: MediaQuery.of(context).size.width * 0.8,
                     margin: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.005,
                     ),
-                    child: TextFormField(
-                      style:
-                          const TextStyle(color: Colors.black), //<-- SEE HERE
-                      controller: fname,
-
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'Full Name',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                    ),
+                    child: commonTextWidget(fname: fname, lbltxt: "Full Name1"),
                   ),
                   //phone number
                   Container(
@@ -187,7 +201,6 @@ class _AddressState extends State<Address> {
                       style:
                           const TextStyle(color: Colors.black), //<-- SEE HERE
                       controller: roadname,
-
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(5),
                         labelText: 'Road Name, Area, Colony',
@@ -715,150 +728,402 @@ class _AddressState extends State<Address> {
             )
 
           //int? len = int?.parse(data[0].address.length! / 7);
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                afterSelecting
-                    ? Container()
-                    : Center(
-                        child: Container(
-                            padding: EdgeInsets.all(8),
-                            child: Text(
-                              "Select a Address",
-                              style: TextStyle(color: Colors.red),
-                            ))),
-                Padding(
-                    padding: EdgeInsets.only(left: 20, top: 10),
+          : SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  afterSelecting
+                      ? Container()
+                      : Center(
+                          child: Container(
+                              padding: EdgeInsets.all(8),
+                              child: Text(
+                                "Select a Address",
+                                style: TextStyle(color: Colors.red),
+                              ))),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
                     child: Text(
                       'Delivery Address',
                       style: TextStyle(
                         fontSize: 20,
+                        color: HexColor("#175244"),
                       ),
-                    )),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: addressList.length,
-                    itemBuilder: (context, index) {
-                      String addressSendToOtherPage = addressList[index]
-                              ['fname'] +
-                          "\n" +
-                          addressList[index]['hno'] +
-                          ", " +
-                          addressList[index]['road'] +
-                          ", " +
-                          addressList[index]['city'] +
-                          ", " +
-                          addressList[index]['state'] +
-                          "." +
-                          "\n" +
-                          addressList[index]['pincode'];
+                    ),
+                  ),
+                  Container(
+                    color: HexColor("#eeeeee"),
+                    height: 190,
+                    padding: EdgeInsets.only(bottom: 15),
+                    child: SizedBox(
+                      //height: 180,
+                      child: ListView.builder(
+                          physics: ClampingScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: addressList.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            String addressSendToOtherPage = addressList[index]
+                                    ['fname'] +
+                                "\n" +
+                                addressList[index]['hno'] +
+                                ", " +
+                                addressList[index]['road'] +
+                                ", " +
+                                addressList[index]['city'] +
+                                ", " +
+                                addressList[index]['state'] +
+                                "." +
+                                "\n" +
+                                addressList[index]['pincode'];
+                            return SizedBox(
+                              width: 350,
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                margin: EdgeInsets.only(
+                                    left: 20, right: 20, top: 15),
+                                shadowColor: HexColor("#036635"),
+                                elevation: 0,
+                                child: Column(
+                                  children: [
+                                    //radio
+                                    RadioListTile(
+                                      title: Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 5, bottom: 5),
+                                        child: Text(
+                                          addressList[index]['fname'],
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ),
+                                      subtitle: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          //Text("Address"),
+                                          Text("Address: " +
+                                              addressList[index]['hno'] +
+                                              ", " +
+                                              addressList[index]['road'] +
+                                              ", " +
+                                              addressList[index]['city'] +
+                                              ", " +
+                                              addressList[index]['state'] +
+                                              ".")
+                                        ],
+                                      ),
 
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                                      // Padding(
+                                      //   padding: const EdgeInsets.only(
+                                      //       top: 5, bottom: 8),
+                                      //   child: Text(
+                                      //     "Phone : 98765678temp",
+                                      //     style: TextStyle(
+                                      //       color: Colors.black,
+                                      //       fontWeight: FontWeight.w100,
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      value: addressList[index]['addressID'],
+                                      groupValue: selectedVal,
+                                      onChanged: (value) async {
+                                        setState(() {
+                                          print("onchange");
+                                          // print(value);
+                                          print(index);
+                                          setSelectedVal(value);
+                                          afterSelecting = true;
+                                        });
+                                        final addressSharedPred =
+                                            await SharedPreferences
+                                                .getInstance();
+                                        await addressSharedPred.setString(
+                                            'selectedAddress',
+                                            addressSendToOtherPage);
+                                      },
+                                      selected: selectedVal ==
+                                          addressList[index]['addressID'],
+                                      activeColor: HexColor("#036635"),
+
+                                      //selectedTileColor: Colors.red,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          left: 8, right: 8, top: 20),
+                                      child: Divider(
+                                        color: Colors.grey,
+                                        height: 1,
+                                        thickness: 0.2,
+                                        indent: 0,
+                                        endIndent: 0,
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        TextButton(
+                                            onPressed: () {
+                                              deleteAddress(addressList[index]
+                                                  ['addressID']);
+                                              setState(() {});
+                                            },
+                                            child: Text(
+                                              'Delete',
+                                              style:
+                                                  TextStyle(color: Colors.red),
+                                            )),
+                                        TextButton(
+                                          onPressed: () {
+                                            print(addressList[index]
+                                                ['addressID']);
+                                            editAddress(
+                                                context,
+                                                index,
+                                                addressList[index]
+                                                    ['addressID']);
+                                          },
+                                          child: Text(
+                                            'Edit',
+                                            style: TextStyle(
+                                                color: HexColor("#036635")),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+                    ),
+                  ),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                      margin: EdgeInsets.only(top: 4, left: 15),
+                                      child: AutoSizeText(
+                                        'Payment Mode',
+                                        style: TextStyle(
+                                          color: HexColor("#175244"),
+                                        ),
+                                        minFontSize: 20,
+                                        maxFontSize: 30,
+                                      )),
+                                  Container(
+                                      margin: EdgeInsets.only(top: 4, left: 15),
+                                      child: AutoSizeText(
+                                        'Select your prefered payment mode',
+                                        style: TextStyle(
+                                          color: HexColor("#38564F"),
+                                        ),
+                                        minFontSize: 10,
+                                      ))
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                        margin: EdgeInsets.only(left: 20, right: 20, top: 15),
-                        shadowColor: HexColor("#036635"),
-                        elevation: 4,
-                        child: Column(
-                          children: [
-                            //radio
-                            RadioListTile(
-                              title: Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                child: Text(
-                                  addressSendToOtherPage,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          margin: EdgeInsets.all(10),
+                          child: Column(
+                            children: <Widget>[
+                              RadioListTile(
+                                value: 1,
+                                title: Text('UPI'),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                activeColor: HexColor("#175244"),
+                                groupValue: _value,
+                                contentPadding: EdgeInsets.only(left: 10),
+                                tileColor: Colors.white,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _value = value!;
+                                  });
+                                },
                               ),
-                              subtitle: Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 8),
-                                child: Text(
-                                  "Phone : 98765678temp",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w100,
-                                  ),
-                                ),
-                              ),
-                              value: addressList[index]['addressID'],
-                              groupValue: selectedVal,
-                              onChanged: (value) async {
-                                setState(() {
-                                  print("onchange");
-                                  // print(value);
-                                  print(index);
-                                  setSelectedVal(value);
-                                  afterSelecting = true;
-                                });
-                                final addressSharedPred =
-                                    await SharedPreferences.getInstance();
-                                await addressSharedPred.setString(
-                                    'selectedAddress', addressSendToOtherPage);
-                              },
-                              selected: selectedVal ==
-                                  addressList[index]['addressID'],
-                              activeColor: HexColor("#036635"),
-
-                              //selectedTileColor: Colors.red,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 8, right: 8),
-                              child: Divider(
-                                color: Colors.grey,
+                              Divider(
+                                color: HexColor("#175244"),
                                 height: 1,
-                                thickness: 0.2,
-                                indent: 0,
-                                endIndent: 0,
+                                thickness: 0.6,
+                                indent: 10,
+                                endIndent: 10,
+                              ),
+                              RadioListTile(
+                                value: 2,
+                                title: Text("RazorPay"),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                activeColor: HexColor("#175244"),
+                                groupValue: _value,
+                                contentPadding: EdgeInsets.only(left: 10),
+                                tileColor: Colors.white,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _value = value!;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(
+                                  top: 10, bottom: 10, left: 20),
+                              child: AutoSizeText(
+                                'Offers & benefits',
+                                style: TextStyle(
+                                  color: HexColor("#175244"),
+                                ),
+                                minFontSize: 20,
+                                maxFontSize: 30,
                               ),
                             ),
-                            Row(
-                              children: [
-                                TextButton(
-                                    onPressed: () {
-                                      deleteAddress(
-                                          addressList[index]['addressID']);
-                                      setState(() {});
-                                    },
-                                    child: Text(
-                                      'Delete',
-                                      style: TextStyle(color: Colors.red),
-                                    )),
-                                TextButton(
-                                  onPressed: () {
-                                    print(addressList[index]['addressID']);
-                                    editAddress(context, index,
-                                        addressList[index]['addressID']);
-                                  },
-                                  child: Text(
-                                    'Edit',
-                                    style:
-                                        TextStyle(color: HexColor("#036635")),
+                            Container(
+                              color: Colors.white,
+                              margin: EdgeInsets.only(
+                                  bottom: 10, left: 20, right: 20),
+                              width: MediaQuery.of(context).size.width * 0.89,
+                              child: TextFormField(
+                                style: const TextStyle(
+                                    color: Colors.black), //<-- SEE HERE
+                                controller: offers,
+                                onChanged: (value) {},
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.all(5),
+                                  labelText: 'Apply Coupon',
+                                  labelStyle: TextStyle(
+                                    color: HexColor("#175244"),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: HexColor("#175244"),
+                                      width: 2,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: HexColor("#175244"),
+                                      width: 2,
+                                    ),
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
                           ],
                         ),
-                      );
-                    },
-                  ),
-                ),
-              ],
+                        Container(
+                          margin:
+                              EdgeInsets.only(top: 10, bottom: 10, left: 20),
+                          child: AutoSizeText(
+                            'Use Your Rewards',
+                            style: TextStyle(
+                              color: HexColor("#175244"),
+                            ),
+                            minFontSize: 20,
+                            maxFontSize: 30,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      AutoSizeText(
+                                        'Available Rewards ',
+                                        style: TextStyle(
+                                          color: HexColor("#175244"),
+                                        ),
+                                        minFontSize: 20,
+                                        maxFontSize: 30,
+                                      ),
+                                      AutoSizeText(
+                                        "temp rewards",
+                                        //data2[0].rewards.toString(),
+                                        style: TextStyle(
+                                          color: HexColor("#175244"),
+                                        ),
+                                        minFontSize: 20,
+                                        maxFontSize: 30,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      checkColor: Colors.white,
+                                      fillColor: MaterialStateProperty.all(
+                                          HexColor("#175244")),
+                                      focusColor: Colors.green,
+                                      value: isChecked,
+                                      onChanged: (bool? value) {
+                                        setState(() {
+                                          // isChecked = !isChecked;
+                                          // final box = Boxes.getCartData();
+                                          // final data = box.values.toList().cast<CartData>();
+                                          // var res = data[0].ttlPrice - (data2[0].rewards!.toDouble()/10);
+                                          // data[0].ttlPrice = res;
+                                          // print('reward calc: '+ data[0].ttlPrice.toString());
+                                          // box.putAt(0, data[0]);
+                                        });
+                                      },
+                                    ),
+                                    AutoSizeText(
+                                      'Use my rewards',
+                                      minFontSize: 20,
+                                      style: TextStyle(
+                                        color: HexColor("#175244"),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ]),
+                ],
+              ),
             ),
       bottomNavigationBar: Container(
         padding: EdgeInsets.all(8.0),
-        child:
-            // ValueListenableBuilder<Box<CartData>>(
-            //     valueListenable: Boxes.getCartData().listenable(),
-            //     builder: (context, box, _) {
-            //       final data = box.values.toList().cast<CartData>();
-            Row(
+        child: Row(
           children: [
             SizedBox(
               width: 150,
@@ -875,6 +1140,46 @@ class _AddressState extends State<Address> {
                       MaterialStateProperty.all(HexColor("#036635"))),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class commonTextWidget extends StatelessWidget {
+  const commonTextWidget({
+    Key? key,
+    required this.fname,
+    required lbltxt,
+  }) : super(key: key);
+
+  final TextEditingController fname;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      style: const TextStyle(color: Colors.black), //<-- SEE HERE
+      controller: fname,
+
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.all(5),
+        labelText: 'Full Name',
+        labelStyle: TextStyle(
+          color: HexColor("#175244"),
+        ),
+        enabledBorder: UnderlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: HexColor("#175244"),
+            width: 2,
+          ),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: HexColor("#175244"),
+            width: 2,
+          ),
         ),
       ),
     );

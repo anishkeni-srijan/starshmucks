@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:get/get.dart';
 
+import '../productdetail.dart';
 import '/db/menu_db.dart';
 import '../db/cart_db.dart';
 import '../model/cart_model.dart';
@@ -50,7 +52,6 @@ class _NowServingState extends State<NowServing> {
 
   @override
   Widget build(BuildContext context) {
-    // print('nowdata len' + nowdata.length.toString());
     getdata();
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.18,
@@ -65,7 +66,8 @@ class _NowServingState extends State<NowServing> {
               ),
               GestureDetector(
                 onTap: () {
-                  //getnowservedetails(context, index);
+                  getpdata(nowdata[index]);
+                  Get.to(ProductDetail(),transition: Transition.downToUp);
                 },
                 child: Container(
                   padding: EdgeInsets.all(10),

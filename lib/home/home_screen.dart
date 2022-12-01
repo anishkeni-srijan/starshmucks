@@ -4,7 +4,9 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../common_things.dart';
 import '../db/user_db.dart';
 import '../model/menu_model.dart';
 import '../providers/learnmore_provider.dart';
@@ -38,6 +40,7 @@ class _HomePageState extends State<HomePage> {
     db.initDBMenu();
     getdata();
     putdata();
+    // setUserForLogin();
     super.initState();
   }
 
@@ -64,60 +67,68 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  setUserForLogin(email) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('signedInEmail', email);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     if (usernames.isEmpty)
       return CircularProgressIndicator(backgroundColor: HexColor("#175244"));
     else {
       username = usernames[0]['name'];
+      String email = usernames[0]['email'];
+      setUserForLogin(email);
       return Scaffold(
-          // persistentFooterButtons: cartinit ? [viewincart()] : null,
+          persistentFooterButtons: cartinit ? [viewincart()] : null,
           body: SingleChildScrollView(
-        child: Column(
-          children: [
-            getbanner(context, username),
-            Container(
-              padding: EdgeInsets.all(10),
-              alignment: Alignment.topLeft,
-              child: AutoSizeText(
-                'Offers',
-                style: TextStyle(
-                  color: HexColor("#175244"),
-                  fontWeight: FontWeight.w700,
+            child: Column(
+              children: [
+                getbanner(context, username),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  alignment: Alignment.topLeft,
+                  child: AutoSizeText(
+                    'Offers',
+                    style: TextStyle(
+                      color: HexColor("#175244"),
+                      fontWeight: FontWeight.w700,
+                    ),
+                    minFontSize: 25,
+                  ),
                 ),
-                minFontSize: 25,
-              ),
-            ),
-            GetOffers(),
-            Container(
-              padding: EdgeInsets.all(10),
-              alignment: Alignment.topLeft,
-              child: AutoSizeText(
-                'Now Serving',
-                style: TextStyle(
-                  color: HexColor("#175244"),
-                  fontWeight: FontWeight.w700,
+                GetOffers(),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  alignment: Alignment.topLeft,
+                  child: AutoSizeText(
+                    'Now Serving',
+                    style: TextStyle(
+                      color: HexColor("#175244"),
+                      fontWeight: FontWeight.w700,
+                    ),
+                    minFontSize: 25,
+                  ),
                 ),
-                minFontSize: 25,
-              ),
-            ),
-            NowServing(),
-            Container(
-              padding: EdgeInsets.all(10),
-              alignment: Alignment.topLeft,
-              child: AutoSizeText(
-                'Learn More About Our Drinks',
-                style: TextStyle(
-                  color: HexColor("#175244"),
-                  fontWeight: FontWeight.w700,
+                NowServing(),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  alignment: Alignment.topLeft,
+                  child: AutoSizeText(
+                    'Learn More About Our Drinks',
+                    style: TextStyle(
+                      color: HexColor("#175244"),
+                      fontWeight: FontWeight.w700,
+                    ),
+                    minFontSize: 25,
+                  ),
                 ),
-                minFontSize: 25,
-              ),
+                learnmore(context),
+              ],
             ),
-            learnmore(context),
-          ],
-        ),
-      ));
+          ));
     }
   }
 }
@@ -346,51 +357,7 @@ learnmore(context) {
   );
 }
 
-// getofferdetails(context, index) {
-//   final offersp = Provider.of<Offers>(context, listen: false);
-//   return showModalBottomSheet<void>(
-//     context: context,
-//     builder: (BuildContext context) {
-//       return SingleChildScrollView(
-//         child: SizedBox(
-//           height: MediaQuery.of(context).size.height * 0.75,
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.start,
-//             children: <Widget>[
-//               Image.asset(
-//                 data[index].image,
-//                 width: MediaQuery.of(context).size.width * 0.52,
-//                 height: MediaQuery.of(context).size.height * 0.52,
-//               ),
-//               Container(
-//                   margin: EdgeInsets.all(20),
-//                   alignment: Alignment.centerLeft,
-//                   child: AutoSizeText(offersp.offerdata[index].title)),
-//               Container(
-//                   margin: EdgeInsets.only(left: 20, right: 20),
-//                   alignment: Alignment.centerLeft,
-//                   child: AutoSizeText(offersp.offerdata[index].desc)),
-//               Container(
-//                 margin: EdgeInsets.only(left: 20, right: 20),
-//                 alignment: Alignment.centerLeft,
-//                 child: Row(
-//                   children: [
-//                     AutoSizeText("\$" + offersp.offerdata[index].price),
-//                     SizedBox(
-//                       width: MediaQuery.of(context).size.width * 0.52,
-//                     ),
-//                     ElevatedButton(onPressed: () {}, child: Text('Add')),
-//                   ],
-//                 ),
-//               )
-//             ],
-//           ),
-//         ),
-//       );
-//     },
-//   );
-// }
-
+//
 // getnowservedetails(context, index) {
 //   final Offerp = Provider.of<NowServing>(context, listen: false);
 //   return showModalBottomSheet<void>(

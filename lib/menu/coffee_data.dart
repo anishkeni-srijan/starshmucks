@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:get/get.dart';
 
+import '../common_things.dart';
 import '../home/home_screen.dart';
 import '../model/cart_model.dart';
 import '../model/menu_model.dart';
+import '../productdetail.dart';
 import '/db/cart_db.dart';
 import '/db/menu_db.dart';
 
@@ -71,7 +74,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     }
     // print('items in db: ' + data.length.toString());
     return Scaffold(
-      // persistentFooterButtons: cartinit ? [viewincart()] : null,
+      persistentFooterButtons: cartinit ? [viewincart()]: null,
       body: getdataf
           ? ListView.builder(
               shrinkWrap: true,
@@ -79,7 +82,8 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    // getcoffeedetails(context, index);
+                    getpdata(data[index]);
+                    Get.to(ProductDetail(),transition: Transition.downToUp);
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.18,

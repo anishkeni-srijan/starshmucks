@@ -30,6 +30,7 @@ class _RewardsState extends State<Rewards> {
   Widget build(BuildContext context) {
     getuser();
     return Scaffold(
+        persistentFooterButtons: cartinit ? [viewincart()] : [Container()],
         appBar: AppBar(
           title: Text('Rewards'),
           backgroundColor: Colors.white,
