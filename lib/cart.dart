@@ -12,7 +12,6 @@ import 'model/menu_model.dart';
 
 class MyCart extends StatefulWidget {
   const MyCart({Key? key}) : super(key: key);
-
   @override
   State<MyCart> createState() => _MyCartState();
 }
