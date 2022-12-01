@@ -3,6 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:intl/intl.dart';
 
 import 'common_things.dart';
 import 'db/cart_db.dart';
@@ -349,6 +350,7 @@ class _PaymentPageState extends State<PaymentPage> {
     cartdb.initDBCart();
     String idar = '';
     String qtyar = '';
+    String date = DateFormat.yMd().add_jm().format(DateTime.now());
     cartlist = await cartdb.getDataCart();
     for (var i = 0; i < cartlist.length; i++) {
       if (idar.isEmpty) {
@@ -361,7 +363,7 @@ class _PaymentPageState extends State<PaymentPage> {
     }
     print("im idar:" + idar);
     print("im qtyar:" + qtyar);
-    orderdb.createarr(idar, qtyar);
+    orderdb.createarr(idar, qtyar, date);
     setState(() {});
   }
 
