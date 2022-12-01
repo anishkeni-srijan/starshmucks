@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:intl/intl.dart';
@@ -159,7 +158,6 @@ class _AddressState extends State<Address> {
     final state = TextEditingController(text: addressList[index]['state']);
     final pincode = TextEditingController(text: addressList[index]['pincode']);
 
-    PhoneNumber number = PhoneNumber(isoCode: 'IN');
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -519,7 +517,7 @@ class _AddressState extends State<Address> {
                                   Container(
                                       margin: EdgeInsets.only(top: 4, left: 15),
                                       child: AutoSizeText(
-                                        'Select your prefered payment mode',
+                                        'Select your preferred payment mode',
                                         style: TextStyle(
                                           color: HexColor("#38564F"),
                                         ),
@@ -793,6 +791,7 @@ class _AddressState extends State<Address> {
     * 3. Signature
     * */
     putDatafromcart();
+    print("sign" + response.orderId.toString());
     setState(() {
       goToSuccess();
       paid = true;
@@ -830,6 +829,7 @@ class _AddressState extends State<Address> {
   }
 
   void handleExternalWalletSelected(ExternalWalletResponse response) {
+    print("wallet");
     showAlertDialog(
         context, "External Wallet Selected", "${response.walletName}");
   }

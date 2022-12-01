@@ -283,9 +283,6 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Mode of payment",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      Text("data"),
                       SizedBox(
                         height: 10,
                       ),

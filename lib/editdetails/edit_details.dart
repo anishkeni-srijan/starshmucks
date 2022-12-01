@@ -41,7 +41,6 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-
     if (usernames.isEmpty)
       return CircularProgressIndicator();
     else {
@@ -198,7 +197,6 @@ class _EditProfileState extends State<EditProfile> {
                           //   ),
                           // );
 
-
                           var updateData = UserModel(
                               dob: usernames[0]['dob'],
                               email: econtroller.text,
@@ -209,7 +207,7 @@ class _EditProfileState extends State<EditProfile> {
                               tnc: usernames[0]['tnc']);
                           udb.updateUserData(usernames[0]['id'], updateData);
                           getUser();
-                      setState(() {});
+                          setState(() {});
                         },
                         child: Text('UPDATE'),
                       )
@@ -256,6 +254,8 @@ class _EditProfileState extends State<EditProfile> {
   takepicture(ImageSource source) async {
     final pickedfile = await picker.pickImage(source: source);
     imagefile = File(pickedfile!.path);
+
+    print("jroden" + imagefile.toString());
     setState(() {});
   }
 }
