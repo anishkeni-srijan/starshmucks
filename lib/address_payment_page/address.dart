@@ -1055,7 +1055,7 @@ class _AddressState extends State<Address> {
     cartdb.initDBCart();
     String idar = '';
     String qtyar = '';
-    String date = DateFormat.yMd().add_jm().format(DateTime.now());
+    String date = DateFormat.yMMMMd('en_US').format(DateTime.now());
     cartlist = await cartdb.getDataCart();
     for (var i = 0; i < cartlist.length; i++) {
       if (idar.isEmpty) {
