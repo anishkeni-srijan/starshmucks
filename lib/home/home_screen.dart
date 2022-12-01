@@ -5,6 +5,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:starshmucks/db/cart_db.dart';
+import 'package:starshmucks/model/cart_model.dart';
 
 import '../common_things.dart';
 import '../db/user_db.dart';
@@ -40,8 +42,17 @@ class _HomePageState extends State<HomePage> {
     db.initDBMenu();
     getdata();
     putdata();
+    initcart();
     // setUserForLogin();
     super.initState();
+  }
+  initcart()async{
+    CartDB cdb = CartDB();
+    cdb.initDBCart();
+    List<CartModel>datal = await cdb.getDataCart();
+    datal.isEmpty?cartinit = false:cartinit=true;
+    setState(() {
+    });
   }
 
   List<Map<String, dynamic>> usernames = [];
@@ -56,6 +67,7 @@ class _HomePageState extends State<HomePage> {
       fetching = true;
     });
   }
+
 
   putdata() async {
     final String response =
