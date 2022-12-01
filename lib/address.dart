@@ -4,10 +4,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:intl/intl.dart';
 
+import '/upi_payment.dart';
 import '/model/address_model.dart';
+import 'common_things.dart';
+import 'db/cart_db.dart';
+import 'db/orders_db.dart';
 import 'db/user_db.dart';
-import 'payment.dart';
+import 'model/cart_model.dart';
+import 'order/order_failed.dart';
+import 'order/order_success.dart';
 
 class Address extends StatefulWidget {
   const Address({Key? key}) : super(key: key);
@@ -15,6 +23,11 @@ class Address extends StatefulWidget {
   @override
   State<Address> createState() => _AddressState();
 }
+
+enum Pet { Upi, Razorpay }
+
+String message = '';
+final offers = TextEditingController();
 
 class _AddressState extends State<Address> {
   late UserDB udb;
@@ -691,6 +704,7 @@ class _AddressState extends State<Address> {
       selectedVal = val;
     });
   }
+
   final offers = TextEditingController();
   bool afterSelecting = false;
   @override
@@ -753,6 +767,7 @@ class _AddressState extends State<Address> {
                   Container(
                     color: HexColor("#eeeeee"),
                     height: 200,
+                    width: MediaQuery.of(context).size.width * 1,
                     padding: EdgeInsets.only(bottom: 15),
                     child: SizedBox(
                       //height: 180,
@@ -804,19 +819,37 @@ class _AddressState extends State<Address> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text("Address",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black38),),
                                           Text(
-                                              addressList[index]['hno'] +
-                                              ", " +
-                                              addressList[index]['road'] +
-                                              ", " +
-                                              addressList[index]['city'] +
-                                              ", " +
-                                              addressList[index]['state'] +
-                                              ".",style: TextStyle(color: Colors.black),),
+                                            "Address",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black38),
+                                          ),
+                                          Text(
+                                            addressList[index]['hno'] +
+                                                ", " +
+                                                addressList[index]['road'] +
+                                                ", " +
+                                                addressList[index]['city'] +
+                                                ", " +
+                                                addressList[index]['state'] +
+                                                ".",
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
                                           Row(
                                             children: [
-                                              Text("Pincode: ",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black38),),Text(addressList[index]['pincode'],style: TextStyle(color: Colors.black),),
+                                              Text(
+                                                "Pincode: ",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black38),
+                                              ),
+                                              Text(
+                                                addressList[index]['pincode'],
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
                                             ],
                                           ),
                                           Padding(
@@ -831,13 +864,18 @@ class _AddressState extends State<Address> {
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                                Text(" 98765678temp",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),),
+                                                Text(
+                                                  " 98765678temp",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black),
+                                                ),
                                               ],
                                             ),
                                           ),
                                         ],
                                       ),
-
 
                                       value: addressList[index]['addressID'],
                                       groupValue: selectedVal,
@@ -1140,9 +1178,37 @@ class _AddressState extends State<Address> {
             ),
             ElevatedButton(
               onPressed: () {
-                afterSelecting
-                    ? Get.to(PaymentPage(), transition: Transition.rightToLeft)
-                    : Container();
+                if (_value == 1 && afterSelecting == true) {
+                  Get.to(UpiPayment());
+                } else if (_value == 2 && afterSelecting == true) {
+                  Razorpay razorpay = Razorpay();
+                  var options = {
+                    'key': 'rzp_test_jrCnK1rxXepbtl',
+                    'amount': 100,
+                    'name': 'Starschmucks.',
+                    'description': 'Fine Coffee',
+                    'retry': {'enabled': true, 'max_count': 1},
+                    'send_sms_hash': true,
+                    'prefill': {
+                      'contact': '8888888888',
+                      'email': 'test@razorpay.com'
+                    },
+                    'external': {
+                      'wallets': ['paytm']
+                    }
+                  };
+                  razorpay.on(
+                      Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
+                  razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
+                      handlePaymentSuccessResponse);
+                  razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
+                      handleExternalWalletSelected);
+                  razorpay.open(options);
+                }
+
+                //   afterSelecting
+                //       ? Get.to(PaymentPage(), transition: Transition.rightToLeft)
+                //       : Container();
               },
               child: Text("Pay"),
               style: ButtonStyle(
@@ -1154,6 +1220,101 @@ class _AddressState extends State<Address> {
       ),
     );
   }
+
+  void handlePaymentErrorResponse(PaymentFailureResponse response) {
+    /*
+    * PaymentFailureResponse contains three values:
+    * 1. Error Code
+    * 2. Error Description
+    * 3. Metadata
+    * */
+
+    setState(() {
+      paid = false;
+      goToFailed(message);
+    });
+
+    // showAlertDialog(context, "Payment Failed",
+    //     "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
+    message = "${response.message}";
+  }
+
+  void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
+    /*
+    * Payment Success Response contains three values:
+    * 1. Order ID
+    * 2. Payment ID
+    * 3. Signature
+    * */
+    putDatafromcart();
+    setState(() {
+      goToSuccess();
+      paid = true;
+    });
+
+    // showAlertDialog(
+    //     context, "Payment Successful", "Payment ID: ${response.paymentId}");
+  }
+
+  List<CartModel> cartlist = [];
+
+  putDatafromcart() async {
+    OrdersDB orderdb = OrdersDB();
+    CartDB cartdb = CartDB();
+    orderdb.initDBOrders();
+    cartdb.initDBCart();
+    String idar = '';
+    String qtyar = '';
+    String date = DateFormat.yMd().add_jm().format(DateTime.now());
+    cartlist = await cartdb.getDataCart();
+    for (var i = 0; i < cartlist.length; i++) {
+      if (idar.isEmpty) {
+        idar = idar + cartlist[i].id.toString();
+        qtyar = qtyar + cartlist[i].qty.toString();
+      } else {
+        idar = idar + ' ' + cartlist[i].id.toString();
+        qtyar = qtyar + ' ' + cartlist[i].qty.toString();
+      }
+    }
+    print("im idar:" + idar);
+    print("im qtyar:" + qtyar);
+    orderdb.createarr(idar, qtyar, date);
+    setState(() {});
+  }
+
+  void handleExternalWalletSelected(ExternalWalletResponse response) {
+    showAlertDialog(
+        context, "External Wallet Selected", "${response.walletName}");
+  }
+
+  void showAlertDialog(BuildContext context, String title, String message) {
+    // set up the buttons
+    Widget continueButton = ElevatedButton(
+      child: const Text("Continue"),
+      onPressed: () {
+        paid ? Get.to(OrderSuccess()) : Get.to(OrderFail(message));
+      },
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(title),
+      content: Text(message),
+      actions: [
+        continueButton,
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+}
+
+getMessage() {
+  return message;
 }
 
 class commonTextWidget extends StatelessWidget {
