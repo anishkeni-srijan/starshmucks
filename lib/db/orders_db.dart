@@ -14,17 +14,19 @@ class OrdersDB {
           CREATE TABLE IF NOT EXISTS OrdersTable(
            orderid INTEGER PRIMARY KEY AUTOINCREMENT,
            id TEXT NOT NULL,
-           qty TEXT NOT NULL          )
+           qty TEXT NOT NULL,
+           date TEXT NOT NULL         )
           """);
       },
       version: 1,
     );
   }
 
-  createarr(idarr, qtyarr) async {
+  createarr(idarr, qtyarr, date) async {
     var fido = await OrderHistoryModel(
       id: idarr,
       qty: qtyarr,
+      date: date,
     );
     insertDataOrders(fido);
   }
