@@ -746,8 +746,8 @@ class _AddressState extends State<Address> {
                       ),
                     )),
                 Container(
-                  color: Colors.red,
-                  padding: EdgeInsets.only(bottom: 10),
+                  //color: Colors.red,
+                  padding: EdgeInsets.only(bottom: 15),
                   child: SizedBox(
                     height: 190,
                     child: ListView.builder(
@@ -871,6 +871,7 @@ class _AddressState extends State<Address> {
                         }),
                   ),
                 ),
+                Text("data")
               ],
             ),
       bottomNavigationBar: Container(
