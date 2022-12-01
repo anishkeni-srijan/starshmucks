@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:get/get.dart';
 
+import '../help_page.dart';
 import '/db/menu_db.dart';
 import '/db/orders_db.dart';
 import '/model/menu_model.dart';
@@ -302,36 +304,31 @@ class _OrderdetailState extends State<Orderdetail> {
                         ),
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.only(
-                        left: 10,
-                        right: 10,
-                        top: 10,
-                      ),
-                      width: MediaQuery.of(context).size.width * 1,
-                      child: Card(
-                        elevation: 8,
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Text("Deliver to:"),
+                    GestureDetector(
+                      onTap: (){
+                        Get.to(Help());
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                          left: 10,
+                          right: 10,
+                          top: 10,
+                        ),
+                        width: MediaQuery.of(context).size.width * 1,
+                        child: Card(
+                          elevation: 8,
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              children: [
+                                Text("Need Help?", style: TextStyle(color:HexColor("#175244"),fontWeight: FontWeight.bold),),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.only(
-                        left: 10,
-                        right: 10,
-                        top: 10,
-                      ),
-                      width: MediaQuery.of(context).size.width * 1,
-                      child: Card(
-                        elevation: 8,
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Text("Deliver to:"),
-                        ),
-                      ),
-                    )
+
                   ],
                 );
               },
