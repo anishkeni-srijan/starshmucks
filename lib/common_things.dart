@@ -116,18 +116,12 @@ gethomeappbar() {
   );
 }
 
-late double result = 0;
+late double result = 90;
 late var size = 0;
 getdata() async {
   CartDB cdb = CartDB();
   List<CartModel> data = await cdb.getDataCart();
-  size = data.length;
-
-  for (int index = 0; index < data.length; index++) {
-    result = result * data[index].qty;
-  }
-
-  return size;
+  result =data.isEmpty?0:data[data.length-1].cartttl;
 }
 
 viewincart() {

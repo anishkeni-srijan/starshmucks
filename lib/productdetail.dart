@@ -20,12 +20,16 @@ getpdata(item) {
 }
 
 class _ProductDetailState extends State<ProductDetail> {
-  addToCart(context, prod) async {
+  addToCart(prod) async {
     CartDB cdb = CartDB();
     MenuDB db = MenuDB();
-    final cartp = await db.Offersdata();
+    var ttl = await cdb.getDataCart();
+    ttl.isEmpty?
     cdb.insertDataCart(
-      CartModel(id: prod, qty: 1),
+        CartModel(id: prod.id, qty: 1,cartttl:double.parse(prod.price))
+    ):
+    cdb.insertDataCart(
+        CartModel(id: prod.id, qty: 1,cartttl:ttl[ttl.length-1].cartttl+double.parse(prod.price))
     );
   }
 
@@ -37,7 +41,7 @@ class _ProductDetailState extends State<ProductDetail> {
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
             onPressed: () {
-              addToCart(context, product.id);
+              addToCart(product);
               cartinit = true;
               setState(() {
               });

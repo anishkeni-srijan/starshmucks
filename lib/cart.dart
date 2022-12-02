@@ -29,7 +29,7 @@ class _MyCartState extends State<MyCart> {
   late List<CartModel> datalist = [];
   late List<CartModel> qtylist = [];
   List<CartModel> cartlist = [];
-  late double ttl = 0;
+  double ttl = 0;
   @override
   clearcart() {
     cartdb.clear();
@@ -41,9 +41,7 @@ class _MyCartState extends State<MyCart> {
     menudb.initDBMenu();
     cartdb = CartDB();
     cartdb.initDBCart();
-
     super.initState();
-    getttl();
   }
 
   getDataOnIds() async {
@@ -62,26 +60,26 @@ class _MyCartState extends State<MyCart> {
     setState(() {});
   }
 
-  increaseqty(sendid) {
-    cartdb.increseqty(sendid);
+  increaseqty(sendid,price) {
+    cartdb.increseqty(sendid,price);
     setState(() {});
   }
 
-  decreaseqty(sendid) {
-    cartdb.decreaseqty(sendid);
+  decreaseqty(sendid,price) {
+    cartdb.decreaseqty(sendid,price);
     setState(() {});
   }
 
   getttl() {
-    for (var i = 0; i < kart1.length; i++) {
-      ttl = ttl + double.parse(kart1[i].price);
-    }
-    setState(() {});
+    ttl=datalist.isEmpty?0:datalist[datalist.length-1].cartttl;
+    setState((){});
+    return ttl.toString();
   }
 
   @override
   Widget build(BuildContext context) {
     getDataOnIds();
+    getttl();
     return Scaffold(
       backgroundColor: Colors.white,
       bottomNavigationBar: Container(
@@ -115,7 +113,7 @@ class _MyCartState extends State<MyCart> {
                         fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    "\$999",
+                    "\$"+ttl.toString(),
                     style: TextStyle(
                         fontSize: 35,
                         color: HexColor("#175244"),
@@ -135,7 +133,7 @@ class _MyCartState extends State<MyCart> {
           : NestedScrollView(
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) {
-                return <Widget>[
+                    return <Widget>[
                   SliverAppBar(
                     toolbarHeight: 120,
                     backgroundColor: Colors.white,
@@ -240,7 +238,8 @@ class _MyCartState extends State<MyCart> {
                                                   removefromcart(
                                                       datalist[index]);
                                                 } else {
-                                                  decreaseqty(datalist[index]);
+                                                  double res1 =(double.parse(kart1[index].price*datalist[index].qty));
+                                                  decreaseqty(datalist[index],res1);
                                                 }
                                                 setState(() {});
                                               },
@@ -254,7 +253,8 @@ class _MyCartState extends State<MyCart> {
                                             IconButton(
                                               icon: const Icon(Icons.add),
                                               onPressed: () {
-                                                increaseqty(datalist[index]);
+                                                double res = (double.parse(kart1[index].price*datalist[index].qty));
+                                                increaseqty(datalist[index],res);
                                                 setState(() {});
                                               },
                                               style: ButtonStyle(

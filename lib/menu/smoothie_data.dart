@@ -23,8 +23,13 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     late MenuDB db;
     db = MenuDB();
     final cartp = await db.smoothiedata();
+    var ttl = await cdb.getDataCart();
+    ttl.isEmpty?
     cdb.insertDataCart(
-      CartModel(id: cartp[index].id, qty: 1),
+        CartModel(id: cartp[index].id, qty: 1,cartttl:double.parse(cartp[index].price))
+    ):
+    cdb.insertDataCart(
+        CartModel(id: cartp[index].id, qty: 1,cartttl:ttl[ttl.length-1].cartttl+double.parse(cartp[index].price))
     );
     setState(() {});
   }

@@ -43,8 +43,13 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
 
     var zindex = data.indexWhere((item) => item.id == cartp[index].id);
     if (zindex != -1) {
+      var ttl = await cdb.getDataCart();
+      ttl.isEmpty?
       cdb.insertDataCart(
-        CartModel(id: cartp[index].id, qty: 1),
+          CartModel(id: cartp[index].id, qty: 1,cartttl:double.parse(cartp[index].price))
+      ):
+      cdb.insertDataCart(
+          CartModel(id: cartp[index].id, qty: 1,cartttl:ttl[ttl.length-1].cartttl+double.parse(cartp[index].price))
       );
     } else {
       print('already added');

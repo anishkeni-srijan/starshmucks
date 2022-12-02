@@ -1,6 +1,8 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:starshmucks/db/menu_db.dart';
 
+import '../model/menu_model.dart';
 import '/model/cart_model.dart';
 
 class CartDB {
@@ -14,7 +16,8 @@ class CartDB {
         await database.execute("""
           CREATE TABLE IF NOT EXISTS CartTable(
           id INT NOT NULL UNIQUE,
-          qty INT NOT NULL
+          qty INT NOT NULL,
+          cartttl DOUBLE NOT NULL
           )
           """);
       },
@@ -24,9 +27,9 @@ class CartDB {
 
   Future<bool> insertDataCart(CartModel item) async {
     final Database db = await initDBCart();
+    MenuDB mdb = MenuDB();
     int count = await db.insert("CartTable", item.toMap(),
         conflictAlgorithm: ConflictAlgorithm.ignore);
-
     if (count > 0) {
     } else {
       final List<Map<String, dynamic>> maps = await db.query(
@@ -34,8 +37,11 @@ class CartDB {
         where: 'id = ?',
         whereArgs: [item.id],
       );
-      var test = CartModel(id: maps[0]['id'], qty: maps[0]['qty']);
-      increseqty(test);
+      final List<MenuModel> prod = await mdb.getElementOnId_Menu(item.id);
+      print(prod[0].title.toString());
+      var test = CartModel(id: maps[0]['id'], qty: maps[0]['qty'],cartttl:maps[0]['cartttl']);
+      var res = maps[0]['qty']* double.parse(prod[0].price);
+      increseqty(test,res);
     }
 
     return true;
@@ -65,19 +71,21 @@ class CartDB {
     );
   }
 
-  increseqty(CartModel cartitem) async {
+  increseqty(CartModel cartitem,price) async {
     final db = await initDBCart();
     var fido = CartModel(
       id: cartitem.id,
       qty: cartitem.qty + 1,
+      cartttl: cartitem.cartttl+price,
     );
     updateqty(fido);
   }
 
-  decreaseqty(CartModel cartitem) async {
+  decreaseqty(CartModel cartitem,price) async {
     var fido = CartModel(
       id: cartitem.id,
       qty: cartitem.qty - 1,
+      cartttl: cartitem.cartttl-price,
     );
     updateqty(fido);
   }

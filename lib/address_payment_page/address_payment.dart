@@ -718,8 +718,8 @@ class _AddressState extends State<Address> {
         child: Row(
           children: [
             SizedBox(
-              width: 150,
-            ),
+              width: MediaQuery.of(context).size.width*0.9,
+            child:
             ElevatedButton(
               onPressed: () {
                 if (_value == 1 && afterSelecting == true) {
@@ -759,6 +759,7 @@ class _AddressState extends State<Address> {
                   backgroundColor:
                       MaterialStateProperty.all(HexColor("#036635"))),
             ),
+            )
           ],
         ),
       ),
