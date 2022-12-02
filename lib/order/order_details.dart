@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
-
+import 'dart:io' show Platform;
 import '../help_page.dart';
 import '/db/menu_db.dart';
 import '/db/orders_db.dart';
@@ -140,10 +140,10 @@ class _OrderdetailState extends State<Orderdetail> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(
+                                      padding: EdgeInsets.only(
                                           left: 20,
                                           right: 20,
-                                          bottom: 20,
+                                          bottom:Platform.isIOS?0:20,
                                           top: 0),
                                       child: Row(
                                         mainAxisAlignment:

@@ -310,7 +310,7 @@ class _AddressState extends State<Address> {
                   ),
                   Container(
                     color: HexColor("#eeeeee"),
-                    height: 200,
+                    height: MediaQuery.of(context).size.height * 0.25,
                     width: MediaQuery.of(context).size.width * 1,
                     padding: EdgeInsets.only(bottom: 15),
                     child: SizedBox(

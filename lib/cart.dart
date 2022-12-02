@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:starshmucks/home/home_screen.dart';
+import 'dart:io' show Platform;
 
 import '/db/cart_db.dart';
 import '/model/cart_model.dart';
@@ -57,7 +58,7 @@ class _MyCartState extends State<MyCart> {
 
   removefromcart(sendid) {
     cartdb.deleteitem(sendid);
-    cartlist.isEmpty ? cartinit = false : cartinit = true;
+    datalist.isEmpty ? cartinit = false : cartinit = true;
     setState(() {});
   }
 
@@ -169,7 +170,7 @@ class _MyCartState extends State<MyCart> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 20,
+                      height:MediaQuery.of(context).size.height*0.01,
                     ),
                     ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
