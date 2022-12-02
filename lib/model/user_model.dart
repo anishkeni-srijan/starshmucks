@@ -7,16 +7,18 @@ class UserModel {
   String password;
   String tnc;
   double rewards;
-  UserModel({
-    // required this.id,
-    required this.name,
-    required this.email,
-    required this.phone,
-    required this.dob,
-    required this.password,
-    required this.tnc,
-    required this.rewards,
-  });
+  String image;
+  UserModel(
+      {
+      // required this.id,
+      required this.name,
+      required this.email,
+      required this.phone,
+      required this.dob,
+      required this.password,
+      required this.tnc,
+      required this.rewards,
+      required this.image});
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         name: json["name"],
@@ -25,7 +27,7 @@ class UserModel {
         dob: json["dob"],
         password: json["password"],
         tnc: json["tnc"],
-        rewards: json["rewards"],
+        rewards: json["rewards"], image: json["image"],
         // id: json["id"],
       );
 
@@ -37,6 +39,7 @@ class UserModel {
         "password": password,
         "tnc": tnc,
         "rewards": rewards,
+        "image": image,
         // "id": id,
       };
 }

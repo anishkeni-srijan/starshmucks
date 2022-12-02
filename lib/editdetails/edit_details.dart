@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '/model/user_model.dart';
 import '../db/user_db.dart';
@@ -20,11 +21,16 @@ final picker = ImagePicker();
 
 class _EditProfileState extends State<EditProfile> {
   File? imagefile;
+  String saveImage = '';
   final ImagePicker picker = ImagePicker();
   late String obtainedemail;
   late String obtainedphone;
   late String obtainedname;
   late int obtainedkey;
+  late TextEditingController econtroller;
+  late TextEditingController ncontroller;
+  late TextEditingController phcontroller;
+
   List<Map<String, dynamic>> usernames = [];
   getUser() async {
     usernames = await udb.getDataUserData();
@@ -41,13 +47,12 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-
     if (usernames.isEmpty)
       return CircularProgressIndicator();
     else {
-      final econtroller = TextEditingController(text: usernames[0]['email']);
-      final ncontroller = TextEditingController(text: usernames[0]['name']);
-      final phcontroller = TextEditingController(text: usernames[0]['phone']);
+      econtroller = TextEditingController(text: usernames[0]['email']);
+      ncontroller = TextEditingController(text: usernames[0]['name']);
+      phcontroller = TextEditingController(text: usernames[0]['phone']);
       return Scaffold(
           backgroundColor: HexColor("#175244"),
           body: SingleChildScrollView(
@@ -69,17 +74,14 @@ class _EditProfileState extends State<EditProfile> {
                         width: 150,
                         decoration: BoxDecoration(
                           color: const Color(0xff7c94b6),
-                          image:
-                              // imagefile == null
-                              //     ?
-                              DecorationImage(
+                          image: usernames[0]['image'] == ''
+                              ? DecorationImage(
                                   image: AssetImage(
-                                      'images/profile1.jpg')), // set a placeholder image when no photo is set
-                          // : DecorationImage(
-                          //     image: FileImage(
-                          //         File(data[0].profileimage!.path)),
-                          //     fit: BoxFit.cover,
-                          //   ),
+                                      'images/profile1.jpg')) // set a placeholder image when no photo is set
+                              : DecorationImage(
+                                  image: FileImage(File(usernames[0]['image'])),
+                                  fit: BoxFit.cover,
+                                ),
                           borderRadius: BorderRadius.all(
                             Radius.circular(75.0),
                           ),
@@ -198,7 +200,6 @@ class _EditProfileState extends State<EditProfile> {
                           //   ),
                           // );
 
-
                           var updateData = UserModel(
                               dob: usernames[0]['dob'],
                               email: econtroller.text,
@@ -206,10 +207,11 @@ class _EditProfileState extends State<EditProfile> {
                               name: ncontroller.text,
                               password: usernames[0]['password'],
                               rewards: usernames[0]['rewards'],
-                              tnc: usernames[0]['tnc']);
+                              tnc: usernames[0]['tnc'],
+                              image: usernames[0]['image']);
                           udb.updateUserData(usernames[0]['id'], updateData);
                           getUser();
-                      setState(() {});
+                          setState(() {});
                         },
                         child: Text('UPDATE'),
                       )
@@ -256,6 +258,21 @@ class _EditProfileState extends State<EditProfile> {
   takepicture(ImageSource source) async {
     final pickedfile = await picker.pickImage(source: source);
     imagefile = File(pickedfile!.path);
+    print("path");
+    print(pickedfile.path);
+    saveImage = pickedfile.path;
+    print("jroden" + saveImage);
+    var updateData = UserModel(
+        dob: usernames[0]['dob'],
+        email: econtroller.text,
+        phone: phcontroller.text,
+        name: ncontroller.text,
+        password: usernames[0]['password'],
+        rewards: usernames[0]['rewards'],
+        tnc: usernames[0]['tnc'],
+        image: saveImage);
+    udb.updateUserData(usernames[0]['id'], updateData);
+    getUser();
 
     setState(() {});
   }

@@ -90,9 +90,8 @@ class _ProductDetailState extends State<ProductDetail> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 60),
+                margin: product.category=='cake'?EdgeInsets.only(top: 0):EdgeInsets.only(top: 60),
                 padding: EdgeInsets.only(
-
                   left: MediaQuery.of(context).size.width * 0.2,
                   right: MediaQuery.of(context).size.width * 0.2,
                 ),
@@ -163,6 +162,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         0, MediaQuery.of(context).size.height * -0.07, 0),
                     child: Text(
                       product.title,
+                      textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 30),
                     )),
               ),

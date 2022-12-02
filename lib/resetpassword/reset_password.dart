@@ -252,7 +252,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 name: userddt[0]['name'],
                                 password: passwordcontroller.text,
                                 rewards: userddt[0]['rewards'],
-                                tnc: userddt[0]['tnc']);
+                                tnc: userddt[0]['tnc'],
+                                image: userddt[0]['image']);
                             udb.updateUserData(userddt[0]['id'], updateData);
                             setState(() {});
 

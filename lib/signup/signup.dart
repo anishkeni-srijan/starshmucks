@@ -61,6 +61,7 @@ class _SignupPageState extends State<SignupPage> {
       password: pass1.text,
       tnc: true.toString(),
       rewards: 0,
+      image: '',
     );
     udb.insertUserData(userSQL);
     udb.getDataUserData();

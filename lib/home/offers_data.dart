@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'dart:io' show Platform;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:get/get.dart';
 import 'package:starshmucks/common_things.dart';
@@ -102,7 +103,8 @@ class _GetOffersState extends State<GetOffers> {
                         child: Container(
                           // transform: Matrix4.translationValues(-120, 10, 0),
                           margin: EdgeInsets.only(
-                            top: 10,
+                            top:Platform.isIOS
+                                ?0: 10,
                             left: 130,
                           ),
                           child: Text(
@@ -116,7 +118,8 @@ class _GetOffersState extends State<GetOffers> {
                       ),
                       Container(
                         margin: EdgeInsets.only(
-                          top: 30,
+                          top: Platform.isIOS
+                              ?40:30,
                           left: 130,
                         ),
                         child: Text(

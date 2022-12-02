@@ -2,12 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:intl/intl.dart';
 
+import '/upi_payment.dart';
 import '/model/address_model.dart';
-import 'db/user_db.dart';
-import 'payment.dart';
+import '../common_things.dart';
+import '../db/cart_db.dart';
+import '../db/orders_db.dart';
+import '../db/user_db.dart';
+import '../model/cart_model.dart';
+import '../order/order_failed.dart';
+import '../order/order_success.dart';
+import 'common_widgets.dart';
 
 class Address extends StatefulWidget {
   const Address({Key? key}) : super(key: key);
@@ -15,6 +23,11 @@ class Address extends StatefulWidget {
   @override
   State<Address> createState() => _AddressState();
 }
+
+enum Pet { Upi, Razorpay }
+
+String message = '';
+final offers = TextEditingController();
 
 class _AddressState extends State<Address> {
   late UserDB udb;
@@ -41,42 +54,6 @@ class _AddressState extends State<Address> {
     setState(() {});
   }
 
-  textfieldCommon() {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.8,
-      margin: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.005,
-      ),
-      child: TextFormField(
-        style: const TextStyle(color: Colors.black), //<-- SEE HERE
-        // controller: fname,
-
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(5),
-          labelText: 'Full Name',
-          labelStyle: TextStyle(
-            color: HexColor("#175244"),
-          ),
-          enabledBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: HexColor("#175244"),
-              width: 2,
-            ),
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: HexColor("#175244"),
-              width: 2,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
   addAddress(context) {
     final fname = TextEditingController();
     final phone = TextEditingController();
@@ -86,7 +63,6 @@ class _AddressState extends State<Address> {
     final state = TextEditingController();
     final pincode = TextEditingController();
 
-    PhoneNumber number = PhoneNumber(isoCode: 'IN');
     return showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -101,231 +77,32 @@ class _AddressState extends State<Address> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                      margin: EdgeInsets.all(20),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "New Address",
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: HexColor("#175244"),
-                        ),
-                      )),
+                    margin: EdgeInsets.all(20),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "New Address",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: HexColor("#175244"),
+                      ),
+                    ),
+                  ),
                   //full name
-
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.005,
-                    ),
-                    child: commonTextWidget(fname: fname, lbltxt: "Full Name1"),
-                  ),
+                  commonTextIPWidget(context, fname, "Full Name"),
                   //phone number
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: 80,
-                    child: InternationalPhoneNumberInput(
-                      selectorConfig: SelectorConfig(
-                          trailingSpace: false,
-                          selectorType: PhoneInputSelectorType.DROPDOWN),
-                      autoValidateMode: AutovalidateMode.disabled,
-                      selectorTextStyle: TextStyle(color: HexColor("#175244")),
-                      initialValue: number,
-                      textFieldController: phone,
-                      inputDecoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'Phone Number',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                      keyboardType: TextInputType.number,
-                      onInputChanged: (PhoneNumber value) {},
-                    ),
-                  ),
+                  commonPhoneNumberWidget(context, phone),
                   //house no, building name
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.005,
-                    ),
-                    child: TextFormField(
-                      style:
-                          const TextStyle(color: Colors.black), //<-- SEE HERE
-                      controller: hno,
-
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'House No., Building Name',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  commonTextIPWidget(context, hno, 'House No., Building Name'),
                   //road name,area,colony
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.005,
-                    ),
-                    child: TextFormField(
-                      style:
-                          const TextStyle(color: Colors.black), //<-- SEE HERE
-                      controller: roadname,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'Road Name, Area, Colony',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  commonTextIPWidget(
+                      context, roadname, 'Road Name, Area, Colony'),
                   //city
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.005,
-                    ),
-                    child: TextFormField(
-                      style:
-                          const TextStyle(color: Colors.black), //<-- SEE HERE
-                      controller: city,
-
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'City',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  commonTextIPWidget(context, city, 'City'),
                   //state
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.005,
-                    ),
-                    child: TextFormField(
-                      style:
-                          const TextStyle(color: Colors.black), //<-- SEE HERE
-                      controller: state,
-
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'State',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  commonTextIPWidget(context, state, 'State'),
                   //pincode
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.005,
-                    ),
-                    child: TextFormField(
-                      style:
-                          const TextStyle(color: Colors.black), //<-- SEE HERE
-                      controller: pincode,
-
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'Pincode',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  commonTextIPWidget(context, pincode, 'Pincode'),
                   SizedBox(
                     height: 15,
                   ),
@@ -374,14 +151,13 @@ class _AddressState extends State<Address> {
 
   editAddress(context, index, addid) {
     final fname = TextEditingController(text: addressList[index]['fname']);
-    final phone = TextEditingController(text: "temp");
+    final phone = TextEditingController(text: addressList[index]['phone']);
     final hno = TextEditingController(text: addressList[index]['hno']);
     final roadname = TextEditingController(text: addressList[index]['road']);
     final city = TextEditingController(text: addressList[index]['city']);
     final state = TextEditingController(text: addressList[index]['state']);
     final pincode = TextEditingController(text: addressList[index]['pincode']);
 
-    PhoneNumber number = PhoneNumber(isoCode: 'IN');
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -403,241 +179,21 @@ class _AddressState extends State<Address> {
                         color: HexColor("#175244"),
                       ),
                     )),
-
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: fname,
-
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Full Name',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                //full name
+                commonTextIPWidget(context, fname, "Full Name"),
                 //phone number
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: 80,
-                  child: InternationalPhoneNumberInput(
-                    selectorConfig: SelectorConfig(
-                        trailingSpace: false,
-                        selectorType: PhoneInputSelectorType.DROPDOWN),
-                    autoValidateMode: AutovalidateMode.disabled,
-                    selectorTextStyle: TextStyle(color: HexColor("#175244")),
-                    initialValue: number,
-                    textFieldController: phone,
-                    inputDecoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Phone Number',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                    keyboardType: TextInputType.number,
-                    onInputChanged: (PhoneNumber value) {},
-                  ),
-                ),
+                commonPhoneNumberWidget(context, phone),
                 //house no, building name
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: hno,
-
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'House No., Building Name',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                commonTextIPWidget(context, hno, 'House No., Building Name'),
                 //road name,area,colony
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: roadname,
-
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Road Name, Area, Colony',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                commonTextIPWidget(
+                    context, roadname, 'Road Name, Area, Colony'),
                 //city
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: city,
-
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'City',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                commonTextIPWidget(context, city, 'City'),
                 //state
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: state,
-
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'State',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                commonTextIPWidget(context, state, 'State'),
                 //pincode
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: pincode,
-
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Pincode',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                commonTextIPWidget(context, pincode, 'Pincode'),
                 SizedBox(
                   height: 15,
                 ),
@@ -693,6 +249,7 @@ class _AddressState extends State<Address> {
     });
   }
 
+  final offers = TextEditingController();
   bool afterSelecting = false;
   @override
   Widget build(BuildContext context) {
@@ -753,7 +310,8 @@ class _AddressState extends State<Address> {
                   ),
                   Container(
                     color: HexColor("#eeeeee"),
-                    height: 190,
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    width: MediaQuery.of(context).size.width * 1,
                     padding: EdgeInsets.only(bottom: 15),
                     child: SizedBox(
                       //height: 180,
@@ -805,30 +363,64 @@ class _AddressState extends State<Address> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          //Text("Address"),
-                                          Text("Address: " +
-                                              addressList[index]['hno'] +
-                                              ", " +
-                                              addressList[index]['road'] +
-                                              ", " +
-                                              addressList[index]['city'] +
-                                              ", " +
-                                              addressList[index]['state'] +
-                                              ".")
+                                          Text(
+                                            "Address",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black38),
+                                          ),
+                                          Text(
+                                            addressList[index]['hno'] +
+                                                ", " +
+                                                addressList[index]['road'] +
+                                                ", " +
+                                                addressList[index]['city'] +
+                                                ", " +
+                                                addressList[index]['state'] +
+                                                ".",
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                "Pincode: ",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black38),
+                                              ),
+                                              Text(
+                                                addressList[index]['pincode'],
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                            ],
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 5, bottom: 0),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  "Phone :",
+                                                  style: TextStyle(
+                                                    color: Colors.black38,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  addressList[index]['phone'],
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                         ],
                                       ),
 
-                                      // Padding(
-                                      //   padding: const EdgeInsets.only(
-                                      //       top: 5, bottom: 8),
-                                      //   child: Text(
-                                      //     "Phone : 98765678temp",
-                                      //     style: TextStyle(
-                                      //       color: Colors.black,
-                                      //       fontWeight: FontWeight.w100,
-                                      //     ),
-                                      //   ),
-                                      // ),
                                       value: addressList[index]['addressID'],
                                       groupValue: selectedVal,
                                       onChanged: (value) async {
@@ -854,7 +446,7 @@ class _AddressState extends State<Address> {
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(
-                                          left: 8, right: 8, top: 20),
+                                          left: 8, right: 8, top: 10),
                                       child: Divider(
                                         color: Colors.grey,
                                         height: 1,
@@ -925,7 +517,7 @@ class _AddressState extends State<Address> {
                                   Container(
                                       margin: EdgeInsets.only(top: 4, left: 15),
                                       child: AutoSizeText(
-                                        'Select your prefered payment mode',
+                                        'Select your preferred payment mode',
                                         style: TextStyle(
                                           color: HexColor("#38564F"),
                                         ),
@@ -1130,9 +722,37 @@ class _AddressState extends State<Address> {
             ),
             ElevatedButton(
               onPressed: () {
-                afterSelecting
-                    ? Get.to(PaymentPage(), transition: Transition.rightToLeft)
-                    : Container();
+                if (_value == 1 && afterSelecting == true) {
+                  Get.to(UpiPayment());
+                } else if (_value == 2 && afterSelecting == true) {
+                  Razorpay razorpay = Razorpay();
+                  var options = {
+                    'key': 'rzp_test_jrCnK1rxXepbtl',
+                    'amount': 100,
+                    'name': 'Starschmucks.',
+                    'description': 'Fine Coffee',
+                    'retry': {'enabled': true, 'max_count': 1},
+                    'send_sms_hash': true,
+                    'prefill': {
+                      'contact': '8888888888',
+                      'email': 'test@razorpay.com'
+                    },
+                    'external': {
+                      'wallets': ['paytm']
+                    }
+                  };
+                  razorpay.on(
+                      Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
+                  razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
+                      handlePaymentSuccessResponse);
+                  razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
+                      handleExternalWalletSelected);
+                  razorpay.open(options);
+                }
+
+                //   afterSelecting
+                //       ? Get.to(PaymentPage(), transition: Transition.rightToLeft)
+                //       : Container();
               },
               child: Text("Pay"),
               style: ButtonStyle(
@@ -1144,44 +764,102 @@ class _AddressState extends State<Address> {
       ),
     );
   }
-}
 
-class commonTextWidget extends StatelessWidget {
-  const commonTextWidget({
-    Key? key,
-    required this.fname,
-    required lbltxt,
-  }) : super(key: key);
+  void handlePaymentErrorResponse(PaymentFailureResponse response) {
+    /*
+    * PaymentFailureResponse contains three values:
+    * 1. Error Code
+    * 2. Error Description
+    * 3. Metadata
+    * */
 
-  final TextEditingController fname;
+    setState(() {
+      paid = false;
+      goToFailed(message);
+    });
 
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      style: const TextStyle(color: Colors.black), //<-- SEE HERE
-      controller: fname,
+    // showAlertDialog(context, "Payment Failed",
+    //     "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
+    message = "${response.message}";
+  }
 
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(5),
-        labelText: 'Full Name',
-        labelStyle: TextStyle(
-          color: HexColor("#175244"),
-        ),
-        enabledBorder: UnderlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-            color: HexColor("#175244"),
-            width: 2,
-          ),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-            color: HexColor("#175244"),
-            width: 2,
-          ),
-        ),
-      ),
+  void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
+    /*
+    * Payment Success Response contains three values:
+    * 1. Order ID
+    * 2. Payment ID
+    * 3. Signature
+    * */
+    putDatafromcart();
+    print("sign" + response.orderId.toString());
+    setState(() {
+      goToSuccess();
+      paid = true;
+    });
+
+    // showAlertDialog(
+    //     context, "Payment Successful", "Payment ID: ${response.paymentId}");
+  }
+
+  List<CartModel> cartlist = [];
+
+  putDatafromcart() async {
+    OrdersDB orderdb = OrdersDB();
+    CartDB cartdb = CartDB();
+    orderdb.initDBOrders();
+    cartdb.initDBCart();
+    String idar = '';
+    String qtyar = '';
+    String date = DateFormat.yMMMMd('en_US').format(DateTime.now());
+    String time = DateFormat.jm().format(DateTime.now());
+    cartlist = await cartdb.getDataCart();
+    for (var i = 0; i < cartlist.length; i++) {
+      if (idar.isEmpty) {
+        idar = idar + cartlist[i].id.toString();
+        qtyar = qtyar + cartlist[i].qty.toString();
+      } else {
+        idar = idar + ' ' + cartlist[i].id.toString();
+        qtyar = qtyar + ' ' + cartlist[i].qty.toString();
+      }
+    }
+    print("im idar:" + idar);
+    print("im qtyar:" + qtyar);
+    orderdb.createarr(idar, qtyar, date, time);
+    setState(() {});
+  }
+
+  void handleExternalWalletSelected(ExternalWalletResponse response) {
+    print("wallet");
+    showAlertDialog(
+        context, "External Wallet Selected", "${response.walletName}");
+  }
+
+  void showAlertDialog(BuildContext context, String title, String message) {
+    // set up the buttons
+    Widget continueButton = ElevatedButton(
+      child: const Text("Continue"),
+      onPressed: () {
+        paid ? Get.to(OrderSuccess()) : Get.to(OrderFail(message));
+      },
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(title),
+      content: Text(message),
+      actions: [
+        continueButton,
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
+}
+
+getMessage() {
+  return message;
 }
