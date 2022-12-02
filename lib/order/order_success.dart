@@ -1,10 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io' show Platform;
 
 import 'package:get/get.dart';
 import 'package:starshmucks/db/cart_db.dart';
@@ -213,10 +212,10 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(
+                                    padding:  EdgeInsets.only(
                                         left: 20,
                                         right: 20,
-                                        bottom: 20,
+                                        bottom: Platform.isIOS?0:20,
                                         top: 5),
                                     child: Row(
                                       mainAxisAlignment:

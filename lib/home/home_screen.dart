@@ -5,9 +5,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io' show Platform;
+
 import 'package:starshmucks/db/cart_db.dart';
 import 'package:starshmucks/model/cart_model.dart';
-
 import '../common_things.dart';
 import '../db/user_db.dart';
 import '../model/menu_model.dart';
