@@ -27,6 +27,10 @@ class _EditProfileState extends State<EditProfile> {
   late String obtainedphone;
   late String obtainedname;
   late int obtainedkey;
+  late TextEditingController econtroller;
+  late TextEditingController ncontroller;
+  late TextEditingController phcontroller;
+
   List<Map<String, dynamic>> usernames = [];
   getUser() async {
     usernames = await udb.getDataUserData();
@@ -46,9 +50,9 @@ class _EditProfileState extends State<EditProfile> {
     if (usernames.isEmpty)
       return CircularProgressIndicator();
     else {
-      final econtroller = TextEditingController(text: usernames[0]['email']);
-      final ncontroller = TextEditingController(text: usernames[0]['name']);
-      final phcontroller = TextEditingController(text: usernames[0]['phone']);
+      econtroller = TextEditingController(text: usernames[0]['email']);
+      ncontroller = TextEditingController(text: usernames[0]['name']);
+      phcontroller = TextEditingController(text: usernames[0]['phone']);
       return Scaffold(
           backgroundColor: HexColor("#175244"),
           body: SingleChildScrollView(
@@ -195,50 +199,19 @@ class _EditProfileState extends State<EditProfile> {
                           //     phcontroller.text,
                           //   ),
                           // );
-                          if (usernames[0]['image'] == null &&
-                              saveImage == null) {
-                            var updateData = UserModel(
-                                dob: usernames[0]['dob'],
-                                email: econtroller.text,
-                                phone: phcontroller.text,
-                                name: ncontroller.text,
-                                password: usernames[0]['password'],
-                                rewards: usernames[0]['rewards'],
-                                tnc: usernames[0]['tnc'],
-                                image: '');
-                            udb.updateUserData(usernames[0]['id'], updateData);
-                            getUser();
-                            setState(() {});
-                          }
-                          if (saveImage != null) {
-                            var updateData = UserModel(
-                                dob: usernames[0]['dob'],
-                                email: econtroller.text,
-                                phone: phcontroller.text,
-                                name: ncontroller.text,
-                                password: usernames[0]['password'],
-                                rewards: usernames[0]['rewards'],
-                                tnc: usernames[0]['tnc'],
-                                image: saveImage);
-                            udb.updateUserData(usernames[0]['id'], updateData);
-                            getUser();
-                            setState(() {});
-                          }
-                          if (usernames[0]['image'] != null &&
-                              saveImage == null) {
-                            var updateData = UserModel(
-                                dob: usernames[0]['dob'],
-                                email: econtroller.text,
-                                phone: phcontroller.text,
-                                name: ncontroller.text,
-                                password: usernames[0]['password'],
-                                rewards: usernames[0]['rewards'],
-                                tnc: usernames[0]['tnc'],
-                                image: usernames[0]['image']);
-                            udb.updateUserData(usernames[0]['id'], updateData);
-                            getUser();
-                            setState(() {});
-                          }
+
+                          var updateData = UserModel(
+                              dob: usernames[0]['dob'],
+                              email: econtroller.text,
+                              phone: phcontroller.text,
+                              name: ncontroller.text,
+                              password: usernames[0]['password'],
+                              rewards: usernames[0]['rewards'],
+                              tnc: usernames[0]['tnc'],
+                              image: usernames[0]['image']);
+                          udb.updateUserData(usernames[0]['id'], updateData);
+                          getUser();
+                          setState(() {});
                         },
                         child: Text('UPDATE'),
                       )
@@ -289,6 +262,18 @@ class _EditProfileState extends State<EditProfile> {
     print(pickedfile.path);
     saveImage = pickedfile.path;
     print("jroden" + saveImage);
+    var updateData = UserModel(
+        dob: usernames[0]['dob'],
+        email: econtroller.text,
+        phone: phcontroller.text,
+        name: ncontroller.text,
+        password: usernames[0]['password'],
+        rewards: usernames[0]['rewards'],
+        tnc: usernames[0]['tnc'],
+        image: saveImage);
+    udb.updateUserData(usernames[0]['id'], updateData);
+    getUser();
+
     setState(() {});
   }
 }
