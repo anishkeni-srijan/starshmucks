@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '/model/user_model.dart';
 import '../db/user_db.dart';
@@ -20,6 +21,7 @@ final picker = ImagePicker();
 
 class _EditProfileState extends State<EditProfile> {
   File? imagefile;
+  String saveImage = '';
   final ImagePicker picker = ImagePicker();
   late String obtainedemail;
   late String obtainedphone;
@@ -68,17 +70,14 @@ class _EditProfileState extends State<EditProfile> {
                         width: 150,
                         decoration: BoxDecoration(
                           color: const Color(0xff7c94b6),
-                          image:
-                              // imagefile == null
-                              //     ?
-                              DecorationImage(
+                          image: usernames[0]['image'] == ''
+                              ? DecorationImage(
                                   image: AssetImage(
-                                      'images/profile1.jpg')), // set a placeholder image when no photo is set
-                          // : DecorationImage(
-                          //     image: FileImage(
-                          //         File(data[0].profileimage!.path)),
-                          //     fit: BoxFit.cover,
-                          //   ),
+                                      'images/profile1.jpg')) // set a placeholder image when no photo is set
+                              : DecorationImage(
+                                  image: FileImage(File(usernames[0]['image'])),
+                                  fit: BoxFit.cover,
+                                ),
                           borderRadius: BorderRadius.all(
                             Radius.circular(75.0),
                           ),
@@ -196,18 +195,50 @@ class _EditProfileState extends State<EditProfile> {
                           //     phcontroller.text,
                           //   ),
                           // );
-
-                          var updateData = UserModel(
-                              dob: usernames[0]['dob'],
-                              email: econtroller.text,
-                              phone: phcontroller.text,
-                              name: ncontroller.text,
-                              password: usernames[0]['password'],
-                              rewards: usernames[0]['rewards'],
-                              tnc: usernames[0]['tnc']);
-                          udb.updateUserData(usernames[0]['id'], updateData);
-                          getUser();
-                          setState(() {});
+                          if (usernames[0]['image'] == null &&
+                              saveImage == null) {
+                            var updateData = UserModel(
+                                dob: usernames[0]['dob'],
+                                email: econtroller.text,
+                                phone: phcontroller.text,
+                                name: ncontroller.text,
+                                password: usernames[0]['password'],
+                                rewards: usernames[0]['rewards'],
+                                tnc: usernames[0]['tnc'],
+                                image: '');
+                            udb.updateUserData(usernames[0]['id'], updateData);
+                            getUser();
+                            setState(() {});
+                          }
+                          if (saveImage != null) {
+                            var updateData = UserModel(
+                                dob: usernames[0]['dob'],
+                                email: econtroller.text,
+                                phone: phcontroller.text,
+                                name: ncontroller.text,
+                                password: usernames[0]['password'],
+                                rewards: usernames[0]['rewards'],
+                                tnc: usernames[0]['tnc'],
+                                image: saveImage);
+                            udb.updateUserData(usernames[0]['id'], updateData);
+                            getUser();
+                            setState(() {});
+                          }
+                          if (usernames[0]['image'] != null &&
+                              saveImage == null) {
+                            var updateData = UserModel(
+                                dob: usernames[0]['dob'],
+                                email: econtroller.text,
+                                phone: phcontroller.text,
+                                name: ncontroller.text,
+                                password: usernames[0]['password'],
+                                rewards: usernames[0]['rewards'],
+                                tnc: usernames[0]['tnc'],
+                                image: usernames[0]['image']);
+                            udb.updateUserData(usernames[0]['id'], updateData);
+                            getUser();
+                            setState(() {});
+                          }
                         },
                         child: Text('UPDATE'),
                       )
@@ -254,8 +285,10 @@ class _EditProfileState extends State<EditProfile> {
   takepicture(ImageSource source) async {
     final pickedfile = await picker.pickImage(source: source);
     imagefile = File(pickedfile!.path);
-
-    print("jroden" + imagefile.toString());
+    print("path");
+    print(pickedfile.path);
+    saveImage = pickedfile.path;
+    print("jroden" + saveImage);
     setState(() {});
   }
 }

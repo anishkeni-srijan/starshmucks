@@ -115,21 +115,22 @@ gethomeappbar() {
     automaticallyImplyLeading: false,
   );
 }
+
 late double result = 0;
-late  var size = 0;
+late var size = 0;
 getdata() async {
   CartDB cdb = CartDB();
   List<CartModel> data = await cdb.getDataCart();
   size = data.length;
 
   for (int index = 0; index < data.length; index++) {
-    result = result  * data[index].qty;
+    result = result * data[index].qty;
   }
 
   return size;
-
 }
-viewincart(){
+
+viewincart() {
   getdata();
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -142,13 +143,16 @@ viewincart(){
             style: TextStyle(
                 color: HexColor("#036635"), fontWeight: FontWeight.w600),
           ),
-          if (size<2) Text(
-                  " item | ",
-                  style: TextStyle(color: HexColor("#036635")),
-                ) else Text(
-                  " items | ",
-                  style: TextStyle(color: HexColor("#036635")),
-                ),
+          if (size < 2)
+            Text(
+              " item | ",
+              style: TextStyle(color: HexColor("#036635")),
+            )
+          else
+            Text(
+              " items | ",
+              style: TextStyle(color: HexColor("#036635")),
+            ),
           Text(
             "\$" + result.toStringAsFixed(2),
             style: TextStyle(
@@ -204,10 +208,9 @@ calcrewards() async {
     name: usernames[0]['name'],
     password: usernames[0]['password'],
     phone: usernames[0]['phone'],
-    tnc: usernames[0]['tnc'],
+    tnc: usernames[0]['tnc'], image: usernames[0]['image'],
     // addressID: ,
   );
   print(usernames[0]['rewards']);
   udb.updaterewards(rewardUpdate);
 }
-

@@ -46,7 +46,7 @@ class _UserProfileState extends State<UserProfile> {
     else {
       return Scaffold(
         persistentFooterButtons: cartinit ? [viewincart()] : [Container()],
-         backgroundColor:Colors.white,
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -63,18 +63,14 @@ class _UserProfileState extends State<UserProfile> {
                       height: 150.0,
                       decoration: BoxDecoration(
                         color: const Color(0xff7c94b6),
-                        image:
-                            // data[0].profileimage == null
-                            //     ?
-                            DecorationImage(
+                        image: usernames[0]['image'] == ''
+                            ? DecorationImage(
                                 image: AssetImage(
-                                    'images/profile1.jpg')), // set a placeholder image when no photo is set
-                        //     :
-                        // DecorationImage(
-                        //         image: FileImage(
-                        //             File(data[0].profileimage!.path)),
-                        //         fit: BoxFit.cover,
-                        //       ),
+                                    'images/profile1.jpg')) // set a placeholder image when no photo is set
+                            : DecorationImage(
+                                image: FileImage(File(usernames[0]['image'])),
+                                fit: BoxFit.cover,
+                              ),
                         borderRadius: BorderRadius.all(
                           Radius.circular(75.0),
                         ),
