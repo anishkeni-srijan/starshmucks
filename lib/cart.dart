@@ -3,6 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:starshmucks/home/home_screen.dart';
 import 'dart:io' show Platform;
+
 import '/db/cart_db.dart';
 import '/model/cart_model.dart';
 import 'address_payment_page/address_payment.dart';
@@ -28,8 +29,7 @@ class _MyCartState extends State<MyCart> {
   late List<CartModel> datalist = [];
   late List<CartModel> qtylist = [];
   List<CartModel> cartlist = [];
-  late double ttl = 0;
-
+  double ttl = 0;
   @override
   clearcart() {
     cartdb.clear();
@@ -41,8 +41,6 @@ class _MyCartState extends State<MyCart> {
     menudb.initDBMenu();
     cartdb = CartDB();
     cartdb.initDBCart();
-    getDataOnIds();
-    getttl();
     super.initState();
   }
 
@@ -59,24 +57,23 @@ class _MyCartState extends State<MyCart> {
   removefromcart(sendid) {
     cartdb.deleteitem(sendid);
     datalist.isEmpty ? cartinit = false : cartinit = true;
-    getDataOnIds();
     setState(() {});
   }
 
   increaseqty(sendid, price) {
     cartdb.increseqty(sendid);
-    getDataOnIds();
     setState(() {});
   }
 
   decreaseqty(sendid, price) {
     cartdb.decreaseqty(sendid);
-    getDataOnIds();
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    getDataOnIds();
+
     return Scaffold(
       backgroundColor: Colors.white,
       bottomNavigationBar: Container(
@@ -84,7 +81,7 @@ class _MyCartState extends State<MyCart> {
         child: ElevatedButton(
           onPressed: () {
             setState(() {});
-            Get.to(const Address(), transition: Transition.rightToLeft);
+            Get.to(Address(), transition: Transition.rightToLeft);
           },
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(HexColor("#036635"))),
@@ -118,7 +115,7 @@ class _MyCartState extends State<MyCart> {
                   ),
                 ],
               ),
-              const Text(
+              Text(
                 "( Inclusive of packaging charge )",
               ),
             ],
@@ -135,10 +132,10 @@ class _MyCartState extends State<MyCart> {
               toolbarHeight: 120,
               backgroundColor: Colors.white,
               foregroundColor: HexColor("#175244"),
-              title: const Text(''),
+              title: Text(''),
               pinned: false,
               flexibleSpace: Container(
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(20),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -161,14 +158,14 @@ class _MyCartState extends State<MyCart> {
           ];
         },
         body: SingleChildScrollView(
-          physics: const NeverScrollableScrollPhysics(),
+          physics: NeverScrollableScrollPhysics(),
           child: Column(
             children: [
               SizedBox(
-                height:MediaQuery.of(context).size.height*0.01,
+                height: MediaQuery.of(context).size.height * 0.01,
               ),
               ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: datalist.length,
                 itemBuilder: (context, index) {
@@ -191,23 +188,6 @@ class _MyCartState extends State<MyCart> {
                                 child: Column(
                                   crossAxisAlignment:
                                   CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.01,
-                    ),
-                    ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: datalist.length,
-                      itemBuilder: (context, index) {
-                        //print("qty= " + idlist[index].qty.toString());
-                        return Card(
-                          elevation: 10,
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                            child: Column(
-                              children: [
-                                Row(
                                   children: [
                                     SizedBox(
                                         width: 150,
@@ -216,14 +196,17 @@ class _MyCartState extends State<MyCart> {
                                             overflow:
                                             TextOverflow.ellipsis)),
                                     Text(
-                                      "\$ ${kart1[index].price}",
-                                      style: const TextStyle(
+                                      "\$ " + kart1[index].price,
+                                      style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600),
                                     ),
                                     TextButton(
                                       onPressed: () {
                                         removefromcart(datalist[index]);
+                                        print("removing: " +
+                                            index.toString());
+                                        setState(() {});
                                       },
                                       style: ButtonStyle(
                                           foregroundColor:
@@ -232,53 +215,6 @@ class _MyCartState extends State<MyCart> {
                                       child: const Text(
                                         'Remove',
                                       ),
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            IconButton(
-                                              icon: const Icon(Icons.remove),
-                                              onPressed: () {
-                                                if (datalist[index].qty == 1) {
-                                                  removefromcart(
-                                                      datalist[index]);
-                                                } else {
-                                                  double res1 = (double.parse(
-                                                      kart1[index].price *
-                                                          datalist[index].qty));
-                                                  decreaseqty(
-                                                      datalist[index], res1);
-                                                }
-                                                setState(() {});
-                                              },
-                                              style: ButtonStyle(
-                                                  foregroundColor:
-                                                      MaterialStateProperty.all(
-                                                          HexColor("#036635"))),
-                                            ),
-                                            Text(
-                                                datalist[index].qty.toString()),
-                                            IconButton(
-                                              icon: const Icon(Icons.add),
-                                              onPressed: () {
-                                                double res = (double.parse(
-                                                    kart1[index].price *
-                                                        datalist[index].qty));
-                                                increaseqty(
-                                                    datalist[index], res);
-                                                setState(() {});
-                                              },
-                                              style: ButtonStyle(
-                                                  foregroundColor:
-                                                      MaterialStateProperty.all(
-                                                          HexColor("#036635"))),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
                                     ),
                                   ],
                                 ),
@@ -296,9 +232,13 @@ class _MyCartState extends State<MyCart> {
                                             removefromcart(
                                                 datalist[index]);
                                           } else {
-                                            decreaseqty(datalist[index]);
+                                            double res1 = (double.parse(
+                                                kart1[index].price *
+                                                    datalist[index].qty));
+                                            decreaseqty(
+                                                datalist[index], res1);
                                           }
-                                          // setState(() {});
+                                          setState(() {});
                                         },
                                         style: ButtonStyle(
                                             foregroundColor:
@@ -310,8 +250,12 @@ class _MyCartState extends State<MyCart> {
                                       IconButton(
                                         icon: const Icon(Icons.add),
                                         onPressed: () {
-                                          increaseqty(datalist[index]);
-                                          // setState(() {});
+                                          double res = (double.parse(
+                                              kart1[index].price *
+                                                  datalist[index].qty));
+                                          increaseqty(
+                                              datalist[index], res);
+                                          setState(() {});
                                         },
                                         style: ButtonStyle(
                                             foregroundColor:
