@@ -66,7 +66,7 @@ class CartDB {
   }
 
   increseqty(CartModel cartitem) async {
-    final db = await initDBCart();
+    // final db = await initDBCart();
     var fido = CartModel(
       id: cartitem.id,
       qty: cartitem.qty + 1,
