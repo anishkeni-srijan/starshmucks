@@ -43,18 +43,11 @@ class _HomePageState extends State<HomePage> {
     db.initDBMenu();
     getdata();
     putdata();
-    initcart();
+
     // setUserForLogin();
     super.initState();
   }
-  initcart()async{
-    CartDB cdb = CartDB();
-    cdb.initDBCart();
-    List<CartModel>datal = await cdb.getDataCart();
-    datal.isEmpty?cartinit = false:cartinit=true;
-    setState(() {
-    });
-  }
+
 
   List<Map<String, dynamic>> usernames = [];
   getUser() async {
@@ -94,6 +87,7 @@ class _HomePageState extends State<HomePage> {
       username = usernames[0]['name'];
       String email = usernames[0]['email'];
       setUserForLogin(email);
+      initcart();
       return Scaffold(
           persistentFooterButtons: cartinit ? [viewincart()] : null,
           body: SingleChildScrollView(

@@ -10,6 +10,7 @@ import 'package:starshmucks/db/cart_db.dart';
 import 'package:starshmucks/db/menu_db.dart';
 import 'package:starshmucks/db/orders_db.dart';
 import 'package:starshmucks/model/menu_model.dart';
+import '../db/user_db.dart';
 import '../help_page.dart';
 import '../model/cart_model.dart';
 import '/model/order_history.dart';
@@ -31,19 +32,41 @@ class _OrderSuccessState extends State<OrderSuccess> {
   List<String> qtylistfromstring = [];
   List<MenuModel> items = [];
   List<MenuModel> items1 = [];
+  late double ttl = 0;
+  late double cartttl = 0;
+  late double savings = 0;
+  late UserDB udb;
 
   @override
   void initState() {
+    udb = UserDB();
+    udb.initDBUserData();
     db = OrdersDB();
     db.initDBOrders();
     cartdb = CartDB();
     cartdb.initDBCart();
+    getUser();
+    getttl();
     getorderid();
     getAddress();
     super.initState();
+
     cartinit = false;
   }
+  List<Map<String, dynamic>> userddt = [];
+  getUser() async {
+    userddt = await udb.getDataUserData();
+    setState(() {});
+  }
 
+  getttl() async{
+    final total = await SharedPreferences.getInstance();
+    cartttl = total.getDouble('total')!;
+    savings = userddt[0]['rewards']/100;
+    ttl=(ttl+5) - savings;
+    setState(() {
+    });
+  }
   getDataIds() async {
     MenuDB menudb = MenuDB();
     menudb.initDBMenu();
@@ -70,18 +93,6 @@ class _OrderSuccessState extends State<OrderSuccess> {
     // });
   }
 
-// gainrewards()async{
-//   var items = 0;
-//   for (var i = 0; i < OrderData.length; i++) {
-//     items = items + int.parse(OrderData[i].qty.toString());
-//   }
-//   var res  = (double.parse(OrderData[0].rewards.toString()) + (items * 10)) as String?;
-//
-//   print("no. of items " + items.toString());
-//   print('total rewards: ' + OrderData[0].rewards.toString());
-//   db.initDBOrders();
-//   // db.gainrewards(OrderData[0],res);
-// }
 
   late String selectedAddress = '';
   getAddress() async {
@@ -287,26 +298,26 @@ class _OrderSuccessState extends State<OrderSuccess> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children:[
                           Text(
                             "Cart total",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          // Text(
-                          //   "\$ " + data[0].ttlPrice.toStringAsFixed(2),
-                          //   style: TextStyle(fontWeight: FontWeight.w300),
-                          // ),
+                          Text(
+                            "\$ " + cartttl.toStringAsFixed(2),
+                            style: TextStyle(fontWeight: FontWeight.w300),
+                          ),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children:[
                           Text(
                             "Points savings",
                             style: TextStyle(fontWeight: FontWeight.w300),
                           ),
                           Text(
-                            '-\$ 10.00',
+                            '-\$'+savings.toStringAsFixed(2),
                             style: TextStyle(fontWeight: FontWeight.w300),
                           ),
                         ],
@@ -326,17 +337,15 @@ class _OrderSuccessState extends State<OrderSuccess> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           Text(
                             "Total Amount",
                             style: TextStyle(fontWeight: FontWeight.w600),
                           ),
-                          // Text(
-                          //   "\$ " +
-                          //       (data[0].ttlPrice - 10.0 + 5.00)
-                          //           .toStringAsFixed(2),
-                          //   style: TextStyle(fontWeight: FontWeight.w600),
-                          // ),
+                          Text(
+                            "\$ " +ttl.toStringAsFixed(2),
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
                         ],
                       ),
                     ],

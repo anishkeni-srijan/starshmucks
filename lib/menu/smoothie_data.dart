@@ -69,6 +69,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
 
   @override
   Widget build(BuildContext context) {
+    initcart();
     getdata();
     return Scaffold(
       persistentFooterButtons: cartinit ? [viewincart()] : null,

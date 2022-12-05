@@ -69,6 +69,7 @@ class _GetCakeDataState extends State<GetCakeData> {
 
   @override
   Widget build(BuildContext context) {
+    initcart();
     return Scaffold(
         persistentFooterButtons: cartinit ? [viewincart()] : null,
         body: ListView.builder(

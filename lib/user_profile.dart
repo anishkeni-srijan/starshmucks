@@ -38,9 +38,9 @@ class _UserProfileState extends State<UserProfile> {
 
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
+    initcart();
     getUser();
     if (usernames.isEmpty)
       return CircularProgressIndicator();

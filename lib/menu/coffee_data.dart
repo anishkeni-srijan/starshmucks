@@ -86,12 +86,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
 
   @override
   Widget build(BuildContext context) {
-    // print("Len of cart" + cartData.length.toString());
-    for (int i = 0; i < cartData.length; i++) {
-      // print("Ids in cart ");
-      // print(cartData[i].id);
-    }
-    // print('items in db: ' + data.length.toString());
+    initcart();
     return Scaffold(
       persistentFooterButtons: cartinit ? [viewincart()] : null,
       body: getdataf

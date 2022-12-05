@@ -35,11 +35,22 @@ class _AddressState extends State<Address> {
   bool isChecked = false;
   bool paid = false;
   int _value = 1;
+  late double res=0;
+  late bool rewards;
+  late double ttl = 0;
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
+    getttl();
 
     super.initState();
+  }
+
+  getttl() async {
+    final total = await SharedPreferences.getInstance();
+    // ttl = total.getDouble('total')!;
+    ttl = 10;
+    ttl>10?rewards=true:rewards=false;
   }
 
   List<Map<String, dynamic>> userddt = [];
@@ -77,7 +88,7 @@ class _AddressState extends State<Address> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.all(20),
+                    margin: const EdgeInsets.all(20),
                     alignment: Alignment.center,
                     child: Text(
                       "New Address",
@@ -103,7 +114,7 @@ class _AddressState extends State<Address> {
                   commonTextIPWidget(context, state, 'State'),
                   //pincode
                   commonTextIPWidget(context, pincode, 'Pincode'),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   SizedBox(
@@ -131,7 +142,7 @@ class _AddressState extends State<Address> {
                             borderRadius: BorderRadius.circular(60)),
                         backgroundColor: HexColor("#036635"),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Add',
                         style: TextStyle(
                           fontSize: 18,
@@ -169,7 +180,7 @@ class _AddressState extends State<Address> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
-                    margin: EdgeInsets.all(20),
+                    margin: const EdgeInsets.all(20),
                     alignment: Alignment.center,
                     child: Text(
                       "Edit Address",
@@ -194,7 +205,7 @@ class _AddressState extends State<Address> {
                 commonTextIPWidget(context, state, 'State'),
                 //pincode
                 commonTextIPWidget(context, pincode, 'Pincode'),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 SizedBox(
@@ -223,7 +234,7 @@ class _AddressState extends State<Address> {
                           borderRadius: BorderRadius.circular(60)),
                       backgroundColor: HexColor("#036635"),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Save',
                       style: TextStyle(
                         fontSize: 18,
@@ -240,6 +251,15 @@ class _AddressState extends State<Address> {
     );
   }
 
+  userewards(){
+    isChecked
+        ? ttl = ttl -
+        (userddt[0]['rewards'] / 100)
+        :getttl();
+    setState(() {
+
+    });
+  }
   var selectedVal;
   setSelectedVal(var val) {
     print("val in fn");
@@ -255,8 +275,24 @@ class _AddressState extends State<Address> {
   Widget build(BuildContext context) {
     getUser();
     return Scaffold(
+      persistentFooterButtons: [
+        Row(
+          children: [
+            isChecked
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Points savings: \$" +
+                          (userddt[0]['rewards'] / 100).toString()),
+                      Text("Amount to be paid: \$" + ttl.toString()),
+                    ],
+                  )
+                : Text("Amount to be paid: \$" + ttl.toString()),
+          ],
+        )
+      ],
       appBar: AppBar(
-        //  title: Text('Delivery Address'),
+        title: const Text('Checkout'),
         backgroundColor: Colors.white,
         foregroundColor: HexColor("#175244"),
         actions: [
@@ -265,7 +301,7 @@ class _AddressState extends State<Address> {
               addAddress(context);
             },
             child: Container(
-              margin: EdgeInsets.only(right: 10),
+              margin: const EdgeInsets.only(right: 10),
               child: Text(
                 '+ Add Address',
                 style: TextStyle(color: HexColor("#036635")),
@@ -279,7 +315,7 @@ class _AddressState extends State<Address> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('No Address'),
+                  const Text('No Address'),
                 ],
               ),
             )
@@ -293,13 +329,14 @@ class _AddressState extends State<Address> {
                       ? Container()
                       : Center(
                           child: Container(
-                              padding: EdgeInsets.all(8),
-                              child: Text(
+                              padding: const EdgeInsets.all(8),
+                              child: const Text(
                                 "Select a Address",
                                 style: TextStyle(color: Colors.red),
                               ))),
                   Padding(
-                    padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
+                    padding:
+                        const EdgeInsets.only(left: 20, top: 10, bottom: 10),
                     child: Text(
                       'Delivery Address',
                       style: TextStyle(
@@ -312,11 +349,11 @@ class _AddressState extends State<Address> {
                     color: HexColor("#eeeeee"),
                     height: MediaQuery.of(context).size.height * 0.25,
                     width: MediaQuery.of(context).size.width * 1,
-                    padding: EdgeInsets.only(bottom: 15),
+                    padding: const EdgeInsets.only(bottom: 15),
                     child: SizedBox(
                       //height: 180,
                       child: ListView.builder(
-                          physics: ClampingScrollPhysics(),
+                          physics: const ClampingScrollPhysics(),
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           itemCount: addressList.length,
@@ -340,7 +377,7 @@ class _AddressState extends State<Address> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                margin: EdgeInsets.only(
+                                margin: const EdgeInsets.only(
                                     left: 20, right: 20, top: 15),
                                 shadowColor: HexColor("#036635"),
                                 elevation: 0,
@@ -353,7 +390,7 @@ class _AddressState extends State<Address> {
                                             top: 5, bottom: 5),
                                         child: Text(
                                           addressList[index]['fname'],
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.w400,
                                           ),
@@ -363,7 +400,7 @@ class _AddressState extends State<Address> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
+                                          const Text(
                                             "Address",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -378,12 +415,12 @@ class _AddressState extends State<Address> {
                                                 ", " +
                                                 addressList[index]['state'] +
                                                 ".",
-                                            style:
-                                                TextStyle(color: Colors.black),
+                                            style: const TextStyle(
+                                                color: Colors.black),
                                           ),
                                           Row(
                                             children: [
-                                              Text(
+                                              const Text(
                                                 "Pincode: ",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
@@ -391,7 +428,7 @@ class _AddressState extends State<Address> {
                                               ),
                                               Text(
                                                 addressList[index]['pincode'],
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.black),
                                               ),
                                             ],
@@ -401,7 +438,7 @@ class _AddressState extends State<Address> {
                                                 top: 5, bottom: 0),
                                             child: Row(
                                               children: [
-                                                Text(
+                                                const Text(
                                                   "Phone :",
                                                   style: TextStyle(
                                                     color: Colors.black38,
@@ -410,7 +447,7 @@ class _AddressState extends State<Address> {
                                                 ),
                                                 Text(
                                                   addressList[index]['phone'],
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Colors.black),
@@ -444,7 +481,7 @@ class _AddressState extends State<Address> {
 
                                       //selectedTileColor: Colors.red,
                                     ),
-                                    Padding(
+                                    const Padding(
                                       padding: EdgeInsets.only(
                                           left: 8, right: 8, top: 10),
                                       child: Divider(
@@ -463,7 +500,7 @@ class _AddressState extends State<Address> {
                                                   ['addressID']);
                                               setState(() {});
                                             },
-                                            child: Text(
+                                            child: const Text(
                                               'Delete',
                                               style:
                                                   TextStyle(color: Colors.red),
@@ -505,7 +542,8 @@ class _AddressState extends State<Address> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                      margin: EdgeInsets.only(top: 4, left: 15),
+                                      margin: const EdgeInsets.only(
+                                          top: 4, left: 15),
                                       child: AutoSizeText(
                                         'Payment Mode',
                                         style: TextStyle(
@@ -515,7 +553,8 @@ class _AddressState extends State<Address> {
                                         maxFontSize: 30,
                                       )),
                                   Container(
-                                      margin: EdgeInsets.only(top: 4, left: 15),
+                                      margin: const EdgeInsets.only(
+                                          top: 4, left: 15),
                                       child: AutoSizeText(
                                         'Select your preferred payment mode',
                                         style: TextStyle(
@@ -529,22 +568,22 @@ class _AddressState extends State<Address> {
                           ),
                         ),
                         Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
-                          margin: EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(10),
                           child: Column(
                             children: <Widget>[
                               RadioListTile(
                                 value: 1,
-                                title: Text('UPI'),
-                                shape: RoundedRectangleBorder(
+                                title: const Text('UPI'),
+                                shape: const RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 activeColor: HexColor("#175244"),
                                 groupValue: _value,
-                                contentPadding: EdgeInsets.only(left: 10),
+                                contentPadding: const EdgeInsets.only(left: 10),
                                 tileColor: Colors.white,
                                 onChanged: (value) {
                                   setState(() {
@@ -561,13 +600,13 @@ class _AddressState extends State<Address> {
                               ),
                               RadioListTile(
                                 value: 2,
-                                title: Text("RazorPay"),
-                                shape: RoundedRectangleBorder(
+                                title: const Text("RazorPay"),
+                                shape: const RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 activeColor: HexColor("#175244"),
                                 groupValue: _value,
-                                contentPadding: EdgeInsets.only(left: 10),
+                                contentPadding: const EdgeInsets.only(left: 10),
                                 tileColor: Colors.white,
                                 onChanged: (value) {
                                   setState(() {
@@ -582,7 +621,7 @@ class _AddressState extends State<Address> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              margin: EdgeInsets.only(
+                              margin: const EdgeInsets.only(
                                   top: 10, bottom: 10, left: 20),
                               child: AutoSizeText(
                                 'Offers & benefits',
@@ -595,7 +634,7 @@ class _AddressState extends State<Address> {
                             ),
                             Container(
                               color: Colors.white,
-                              margin: EdgeInsets.only(
+                              margin: const EdgeInsets.only(
                                   bottom: 10, left: 20, right: 20),
                               width: MediaQuery.of(context).size.width * 0.89,
                               child: TextFormField(
@@ -604,7 +643,7 @@ class _AddressState extends State<Address> {
                                 controller: offers,
                                 onChanged: (value) {},
                                 decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.all(5),
+                                  contentPadding: const EdgeInsets.all(5),
                                   labelText: 'Apply Coupon',
                                   labelStyle: TextStyle(
                                     color: HexColor("#175244"),
@@ -629,8 +668,8 @@ class _AddressState extends State<Address> {
                           ],
                         ),
                         Container(
-                          margin:
-                              EdgeInsets.only(top: 10, bottom: 10, left: 20),
+                          margin: const EdgeInsets.only(
+                              top: 10, bottom: 10, left: 20),
                           child: AutoSizeText(
                             'Use Your Rewards',
                             style: TextStyle(
@@ -643,7 +682,7 @@ class _AddressState extends State<Address> {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Colors.white,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
@@ -665,8 +704,7 @@ class _AddressState extends State<Address> {
                                         maxFontSize: 30,
                                       ),
                                       AutoSizeText(
-                                        "temp rewards",
-                                        //data2[0].rewards.toString(),
+                                        userddt[0]['rewards'].toString(),
                                         style: TextStyle(
                                           color: HexColor("#175244"),
                                         ),
@@ -676,6 +714,7 @@ class _AddressState extends State<Address> {
                                     ],
                                   ),
                                 ),
+                                !rewards?Text("Add more items worth \$" + res.toString()+ " to avail your reward points", style: TextStyle(color: Colors.redAccent),):
                                 Row(
                                   children: [
                                     Checkbox(
@@ -685,15 +724,9 @@ class _AddressState extends State<Address> {
                                       focusColor: Colors.green,
                                       value: isChecked,
                                       onChanged: (bool? value) {
-                                        setState(() {
-                                          // isChecked = !isChecked;
-                                          // final box = Boxes.getCartData();
-                                          // final data = box.values.toList().cast<CartData>();
-                                          // var res = data[0].ttlPrice - (data2[0].rewards!.toDouble()/10);
-                                          // data[0].ttlPrice = res;
-                                          // print('reward calc: '+ data[0].ttlPrice.toString());
-                                          // box.putAt(0, data[0]);
-                                        });
+                                        isChecked = !isChecked;
+                                        userewards();
+                                        setState(() {});
                                       },
                                     ),
                                     AutoSizeText(
@@ -714,53 +747,44 @@ class _AddressState extends State<Address> {
               ),
             ),
       bottomNavigationBar: Container(
-        padding: EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width*0.9,
-            child:
-            ElevatedButton(
-              onPressed: () {
-                if (_value == 1 && afterSelecting == true) {
-                  Get.to(UpiPayment());
-                } else if (_value == 2 && afterSelecting == true) {
-                  Razorpay razorpay = Razorpay();
-                  var options = {
-                    'key': 'rzp_test_jrCnK1rxXepbtl',
-                    'amount': 100,
-                    'name': 'Starschmucks.',
-                    'description': 'Fine Coffee',
-                    'retry': {'enabled': true, 'max_count': 1},
-                    'send_sms_hash': true,
-                    'prefill': {
-                      'contact': '8888888888',
-                      'email': 'test@razorpay.com'
-                    },
-                    'external': {
-                      'wallets': ['paytm']
-                    }
-                  };
-                  razorpay.on(
-                      Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
-                  razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
-                      handlePaymentSuccessResponse);
-                  razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
-                      handleExternalWalletSelected);
-                  razorpay.open(options);
+        padding: const EdgeInsets.all(10.0),
+        child: ElevatedButton(
+          onPressed: () {
+            if (_value == 1 && afterSelecting == true) {
+              Get.to(UpiPayment());
+            } else if (_value == 2 && afterSelecting == true) {
+              Razorpay razorpay = Razorpay();
+              var options = {
+                'key': 'rzp_test_jrCnK1rxXepbtl',
+                'amount': 100,
+                'name': 'Starschmucks.',
+                'description': 'Fine Coffee',
+                'retry': {'enabled': true, 'max_count': 1},
+                'send_sms_hash': true,
+                'prefill': {
+                  'contact': '8888888888',
+                  'email': 'test@razorpay.com'
+                },
+                'external': {
+                  'wallets': ['paytm']
                 }
+              };
+              razorpay.on(
+                  Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
+              razorpay.on(
+                  Razorpay.EVENT_PAYMENT_SUCCESS, handlePaymentSuccessResponse);
+              razorpay.on(
+                  Razorpay.EVENT_EXTERNAL_WALLET, handleExternalWalletSelected);
+              razorpay.open(options);
+            }
 
-                //   afterSelecting
-                //       ? Get.to(PaymentPage(), transition: Transition.rightToLeft)
-                //       : Container();
-              },
-              child: Text("Pay"),
-              style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(HexColor("#036635"))),
-            ),
-            )
-          ],
+            //   afterSelecting
+            //       ? Get.to(PaymentPage(), transition: Transition.rightToLeft)
+            //       : Container();
+          },
+          child: const Text("Pay"),
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(HexColor("#036635"))),
         ),
       ),
     );

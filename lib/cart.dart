@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
+import 'package:starshmucks/common_things.dart';
 import 'package:starshmucks/home/home_screen.dart';
 import 'dart:io' show Platform;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '/db/cart_db.dart';
 import '/model/cart_model.dart';
@@ -28,8 +30,7 @@ class _MyCartState extends State<MyCart> {
   late List<CartModel> datalist = [];
   late List<CartModel> qtylist = [];
   List<CartModel> cartlist = [];
-  double ttl = 0;
-
+ late double ttl = 0;
   @override
   clearcart() {
     cartdb.clear();
@@ -53,12 +54,13 @@ class _MyCartState extends State<MyCart> {
       // print("init cart " + kart.length.toString());
       if (kartTemp.length == 1) kart.add(kartTemp.first);
     }
+    ttl = 90;
     setState(() {});
   }
 
   removefromcart(sendid) {
-    cartdb.deleteitem(sendid);
     datalist.isEmpty ? cartinit = false : cartinit = true;
+    cartdb.deleteitem(sendid);
     getDataOnIds();
     // setState(() {});
   }
@@ -75,6 +77,7 @@ class _MyCartState extends State<MyCart> {
     // setState(() {});
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,15 +85,15 @@ class _MyCartState extends State<MyCart> {
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
-          onPressed: () {
+          onPressed: ()async {
+            final total = await SharedPreferences.getInstance();
+            await total.setDouble('total',ttl);
             setState(() {});
             Get.to(const Address(), transition: Transition.rightToLeft);
           },
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(HexColor("#036635"))),
           child: const Text("Checkout"),
-          //   ),
-          // ],
         ),
       ),
       persistentFooterButtons: [
@@ -110,7 +113,7 @@ class _MyCartState extends State<MyCart> {
                         fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    "\$$ttl",
+                    "\$" + ttl.toString(),
                     style: TextStyle(
                         fontSize: 35,
                         color: HexColor("#175244"),
@@ -118,7 +121,7 @@ class _MyCartState extends State<MyCart> {
                   ),
                 ],
               ),
-              const Text(
+              Text(
                 "( Inclusive of packaging charge )",
               ),
             ],
@@ -161,14 +164,14 @@ class _MyCartState extends State<MyCart> {
                 ];
               },
               body: SingleChildScrollView(
-                physics: const NeverScrollableScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(),
                 child: Column(
                   children: [
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.01,
                     ),
                     ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
+                      physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: datalist.length,
                       itemBuilder: (context, index) {
@@ -227,13 +230,14 @@ class _MyCartState extends State<MyCart> {
                                             IconButton(
                                               icon: const Icon(Icons.remove),
                                               onPressed: () {
+
                                                 if (datalist[index].qty == 1) {
                                                   removefromcart(
                                                       datalist[index]);
                                                 } else {
                                                   decreaseqty(datalist[index]);
                                                 }
-                                                // setState(() {});
+                                                 setState(() {});
                                               },
                                               style: ButtonStyle(
                                                   foregroundColor:

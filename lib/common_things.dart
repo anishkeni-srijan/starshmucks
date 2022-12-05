@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:starshmucks/model/cart_model.dart';
+import 'package:starshmucks/wishlist.dart';
 
 import '/db/cart_db.dart';
 import 'db/user_db.dart';
@@ -102,15 +103,15 @@ gethomeappbar() {
     ),
     elevation: 0,
     actions: [
-      // IconButton(
-      //   color: HexColor("#175244"),
-      //   onPressed: () {
-      //     Get.to(MyCart());
-      //   },
-      //   icon: const Icon(
-      //     Icons.shopping_cart,
-      //   ),
-      // ),
+      IconButton(
+        color: HexColor("#175244"),
+        onPressed: () {
+          Get.to(WishListPage());
+        },
+        icon: const Icon(
+          Icons.favorite,
+        ),
+      ),
     ],
     automaticallyImplyLeading: false,
   );
@@ -121,7 +122,7 @@ late var size = 0;
 getdata() async {
   CartDB cdb = CartDB();
   List<CartModel> data = await cdb.getDataCart();
-  //result =data.isEmpty?0:data[data.length-1].cartttl;
+  size = data.length;
 }
 
 viewincart() {
@@ -168,6 +169,12 @@ viewincart() {
           }),
     ],
   );
+}
+initcart()async{
+  CartDB cdb = CartDB();
+  cdb.initDBCart();
+  List<CartModel>datal = await cdb.getDataCart();
+  datal.isEmpty?cartinit = false:cartinit=true;
 }
 
 Future<bool> gohome() async {
