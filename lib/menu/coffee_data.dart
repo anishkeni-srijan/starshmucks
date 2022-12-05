@@ -193,6 +193,9 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                                       ),
                                     ),
                                   ),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.favorite_border))
                                 ],
                               ),
                             ],

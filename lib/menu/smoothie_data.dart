@@ -170,6 +170,9 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                       ),
                                     ),
                                   ),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.favorite_border))
                                 ],
                               ),
                             ],

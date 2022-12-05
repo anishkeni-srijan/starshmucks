@@ -149,7 +149,9 @@ class _NowServingState extends State<NowServing> {
                             ),
                           ),
                         ),
-                      )
+                      ),
+                      IconButton(
+                          onPressed: () {}, icon: Icon(Icons.favorite_border))
                     ],
                   ),
                 ),

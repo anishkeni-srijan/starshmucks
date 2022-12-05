@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:starshmucks/wishlist.dart';
 
 import 'dart:io';
 
@@ -138,9 +139,11 @@ class _UserProfileState extends State<UserProfile> {
                     ),
                     const DividerForTiles(),
                     profileTile(
-                      text: 'Payment Mode',
-                      press: () {},
-                      icon: Icons.attach_money_sharp,
+                      text: 'Wishlist',
+                      press: () {
+                        Get.to(WishListPage());
+                      },
+                      icon: Icons.favorite_border,
                     ),
                     const DividerForTiles(),
                     profileTile(

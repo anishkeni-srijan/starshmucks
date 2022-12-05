@@ -53,6 +53,12 @@ class _GetOffersState extends State<GetOffers> {
     setState(() {});
   }
 
+  addToWishlist(context, index) async {
+    final cartp = await db.Offersdata();
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     getdata();
@@ -150,7 +156,12 @@ class _GetOffersState extends State<GetOffers> {
                             ),
                           ),
                         ),
-                      )
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            addToWishlist(context, index);
+                          },
+                          icon: Icon(Icons.favorite_border))
                     ],
                   ),
                 ),

@@ -40,8 +40,20 @@ class Help extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("24/7",style: TextStyle(color: Colors.white,fontSize: 22,fontWeight: FontWeight.bold),),
-                    Text("Help Centre",style: TextStyle(color: Colors.white,fontSize: 38,fontWeight: FontWeight.bold),),
+                    Text(
+                      "24/7",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "Help Centre",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 38,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ],
                 ),
               ),
@@ -60,7 +72,10 @@ class Help extends StatelessWidget {
                     color: HexColor("#036635"),
                   ),
                 ),
-                Icon(Icons.waving_hand_rounded)
+                Icon(
+                  Icons.waving_hand_rounded,
+                  color: HexColor("#175244"),
+                )
               ],
             ),
             SizedBox(
@@ -68,12 +83,11 @@ class Help extends StatelessWidget {
             ),
             Container(
               alignment: AlignmentDirectional.center,
-              width: MediaQuery.of(context).size.width*0.7,
+              width: MediaQuery.of(context).size.width * 0.7,
               child: Text(
                 "Our team of Superheros are standing by for service & support.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-
                   fontWeight: FontWeight.w600,
                   fontSize: 12,
                   color: HexColor("#036635"),
@@ -94,7 +108,7 @@ class Help extends StatelessWidget {
                   ),
                   iconColor: HexColor("#036635"),
                   collapsedIconColor: HexColor("#036635"),
-                  title:  Padding(
+                  title: Padding(
                       padding: const EdgeInsets.only(
                           top: 20.0, bottom: 20.0, left: 30),
                       child: Row(
@@ -108,7 +122,8 @@ class Help extends StatelessWidget {
                           ),
                           Text(
                             'Chat',
-                            style: TextStyle(fontSize: 20,color:HexColor("#036635") ),
+                            style: TextStyle(
+                                fontSize: 20, color: HexColor("#036635")),
                           ),
                         ],
                       )),
@@ -124,9 +139,10 @@ class Help extends StatelessWidget {
                           throw 'Could not launch $mailUrl';
                         }
                       },
-                      child: Text("Write to Us",style: TextStyle(color: HexColor("#036635") ),),
-
-
+                      child: Text(
+                        "Write to Us",
+                        style: TextStyle(color: HexColor("#036635")),
+                      ),
                     )
                   ],
                 ),
@@ -261,8 +277,7 @@ class Help extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 1,
               child: Card(
                 elevation: 8,
-                child:
-                ExpansionTile(
+                child: ExpansionTile(
                   trailing: SizedBox(
                     width: 10,
                   ),
@@ -282,7 +297,8 @@ class Help extends StatelessWidget {
                           ),
                           Text(
                             'Call Us',
-                            style: TextStyle(fontSize: 20,color: HexColor("#036635")),
+                            style: TextStyle(
+                                fontSize: 20, color: HexColor("#036635")),
                           ),
                         ],
                       )),
@@ -315,8 +331,6 @@ class Help extends StatelessWidget {
                             ),
                           ),
                         ),
-
-
                       ],
                     ),
                   ],

@@ -169,6 +169,9 @@ class _GetCakeDataState extends State<GetCakeData> {
                                   ),
                                 ),
                               ),
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.favorite_border))
                             ],
                           ),
                         ],
