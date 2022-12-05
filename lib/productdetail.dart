@@ -24,35 +24,31 @@ class _ProductDetailState extends State<ProductDetail> {
     CartDB cdb = CartDB();
     MenuDB db = MenuDB();
     var ttl = await cdb.getDataCart();
-    ttl.isEmpty?
-    cdb.insertDataCart(
-        CartModel(id: prod.id, qty: 1,cartttl:double.parse(prod.price))
-    ):
-    cdb.insertDataCart(
-        CartModel(id: prod.id, qty: 1,cartttl:ttl[ttl.length-1].cartttl+double.parse(prod.price))
-    );
+    ttl.isEmpty
+        ? cdb.insertDataCart(CartModel(id: prod.id, qty: 1))
+        : cdb.insertDataCart(CartModel(id: prod.id, qty: 1));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        persistentFooterButtons: cartinit ? [viewincart()]: null,
-        bottomNavigationBar:Container(
+        persistentFooterButtons: cartinit ? [viewincart()] : null,
+        bottomNavigationBar: Container(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
             onPressed: () {
               addToCart(product);
               cartinit = true;
-              setState(() {
-              });
+              setState(() {});
             },
             style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(HexColor("#036635"))),
+                backgroundColor:
+                    MaterialStateProperty.all(HexColor("#036635"))),
             child: const Text("Add To Cart"),
             //   ),
             // ],
           ),
-        ) ,
+        ),
         appBar: gethomeappbar(),
         body: SingleChildScrollView(
           child: Column(
@@ -94,7 +90,9 @@ class _ProductDetailState extends State<ProductDetail> {
                 ),
               ),
               Container(
-                margin: product.category=='cake'?EdgeInsets.only(top: 0):EdgeInsets.only(top: 60),
+                margin: product.category == 'cake'
+                    ? EdgeInsets.only(top: 0)
+                    : EdgeInsets.only(top: 60),
                 padding: EdgeInsets.only(
                   left: MediaQuery.of(context).size.width * 0.2,
                   right: MediaQuery.of(context).size.width * 0.2,
@@ -129,8 +127,8 @@ class _ProductDetailState extends State<ProductDetail> {
               ),
               Container(
                 padding: EdgeInsets.only(
-                  left:  MediaQuery.of(context).size.width * 0.2,
-                  right:  MediaQuery.of(context).size.width * 0.2,
+                  left: MediaQuery.of(context).size.width * 0.2,
+                  right: MediaQuery.of(context).size.width * 0.2,
                 ),
                 transform: Matrix4.translationValues(
                     0, MediaQuery.of(context).size.height * -0.12, 0),
@@ -173,16 +171,16 @@ class _ProductDetailState extends State<ProductDetail> {
               Container(
                 transform: Matrix4.translationValues(
                     0, MediaQuery.of(context).size.height * -0.05, 0),
-                child:
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children:[
-                  Text("\$"+
-                  product.price,
-                  style: TextStyle(fontSize: 30),
-                ),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        "\$" + product.price,
+                        style: TextStyle(fontSize: 30),
+                      ),
                       Container(
-                        transform: Matrix4.translationValues(MediaQuery.of(context).size.width * 0.42, 0, 0),
+                          transform: Matrix4.translationValues(
+                              MediaQuery.of(context).size.width * 0.42, 0, 0),
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
@@ -196,28 +194,37 @@ class _ProductDetailState extends State<ProductDetail> {
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(6.0),
-                            child: Icon(Icons.favorite_border,color: Colors.white,),
-                          )
+                            child: Icon(
+                              Icons.favorite_border,
+                              color: Colors.white,
+                            ),
+                          )),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.2,
                       ),
-                      SizedBox(width:  MediaQuery.of(context).size.width * 0.2,),
                       Container(
-                          margin: EdgeInsets.only(right:20 ),
-                          transform: Matrix4.translationValues(MediaQuery.of(context).size.width * 0.07, 0, 0),
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              blurStyle: BlurStyle.solid,
-                                blurRadius: 20,
-                                color: Colors.grey, //New
-                                offset: Offset(0, 0))
-                          ],
-                          color: Colors.black,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Padding(
+                          margin: EdgeInsets.only(right: 20),
+                          transform: Matrix4.translationValues(
+                              MediaQuery.of(context).size.width * 0.07, 0, 0),
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  blurStyle: BlurStyle.solid,
+                                  blurRadius: 20,
+                                  color: Colors.grey, //New
+                                  offset: Offset(0, 0))
+                            ],
+                            color: Colors.black,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Padding(
                             padding: const EdgeInsets.all(6.0),
-                            child:Icon(Icons.share,color: Colors.white,),))
-                ]),
+                            child: Icon(
+                              Icons.share,
+                              color: Colors.white,
+                            ),
+                          ))
+                    ]),
               ),
               Container(
                 transform: Matrix4.translationValues(
@@ -225,12 +232,14 @@ class _ProductDetailState extends State<ProductDetail> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Description:",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600)),
+                    Text("Description:",
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.w600)),
                     Container(
-                           child: Text(
-                          product.description,
-                          style: TextStyle(fontSize: 15),
-                        )),
+                        child: Text(
+                      product.description,
+                      style: TextStyle(fontSize: 15),
+                    )),
                   ],
                 ),
               ),

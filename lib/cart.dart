@@ -60,26 +60,20 @@ class _MyCartState extends State<MyCart> {
     setState(() {});
   }
 
-  increaseqty(sendid,price) {
-    cartdb.increseqty(sendid,price);
+  increaseqty(sendid, price) {
+    cartdb.increseqty(sendid);
     setState(() {});
   }
 
-  decreaseqty(sendid,price) {
-    cartdb.decreaseqty(sendid,price);
+  decreaseqty(sendid, price) {
+    cartdb.decreaseqty(sendid);
     setState(() {});
-  }
-
-  getttl() {
-    ttl=datalist.isEmpty?0:datalist[datalist.length-1].cartttl;
-    setState((){});
-    return ttl.toString();
   }
 
   @override
   Widget build(BuildContext context) {
     getDataOnIds();
-    getttl();
+
     return Scaffold(
       backgroundColor: Colors.white,
       bottomNavigationBar: Container(
@@ -113,7 +107,7 @@ class _MyCartState extends State<MyCart> {
                         fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    "\$"+ttl.toString(),
+                    "\$" + ttl.toString(),
                     style: TextStyle(
                         fontSize: 35,
                         color: HexColor("#175244"),
@@ -133,7 +127,7 @@ class _MyCartState extends State<MyCart> {
           : NestedScrollView(
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) {
-                    return <Widget>[
+                return <Widget>[
                   SliverAppBar(
                     toolbarHeight: 120,
                     backgroundColor: Colors.white,
@@ -168,7 +162,7 @@ class _MyCartState extends State<MyCart> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height:MediaQuery.of(context).size.height*0.01,
+                      height: MediaQuery.of(context).size.height * 0.01,
                     ),
                     ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
@@ -238,8 +232,11 @@ class _MyCartState extends State<MyCart> {
                                                   removefromcart(
                                                       datalist[index]);
                                                 } else {
-                                                  double res1 =(double.parse(kart1[index].price*datalist[index].qty));
-                                                  decreaseqty(datalist[index],res1);
+                                                  double res1 = (double.parse(
+                                                      kart1[index].price *
+                                                          datalist[index].qty));
+                                                  decreaseqty(
+                                                      datalist[index], res1);
                                                 }
                                                 setState(() {});
                                               },
@@ -253,8 +250,11 @@ class _MyCartState extends State<MyCart> {
                                             IconButton(
                                               icon: const Icon(Icons.add),
                                               onPressed: () {
-                                                double res = (double.parse(kart1[index].price*datalist[index].qty));
-                                                increaseqty(datalist[index],res);
+                                                double res = (double.parse(
+                                                    kart1[index].price *
+                                                        datalist[index].qty));
+                                                increaseqty(
+                                                    datalist[index], res);
                                                 setState(() {});
                                               },
                                               style: ButtonStyle(

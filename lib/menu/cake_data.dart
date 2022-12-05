@@ -38,13 +38,12 @@ class _GetCakeDataState extends State<GetCakeData> {
   addToCart(context, index) async {
     final cartp = await db.cakedata();
     var ttl = await cdb.getDataCart();
-    ttl.isEmpty?
-    cdb.insertDataCart(
-        CartModel(id: cartp[index].id, qty: 1,cartttl:double.parse(cartp[index].price))
-    ):
-    cdb.insertDataCart(
-        CartModel(id: cartp[index].id, qty: 1,cartttl:ttl[ttl.length-1].cartttl+double.parse(cartp[index].price))
-    );
+    ttl.isEmpty
+        ? cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1))
+        : cdb.insertDataCart(CartModel(
+            id: cartp[index].id,
+            qty: 1,
+          ));
 
     setState(() {});
   }
@@ -59,132 +58,127 @@ class _GetCakeDataState extends State<GetCakeData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      persistentFooterButtons: cartinit ? [viewincart()]: null,
-      body: ListView.builder(
-              shrinkWrap: true,
-              itemCount: data.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    getpdata(data[index]);
-                    Get.to(ProductDetail(),transition: Transition.downToUp);
-                  },
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.18,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border(
-                          bottom: BorderSide(
-                              color: HexColor("#175244"), width: 0.2)),
+        persistentFooterButtons: cartinit ? [viewincart()] : null,
+        body: ListView.builder(
+          shrinkWrap: true,
+          itemCount: data.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                getpdata(data[index]);
+                Get.to(ProductDetail(), transition: Transition.downToUp);
+              },
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.18,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border(
+                      bottom:
+                          BorderSide(color: HexColor("#175244"), width: 0.2)),
+                ),
+                child: Row(
+                  mainAxisAlignment:
+                      MainAxisAlignment.start, //change here don't //worked
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 10, bottom: 20),
+                      transform: Matrix4.translationValues(-10, 20, 0),
+                      child: Image.asset(
+                        data[index].image,
+                        width: 150,
+                        height: 150,
+                      ),
                     ),
-                    child: Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.start, //change here don't //worked
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(left: 10, bottom: 20),
-                          transform: Matrix4.translationValues(-10, 20, 0),
-                          child: Image.asset(
-                            data[index].image,
-                            width: 150,
-                            height: 150,
+                    Container(
+                      padding: EdgeInsets.only(
+                        top: 15,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          AutoSizeText(
+                            data[index].title,
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                            maxFontSize: 18,
+                            maxLines: 1,
                           ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(
-                            top: 15,
+                          SizedBox(
+                            height: MediaQuery.of(context).size.width * 0.03,
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Text(
+                            " \$ " + data[index].price,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.width * 0.06,
+                          ),
+                          Row(
                             children: <Widget>[
                               AutoSizeText(
-                                data[index].title,
+                                data[index].rating,
                                 style: TextStyle(
                                   color: Colors.black,
-                                ),
-                                maxFontSize: 18,
-                                maxLines: 1,
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.width * 0.03,
-                              ),
-                              Text(
-                                " \$ " + data[index].price,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
                                   fontWeight: FontWeight.w800,
                                 ),
+                                minFontSize: 12,
+                                maxFontSize: 18,
                               ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.width * 0.06,
+                              Icon(
+                                Icons.star,
+                                size: 20,
+                                color: Colors.amberAccent,
                               ),
-                              Row(
-                                children: <Widget>[
-                                  AutoSizeText(
-                                    data[index].rating,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                    minFontSize: 12,
-                                    maxFontSize: 18,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    size: 20,
-                                    color: Colors.amberAccent,
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                        left:
-                                            MediaQuery.of(context).size.width *
-                                                0.22),
-                                    child: TextButton(
-                                      onPressed: () {
-                                        addToCart(context, data[index].id);
+                              Container(
+                                margin: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.width *
+                                        0.22),
+                                child: TextButton(
+                                  onPressed: () {
+                                    addToCart(context, data[index].id);
 
-                                        setState(
-                                          () {
-                                            cartinit = true;
-                                          },
-                                        );
+                                    setState(
+                                      () {
+                                        cartinit = true;
                                       },
-                                      child: Text('Add'),
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                index % 2 == 0
-                                                    ? Colors.teal
-                                                    : Colors.deepOrangeAccent),
-                                        foregroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.white),
-                                        shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(18.0),
-                                          ),
-                                        ),
+                                    );
+                                  },
+                                  child: Text('Add'),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            index % 2 == 0
+                                                ? Colors.teal
+                                                : Colors.deepOrangeAccent),
+                                    foregroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.white),
+                                    shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
                                       ),
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },
-            )
-
-    );
+                  ],
+                ),
+              ),
+            );
+          },
+        ));
   }
 }

@@ -121,7 +121,7 @@ late var size = 0;
 getdata() async {
   CartDB cdb = CartDB();
   List<CartModel> data = await cdb.getDataCart();
-  result =data.isEmpty?0:data[data.length-1].cartttl;
+  //result =data.isEmpty?0:data[data.length-1].cartttl;
 }
 
 viewincart() {
