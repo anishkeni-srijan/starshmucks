@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:starshmucks/home/home_screen.dart';
-import 'dart:io' show Platform;
 
 import '/db/cart_db.dart';
 import '/model/cart_model.dart';
@@ -230,8 +229,8 @@ class _MyCartState extends State<MyCart> {
                                                 if (datalist[index].qty == 1) {
                                                   removefromcart(
                                                       datalist[index]);
-                                                } else {decreaseqty(
-                                                      datalist[index]);
+                                                } else {
+                                                  decreaseqty(datalist[index]);
                                                 }
                                                 setState(() {});
                                               },
@@ -245,8 +244,7 @@ class _MyCartState extends State<MyCart> {
                                             IconButton(
                                               icon: const Icon(Icons.add),
                                               onPressed: () {
-                                                increaseqty(
-                                                    datalist[index]);
+                                                increaseqty(datalist[index]);
                                                 setState(() {});
                                               },
                                               style: ButtonStyle(
