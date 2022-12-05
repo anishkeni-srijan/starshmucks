@@ -33,7 +33,7 @@ class _RewardsState extends State<Rewards> {
   Widget build(BuildContext context) {
     getuser();
     return Scaffold(
-      persistentFooterButtons: cartinit ? [viewincart()] : [Container()],
+      persistentFooterButtons: cartinit ? [viewincart()] :null,
       appBar: AppBar(
         title: Text('Rewards'),
         backgroundColor: Colors.white,
@@ -41,96 +41,79 @@ class _RewardsState extends State<Rewards> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          //  mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: Text(
-                      'Welcome back!',
-                      style: TextStyle(
-                        color: HexColor("#175244"),
-                        fontSize: 35,
-                      ),
-                    ),
-                  ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0, right: 10),
+              child: Card(
+                color: HexColor("#175244"),
+                margin: EdgeInsets.only(top: 20),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0, right: 10),
-                  child: Card(
-                    color: HexColor("#175244"),
-                    margin: EdgeInsets.only(top: 90),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    shadowColor: Colors.black,
-                    elevation: 4,
-                    child: Container(
-                      margin: EdgeInsets.only(left: 30),
-                      transform: Matrix4.translationValues(-10, 20, 0),
-                      height: 200,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                shadowColor: Colors.black,
+                elevation: 4,
+                child: Container(
+                  margin: EdgeInsets.only(left: 30),
+                  transform: Matrix4.translationValues(-10, 20, 0),
+                  height: 200,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AutoSizeText(
-                                  'My Points',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                  minFontSize: 23,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    top: 5.0,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      AutoSizeText(
-                                        usernames[0]['rewards'].toString(),
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white,
-                                        ),
-                                        minFontSize: 23,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 2.0, left: 5),
-                                        child: Icon(
-                                          Icons.stars_sharp,
-                                          color: Colors.amberAccent,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 70,
-                                ),
-                                Text(
-                                  usernames[0]['name'],
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 25,
-                                  ),
-                                ),
-                              ],
+                            AutoSizeText(
+                              'My Points',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                              minFontSize: 23,
                             ),
-                            Container(
-                              transform: Matrix4.translationValues(20, -20, 0),
-                              child: Image.asset("images/shmucks.png"),
-                            )
-                          ]),
-                    ),
-                  ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 5.0,
+                              ),
+                              child: Row(
+                                children: [
+                                  AutoSizeText(
+                                    usernames[0]['rewards'].toString(),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white,
+                                    ),
+                                    minFontSize: 23,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 2.0, left: 5),
+                                    child: Icon(
+                                      Icons.stars_sharp,
+                                      color: Colors.amberAccent,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 70,
+                            ),
+                            Text(
+                              usernames[0]['name'],
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          transform: Matrix4.translationValues(20, -20, 0),
+                          child: Image.asset("images/shmucks.png"),
+                        )
+                      ]),
                 ),
-              ],
+              ),
             ),
             SizedBox(
               height: 20,
@@ -144,242 +127,273 @@ class _RewardsState extends State<Rewards> {
                 minFontSize: 18,
               ),
             ),
-            const SizedBox(height: 20),
-            Container(
-              margin: EdgeInsets.only(left: 15),
-              child: Column(
-                children: [
-                  Text(
-                    "Refer a friend",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 25,
-                        color: HexColor("#175244")),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "And you both save \$XX.",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        CupertinoIcons.info_circle,
-                        color: HexColor("#175244"),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "How it works",
-                        style: TextStyle(
-                            color: HexColor("#175244"),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Column(
-                    //mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: CircleAvatar(
-                              backgroundColor: HexColor("#175244"),
-                              child: Text(
-                                "1",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              radius: 30,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                "Invite your friends",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                "Just share your link",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w200,
-                                    color: Colors.grey.shade600),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          margin: EdgeInsets.only(left: 30, top: 5),
-                          child: DottedLine(
-                            direction: Axis.vertical,
-                            lineLength: 35,
-                            lineThickness: 2,
-                            dashLength: 6,
-                            dashColor: Colors.grey,
+            Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(10),
+                  width: MediaQuery.of(context).size.width*1,
+                  child: Card(
+                    elevation: 10,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Refer a friend",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w800,
+                                fontSize: 25,
+                                color: HexColor("#175244")),
                           ),
                         ),
-                      ),
-                      Row(
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: CircleAvatar(
-                              backgroundColor: HexColor("#175244"),
-                              child: Text(
-                                "2",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              radius: 30,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "They get coffee",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                "With \$XX off",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w200,
-                                    color: Colors.grey.shade600),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          margin: EdgeInsets.only(left: 30, top: 5),
-                          child: DottedLine(
-                            direction: Axis.vertical,
-                            lineLength: 35,
-                            lineThickness: 2,
-                            dashLength: 6,
-                            dashColor: Colors.grey,
-                          ),
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      Row(
+                        Text(
+                          "And you both save \$XX.",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Card(
+                    elevation: 10,
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      child: Column(
                         children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: CircleAvatar(
-                              backgroundColor: HexColor("#175244"),
-                              child: Text(
-                                "3",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              radius: 30,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
+                            // mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(
-                                "You make savings!",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              Icon(
+                                CupertinoIcons.info_circle,
+                                color: HexColor("#175244"),
                               ),
                               SizedBox(
-                                height: 8,
+                                width: 5,
                               ),
                               Text(
-                                "Then you get \$XX off",
+                                "How it works",
                                 style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w200,
-                                    color: Colors.grey.shade600),
+                                    color: HexColor("#175244"),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
                               ),
                             ],
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // Text(refLink),
-                          TextButton(
-                            onPressed: () async {
-                              Clipboard.setData(ClipboardData(text: refLink))
-                                  .then(
-                                (value) {
-                                  return ScaffoldMessenger.of(context)
-                                      .showSnackBar(
-                                    const SnackBar(
-                                      backgroundColor: Colors.green,
-                                      content: Text('Referral link copied'),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: CircleAvatar(
+                                  backgroundColor: HexColor("#175244"),
+                                  child: Text(
+                                    "1",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
                                     ),
+                                  ),
+                                  radius: 30,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Column(
+                                children: [
+                                  Text(
+                                    "Invite your friends",
+                                    style: TextStyle(
+                                        fontSize: 18, fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(
+                                    "Just share your link",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w200,
+                                        color: Colors.grey.shade600),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(
+                              margin: EdgeInsets.only(left: 30, top: 5),
+                              child: DottedLine(
+                                direction: Axis.vertical,
+                                lineLength: 35,
+                                lineThickness: 2,
+                                dashLength: 6,
+                                dashColor: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: CircleAvatar(
+                                  backgroundColor: HexColor("#175244"),
+                                  child: Text(
+                                    "2",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  radius: 30,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "They get coffee",
+                                    style: TextStyle(
+                                        fontSize: 18, fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(
+                                    "With \$XX off",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w200,
+                                        color: Colors.grey.shade600),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(
+                              margin: EdgeInsets.only(left: 30, top: 5),
+                              child: DottedLine(
+                                direction: Axis.vertical,
+                                lineLength: 35,
+                                lineThickness: 2,
+                                dashLength: 6,
+                                dashColor: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: CircleAvatar(
+                                  backgroundColor: HexColor("#175244"),
+                                  child: Text(
+                                    "3",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  radius: 30,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "You make savings!",
+                                    style: TextStyle(
+                                        fontSize: 18, fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(
+                                    "Then you get \$XX off",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w200,
+                                        color: Colors.grey.shade600),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Wrap(
+                            children: [
+                          Container(
+                            margin:EdgeInsets.only(top:5),
+                            width:MediaQuery.of(context).size.width*0.6,
+                          padding:EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(width: 1.0, color: HexColor("#175244")),
+                              ),
+                              color: Colors.white,
+                            ),
+                          child:Text(
+                                refLink,
+                                overflow:TextOverflow.ellipsis,
+                                style: TextStyle(color: HexColor("#175244"), fontSize: 15),
+                              ),),
+                              ElevatedButton(
+                                onPressed: () async {
+                                  Clipboard.setData(ClipboardData(text: refLink))
+                                      .then(
+                                    (value) {
+                                      return ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: HexColor("#175244"),
+                                          content: Text('Referral link copied',style: TextStyle(color: Colors.white),),
+                                        ),
+                                      );
+                                    },
                                   );
                                 },
-                              );
-                            },
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.green.shade900),
-                            ),
-                            child: Text(
-                              refLink + "    COPY",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ),
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all<Color>(HexColor("#175244")),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 10,bottom: 10),
+                                  child: Text("COPY",
+                                    style: TextStyle(color: Colors.white, fontSize: 15),),
+                                )
+                              ),
+
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                  ),
+                )
+              ],
             ),
           ],
         ),
