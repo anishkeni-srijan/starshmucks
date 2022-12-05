@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 
+import '../db/wishlist_db.dart';
+import '../model/wishlist_model.dart';
 import '../productdetail.dart';
 import '/db/menu_db.dart';
 import '../db/cart_db.dart';
@@ -24,26 +26,29 @@ class _NowServingState extends State<NowServing> {
   late var product;
 
   late CartDB cdb;
-
+  late WishlistDB wdb;
   @override
   void initState() {
     cdb = CartDB();
     cdb.initDBCart();
     db = MenuDB();
     db.initDBMenu();
-
+    wdb = WishlistDB();
+    wdb.initDBWishlist();
     super.initState();
   }
 
   addToCart(context, index) async {
     final cartp = await db.NowServedata();
     var ttl = await cdb.getDataCart();
-    ttl.isEmpty
-        ? cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1))
-        : cdb.insertDataCart(CartModel(
-            id: cartp[index].id,
-            qty: 1,
-          ));
+    cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
+
+    setState(() {});
+  }
+
+  addToWishlist(context, index) async {
+    final cartp = await db.NowServedata();
+    wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
     setState(() {});
   }
 
@@ -151,7 +156,10 @@ class _NowServingState extends State<NowServing> {
                         ),
                       ),
                       IconButton(
-                          onPressed: () {}, icon: Icon(Icons.favorite_border))
+                          onPressed: () {
+                            addToWishlist(context, index);
+                          },
+                          icon: Icon(Icons.favorite_border))
                     ],
                   ),
                 ),

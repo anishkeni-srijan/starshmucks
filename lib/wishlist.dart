@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
+import 'package:starshmucks/db/wishlist_db.dart';
+import 'package:starshmucks/model/wishlist_model.dart';
 import 'address_payment_page/address_payment.dart';
 import 'db/cart_db.dart';
 import 'db/menu_db.dart';
@@ -20,31 +22,25 @@ class _WishListPageState extends State<WishListPage> {
   bool ischecked = false;
   var result;
   @override
-  late CartDB cartdb;
+  late WishlistDB wdb;
   late MenuDB menudb;
   late OrdersDB orderdb;
   late List<MenuModel> kart = [];
   late List<MenuModel> kart1 = [];
-  late List<CartModel> datalist = [];
-  late List<CartModel> qtylist = [];
-  List<CartModel> cartlist = [];
+  late List<WishlistModel> datalist = [];
+  List<WishlistModel> wishlist = [];
   double ttl = 0;
   @override
-  clearcart() {
-    cartdb.clear();
-    setState(() {});
-  }
-
   void initState() {
     menudb = MenuDB();
     menudb.initDBMenu();
-    cartdb = CartDB();
-    cartdb.initDBCart();
+    wdb = WishlistDB();
+    wdb.initDBWishlist();
     super.initState();
   }
 
   getDataOnIds() async {
-    datalist = await cartdb.getDataCart();
+    datalist = await wdb.getDataWishlist();
     for (var i = 0; i < datalist.length; i++) {
       kart = await menudb.getElementOnId_Menu(datalist[i].id);
       // print("init cart " + kart.length.toString());
@@ -54,7 +50,7 @@ class _WishListPageState extends State<WishListPage> {
   }
 
   removefromcart(sendid) {
-    cartdb.deleteitem(sendid);
+    wdb.deleteitemFromWishlist(sendid);
     datalist.isEmpty ? cartinit = false : cartinit = true;
     setState(() {});
   }
@@ -166,8 +162,6 @@ class _WishListPageState extends State<WishListPage> {
                                                       MaterialStateProperty.all(
                                                           HexColor("#036635"))),
                                             ),
-                                            Text(
-                                                datalist[index].qty.toString()),
                                             IconButton(
                                               icon: const Icon(Icons.add),
                                               onPressed: () {

@@ -12,7 +12,7 @@ class WishlistDB {
       onCreate: (database, version) async {
         await database.execute("""
           CREATE TABLE IF NOT EXISTS WishlistTable(
-          id INT NOT NULL UNIQUE,
+          id INT NOT NULL UNIQUE
           )
           """);
       },
@@ -25,16 +25,6 @@ class WishlistDB {
     int count = await db.insert("WishlistTable", item.toMap(),
         conflictAlgorithm: ConflictAlgorithm.ignore);
 
-    if (count > 0) {
-    } else {
-      final List<Map<String, dynamic>> maps = await db.query(
-        "WishlistTable",
-        where: 'id = ?',
-        whereArgs: [item.id],
-      );
-      var test = WishlistModel(id: maps[0]['id']);
-    }
-    print("inserted in wishlist");
     return true;
   }
 

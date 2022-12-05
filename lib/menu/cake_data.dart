@@ -4,9 +4,11 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import '../common_things.dart';
+import '../db/wishlist_db.dart';
 import '../home/home_screen.dart';
 import '../model/cart_model.dart';
 import '../model/menu_model.dart';
+import '../model/wishlist_model.dart';
 import '../productdetail.dart';
 import '/db/cart_db.dart';
 import '/db/menu_db.dart';
@@ -24,6 +26,7 @@ class _GetCakeDataState extends State<GetCakeData> {
   List<MenuModel> data = [];
 
   late CartDB cdb;
+  late WishlistDB wdb;
   @override
   void initState() {
     cdb = CartDB();
@@ -32,7 +35,16 @@ class _GetCakeDataState extends State<GetCakeData> {
     db = MenuDB();
     db.initDBMenu();
     getdata();
+
+    wdb = WishlistDB();
+    wdb.initDBWishlist();
     super.initState();
+  }
+
+  addToWishlist(context, index) async {
+    final cartp = await db.cakedata();
+    wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
+    setState(() {});
   }
 
   addToCart(context, index) async {
@@ -170,7 +182,9 @@ class _GetCakeDataState extends State<GetCakeData> {
                                 ),
                               ),
                               IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    addToWishlist(context, index);
+                                  },
                                   icon: Icon(Icons.favorite_border))
                             ],
                           ),

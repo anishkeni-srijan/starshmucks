@@ -4,9 +4,11 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 
 import '../common_things.dart';
+import '../db/wishlist_db.dart';
 import '../home/home_screen.dart';
 import '../model/cart_model.dart';
 import '../model/menu_model.dart';
+import '../model/wishlist_model.dart';
 import '../productdetail.dart';
 import '/db/cart_db.dart';
 import '/db/menu_db.dart';
@@ -33,10 +35,17 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     setState(() {});
   }
 
+  addToWishlist(context, index) async {
+    final cartp = await db.smoothiedata();
+    wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
+    setState(() {});
+  }
+
   late MenuDB db;
   bool getdataf = false;
   List<MenuModel> data = [];
   late CartDB cdb;
+  late WishlistDB wdb;
   @override
   void initState() {
     cdb = CartDB();
@@ -45,14 +54,18 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     db = MenuDB();
     db.initDBMenu();
 
+    wdb = WishlistDB();
+    wdb.initDBWishlist();
     super.initState();
   }
 
   getdata() async {
     data = await db.smoothiedata();
-    setState(() {
-      getdataf = true;
-    });
+    if (this.mounted) {
+      setState(() {
+        getdataf = true;
+      });
+    }
   }
 
   @override
@@ -171,7 +184,9 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                     ),
                                   ),
                                   IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        addToWishlist(context, index);
+                                      },
                                       icon: Icon(Icons.favorite_border))
                                 ],
                               ),

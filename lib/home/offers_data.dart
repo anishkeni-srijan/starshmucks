@@ -5,9 +5,11 @@ import 'dart:io' show Platform;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:get/get.dart';
 import 'package:starshmucks/common_things.dart';
+import 'package:starshmucks/model/wishlist_model.dart';
 import 'package:starshmucks/productdetail.dart';
 import '../db/cart_db.dart';
 import '../db/menu_db.dart';
+import '../db/wishlist_db.dart';
 import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 import 'home_screen.dart';
@@ -26,14 +28,15 @@ class _GetOffersState extends State<GetOffers> {
   late var product;
 
   late CartDB cdb;
-
+  late WishlistDB wdb;
   @override
   void initState() {
     cdb = CartDB();
     cdb.initDBCart();
     db = MenuDB();
     db.initDBMenu();
-
+    wdb = WishlistDB();
+    wdb.initDBWishlist();
     super.initState();
   }
 
@@ -47,15 +50,14 @@ class _GetOffersState extends State<GetOffers> {
   addToCart(context, index) async {
     final cartp = await db.Offersdata();
     List<CartModel> ttl = await cdb.getDataCart();
-    ttl.isEmpty
-        ? cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1))
-        : cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
+    cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
+
     setState(() {});
   }
 
   addToWishlist(context, index) async {
     final cartp = await db.Offersdata();
-
+    wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
     setState(() {});
   }
 
