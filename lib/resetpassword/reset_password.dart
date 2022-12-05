@@ -57,7 +57,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         child: Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(
+              margin: const EdgeInsets.only(
                 top: 30,
                 left: 0,
               ),
@@ -70,7 +70,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 onPressed: () {
                   Navigator.of(context).pop(context);
                 },
-                label: Text(''),
+                label: const Text(''),
               ),
             ),
             Padding(
@@ -97,7 +97,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               indent: MediaQuery.of(context).size.width * 0.126,
               endIndent: MediaQuery.of(context).size.width * 0.69,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Container(
@@ -116,7 +116,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       ),
                     ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             BlocBuilder<ResetpasswordBloc, ResetpasswordState>(
@@ -143,8 +143,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       color: HexColor("#036635"),
                     ),
                   );
-                } else
+                } else {
                   return Container();
+                }
               },
             ),
             BlocBuilder<ResetpasswordBloc, ResetpasswordState>(
@@ -238,7 +239,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       SizedBox(
@@ -268,7 +269,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             ),
                             backgroundColor: HexColor("#036635"),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Reset Password',
                             style: TextStyle(
                               fontSize: 18,
