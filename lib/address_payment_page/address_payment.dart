@@ -42,14 +42,12 @@ class _AddressState extends State<Address> {
     udb = UserDB();
     udb.initDBUserData();
     getttl();
-
     super.initState();
   }
 
   getttl() async {
     final total = await SharedPreferences.getInstance();
-    // ttl = total.getDouble('total')!;
-    ttl = 10;
+    ttl = total.getDouble('total')!;
     ttl>10?rewards=true:rewards=false;
   }
 
@@ -250,12 +248,16 @@ class _AddressState extends State<Address> {
       },
     );
   }
-
-  userewards(){
+late  double maxrewards= 0;
+  userewards()async{
+    maxrewards = userddt[0]['rewards']/2;
     isChecked
-        ? ttl = ttl -
-        (userddt[0]['rewards'] / 100)
-        :getttl();
+        ? ttl = ttl - maxrewards
+        :ttl;
+    final prefs = await SharedPreferences.getInstance();
+    await  prefs.setDouble("cartttl",ttl);
+    !isChecked?savings = 0: savings =ttl - userddt[0]['rewards'];
+    await  prefs.setDouble("savings",savings);
     setState(() {
 
     });
@@ -271,6 +273,7 @@ class _AddressState extends State<Address> {
 
   final offers = TextEditingController();
   bool afterSelecting = false;
+  late double savings =0;
   @override
   Widget build(BuildContext context) {
     getUser();
@@ -283,7 +286,7 @@ class _AddressState extends State<Address> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Points savings: \$" +
-                          (userddt[0]['rewards'] / 100).toString()),
+                         savings.toString()),
                       Text("Amount to be paid: \$" + ttl.toString()),
                     ],
                   )
@@ -704,7 +707,7 @@ class _AddressState extends State<Address> {
                                         maxFontSize: 30,
                                       ),
                                       AutoSizeText(
-                                        userddt[0]['rewards'].toString(),
+                                        userddt[0]['rewards'].toStringAsFixed(2),
                                         style: TextStyle(
                                           color: HexColor("#175244"),
                                         ),
@@ -738,6 +741,7 @@ class _AddressState extends State<Address> {
                                     )
                                   ],
                                 ),
+                                isChecked&&maxrewards>2?Text("you can avail a max discount of 2\$"):Container(),
                               ],
                             ),
                           ),

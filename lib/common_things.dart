@@ -3,7 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 import 'package:starshmucks/model/cart_model.dart';
 import 'package:starshmucks/wishlist.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '/db/cart_db.dart';
 import 'db/user_db.dart';
 import 'home/home_screen.dart';
@@ -117,7 +117,8 @@ gethomeappbar() {
   );
 }
 
-late double result = 90;
+late double ttl = 0;
+late double savings = 0;
 late var size = 0;
 getdata() async {
   CartDB cdb = CartDB();
@@ -125,7 +126,13 @@ getdata() async {
   size = data.length;
 }
 
-viewincart() {
+getttl()async{
+  final total = await SharedPreferences.getInstance();
+  ttl = await total.getDouble('total')!;
+  savings =await total.getDouble('savings')!;
+}
+viewincart(){
+  getttl();
   getdata();
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -149,7 +156,7 @@ viewincart() {
               style: TextStyle(color: HexColor("#036635")),
             ),
           Text(
-            "\$" + result.toStringAsFixed(2),
+            "\$" + ttl.toStringAsFixed(2),
             style: TextStyle(
                 color: HexColor("#036635"), fontWeight: FontWeight.w600),
           ),
@@ -200,8 +207,7 @@ calcrewards() async {
   UserDB udb = UserDB();
   List<Map<String, dynamic>> usernames = [];
   usernames = await udb.getDataUserData();
-
-  var res = usernames[0]['rewards'] + 100;
+  var res = 0.0;
   var rewardUpdate = UserModel(
     rewards: res,
     dob: usernames[0]['dob'],

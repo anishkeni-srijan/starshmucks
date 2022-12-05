@@ -24,7 +24,6 @@ class _RewardsState extends State<Rewards> {
   List<Map<String, dynamic>> usernames = [];
   getuser() async {
     UserDB udb = UserDB();
-
     usernames = await udb.getDataUserData();
     setState(() {});
   }
@@ -32,6 +31,8 @@ class _RewardsState extends State<Rewards> {
   @override
   Widget build(BuildContext context) {
     getuser();
+    double res =10.0 - usernames[0]['rewards'];
+    double progvalue = usernames[0]['rewards']/10.0;
     return Scaffold(
       persistentFooterButtons: cartinit ? [viewincart()] :null,
       appBar: AppBar(
@@ -77,7 +78,7 @@ class _RewardsState extends State<Rewards> {
                               child: Row(
                                 children: [
                                   AutoSizeText(
-                                    usernames[0]['rewards'].toString(),
+                                    usernames[0]['rewards'].toStringAsFixed(2),
                                     style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       color: Colors.white,
@@ -120,11 +121,33 @@ class _RewardsState extends State<Rewards> {
             ),
             Center(
               child: AutoSizeText(
-                'You are 4 stars away from another reward',
+                "You are " + res.toStringAsFixed(2) + " stars away from another reward",
                 style: TextStyle(
                   color: HexColor("#175244"),
                 ),
                 minFontSize: 18,
+              ),
+            ),
+            Container(
+              color: Colors.white,
+              padding: EdgeInsets.all(10),
+              width: MediaQuery.of(context).size.width*1,
+              child: Card(
+                elevation: 10,
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: LinearProgressIndicator(
+                        // color: Colors.white,
+                        // backgroundColor: Colors.cyanAccent,
+                        valueColor: new AlwaysStoppedAnimation<Color>(Colors.red),
+                        value: progvalue,
+                        
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Column(

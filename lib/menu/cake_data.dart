@@ -35,7 +35,6 @@ class _GetCakeDataState extends State<GetCakeData> {
     db = MenuDB();
     db.initDBMenu();
     getdata();
-
     wdb = WishlistDB();
     wdb.initDBWishlist();
     super.initState();
@@ -44,7 +43,7 @@ class _GetCakeDataState extends State<GetCakeData> {
   addToWishlist(context, index) async {
     final cartp = await db.cakedata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
-    setState(() {});
+    // setState(() {});
   }
 
   addToCart(context, index) async {
@@ -57,7 +56,7 @@ class _GetCakeDataState extends State<GetCakeData> {
             qty: 1,
           ));
 
-    setState(() {});
+    // setState(() {});
   }
 
   getdata() async {

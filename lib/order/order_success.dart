@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io' show Platform;
 
 import 'package:get/get.dart';
+import 'package:starshmucks/address_payment_page/address_payment.dart';
 import 'package:starshmucks/db/cart_db.dart';
 import 'package:starshmucks/db/menu_db.dart';
 import 'package:starshmucks/db/orders_db.dart';
@@ -61,9 +62,10 @@ class _OrderSuccessState extends State<OrderSuccess> {
 
   getttl() async{
     final total = await SharedPreferences.getInstance();
-    cartttl = total.getDouble('total')!;
-    savings = userddt[0]['rewards']/100;
-    ttl=(ttl+5) - savings;
+    cartttl = total.getDouble('cartttl')!;
+    savings = total.getDouble('savings')!;
+    ttl=(cartttl+5) - savings;
+    print(ttl);
     setState(() {
     });
   }
@@ -118,7 +120,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
             ),
             label: Text(''),
             onPressed: () {
-              gohomefromsuccess();
+             Get.to(Address());
             },
           ),
           title: Text("Order details"),
