@@ -46,9 +46,10 @@ class _GetOffersState extends State<GetOffers> {
 
   addToCart(context, index) async {
     final cartp = await db.Offersdata();
-    cdb.insertDataCart(
-      CartModel(id: cartp[index].id, qty: 1),
-    );
+    List<CartModel> ttl = await cdb.getDataCart();
+    ttl.isEmpty
+        ? cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1))
+        : cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
     setState(() {});
   }
 
@@ -56,10 +57,7 @@ class _GetOffersState extends State<GetOffers> {
   Widget build(BuildContext context) {
     getdata();
     return SizedBox(
-      height: MediaQuery
-          .of(context)
-          .size
-          .height * 0.18,
+      height: MediaQuery.of(context).size.height * 0.18,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: odata.length,
@@ -71,24 +69,19 @@ class _GetOffersState extends State<GetOffers> {
               ),
               GestureDetector(
                 onTap: () {
-                 getpdata(odata[index]);
-                 Get.to(ProductDetail(),transition: Transition.rightToLeftWithFade);
+                  getpdata(odata[index]);
+                  Get.to(ProductDetail(),
+                      transition: Transition.rightToLeftWithFade);
                 },
                 child: Container(
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color:
-                    index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent,
+                        index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height * 0.18,
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width * 0.76,
+                  height: MediaQuery.of(context).size.height * 0.18,
+                  width: MediaQuery.of(context).size.width * 0.76,
                   child: Stack(
                     children: [
                       Container(
@@ -103,8 +96,7 @@ class _GetOffersState extends State<GetOffers> {
                         child: Container(
                           // transform: Matrix4.translationValues(-120, 10, 0),
                           margin: EdgeInsets.only(
-                            top:Platform.isIOS
-                                ?0: 10,
+                            top: Platform.isIOS ? 0 : 10,
                             left: 130,
                           ),
                           child: Text(
@@ -118,8 +110,7 @@ class _GetOffersState extends State<GetOffers> {
                       ),
                       Container(
                         margin: EdgeInsets.only(
-                          top: Platform.isIOS
-                              ?40:30,
+                          top: Platform.isIOS ? 40 : 30,
                           left: 130,
                         ),
                         child: Text(
@@ -148,7 +139,7 @@ class _GetOffersState extends State<GetOffers> {
                           child: Text("Add"),
                           style: ButtonStyle(
                             backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
+                                MaterialStateProperty.all<Color>(Colors.white),
                             foregroundColor: MaterialStateProperty.all<Color>(
                                 HexColor('#175244')),
                             shape: MaterialStateProperty.all<

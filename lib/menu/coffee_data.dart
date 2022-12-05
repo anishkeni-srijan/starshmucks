@@ -43,9 +43,16 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
 
     var zindex = data.indexWhere((item) => item.id == cartp[index].id);
     if (zindex != -1) {
-      cdb.insertDataCart(
-        CartModel(id: cartp[index].id, qty: 1),
-      );
+      var ttl = await cdb.getDataCart();
+      ttl.isEmpty
+          ? cdb.insertDataCart(CartModel(
+              id: cartp[index].id,
+              qty: 1,
+            ))
+          : cdb.insertDataCart(CartModel(
+              id: cartp[index].id,
+              qty: 1,
+            ));
     } else {
       print('already added');
     }
@@ -74,7 +81,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     }
     // print('items in db: ' + data.length.toString());
     return Scaffold(
-      persistentFooterButtons: cartinit ? [viewincart()]: null,
+      persistentFooterButtons: cartinit ? [viewincart()] : null,
       body: getdataf
           ? ListView.builder(
               shrinkWrap: true,
@@ -83,7 +90,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                 return GestureDetector(
                   onTap: () {
                     getpdata(data[index]);
-                    Get.to(ProductDetail(),transition: Transition.downToUp);
+                    Get.to(ProductDetail(), transition: Transition.downToUp);
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.18,

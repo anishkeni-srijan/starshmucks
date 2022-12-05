@@ -23,9 +23,13 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     late MenuDB db;
     db = MenuDB();
     final cartp = await db.smoothiedata();
-    cdb.insertDataCart(
-      CartModel(id: cartp[index].id, qty: 1),
-    );
+    var ttl = await cdb.getDataCart();
+    ttl.isEmpty
+        ? cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1))
+        : cdb.insertDataCart(CartModel(
+            id: cartp[index].id,
+            qty: 1,
+          ));
     setState(() {});
   }
 
@@ -55,7 +59,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
   Widget build(BuildContext context) {
     getdata();
     return Scaffold(
-      persistentFooterButtons: cartinit ? [viewincart()]: null,
+      persistentFooterButtons: cartinit ? [viewincart()] : null,
       body: getdataf
           ? ListView.builder(
               shrinkWrap: true,
@@ -64,7 +68,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                 return GestureDetector(
                   onTap: () {
                     getpdata(data[index]);
-                    Get.to(ProductDetail(),transition: Transition.downToUp);
+                    Get.to(ProductDetail(), transition: Transition.downToUp);
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.18,

@@ -37,9 +37,13 @@ class _NowServingState extends State<NowServing> {
 
   addToCart(context, index) async {
     final cartp = await db.NowServedata();
-    cdb.insertDataCart(
-      CartModel(id: cartp[index].id, qty: 1),
-    );
+    var ttl = await cdb.getDataCart();
+    ttl.isEmpty
+        ? cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1))
+        : cdb.insertDataCart(CartModel(
+            id: cartp[index].id,
+            qty: 1,
+          ));
     setState(() {});
   }
 
@@ -67,7 +71,7 @@ class _NowServingState extends State<NowServing> {
               GestureDetector(
                 onTap: () {
                   getpdata(nowdata[index]);
-                  Get.to(ProductDetail(),transition: Transition.downToUp);
+                  Get.to(ProductDetail(), transition: Transition.downToUp);
                 },
                 child: Container(
                   padding: EdgeInsets.all(10),

@@ -9,7 +9,7 @@ class CartModel {
 
   factory CartModel.fromJson(Map<String, dynamic> json) => CartModel(
         id: json["id"],
-        qty: json["qty"]
+        qty: json["qty"],
       );
 
   Map<String, dynamic> toMap() => {

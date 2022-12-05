@@ -13,9 +13,10 @@ dependencies:
   flutter_svg: ^1.1.5
   persistent_bottom_nav_bar: ^5.0.2
   bottom_navy_bar: ^6.0.0
-  url_launcher:
+  url_launcher: ^6.1.7
   sqflite: ^2.2.0+3
   path_provider: ^2.0.11
+  dotted_line: ^3.1.0
 
 
 dev_dependencies:
