@@ -47,14 +47,19 @@ class _MyCartState extends State<MyCart> {
   }
 
   getDataOnIds() async {
-    kart.clear();
     datalist = await cartdb.getDataCart();
+    List<MenuModel> kartTemp = [];
+    double tempTotal = 0;
     for (var i = 0; i < datalist.length; i++) {
-      var kartTemp = await menudb.getElementOnId_Menu(datalist[i].id);
+      var kartData = await menudb.getElementOnId_Menu(datalist[i].id);
       // print("init cart " + kart.length.toString());
-      if (kartTemp.length == 1) kart.add(kartTemp.first);
+      if (kartData.length == 1) {
+        tempTotal += ( double.parse(kartData.first.price) * datalist[i].qty);
+        kartTemp.add(kartData.first);
+      }
     }
-    ttl = 90;
+    kart = kartTemp;
+    ttl = tempTotal;
     setState(() {});
   }
 
@@ -113,7 +118,7 @@ class _MyCartState extends State<MyCart> {
                         fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    "\$" + ttl.toString(),
+                    "\$" + ttl.toStringAsFixed(2),
                     style: TextStyle(
                         fontSize: 35,
                         color: HexColor("#175244"),
@@ -121,7 +126,7 @@ class _MyCartState extends State<MyCart> {
                   ),
                 ],
               ),
-              Text(
+              const Text(
                 "( Inclusive of packaging charge )",
               ),
             ],
