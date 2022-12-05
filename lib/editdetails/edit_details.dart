@@ -54,6 +54,11 @@ class _EditProfileState extends State<EditProfile> {
       ncontroller = TextEditingController(text: usernames[0]['name']);
       phcontroller = TextEditingController(text: usernames[0]['phone']);
       return Scaffold(
+        appBar: AppBar(
+          title: Text("Edit Profile"),
+          backgroundColor: Colors.white,
+          foregroundColor:  HexColor("#175244"),
+        ),
           backgroundColor: HexColor("#175244"),
           body: SingleChildScrollView(
             child: Column(
