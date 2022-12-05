@@ -60,12 +60,12 @@ class _MyCartState extends State<MyCart> {
     setState(() {});
   }
 
-  increaseqty(sendid, price) {
+  increaseqty(sendid) {
     cartdb.increseqty(sendid);
     setState(() {});
   }
 
-  decreaseqty(sendid, price) {
+  decreaseqty(sendid) {
     cartdb.decreaseqty(sendid);
     setState(() {});
   }
@@ -169,7 +169,6 @@ class _MyCartState extends State<MyCart> {
                       shrinkWrap: true,
                       itemCount: datalist.length,
                       itemBuilder: (context, index) {
-                        //print("qty= " + idlist[index].qty.toString());
                         return Card(
                           elevation: 10,
                           child: Padding(
@@ -231,12 +230,8 @@ class _MyCartState extends State<MyCart> {
                                                 if (datalist[index].qty == 1) {
                                                   removefromcart(
                                                       datalist[index]);
-                                                } else {
-                                                  double res1 = (double.parse(
-                                                      kart1[index].price *
-                                                          datalist[index].qty));
-                                                  decreaseqty(
-                                                      datalist[index], res1);
+                                                } else {decreaseqty(
+                                                      datalist[index]);
                                                 }
                                                 setState(() {});
                                               },
@@ -250,11 +245,8 @@ class _MyCartState extends State<MyCart> {
                                             IconButton(
                                               icon: const Icon(Icons.add),
                                               onPressed: () {
-                                                double res = (double.parse(
-                                                    kart1[index].price *
-                                                        datalist[index].qty));
                                                 increaseqty(
-                                                    datalist[index], res);
+                                                    datalist[index]);
                                                 setState(() {});
                                               },
                                               style: ButtonStyle(
