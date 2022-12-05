@@ -188,22 +188,16 @@ class _EditProfileState extends State<EditProfile> {
                             HexColor("#175244"),
                           ),
                         ),
-                        onPressed: () {
-                          // BlocProvider.of<EditdetailsBloc>(context).add(
-                          //   EditdetailsemailChangedEvent(
-                          //     econtroller.text,
-                          //   ),
-                          // );
-                          // BlocProvider.of<EditdetailsBloc>(context).add(
-                          //   EditdetailsNameChangedEvent(
-                          //     ncontroller.text,
-                          //   ),
-                          // );
-                          // BlocProvider.of<EditdetailsBloc>(context).add(
-                          //   EditdetailsNumberChangedEvent(
-                          //     phcontroller.text,
-                          //   ),
-                          // );
+                        onPressed: ()async {
+
+
+                          ScaffoldMessenger.of(context)
+                                    .showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: HexColor("#175244"),
+                                    content: Text('Details Updated',style: TextStyle(color: Colors.white),),
+                                  ),);
+
 
                           var updateData = UserModel(
                               dob: usernames[0]['dob'],
