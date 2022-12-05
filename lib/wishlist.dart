@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:get/get.dart';
-import 'package:starshmucks/db/wishlist_db.dart';
-import 'package:starshmucks/model/wishlist_model.dart';
-import 'address_payment_page/address_payment.dart';
-import 'db/cart_db.dart';
+
+import '/db/wishlist_db.dart';
+import '/model/wishlist_model.dart';
 import 'db/menu_db.dart';
 import 'db/orders_db.dart';
 import 'home/home_screen.dart';
-import 'model/cart_model.dart';
+
 import 'model/menu_model.dart';
 
 class WishListPage extends StatefulWidget {
@@ -49,14 +47,15 @@ class _WishListPageState extends State<WishListPage> {
     setState(() {});
   }
 
-  removefromcart(sendid) {
+  removefromwishlist(sendid) {
     wdb.deleteitemFromWishlist(sendid);
-    datalist.isEmpty ? cartinit = false : cartinit = true;
+    // datalist.isEmpty ? cartinit = false : cartinit = true;
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    getDataOnIds();
     return Scaffold(
       backgroundColor: Colors.white,
       body: datalist == null
@@ -86,7 +85,6 @@ class _WishListPageState extends State<WishListPage> {
                       shrinkWrap: true,
                       itemCount: datalist.length,
                       itemBuilder: (context, index) {
-                        //print("qty= " + idlist[index].qty.toString());
                         return Card(
                           elevation: 10,
                           child: Padding(
@@ -120,7 +118,8 @@ class _WishListPageState extends State<WishListPage> {
                                           ),
                                           TextButton(
                                             onPressed: () {
-                                              removefromcart(datalist[index]);
+                                              removefromwishlist(
+                                                  datalist[index]);
                                               print("removing: " +
                                                   index.toString());
                                               setState(() {});
@@ -135,51 +134,6 @@ class _WishListPageState extends State<WishListPage> {
                                           ),
                                         ],
                                       ),
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            IconButton(
-                                              icon: const Icon(Icons.remove),
-                                              onPressed: () {
-                                                // if (datalist[index].qty == 1) {
-                                                //   removefromcart(
-                                                //       datalist[index]);
-                                                // } else {
-                                                //   double res1 = (double.parse(
-                                                //       kart1[index].price *
-                                                //           datalist[index].qty));
-                                                //   decreaseqty(
-                                                //       datalist[index], res1);
-                                                // }
-                                                // setState(() {});
-                                              },
-                                              style: ButtonStyle(
-                                                  foregroundColor:
-                                                      MaterialStateProperty.all(
-                                                          HexColor("#036635"))),
-                                            ),
-                                            IconButton(
-                                              icon: const Icon(Icons.add),
-                                              onPressed: () {
-                                                // double res = (double.parse(
-                                                //     kart1[index].price *
-                                                //         datalist[index].qty));
-                                                // increaseqty(
-                                                //     datalist[index], res);
-                                                // setState(() {});
-                                              },
-                                              style: ButtonStyle(
-                                                  foregroundColor:
-                                                      MaterialStateProperty.all(
-                                                          HexColor("#036635"))),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
                                     ),
                                   ],
                                 ),

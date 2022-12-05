@@ -21,26 +21,6 @@ class GetSmoothieData extends StatefulWidget {
 }
 
 class _GetSmoothieDataState extends State<GetSmoothieData> {
-  addToCart(context, index) async {
-    late MenuDB db;
-    db = MenuDB();
-    final cartp = await db.smoothiedata();
-    var ttl = await cdb.getDataCart();
-    ttl.isEmpty
-        ? cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1))
-        : cdb.insertDataCart(CartModel(
-            id: cartp[index].id,
-            qty: 1,
-          ));
-    setState(() {});
-  }
-
-  addToWishlist(context, index) async {
-    final cartp = await db.smoothiedata();
-    wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
-    setState(() {});
-  }
-
   late MenuDB db;
   bool getdataf = false;
   List<MenuModel> data = [];
@@ -57,6 +37,25 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     wdb = WishlistDB();
     wdb.initDBWishlist();
     super.initState();
+  }
+
+  addToCart(context, index) async {
+    db = MenuDB();
+    final cartp = await db.smoothiedata();
+    var ttl = await cdb.getDataCart();
+    ttl.isEmpty
+        ? cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1))
+        : cdb.insertDataCart(CartModel(
+            id: cartp[index].id,
+            qty: 1,
+          ));
+    setState(() {});
+  }
+
+  addToWishlist(context, index) async {
+    final cartp = await db.smoothiedata();
+    wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
+    setState(() {});
   }
 
   getdata() async {

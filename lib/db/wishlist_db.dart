@@ -44,5 +44,6 @@ class WishlistDB {
       where: 'id = ?',
       whereArgs: [item.id],
     );
+    print("Deleted");
   }
 }

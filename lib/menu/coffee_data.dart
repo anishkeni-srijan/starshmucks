@@ -43,6 +43,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
   }
 
   addToWishlist(context, index) async {
+    db = MenuDB();
     final cartp = await db.coffeedata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
     setState(() {});
