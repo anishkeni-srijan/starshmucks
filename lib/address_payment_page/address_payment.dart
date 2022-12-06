@@ -35,7 +35,7 @@ class _AddressState extends State<Address> {
   bool isChecked = false;
   bool paid = false;
   int _value = 1;
-  late double res=0;
+  late double res = 0;
   late bool rewards;
   late double ttl = 0;
   void initState() {
@@ -50,7 +50,7 @@ class _AddressState extends State<Address> {
     final total = await SharedPreferences.getInstance();
     // ttl = total.getDouble('total')!;
     ttl = 10;
-    ttl>10?rewards=true:rewards=false;
+    ttl > 10 ? rewards = true : rewards = false;
   }
 
   List<Map<String, dynamic>> userddt = [];
@@ -251,15 +251,11 @@ class _AddressState extends State<Address> {
     );
   }
 
-  userewards(){
-    isChecked
-        ? ttl = ttl -
-        (userddt[0]['rewards'] / 100)
-        :getttl();
-    setState(() {
-
-    });
+  userewards() {
+    isChecked ? ttl = ttl - (userddt[0]['rewards'] / 100) : getttl();
+    setState(() {});
   }
+
   var selectedVal;
   setSelectedVal(var val) {
     print("val in fn");
@@ -415,6 +411,8 @@ class _AddressState extends State<Address> {
                                                 ", " +
                                                 addressList[index]['state'] +
                                                 ".",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
                                                 color: Colors.black),
                                           ),
@@ -714,30 +712,38 @@ class _AddressState extends State<Address> {
                                     ],
                                   ),
                                 ),
-                                !rewards?Text("Add more items worth \$" + res.toString()+ " to avail your reward points", style: TextStyle(color: Colors.redAccent),):
-                                Row(
-                                  children: [
-                                    Checkbox(
-                                      checkColor: Colors.white,
-                                      fillColor: MaterialStateProperty.all(
-                                          HexColor("#175244")),
-                                      focusColor: Colors.green,
-                                      value: isChecked,
-                                      onChanged: (bool? value) {
-                                        isChecked = !isChecked;
-                                        userewards();
-                                        setState(() {});
-                                      },
-                                    ),
-                                    AutoSizeText(
-                                      'Use my rewards',
-                                      minFontSize: 20,
-                                      style: TextStyle(
-                                        color: HexColor("#175244"),
+                                !rewards
+                                    ? Text(
+                                        "Add more items worth \$" +
+                                            res.toString() +
+                                            " to avail your reward points",
+                                        style:
+                                            TextStyle(color: Colors.redAccent),
+                                      )
+                                    : Row(
+                                        children: [
+                                          Checkbox(
+                                            checkColor: Colors.white,
+                                            fillColor:
+                                                MaterialStateProperty.all(
+                                                    HexColor("#175244")),
+                                            focusColor: Colors.green,
+                                            value: isChecked,
+                                            onChanged: (bool? value) {
+                                              isChecked = !isChecked;
+                                              userewards();
+                                              setState(() {});
+                                            },
+                                          ),
+                                          AutoSizeText(
+                                            'Use my rewards',
+                                            minFontSize: 20,
+                                            style: TextStyle(
+                                              color: HexColor("#175244"),
+                                            ),
+                                          )
+                                        ],
                                       ),
-                                    )
-                                  ],
-                                ),
                               ],
                             ),
                           ),
