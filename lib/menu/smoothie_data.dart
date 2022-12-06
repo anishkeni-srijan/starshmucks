@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 
@@ -26,6 +27,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
   List<MenuModel> data = [];
   late CartDB cdb;
   late WishlistDB wdb;
+  late FToast fToast;
   @override
   void initState() {
     cdb = CartDB();
@@ -35,6 +37,8 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     wdb = WishlistDB();
     wdb.initDBWishlist();
     super.initState();
+    fToast = FToast();
+    fToast.init(context);
   }
 
   addToCartSmoothie(context, index) async {
@@ -150,6 +154,16 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                     child: TextButton(
                                       onPressed: () {
                                         addToCartSmoothie(context, index);
+                                        String toastMessage = "ADDED TO CART";
+                                        fToast.showToast(
+                                          child: CustomToast(toastMessage),
+                                          positionedToastBuilder:
+                                              (context, child) => Positioned(
+                                            child: child,
+                                            bottom: 120,
+                                            left: 120,
+                                          ),
+                                        );
                                         setState(() {
                                           cartinit = true;
                                         });

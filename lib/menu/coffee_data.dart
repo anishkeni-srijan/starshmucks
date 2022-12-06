@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 
@@ -29,7 +30,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
   late CartDB cdb;
   late WishlistDB wdb;
   late MenuDB db;
-
+  late FToast fToast;
   @override
   void initState() {
     cdb = CartDB();
@@ -41,6 +42,8 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     wdb = WishlistDB();
     wdb.initDBWishlist();
     super.initState();
+    fToast = FToast();
+    fToast.init(context);
   }
 
   addToWishlist(context, index) async {
@@ -163,6 +166,16 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                                     child: TextButton(
                                       onPressed: () {
                                         addToCartCoffee(context, index);
+                                        String toastMessage = "ADDED TO CART";
+                                        fToast.showToast(
+                                          child: CustomToast(toastMessage),
+                                          positionedToastBuilder:
+                                              (context, child) => Positioned(
+                                            child: child,
+                                            bottom: 120,
+                                            left: 120,
+                                          ),
+                                        );
                                         setState(() {
                                           cartinit = true;
                                         });

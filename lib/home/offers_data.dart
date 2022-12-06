@@ -27,9 +27,10 @@ class _GetOffersState extends State<GetOffers> {
   bool getdataf = false;
   List<MenuModel> odata = [];
   late var product;
-
+  late FToast fToast;
   late CartDB cdb;
   late WishlistDB wdb;
+
   @override
   void initState() {
     cdb = CartDB();
@@ -39,12 +40,13 @@ class _GetOffersState extends State<GetOffers> {
     wdb = WishlistDB();
     wdb.initDBWishlist();
     super.initState();
+    fToast = FToast();
+    fToast.init(context);
   }
 
   getdata() async {
     odata = await db.Offersdata();
     getdataf = true;
-
   }
 
   addToCart(context, index) async {
@@ -139,11 +141,15 @@ class _GetOffersState extends State<GetOffers> {
                           onPressed: () {
                             //if (data.isEmpty) {
                             addToCart(context, index);
-
-                            Fluttertoast.showToast(
-                              msg: "ADDED TO CART",
-                              backgroundColor: HexColor("#175244"),
-                              timeInSecForIosWeb: 0,
+                            String toastMessage = "ADDED TO CART";
+                            fToast.showToast(
+                              child: CustomToast(toastMessage),
+                              positionedToastBuilder: (context, child) =>
+                                  Positioned(
+                                child: child,
+                                bottom: 120,
+                                left: 120,
+                              ),
                             );
                             setState(() {
                               cartinit = true;

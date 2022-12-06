@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
-import 'package:starshmucks/model/cart_model.dart';
-import 'package:starshmucks/wishlist.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '/db/cart_db.dart';
 import 'db/user_db.dart';
 import 'home/home_screen.dart';
@@ -14,6 +13,8 @@ import 'menu/menu_page.dart';
 import 'model/user_model.dart';
 import 'order/order_failed.dart';
 import 'order/order_success.dart';
+import '/model/cart_model.dart';
+import 'wishlist.dart';
 
 class bottomBar extends StatefulWidget {
   const bottomBar({super.key});
@@ -126,12 +127,13 @@ getdata() async {
   size = data.length;
 }
 
-getttl()async{
+getttl() async {
   final total = await SharedPreferences.getInstance();
   ttl = await total.getDouble('total')!;
-  savings =await total.getDouble('savings')!;
+  savings = await total.getDouble('savings')!;
 }
-viewincart(){
+
+viewincart() {
   getttl();
   getdata();
   return Row(
@@ -177,11 +179,12 @@ viewincart(){
     ],
   );
 }
-initcart()async{
+
+initcart() async {
   CartDB cdb = CartDB();
   cdb.initDBCart();
-  List<CartModel>datal = await cdb.getDataCart();
-  datal.isEmpty?cartinit = false:cartinit=true;
+  List<CartModel> datal = await cdb.getDataCart();
+  datal.isEmpty ? cartinit = false : cartinit = true;
 }
 
 Future<bool> gohome() async {
@@ -207,12 +210,12 @@ calcrewards() async {
   UserDB udb = UserDB();
   List<Map<String, dynamic>> usernames = [];
   usernames = await udb.getDataUserData();
-  print("rewards used: "+savings.toString());
-  double res  = usernames[0]['rewards'] + (ttl/10) - (savings*2);
-  print("final rewards todb = "+ res.toString());
+  print("rewards used: " + savings.toString());
+  double res = usernames[0]['rewards'] + (ttl / 10) - (savings * 2);
+  print("final rewards todb = " + res.toString());
 
   var rewardUpdate = UserModel(
-    rewards:res,
+    rewards: res,
     dob: usernames[0]['dob'],
     email: usernames[0]['email'],
     name: usernames[0]['name'],
@@ -223,4 +226,37 @@ calcrewards() async {
   );
   print(usernames[0]['rewards']);
   udb.updaterewards(rewardUpdate);
+}
+
+class CustomToast extends StatelessWidget {
+  const CustomToast(
+    String this.toastMessage,
+  );
+  final String toastMessage;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: HexColor("#036635"),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            Icons.check,
+            color: Colors.white,
+          ),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text(
+            toastMessage,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+  }
 }

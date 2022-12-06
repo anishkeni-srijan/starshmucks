@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 
+import '../common_things.dart';
 import '../db/wishlist_db.dart';
 import '../model/wishlist_model.dart';
 import '../productdetail.dart';
@@ -27,6 +29,7 @@ class _NowServingState extends State<NowServing> {
 
   late CartDB cdb;
   late WishlistDB wdb;
+  late FToast fToast;
   @override
   void initState() {
     cdb = CartDB();
@@ -36,6 +39,8 @@ class _NowServingState extends State<NowServing> {
     wdb = WishlistDB();
     wdb.initDBWishlist();
     super.initState();
+    fToast = FToast();
+    fToast.init(context);
   }
 
   addToCart(context, index) async {
@@ -55,9 +60,7 @@ class _NowServingState extends State<NowServing> {
   getdata() async {
     nowdata = await db.NowServedata();
     getdataf = true;
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
@@ -137,6 +140,16 @@ class _NowServingState extends State<NowServing> {
                         child: TextButton(
                           onPressed: () {
                             addToCart(context, index);
+                            String toastMessage = "ADDED TO CART";
+                            fToast.showToast(
+                              child: CustomToast(toastMessage),
+                              positionedToastBuilder: (context, child) =>
+                                  Positioned(
+                                child: child,
+                                bottom: 120,
+                                left: 120,
+                              ),
+                            );
                             setState(() {
                               cartinit = true;
                             });
