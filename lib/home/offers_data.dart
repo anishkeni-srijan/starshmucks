@@ -43,16 +43,14 @@ class _GetOffersState extends State<GetOffers> {
 
   getdata() async {
     odata = await db.Offersdata();
-    setState(() {
-      getdataf = true;
-    });
+    getdataf = true;
+
   }
 
   addToCart(context, index) async {
     final cartp = await db.Offersdata();
-    List<CartModel> ttl = await cdb.getDataCart();
+    // List<CartModel> ttl = await cdb.getDataCart();
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
-
     setState(() {});
   }
 

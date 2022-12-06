@@ -24,18 +24,22 @@ class _RewardsState extends State<Rewards> {
   List<Map<String, dynamic>> usernames = [];
   getuser() async {
     UserDB udb = UserDB();
-
     usernames = await udb.getDataUserData();
     setState(() {});
   }
-
+ @override
+  void initState() {
+   getuser();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-    getuser();
+    double res =10.0 - usernames[0]['rewards'];
+    double progvalue = usernames[0]['rewards']/10.0;
     return Scaffold(
       persistentFooterButtons: cartinit ? [viewincart()] :null,
       appBar: AppBar(
-        title: Text('Rewards'),
+        title: const Text('Rewards'),
         backgroundColor: Colors.white,
         foregroundColor: HexColor("#175244"),
       ),
@@ -47,14 +51,14 @@ class _RewardsState extends State<Rewards> {
               padding: const EdgeInsets.only(left: 10.0, right: 10),
               child: Card(
                 color: HexColor("#175244"),
-                margin: EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(top: 20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
                 shadowColor: Colors.black,
                 elevation: 4,
                 child: Container(
-                  margin: EdgeInsets.only(left: 30),
+                  margin: const EdgeInsets.only(left: 30),
                   transform: Matrix4.translationValues(-10, 20, 0),
                   height: 200,
                   child: Row(
@@ -63,7 +67,7 @@ class _RewardsState extends State<Rewards> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            AutoSizeText(
+                            const AutoSizeText(
                               'My Points',
                               style: TextStyle(
                                 color: Colors.white,
@@ -77,15 +81,15 @@ class _RewardsState extends State<Rewards> {
                               child: Row(
                                 children: [
                                   AutoSizeText(
-                                    usernames[0]['rewards'].toString(),
-                                    style: TextStyle(
+                                    usernames[0]['rewards'].toStringAsFixed(2),
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.w600,
                                       color: Colors.white,
                                     ),
                                     minFontSize: 23,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
+                                  const Padding(
+                                    padding: EdgeInsets.only(
                                         top: 2.0, left: 5),
                                     child: Icon(
                                       Icons.stars_sharp,
@@ -95,12 +99,12 @@ class _RewardsState extends State<Rewards> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 70,
                             ),
                             Text(
                               usernames[0]['name'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 25,
                               ),
@@ -115,22 +119,44 @@ class _RewardsState extends State<Rewards> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Center(
               child: AutoSizeText(
-                'You are 4 stars away from another reward',
+                "You are " + res.toStringAsFixed(2) + " stars away from another reward",
                 style: TextStyle(
                   color: HexColor("#175244"),
                 ),
                 minFontSize: 18,
               ),
             ),
+            Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(10),
+              width: MediaQuery.of(context).size.width*1,
+              child: Card(
+                elevation: 10,
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      child: LinearProgressIndicator(
+                        // color: Colors.white,
+                        // backgroundColor: Colors.cyanAccent,
+                        valueColor: new AlwaysStoppedAnimation<Color>(Colors.red),
+                        value: progvalue,
+                        
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Column(
               children: [
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   width: MediaQuery.of(context).size.width*1,
                   child: Card(
                     elevation: 10,
@@ -146,14 +172,14 @@ class _RewardsState extends State<Rewards> {
                                 color: HexColor("#175244")),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
-                        Text(
+                        const Text(
                           "And you both save \$XX.",
                           style: TextStyle(fontSize: 18),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                       ],
@@ -165,7 +191,7 @@ class _RewardsState extends State<Rewards> {
                   child: Card(
                     elevation: 10,
                     child: Container(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       child: Column(
                         children: [
                           Row(
@@ -175,7 +201,7 @@ class _RewardsState extends State<Rewards> {
                                 CupertinoIcons.info_circle,
                                 color: HexColor("#175244"),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Text(
@@ -187,7 +213,7 @@ class _RewardsState extends State<Rewards> {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Row(
@@ -196,7 +222,7 @@ class _RewardsState extends State<Rewards> {
                                 alignment: Alignment.centerLeft,
                                 child: CircleAvatar(
                                   backgroundColor: HexColor("#175244"),
-                                  child: Text(
+                                  child: const Text(
                                     "1",
                                     style: TextStyle(
                                       color: Colors.white,
@@ -207,17 +233,17 @@ class _RewardsState extends State<Rewards> {
                                   radius: 30,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 20,
                               ),
                               Column(
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Invite your friends",
                                     style: TextStyle(
                                         fontSize: 18, fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 8,
                                   ),
                                   Text(
@@ -234,8 +260,8 @@ class _RewardsState extends State<Rewards> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Container(
-                              margin: EdgeInsets.only(left: 30, top: 5),
-                              child: DottedLine(
+                              margin: const EdgeInsets.only(left: 30, top: 5),
+                              child: const DottedLine(
                                 direction: Axis.vertical,
                                 lineLength: 35,
                                 lineThickness: 2,
@@ -250,7 +276,7 @@ class _RewardsState extends State<Rewards> {
                                 alignment: Alignment.centerLeft,
                                 child: CircleAvatar(
                                   backgroundColor: HexColor("#175244"),
-                                  child: Text(
+                                  child: const Text(
                                     "2",
                                     style: TextStyle(
                                       color: Colors.white,
@@ -261,18 +287,18 @@ class _RewardsState extends State<Rewards> {
                                   radius: 30,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 20,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "They get coffee",
                                     style: TextStyle(
                                         fontSize: 18, fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 8,
                                   ),
                                   Text(
@@ -289,8 +315,8 @@ class _RewardsState extends State<Rewards> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Container(
-                              margin: EdgeInsets.only(left: 30, top: 5),
-                              child: DottedLine(
+                              margin: const EdgeInsets.only(left: 30, top: 5),
+                              child: const DottedLine(
                                 direction: Axis.vertical,
                                 lineLength: 35,
                                 lineThickness: 2,
@@ -305,7 +331,7 @@ class _RewardsState extends State<Rewards> {
                                 alignment: Alignment.centerLeft,
                                 child: CircleAvatar(
                                   backgroundColor: HexColor("#175244"),
-                                  child: Text(
+                                  child: const Text(
                                     "3",
                                     style: TextStyle(
                                       color: Colors.white,
@@ -316,18 +342,18 @@ class _RewardsState extends State<Rewards> {
                                   radius: 30,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 20,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "You make savings!",
                                     style: TextStyle(
                                         fontSize: 18, fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 8,
                                   ),
                                   Text(
@@ -341,15 +367,15 @@ class _RewardsState extends State<Rewards> {
                               )
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Wrap(
                             children: [
                           Container(
-                            margin:EdgeInsets.only(top:5),
+                            margin:const EdgeInsets.only(top:5),
                             width:MediaQuery.of(context).size.width*0.6,
-                          padding:EdgeInsets.all(10),
+                          padding:const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(width: 1.0, color: HexColor("#175244")),
@@ -370,7 +396,7 @@ class _RewardsState extends State<Rewards> {
                                           .showSnackBar(
                                         SnackBar(
                                           backgroundColor: HexColor("#175244"),
-                                          content: Text('Referral link copied',style: TextStyle(color: Colors.white),),
+                                          content: const Text('Referral link copied',style: TextStyle(color: Colors.white),),
                                         ),
                                       );
                                     },
@@ -379,8 +405,8 @@ class _RewardsState extends State<Rewards> {
                                 style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all<Color>(HexColor("#175244")),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 10,bottom: 10),
+                                child: const Padding(
+                                  padding: EdgeInsets.only(top: 10,bottom: 10),
                                   child: Text("COPY",
                                     style: TextStyle(color: Colors.white, fontSize: 15),),
                                 )

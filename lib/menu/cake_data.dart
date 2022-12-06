@@ -42,11 +42,14 @@ class _GetCakeDataState extends State<GetCakeData> {
   addToWishlist(context, index) async {
     final cartp = await db.cakedata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
-    setState(() {});
+    // setState(() {});
   }
 
   addToCart(context, index) async {
     final cartp = await db.cakedata();
+
+
+    // setState(() {});
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
     setState(() {});
   }
