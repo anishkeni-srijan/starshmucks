@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:starshmucks/model/wishlist_model.dart';
