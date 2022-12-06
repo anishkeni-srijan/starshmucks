@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'dart:io' show Platform;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -140,6 +141,12 @@ class _GetOffersState extends State<GetOffers> {
                           onPressed: () {
                             //if (data.isEmpty) {
                             addToCart(context, index);
+
+                            Fluttertoast.showToast(
+                              msg: "ADDED TO CART",
+                              backgroundColor: HexColor("#175244"),
+                              timeInSecForIosWeb: 0,
+                            );
                             setState(() {
                               cartinit = true;
                             });
