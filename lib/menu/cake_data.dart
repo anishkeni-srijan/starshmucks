@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../common_things.dart';
 import '../db/wishlist_db.dart';
 import '../home/home_screen.dart';
@@ -24,7 +25,7 @@ class _GetCakeDataState extends State<GetCakeData> {
   late MenuDB db;
   bool getdataf = false;
   List<MenuModel> data = [];
-
+  late FToast fToast;
   late CartDB cdb;
   late WishlistDB wdb;
   @override
@@ -37,6 +38,8 @@ class _GetCakeDataState extends State<GetCakeData> {
     wdb = WishlistDB();
     wdb.initDBWishlist();
     super.initState();
+    fToast = FToast();
+    fToast.init(context);
   }
 
   addToWishlist(context, index) async {
@@ -47,7 +50,6 @@ class _GetCakeDataState extends State<GetCakeData> {
 
   addToCart(context, index) async {
     final cartp = await db.cakedata();
-
 
     // setState(() {});
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
@@ -152,6 +154,16 @@ class _GetCakeDataState extends State<GetCakeData> {
                                 child: TextButton(
                                   onPressed: () {
                                     addToCart(context, index);
+                                    String toastMessage = "ADDED TO CART";
+                                    fToast.showToast(
+                                      child: CustomToast(toastMessage),
+                                      positionedToastBuilder:
+                                          (context, child) => Positioned(
+                                        child: child,
+                                        bottom: 120,
+                                        left: 120,
+                                      ),
+                                    );
                                     setState(
                                       () {
                                         cartinit = true;

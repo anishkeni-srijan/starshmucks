@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:like_button/like_button.dart';
 import 'dart:io' show Platform;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:get/get.dart';
@@ -26,8 +28,10 @@ class _GetOffersState extends State<GetOffers> {
   bool getdataf = false;
   List<MenuModel> odata = [];
   late var product;
+  late FToast fToast;
   late CartDB cdb;
   late WishlistDB wdb;
+  bool wlistStatus = false;
   @override
   void initState() {
     cdb = CartDB();
@@ -37,6 +41,8 @@ class _GetOffersState extends State<GetOffers> {
     wdb = WishlistDB();
     wdb.initDBWishlist();
     super.initState();
+    fToast = FToast();
+    fToast.init(context);
   }
 
   getdata() async {
@@ -139,6 +145,16 @@ setState(() {
                           onPressed: () {
                             //if (data.isEmpty) {
                             addToCart(context, index);
+                            String toastMessage = "ADDED TO CART";
+                            fToast.showToast(
+                              child: CustomToast(toastMessage),
+                              positionedToastBuilder: (context, child) =>
+                                  Positioned(
+                                child: child,
+                                bottom: 120,
+                                left: 120,
+                              ),
+                            );
                             setState(() {
                               cartinit = true;
                             });
@@ -172,5 +188,15 @@ setState(() {
         },
       ),
     );
+  }
+
+  Future<bool> onLikeButtonTapped(bool isLiked) async {
+    /// send your request here
+    // final bool success= await sendRequest();
+
+    /// if failed, you can do nothing
+    // return success? !isLiked:isLiked;
+
+    return !isLiked;
   }
 }

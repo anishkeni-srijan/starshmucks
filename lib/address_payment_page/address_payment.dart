@@ -35,7 +35,7 @@ class _AddressState extends State<Address> {
   bool isChecked = false;
   bool paid = false;
   int _value = 1;
-  late double res=0;
+  late double res = 0;
   late bool rewards;
   late double ttl = 0;
   void initState() {
@@ -48,7 +48,7 @@ class _AddressState extends State<Address> {
   getttl() async {
     final total = await SharedPreferences.getInstance();
     ttl = total.getDouble('total')!;
-    ttl>10?rewards=true:rewards=false;
+    ttl > 10 ? rewards = true : rewards = false;
     res = 10 - ttl;
   }
 
@@ -774,7 +774,7 @@ late  double maxrewards= 0;
         padding: const EdgeInsets.all(10.0),
         child: ElevatedButton(
           onPressed: () {
-            !isChecked?userewards():null;
+            !isChecked ? userewards() : null;
             if (_value == 1 && afterSelecting == true) {
               Get.to(UpiPayment());
             } else if (_value == 2 && afterSelecting == true) {

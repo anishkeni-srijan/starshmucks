@@ -20,7 +20,7 @@ commonPhoneNumberWidget(
       textFieldController: phone,
       inputDecoration: InputDecoration(
         contentPadding: EdgeInsets.all(5),
-        labelText: 'Phone Number123',
+        labelText: 'Phone Number',
         labelStyle: TextStyle(
           color: HexColor("#175244"),
         ),
