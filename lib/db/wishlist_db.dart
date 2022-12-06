@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:starshmucks/model/wishlist_model.dart';
@@ -21,9 +23,14 @@ class WishlistDB {
 
   Future<bool> insertDataWishlist(WishlistModel item) async {
     final Database db = await initDBWishlist();
-    await db.insert("WishlistTable", item.toMap(),
+    int count = await db.insert("WishlistTable", item.toMap(),
         conflictAlgorithm: ConflictAlgorithm.ignore);
-    return true;
+    if (count == 1)
+      return true;
+    else
+      return false;
+    // print("count");
+    // print(count);
   }
 
   Future<List<WishlistModel>> getDataWishlist() async {

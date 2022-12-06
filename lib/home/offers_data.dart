@@ -30,7 +30,7 @@ class _GetOffersState extends State<GetOffers> {
   late FToast fToast;
   late CartDB cdb;
   late WishlistDB wdb;
-
+  bool wlistStatus = false;
   @override
   void initState() {
     cdb = CartDB();
