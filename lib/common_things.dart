@@ -128,8 +128,8 @@ getdata() async {
 
 getttl()async{
   final total = await SharedPreferences.getInstance();
-  ttl = await total.getDouble('total')!;
-  savings =await total.getDouble('savings')!;
+  ttl = total.getDouble('total')!;
+  savings = total.getDouble('savings')!;
 }
 viewincart(){
   getttl();
@@ -213,6 +213,7 @@ calcrewards() async {
 
   var rewardUpdate = UserModel(
     rewards:res,
+    tier: usernames[0]['tier'],
     dob: usernames[0]['dob'],
     email: usernames[0]['email'],
     name: usernames[0]['name'],

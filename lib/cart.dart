@@ -87,7 +87,6 @@ class _MyCartState extends State<MyCart> {
           onPressed: () async {
             final total = await SharedPreferences.getInstance();
             await total.setDouble('total', ttl);
-            setState(() {});
             Get.to(const Address(), transition: Transition.rightToLeft);
           },
           style: ButtonStyle(

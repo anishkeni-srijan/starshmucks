@@ -252,9 +252,23 @@ class _AddressState extends State<Address> {
 late  double maxrewards= 0;
   userewards()async{
     maxrewards = userddt[0]['rewards']/2;
-    ttl = isChecked == true
-        ? ttl  - maxrewards
-        :ttl + maxrewards;
+    print('calculated rewards: '+maxrewards.toString());
+   if(maxrewards<(ttl/20)) {
+     print("normal");
+     ttl = isChecked == true
+         ? ttl - maxrewards
+         : ttl + maxrewards;
+   }
+   else{
+
+     maxrewards = ttl/20;
+     print("max rewards exceed the 20% of ttl: "+maxrewards.toString());
+     ttl = isChecked == true
+         ? ttl - maxrewards
+         : ttl + maxrewards;
+
+   }
+
     final prefs = await SharedPreferences.getInstance();
     await  prefs.setDouble("cartttl",ttl);
     savings = isChecked == false? 0:maxrewards;
@@ -674,7 +688,7 @@ late  double maxrewards= 0;
                           margin: const EdgeInsets.only(
                               top: 10, bottom: 10, left: 20),
                           child: AutoSizeText(
-                            'Use Your Rewards',
+                            'Use your points',
                             style: TextStyle(
                               color: HexColor("#175244"),
                             ),
@@ -738,10 +752,16 @@ late  double maxrewards= 0;
                                       style: TextStyle(
                                         color: HexColor("#175244"),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
-                                isChecked&&maxrewards>2?Text("you can avail a max discount of 2\$"):Container(),
+                                maxrewards>(ttl/20)?Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("You can avail a max discount of 20% of your order total"),
+                                    Text("Points used: "+maxrewards.toString()),
+                                  ],
+                                ):Container(),
                               ],
                             ),
                           ),

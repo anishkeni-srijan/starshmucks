@@ -200,6 +200,7 @@ class _EditProfileState extends State<EditProfile> {
 
 
                           var updateData = UserModel(
+                              tier:usernames[0]['dob'],
                               dob: usernames[0]['dob'],
                               email: econtroller.text,
                               phone: phcontroller.text,
@@ -262,6 +263,7 @@ class _EditProfileState extends State<EditProfile> {
     saveImage = pickedfile.path;
     print("jroden" + saveImage);
     var updateData = UserModel(
+        tier:usernames[0]['tier'],
         dob: usernames[0]['dob'],
         email: econtroller.text,
         phone: phcontroller.text,
@@ -272,7 +274,6 @@ class _EditProfileState extends State<EditProfile> {
         image: saveImage);
     udb.updateUserData(usernames[0]['id'], updateData);
     getUser();
-
     setState(() {});
   }
 }

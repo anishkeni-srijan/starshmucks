@@ -22,6 +22,7 @@ class UserDB {
           tnc TEXT NOT NULL,
           rewards DOUBLE NOT NULL,
           image TEXT NOT NULL,
+          tier TEXT NOT NULL,
           FOREIGN KEY (id) REFERENCES UserAddress(userID)
        )
           """);

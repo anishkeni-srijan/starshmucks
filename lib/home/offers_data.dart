@@ -26,7 +26,6 @@ class _GetOffersState extends State<GetOffers> {
   bool getdataf = false;
   List<MenuModel> odata = [];
   late var product;
-
   late CartDB cdb;
   late WishlistDB wdb;
   @override
@@ -43,20 +42,22 @@ class _GetOffersState extends State<GetOffers> {
   getdata() async {
     odata = await db.Offersdata();
     getdataf = true;
+setState(() {
 
+});
   }
 
   addToCart(context, index) async {
     final cartp = await db.Offersdata();
     // List<CartModel> ttl = await cdb.getDataCart();
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
-    setState(() {});
+
   }
 
   addToWishlist(context, index) async {
     final cartp = await db.Offersdata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
-    setState(() {});
+
   }
 
   @override

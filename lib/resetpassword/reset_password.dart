@@ -247,6 +247,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             var updateData = UserModel(
+                                tier:userddt[0]['tier'],
                                 dob: userddt[0]['dob'],
                                 email: userddt[0]['email'],
                                 phone: userddt[0]['phone'],

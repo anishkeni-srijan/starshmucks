@@ -54,6 +54,7 @@ class _SignupPageState extends State<SignupPage> {
   void addUserData() {
     //sqflite UserModel
     var userSQL = UserModel(
+      tier:"bronze",
       name: name.text,
       email: email.text,
       phone: phone.text,

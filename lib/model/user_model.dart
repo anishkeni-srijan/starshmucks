@@ -7,10 +7,11 @@ class UserModel {
   String password;
   String tnc;
   double rewards;
+  String tier;
   String image;
-  UserModel(
-      {
-      // required this.id,
+
+  UserModel({
+      required this.tier,
       required this.name,
       required this.email,
       required this.phone,
@@ -18,9 +19,11 @@ class UserModel {
       required this.password,
       required this.tnc,
       required this.rewards,
-      required this.image});
+      required this.image
+      });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+        tier:json["tier"],
         name: json["name"],
         email: json["email"],
         phone: json["phone"],
@@ -32,6 +35,7 @@ class UserModel {
       );
 
   Map<String, dynamic> toMap() => {
+         "tier":tier,
         "name": name,
         "email": email,
         "phone": phone,
@@ -40,6 +44,5 @@ class UserModel {
         "tnc": tnc,
         "rewards": rewards,
         "image": image,
-        // "id": id,
       };
 }

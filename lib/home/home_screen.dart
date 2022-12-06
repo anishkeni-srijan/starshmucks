@@ -45,7 +45,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-
   List<Map<String, dynamic>> usernames = [];
   getUser() async {
     usernames = await udb.getDataUserData();
@@ -58,7 +57,6 @@ class _HomePageState extends State<HomePage> {
       fetching = true;
     });
   }
-
 
   putdata() async {
     final String response =
@@ -92,7 +90,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 getbanner(context, username),
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   alignment: Alignment.topLeft,
                   child: AutoSizeText(
                     'Offers',
@@ -103,9 +101,9 @@ class _HomePageState extends State<HomePage> {
                     minFontSize: 25,
                   ),
                 ),
-                GetOffers(),
+                const GetOffers(),
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   alignment: Alignment.topLeft,
                   child: AutoSizeText(
                     'Now Serving',
@@ -116,9 +114,9 @@ class _HomePageState extends State<HomePage> {
                     minFontSize: 25,
                   ),
                 ),
-                NowServing(),
+                const NowServing(),
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   alignment: Alignment.topLeft,
                   child: AutoSizeText(
                     'Learn More About Our Drinks',
@@ -136,7 +134,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 }
-
 getbanner(context, username) {
   return Container(
     height: MediaQuery.of(context).size.height * 0.2,
@@ -148,7 +145,7 @@ getbanner(context, username) {
           Colors.black.withOpacity(0.05),
           BlendMode.dstATop,
         ),
-        image: ExactAssetImage('images/shmucks.png'),
+        image: const ExactAssetImage('images/shmucks.png'),
       ),
     ),
     child: Column(
@@ -157,14 +154,14 @@ getbanner(context, username) {
           transform: Matrix4.translationValues(0, 28, 0),
           child: Text(
             '${'Hi ' + username}!',
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 20,
             ),
           ),
         ),
         Container(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             bottom: 20,
             left: 20,
           ),
@@ -187,7 +184,7 @@ getbanner(context, username) {
                 ),
               ),
               Column(
-                children: [
+                children: const [
                   AutoSizeText(
                     '1/5',
                     style: TextStyle(
@@ -196,7 +193,7 @@ getbanner(context, username) {
                     minFontSize: 12,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
+                    padding: EdgeInsets.only(
                       top: 2.0,
                       left: 8,
                     ),
@@ -210,7 +207,7 @@ getbanner(context, username) {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               Container(
@@ -219,7 +216,7 @@ getbanner(context, username) {
                   -8,
                   0,
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.card_giftcard,
                   color: Colors.amber,
                   size: 13,
@@ -233,7 +230,7 @@ getbanner(context, username) {
                       0,
                       0,
                     ),
-                    child: AutoSizeText(
+                    child: const AutoSizeText(
                       '1',
                       style: TextStyle(
                         color: Colors.white,
@@ -241,8 +238,8 @@ getbanner(context, username) {
                       minFontSize: 20,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
+                  const Padding(
+                    padding: EdgeInsets.only(
                       top: 2.0,
                       left: 8,
                     ),
@@ -263,7 +260,7 @@ getbanner(context, username) {
                   4,
                   0,
                 ),
-                child: AutoSizeText(
+                child: const AutoSizeText(
                   'You are 4 stars away from another reward',
                   style: TextStyle(
                     color: Colors.white,
@@ -279,9 +276,9 @@ getbanner(context, username) {
                 ),
                 child: IconButton(
                   onPressed: () {
-                    Get.to(Rewards());
+                    Get.to(const Rewards());
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.play_arrow_sharp,
                     color: Colors.white,
                     size: 20,
@@ -306,11 +303,11 @@ learnmore(context) {
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) => Row(
         children: [
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -361,47 +358,3 @@ learnmore(context) {
   );
 }
 
-//
-// getnowservedetails(context, index) {
-//   final Offerp = Provider.of<NowServing>(context, listen: false);
-//   return showModalBottomSheet<void>(
-//     context: context,
-//     builder: (BuildContext context) {
-//       return SingleChildScrollView(
-//         child: Container(
-//           height: MediaQuery.of(context).size.height * 0.75,
-//           child: Column(
-//             children: <Widget>[
-//               Image.asset(
-//                 Offerp.nowdata[index].image,
-//                 width: MediaQuery.of(context).size.width * 0.52,
-//                 height: MediaQuery.of(context).size.height * 0.52,
-//               ),
-//               Container(
-//                   margin: EdgeInsets.all(20),
-//                   alignment: Alignment.centerLeft,
-//                   child: AutoSizeText(Offerp.nowdata[index].title)),
-//               Container(
-//                 margin: EdgeInsets.only(left: 20, right: 20),
-//                 alignment: Alignment.centerLeft,
-//                 child: AutoSizeText(Offerp.nowdata[index].desc),
-//               ),
-//               Container(
-//                   margin: EdgeInsets.only(left: 20, right: 20),
-//                   alignment: Alignment.centerLeft,
-//                   child: Row(
-//                     children: [
-//                       AutoSizeText('\$' + Offerp.nowdata[index].price),
-//                       SizedBox(
-//                         width: MediaQuery.of(context).size.width * 0.52,
-//                       ),
-//                       ElevatedButton(onPressed: () {}, child: Text('Add')),
-//                     ],
-//                   )),
-//             ],
-//           ),
-//         ),
-//       );
-//     },
-//   );
-// }

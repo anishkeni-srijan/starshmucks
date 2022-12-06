@@ -88,12 +88,12 @@ class _RewardsState extends State<Rewards> {
                                     ),
                                     minFontSize: 23,
                                   ),
-                                  const Padding(
-                                    padding: EdgeInsets.only(
+                                   Padding(
+                                    padding: const EdgeInsets.only(
                                         top: 2.0, left: 5),
                                     child: Icon(
                                       Icons.stars_sharp,
-                                      color: Colors.amberAccent,
+                                      color: usernames[0]['tier']=='gold'?Colors.amberAccent:usernames[0]['tier']=='silver'?Colors.grey:Colors.brown,
                                     ),
                                   ),
                                 ],
@@ -146,46 +146,43 @@ class _RewardsState extends State<Rewards> {
                         // backgroundColor: Colors.cyanAccent,
                         valueColor: new AlwaysStoppedAnimation<Color>(Colors.red),
                         value: progvalue,
-                        
                       ),
                     ),
                   ],
                 ),
               ),
             ),
+            Container(
+              color: HexColor("#eeeeee"),
+              height: MediaQuery.of(context).size.height * 0.25,
+              width: MediaQuery.of(context).size.width * 1,
+              padding: const EdgeInsets.only(bottom: 15),
+              child: ListView(
+                  physics: const ClampingScrollPhysics(),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                 children: [
+                TierTile(
+                text: 'Bronze',
+                press: () {
+                },
+                color:Colors.brown,
+                 ),
+                   TierTile(
+                text: 'Silver',
+                press: () {
+                },
+                color:Colors.grey,
+                 ), TierTile(
+                text: 'Gold',
+                press: () {
+                },
+                color:Colors.amberAccent,
+                 ),
+                 ],
+              ),),
             Column(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  width: MediaQuery.of(context).size.width*1,
-                  child: Card(
-                    elevation: 10,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Refer a friend",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                fontSize: 25,
-                                color: HexColor("#175244")),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text(
-                          "And you both save \$XX.",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Card(
@@ -194,6 +191,26 @@ class _RewardsState extends State<Rewards> {
                       padding: const EdgeInsets.all(20),
                       child: Column(
                         children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Refer a friend",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 25,
+                                  color: HexColor("#175244")),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text(
+                            "And you both save \$XX.",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           Row(
                             // mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -422,6 +439,66 @@ class _RewardsState extends State<Rewards> {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+class TierTile extends StatelessWidget {
+  const TierTile({
+    Key? key,
+    required this.text,
+    required this.press,
+    required this.color,
+  }) : super(key: key);
+  final String text;
+  final Color color;
+  final VoidCallback press;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width*0.9,
+      child: Card(
+        margin: const EdgeInsets.symmetric(
+          horizontal: 10,
+          vertical: 10,
+        ),
+        elevation: 10,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 0,
+            vertical: 0,
+          ),
+          child: TextButton(
+            onPressed: press,
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.white,
+              padding: const EdgeInsets.all(20),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.stars_sharp,
+                  size: 30,
+                  color: color,
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Expanded(
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                      color: HexColor("#036635"),
+                      fontWeight: FontWeight.w300,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+                
+              ],
+            ),
+          ),
         ),
       ),
     );
