@@ -54,7 +54,7 @@ class _SignupPageState extends State<SignupPage> {
   void addUserData() {
     //sqflite UserModel
     var userSQL = UserModel(
-      tier:"bronze",
+      tier: "bronze",
       name: name.text,
       email: email.text,
       phone: phone.text,
@@ -322,35 +322,47 @@ class _SignupPageState extends State<SignupPage> {
                   margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.005,
                   ),
-                  child: TextFormField(
-                    obscureText: true,
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: pass1,
-                    onChanged: (value) {
-                      BlocProvider.of<SignupBloc>(context).add(
-                        SignupPasswordChangedEvent(pass1.text),
-                      );
-                    },
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Password',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
+                  child: Form(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    child: TextFormField(
+                      obscureText: true,
+                      style:
+                          const TextStyle(color: Colors.black), //<-- SEE HERE
+                      controller: pass1,
+                      onChanged: (value) {
+                        BlocProvider.of<SignupBloc>(context).add(
+                          SignupPasswordChangedEvent(pass1.text),
+                        );
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(5),
+                        labelText: 'Password',
+                        labelStyle: TextStyle(
                           color: HexColor("#175244"),
-                          width: 2,
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
                         ),
                       ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
+                      validator: (value) {
+                        RegExp regex = RegExp(
+                            r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+                        if (!regex.hasMatch(value!))
+                          return """* Minimum 1 Upper case\n* Minimum 1 lowercase\n* Minimum 1 Numeric Number\n* Minimum 1 Special Character\n* Common Allow Character ( ! @ # \$ & * ~ )""";
+                        else
+                          return null;
+                      },
                     ),
                   ),
                 ),
@@ -360,40 +372,47 @@ class _SignupPageState extends State<SignupPage> {
                   margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.005,
                   ),
-                  child: TextFormField(
-                    obscureText: true,
-                    style: const TextStyle(
-                      color: Colors.black,
-                    ),
-                    controller: pass2,
-                    onChanged: (value) {
-                      BlocProvider.of<SignupBloc>(context).add(
-                        SignupConfirmPasswordChangedEvent(
-                          pass2.text,
-                          pass1.text,
-                        ),
-                      );
-                    },
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Confirm Password',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
+                  child: Form(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    child: TextFormField(
+                      obscureText: true,
+                      style: const TextStyle(
+                        color: Colors.black,
                       ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
+                      controller: pass2,
+                      onChanged: (value) {
+                        BlocProvider.of<SignupBloc>(context).add(
+                          SignupConfirmPasswordChangedEvent(
+                            pass2.text,
+                            pass1.text,
+                          ),
+                        );
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(5),
+                        labelText: 'Confirm Password',
+                        labelStyle: TextStyle(
                           color: HexColor("#175244"),
-                          width: 2,
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
                         ),
                       ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
+                      validator: (value) {
+                        if (value == null) return "Enter the password";
+                        if (value != pass1.text) return "Not same ";
+                      },
                     ),
                   ),
                 ),
