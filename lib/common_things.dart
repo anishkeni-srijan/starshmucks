@@ -207,9 +207,12 @@ calcrewards() async {
   UserDB udb = UserDB();
   List<Map<String, dynamic>> usernames = [];
   usernames = await udb.getDataUserData();
-  var res = 0.0;
+  print("rewards used: "+savings.toString());
+  double res  = usernames[0]['rewards'] + (ttl/10) - (savings*2);
+  print("final rewards todb = "+ res.toString());
+
   var rewardUpdate = UserModel(
-    rewards: res,
+    rewards:res,
     dob: usernames[0]['dob'],
     email: usernames[0]['email'],
     name: usernames[0]['name'],

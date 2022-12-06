@@ -62,7 +62,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
 
   getttl() async{
     final total = await SharedPreferences.getInstance();
-    cartttl = total.getDouble('cartttl')!;
+    cartttl = total.getDouble('total')!;
     savings = total.getDouble('savings')!;
     ttl=(cartttl+5) - savings;
     print(ttl);

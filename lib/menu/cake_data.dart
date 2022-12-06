@@ -34,7 +34,6 @@ class _GetCakeDataState extends State<GetCakeData> {
     db = MenuDB();
     db.initDBMenu();
     getCakeData();
-
     wdb = WishlistDB();
     wdb.initDBWishlist();
     super.initState();
@@ -48,13 +47,7 @@ class _GetCakeDataState extends State<GetCakeData> {
 
   addToCart(context, index) async {
     final cartp = await db.cakedata();
-    var ttl = await cdb.getDataCart();
-    ttl.isEmpty
-        ? cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1))
-        : cdb.insertDataCart(CartModel(
-            id: cartp[index].id,
-            qty: 1,
-          ));
+
 
     // setState(() {});
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
@@ -158,8 +151,7 @@ class _GetCakeDataState extends State<GetCakeData> {
                                         0.22),
                                 child: TextButton(
                                   onPressed: () {
-                                    addToCart(context, data[index].id);
-
+                                    addToCart(context, index);
                                     setState(
                                       () {
                                         cartinit = true;

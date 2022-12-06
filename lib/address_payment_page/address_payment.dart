@@ -49,6 +49,7 @@ class _AddressState extends State<Address> {
     final total = await SharedPreferences.getInstance();
     ttl = total.getDouble('total')!;
     ttl>10?rewards=true:rewards=false;
+    res = 10 - ttl;
   }
 
   List<Map<String, dynamic>> userddt = [];
@@ -251,15 +252,14 @@ class _AddressState extends State<Address> {
 late  double maxrewards= 0;
   userewards()async{
     maxrewards = userddt[0]['rewards']/2;
-    isChecked
-        ? ttl = ttl - maxrewards
-        :ttl;
+    ttl = isChecked == true
+        ? ttl  - maxrewards
+        :ttl + maxrewards;
     final prefs = await SharedPreferences.getInstance();
     await  prefs.setDouble("cartttl",ttl);
-    !isChecked?savings = 0: savings =ttl - userddt[0]['rewards'];
+    savings = isChecked == false? 0:maxrewards;
     await  prefs.setDouble("savings",savings);
     setState(() {
-
     });
   }
   var selectedVal;
@@ -717,7 +717,7 @@ late  double maxrewards= 0;
                                     ],
                                   ),
                                 ),
-                                !rewards?Text("Add more items worth \$" + res.toString()+ " to avail your reward points", style: TextStyle(color: Colors.redAccent),):
+                                !rewards?Text("Add more items worth \$" + res.toStringAsFixed(2)+ " to avail your reward points", style: TextStyle(color: Colors.redAccent),):
                                 Row(
                                   children: [
                                     Checkbox(
@@ -754,6 +754,7 @@ late  double maxrewards= 0;
         padding: const EdgeInsets.all(10.0),
         child: ElevatedButton(
           onPressed: () {
+            !isChecked?userewards():null;
             if (_value == 1 && afterSelecting == true) {
               Get.to(UpiPayment());
             } else if (_value == 2 && afterSelecting == true) {

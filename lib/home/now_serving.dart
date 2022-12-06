@@ -54,8 +54,9 @@ class _NowServingState extends State<NowServing> {
 
   getdata() async {
     nowdata = await db.NowServedata();
+    getdataf = true;
     setState(() {
-      getdataf = true;
+
     });
   }
 
