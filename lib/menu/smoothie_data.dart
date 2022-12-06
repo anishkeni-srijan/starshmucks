@@ -30,25 +30,16 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
   void initState() {
     cdb = CartDB();
     cdb.initDBCart();
-
     db = MenuDB();
     db.initDBMenu();
-
     wdb = WishlistDB();
     wdb.initDBWishlist();
     super.initState();
   }
 
-  addToCart(context, index) async {
-    db = MenuDB();
+  addToCartSmoothie(context, index) async {
     final cartp = await db.smoothiedata();
-    var ttl = await cdb.getDataCart();
-    ttl.isEmpty
-        ? cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1))
-        : cdb.insertDataCart(CartModel(
-            id: cartp[index].id,
-            qty: 1,
-          ));
+    cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
     setState(() {});
   }
 
@@ -58,7 +49,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     setState(() {});
   }
 
-  getdata() async {
+  getSmoothieData() async {
     data = await db.smoothiedata();
     if (this.mounted) {
       setState(() {
@@ -70,7 +61,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
   @override
   Widget build(BuildContext context) {
     initcart();
-    getdata();
+    getSmoothieData();
     return Scaffold(
       persistentFooterButtons: cartinit ? [viewincart()] : null,
       body: getdataf
@@ -158,7 +149,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                                 0.22),
                                     child: TextButton(
                                       onPressed: () {
-                                        addToCart(context, index);
+                                        addToCartSmoothie(context, index);
                                         setState(() {
                                           cartinit = true;
                                         });

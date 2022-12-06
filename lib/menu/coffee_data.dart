@@ -29,6 +29,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
   late CartDB cdb;
   late WishlistDB wdb;
   late MenuDB db;
+
   @override
   void initState() {
     cdb = CartDB();
@@ -36,38 +37,21 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     getCartData1();
     menuDB = MenuDB();
     menuDB.initDBMenu();
-    getMenuData_coffee();
+    getCoffeeData();
     wdb = WishlistDB();
     wdb.initDBWishlist();
     super.initState();
   }
 
   addToWishlist(context, index) async {
-    db = MenuDB();
-    final cartp = await db.coffeedata();
+    final cartp = await menuDB.coffeedata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
     setState(() {});
   }
 
   addToCartCoffee(context, index) async {
-    db = MenuDB();
-    final cartp = await db.coffeedata();
-
-    var zindex = data.indexWhere((item) => item.id == cartp[index].id);
-    if (zindex != -1) {
-      var ttl = await cdb.getDataCart();
-      ttl.isEmpty
-          ? cdb.insertDataCart(CartModel(
-              id: cartp[index].id,
-              qty: 1,
-            ))
-          : cdb.insertDataCart(CartModel(
-              id: cartp[index].id,
-              qty: 1,
-            ));
-    } else {
-      print('already added');
-    }
+    final cartp = await menuDB.coffeedata();
+    cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
     setState(() {});
   }
 
@@ -77,16 +61,19 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     setState(() {});
   }
 
-  getMenuData_coffee() async {
+  getCoffeeData() async {
     data = await menuDB.coffeedata();
-    setState(() {
-      getdataf = true;
-    });
+    if (this.mounted) {
+      setState(() {
+        getdataf = true;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     initcart();
+    getCoffeeData();
     return Scaffold(
       persistentFooterButtons: cartinit ? [viewincart()] : null,
       body: getdataf

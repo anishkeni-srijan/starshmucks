@@ -30,13 +30,8 @@ class _MyCartState extends State<MyCart> {
   late List<CartModel> datalist = [];
   late List<CartModel> qtylist = [];
   List<CartModel> cartlist = [];
- late double ttl = 0;
+  late double ttl = 0;
   @override
-  clearcart() {
-    cartdb.clear();
-    setState(() {});
-  }
-
   void initState() {
     menudb = MenuDB();
     menudb.initDBMenu();
@@ -54,7 +49,7 @@ class _MyCartState extends State<MyCart> {
       var kartData = await menudb.getElementOnId_Menu(datalist[i].id);
       // print("init cart " + kart.length.toString());
       if (kartData.length == 1) {
-        tempTotal += ( double.parse(kartData.first.price) * datalist[i].qty);
+        tempTotal += (double.parse(kartData.first.price) * datalist[i].qty);
         kartTemp.add(kartData.first);
       }
     }
@@ -82,7 +77,6 @@ class _MyCartState extends State<MyCart> {
     // setState(() {});
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,9 +84,9 @@ class _MyCartState extends State<MyCart> {
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
-          onPressed: ()async {
+          onPressed: () async {
             final total = await SharedPreferences.getInstance();
-            await total.setDouble('total',ttl);
+            await total.setDouble('total', ttl);
             setState(() {});
             Get.to(const Address(), transition: Transition.rightToLeft);
           },
@@ -235,14 +229,13 @@ class _MyCartState extends State<MyCart> {
                                             IconButton(
                                               icon: const Icon(Icons.remove),
                                               onPressed: () {
-
                                                 if (datalist[index].qty == 1) {
                                                   removefromcart(
                                                       datalist[index]);
                                                 } else {
                                                   decreaseqty(datalist[index]);
                                                 }
-                                                 setState(() {});
+                                                setState(() {});
                                               },
                                               style: ButtonStyle(
                                                   foregroundColor:
