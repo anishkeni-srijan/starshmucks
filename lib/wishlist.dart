@@ -18,39 +18,45 @@ class WishListPage extends StatefulWidget {
 
 class _WishListPageState extends State<WishListPage> {
   bool ischecked = false;
-  var result;
+
   @override
   late WishlistDB wdb;
   late MenuDB menudb;
-  late OrdersDB orderdb;
   late List<MenuModel> kart = [];
-  late List<MenuModel> kart1 = [];
+  //late List<MenuModel> kart1 = [];
   late List<WishlistModel> datalist = [];
   List<WishlistModel> wishlist = [];
-  double ttl = 0;
+  //double ttl = 0;
   @override
   void initState() {
     menudb = MenuDB();
     menudb.initDBMenu();
     wdb = WishlistDB();
     wdb.initDBWishlist();
+    getDataOnIds();
     super.initState();
   }
 
   getDataOnIds() async {
     datalist = await wdb.getDataWishlist();
+    List<MenuModel> wishlistTmp = [];
     for (var i = 0; i < datalist.length; i++) {
-      kart = await menudb.getElementOnId_Menu(datalist[i].id);
+      var wdata = await menudb.getElementOnId_Menu(datalist[i].id);
       // print("init cart " + kart.length.toString());
-      if (kart.length == 1) kart1.add(kart.first);
+      if (wdata.length == 1) {
+        //tempTotal += (double.parse(wdata.first.price) * datalist[i].qty);
+        wishlistTmp.add(wdata.first);
+      }
     }
+    kart = wishlistTmp;
     setState(() {});
   }
 
   removefromwishlist(sendid) {
     wdb.deleteitemFromWishlist(sendid);
     // datalist.isEmpty ? cartinit = false : cartinit = true;
-    setState(() {});
+    getDataOnIds();
+    //setState(() {});
   }
 
   @override
@@ -94,7 +100,7 @@ class _WishListPageState extends State<WishListPage> {
                                 Row(
                                   children: [
                                     Image.asset(
-                                      kart1[index].image,
+                                      kart[index].image,
                                       height: 100,
                                       width: 100,
                                     ),
@@ -106,12 +112,12 @@ class _WishListPageState extends State<WishListPage> {
                                         children: [
                                           SizedBox(
                                               width: 150,
-                                              child: Text(kart1[index].title,
+                                              child: Text(kart[index].title,
                                                   maxLines: 2,
                                                   overflow:
                                                       TextOverflow.ellipsis)),
                                           Text(
-                                            "\$ " + kart1[index].price,
+                                            "\$ " + kart[index].price,
                                             style: TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.w600),

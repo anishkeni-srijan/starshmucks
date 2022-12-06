@@ -4,7 +4,6 @@ import 'package:starshmucks/model/wishlist_model.dart';
 
 class WishlistDB {
   Future<Database> initDBWishlist() async {
-    print("initialising db wishlist");
     String databasepath = await getDatabasesPath();
     final path = join(databasepath, "Wishlist.db");
     return openDatabase(
@@ -22,18 +21,14 @@ class WishlistDB {
 
   Future<bool> insertDataWishlist(WishlistModel item) async {
     final Database db = await initDBWishlist();
-    int count = await db.insert("WishlistTable", item.toMap(),
+    await db.insert("WishlistTable", item.toMap(),
         conflictAlgorithm: ConflictAlgorithm.ignore);
-
     return true;
   }
 
   Future<List<WishlistModel>> getDataWishlist() async {
     final Database db = await initDBWishlist();
-    final List<Map<String, dynamic?>> data = await db.query(
-      "WishlistTable",
-    );
-
+    final List<Map<String, dynamic?>> data = await db.query("WishlistTable");
     return data.map((e) => WishlistModel.fromJson(e)).toList();
   }
 
@@ -44,6 +39,5 @@ class WishlistDB {
       where: 'id = ?',
       whereArgs: [item.id],
     );
-    print("Deleted");
   }
 }

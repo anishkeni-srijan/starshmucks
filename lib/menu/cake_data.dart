@@ -31,10 +31,10 @@ class _GetCakeDataState extends State<GetCakeData> {
   void initState() {
     cdb = CartDB();
     cdb.initDBCart();
-
     db = MenuDB();
     db.initDBMenu();
-    getdata();
+    getCakeData();
+
     wdb = WishlistDB();
     wdb.initDBWishlist();
     super.initState();
@@ -57,18 +57,23 @@ class _GetCakeDataState extends State<GetCakeData> {
           ));
 
     // setState(() {});
+    cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
+    setState(() {});
   }
 
-  getdata() async {
+  getCakeData() async {
     data = await db.cakedata();
-    setState(() {
-      getdataf = true;
-    });
+    if (this.mounted) {
+      setState(() {
+        getdataf = true;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     initcart();
+    getCakeData();
     return Scaffold(
         persistentFooterButtons: cartinit ? [viewincart()] : null,
         body: ListView.builder(
