@@ -4,7 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import 'dart:io' show Platform;
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:get/get.dart';
 import 'package:starshmucks/common_things.dart';
 import 'package:starshmucks/model/wishlist_model.dart';
@@ -147,8 +146,9 @@ class _GetOffersState extends State<GetOffers> {
                               positionedToastBuilder: (context, child) =>
                                   Positioned(
                                 child: child,
-                                bottom: 120,
-                                left: 120,
+                                bottom: MediaQuery.of(context).size.height*0.16,
+                                    left: MediaQuery.of(context).size.width*0.1,
+                                    right:MediaQuery.of(context).size.width*0.1,
                               ),
                             );
                             setState(() {

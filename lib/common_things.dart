@@ -205,12 +205,27 @@ goToFailed(String message) {
 }
 
 calcrewards() async {
+  late double res= 0;
   UserDB udb = UserDB();
   List<Map<String, dynamic>> usernames = [];
   usernames = await udb.getDataUserData();
   print("rewards used: "+savings.toString());
-  double res  = usernames[0]['rewards'] + (ttl/10) - (savings*2);
-  print("final rewards todb = "+ res.toString());
+  if(usernames[0]['tier']=='bronze')
+    {
+      res  = usernames[0]['rewards'] + (ttl/10) - (savings*2);
+      print("final rewards todb = "+ res.toString());
+    }
+  else if(usernames[0]['tier']=='silver')
+  {
+    res  =(usernames[0]['rewards'] + (ttl/10) - (savings*2))*1.5;
+    print("final rewards todb = "+ res.toString());
+  }
+  else if(usernames[0]['tier']=='gold')
+  {
+    res  =(usernames[0]['rewards'] + (ttl/10) - (savings*2))*2;
+    print("final rewards todb = "+ res.toString());
+  }
+  else res  = usernames[0]['rewards'] + (ttl/10) - (savings*2);
 
   var rewardUpdate = UserModel(
     rewards:res,
