@@ -166,14 +166,15 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                                     child: TextButton(
                                       onPressed: () {
                                         addToCartCoffee(context, index);
-                                        String toastMessage = "ADDED TO CART";
+                                        String toastMessage =
+                                            "ITEM ADDED TO CART";
                                         fToast.showToast(
                                           child: CustomToast(toastMessage),
                                           positionedToastBuilder:
                                               (context, child) => Positioned(
                                             child: child,
                                             bottom: 120,
-                                            left: 120,
+                                            left: 105,
                                           ),
                                         );
                                         setState(() {
