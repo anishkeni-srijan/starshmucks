@@ -31,7 +31,19 @@ class _GetOffersState extends State<GetOffers> {
   late FToast fToast;
   late CartDB cdb;
   late WishlistDB wdb;
-  bool wlistStatus = false;
+  late List<int> ids = [];
+  getIds() async {
+    ids.clear();
+    late List<WishlistModel> datalist = [];
+    datalist = await wdb.getDataWishlist();
+    for (var i = 0; i < datalist.length; i++) {
+      ids.add(datalist[i].id);
+    }
+    setState(() {});
+    print("ids");
+    print(ids);
+  }
+
   @override
   void initState() {
     cdb = CartDB();
@@ -40,6 +52,8 @@ class _GetOffersState extends State<GetOffers> {
     db.initDBMenu();
     wdb = WishlistDB();
     wdb.initDBWishlist();
+    getdata();
+    getIds();
     super.initState();
     fToast = FToast();
     fToast.init(context);
@@ -63,14 +77,13 @@ class _GetOffersState extends State<GetOffers> {
     status(index);
   }
 
-  bool wishlistststus = false;
+  List<bool> wishlistststus = [];
   status(index) async {
-    // print("Id");
-    // print(odata[index].id);
-    wishlistststus = await wdb.isInWishlist(odata[index].id);
+    wishlistststus.add(await wdb.isInWishlist(odata[index].id));
     //print(wishlistststus);
   }
 
+  bool status1 = false;
   @override
   Widget build(BuildContext context) {
     getdata();
@@ -80,6 +93,9 @@ class _GetOffersState extends State<GetOffers> {
         scrollDirection: Axis.horizontal,
         itemCount: odata.length,
         itemBuilder: (context, index) {
+          for (var i = 0; i < ids.length; i++) {
+            if (ids[i] == odata[index].id) status1 = true;
+          }
           return Row(
             children: [
               SizedBox(
@@ -184,9 +200,9 @@ class _GetOffersState extends State<GetOffers> {
                       IconButton(
                           onPressed: () {
                             addToWishlist(context, index);
-
+                            getIds();
                           },
-                          icon: wishlistststus
+                          icon: status1
                               ? Icon(Icons.favorite)
                               : Icon(Icons.favorite_border))
                     ],

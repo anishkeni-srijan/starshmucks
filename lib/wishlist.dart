@@ -139,8 +139,7 @@ class _WishListPageState extends State<WishListPage> {
                                                   onPressed: () {
                                                     removefromwishlist(
                                                         datalist[index]);
-                                                    print("removing: " +
-                                                        index.toString());
+
                                                     setState(() {});
                                                   },
                                                   style: ButtonStyle(

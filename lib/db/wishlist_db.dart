@@ -39,11 +39,14 @@ class WishlistDB {
 
   // Future<List<WishlistModel>>
   isInWishlist(id) async {
+    //print("Returning value111");
     final Database db = await initDBWishlist();
     final List<Map<String, dynamic?>> data =
         await db.query('WishlistTable', where: 'id = ?', whereArgs: [id]);
     // print("len");
     // print(data.length);
+    // print("Returning value");
+    // print(data.length == 1);
     return data.length == 1;
   }
 
