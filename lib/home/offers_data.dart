@@ -62,28 +62,24 @@ class _GetOffersState extends State<GetOffers> {
   getdata() async {
     odata = await db.Offersdata();
     getdataf = true;
-    setState(() {});
   }
 
   addToCart(context, index) async {
     final cartp = await db.Offersdata();
-    // List<CartModel> ttl = await cdb.getDataCart();
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
   }
 
   addToWishlist(context, index) async {
     final cartp = await db.Offersdata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
-    status(index);
+    getIds();
   }
 
-  List<bool> wishlistststus = [];
-  status(index) async {
-    wishlistststus.add(await wdb.isInWishlist(odata[index].id));
-    //print(wishlistststus);
+  removefromwishlist(sendid) {
+    wdb.deleteitemFromWishlist(sendid);
+    getIds();
   }
 
-  bool status1 = false;
   @override
   Widget build(BuildContext context) {
     getdata();
@@ -93,8 +89,9 @@ class _GetOffersState extends State<GetOffers> {
         scrollDirection: Axis.horizontal,
         itemCount: odata.length,
         itemBuilder: (context, index) {
+          bool status = false;
           for (var i = 0; i < ids.length; i++) {
-            if (ids[i] == odata[index].id) status1 = true;
+            if (ids[i] == odata[index].id) status = true;
           }
           return Row(
             children: [
@@ -199,11 +196,18 @@ class _GetOffersState extends State<GetOffers> {
                       ),
                       IconButton(
                           onPressed: () {
-                            addToWishlist(context, index);
-                            getIds();
+                            //int id = odata[index].id;
+                            status
+                                ? removefromwishlist(
+                                    WishlistModel(id: odata[index].id))
+                                : addToWishlist(context, index);
+                            // getIds();
                           },
-                          icon: status1
-                              ? Icon(Icons.favorite)
+                          icon: status
+                              ? Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )
                               : Icon(Icons.favorite_border))
                     ],
                   ),

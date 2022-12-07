@@ -4,8 +4,6 @@ import 'package:hexcolor/hexcolor.dart';
 import '/db/wishlist_db.dart';
 import '/model/wishlist_model.dart';
 import 'db/menu_db.dart';
-import 'db/orders_db.dart';
-import 'home/home_screen.dart';
 
 import 'model/menu_model.dart';
 
@@ -23,7 +21,6 @@ class _WishListPageState extends State<WishListPage> {
   late WishlistDB wdb;
   late MenuDB menudb;
   late List<MenuModel> kart = [];
-  //late List<MenuModel> kart1 = [];
   late List<WishlistModel> datalist = [];
   List<WishlistModel> wishlist = [];
   //double ttl = 0;
@@ -42,9 +39,7 @@ class _WishListPageState extends State<WishListPage> {
     List<MenuModel> wishlistTmp = [];
     for (var i = 0; i < datalist.length; i++) {
       var wdata = await menudb.getElementOnId_Menu(datalist[i].id);
-      // print("init cart " + kart.length.toString());
       if (wdata.length == 1) {
-        //tempTotal += (double.parse(wdata.first.price) * datalist[i].qty);
         wishlistTmp.add(wdata.first);
       }
     }
@@ -54,9 +49,7 @@ class _WishListPageState extends State<WishListPage> {
 
   removefromwishlist(sendid) {
     wdb.deleteitemFromWishlist(sendid);
-    // datalist.isEmpty ? cartinit = false : cartinit = true;
     getDataOnIds();
-    //setState(() {});
   }
 
   @override
@@ -143,10 +136,12 @@ class _WishListPageState extends State<WishListPage> {
                                                     setState(() {});
                                                   },
                                                   style: ButtonStyle(
-                                                      foregroundColor:
-                                                          MaterialStateProperty
-                                                              .all(HexColor(
-                                                                  "#036635"))),
+                                                    foregroundColor:
+                                                        MaterialStateProperty
+                                                            .all(
+                                                      HexColor("#036635"),
+                                                    ),
+                                                  ),
                                                   child: const Text(
                                                     'Remove',
                                                   ),

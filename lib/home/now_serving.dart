@@ -38,9 +38,28 @@ class _NowServingState extends State<NowServing> {
     db.initDBMenu();
     wdb = WishlistDB();
     wdb.initDBWishlist();
+    getIds();
     super.initState();
     fToast = FToast();
     fToast.init(context);
+  }
+
+  late List<int> ids = [];
+  getIds() async {
+    ids.clear();
+    late List<WishlistModel> datalist = [];
+    datalist = await wdb.getDataWishlist();
+    for (var i = 0; i < datalist.length; i++) {
+      ids.add(datalist[i].id);
+    }
+    setState(() {});
+    print("ids");
+    print(ids);
+  }
+
+  removefromwishlist(sendid) {
+    wdb.deleteitemFromWishlist(sendid);
+    getIds();
   }
 
   addToCart(context, index) async {
@@ -54,6 +73,7 @@ class _NowServingState extends State<NowServing> {
   addToWishlist(context, index) async {
     final cartp = await db.NowServedata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
+    getIds();
     setState(() {});
   }
 
@@ -72,6 +92,10 @@ class _NowServingState extends State<NowServing> {
         scrollDirection: Axis.horizontal,
         itemCount: nowdata.length,
         itemBuilder: (context, index) {
+          bool status = false;
+          for (var i = 0; i < ids.length; i++) {
+            if (ids[i] == nowdata[index].id) status = true;
+          }
           return Row(
             children: [
               SizedBox(
@@ -173,9 +197,19 @@ class _NowServingState extends State<NowServing> {
                       ),
                       IconButton(
                           onPressed: () {
-                            addToWishlist(context, index);
+                            //int id = odata[index].id;
+                            status
+                                ? removefromwishlist(
+                                    WishlistModel(id: nowdata[index].id))
+                                : addToWishlist(context, index);
+                            // getIds();
                           },
-                          icon: Icon(Icons.favorite_border))
+                          icon: status
+                              ? Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )
+                              : Icon(Icons.favorite_border))
                     ],
                   ),
                 ),

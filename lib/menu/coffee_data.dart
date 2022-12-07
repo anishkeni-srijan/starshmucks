@@ -41,15 +41,34 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     getCoffeeData();
     wdb = WishlistDB();
     wdb.initDBWishlist();
+    getIds();
     super.initState();
     fToast = FToast();
     fToast.init(context);
   }
 
+  late List<int> ids = [];
+  getIds() async {
+    ids.clear();
+    late List<WishlistModel> datalist = [];
+    datalist = await wdb.getDataWishlist();
+    for (var i = 0; i < datalist.length; i++) {
+      ids.add(datalist[i].id);
+    }
+    setState(() {});
+    print("ids");
+    print(ids);
+  }
+
+  removefromwishlist(sendid) {
+    wdb.deleteitemFromWishlist(sendid);
+    getIds();
+  }
+
   addToWishlist(context, index) async {
     final cartp = await menuDB.coffeedata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
-    setState(() {});
+    getIds();
   }
 
   addToCartCoffee(context, index) async {
@@ -84,6 +103,10 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
               shrinkWrap: true,
               itemCount: data.length,
               itemBuilder: (context, index) {
+                bool status = false;
+                for (var i = 0; i < ids.length; i++) {
+                  if (ids[i] == data[index].id) status = true;
+                }
                 return GestureDetector(
                   onTap: () {
                     getpdata(data[index]);
@@ -213,9 +236,19 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                                   ),
                                   IconButton(
                                       onPressed: () {
-                                        addToWishlist(context, index);
+                                        //int id = odata[index].id;
+                                        status
+                                            ? removefromwishlist(WishlistModel(
+                                                id: data[index].id))
+                                            : addToWishlist(context, index);
+                                        // getIds();
                                       },
-                                      icon: Icon(Icons.favorite_border))
+                                      icon: status
+                                          ? Icon(
+                                              Icons.favorite,
+                                              color: Colors.red,
+                                            )
+                                          : Icon(Icons.favorite_border))
                                 ],
                               ),
                             ],
