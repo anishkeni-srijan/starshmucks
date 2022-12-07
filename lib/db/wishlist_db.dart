@@ -37,6 +37,16 @@ class WishlistDB {
     return data.map((e) => WishlistModel.fromJson(e)).toList();
   }
 
+  // Future<List<WishlistModel>>
+  isInWishlist(id) async {
+    final Database db = await initDBWishlist();
+    final List<Map<String, dynamic?>> data =
+        await db.query('WishlistTable', where: 'id = ?', whereArgs: [id]);
+    // print("len");
+    // print(data.length);
+    return data.length == 1;
+  }
+
   Future<void> deleteitemFromWishlist(WishlistModel item) async {
     final db = await initDBWishlist();
     await db.delete(

@@ -62,6 +62,14 @@ class _GetOffersState extends State<GetOffers> {
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
   }
 
+  bool wishlistststus = false;
+  status(index) async {
+    // print("Id");
+    // print(odata[index].id);
+    wishlistststus = await wdb.isInWishlist(odata[index].id);
+    //print(wishlistststus);
+  }
+
   @override
   Widget build(BuildContext context) {
     getdata();
@@ -176,7 +184,9 @@ class _GetOffersState extends State<GetOffers> {
                           onPressed: () {
                             addToWishlist(context, index);
                           },
-                          icon: Icon(Icons.favorite_border))
+                          icon: wishlistststus
+                              ? Icon(Icons.favorite)
+                              : Icon(Icons.favorite_border))
                     ],
                   ),
                 ),
