@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
   List<MenuModel> data = [];
   List<Map<String, dynamic>> userddt = [];
   late var product;
-  bool fetching = false;
   late UserDB udb;
   void initState() {
     udb = UserDB();
@@ -53,9 +52,7 @@ class _HomePageState extends State<HomePage> {
 
   getdata() async {
     data = await db.getDataMenu();
-    setState(() {
-      fetching = true;
-    });
+    setState(() {});
   }
 
   putdata() async {
@@ -134,6 +131,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 }
+
 getbanner(context, username) {
   return Container(
     height: MediaQuery.of(context).size.height * 0.2,
@@ -357,4 +355,3 @@ learnmore(context) {
     ),
   );
 }
-

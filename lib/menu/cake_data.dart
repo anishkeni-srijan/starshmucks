@@ -160,8 +160,15 @@ class _GetCakeDataState extends State<GetCakeData> {
                                       positionedToastBuilder:
                                           (context, child) => Positioned(
                                         child: child,
-                                        bottom: 120,
-                                        left: 105,
+                                        bottom:
+                                            MediaQuery.of(context).size.height *
+                                                0.14,
+                                        left:
+                                            MediaQuery.of(context).size.width *
+                                                0.1,
+                                        right:
+                                            MediaQuery.of(context).size.width *
+                                                0.1,
                                       ),
                                     );
                                     setState(

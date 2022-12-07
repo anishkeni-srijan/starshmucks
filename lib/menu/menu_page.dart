@@ -3,9 +3,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../common_things.dart';
 import '../db/menu_db.dart';
-import '../home/home_screen.dart';
 import '../model/menu_model.dart';
 import 'cake_data.dart';
 import 'coffee_data.dart';
@@ -21,7 +19,7 @@ class OrderPage extends StatefulWidget {
 class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   late TabController tabController;
   late MenuDB db;
-  bool fetching = false;
+
   late var product;
   List<MenuModel> data = [];
   //
@@ -38,9 +36,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
 
   getdata() async {
     data = await db.getDataMenu();
-    setState(() {
-      fetching = true;
-    });
+    setState(() {});
   }
 
   putdata() async {

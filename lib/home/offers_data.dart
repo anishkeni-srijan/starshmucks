@@ -147,9 +147,10 @@ class _GetOffersState extends State<GetOffers> {
                               positionedToastBuilder: (context, child) =>
                                   Positioned(
                                 child: child,
-                                bottom: MediaQuery.of(context).size.height*0.16,
-                                    left: MediaQuery.of(context).size.width*0.1,
-                                    right:MediaQuery.of(context).size.width*0.1,
+                                bottom:
+                                    MediaQuery.of(context).size.height * 0.14,
+                                left: MediaQuery.of(context).size.width * 0.1,
+                                right: MediaQuery.of(context).size.width * 0.1,
                               ),
                             );
                             setState(() {
@@ -185,15 +186,5 @@ class _GetOffersState extends State<GetOffers> {
         },
       ),
     );
-  }
-
-  Future<bool> onLikeButtonTapped(bool isLiked) async {
-    /// send your request here
-    // final bool success= await sendRequest();
-
-    /// if failed, you can do nothing
-    // return success? !isLiked:isLiked;
-
-    return !isLiked;
   }
 }
