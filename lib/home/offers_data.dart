@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import 'dart:io' show Platform;
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:get/get.dart';
 import 'package:starshmucks/common_things.dart';
 import 'package:starshmucks/model/wishlist_model.dart';
@@ -140,7 +141,7 @@ class _GetOffersState extends State<GetOffers> {
                           onPressed: () {
                             //if (data.isEmpty) {
                             addToCart(context, index);
-                            String toastMessage = "ADDED TO CART";
+                            String toastMessage = "ITEM ADDED TO CART";
                             fToast.showToast(
                               child: CustomToast(toastMessage),
                               positionedToastBuilder: (context, child) =>
