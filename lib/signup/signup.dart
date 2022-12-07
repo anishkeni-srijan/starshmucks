@@ -136,34 +136,46 @@ class _SignupPageState extends State<SignupPage> {
                   margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.01,
                   ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: name,
-                    onChanged: (value) {
-                      BlocProvider.of<SignupBloc>(context).add(
-                        SignupNameChangedEvent(name.text),
-                      );
-                    },
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Name',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
+                  child: Form(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    child: TextFormField(
+                      style:
+                          const TextStyle(color: Colors.black), //<-- SEE HERE
+                      controller: name,
+                      onChanged: (value) {
+                        BlocProvider.of<SignupBloc>(context).add(
+                          SignupNameChangedEvent(name.text),
+                        );
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(5),
+                        labelText: 'Name',
+                        labelStyle: TextStyle(
                           color: HexColor("#175244"),
-                          width: 2,
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
                         ),
                       ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
+                      validator: (value) {
+                        if (value == null)
+                          return "Please enter name";
+                        else if (value.length < 3)
+                          return "Please enter 3 character for name";
+                        else
+                          return null;
+                      },
                     ),
                   ),
                 ),
@@ -173,69 +185,72 @@ class _SignupPageState extends State<SignupPage> {
                   margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.005,
                   ),
-                  child: TextField(
-                    controller: dob, //editing controller of this TextField
-                    onChanged: (value) {
-                      BlocProvider.of<SignupBloc>(context).add(
-                        SignupDobChangedEvent(dob.text),
-                      );
-                    },
-                    decoration: InputDecoration(
-                      //label text of field
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Date Of Birth',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      prefixIcon: Icon(
-                        Icons.calendar_month_rounded,
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                    readOnly:
-                        true, //set it true, so that user will not able to edit text
-                    onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(
-                          1900,
-                          1,
-                          1,
-                        ), //DateTime.now() - not to allow to choose before today.
-                        lastDate: DateTime(2101),
-                      );
-
-                      if (pickedDate != null) {
-                        print(
-                            pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                        String formattedDate =
-                            DateFormat('yyyy-MM-dd').format(pickedDate);
-                        print(formattedDate);
-                        setState(
-                          () {
-                            dob.text =
-                                formattedDate; //set output date to TextField value.
-                          },
+                  child: Form(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    child: TextFormField(
+                      controller: dob, //editing controller of this TextField
+                      onChanged: (value) {
+                        BlocProvider.of<SignupBloc>(context).add(
+                          SignupDobChangedEvent(dob.text),
                         );
-                      } else {
-                        print("Date is not selected");
-                      }
-                    },
+                      },
+                      decoration: InputDecoration(
+                        //label text of field
+                        contentPadding: EdgeInsets.all(5),
+                        labelText: 'Date Of Birth',
+                        labelStyle: TextStyle(
+                          color: HexColor("#175244"),
+                        ),
+                        prefixIcon: Icon(
+                          Icons.calendar_month_rounded,
+                          color: HexColor("#175244"),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
+                        ),
+                      ),
+                      readOnly:
+                          true, //set it true, so that user will not able to edit text
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(
+                            1900,
+                            1,
+                            1,
+                          ), //DateTime.now() - not to allow to choose before today.
+                          lastDate: DateTime(2101),
+                        );
+
+                        if (pickedDate != null) {
+                          print(
+                              pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                          String formattedDate =
+                              DateFormat('yyyy-MM-dd').format(pickedDate);
+                          print(formattedDate);
+                          setState(
+                            () {
+                              dob.text =
+                                  formattedDate; //set output date to TextField value.
+                            },
+                          );
+                        } else {
+                          print("Date is not selected");
+                        }
+                      },
+                    ),
                   ),
                 ),
                 //Email
@@ -244,34 +259,45 @@ class _SignupPageState extends State<SignupPage> {
                   margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.005,
                   ),
-                  child: TextFormField(
-                    autocorrect: false,
-                    style: const TextStyle(color: Colors.black), //<-- SEE HERE
-                    controller: email,
-                    onChanged: (value) {
-                      BlocProvider.of<SignupBloc>(context)
-                          .add(SignupEmailChangedEvent(email.text));
-                    },
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      labelText: 'Email',
-                      labelStyle: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
+                  child: Form(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    child: TextFormField(
+                      autocorrect: false,
+                      style: const TextStyle(color: Colors.black),
+                      controller: email,
+                      onChanged: (value) {
+                        BlocProvider.of<SignupBloc>(context)
+                            .add(SignupEmailChangedEvent(email.text));
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(5),
+                        labelText: 'Email',
+                        labelStyle: TextStyle(
                           color: HexColor("#175244"),
-                          width: 2,
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: HexColor("#175244"),
+                            width: 2,
+                          ),
                         ),
                       ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: HexColor("#175244"),
-                          width: 2,
-                        ),
-                      ),
+                      validator: (value) {
+                        if (RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(value!))
+                          return null;
+                        else
+                          return "Please Enter a valid email";
+                      },
                     ),
                   ),
                 ),
