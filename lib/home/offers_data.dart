@@ -31,7 +31,19 @@ class _GetOffersState extends State<GetOffers> {
   late FToast fToast;
   late CartDB cdb;
   late WishlistDB wdb;
-  bool wlistStatus = false;
+  late List<int> ids = [];
+  getIds() async {
+    ids.clear();
+    late List<WishlistModel> datalist = [];
+    datalist = await wdb.getDataWishlist();
+    for (var i = 0; i < datalist.length; i++) {
+      ids.add(datalist[i].id);
+    }
+    setState(() {});
+    print("ids");
+    print(ids);
+  }
+
   @override
   void initState() {
     cdb = CartDB();
@@ -40,6 +52,8 @@ class _GetOffersState extends State<GetOffers> {
     db.initDBMenu();
     wdb = WishlistDB();
     wdb.initDBWishlist();
+    getdata();
+    getIds();
     super.initState();
     fToast = FToast();
     fToast.init(context);
@@ -48,27 +62,22 @@ class _GetOffersState extends State<GetOffers> {
   getdata() async {
     odata = await db.Offersdata();
     getdataf = true;
-    setState(() {});
   }
 
   addToCart(context, index) async {
     final cartp = await db.Offersdata();
-    // List<CartModel> ttl = await cdb.getDataCart();
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
   }
 
   addToWishlist(context, index) async {
     final cartp = await db.Offersdata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
-    status(index);
+    getIds();
   }
 
-  bool wishlistststus = false;
-  status(index) async {
-    // print("Id");
-    // print(odata[index].id);
-    wishlistststus = await wdb.isInWishlist(odata[index].id);
-    //print(wishlistststus);
+  removefromwishlist(sendid) {
+    wdb.deleteitemFromWishlist(sendid);
+    getIds();
   }
 
   @override
@@ -80,6 +89,10 @@ class _GetOffersState extends State<GetOffers> {
         scrollDirection: Axis.horizontal,
         itemCount: odata.length,
         itemBuilder: (context, index) {
+          bool status = false;
+          for (var i = 0; i < ids.length; i++) {
+            if (ids[i] == odata[index].id) status = true;
+          }
           return Row(
             children: [
               SizedBox(
@@ -183,11 +196,18 @@ class _GetOffersState extends State<GetOffers> {
                       ),
                       IconButton(
                           onPressed: () {
-                            addToWishlist(context, index);
-
+                            //int id = odata[index].id;
+                            status
+                                ? removefromwishlist(
+                                    WishlistModel(id: odata[index].id))
+                                : addToWishlist(context, index);
+                            // getIds();
                           },
-                          icon: wishlistststus
-                              ? Icon(Icons.favorite)
+                          icon: status
+                              ? Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )
                               : Icon(Icons.favorite_border))
                     ],
                   ),

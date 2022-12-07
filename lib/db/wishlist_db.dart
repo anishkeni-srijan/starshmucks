@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:starshmucks/model/wishlist_model.dart';
+import '/model/wishlist_model.dart';
 
 class WishlistDB {
   Future<Database> initDBWishlist() async {
@@ -27,8 +27,6 @@ class WishlistDB {
       return true;
     else
       return false;
-    // print("count");
-    // print(count);
   }
 
   Future<List<WishlistModel>> getDataWishlist() async {
@@ -37,13 +35,10 @@ class WishlistDB {
     return data.map((e) => WishlistModel.fromJson(e)).toList();
   }
 
-  // Future<List<WishlistModel>>
   isInWishlist(id) async {
     final Database db = await initDBWishlist();
     final List<Map<String, dynamic?>> data =
         await db.query('WishlistTable', where: 'id = ?', whereArgs: [id]);
-    // print("len");
-    // print(data.length);
     return data.length == 1;
   }
 
