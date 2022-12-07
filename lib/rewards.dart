@@ -18,7 +18,10 @@ class Rewards extends StatefulWidget {
   @override
   State<Rewards> createState() => _RewardsState();
 }
-
+late double silvervalue = 0;
+late double goldvalue = 0;
+late double progvalue = 0;
+late double res = 0;
 class _RewardsState extends State<Rewards> {
   String refLink = "http://starshmucks.com/refferal/cdJkk5";
   TextEditingController test = TextEditingController();
@@ -39,10 +42,7 @@ class _RewardsState extends State<Rewards> {
     super.initState();
   }
   String nexttier = '';
-  late double silvervalue = 0;
-  late double goldvalue = 0;
-  late double progvalue = 0;
-  late double res = 0;
+
   getnexttier(){
     usernames.isEmpty?nexttier="silver": usernames[0]['rewards']>10?nexttier="gold":nexttier='silver';
     setState(() {
