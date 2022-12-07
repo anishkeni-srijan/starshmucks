@@ -60,6 +60,7 @@ class _GetOffersState extends State<GetOffers> {
   addToWishlist(context, index) async {
     final cartp = await db.Offersdata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
+    status(index);
   }
 
   bool wishlistststus = false;
@@ -183,6 +184,7 @@ class _GetOffersState extends State<GetOffers> {
                       IconButton(
                           onPressed: () {
                             addToWishlist(context, index);
+
                           },
                           icon: wishlistststus
                               ? Icon(Icons.favorite)

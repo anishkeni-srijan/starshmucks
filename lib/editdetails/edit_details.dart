@@ -200,7 +200,7 @@ class _EditProfileState extends State<EditProfile> {
 
 
                           var updateData = UserModel(
-                              tier:usernames[0]['dob'],
+                              tier:usernames[0]['tier'],
                               dob: usernames[0]['dob'],
                               email: econtroller.text,
                               phone: phcontroller.text,
