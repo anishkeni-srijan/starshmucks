@@ -5,7 +5,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-
+import 'package:starshmucks/rewarddetails.dart';
+import 'package:get/get.dart';
 import 'db/user_db.dart';
 import '/common_things.dart';
 import '/home/home_screen.dart';
@@ -27,6 +28,9 @@ class _RewardsState extends State<Rewards> {
   getuser() async {
     usernames = await udb.getDataUserData();
     setState(() {});
+    getnexttier();
+    getprogress();
+    starsneeded();
   }
 
   @override
@@ -34,22 +38,54 @@ class _RewardsState extends State<Rewards> {
     getuser();
     super.initState();
   }
-
+  String nexttier = '';
   late double silvervalue = 0;
   late double goldvalue = 0;
   late double progvalue = 0;
+  late double res = 0;
+  getnexttier(){
+    usernames.isEmpty?nexttier="silver": usernames[0]['rewards']>10?nexttier="gold":nexttier='silver';
+    setState(() {
+
+    });
+  }
+  getprogress() {
+    if (usernames.isEmpty) {
+      silvervalue = 0;
+    }
+    else {
+      if (usernames[0]['rewards'] < 10) {
+        silvervalue = usernames[0]['rewards'] / 10.0;
+      } else if (usernames[0]['rewards'] > 10) {
+        silvervalue = usernames[0]['rewards'] / 10.0;
+        goldvalue = usernames[0]['rewards'] / 100.0;
+      } else
+        progvalue = 0;
+    }
+    setState(() {
+
+    });
+  }
+  starsneeded() {
+    if (usernames.isEmpty) {
+      silvervalue = 0;
+    }
+    else {
+      if (usernames[0]['rewards'] < 10) {
+        res = 10.0 - usernames[0]['rewards'];
+      }
+      else if (usernames[0]['rewards'] > 10) {
+        res = 20.0 - usernames[0]['rewards'];
+      }
+    }
+    setState(() {
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
-    double res = 10.0 - usernames[0]['rewards'];
-    if (usernames[0]['rewards'] < 10) {
-      silvervalue = usernames[0]['rewards'] / 10.0;
-    } else if (usernames[0]['rewards'] > 10) {
-      silvervalue = usernames[0]['rewards'] / 10.0;
-      goldvalue = usernames[0]['rewards'] / 100.0;
-    } else
-      progvalue = 0;
     return usernames.isEmpty
-        ? const CircularProgressIndicator()
+        ? Center(child: const CircularProgressIndicator())
         : Scaffold(
             persistentFooterButtons: cartinit ? [viewincart()] : null,
             appBar: AppBar(
@@ -144,69 +180,89 @@ class _RewardsState extends State<Rewards> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Center(
-                    child: AutoSizeText(
-                      "You are " +
-                          res.toStringAsFixed(2) +
-                          " stars away from " +
-                          usernames[0]['tier'].toString() +
-                          " tier.",
-                      style: TextStyle(
-                        color: HexColor("#175244"),
-                      ),
-                      minFontSize: 18,
-                    ),
-                  ),
-                  Container(
-                    color: Colors.white,
-                    padding: const EdgeInsets.all(10),
-                    width: MediaQuery.of(context).size.width * 1,
-                    child: Card(
-                      elevation: 10,
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(
-                                  Icons.stars_sharp,
-                                  color: Colors.brown,
-                                ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.32,
-                                  child: LinearProgressIndicator(
-                                    // color: Colors.white,
-                                    backgroundColor:HexColor("#175244"),
-                                    valueColor:
-                                        const AlwaysStoppedAnimation<Color>(
-                                            Colors.brown),
-                                    value: silvervalue,
+
+                  GestureDetector(
+                    onTap: (){Get.to(Rewarddetails());},
+                    child: Container(
+                      color: Colors.white,
+                      padding: const EdgeInsets.all(10),
+                      width: MediaQuery.of(context).size.width * 1,
+                      child: Card(
+                        elevation: 10,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  AutoSizeText(
+                                    "You are " +
+                                        res.toStringAsFixed(2) +
+                                        " stars away from ",
+                                    style: TextStyle(
+                                      color: HexColor("#175244"),
+                                    ),
+                                    minFontSize: 18,
+                                  ),AutoSizeText(
+                                    nexttier,
+                                    style: TextStyle(
+                                      color: nexttier=='silver'?Colors.grey:Colors.amberAccent,
+                                    ),
+                                    minFontSize: 18,
+                                  ),AutoSizeText(
+                                    " tier.",
+                                    style: TextStyle(
+                                      color: HexColor("#175244"),
+                                    ),
+                                    minFontSize: 18,
                                   ),
-                                ),
-                                const Icon(Icons.stars_sharp,
-                                    color: Colors.grey),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.32,
-                                  child: LinearProgressIndicator(
-                                    // color: Colors.white,
-                                    backgroundColor:HexColor("#175244"),
-                                    valueColor:
-                                        new AlwaysStoppedAnimation<Color>(
-                                            Colors.grey),
-                                    value: goldvalue,
-                                  ),
-                                ),
-                                const Icon(Icons.stars_sharp,
-                                    color: Colors.amberAccent),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(
+                                    Icons.stars_sharp,
+                                    color: Colors.brown,
+                                  ),
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.32,
+                                    child: LinearProgressIndicator(
+                                      // color: Colors.white,
+                                      backgroundColor:HexColor("#175244"),
+                                      valueColor:
+                                          const AlwaysStoppedAnimation<Color>(
+                                              Colors.brown),
+                                      value: silvervalue,
+                                    ),
+                                  ),
+                                  const Icon(Icons.stars_sharp,
+                                      color: Colors.grey),
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.32,
+                                    child: LinearProgressIndicator(
+                                      // color: Colors.white,
+                                      backgroundColor:HexColor("#175244"),
+                                      valueColor:
+                                          new AlwaysStoppedAnimation<Color>(
+                                              Colors.grey),
+                                      value: goldvalue,
+                                    ),
+                                  ),
+                                  const Icon(Icons.stars_sharp,
+                                      color: Colors.amberAccent),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -226,16 +282,16 @@ class _RewardsState extends State<Rewards> {
                                     "Refer a friend",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w800,
-                                        fontSize: 25,
+                                        fontSize: 23,
                                         color: HexColor("#175244")),
                                   ),
                                 ),
                                 const SizedBox(
-                                  height: 10,
+                                  height: 5,
                                 ),
                                 const Text(
                                   "And you both save \$XX.",
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(fontSize: 15),
                                 ),
                                 const SizedBox(
                                   height: 10,
@@ -272,7 +328,7 @@ class _RewardsState extends State<Rewards> {
                                           "1",
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 25,
+                                            fontSize: 23,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -283,6 +339,7 @@ class _RewardsState extends State<Rewards> {
                                       width: 20,
                                     ),
                                     Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         const Text(
                                           "Invite your friends",
@@ -296,7 +353,7 @@ class _RewardsState extends State<Rewards> {
                                         Text(
                                           "Just share your link",
                                           style: TextStyle(
-                                              fontSize: 18,
+                                              fontSize: 12,
                                               fontWeight: FontWeight.w200,
                                               color: Colors.grey.shade600),
                                         ),
@@ -328,7 +385,7 @@ class _RewardsState extends State<Rewards> {
                                           "2",
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 25,
+                                            fontSize: 23,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -354,7 +411,7 @@ class _RewardsState extends State<Rewards> {
                                         Text(
                                           "With \$XX off",
                                           style: TextStyle(
-                                              fontSize: 18,
+                                              fontSize: 12,
                                               fontWeight: FontWeight.w200,
                                               color: Colors.grey.shade600),
                                         ),
@@ -386,7 +443,7 @@ class _RewardsState extends State<Rewards> {
                                           "3",
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 25,
+                                            fontSize: 23,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -412,7 +469,7 @@ class _RewardsState extends State<Rewards> {
                                         Text(
                                           "Then you get \$XX off",
                                           style: TextStyle(
-                                              fontSize: 18,
+                                              fontSize: 12,
                                               fontWeight: FontWeight.w200,
                                               color: Colors.grey.shade600),
                                         ),
