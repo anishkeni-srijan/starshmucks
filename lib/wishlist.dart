@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:get/get.dart';
+import '/common_things.dart';
 
 import '/db/wishlist_db.dart';
 import '/model/wishlist_model.dart';
@@ -52,6 +56,12 @@ class _WishListPageState extends State<WishListPage> {
     getDataOnIds();
   }
 
+  Future<bool> onWillPop() async {
+    //Navigator.pop(context,true);
+    return (await Get.to(bottomBar(), transition: Transition.leftToRight)) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
     getDataOnIds();
@@ -59,107 +69,118 @@ class _WishListPageState extends State<WishListPage> {
       backgroundColor: Colors.white,
       body: datalist == null
           ? const CircularProgressIndicator()
-          : NestedScrollView(
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
-                return <Widget>[
-                  SliverAppBar(
-                    elevation: 4,
-                    //toolbarHeight: 120,
-                    backgroundColor: Colors.white,
-                    foregroundColor: HexColor("#175244"),
-                    title: Text('Wishlist'),
-                  ),
-                ];
-              },
-              body: datalist.isEmpty
-                  ? Center(
-                      child: Text(
-                        "Nothing in Wishlist",
-                        style: TextStyle(
-                            color: HexColor("#175244"),
-                            fontWeight: FontWeight.w600,
-                            fontSize: 25),
+          : WillPopScope(
+              onWillPop: onWillPop,
+              child: NestedScrollView(
+                headerSliverBuilder:
+                    (BuildContext context, bool innerBoxIsScrolled) {
+                  return <Widget>[
+                    SliverAppBar(
+                      automaticallyImplyLeading: false,
+                      leading: IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        onPressed: () {
+                          onWillPop();
+                        },
                       ),
-                    )
-                  : SingleChildScrollView(
-                      physics: NeverScrollableScrollPhysics(),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01,
-                          ),
-                          ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: datalist.length,
-                            itemBuilder: (context, index) {
-                              return Card(
-                                elevation: 10,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 8.0, bottom: 8),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Image.asset(
-                                            kart[index].image,
-                                            height: 100,
-                                            width: 100,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                    width: 150,
-                                                    child: Text(
-                                                        kart[index].title,
-                                                        maxLines: 2,
-                                                        overflow: TextOverflow
-                                                            .ellipsis)),
-                                                Text(
-                                                  "\$ " + kart[index].price,
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                                TextButton(
-                                                  onPressed: () {
-                                                    removefromwishlist(
-                                                        datalist[index]);
+                      elevation: 4,
+                      //toolbarHeight: 120,
+                      backgroundColor: Colors.white,
+                      foregroundColor: HexColor("#175244"),
+                      title: Text('Wishlist'),
+                    ),
+                  ];
+                },
+                body: datalist.isEmpty
+                    ? Center(
+                        child: Text(
+                          "Nothing in Wishlist",
+                          style: TextStyle(
+                              color: HexColor("#175244"),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 25),
+                        ),
+                      )
+                    : SingleChildScrollView(
+                        physics: NeverScrollableScrollPhysics(),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.01,
+                            ),
+                            ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: datalist.length,
+                              itemBuilder: (context, index) {
+                                return Card(
+                                  elevation: 10,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, bottom: 8),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                              kart[index].image,
+                                              height: 100,
+                                              width: 100,
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  SizedBox(
+                                                      width: 150,
+                                                      child: Text(
+                                                          kart[index].title,
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow
+                                                              .ellipsis)),
+                                                  Text(
+                                                    "\$ " + kart[index].price,
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      removefromwishlist(
+                                                          datalist[index]);
 
-                                                    setState(() {});
-                                                  },
-                                                  style: ButtonStyle(
-                                                    foregroundColor:
-                                                        MaterialStateProperty
-                                                            .all(
-                                                      HexColor("#036635"),
+                                                      setState(() {});
+                                                    },
+                                                    style: ButtonStyle(
+                                                      foregroundColor:
+                                                          MaterialStateProperty
+                                                              .all(
+                                                        HexColor("#036635"),
+                                                      ),
+                                                    ),
+                                                    child: const Text(
+                                                      'Remove',
                                                     ),
                                                   ),
-                                                  child: const Text(
-                                                    'Remove',
-                                                  ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-                        ],
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+              ),
             ),
     );
     ;
