@@ -51,12 +51,20 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
       ids.add(datalist[i].id);
     }
     setState(() {});
-    print("ids");
-    print(ids);
   }
 
   removefromwishlist(sendid) {
     wdb.deleteitemFromWishlist(sendid);
+    String toastMessage = "ITEM REMOVED TO WISHLIST";
+    fToast.showToast(
+      child: CustomToast(toastMessage),
+      positionedToastBuilder: (context, child) => Positioned(
+        child: child,
+        bottom: MediaQuery.of(context).size.height * 0.14,
+        left: MediaQuery.of(context).size.width * 0.1,
+        right: MediaQuery.of(context).size.width * 0.1,
+      ),
+    );
     getIds();
   }
 
@@ -69,6 +77,16 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
   addToWishlist(context, index) async {
     final cartp = await db.smoothiedata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
+    String toastMessage = "ITEM ADDED TO WISHLIST";
+    fToast.showToast(
+      child: CustomToast(toastMessage),
+      positionedToastBuilder: (context, child) => Positioned(
+        child: child,
+        bottom: MediaQuery.of(context).size.height * 0.14,
+        left: MediaQuery.of(context).size.width * 0.1,
+        right: MediaQuery.of(context).size.width * 0.1,
+      ),
+    );
     getIds();
   }
 

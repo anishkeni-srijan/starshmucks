@@ -6,9 +6,9 @@ import 'package:hexcolor/hexcolor.dart';
 import 'dart:io' show Platform;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:get/get.dart';
-import 'package:starshmucks/common_things.dart';
-import 'package:starshmucks/model/wishlist_model.dart';
-import 'package:starshmucks/productdetail.dart';
+import '/common_things.dart';
+import '/model/wishlist_model.dart';
+import '/productdetail.dart';
 import '../db/cart_db.dart';
 import '../db/menu_db.dart';
 import '../db/wishlist_db.dart';
@@ -40,8 +40,6 @@ class _GetOffersState extends State<GetOffers> {
       ids.add(datalist[i].id);
     }
     setState(() {});
-    print("ids");
-    print(ids);
   }
 
   @override
@@ -70,6 +68,16 @@ class _GetOffersState extends State<GetOffers> {
   }
 
   addToWishlist(context, index) async {
+    String toastMessage = "ITEM ADDED TO WISHLIST";
+    fToast.showToast(
+      child: CustomToast(toastMessage),
+      positionedToastBuilder: (context, child) => Positioned(
+        child: child,
+        bottom: MediaQuery.of(context).size.height * 0.14,
+        left: MediaQuery.of(context).size.width * 0.1,
+        right: MediaQuery.of(context).size.width * 0.1,
+      ),
+    );
     final cartp = await db.Offersdata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
     getIds();
@@ -77,6 +85,16 @@ class _GetOffersState extends State<GetOffers> {
 
   removefromwishlist(sendid) {
     wdb.deleteitemFromWishlist(sendid);
+    String toastMessage = "ITEM REMOVED TO WISHLIST";
+    fToast.showToast(
+      child: CustomToast(toastMessage),
+      positionedToastBuilder: (context, child) => Positioned(
+        child: child,
+        bottom: MediaQuery.of(context).size.height * 0.14,
+        left: MediaQuery.of(context).size.width * 0.1,
+        right: MediaQuery.of(context).size.width * 0.1,
+      ),
+    );
     getIds();
   }
 
