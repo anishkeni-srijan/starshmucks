@@ -22,6 +22,7 @@ late double silvervalue = 0;
 late double goldvalue = 0;
 late double progvalue = 0;
 late double res = 0;
+String nexttier = '';
 class _RewardsState extends State<Rewards> {
   String refLink = "http://starshmucks.com/refferal/cdJkk5";
   TextEditingController test = TextEditingController();
@@ -41,7 +42,6 @@ class _RewardsState extends State<Rewards> {
     getuser();
     super.initState();
   }
-  String nexttier = '';
 
   getnexttier(){
     usernames.isEmpty?nexttier="silver": usernames[0]['rewards']>10?nexttier="gold":nexttier='silver';
