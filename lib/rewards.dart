@@ -58,7 +58,7 @@ class _RewardsState extends State<Rewards> {
         silvervalue = usernames[0]['rewards'] / 10.0;
       } else if (usernames[0]['rewards'] > 10) {
         silvervalue = usernames[0]['rewards'] / 10.0;
-        goldvalue = usernames[0]['rewards'] / 100.0;
+        goldvalue = usernames[0]['rewards'] / 20.0;
       } else
         progvalue = 0;
     }
@@ -192,14 +192,14 @@ class _RewardsState extends State<Rewards> {
                         child: Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(20.0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   AutoSizeText(
                                     "You are " +
                                         res.toStringAsFixed(2) +
-                                        " stars away from ",
+                                        " points away from ",
                                     style: TextStyle(
                                       color: HexColor("#175244"),
                                     ),
@@ -226,13 +226,19 @@ class _RewardsState extends State<Rewards> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Icon(
-                                    Icons.stars_sharp,
-                                    color: Colors.brown,
+                                  Column(
+                                    children: [
+                                      const Icon(
+                                        Icons.stars_sharp,
+                                        color: Colors.brown,
+                                      ),
+                                      Text("0 Points",style: TextStyle(fontSize: 11))
+                                    ],
                                   ),
                                   Container(
+                                    margin: EdgeInsets.only(bottom: 15),
                                     width:
-                                        MediaQuery.of(context).size.width * 0.32,
+                                        MediaQuery.of(context).size.width * 0.26,
                                     child: LinearProgressIndicator(
                                       // color: Colors.white,
                                       backgroundColor:HexColor("#175244"),
@@ -242,11 +248,18 @@ class _RewardsState extends State<Rewards> {
                                       value: silvervalue,
                                     ),
                                   ),
-                                  const Icon(Icons.stars_sharp,
-                                      color: Colors.grey),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      const Icon(Icons.stars_sharp,
+                                          color: Colors.grey),
+                                      Text('10 Points',style: TextStyle(fontSize: 11))
+                                    ],
+                                  ),
                                   Container(
+                                    margin: EdgeInsets.only(bottom: 15),
                                     width:
-                                        MediaQuery.of(context).size.width * 0.32,
+                                        MediaQuery.of(context).size.width * 0.26,
                                     child: LinearProgressIndicator(
                                       // color: Colors.white,
                                       backgroundColor:HexColor("#175244"),
@@ -256,11 +269,31 @@ class _RewardsState extends State<Rewards> {
                                       value: goldvalue,
                                     ),
                                   ),
-                                  const Icon(Icons.stars_sharp,
-                                      color: Colors.amberAccent),
+                                  Column(
+                                    children: [
+                                      const Icon(Icons.stars_sharp,
+                                          color: Colors.amberAccent),
+                                      Text('20 Points',style: TextStyle(fontSize: 11),)
+                                    ],
+                                  ),
+
                                 ],
                               ),
                             ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 8, right: 8, top: 10,bottom: 10),
+                              child: Divider(
+                                color: Colors.black38,
+                                height: 1,
+                                thickness: 0.8,
+                                indent: 0,
+                                endIndent: 0,
+                              ),
+                            ),
+                            TextButton(onPressed: (){
+                              Get.to(Rewarddetails(),transition: Transition.leftToRightWithFade);
+                            }, child: Text("Know More", style: TextStyle(color: HexColor("#175244")),))
                           ],
                         ),
                       ),

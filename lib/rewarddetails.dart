@@ -106,7 +106,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                             // color: Colors.white,
                                             backgroundColor: Colors.white,
                                             valueColor: AlwaysStoppedAnimation<Color>(Colors.brown),
-                                            value: rewards/5,
+                                            value: rewards<5?rewards/5:10,
                                           ),
                                         ),
                                       ],
@@ -204,7 +204,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                             // color: Colors.white,
                                             backgroundColor: Colors.white,
                                             valueColor: AlwaysStoppedAnimation<Color>(Colors.brown),
-                                            value: rewards/5.0,
+                                            value:rewards>5.0?rewards/10.0:0,
                                           ),
                                         ),
                                         Icon(
@@ -219,17 +219,12 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                             // color: Colors.white,
                                             backgroundColor: Colors.white,
                                             valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
-                                            value: rewards/5.0,
+                                            value:rewards>10.0?rewards/10.0:0,
                                           ),
                                         ),
                                       ],
                                     ),
-                                    Text(
-                                      text == 'gold'
-                                          ? "Gold"
-                                          : text == 'silver'
-                                          ? "Silver"
-                                          : "Bronze",
+                                    Text("Silver",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.w600,
@@ -322,7 +317,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                             // color: Colors.white,
                                             backgroundColor: Colors.white,
                                             valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
-                                            value:  rewards/10.0,
+                                            value: rewards>15.0?rewards/20.0:0,
                                           ),
                                         ),
                                         Icon(
@@ -333,7 +328,6 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                           width: MediaQuery.of(context).size.width *
                                               0.365,
                                         )
-
                                       ],
                                     ),
                                     Text("Gold",
