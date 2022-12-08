@@ -120,7 +120,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
             ),
             label: Text(''),
             onPressed: () {
-             Get.to(Address());
+             gohomefromsuccess();
             },
           ),
           title: Text("Order details"),

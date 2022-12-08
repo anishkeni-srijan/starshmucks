@@ -502,7 +502,7 @@ late  double maxrewards= 0;
                                       padding: EdgeInsets.only(
                                           left: 8, right: 8, top: 10),
                                       child: Divider(
-                                        color: Colors.grey,
+                                        color: Colors.black38,
                                         height: 1,
                                         thickness: 0.2,
                                         indent: 0,

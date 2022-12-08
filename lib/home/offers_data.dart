@@ -61,6 +61,9 @@ class _GetOffersState extends State<GetOffers> {
   getdata() async {
     odata = await db.Offersdata();
     getdataf = true;
+    setState(() {
+
+    });
   }
 
   addToCart(context, index) async {

@@ -216,10 +216,10 @@ calcrewards() async {
     res = usernames[0]['rewards'] + (ttl / 10) - (savings * 2);
     print("final rewards todb = " + res.toString());
   } else if (usernames[0]['tier'] == 'silver') {
-    res = (usernames[0]['rewards'] + (ttl / 10) - (savings * 2)) * 1.5;
+    res = (usernames[0]['rewards'] + ((ttl / 10)* 1.5) - (savings * 2)) ;
     print("final rewards todb = " + res.toString());
   } else if (usernames[0]['tier'] == 'gold') {
-    res = (usernames[0]['rewards'] + (ttl / 10) - (savings * 2)) * 2;
+    res = (usernames[0]['rewards'] + ((ttl / 10)* 2) - (savings * 2)) ;
     print("final rewards todb = " + res.toString());
   } else
     res = usernames[0]['rewards'] + (ttl / 10) - (savings * 2);
