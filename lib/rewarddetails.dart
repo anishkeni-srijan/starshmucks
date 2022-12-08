@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:starshmucks/home/home_screen.dart';
 import 'package:starshmucks/rewards.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -11,219 +12,426 @@ class Rewarddetails extends StatefulWidget {
   @override
   State<Rewarddetails> createState() => _RewarddetailsState();
 }
-
+List<Map<String, dynamic>> usernames = [];
 class _RewarddetailsState extends State<Rewarddetails> {
+  late String text= '';
+  late Color color = Colors.brown;
+  late double rewards;
 
-  List<Map<String, dynamic>> usernames=[];
+
   UserDB udb = UserDB();
   getuser() async {
     usernames = await udb.getDataUserData();
-    setState(() {
-
-    });
+    rewards =  usernames[0]['rewards']!;
+    color= text=='bronze'?Colors.brown:text=='silver'?Colors.grey:Colors.amberAccent;
+    setState(() {});
   }
 
   @override
   void initState() {
-  getuser();
+    getuser();
     super.initState();
   }
+
+  List<dynamic> bronzemaindata = [
+    'Rewards upto 10% of your billing amount.',
+    'Buy giftcards using reward points'
+  ];
+  List<String> silvermaindata = [
+    'Earn 1.5x rewards',
+    'Free delivery on orders abover \$50.',
+    'Free drink on your Birthday'
+  ];
+  List<String> goldmaindata = [
+    'Earn 2x rewards',
+    'Free delivery on all orders.',
+    'Free drink on your Birthday',
+    'Free drink on Every order above \$50'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(foregroundColor: HexColor("#175244"),backgroundColor: Colors.white,title: Text('Tier Benefits'),),
-      body: Container(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              detailTile(text: "bronze", press: (){}, color: Colors.brown),
-              detailTile(text: "silver", press: (){}, color: Colors.grey),
-              detailTile(text: "gold", press: (){}, color: Colors.amberAccent),
-            ],
-          ),
+      appBar: AppBar(
+        foregroundColor: HexColor("#175244"),
+        backgroundColor: Colors.white,
+        title: Text('Tier Benefits'),
+      ),
+      body:usernames.isEmpty?Center(child: CircularProgressIndicator()):SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.9,
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Card(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 10,
+                ),
+                elevation: 0,
+                child: Column(
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.only(left: 10.0, right: 10),
+                        child: Card(
+                          color: HexColor("#175244"),
+                          margin: const EdgeInsets.only(top: 20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          shadowColor: Colors.black,
+                          elevation: 4,
+                          child: Container(
+                            height: 200,
+                            child: Center(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                         Container(
+                                          width: MediaQuery.of(context).size.width *
+                                              0.365,),
+                                        Icon(
+                                          Icons.stars_sharp,
+                                          color: Colors.brown,
+                                        ),
+                                        Container(
+                                          width: MediaQuery.of(context).size.width *
+                                              0.365,
+                                          child: LinearProgressIndicator(
+                                            // color: Colors.white,
+                                            backgroundColor: Colors.white,
+                                            valueColor: AlwaysStoppedAnimation<Color>(Colors.brown),
+                                            value: rewards/5,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Text("Bronze",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 18),
+                                    )
+                                  ],
+                                )),
+                          ),
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 0,
+                        vertical: 0,
+                      ),
+                      child: TextButton(
+                        onPressed: (){},
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          padding: const EdgeInsets.all(20),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.stars_sharp,
+                              size: 30,
+                              color: Colors.brown,
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              child: Text(
+                                "Bronze Tier",
+                                style: TextStyle(
+                                  color: HexColor("#036635"),
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: undertile(
+                        maintext:
+                             bronzemaindata,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.9,
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Card(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 10,
+                ),
+                elevation: 0,
+                child: Column(
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.only(left: 10.0, right: 10),
+                        child: Card(
+                          color: HexColor("#175244"),
+                          margin: const EdgeInsets.only(top: 20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          shadowColor: Colors.black,
+                          elevation: 4,
+                          child: Container(
+                            height: 200,
+                            child: Center(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: MediaQuery.of(context).size.width *
+                                              0.365,
+                                          child: LinearProgressIndicator(
+                                            // color: Colors.white,
+                                            backgroundColor: Colors.white,
+                                            valueColor: AlwaysStoppedAnimation<Color>(Colors.brown),
+                                            value: rewards/5.0,
+                                          ),
+                                        ),
+                                        Icon(
+                                          Icons.stars_sharp,
+                                          color:
+                                              Colors.grey
+                                        ),
+                                        Container(
+                                          width: MediaQuery.of(context).size.width *
+                                              0.365,
+                                          child: LinearProgressIndicator(
+                                            // color: Colors.white,
+                                            backgroundColor: Colors.white,
+                                            valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
+                                            value: rewards/5.0,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      text == 'gold'
+                                          ? "Gold"
+                                          : text == 'silver'
+                                          ? "Silver"
+                                          : "Bronze",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 18),
+                                    )
+                                  ],
+                                )),
+                          ),
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 0,
+                        vertical: 0,
+                      ),
+                      child: TextButton(
+                        onPressed:(){},
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          padding: const EdgeInsets.all(20),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.stars_sharp,
+                              size: 30,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              child: Text(
+                                'Silver Tier',
+                                style: TextStyle(
+                                  color: HexColor("#036635"),
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: undertile(
+                        maintext: silvermaindata,
+
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.9,
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Card(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 10,
+                ),
+                elevation: 0,
+                child: Column(
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.only(left: 10.0, right: 10),
+                        child: Card(
+                          color: HexColor("#175244"),
+                          margin: const EdgeInsets.only(top: 20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          shadowColor: Colors.black,
+                          elevation: 4,
+                          child: Container(
+                            height: 200,
+                            child: Center(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: MediaQuery.of(context).size.width *
+                                              0.365,
+                                          child: LinearProgressIndicator(
+                                            // color: Colors.white,
+                                            backgroundColor: Colors.white,
+                                            valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
+                                            value:  rewards/10.0,
+                                          ),
+                                        ),
+                                        Icon(
+                                          Icons.stars_sharp,
+                                          color: Colors.amberAccent
+                                        ),
+                                         Container(
+                                          width: MediaQuery.of(context).size.width *
+                                              0.365,
+                                        )
+
+                                      ],
+                                    ),
+                                    Text("Gold",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 18),
+                                    )
+                                  ],
+                                )),
+                          ),
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 0,
+                        vertical: 0,
+                      ),
+                      child: TextButton(
+                        onPressed: (){},
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          padding: const EdgeInsets.all(20),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.stars_sharp,
+                              size: 30,
+                              color: Colors.amberAccent,
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              child: Text(
+                                "Gold Tier",
+                                style: TextStyle(
+                                  color: HexColor("#036635"),
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: undertile(
+                        maintext: goldmaindata,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
-class detailTile extends StatelessWidget {
-detailTile({
-Key? key,
-required this.text,
-required this.press,
-required this.color,
-}) : super(key: key);
-final String text;
-final Color color;
-final VoidCallback press;
 
-@override
-Widget build(BuildContext context) {
-  return SingleChildScrollView(
-    child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.9,
-        width: MediaQuery.of(context).size.width * 0.9,
-        child: Card(
-          margin: const EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 10,
-          ),
-          elevation: 0,
-          child:  Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0, right: 10),
-                  child: Card(
-                    color: HexColor("#175244"),
-                    margin: const EdgeInsets.only(top: 20),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    shadowColor: Colors.black,
-                    elevation: 4,
-                    child: Container(
-                      height: 200,
-                      child: Center(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            text=='bronze'?Container( width:
-                                            MediaQuery.of(context).size.width * 0.365,):Container(
-                                              width:
-                                              MediaQuery.of(context).size.width * 0.365,
-                                              child: LinearProgressIndicator(
-                                                // color: Colors.white,
-                                                backgroundColor:Colors.white,
-                                                valueColor: new AlwaysStoppedAnimation<Color>(
-                                                    Colors.brown),
-                                                value: silvervalue,
-                                              ),
-                                            ),
-                                            Icon(
-                                              Icons.stars_sharp,
-                                              color:
-                                              text == 'gold'
-                                                  ? Colors.amberAccent
-                                                  : text ==
-                                                  'silver'
-                                                  ? Colors.grey
-                                                  : Colors.brown,
-                                            ),
-                                            text == 'gold'?Container(width:
-                                            MediaQuery.of(context).size.width * 0.365,):Container(
-                                              width:
-                                              MediaQuery.of(context).size.width * 0.365,
-                                              child: LinearProgressIndicator(
-                                                // color: Colors.white,
-                                                backgroundColor:Colors.white,
-                                                valueColor: new AlwaysStoppedAnimation<Color>(
-                                                    Colors.brown),
-                                                value: silvervalue,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Text( text == 'gold'
-                                            ? "Gold"
-                                            : text ==
-                                            'silver'
-                                            ? "Silver"
-                                            : "Bronze",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 18),)
-                                      ],
-                                    )
-                    ),
-                  ),
-                )),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 0,
-                    vertical: 0,
-                  ),
-                  child: TextButton(
-                    onPressed: press,
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      padding: const EdgeInsets.all(20),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.stars_sharp,
-                          size: 30,
-                          color: color,
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Expanded(
-                          child: Text(
-                            text,
-                            style: TextStyle(
-                              color: HexColor("#036635"),
-                              fontWeight: FontWeight.w300,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
 
-                      ],
-                    ),
-                  ),
+class undertile extends StatelessWidget {
+  const undertile({
+    Key? key,
+    required this.maintext,
+    // required this.subtext,
+  }) : super(key: key);
+
+  final List maintext;
+  // final String subtext;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+        shrinkWrap: true,
+        itemCount: maintext.length,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                child: ListTile(
+                  title: Text(maintext[index]),
+                  subtitle: Text('alt',
+                      style: TextStyle(fontSize: 14, color: Colors.black38)),
+                  onTap: () {},
                 ),
-                Expanded(
-
-                  child: ListView.separated(
-                      shrinkWrap: true,
-                      itemCount: 4,
-                      itemBuilder: (context, index) {
-                        var res = index + 1;
-                        return Padding(
-                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                          child: ListTile(
-                            trailing: TextButton.icon(
-                                onPressed: () {
-                                },
-                                icon: (Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: Colors.black38,
-                                )),
-                                label: Text("askdgasd")),
-                            leading: CircleAvatar(
-                              backgroundColor: const Color(0xff6ae792),
-                              child: Text(
-                                "d",
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                            contentPadding: EdgeInsets.all(10),
-                            title: Text(
-                              "Order id: #" ,
-                              style: TextStyle(fontSize: 14, color: HexColor("#175244")),
-                            ),
-                            subtitle: Text("Order Placed",
-                                style: TextStyle(fontSize: 14, color: Colors.black38)),
-                            onTap: () async {
-
-                            },
-                          ),
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return Divider(
-                          thickness: 2,
-                        );
-                      }),
-                ),
-              ],
-            ),
-          ),
-        ),
-      
-  );
-}
+              ),
+            ],
+          );
+        },
+        separatorBuilder: (context, index) {
+          return Divider(
+            thickness: 2,
+          );
+        });
+  }
 }
