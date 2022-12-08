@@ -107,7 +107,7 @@ gethomeappbar() {
       IconButton(
         color: HexColor("#175244"),
         onPressed: () {
-          Get.to(WishListPage());
+          Get.to(() => WishListPage());
         },
         icon: const Icon(
           Icons.favorite,
@@ -127,12 +127,13 @@ getdata() async {
   size = data.length;
 }
 
-getttl()async{
+getttl() async {
   final total = await SharedPreferences.getInstance();
   ttl = total.getDouble('total')!;
   savings = total.getDouble('savings')!;
 }
-viewincart(){
+
+viewincart() {
   getttl();
   getdata();
   return Row(
@@ -178,11 +179,12 @@ viewincart(){
     ],
   );
 }
-initcart()async{
+
+initcart() async {
   CartDB cdb = CartDB();
   cdb.initDBCart();
-  List<CartModel>datal = await cdb.getDataCart();
-  datal.isEmpty?cartinit = false:cartinit=true;
+  List<CartModel> datal = await cdb.getDataCart();
+  datal.isEmpty ? cartinit = false : cartinit = true;
 }
 
 Future<bool> gohome() async {
@@ -205,30 +207,29 @@ goToFailed(String message) {
 }
 
 calcrewards() async {
-  late double res= 0;
+  late double res = 0;
   UserDB udb = UserDB();
   List<Map<String, dynamic>> usernames = [];
   usernames = await udb.getDataUserData();
-  print("rewards used: "+savings.toString());
-  if(usernames[0]['tier']=='bronze')
-    {
-      res  = usernames[0]['rewards'] + (ttl/10) - (savings*2);
-      print("final rewards todb = "+ res.toString());
-    }
-  else if(usernames[0]['tier']=='silver')
-  {
-    res  =(usernames[0]['rewards'] + (ttl/10) - (savings*2))*1.5;
-    print("final rewards todb = "+ res.toString());
-  }
-  else if(usernames[0]['tier']=='gold')
-  {
-    res  =(usernames[0]['rewards'] + (ttl/10) - (savings*2))*2;
-    print("final rewards todb = "+ res.toString());
-  }
-  else res  = usernames[0]['rewards'] + (ttl/10) - (savings*2);
+  print("rewards used: " + savings.toString());
+  if (usernames[0]['tier'] == 'bronze') {
+    res = usernames[0]['rewards'] + (ttl / 10) - (savings * 2);
+    print("final rewards todb = " + res.toString());
+  } else if (usernames[0]['tier'] == 'silver') {
+    res = (usernames[0]['rewards'] + (ttl / 10) - (savings * 2)) * 1.5;
+    print("final rewards todb = " + res.toString());
+  } else if (usernames[0]['tier'] == 'gold') {
+    res = (usernames[0]['rewards'] + (ttl / 10) - (savings * 2)) * 2;
+    print("final rewards todb = " + res.toString());
+  } else
+    res = usernames[0]['rewards'] + (ttl / 10) - (savings * 2);
   var rewardUpdate = UserModel(
-    rewards:res,
-    tier:res>10? 'silver': res>20? 'gold':'bronze',
+    rewards: res,
+    tier: res > 10
+        ? 'silver'
+        : res > 20
+            ? 'gold'
+            : 'bronze',
     dob: usernames[0]['dob'],
     email: usernames[0]['email'],
     name: usernames[0]['name'],
