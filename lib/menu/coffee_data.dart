@@ -92,7 +92,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
   addToCartCoffee(context, index) async {
     final cartp = await menuDB.coffeedata();
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
-    setState(() {});
+    //setState(() {});
   }
 
   List<CartModel> cartData = [];

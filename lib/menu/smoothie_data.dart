@@ -71,7 +71,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
   addToCartSmoothie(context, index) async {
     final cartp = await db.smoothiedata();
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
-    setState(() {});
+    // setState(() {});
   }
 
   addToWishlist(context, index) async {

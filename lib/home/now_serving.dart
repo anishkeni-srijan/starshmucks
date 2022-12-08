@@ -72,10 +72,9 @@ class _NowServingState extends State<NowServing> {
 
   addToCart(context, index) async {
     final cartp = await db.NowServedata();
-    var ttl = await cdb.getDataCart();
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
 
-    setState(() {});
+    // setState(() {});
   }
 
   addToWishlist(context, index) async {

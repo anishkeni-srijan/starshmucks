@@ -91,7 +91,7 @@ class _GetCakeDataState extends State<GetCakeData> {
 
     // setState(() {});
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
-    setState(() {});
+    //setState(() {});
   }
 
   getCakeData() async {
