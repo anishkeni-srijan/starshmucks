@@ -60,8 +60,12 @@ class _GetOffersState extends State<GetOffers> {
 
   getdata() async {
     odata = await db.Offersdata();
-    getdataf = true;
-    setState(() {});
+
+    if (this.mounted) {
+      setState(() {
+        getdataf = true;
+      });
+    }
   }
 
   addToCart(context, index) async {
@@ -121,7 +125,7 @@ class _GetOffersState extends State<GetOffers> {
               GestureDetector(
                 onTap: () {
                   getpdata(odata[index]);
-                  Get.to(ProductDetail(),
+                  Get.to(() => ProductDetail(),
                       transition: Transition.rightToLeftWithFade);
                 },
                 child: Container(

@@ -48,16 +48,17 @@ class _OrderSuccessState extends State<OrderSuccess> {
     cartdb = CartDB();
     cartdb.initDBCart();
     getUser();
+    getttl();
     getorderid();
     getAddress();
     super.initState();
+
     cartinit = false;
   }
   List<Map<String, dynamic>> userddt = [];
   getUser() async {
     userddt = await udb.getDataUserData();
     setState(() {});
-    getttl();
   }
 
   getttl() async{
@@ -118,7 +119,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     selectedAddress = prefs.getString("selectedAddress")!;
     setState(() {});
-    print("test $selectedAddress");
+    print("test " + selectedAddress);
     return selectedAddress;
   }
 
@@ -135,13 +136,13 @@ class _OrderSuccessState extends State<OrderSuccess> {
               Icons.arrow_back,
               color: HexColor("#175244"),
             ),
-            label: const Text(''),
+            label: Text(''),
             onPressed: () {
              gohomefromsuccess();
 
             },
           ),
-          title: const Text("Order details"),
+          title: Text("Order details"),
           backgroundColor: Colors.white,
           foregroundColor: HexColor("#175244"),
         ),
@@ -160,7 +161,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                     Colors.black.withOpacity(0.05),
                     BlendMode.dstATop,
                   ),
-                  image: const ExactAssetImage('images/shmucks.png'),
+                  image: ExactAssetImage('images/shmucks.png'),
                 ),
               ),
               child: Column(
@@ -168,8 +169,8 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   Container(
                     transform: Matrix4.translationValues(0, 12, 0),
                     child: Text(
-                      'Order id: ${orderid.toString()}',
-                      style: const TextStyle(
+                      'Order id:',
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: 40,
                       ),
@@ -177,7 +178,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   ),
                   Container(
                     transform: Matrix4.translationValues(0, 28, 0),
-                    child: const Text(
+                    child: Text(
                       'Order Placed!',
                       style: TextStyle(
                         color: Colors.white,
@@ -187,7 +188,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   ),
                   Container(
                       transform: Matrix4.translationValues(0, 40, 0),
-                      child: const AutoSizeText(
+                      child: AutoSizeText(
                         'Your order will take 30-35mins',
                         style: TextStyle(color: Colors.white),
                       ))
@@ -195,7 +196,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
               ),
             ),
             OrderData.isEmpty || items1.isEmpty || qtylistfromstring.isEmpty
-                ? const Center(
+                ? Center(
                     child: Text('updating...'),
                   )
                 : Padding(
@@ -213,7 +214,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                   "Order placed",
                                   style: TextStyle(fontSize: 22),
                                 ),
-                                const SizedBox(
+                                SizedBox(
                                   height: 5,
                                 ),
                                 Row(
@@ -221,11 +222,12 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "on ${OrderData[0].date}",
-                                      style: const TextStyle(fontSize: 13),
+                                      "on " + OrderData[0].date.toString(),
+                                      style: TextStyle(fontSize: 13),
                                     ),
                                     Text(
-                                      "items: ${idlistfromstring.length}",
+                                      "items: " +
+                                          idlistfromstring.length.toString(),
                                       style: const TextStyle(fontSize: 13),
                                     ),
                                   ],
@@ -270,7 +272,8 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                                           overflow: TextOverflow
                                                               .ellipsis)),
                                                   Text(
-                                                      '${qtylistfromstring[index]} x qty'),
+                                                      qtylistfromstring[index] +
+                                                          ' x qty'),
                                                 ],
                                               ),
                                         Column(
@@ -311,7 +314,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
+                      SizedBox(
                         height: 10,
                       ),
                       Row(
@@ -356,7 +359,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             "Total Amount",
                             style: TextStyle(fontWeight: FontWeight.w600),
                           ),
@@ -385,7 +388,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         "Deliver To",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -397,7 +400,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
             ),
             GestureDetector(
               onTap: () {
-                Get.to(const Help());
+                Get.to(() => Help());
               },
               child: Container(
                 padding: const EdgeInsets.only(

@@ -69,7 +69,7 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   Future<bool> getToSignin() async {
-    return (await Get.to(SigninPage())) ?? false;
+    return (await Get.to(() => SigninPage())) ?? false;
   }
 
   @override
@@ -523,7 +523,7 @@ class _SignupPageState extends State<SignupPage> {
           color: HexColor("#036635"),
         ),
         onPressed: () {
-          Get.to(SigninPage());
+          Get.to(() => SigninPage());
         },
         label: Text(''),
       ),

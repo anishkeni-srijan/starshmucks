@@ -227,6 +227,7 @@ getbanner(context, username, tier, rewards) {
                 width: 15,
               ),
               Container(
+
                 child: const Icon(
                   Icons.card_giftcard,
                   color: Colors.amber,

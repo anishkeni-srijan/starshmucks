@@ -38,6 +38,7 @@ class _UserProfileState extends State<UserProfile> {
 
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     initcart();
@@ -115,9 +116,7 @@ class _UserProfileState extends State<UserProfile> {
                     profileTile(
                       text: 'My Account',
                       press: () {
-                        Get.to(
-                          EditProfile(),
-                        );
+                        Get.to(() => EditProfile());
                       },
                       icon: Icons.account_circle_outlined,
                     ),
@@ -125,7 +124,7 @@ class _UserProfileState extends State<UserProfile> {
                     profileTile(
                       text: 'Orders',
                       press: () {
-                        Get.to(Orders());
+                        Get.to(() => Orders());
                       },
                       icon: Icons.coffee_outlined,
                     ),
@@ -133,7 +132,7 @@ class _UserProfileState extends State<UserProfile> {
                     profileTile(
                       text: 'Rewards',
                       press: () {
-                        Get.to(Rewards());
+                        Get.to(() => Rewards());
                       },
                       icon: Icons.star_outline_sharp,
                     ),
@@ -141,7 +140,7 @@ class _UserProfileState extends State<UserProfile> {
                     profileTile(
                       text: 'Wishlist',
                       press: () {
-                        Get.to(WishListPage());
+                        Get.to(() => WishListPage());
                       },
                       icon: Icons.favorite_border,
                     ),
@@ -149,7 +148,7 @@ class _UserProfileState extends State<UserProfile> {
                     profileTile(
                       text: 'Help',
                       press: () {
-                        Get.to(Help());
+                        Get.to(() => Help());
                       },
                       icon: Icons.help_outline_rounded,
                     ),
@@ -160,9 +159,7 @@ class _UserProfileState extends State<UserProfile> {
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
                         prefs.remove('signedInEmail');
-                        Get.to(
-                          SigninPage(),
-                        );
+                        Get.to(() => SigninPage());
                       },
                       icon: Icons.logout,
                     ),

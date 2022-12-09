@@ -67,8 +67,8 @@ class _AddressState extends State<Address> {
   }
 
   addAddress(context) {
-    final fname = TextEditingController();
-    final phone = TextEditingController();
+    final fname = TextEditingController(text: userddt[0]['name']);
+    final phone = TextEditingController(text: userddt[0]['phone']);
     final hno = TextEditingController();
     final roadname = TextEditingController();
     final city = TextEditingController();
@@ -273,11 +273,10 @@ late  double maxrewards= 0;
    }
 
     final prefs = await SharedPreferences.getInstance();
-    await  prefs.setDouble("cartttl",ttl);
-    savings = isChecked == false? 0:maxrewards;
-    await  prefs.setDouble("savings",savings);
-    setState(() {
-    });
+    await prefs.setDouble("cartttl", ttl);
+    savings = isChecked == false ? 0 : maxrewards;
+    await prefs.setDouble("savings", savings);
+    setState(() {});
   }
   var selectedVal;
   setSelectedVal(var val) {

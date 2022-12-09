@@ -265,7 +265,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             ),
             TextButton(
                 onPressed: () {
-                  Get.to(ResetPasswordPage());
+                  Get.to(() => ResetPasswordPage());
                 },
                 child: Text("Skip"))
           ],
@@ -281,7 +281,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         ? verificationflag = true
         : verificationflag = false;
 
-    verificationflag ? Get.to(ResetPasswordPage()) : print('wrongotp');
+    verificationflag ? Get.to(() => ResetPasswordPage()) : print('wrongotp');
   }
 
   void sendOtp() async {

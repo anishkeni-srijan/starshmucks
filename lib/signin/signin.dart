@@ -221,10 +221,7 @@ class _SigninPageState extends State<SigninPage> {
                       ),
                     ),
                     onPressed: () {
-                      Get.to(
-                        // ForgotPasswordPage(),
-                        ForgotPasswordPage(),
-                      );
+                      Get.to(() => ForgotPasswordPage());
                     },
                   ),
                 ),
@@ -296,7 +293,7 @@ class _SigninPageState extends State<SigninPage> {
                       TextButton(
                         onPressed: () {
                           if (userddt.isEmpty)
-                            Get.to(SignupPage());
+                            Get.to(() => SignupPage());
                           else
                             BlocProvider.of<SigninBloc>(context).add(
                               SignupRedirect(),

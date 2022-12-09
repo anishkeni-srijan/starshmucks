@@ -18,13 +18,11 @@ class Rewards extends StatefulWidget {
   @override
   State<Rewards> createState() => _RewardsState();
 }
-
 late double silvervalue = 0;
 late double goldvalue = 0;
 late double progvalue = 0;
 late double res = 0;
 String nexttier = '';
-
 class _RewardsState extends State<Rewards> {
   String refLink = "http://starshmucks.com/refferal/cdJkk5";
   TextEditingController test = TextEditingController();
@@ -68,7 +66,6 @@ class _RewardsState extends State<Rewards> {
     }
     setState(() {});
   }
-
   starsneeded() {
     if (usernames.isEmpty) {
       silvervalue = 0;
@@ -81,7 +78,6 @@ class _RewardsState extends State<Rewards> {
     }
     setState(() {});
   }
-
   @override
   Widget build(BuildContext context) {
     return usernames.isEmpty
@@ -182,7 +178,7 @@ class _RewardsState extends State<Rewards> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.to(const Rewarddetails());
+                      Get.to(() => Rewarddetails());
                     },
                     child: Container(
                       color: Colors.white,
@@ -299,6 +295,7 @@ class _RewardsState extends State<Rewards> {
                                       )
                                     ],
                                   ),
+
                                 ],
                               ),
                             ),
@@ -315,7 +312,7 @@ class _RewardsState extends State<Rewards> {
                             ),
                             TextButton(
                                 onPressed: () {
-                                  Get.to(const Rewarddetails(),
+                                  Get.to(() => Rewarddetails(),
                                       transition:
                                           Transition.rightToLeftWithFade);
                                 },
@@ -401,8 +398,7 @@ class _RewardsState extends State<Rewards> {
                                       width: 20,
                                     ),
                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         const Text(
                                           "Invite your friends",

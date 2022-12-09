@@ -117,7 +117,8 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                 return GestureDetector(
                   onTap: () {
                     getpdata(data[index]);
-                    Get.to(ProductDetail(), transition: Transition.downToUp);
+                    Get.to(() => ProductDetail(),
+                        transition: Transition.downToUp);
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.18,

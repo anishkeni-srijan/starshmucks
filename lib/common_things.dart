@@ -83,7 +83,7 @@ orderbutton() {
     elevation: 10,
     backgroundColor: Color(0xffb036635),
     onPressed: () {
-      Get.to(OrderPage(), transition: Transition.downToUp);
+      Get.to(() => OrderPage(), transition: Transition.downToUp);
     },
     child: Icon(
       Icons.coffee_maker_outlined,
@@ -118,7 +118,7 @@ gethomeappbar() {
   );
 }
 
-late double ttl = 0;
+late double ttl;
 late double savings = 0;
 late var size = 0;
 getdata() async {
@@ -129,8 +129,8 @@ getdata() async {
 
 getttl() async {
   final total = await SharedPreferences.getInstance();
-  ttl = total.getDouble('total')!;
-  savings = total.getDouble('savings')!;
+  ttl = total.getDouble('total') ?? 0;
+  savings = total.getDouble('savings') ?? 0;
 }
 
 viewincart() {
@@ -150,17 +150,23 @@ viewincart() {
           if (size < 2)
             Text(
               " item | ",
-              style: TextStyle(color: HexColor("#036635")),
+              style: TextStyle(
+                color: HexColor("#036635"),
+              ),
             )
           else
             Text(
               " items | ",
-              style: TextStyle(color: HexColor("#036635")),
+              style: TextStyle(
+                color: HexColor("#036635"),
+              ),
             ),
           Text(
-            "\$" + ttl.toStringAsFixed(2),
+            "\$" + "XX",
             style: TextStyle(
-                color: HexColor("#036635"), fontWeight: FontWeight.w600),
+              color: HexColor("#036635"),
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),
@@ -174,7 +180,7 @@ viewincart() {
             "View in Cart",
           ),
           onPressed: () {
-            Get.to(MyCart(), transition: Transition.downToUp);
+            Get.to(() => MyCart(), transition: Transition.downToUp);
           }),
     ],
   );
@@ -188,22 +194,22 @@ initcart() async {
 }
 
 Future<bool> gohome() async {
-  return (await Get.to(bottomBar())) ?? false;
+  return (await Get.to(() => bottomBar())) ?? false;
 }
 
 Future<bool> gohomefromsuccess() async {
   calcrewards();
   CartDB cartdb = CartDB();
   cartdb.clear();
-  return (await Get.to(bottomBar())) ?? false;
+  return (await Get.to(() => bottomBar())) ?? false;
 }
 
 goToSuccess() {
-  return Get.to(OrderSuccess());
+  return Get.to(() => OrderSuccess());
 }
 
 goToFailed(String message) {
-  return Get.to(OrderFail(message));
+  return Get.to(() => OrderFail(message));
 }
 
 calcrewards() async {
@@ -216,10 +222,10 @@ calcrewards() async {
     res = usernames[0]['rewards'] + (ttl / 10) - (savings * 2);
     print("final rewards todb = " + res.toString());
   } else if (usernames[0]['tier'] == 'silver') {
-    res = (usernames[0]['rewards'] + ((ttl / 10)* 1.5) - (savings * 2)) ;
+    res = (usernames[0]['rewards'] + ((ttl / 10) * 1.5) - (savings * 2));
     print("final rewards todb = " + res.toString());
   } else if (usernames[0]['tier'] == 'gold') {
-    res = (usernames[0]['rewards'] + ((ttl / 10)* 2) - (savings * 2)) ;
+    res = (usernames[0]['rewards'] + ((ttl / 10) * 2) - (savings * 2));
     print("final rewards todb = " + res.toString());
   } else
     res = usernames[0]['rewards'] + (ttl / 10) - (savings * 2);

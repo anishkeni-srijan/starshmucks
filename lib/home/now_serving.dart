@@ -96,8 +96,11 @@ class _NowServingState extends State<NowServing> {
 
   getdata() async {
     nowdata = await db.NowServedata();
-    getdataf = true;
-    setState(() {});
+    if (this.mounted) {
+      setState(() {
+        getdataf = true;
+      });
+    }
   }
 
   @override
@@ -121,7 +124,8 @@ class _NowServingState extends State<NowServing> {
               GestureDetector(
                 onTap: () {
                   getpdata(nowdata[index]);
-                  Get.to(ProductDetail(), transition: Transition.downToUp);
+                  Get.to(() => ProductDetail(),
+                      transition: Transition.downToUp);
                 },
                 child: Container(
                   padding: EdgeInsets.all(10),
