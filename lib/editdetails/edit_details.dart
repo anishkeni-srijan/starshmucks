@@ -54,11 +54,11 @@ class _EditProfileState extends State<EditProfile> {
       ncontroller = TextEditingController(text: usernames[0]['name']);
       phcontroller = TextEditingController(text: usernames[0]['phone']);
       return Scaffold(
-        appBar: AppBar(
-          title: Text("Edit Profile"),
-          backgroundColor: Colors.white,
-          foregroundColor:  HexColor("#175244"),
-        ),
+          appBar: AppBar(
+            title: Text("Edit Profile"),
+            backgroundColor: Colors.white,
+            foregroundColor: HexColor("#175244"),
+          ),
           backgroundColor: HexColor("#175244"),
           body: SingleChildScrollView(
             child: Column(
@@ -155,27 +155,123 @@ class _EditProfileState extends State<EditProfile> {
                       // DividerForTiles(),
                       Row(
                         children: [
-                          EditableField(
-                            econtroller: econtroller,
-                            lbltxt: 'Email',
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * .9,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.black),
+                              controller: econtroller,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.all(5),
+                                labelText: "Email",
+                                labelStyle: TextStyle(
+                                  color: HexColor("#175244"),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                    color: HexColor("#175244"),
+                                    width: 2,
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                    color: HexColor("#175244"),
+                                    width: 2,
+                                  ),
+                                ),
+                              ),
+                              validator: (value) {
+                                if (RegExp(
+                                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                    .hasMatch(value!))
+                                  return null;
+                                else
+                                  return "Please Enter a valid email";
+                              },
+                            ),
                           ),
                         ],
                       ),
-
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         children: [
-                          EditableField(
-                            econtroller: phcontroller,
-                            lbltxt: 'Phone',
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * .9,
+                            child: TextFormField(
+                              style: const TextStyle(
+                                  color: Colors.black), //<-- SEE HERE
+                              controller: phcontroller,
+
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.all(5),
+                                labelText: "Phone1",
+                                labelStyle: TextStyle(
+                                  color: HexColor("#175244"),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                    color: HexColor("#175244"),
+                                    width: 2,
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                    color: HexColor("#175244"),
+                                    width: 2,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),
-
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         children: [
-                          EditableField(
-                            econtroller: ncontroller,
-                            lbltxt: 'Name',
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * .9,
+                            child: TextFormField(
+                              style: const TextStyle(
+                                  color: Colors.black), //<-- SEE HERE
+                              controller: ncontroller,
+
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.all(5),
+                                labelText: "Name",
+                                labelStyle: TextStyle(
+                                  color: HexColor("#175244"),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                    color: HexColor("#175244"),
+                                    width: 2,
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                    color: HexColor("#175244"),
+                                    width: 2,
+                                  ),
+                                ),
+                              ),
+                              validator: (value) {
+                                if (value == null)
+                                  return "Please enter name";
+                                else if (value.length < 3)
+                                  return "Please enter 3 character for name";
+                                else
+                                  return null;
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -188,19 +284,19 @@ class _EditProfileState extends State<EditProfile> {
                             HexColor("#175244"),
                           ),
                         ),
-                        onPressed: ()async {
-
-
-                          ScaffoldMessenger.of(context)
-                                    .showSnackBar(
-                                  SnackBar(
-                                    backgroundColor: HexColor("#175244"),
-                                    content: Text('Details Updated',style: TextStyle(color: Colors.white),),
-                                  ),);
-
+                        onPressed: () async {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: HexColor("#175244"),
+                              content: Text(
+                                'Details Updated',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          );
 
                           var updateData = UserModel(
-                              tier:usernames[0]['tier'],
+                              tier: usernames[0]['tier'],
                               dob: usernames[0]['dob'],
                               email: econtroller.text,
                               phone: phcontroller.text,
@@ -263,7 +359,7 @@ class _EditProfileState extends State<EditProfile> {
     saveImage = pickedfile.path;
     print("jroden" + saveImage);
     var updateData = UserModel(
-        tier:usernames[0]['tier'],
+        tier: usernames[0]['tier'],
         dob: usernames[0]['dob'],
         email: econtroller.text,
         phone: phcontroller.text,
