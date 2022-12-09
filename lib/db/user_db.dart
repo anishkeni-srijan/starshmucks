@@ -50,7 +50,6 @@ class UserDB {
   Future<bool> insertUserData(UserModel user) async {
     final Database db = await initDBUserData();
     db.insert("UserData", user.toMap());
-    print("Inserting user" + user.email);
     return true;
   }
 
