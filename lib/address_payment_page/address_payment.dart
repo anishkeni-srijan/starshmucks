@@ -58,7 +58,7 @@ class _AddressState extends State<Address> {
   getUser() async {
     userddt = await udb.getDataUserData();
     addressList = await udb.getDataUserAddress1();
-    setState(() {});
+    if (this.mounted) setState(() {});
   }
 
   deleteAddress(sendingID) {
@@ -728,30 +728,32 @@ class _AddressState extends State<Address> {
                                         style:
                                             TextStyle(color: Colors.redAccent),
                                       )
-                                    :userddt[0]['rewards'] ==0? Container():Row(
-                                        children: [
-                                          Checkbox(
-                                            checkColor: Colors.white,
-                                            fillColor:
-                                                MaterialStateProperty.all(
-                                                    HexColor("#175244")),
-                                            focusColor: Colors.green,
-                                            value: isChecked,
-                                            onChanged: (bool? value) {
-                                              isChecked = !isChecked;
-                                              userewards();
-                                              setState(() {});
-                                            },
+                                    : userddt[0]['rewards'] == 0
+                                        ? Container()
+                                        : Row(
+                                            children: [
+                                              Checkbox(
+                                                checkColor: Colors.white,
+                                                fillColor:
+                                                    MaterialStateProperty.all(
+                                                        HexColor("#175244")),
+                                                focusColor: Colors.green,
+                                                value: isChecked,
+                                                onChanged: (bool? value) {
+                                                  isChecked = !isChecked;
+                                                  userewards();
+                                                  setState(() {});
+                                                },
+                                              ),
+                                              AutoSizeText(
+                                                'Use my rewards',
+                                                minFontSize: 20,
+                                                style: TextStyle(
+                                                  color: HexColor("#175244"),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        AutoSizeText(
-                                            'Use my rewards',
-                                            minFontSize: 20,
-                                            style: TextStyle(
-                                              color: HexColor("#175244"),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
                                 maxrewards > (ttl / 20)
                                     ? Column(
                                         crossAxisAlignment:
