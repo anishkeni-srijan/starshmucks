@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:starshmucks/db/menu_db.dart';
 import 'package:starshmucks/home/home_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'common_things.dart';
 import 'db/cart_db.dart';
+import 'db/wishlist_db.dart';
 import 'model/cart_model.dart';
+import 'model/wishlist_model.dart';
 
 class ProductDetail extends StatefulWidget {
   const ProductDetail({Key? key}) : super(key: key);
@@ -29,8 +32,66 @@ class _ProductDetailState extends State<ProductDetail> {
         : cdb.insertDataCart(CartModel(id: prod.id, qty: 1));
   }
 
+  late List<int> ids = [];
+  getIds() async {
+    ids.clear();
+    late List<WishlistModel> datalist = [];
+    datalist = await wdb.getDataWishlist();
+    for (var i = 0; i < datalist.length; i++) {
+      ids.add(datalist[i].id);
+    }
+    setState(() {});
+  }
+
+  addToWishlist(context, id) async {
+    wdb.insertDataWishlist(WishlistModel(id: id));
+    String toastMessage = "ITEM ADDED TO WISHLIST";
+    fToast.showToast(
+      child: CustomToast(toastMessage),
+      positionedToastBuilder: (context, child) => Positioned(
+        child: child,
+        bottom: MediaQuery.of(context).size.height * 0.14,
+        left: MediaQuery.of(context).size.width * 0.1,
+        right: MediaQuery.of(context).size.width * 0.1,
+      ),
+    );
+    getIds();
+    // setState(() {});
+  }
+
+  removefromwishlist(sendid) {
+    wdb.deleteitemFromWishlist(sendid);
+    String toastMessage = "ITEM REMOVED TO WISHLIST";
+    fToast.showToast(
+      child: CustomToast(toastMessage),
+      positionedToastBuilder: (context, child) => Positioned(
+        child: child,
+        bottom: MediaQuery.of(context).size.height * 0.14,
+        left: MediaQuery.of(context).size.width * 0.1,
+        right: MediaQuery.of(context).size.width * 0.1,
+      ),
+    );
+    getIds();
+  }
+
+  late FToast fToast;
+  late WishlistDB wdb;
+  @override
+  void initState() {
+    wdb = WishlistDB();
+    wdb.initDBWishlist();
+    getIds();
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+  }
+
   @override
   Widget build(BuildContext context) {
+    bool status = false;
+    for (var i = 0; i < ids.length; i++) {
+      if (ids[i] == product.id) status = true;
+    }
     return Scaffold(
         persistentFooterButtons: cartinit ? [viewincart()] : null,
         bottomNavigationBar: Container(
@@ -179,30 +240,45 @@ class _ProductDetailState extends State<ProductDetail> {
                         style: TextStyle(fontSize: 30),
                       ),
                       Container(
-                          transform: Matrix4.translationValues(
-                              MediaQuery.of(context).size.width * 0.42, 0, 0),
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  blurStyle: BlurStyle.solid,
-                                  blurRadius: 20,
-                                  color: Colors.grey, //New
-                                  offset: Offset(0, 0))
-                            ],
-                            color: Colors.black,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: Icon(
-                              Icons.favorite_border,
-                              color: Colors.white,
-                            ),
-                          )),
+                        width: MediaQuery.of(context).size.width * 0.1,
+                        transform: Matrix4.translationValues(
+                            MediaQuery.of(context).size.width * 0.42, 0, 0),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                blurStyle: BlurStyle.solid,
+                                blurRadius: 20,
+                                color: Colors.grey, //New
+                                offset: Offset(0, 0))
+                          ],
+                          color: HexColor("#175244"),
+                          shape: BoxShape.circle,
+                        ),
+                        child: IconButton(
+                          onPressed: () {
+                            //int id = odata[index].id;
+                            status
+                                ? removefromwishlist(
+                                    WishlistModel(id: product.id))
+                                : addToWishlist(context, product.id);
+                            // getIds();
+                          },
+                          icon: status
+                              ? Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )
+                              : Icon(
+                                  Icons.favorite_border,
+                                  color: Colors.white,
+                                ),
+                        ),
+                      ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.2,
                       ),
                       Container(
+                          width: MediaQuery.of(context).size.width * 0.1,
                           margin: EdgeInsets.only(right: 20),
                           transform: Matrix4.translationValues(
                               MediaQuery.of(context).size.width * 0.07, 0, 0),
@@ -214,11 +290,11 @@ class _ProductDetailState extends State<ProductDetail> {
                                   color: Colors.grey, //New
                                   offset: Offset(0, 0))
                             ],
-                            color: Colors.black,
+                            color: HexColor("#175244"),
                             shape: BoxShape.circle,
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(6.0),
+                            padding: const EdgeInsets.all(9.0),
                             child: Icon(
                               Icons.share,
                               color: Colors.white,
