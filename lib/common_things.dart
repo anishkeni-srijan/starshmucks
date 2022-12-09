@@ -150,17 +150,23 @@ viewincart() {
           if (size < 2)
             Text(
               " item | ",
-              style: TextStyle(color: HexColor("#036635")),
+              style: TextStyle(
+                color: HexColor("#036635"),
+              ),
             )
           else
             Text(
               " items | ",
-              style: TextStyle(color: HexColor("#036635")),
+              style: TextStyle(
+                color: HexColor("#036635"),
+              ),
             ),
           Text(
-            "\$" + ttl.toStringAsFixed(2),
+            "\$" + "XX",
             style: TextStyle(
-                color: HexColor("#036635"), fontWeight: FontWeight.w600),
+              color: HexColor("#036635"),
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),
