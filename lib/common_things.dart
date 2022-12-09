@@ -149,25 +149,25 @@ viewincart() {
           ),
           if (size < 2)
             Text(
-              " item | ",
+              " item",
               style: TextStyle(
                 color: HexColor("#036635"),
               ),
             )
           else
             Text(
-              " items | ",
+              " items",
               style: TextStyle(
                 color: HexColor("#036635"),
               ),
             ),
-          Text(
-            "\$" + "XX",
-            style: TextStyle(
-              color: HexColor("#036635"),
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          // Text(
+          //   "\$" + "XX",
+          //   style: TextStyle(
+          //     color: HexColor("#036635"),
+          //     fontWeight: FontWeight.w600,
+          //   ),
+          // ),
         ],
       ),
       TextButton(
@@ -217,24 +217,20 @@ calcrewards() async {
   UserDB udb = UserDB();
   List<Map<String, dynamic>> usernames = [];
   usernames = await udb.getDataUserData();
-  print("rewards used: " + savings.toString());
+
   if (usernames[0]['tier'] == 'bronze') {
     res = usernames[0]['rewards'] + (ttl / 10) - (savings * 2);
-    print("final rewards todb = " + res.toString());
   } else if (usernames[0]['tier'] == 'silver') {
     res = (usernames[0]['rewards'] + ((ttl / 10) * 1.5) - (savings * 2));
-    print("final rewards todb = " + res.toString());
   } else if (usernames[0]['tier'] == 'gold') {
     res = (usernames[0]['rewards'] + ((ttl / 10) * 2) - (savings * 2));
-    print("final rewards todb = " + res.toString());
   } else
     res = usernames[0]['rewards'] + (ttl / 10) - (savings * 2);
 
-
-  print("current rewards"+res.toString());
   var rewardUpdate = UserModel(
     rewards: res,
-    tier: res > 10&&res<20 ? 'silver'
+    tier: res > 10 && res < 20
+        ? 'silver'
         : res > 20
             ? 'gold'
             : 'bronze',
@@ -246,7 +242,7 @@ calcrewards() async {
     tnc: usernames[0]['tnc'], image: usernames[0]['image'],
     // addressID: ,
   );
-  print(usernames[0]['rewards']);
+
   udb.updaterewards(rewardUpdate);
 }
 

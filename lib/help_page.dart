@@ -133,7 +133,6 @@ class Help extends StatelessWidget {
                         final mailUrl = Uri.parse(
                             'mailto:anish.keni@srijan.net?subject=News&body=New%20plugin');
                         if (await canLaunchUrl(mailUrl)) {
-                          print("CALLING");
                           launchUrl(mailUrl);
                         } else {
                           throw 'Could not launch $mailUrl';
@@ -318,7 +317,6 @@ class Help extends StatelessWidget {
                           onPressed: () async {
                             final call = Uri.parse('tel:1800999999');
                             if (await canLaunchUrl(call)) {
-                              print("CALLING");
                               launchUrl(call);
                             } else {
                               throw 'Could not launch $call';

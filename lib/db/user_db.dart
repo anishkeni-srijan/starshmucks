@@ -105,7 +105,6 @@ class UserDB {
       where: 'addressID = ?',
       whereArgs: [id],
     );
-    print("updared");
   }
 
   Future<void> updaterewards(am) async {
@@ -120,6 +119,5 @@ class UserDB {
       // Pass the Dog's id as a whereArg to prevent SQL injection.
       whereArgs: [1],
     );
-    print("updared");
   }
 }

@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io' show Platform;
 
 import 'package:get/get.dart';
-import 'package:starshmucks/address_payment_page/address_payment.dart';
 import 'package:starshmucks/db/cart_db.dart';
 import 'package:starshmucks/db/menu_db.dart';
 import 'package:starshmucks/db/orders_db.dart';
@@ -49,6 +48,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
     cartdb = CartDB();
     cartdb.initDBCart();
     getUser();
+    getttl();
     getorderid();
     getAddress();
     super.initState();
@@ -58,7 +58,6 @@ class _OrderSuccessState extends State<OrderSuccess> {
   List<Map<String, dynamic>> userddt = [];
   getUser() async {
     userddt = await udb.getDataUserData();
-    getttl();
     setState(() {});
   }
 
@@ -83,6 +82,8 @@ class _OrderSuccessState extends State<OrderSuccess> {
     else{
       ttl=(cartttl) - savings;
     }
+    setState(() {
+    });
   }
   getDataIds() async {
     MenuDB menudb = MenuDB();
@@ -136,9 +137,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
             ),
             label: Text(''),
             onPressed: () {
-              // gohomefromsuccess();
-              Get.to(Address());
-
+              gohomefromsuccess();
             },
           ),
           title: Text("Order details"),
@@ -167,7 +166,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                 children: [
                   Container(
                     transform: Matrix4.translationValues(0, 12, 0),
-                    child: const Text(
+                    child: Text(
                       'Order id:',
                       style: TextStyle(
                         color: Colors.white,

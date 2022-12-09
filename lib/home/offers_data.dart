@@ -33,7 +33,6 @@ class _GetOffersState extends State<GetOffers> {
   late WishlistDB wdb;
   late List<int> ids = [];
   getIds() async {
-    // print("rebuilding");
     ids.clear();
     late List<WishlistModel> datalist = [];
     datalist = await wdb.getDataWishlist();

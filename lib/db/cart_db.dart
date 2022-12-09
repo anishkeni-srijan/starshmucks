@@ -5,7 +5,6 @@ import '/model/cart_model.dart';
 
 class CartDB {
   Future<Database> initDBCart() async {
-    //print("initialising db Cart");
     String databasepath = await getDatabasesPath();
     final path = join(databasepath, "Cart.db");
     return openDatabase(

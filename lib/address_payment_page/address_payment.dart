@@ -38,7 +38,7 @@ class _AddressState extends State<Address> {
   late double res = 0;
   late bool rewards;
   late double ttl = 0;
-  late double tempttl =0;
+  late double tempttl = 0;
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
@@ -50,7 +50,7 @@ class _AddressState extends State<Address> {
     final total = await SharedPreferences.getInstance();
     ttl = total.getDouble('total')!;
     ttl > 10 ? rewards = true : rewards = false;
-     tempttl  = ttl;
+    tempttl = ttl;
     res = 10 - ttl;
   }
 
@@ -225,7 +225,7 @@ class _AddressState extends State<Address> {
                         pincode: pincode.text,
                         // addressID: ,
                       );
-                      print(index);
+
                       udb.updateAddress(addid, addressUpdate);
                       setState(() {});
                       Navigator.of(context).pop();
@@ -251,26 +251,17 @@ class _AddressState extends State<Address> {
       },
     );
   }
-late  double maxrewards= 0;
-  userewards()async{
-    print(tempttl.toString());
-    maxrewards = userddt[0]['rewards']/2;
-    print('calculated rewards: '+maxrewards.toString());
-   if(maxrewards<(ttl/20)) {
-     print("normal");
-     ttl = isChecked
-         ? ttl - maxrewards
-         : tempttl;
-   }
-   else{
-     maxrewards = ttl/20;
 
-     print("max rewards exceed the 20% of ttl: "+maxrewards.toString());
-     ttl = isChecked
-         ? ttl - maxrewards
-         : tempttl;
+  late double maxrewards = 0;
+  userewards() async {
+    maxrewards = userddt[0]['rewards'] / 2;
+    if (maxrewards < (ttl / 20)) {
+      ttl = isChecked ? ttl - maxrewards : tempttl;
+    } else {
+      maxrewards = ttl / 20;
 
-   }
+      ttl = isChecked ? ttl - maxrewards : tempttl;
+    }
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setDouble("cartttl", ttl);
@@ -278,10 +269,9 @@ late  double maxrewards= 0;
     await prefs.setDouble("savings", savings);
     setState(() {});
   }
+
   var selectedVal;
   setSelectedVal(var val) {
-    print("val in fn");
-    print(val);
     setState(() {
       selectedVal = val;
     });
@@ -289,7 +279,7 @@ late  double maxrewards= 0;
 
   final offers = TextEditingController();
   bool afterSelecting = false;
-  late double savings =0;
+  late double savings = 0;
   @override
   Widget build(BuildContext context) {
     getUser();
@@ -301,8 +291,7 @@ late  double maxrewards= 0;
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Points savings: \$" +
-                         savings.toStringAsFixed(2)),
+                      Text("Points savings: \$" + savings.toStringAsFixed(2)),
                       Text("Amount to be paid: \$" + ttl.toStringAsFixed(2)),
                     ],
                   )
@@ -481,9 +470,6 @@ late  double maxrewards= 0;
                                       groupValue: selectedVal,
                                       onChanged: (value) async {
                                         setState(() {
-                                          print("onchange");
-                                          // print(value);
-                                          print(index);
                                           setSelectedVal(value);
                                           afterSelecting = true;
                                         });
@@ -526,8 +512,6 @@ late  double maxrewards= 0;
                                             )),
                                         TextButton(
                                           onPressed: () {
-                                            print(addressList[index]
-                                                ['addressID']);
                                             editAddress(
                                                 context,
                                                 index,
@@ -723,7 +707,8 @@ late  double maxrewards= 0;
                                         maxFontSize: 30,
                                       ),
                                       AutoSizeText(
-                                        userddt[0]['rewards'].toStringAsFixed(2),
+                                        userddt[0]['rewards']
+                                            .toStringAsFixed(2),
                                         style: TextStyle(
                                           color: HexColor("#175244"),
                                         ),
@@ -733,37 +718,50 @@ late  double maxrewards= 0;
                                     ],
                                   ),
                                 ),
-                                !rewards?Text("Add more items worth \$" + res.toStringAsFixed(2)+ " to avail your reward points", style: TextStyle(color: Colors.redAccent),):
-                                Row(
-                                  children: [
-                                    Checkbox(
-                                      checkColor: Colors.white,
-                                      fillColor: MaterialStateProperty.all(
-                                          HexColor("#175244")),
-                                      focusColor: Colors.green,
-                                      value: isChecked,
-                                      onChanged: (bool? value) {
-                                        isChecked = !isChecked;
-                                        userewards();
-                                        setState(() {});
-                                      },
-                                    ),
-                                    AutoSizeText(
-                                      'Use my rewards',
-                                      minFontSize: 20,
-                                      style: TextStyle(
-                                        color: HexColor("#175244"),
+                                !rewards
+                                    ? Text(
+                                        "Add more items worth \$" +
+                                            res.toStringAsFixed(2) +
+                                            " to avail your reward points",
+                                        style:
+                                            TextStyle(color: Colors.redAccent),
+                                      )
+                                    : Row(
+                                        children: [
+                                          Checkbox(
+                                            checkColor: Colors.white,
+                                            fillColor:
+                                                MaterialStateProperty.all(
+                                                    HexColor("#175244")),
+                                            focusColor: Colors.green,
+                                            value: isChecked,
+                                            onChanged: (bool? value) {
+                                              isChecked = !isChecked;
+                                              userewards();
+                                              setState(() {});
+                                            },
+                                          ),
+                                          AutoSizeText(
+                                            'Use my rewards',
+                                            minFontSize: 20,
+                                            style: TextStyle(
+                                              color: HexColor("#175244"),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                maxrewards>(ttl/20)?Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("You can avail a max discount of 20% of your order total"),
-                                    Text("Points used: "+maxrewards.toString()),
-                                  ],
-                                ):Container(),
+                                maxrewards > (ttl / 20)
+                                    ? Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              "You can avail a max discount of 20% of your order total"),
+                                          Text("Points used: " +
+                                              maxrewards.toString()),
+                                        ],
+                                      )
+                                    : Container(),
                               ],
                             ),
                           ),
@@ -843,7 +841,6 @@ late  double maxrewards= 0;
     * 3. Signature
     * */
     putDatafromcart();
-    print("sign" + response.orderId.toString());
     setState(() {
       goToSuccess();
       paid = true;
@@ -874,14 +871,12 @@ late  double maxrewards= 0;
         qtyar = qtyar + ' ' + cartlist[i].qty.toString();
       }
     }
-    print("im idar:" + idar);
-    print("im qtyar:" + qtyar);
+
     orderdb.createarr(idar, qtyar, date, time);
     setState(() {});
   }
 
   void handleExternalWalletSelected(ExternalWalletResponse response) {
-    print("wallet");
     showAlertDialog(
         context, "External Wallet Selected", "${response.walletName}");
   }
