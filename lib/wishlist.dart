@@ -58,7 +58,8 @@ class _WishListPageState extends State<WishListPage> {
 
   Future<bool> onWillPop() async {
     //Navigator.pop(context,true);
-    return (await Get.to(bottomBar(), transition: Transition.leftToRight)) ??
+    return (await Get.to(() => bottomBar(),
+            transition: Transition.leftToRight)) ??
         false;
   }
 

@@ -121,7 +121,8 @@ class _NowServingState extends State<NowServing> {
               GestureDetector(
                 onTap: () {
                   getpdata(nowdata[index]);
-                  Get.to(ProductDetail(), transition: Transition.downToUp);
+                  Get.to(() => ProductDetail(),
+                      transition: Transition.downToUp);
                 },
                 child: Container(
                   padding: EdgeInsets.all(10),

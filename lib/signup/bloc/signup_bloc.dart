@@ -127,7 +127,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<SignupSumittedEvent>(
       (event, emit) {
         if (state is SignupNoerrorState) {
-          Get.to(bottomBar());
+          Get.to(() => bottomBar());
         } else {
           emit(SignupErrorState("Please fill out all the fields"));
         }

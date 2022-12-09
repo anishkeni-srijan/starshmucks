@@ -32,7 +32,7 @@ class ForgotpasswordBloc
     on<ForgotpasswordSumittedEvent>(
       (event, emit) {
         if (state is ForgotpasswordValidState) {
-          Get.to(ResetPasswordPage());
+          Get.to(() => ResetPasswordPage());
         }
       },
     );

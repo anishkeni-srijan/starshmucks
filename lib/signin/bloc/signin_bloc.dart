@@ -25,9 +25,7 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
     on<SigninpassChangedEvent>((event, emit) {
 //user exists
       if (event.passwordvalue == event.obtainedpassword) {
-        Get.to(
-          bottomBar(),
-        );
+        Get.to(() => bottomBar());
       } else if (event.passwordvalue == '' ||
           event.passwordvalue != event.obtainedpassword) {
         emit(

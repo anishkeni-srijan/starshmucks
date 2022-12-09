@@ -18,11 +18,13 @@ class Rewards extends StatefulWidget {
   @override
   State<Rewards> createState() => _RewardsState();
 }
+
 late double silvervalue = 0;
 late double goldvalue = 0;
 late double progvalue = 0;
 late double res = 0;
 String nexttier = '';
+
 class _RewardsState extends State<Rewards> {
   String refLink = "http://starshmucks.com/refferal/cdJkk5";
   TextEditingController test = TextEditingController();
@@ -43,17 +45,19 @@ class _RewardsState extends State<Rewards> {
     super.initState();
   }
 
-  getnexttier(){
-    usernames.isEmpty?nexttier="silver": usernames[0]['rewards']>10?nexttier="gold":nexttier='silver';
-    setState(() {
-
-    });
+  getnexttier() {
+    usernames.isEmpty
+        ? nexttier = "silver"
+        : usernames[0]['rewards'] > 10
+            ? nexttier = "gold"
+            : nexttier = 'silver';
+    setState(() {});
   }
+
   getprogress() {
     if (usernames.isEmpty) {
       silvervalue = 0;
-    }
-    else {
+    } else {
       if (usernames[0]['rewards'] < 10) {
         silvervalue = usernames[0]['rewards'] / 10.0;
       } else if (usernames[0]['rewards'] > 10) {
@@ -62,26 +66,22 @@ class _RewardsState extends State<Rewards> {
       } else
         progvalue = 0;
     }
-    setState(() {
-
-    });
+    setState(() {});
   }
+
   starsneeded() {
     if (usernames.isEmpty) {
       silvervalue = 0;
-    }
-    else {
+    } else {
       if (usernames[0]['rewards'] < 10) {
         res = 10.0 - usernames[0]['rewards'];
-      }
-      else if (usernames[0]['rewards'] > 10) {
+      } else if (usernames[0]['rewards'] > 10) {
         res = 20.0 - usernames[0]['rewards'];
       }
     }
-    setState(() {
-
-    });
+    setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
     return usernames.isEmpty
@@ -180,9 +180,10 @@ class _RewardsState extends State<Rewards> {
                   const SizedBox(
                     height: 20,
                   ),
-
                   GestureDetector(
-                    onTap: (){Get.to(Rewarddetails());},
+                    onTap: () {
+                      Get.to(() => Rewarddetails());
+                    },
                     child: Container(
                       color: Colors.white,
                       padding: const EdgeInsets.all(10),
@@ -204,13 +205,17 @@ class _RewardsState extends State<Rewards> {
                                       color: HexColor("#175244"),
                                     ),
                                     minFontSize: 18,
-                                  ),AutoSizeText(
+                                  ),
+                                  AutoSizeText(
                                     nexttier,
                                     style: TextStyle(
-                                      color: nexttier=='silver'?Colors.grey:Colors.amberAccent,
+                                      color: nexttier == 'silver'
+                                          ? Colors.grey
+                                          : Colors.amberAccent,
                                     ),
                                     minFontSize: 18,
-                                  ),AutoSizeText(
+                                  ),
+                                  AutoSizeText(
                                     " tier.",
                                     style: TextStyle(
                                       color: HexColor("#175244"),
@@ -232,16 +237,17 @@ class _RewardsState extends State<Rewards> {
                                         Icons.stars_sharp,
                                         color: Colors.brown,
                                       ),
-                                      Text("0 Points",style: TextStyle(fontSize: 11))
+                                      Text("0 Points",
+                                          style: TextStyle(fontSize: 11))
                                     ],
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(bottom: 15),
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.26,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.26,
                                     child: LinearProgressIndicator(
                                       // color: Colors.white,
-                                      backgroundColor:HexColor("#175244"),
+                                      backgroundColor: HexColor("#175244"),
                                       valueColor:
                                           const AlwaysStoppedAnimation<Color>(
                                               Colors.brown),
@@ -253,16 +259,17 @@ class _RewardsState extends State<Rewards> {
                                     children: [
                                       const Icon(Icons.stars_sharp,
                                           color: Colors.grey),
-                                      Text('10 Points',style: TextStyle(fontSize: 11))
+                                      Text('10 Points',
+                                          style: TextStyle(fontSize: 11))
                                     ],
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(bottom: 15),
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.26,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.26,
                                     child: LinearProgressIndicator(
                                       // color: Colors.white,
-                                      backgroundColor:HexColor("#175244"),
+                                      backgroundColor: HexColor("#175244"),
                                       valueColor:
                                           new AlwaysStoppedAnimation<Color>(
                                               Colors.grey),
@@ -273,16 +280,18 @@ class _RewardsState extends State<Rewards> {
                                     children: [
                                       const Icon(Icons.stars_sharp,
                                           color: Colors.amberAccent),
-                                      Text('20 Points',style: TextStyle(fontSize: 11),)
+                                      Text(
+                                        '20 Points',
+                                        style: TextStyle(fontSize: 11),
+                                      )
                                     ],
                                   ),
-
                                 ],
                               ),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
-                                  left: 8, right: 8, top: 10,bottom: 10),
+                                  left: 8, right: 8, top: 10, bottom: 10),
                               child: Divider(
                                 color: Colors.black38,
                                 height: 1,
@@ -291,9 +300,16 @@ class _RewardsState extends State<Rewards> {
                                 endIndent: 0,
                               ),
                             ),
-                            TextButton(onPressed: (){
-                              Get.to(Rewarddetails(),transition: Transition.leftToRightWithFade);
-                            }, child: Text("Know More", style: TextStyle(color: HexColor("#175244")),))
+                            TextButton(
+                                onPressed: () {
+                                  Get.to(() => Rewarddetails(),
+                                      transition:
+                                          Transition.leftToRightWithFade);
+                                },
+                                child: Text(
+                                  "Know More",
+                                  style: TextStyle(color: HexColor("#175244")),
+                                ))
                           ],
                         ),
                       ),
@@ -372,7 +388,8 @@ class _RewardsState extends State<Rewards> {
                                       width: 20,
                                     ),
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         const Text(
                                           "Invite your friends",

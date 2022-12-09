@@ -83,7 +83,7 @@ orderbutton() {
     elevation: 10,
     backgroundColor: Color(0xffb036635),
     onPressed: () {
-      Get.to(OrderPage(), transition: Transition.downToUp);
+      Get.to(() => OrderPage(), transition: Transition.downToUp);
     },
     child: Icon(
       Icons.coffee_maker_outlined,
@@ -174,7 +174,7 @@ viewincart() {
             "View in Cart",
           ),
           onPressed: () {
-            Get.to(MyCart(), transition: Transition.downToUp);
+            Get.to(() => MyCart(), transition: Transition.downToUp);
           }),
     ],
   );
@@ -188,22 +188,22 @@ initcart() async {
 }
 
 Future<bool> gohome() async {
-  return (await Get.to(bottomBar())) ?? false;
+  return (await Get.to(() => bottomBar())) ?? false;
 }
 
 Future<bool> gohomefromsuccess() async {
   calcrewards();
   CartDB cartdb = CartDB();
   cartdb.clear();
-  return (await Get.to(bottomBar())) ?? false;
+  return (await Get.to(() => bottomBar())) ?? false;
 }
 
 goToSuccess() {
-  return Get.to(OrderSuccess());
+  return Get.to(() => OrderSuccess());
 }
 
 goToFailed(String message) {
-  return Get.to(OrderFail(message));
+  return Get.to(() => OrderFail(message));
 }
 
 calcrewards() async {

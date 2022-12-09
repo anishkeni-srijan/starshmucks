@@ -249,33 +249,27 @@ class _AddressState extends State<Address> {
       },
     );
   }
-late  double maxrewards= 0;
-  userewards()async{
-    maxrewards = userddt[0]['rewards']/2;
-    print('calculated rewards: '+maxrewards.toString());
-   if(maxrewards<(ttl/20)) {
-     print("normal");
-     ttl = isChecked == true
-         ? ttl - maxrewards
-         : ttl + maxrewards;
-   }
-   else{
 
-     maxrewards = ttl/20;
-     print("max rewards exceed the 20% of ttl: "+maxrewards.toString());
-     ttl = isChecked == true
-         ? ttl - maxrewards
-         : ttl + maxrewards;
-
-   }
+  late double maxrewards = 0;
+  userewards() async {
+    maxrewards = userddt[0]['rewards'] / 2;
+    print('calculated rewards: ' + maxrewards.toString());
+    if (maxrewards < (ttl / 20)) {
+      print("normal");
+      ttl = isChecked == true ? ttl - maxrewards : ttl + maxrewards;
+    } else {
+      maxrewards = ttl / 20;
+      print("max rewards exceed the 20% of ttl: " + maxrewards.toString());
+      ttl = isChecked == true ? ttl - maxrewards : ttl + maxrewards;
+    }
 
     final prefs = await SharedPreferences.getInstance();
-    await  prefs.setDouble("cartttl",ttl);
-    savings = isChecked == false? 0:maxrewards;
-    await  prefs.setDouble("savings",savings);
-    setState(() {
-    });
+    await prefs.setDouble("cartttl", ttl);
+    savings = isChecked == false ? 0 : maxrewards;
+    await prefs.setDouble("savings", savings);
+    setState(() {});
   }
+
   var selectedVal;
   setSelectedVal(var val) {
     print("val in fn");
@@ -287,7 +281,7 @@ late  double maxrewards= 0;
 
   final offers = TextEditingController();
   bool afterSelecting = false;
-  late double savings =0;
+  late double savings = 0;
   @override
   Widget build(BuildContext context) {
     getUser();
@@ -299,8 +293,7 @@ late  double maxrewards= 0;
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Points savings: \$" +
-                         savings.toString()),
+                      Text("Points savings: \$" + savings.toString()),
                       Text("Amount to be paid: \$" + ttl.toString()),
                     ],
                   )
@@ -721,7 +714,8 @@ late  double maxrewards= 0;
                                         maxFontSize: 30,
                                       ),
                                       AutoSizeText(
-                                        userddt[0]['rewards'].toStringAsFixed(2),
+                                        userddt[0]['rewards']
+                                            .toStringAsFixed(2),
                                         style: TextStyle(
                                           color: HexColor("#175244"),
                                         ),
@@ -731,37 +725,50 @@ late  double maxrewards= 0;
                                     ],
                                   ),
                                 ),
-                                !rewards?Text("Add more items worth \$" + res.toStringAsFixed(2)+ " to avail your reward points", style: TextStyle(color: Colors.redAccent),):
-                                Row(
-                                  children: [
-                                    Checkbox(
-                                      checkColor: Colors.white,
-                                      fillColor: MaterialStateProperty.all(
-                                          HexColor("#175244")),
-                                      focusColor: Colors.green,
-                                      value: isChecked,
-                                      onChanged: (bool? value) {
-                                        isChecked = !isChecked;
-                                        userewards();
-                                        setState(() {});
-                                      },
-                                    ),
-                                    AutoSizeText(
-                                      'Use my rewards',
-                                      minFontSize: 20,
-                                      style: TextStyle(
-                                        color: HexColor("#175244"),
+                                !rewards
+                                    ? Text(
+                                        "Add more items worth \$" +
+                                            res.toStringAsFixed(2) +
+                                            " to avail your reward points",
+                                        style:
+                                            TextStyle(color: Colors.redAccent),
+                                      )
+                                    : Row(
+                                        children: [
+                                          Checkbox(
+                                            checkColor: Colors.white,
+                                            fillColor:
+                                                MaterialStateProperty.all(
+                                                    HexColor("#175244")),
+                                            focusColor: Colors.green,
+                                            value: isChecked,
+                                            onChanged: (bool? value) {
+                                              isChecked = !isChecked;
+                                              userewards();
+                                              setState(() {});
+                                            },
+                                          ),
+                                          AutoSizeText(
+                                            'Use my rewards',
+                                            minFontSize: 20,
+                                            style: TextStyle(
+                                              color: HexColor("#175244"),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                maxrewards>(ttl/20)?Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("You can avail a max discount of 20% of your order total"),
-                                    Text("Points used: "+maxrewards.toString()),
-                                  ],
-                                ):Container(),
+                                maxrewards > (ttl / 20)
+                                    ? Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              "You can avail a max discount of 20% of your order total"),
+                                          Text("Points used: " +
+                                              maxrewards.toString()),
+                                        ],
+                                      )
+                                    : Container(),
                               ],
                             ),
                           ),
@@ -776,7 +783,7 @@ late  double maxrewards= 0;
           onPressed: () {
             !isChecked ? userewards() : null;
             if (_value == 1 && afterSelecting == true) {
-              Get.to(UpiPayment());
+              Get.to(() => UpiPayment());
             } else if (_value == 2 && afterSelecting == true) {
               Razorpay razorpay = Razorpay();
               var options = {
@@ -889,7 +896,7 @@ late  double maxrewards= 0;
     Widget continueButton = ElevatedButton(
       child: const Text("Continue"),
       onPressed: () {
-        paid ? Get.to(OrderSuccess()) : Get.to(OrderFail(message));
+        paid ? Get.to(() => OrderSuccess()) : Get.to(() => OrderFail(message));
       },
     );
     // set up the AlertDialog

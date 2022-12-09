@@ -97,5 +97,5 @@ class _OrdersState extends State<Orders> {
 getdetails(res) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setInt('orderid', res);
-  Get.to(transition: Transition.rightToLeft, Orderdetail());
+  Get.to(transition: Transition.rightToLeft, () => Orderdetail());
 }

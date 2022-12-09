@@ -121,7 +121,7 @@ class _GetOffersState extends State<GetOffers> {
               GestureDetector(
                 onTap: () {
                   getpdata(odata[index]);
-                  Get.to(ProductDetail(),
+                  Get.to(() => ProductDetail(),
                       transition: Transition.rightToLeftWithFade);
                 },
                 child: Container(

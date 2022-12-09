@@ -54,21 +54,22 @@ class _OrderSuccessState extends State<OrderSuccess> {
 
     cartinit = false;
   }
+
   List<Map<String, dynamic>> userddt = [];
   getUser() async {
     userddt = await udb.getDataUserData();
     setState(() {});
   }
 
-  getttl() async{
+  getttl() async {
     final total = await SharedPreferences.getInstance();
     cartttl = total.getDouble('total')!;
     savings = total.getDouble('savings')!;
-    ttl=(cartttl+5) - savings;
+    ttl = (cartttl + 5) - savings;
     print(ttl);
-    setState(() {
-    });
+    setState(() {});
   }
+
   getDataIds() async {
     MenuDB menudb = MenuDB();
     menudb.initDBMenu();
@@ -95,7 +96,6 @@ class _OrderSuccessState extends State<OrderSuccess> {
     // });
   }
 
-
   late String selectedAddress = '';
   getAddress() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -120,7 +120,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
             ),
             label: Text(''),
             onPressed: () {
-             gohomefromsuccess();
+              gohomefromsuccess();
             },
           ),
           title: Text("Order details"),
@@ -225,10 +225,10 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding:  EdgeInsets.only(
+                                    padding: EdgeInsets.only(
                                         left: 20,
                                         right: 20,
-                                        bottom: Platform.isIOS?0:20,
+                                        bottom: Platform.isIOS ? 0 : 20,
                                         top: 5),
                                     child: Row(
                                       mainAxisAlignment:
@@ -300,7 +300,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children:[
+                        children: [
                           Text(
                             "Cart total",
                             style: TextStyle(fontWeight: FontWeight.bold),
@@ -313,13 +313,13 @@ class _OrderSuccessState extends State<OrderSuccess> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children:[
+                        children: [
                           Text(
                             "Points savings",
                             style: TextStyle(fontWeight: FontWeight.w300),
                           ),
                           Text(
-                            '-\$'+savings.toStringAsFixed(2),
+                            '-\$' + savings.toStringAsFixed(2),
                             style: TextStyle(fontWeight: FontWeight.w300),
                           ),
                         ],
@@ -345,7 +345,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                             style: TextStyle(fontWeight: FontWeight.w600),
                           ),
                           Text(
-                            "\$ " +ttl.toStringAsFixed(2),
+                            "\$ " + ttl.toStringAsFixed(2),
                             style: TextStyle(fontWeight: FontWeight.w600),
                           ),
                         ],
@@ -381,7 +381,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
             ),
             GestureDetector(
               onTap: () {
-                Get.to(Help());
+                Get.to(() => Help());
               },
               child: Container(
                 padding: const EdgeInsets.only(

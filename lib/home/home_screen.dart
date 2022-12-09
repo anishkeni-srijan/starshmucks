@@ -42,9 +42,15 @@ class _HomePageState extends State<HomePage> {
     // setUserForLogin();
     super.initState();
   }
-  getnexttier(){
-    usernames.isEmpty?nexttier="bronze": usernames[0]['rewards']>10?nexttier="gold":nexttier='silver';
+
+  getnexttier() {
+    usernames.isEmpty
+        ? nexttier = "bronze"
+        : usernames[0]['rewards'] > 10
+            ? nexttier = "gold"
+            : nexttier = 'silver';
   }
+
   List<Map<String, dynamic>> usernames = [];
   getUser() async {
     usernames = await udb.getDataUserData();
@@ -89,7 +95,7 @@ class _HomePageState extends State<HomePage> {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                getbanner(context, username,tier,rewards),
+                getbanner(context, username, tier, rewards),
                 Container(
                   padding: const EdgeInsets.all(10),
                   alignment: Alignment.topLeft,
@@ -136,7 +142,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-getbanner(context, username,tier,rewards) {
+getbanner(context, username, tier, rewards) {
   return Container(
     height: MediaQuery.of(context).size.height * 0.2,
     decoration: BoxDecoration(
@@ -175,31 +181,43 @@ getbanner(context, username,tier,rewards) {
           child: Row(
             children: [
               Container(
-                transform: Matrix4.translationValues(
-                  0,
-                  0,
-                  0,
-                ),
-                child: Icon(Icons.stars_sharp,color: tier=="bronze"?Colors.brown:tier=="silver"?Colors.grey:Colors.amberAccent,)
-              ),
+                  transform: Matrix4.translationValues(
+                    0,
+                    0,
+                    0,
+                  ),
+                  child: Icon(
+                    Icons.stars_sharp,
+                    color: tier == "bronze"
+                        ? Colors.brown
+                        : tier == "silver"
+                            ? Colors.grey
+                            : Colors.amberAccent,
+                  )),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                  Text('Tier',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 12
-                      ),
+                    Text(
+                      'Tier',
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
                     ),
                     AutoSizeText(
-                    tier=='silver'?"Silver":tier=='gold'?"Gold":"Bronze",
-                    style: TextStyle(
-                      color: tier=="bronze"?Colors.brown:tier=="silver"?Colors.grey:Colors.amberAccent,
-                    ),
-                    minFontSize: 12,
-                  )
+                      tier == 'silver'
+                          ? "Silver"
+                          : tier == 'gold'
+                              ? "Gold"
+                              : "Bronze",
+                      style: TextStyle(
+                        color: tier == "bronze"
+                            ? Colors.brown
+                            : tier == "silver"
+                                ? Colors.grey
+                                : Colors.amberAccent,
+                      ),
+                      minFontSize: 12,
+                    )
                   ],
                 ),
               ),
@@ -207,10 +225,10 @@ getbanner(context, username,tier,rewards) {
                 width: 15,
               ),
               Container(
-
                 child: const Icon(
                   Icons.card_giftcard,
-                  color: Colors.amber, size: 20,
+                  color: Colors.amber,
+                  size: 20,
                 ),
               ),
               Column(
@@ -218,13 +236,9 @@ getbanner(context, username,tier,rewards) {
                 children: [
                   Container(
                     padding: EdgeInsets.only(left: 10),
-                    child:Text(
+                    child: Text(
                       'Rewards',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12
-                      ),
-
+                      style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
                   Padding(
@@ -233,7 +247,7 @@ getbanner(context, username,tier,rewards) {
                       left: 8,
                     ),
                     child: AutoSizeText(
-                       rewards.toStringAsFixed(2),
+                      rewards.toStringAsFixed(2),
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -249,8 +263,12 @@ getbanner(context, username,tier,rewards) {
                   0,
                   0,
                 ),
-                child:AutoSizeText(
-                  'You are '+ (20 - rewards).toStringAsFixed(2)+' points away from '+ nexttier +' tier.',
+                child: AutoSizeText(
+                  'You are ' +
+                      (20 - rewards).toStringAsFixed(2) +
+                      ' points away from ' +
+                      nexttier +
+                      ' tier.',
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -260,7 +278,7 @@ getbanner(context, username,tier,rewards) {
               Container(
                 child: IconButton(
                   onPressed: () {
-                    Get.to(const Rewards());
+                    Get.to(() => Rewards());
                   },
                   icon: const Icon(
                     Icons.play_arrow_sharp,

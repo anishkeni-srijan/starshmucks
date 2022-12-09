@@ -43,7 +43,7 @@ class _OrderFailState extends State<OrderFail> {
                 ),
                 label: Text(''),
                 onPressed: () {
-                  Get.to(bottomBar());
+                  Get.to(() => bottomBar());
                 },
               ),
               Text(
@@ -90,15 +90,13 @@ class _OrderFailState extends State<OrderFail> {
                         child: AutoSizeText(
                           'Any amount if debited will get refunded within 4-7 days',
                           style: TextStyle(color: Colors.white),
-                        )
-                    )
+                        ))
                   ],
                 ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   Container(
                     padding: const EdgeInsets.all(10),
                     width: MediaQuery.of(context).size.width * 1,
@@ -123,7 +121,6 @@ class _OrderFailState extends State<OrderFail> {
                       ),
                     ),
                   ),
-
                   Container(
                     padding: const EdgeInsets.all(10),
                     width: MediaQuery.of(context).size.width * 1,
@@ -131,7 +128,7 @@ class _OrderFailState extends State<OrderFail> {
                       elevation: 8,
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 20,right: 20),
+                            top: 20.0, bottom: 20.0, left: 20, right: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -169,7 +166,8 @@ class _OrderFailState extends State<OrderFail> {
                                 Expanded(
                                   child: Text(
                                     "Total Amount",
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 // Text("\$ " + (result + 5).toString()),
@@ -182,7 +180,7 @@ class _OrderFailState extends State<OrderFail> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.to(Help());
+                      Get.to(() => Help());
                     },
                     child: Container(
                       padding: const EdgeInsets.only(
@@ -209,7 +207,6 @@ class _OrderFailState extends State<OrderFail> {
                       ),
                     ),
                   ),
-
                 ],
               ),
               Padding(
@@ -220,7 +217,7 @@ class _OrderFailState extends State<OrderFail> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () {
-                      Get.to(bottomBar());
+                      Get.to(() => bottomBar());
                     },
                     child: Text("Continue Shopping")),
               )

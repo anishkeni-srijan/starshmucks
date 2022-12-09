@@ -53,7 +53,7 @@ class ResetpasswordBloc extends Bloc<ResetpasswordEvent, ResetpasswordState> {
           Future.delayed(
             Duration(seconds: 5),
             () {
-              Get.to(SigninPage());
+              Get.to(() => SigninPage());
             },
           );
         } else

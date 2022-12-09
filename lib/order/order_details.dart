@@ -55,6 +55,7 @@ class _OrderdetailState extends State<Orderdetail> {
     }
     setState(() {});
   }
+
   late String selectedAddress = '';
   getAddress() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -88,111 +89,124 @@ class _OrderdetailState extends State<Orderdetail> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
-                return  Column(
+                return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    orderdata.isEmpty || items1.isEmpty || qtylistfromstring.isEmpty
+                    orderdata.isEmpty ||
+                            items1.isEmpty ||
+                            qtylistfromstring.isEmpty
                         ? Center(
-                      child: Text('updating...'),
-                    )
+                            child: Text('updating...'),
+                          )
                         : Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Card(
-                        elevation: 8,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(20.0),
+                            padding: const EdgeInsets.all(10.0),
+                            child: Card(
+                              elevation: 8,
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
-                                    "Order placed",
-                                    style: TextStyle(fontSize: 22),
+                                  Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          "Order placed",
+                                          style: TextStyle(fontSize: 22),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "on " +
+                                                  orderdata[0].date.toString(),
+                                              style: TextStyle(fontSize: 13),
+                                            ),
+                                            Text(
+                                              "items: " +
+                                                  idlistfromstring.length
+                                                      .toString(),
+                                              style:
+                                                  const TextStyle(fontSize: 13),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "on " + orderdata[0].date.toString(),
-                                        style: TextStyle(fontSize: 13),
-                                      ),
-                                      Text(
-                                        "items: " +
-                                            idlistfromstring.length.toString(),
-                                        style: const TextStyle(fontSize: 13),
-                                      ),
-                                    ],
+                                  ListView.builder(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: qtylistfromstring.length,
+                                    itemBuilder: (context, index) {
+                                      return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 20,
+                                                right: 20,
+                                                bottom: Platform.isIOS ? 0 : 20,
+                                                top: 0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                qtylistfromstring.isEmpty ||
+                                                        items1.isEmpty
+                                                    ? const Center(
+                                                        child:
+                                                            Text('updating...'),
+                                                      )
+                                                    : Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Container(
+                                                              width: 150,
+                                                              child: Text(
+                                                                  items1[index]
+                                                                      .title
+                                                                      .toString(),
+                                                                  maxLines: 2,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis)),
+                                                          Text(
+                                                              qtylistfromstring[
+                                                                      index] +
+                                                                  ' x qty'),
+                                                        ],
+                                                      ),
+                                                Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: [
+                                                      Row(children: [
+                                                        Text(
+                                                          "\$ ${items1[index].price}",
+                                                        ),
+                                                      ]),
+                                                    ])
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   ),
                                 ],
                               ),
                             ),
-                            ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: qtylistfromstring.length,
-                              itemBuilder: (context, index) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 20,
-                                          right: 20,
-                                          bottom:Platform.isIOS?0:20,
-                                          top: 0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          qtylistfromstring.isEmpty ||
-                                              items1.isEmpty
-                                              ? const Center(
-                                            child: Text('updating...'),
-                                          )
-                                              : Column(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                  width: 150,
-                                                  child: Text(
-                                                      items1[index]
-                                                          .title
-                                                          .toString(),
-                                                      maxLines: 2,
-                                                      overflow: TextOverflow
-                                                          .ellipsis)),
-                                              Text(
-                                                  qtylistfromstring[index] +
-                                                      ' x qty'),
-                                            ],
-                                          ),
-                                          Column(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                              children: [
-                                                Row(children: [
-                                                  Text(
-                                                    "\$ ${items1[index].price}",
-                                                  ),
-                                                ]),
-                                              ])
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                          ),
 
                     // Text(
                     //   "\$ " + data[0].ttlPrice.toStringAsFixed(2),
@@ -200,7 +214,8 @@ class _OrderdetailState extends State<Orderdetail> {
                     // ),
 
                     Container(
-                      padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                      padding:
+                          const EdgeInsets.only(left: 10, right: 10, top: 10),
                       width: MediaQuery.of(context).size.width * 1,
                       child: Card(
                         elevation: 8,
@@ -211,17 +226,20 @@ class _OrderdetailState extends State<Orderdetail> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text("Mode of payment",
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
                               Text("data"),
                               SizedBox(
                                 height: 10,
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: const [
                                   Text(
                                     "Cart total",
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   // Text(
                                   //   "\$ " + data[0].ttlPrice.toStringAsFixed(2),
@@ -230,37 +248,45 @@ class _OrderdetailState extends State<Orderdetail> {
                                 ],
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: const [
                                   Text(
                                     "Points savings",
-                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w300),
                                   ),
                                   Text(
                                     '-\$ 10.00',
-                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w300),
                                   ),
                                 ],
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: const [
                                   Text(
                                     "Delivery Charges",
-                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w300),
                                   ),
                                   Text(
                                     "\$ 5.00",
-                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w300),
                                   ),
                                 ],
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: const [
                                   Text(
                                     "Total Amount",
-                                    style: TextStyle(fontWeight: FontWeight.w600),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600),
                                   ),
                                   // Text(
                                   //   "\$ " +
@@ -301,7 +327,7 @@ class _OrderdetailState extends State<Orderdetail> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.to(Help());
+                        Get.to(() => Help());
                       },
                       child: Container(
                         padding: const EdgeInsets.only(
