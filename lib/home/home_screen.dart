@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                     ? const CircularProgressIndicator()
                     : getbanner(context, username, tier, rewards),
                 Container(
-                  padding: const EdgeInsets.only(left: 10,top: 20,bottom: 10),
+                  padding: const EdgeInsets.only(left: 10, top: 20, bottom: 10),
                   alignment: Alignment.topLeft,
                   child: AutoSizeText(
                     'Offers',
@@ -166,7 +166,7 @@ getbanner(context, username, tier, rewards) {
     ),
     child: Column(
       children: [
-     Container(
+        Container(
           transform: Matrix4.translationValues(0, 28, 0),
           child: Text(
             '${'Hi ' + username}!',
@@ -177,23 +177,19 @@ getbanner(context, username, tier, rewards) {
           ),
         ),
         Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
+          decoration: BoxDecoration(color: Colors.white, boxShadow: [
             BoxShadow(
-            blurRadius: 10.0,
-          ),
-  ]),
-
+              blurRadius: 10.0,
+            ),
+          ]),
           transform: Matrix4.translationValues(
             0,
-            MediaQuery.of(context).size.height*0.1,
+            MediaQuery.of(context).size.height * 0.1,
             0,
           ),
-            child:
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
               children: [
                 Icon(
                   Icons.stars_sharp,
@@ -208,9 +204,10 @@ getbanner(context, username, tier, rewards) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                       Text(
+                      Text(
                         'Tier',
-                        style: TextStyle(color: HexColor('#175244'), fontSize: 12),
+                        style:
+                            TextStyle(color: HexColor('#175244'), fontSize: 12),
                       ),
                       AutoSizeText(
                         tier == 'silver'
@@ -230,9 +227,7 @@ getbanner(context, username, tier, rewards) {
                     ],
                   ),
                 ),
-
                 Container(
-
                   child: const Icon(
                     Icons.card_giftcard,
                     color: Colors.amber,
@@ -246,7 +241,8 @@ getbanner(context, username, tier, rewards) {
                       padding: const EdgeInsets.only(left: 10),
                       child: Text(
                         'Rewards',
-                        style: TextStyle(color: HexColor('#175244'), fontSize: 12),
+                        style:
+                            TextStyle(color: HexColor('#175244'), fontSize: 12),
                       ),
                     ),
                     Padding(
@@ -257,7 +253,7 @@ getbanner(context, username, tier, rewards) {
                       child: AutoSizeText(
                         rewards.toStringAsFixed(2),
                         style: TextStyle(
-                          color:HexColor('#175244'),
+                          color: HexColor('#175244'),
                         ),
                         minFontSize: 12,
                       ),
@@ -272,7 +268,7 @@ getbanner(context, username, tier, rewards) {
                     0,
                   ),
                   child: tier == 'gold'
-                      ?  AutoSizeText(
+                      ? AutoSizeText(
                           'You are a Gold tier customer.',
                           style: TextStyle(
                             color: HexColor('#175244'),
@@ -290,18 +286,19 @@ getbanner(context, username, tier, rewards) {
                 Container(
                   child: IconButton(
                     onPressed: () {
-                      Get.to(const Rewards(),transition: Transition.rightToLeftWithFade);
+                      Get.to(const Rewards(),
+                          transition: Transition.rightToLeftWithFade);
                     },
                     icon: Icon(
                       Icons.play_arrow_sharp,
-                      color:HexColor('#175244'),
+                      color: HexColor('#175244'),
                       size: 20,
                     ),
                   ),
                 ),
               ],
             ),
-            ),
+          ),
         ),
       ],
     ),
@@ -312,7 +309,7 @@ learnmore(context) {
   final learnmorep = Provider.of<Learnmore>(context);
   learnmorep.fetchData(context);
   return SizedBox(
-    height: 250,
+    height: 350,
     child: ListView.builder(
       itemCount: learnmorep.learnmore.length,
       scrollDirection: Axis.horizontal,
@@ -322,7 +319,7 @@ learnmore(context) {
             width: 10,
           ),
           Container(
-            padding: const EdgeInsets.all(10),
+            padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -337,31 +334,27 @@ learnmore(context) {
             width: MediaQuery.of(context).size.width * 0.86,
             child: Column(
               children: [
-                Container(
-                  child: Image.asset(
-                    learnmorep.learnmore[index].image,
-                    width: 250,
+                Image.asset(
+                  learnmorep.learnmore[index].image,
+                  height: 150,
+                  width: 250,
+                ),
+                Text(
+                  learnmorep.learnmore[index].title,
+                  style: TextStyle(
+                    color: HexColor('#175244'),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                Container(
-                  child: Container(
-                    child: Text(
-                      learnmorep.learnmore[index].title,
-                      style: TextStyle(
-                        color: HexColor('#175244'),
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
+                SizedBox(
+                  height: 10,
                 ),
-                Container(
-                  child: Text(
-                    learnmorep.learnmore[index].tag,
-                    style: TextStyle(
-                      color: HexColor('#175244'),
-                      fontSize: 18,
-                    ),
+                Text(
+                  learnmorep.learnmore[index].tag,
+                  style: TextStyle(
+                    color: HexColor('#175244'),
+                    fontSize: 18,
                   ),
                 ),
               ],
