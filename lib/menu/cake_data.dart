@@ -54,37 +54,6 @@ class _GetCakeDataState extends State<GetCakeData> {
     setState(() {});
   }
 
-  removefromwishlist(sendid) {
-    wdb.deleteitemFromWishlist(sendid);
-    String toastMessage = "ITEM REMOVED TO WISHLIST";
-    fToast.showToast(
-      child: CustomToast(toastMessage),
-      positionedToastBuilder: (context, child) => Positioned(
-        child: child,
-        bottom: MediaQuery.of(context).size.height * 0.14,
-        left: MediaQuery.of(context).size.width * 0.1,
-        right: MediaQuery.of(context).size.width * 0.1,
-      ),
-    );
-    getIds();
-  }
-
-  addToWishlist(context, index) async {
-    final cartp = await db.cakedata();
-    wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
-    String toastMessage = "ITEM ADDED TO WISHLIST";
-    fToast.showToast(
-      child: CustomToast(toastMessage),
-      positionedToastBuilder: (context, child) => Positioned(
-        child: child,
-        bottom: MediaQuery.of(context).size.height * 0.14,
-        left: MediaQuery.of(context).size.width * 0.1,
-        right: MediaQuery.of(context).size.width * 0.1,
-      ),
-    );
-    getIds();
-    // setState(() {});
-  }
 
   addToCart(context, index) async {
     final cartp = await db.cakedata();
@@ -120,7 +89,7 @@ class _GetCakeDataState extends State<GetCakeData> {
             return GestureDetector(
               onTap: () {
                 getpdata(data[index]);
-                Get.to(() => ProductDetail(), transition: Transition.downToUp);
+                Get.to(() => const ProductDetail(), transition: Transition.downToUp);
               },
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.18,
@@ -136,7 +105,7 @@ class _GetCakeDataState extends State<GetCakeData> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      padding: EdgeInsets.only(left: 10, bottom: 20),
+                      padding: const EdgeInsets.only(left: 10, bottom: 20),
                       transform: Matrix4.translationValues(-10, 20, 0),
                       child: Image.asset(
                         data[index].image,
@@ -145,7 +114,7 @@ class _GetCakeDataState extends State<GetCakeData> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                         top: 15,
                       ),
                       child: Column(
@@ -153,7 +122,7 @@ class _GetCakeDataState extends State<GetCakeData> {
                         children: <Widget>[
                           AutoSizeText(
                             data[index].title,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                             ),
                             maxFontSize: 18,
@@ -164,7 +133,7 @@ class _GetCakeDataState extends State<GetCakeData> {
                           ),
                           Text(
                             " \$ " + data[index].price,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.w800,
@@ -177,14 +146,14 @@ class _GetCakeDataState extends State<GetCakeData> {
                             children: <Widget>[
                               AutoSizeText(
                                 data[index].rating,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w800,
                                 ),
                                 minFontSize: 12,
                                 maxFontSize: 18,
                               ),
-                              Icon(
+                              const Icon(
                                 Icons.star,
                                 size: 20,
                                 color: Colors.amberAccent,
@@ -219,7 +188,6 @@ class _GetCakeDataState extends State<GetCakeData> {
                                       },
                                     );
                                   },
-                                  child: Text('Add'),
                                   style: ButtonStyle(
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
@@ -237,23 +205,9 @@ class _GetCakeDataState extends State<GetCakeData> {
                                       ),
                                     ),
                                   ),
+                                  child: const Text('Add'),
                                 ),
                               ),
-                              IconButton(
-                                  onPressed: () {
-                                    //int id = odata[index].id;
-                                    status
-                                        ? removefromwishlist(
-                                            WishlistModel(id: data[index].id))
-                                        : addToWishlist(context, index);
-                                    // getIds();
-                                  },
-                                  icon: status
-                                      ? Icon(
-                                          Icons.favorite,
-                                          color: Colors.red,
-                                        )
-                                      : Icon(Icons.favorite_border))
                             ],
                           ),
                         ],

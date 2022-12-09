@@ -53,41 +53,11 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     setState(() {});
   }
 
-  removefromwishlist(sendid) {
-    wdb.deleteitemFromWishlist(sendid);
-    String toastMessage = "ITEM REMOVED TO WISHLIST";
-    fToast.showToast(
-      child: CustomToast(toastMessage),
-      positionedToastBuilder: (context, child) => Positioned(
-        child: child,
-        bottom: MediaQuery.of(context).size.height * 0.14,
-        left: MediaQuery.of(context).size.width * 0.1,
-        right: MediaQuery.of(context).size.width * 0.1,
-      ),
-    );
-    getIds();
-  }
 
   addToCartSmoothie(context, index) async {
     final cartp = await db.smoothiedata();
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
     // setState(() {});
-  }
-
-  addToWishlist(context, index) async {
-    final cartp = await db.smoothiedata();
-    wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
-    String toastMessage = "ITEM ADDED TO WISHLIST";
-    fToast.showToast(
-      child: CustomToast(toastMessage),
-      positionedToastBuilder: (context, child) => Positioned(
-        child: child,
-        bottom: MediaQuery.of(context).size.height * 0.14,
-        left: MediaQuery.of(context).size.width * 0.1,
-        right: MediaQuery.of(context).size.width * 0.1,
-      ),
-    );
-    getIds();
   }
 
   getSmoothieData() async {
@@ -117,7 +87,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                 return GestureDetector(
                   onTap: () {
                     getpdata(data[index]);
-                    Get.to(() => ProductDetail(),
+                    Get.to(() => const ProductDetail(),
                         transition: Transition.downToUp);
                   },
                   child: Container(
@@ -133,7 +103,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          padding: EdgeInsets.only(left: 10, bottom: 20),
+                          padding: const EdgeInsets.only(left: 10, bottom: 20),
                           transform: Matrix4.translationValues(-10, 20, 0),
                           child: Image.asset(
                             data[index].image,
@@ -142,7 +112,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                             top: 15,
                           ),
                           child: Column(
@@ -150,7 +120,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                             children: <Widget>[
                               AutoSizeText(
                                 data[index].title,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                                 maxFontSize: 18,
@@ -162,7 +132,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                               ),
                               Text(
                                 " \$ " + data[index].price,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w800,
@@ -176,14 +146,14 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                 children: <Widget>[
                                   AutoSizeText(
                                     data[index].rating,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w800,
                                     ),
                                     minFontSize: 12,
                                     maxFontSize: 18,
                                   ),
-                                  Icon(
+                                  const Icon(
                                     Icons.star,
                                     size: 20,
                                     color: Colors.amberAccent,
@@ -202,7 +172,6 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                           child: CustomToast(toastMessage),
                                           positionedToastBuilder:
                                               (context, child) => Positioned(
-                                            child: child,
                                             bottom: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -215,13 +184,13 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                                     .size
                                                     .width *
                                                 0.1,
+                                            child: child,
                                           ),
                                         );
                                         setState(() {
                                           cartinit = true;
                                         });
                                       },
-                                      child: Text('Add'),
                                       style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all<Color>(
@@ -239,23 +208,9 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                           ),
                                         ),
                                       ),
+                                      child: const Text('Add'),
                                     ),
                                   ),
-                                  IconButton(
-                                      onPressed: () {
-                                        //int id = odata[index].id;
-                                        status
-                                            ? removefromwishlist(WishlistModel(
-                                                id: data[index].id))
-                                            : addToWishlist(context, index);
-                                        // getIds();
-                                      },
-                                      icon: status
-                                          ? Icon(
-                                              Icons.favorite,
-                                              color: Colors.red,
-                                            )
-                                          : Icon(Icons.favorite_border))
                                 ],
                               ),
                             ],
@@ -267,7 +222,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                 );
               },
             )
-          : CircularProgressIndicator(),
+          : const CircularProgressIndicator(),
     );
   }
 }

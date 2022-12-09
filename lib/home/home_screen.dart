@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                     ? const CircularProgressIndicator()
                     : getbanner(context, username, tier, rewards),
                 Container(
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.only(left: 10,top: 20,bottom: 10),
                   alignment: Alignment.topLeft,
                   child: AutoSizeText(
                     'Offers',
@@ -166,7 +166,7 @@ getbanner(context, username, tier, rewards) {
     ),
     child: Column(
       children: [
-        Container(
+     Container(
           transform: Matrix4.translationValues(0, 28, 0),
           child: Text(
             '${'Hi ' + username}!',
@@ -177,125 +177,131 @@ getbanner(context, username, tier, rewards) {
           ),
         ),
         Container(
-          padding: const EdgeInsets.only(
-            bottom: 20,
-            left: 20,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+            BoxShadow(
+            blurRadius: 10.0,
           ),
+  ]),
+
           transform: Matrix4.translationValues(
             0,
             80,
             0,
           ),
-          child: Row(
-            children: [
-              Icon(
-                Icons.stars_sharp,
-                color: tier == "bronze"
-                    ? Colors.brown
-                    : tier == "silver"
-                        ? Colors.grey
-                        : Colors.amberAccent,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Tier',
-                      style: TextStyle(color: Colors.white, fontSize: 12),
-                    ),
-                    AutoSizeText(
-                      tier == 'silver'
-                          ? "Silver"
-                          : tier == 'gold'
-                              ? "Gold"
-                              : "Bronze",
-                      style: TextStyle(
-                        color: tier == "bronze"
-                            ? Colors.brown
-                            : tier == "silver"
-                                ? Colors.grey
-                                : Colors.amberAccent,
+            child:
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+              children: [
+                Icon(
+                  Icons.stars_sharp,
+                  color: tier == "bronze"
+                      ? Colors.brown
+                      : tier == "silver"
+                          ? Colors.grey
+                          : Colors.amberAccent,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                       Text(
+                        'Tier',
+                        style: TextStyle(color: HexColor('#175244'), fontSize: 12),
                       ),
-                      minFontSize: 12,
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(
-                width: 15,
-              ),
-              Container(
-
-                child: const Icon(
-                  Icons.card_giftcard,
-                  color: Colors.amber,
-                  size: 20,
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: const Text(
-                      'Rewards',
-                      style: TextStyle(color: Colors.white, fontSize: 12),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 2.0,
-                      left: 8,
-                    ),
-                    child: AutoSizeText(
-                      rewards.toStringAsFixed(2),
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                      minFontSize: 12,
-                    ),
-                  )
-                ],
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.4,
-                transform: Matrix4.translationValues(
-                  20,
-                  0,
-                  0,
-                ),
-                child: tier == 'gold'
-                    ? const AutoSizeText(
-                        'You are a Gold tier customer.',
+                      AutoSizeText(
+                        tier == 'silver'
+                            ? "Silver"
+                            : tier == 'gold'
+                                ? "Gold"
+                                : "Bronze",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: tier == "bronze"
+                              ? Colors.brown
+                              : tier == "silver"
+                                  ? Colors.grey
+                                  : Colors.amberAccent,
                         ),
-                        minFontSize: 15,
+                        minFontSize: 12,
                       )
-                    : AutoSizeText(
-                        'You are ${(20 - rewards).toStringAsFixed(2)} points away from $nexttier tier.',
-                        style: const TextStyle(
-                          color: Colors.white,
-                        ),
-                        minFontSize: 15,
-                      ),
-              ),
-              Container(
-                child: IconButton(
-                  onPressed: () {
-                    Get.to(const Rewards(),transition: Transition.rightToLeftWithFade);
-                  },
-                  icon: const Icon(
-                    Icons.play_arrow_sharp,
-                    color: Colors.white,
+                    ],
+                  ),
+                ),
+
+                Container(
+
+                  child: const Icon(
+                    Icons.card_giftcard,
+                    color: Colors.amber,
                     size: 20,
                   ),
                 ),
-              ),
-            ],
-          ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        'Rewards',
+                        style: TextStyle(color: HexColor('#175244'), fontSize: 12),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 2.0,
+                        left: 8,
+                      ),
+                      child: AutoSizeText(
+                        rewards.toStringAsFixed(2),
+                        style: TextStyle(
+                          color:HexColor('#175244'),
+                        ),
+                        minFontSize: 12,
+                      ),
+                    )
+                  ],
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  transform: Matrix4.translationValues(
+                    20,
+                    0,
+                    0,
+                  ),
+                  child: tier == 'gold'
+                      ?  AutoSizeText(
+                          'You are a Gold tier customer.',
+                          style: TextStyle(
+                            color: HexColor('#175244'),
+                          ),
+                          minFontSize: 15,
+                        )
+                      : AutoSizeText(
+                          'You are ${(20 - rewards).toStringAsFixed(2)} points away from $nexttier tier.',
+                          style: TextStyle(
+                            color: HexColor('#175244'),
+                          ),
+                          minFontSize: 15,
+                        ),
+                ),
+                Container(
+                  child: IconButton(
+                    onPressed: () {
+                      Get.to(const Rewards(),transition: Transition.rightToLeftWithFade);
+                    },
+                    icon: Icon(
+                      Icons.play_arrow_sharp,
+                      color:HexColor('#175244'),
+                      size: 20,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            ),
         ),
       ],
     ),
