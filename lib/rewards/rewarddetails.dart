@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:starshmucks/home/home_screen.dart';
-import 'package:starshmucks/rewards.dart';
+import 'package:starshmucks/rewards/rewards.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-import 'db/user_db.dart';
+import '../db/user_db.dart';
 
 class Rewarddetails extends StatefulWidget {
   const Rewarddetails({Key? key}) : super(key: key);
@@ -55,9 +55,9 @@ class _RewarddetailsState extends State<Rewarddetails> {
       appBar: AppBar(
         foregroundColor: HexColor("#175244"),
         backgroundColor: Colors.white,
-        title: Text('Tier Benefits'),
+        title: const Text('Tier Benefits'),
       ),
-      body:usernames.isEmpty?Center(child: CircularProgressIndicator()):SingleChildScrollView(
+      body:usernames.isEmpty?const Center(child: CircularProgressIndicator()):SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
@@ -95,7 +95,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                          Container(
                                           width: MediaQuery.of(context).size.width *
                                               0.365,),
-                                        Icon(
+                                        const Icon(
                                           Icons.stars_sharp,
                                           color: Colors.brown,
                                         ),
@@ -105,13 +105,13 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                           child: LinearProgressIndicator(
                                             // color: Colors.white,
                                             backgroundColor: Colors.white,
-                                            valueColor: AlwaysStoppedAnimation<Color>(Colors.brown),
+                                            valueColor: const AlwaysStoppedAnimation<Color>(Colors.brown),
                                             value: rewards<5?rewards/5:10,
                                           ),
                                         ),
                                       ],
                                     ),
-                                    Text("Bronze",
+                                    const Text("Bronze",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.w600,
@@ -134,7 +134,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                         ),
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.stars_sharp,
                               size: 30,
                               color: Colors.brown,
@@ -203,11 +203,11 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                           child: LinearProgressIndicator(
                                             // color: Colors.white,
                                             backgroundColor: Colors.white,
-                                            valueColor: AlwaysStoppedAnimation<Color>(Colors.brown),
+                                            valueColor: const AlwaysStoppedAnimation<Color>(Colors.brown),
                                             value:rewards>5.0?rewards/10.0:0,
                                           ),
                                         ),
-                                        Icon(
+                                        const Icon(
                                           Icons.stars_sharp,
                                           color:
                                               Colors.grey
@@ -218,13 +218,13 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                           child: LinearProgressIndicator(
                                             // color: Colors.white,
                                             backgroundColor: Colors.white,
-                                            valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
+                                            valueColor: const AlwaysStoppedAnimation<Color>(Colors.grey),
                                             value:rewards>10.0?rewards/10.0:0,
                                           ),
                                         ),
                                       ],
                                     ),
-                                    Text("Silver",
+                                    const Text("Silver",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.w600,
@@ -247,7 +247,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                         ),
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.stars_sharp,
                               size: 30,
                               color: Colors.grey,
@@ -316,11 +316,11 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                           child: LinearProgressIndicator(
                                             // color: Colors.white,
                                             backgroundColor: Colors.white,
-                                            valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
+                                            valueColor: const AlwaysStoppedAnimation<Color>(Colors.grey),
                                             value: rewards>15.0?rewards/20.0:0,
                                           ),
                                         ),
-                                        Icon(
+                                        const Icon(
                                           Icons.stars_sharp,
                                           color: Colors.amberAccent
                                         ),
@@ -330,7 +330,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                         )
                                       ],
                                     ),
-                                    Text("Gold",
+                                    const Text("Gold",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.w600,
@@ -353,7 +353,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                         ),
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.stars_sharp,
                               size: 30,
                               color: Colors.amberAccent,
@@ -414,7 +414,7 @@ class undertile extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                 child: ListTile(
                   title: Text(maintext[index]),
-                  subtitle: Text('alt',
+                  subtitle: const Text('alt',
                       style: TextStyle(fontSize: 14, color: Colors.black38)),
                   onTap: () {},
                 ),
@@ -423,7 +423,7 @@ class undertile extends StatelessWidget {
           );
         },
         separatorBuilder: (context, index) {
-          return Divider(
+          return const Divider(
             thickness: 2,
           );
         });

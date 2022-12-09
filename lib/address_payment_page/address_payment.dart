@@ -38,6 +38,7 @@ class _AddressState extends State<Address> {
   late double res = 0;
   late bool rewards;
   late double ttl = 0;
+  late double tempttl =0;
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
@@ -49,6 +50,7 @@ class _AddressState extends State<Address> {
     final total = await SharedPreferences.getInstance();
     ttl = total.getDouble('total')!;
     ttl > 10 ? rewards = true : rewards = false;
+     tempttl  = ttl;
     res = 10 - ttl;
   }
 
@@ -251,21 +253,22 @@ class _AddressState extends State<Address> {
   }
 late  double maxrewards= 0;
   userewards()async{
+    print(tempttl.toString());
     maxrewards = userddt[0]['rewards']/2;
     print('calculated rewards: '+maxrewards.toString());
    if(maxrewards<(ttl/20)) {
      print("normal");
-     ttl = isChecked == true
+     ttl = isChecked
          ? ttl - maxrewards
-         : ttl + maxrewards;
+         : tempttl;
    }
    else{
-
      maxrewards = ttl/20;
+
      print("max rewards exceed the 20% of ttl: "+maxrewards.toString());
-     ttl = isChecked == true
+     ttl = isChecked
          ? ttl - maxrewards
-         : ttl + maxrewards;
+         : tempttl;
 
    }
 
@@ -300,11 +303,11 @@ late  double maxrewards= 0;
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Points savings: \$" +
-                         savings.toString()),
-                      Text("Amount to be paid: \$" + ttl.toString()),
+                         savings.toStringAsFixed(2)),
+                      Text("Amount to be paid: \$" + ttl.toStringAsFixed(2)),
                     ],
                   )
-                : Text("Amount to be paid: \$" + ttl.toString()),
+                : Text("Amount to be paid: \$" + ttl.toStringAsFixed(2)),
           ],
         )
       ],

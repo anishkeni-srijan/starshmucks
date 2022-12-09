@@ -23,10 +23,11 @@ class WishlistDB {
     final Database db = await initDBWishlist();
     int count = await db.insert("WishlistTable", item.toMap(),
         conflictAlgorithm: ConflictAlgorithm.ignore);
-    if (count == 1)
+    if (count == 1) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
   Future<List<WishlistModel>> getDataWishlist() async {

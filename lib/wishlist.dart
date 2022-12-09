@@ -97,8 +97,8 @@ class _WishListPageState extends State<WishListPage> {
                           "Nothing in Wishlist",
                           style: TextStyle(
                               color: HexColor("#175244"),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 25),
+                              fontWeight: FontWeight.w300,
+                              fontSize: 15),
                         ),
                       )
                     : SingleChildScrollView(

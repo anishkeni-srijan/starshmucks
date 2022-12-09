@@ -223,10 +223,12 @@ calcrewards() async {
     print("final rewards todb = " + res.toString());
   } else
     res = usernames[0]['rewards'] + (ttl / 10) - (savings * 2);
+
+
+  print("current rewards"+res.toString());
   var rewardUpdate = UserModel(
     rewards: res,
-    tier: res > 10
-        ? 'silver'
+    tier: res > 10&&res<20 ? 'silver'
         : res > 20
             ? 'gold'
             : 'bronze',

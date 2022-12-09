@@ -161,19 +161,22 @@ class _MyCartState extends State<MyCart> {
                   ),
                 ];
               },
-              body: SingleChildScrollView(
+              body:  datalist.isEmpty?Center(child: Text("No items in cart.", style: TextStyle(
+                  fontSize: 15,
+                  color: HexColor("#175244"),
+                  fontWeight: FontWeight.w300),)):SingleChildScrollView(
                 physics: NeverScrollableScrollPhysics(),
-                child: Column(
+                child:Column(
                   children: [
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.01,
                     ),
-                    ListView.builder(
+                   ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: datalist.length,
                       itemBuilder: (context, index) {
-                        return Card(
+                        return  Card(
                           elevation: 10,
                           child: Padding(
                             padding: const EdgeInsets.only(top: 8.0, bottom: 8),

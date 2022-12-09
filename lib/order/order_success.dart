@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io' show Platform;
 
 import 'package:get/get.dart';
-import 'package:starshmucks/address_payment_page/address_payment.dart';
 import 'package:starshmucks/db/cart_db.dart';
 import 'package:starshmucks/db/menu_db.dart';
 import 'package:starshmucks/db/orders_db.dart';
@@ -37,6 +36,8 @@ class _OrderSuccessState extends State<OrderSuccess> {
   late double cartttl = 0;
   late double savings = 0;
   late UserDB udb;
+  late double delchar = 0;
+  late int orderid=0;
 
   @override
   void initState() {
@@ -47,25 +48,40 @@ class _OrderSuccessState extends State<OrderSuccess> {
     cartdb = CartDB();
     cartdb.initDBCart();
     getUser();
-    getttl();
     getorderid();
     getAddress();
     super.initState();
-
     cartinit = false;
   }
   List<Map<String, dynamic>> userddt = [];
   getUser() async {
     userddt = await udb.getDataUserData();
     setState(() {});
+    getttl();
   }
 
   getttl() async{
     final total = await SharedPreferences.getInstance();
     cartttl = total.getDouble('total')!;
     savings = total.getDouble('savings')!;
-    ttl=(cartttl+5) - savings;
-    print(ttl);
+    if(userddt[0]['tier'] =='bronze'){
+      delchar =5;
+      ttl=(cartttl+delchar) - savings;
+    }
+    else if(userddt[0]['tier'] =='silver'){
+      if(cartttl>50.0){
+        delchar=0;
+        ttl=(cartttl) - savings;
+      }
+      else{
+        delchar =5;
+        ttl=(cartttl+delchar) - savings;
+      }
+    }
+    else{
+      delchar =0;
+      ttl=(cartttl) - savings;
+    }
     setState(() {
     });
   }
@@ -87,12 +103,13 @@ class _OrderSuccessState extends State<OrderSuccess> {
 
   getorderid() async {
     db.initDBOrders();
-    // orderid = db.getOrderId() as List;
-    // print('ordid'+orderid.toString());
+    Map<dynamic, dynamic>orderlist = await db.getalldata();
+    orderid = orderlist.length;
+    print(orderid);
     // if(orderid.length==1)
     // orderid1.add(orderid.first);
-    // setState(() {
-    // });
+     setState(() {
+     });
   }
 
 
@@ -101,7 +118,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     selectedAddress = prefs.getString("selectedAddress")!;
     setState(() {});
-    print("test " + selectedAddress);
+    print("test $selectedAddress");
     return selectedAddress;
   }
 
@@ -118,12 +135,13 @@ class _OrderSuccessState extends State<OrderSuccess> {
               Icons.arrow_back,
               color: HexColor("#175244"),
             ),
-            label: Text(''),
+            label: const Text(''),
             onPressed: () {
              gohomefromsuccess();
+
             },
           ),
-          title: Text("Order details"),
+          title: const Text("Order details"),
           backgroundColor: Colors.white,
           foregroundColor: HexColor("#175244"),
         ),
@@ -142,7 +160,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                     Colors.black.withOpacity(0.05),
                     BlendMode.dstATop,
                   ),
-                  image: ExactAssetImage('images/shmucks.png'),
+                  image: const ExactAssetImage('images/shmucks.png'),
                 ),
               ),
               child: Column(
@@ -150,8 +168,8 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   Container(
                     transform: Matrix4.translationValues(0, 12, 0),
                     child: Text(
-                      'Order id:',
-                      style: TextStyle(
+                      'Order id: ${orderid.toString()}',
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 40,
                       ),
@@ -159,7 +177,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   ),
                   Container(
                     transform: Matrix4.translationValues(0, 28, 0),
-                    child: Text(
+                    child: const Text(
                       'Order Placed!',
                       style: TextStyle(
                         color: Colors.white,
@@ -169,7 +187,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   ),
                   Container(
                       transform: Matrix4.translationValues(0, 40, 0),
-                      child: AutoSizeText(
+                      child: const AutoSizeText(
                         'Your order will take 30-35mins',
                         style: TextStyle(color: Colors.white),
                       ))
@@ -177,7 +195,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
               ),
             ),
             OrderData.isEmpty || items1.isEmpty || qtylistfromstring.isEmpty
-                ? Center(
+                ? const Center(
                     child: Text('updating...'),
                   )
                 : Padding(
@@ -195,7 +213,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                   "Order placed",
                                   style: TextStyle(fontSize: 22),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Row(
@@ -203,12 +221,11 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "on " + OrderData[0].date.toString(),
-                                      style: TextStyle(fontSize: 13),
+                                      "on ${OrderData[0].date}",
+                                      style: const TextStyle(fontSize: 13),
                                     ),
                                     Text(
-                                      "items: " +
-                                          idlistfromstring.length.toString(),
+                                      "items: ${idlistfromstring.length}",
                                       style: const TextStyle(fontSize: 13),
                                     ),
                                   ],
@@ -253,8 +270,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                                           overflow: TextOverflow
                                                               .ellipsis)),
                                                   Text(
-                                                      qtylistfromstring[index] +
-                                                          ' x qty'),
+                                                      '${qtylistfromstring[index]} x qty'),
                                                 ],
                                               ),
                                         Column(
@@ -295,44 +311,44 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children:[
-                          Text(
+                          const Text(
                             "Cart total",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            "\$ " + cartttl.toStringAsFixed(2),
-                            style: TextStyle(fontWeight: FontWeight.w300),
+                            "\$ ${cartttl.toStringAsFixed(2)}",
+                            style: const TextStyle(fontWeight: FontWeight.w300),
                           ),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children:[
-                          Text(
+                          const Text(
                             "Points savings",
                             style: TextStyle(fontWeight: FontWeight.w300),
                           ),
                           Text(
-                            '-\$'+savings.toStringAsFixed(2),
-                            style: TextStyle(fontWeight: FontWeight.w300),
+                            '-\$${savings.toStringAsFixed(2)}',
+                            style: const TextStyle(fontWeight: FontWeight.w300),
                           ),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
+                        children: [
+                          const Text(
                             "Delivery Charges",
                             style: TextStyle(fontWeight: FontWeight.w300),
                           ),
                           Text(
-                            "\$ 5.00",
+                            "\$ ${delchar.toStringAsFixed(2)}",
                             style: TextStyle(fontWeight: FontWeight.w300),
                           ),
                         ],
@@ -340,13 +356,13 @@ class _OrderSuccessState extends State<OrderSuccess> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             "Total Amount",
                             style: TextStyle(fontWeight: FontWeight.w600),
                           ),
                           Text(
-                            "\$ " +ttl.toStringAsFixed(2),
-                            style: TextStyle(fontWeight: FontWeight.w600),
+                            "\$ ${ttl.toStringAsFixed(2)}",
+                            style: const TextStyle(fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),
@@ -369,7 +385,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Deliver To",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -381,7 +397,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
             ),
             GestureDetector(
               onTap: () {
-                Get.to(Help());
+                Get.to(const Help());
               },
               child: Container(
                 padding: const EdgeInsets.only(
@@ -409,7 +425,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
               ),
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
           ],

@@ -15,7 +15,7 @@ import 'home/home_screen.dart';
 
 import 'order/order_history.dart';
 import '/help_page.dart';
-import '/rewards.dart';
+import 'rewards/rewards.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);

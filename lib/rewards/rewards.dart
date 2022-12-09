@@ -5,12 +5,12 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:starshmucks/rewarddetails.dart';
+import 'package:starshmucks/rewards/rewarddetails.dart';
 import 'package:get/get.dart';
-import 'db/user_db.dart';
+import '../db/user_db.dart';
 import '/common_things.dart';
 import '/home/home_screen.dart';
-import 'model/user_model.dart';
+import '../model/user_model.dart';
 
 class Rewards extends StatefulWidget {
   const Rewards({Key? key}) : super(key: key);
@@ -18,11 +18,13 @@ class Rewards extends StatefulWidget {
   @override
   State<Rewards> createState() => _RewardsState();
 }
+
 late double silvervalue = 0;
 late double goldvalue = 0;
 late double progvalue = 0;
 late double res = 0;
 String nexttier = '';
+
 class _RewardsState extends State<Rewards> {
   String refLink = "http://starshmucks.com/refferal/cdJkk5";
   TextEditingController test = TextEditingController();
@@ -43,17 +45,19 @@ class _RewardsState extends State<Rewards> {
     super.initState();
   }
 
-  getnexttier(){
-    usernames.isEmpty?nexttier="silver": usernames[0]['rewards']>10?nexttier="gold":nexttier='silver';
-    setState(() {
-
-    });
+  getnexttier() {
+    usernames.isEmpty
+        ? nexttier = "silver"
+        : usernames[0]['rewards'] > 10
+            ? nexttier = "gold"
+            : nexttier = 'silver';
+    setState(() {});
   }
+
   getprogress() {
     if (usernames.isEmpty) {
       silvervalue = 0;
-    }
-    else {
+    } else {
       if (usernames[0]['rewards'] < 10) {
         silvervalue = usernames[0]['rewards'] / 10.0;
       } else if (usernames[0]['rewards'] > 10) {
@@ -62,30 +66,26 @@ class _RewardsState extends State<Rewards> {
       } else
         progvalue = 0;
     }
-    setState(() {
-
-    });
+    setState(() {});
   }
+
   starsneeded() {
     if (usernames.isEmpty) {
       silvervalue = 0;
-    }
-    else {
+    } else {
       if (usernames[0]['rewards'] < 10) {
         res = 10.0 - usernames[0]['rewards'];
-      }
-      else if (usernames[0]['rewards'] > 10) {
+      } else if (usernames[0]['rewards'] > 10) {
         res = 20.0 - usernames[0]['rewards'];
       }
     }
-    setState(() {
-
-    });
+    setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
     return usernames.isEmpty
-        ? Center(child: const CircularProgressIndicator())
+        ? const Center(child: CircularProgressIndicator())
         : Scaffold(
             persistentFooterButtons: cartinit ? [viewincart()] : null,
             appBar: AppBar(
@@ -180,9 +180,10 @@ class _RewardsState extends State<Rewards> {
                   const SizedBox(
                     height: 20,
                   ),
-
                   GestureDetector(
-                    onTap: (){Get.to(Rewarddetails());},
+                    onTap: () {
+                      Get.to(const Rewarddetails());
+                    },
                     child: Container(
                       color: Colors.white,
                       padding: const EdgeInsets.all(10),
@@ -190,35 +191,54 @@ class _RewardsState extends State<Rewards> {
                       child: Card(
                         elevation: 10,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  AutoSizeText(
-                                    "You are " +
-                                        res.toStringAsFixed(2) +
-                                        " points away from ",
-                                    style: TextStyle(
-                                      color: HexColor("#175244"),
+                              padding: const EdgeInsets.all(15),
+                              child: usernames[0]['tier'] == 'gold'
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const [
+                                        Text("Congratulations You're a"),
+                                        Text(
+                                          " Gold ",
+                                          style: TextStyle(
+                                            color: Colors.amberAccent,
+                                          ),
+                                        ),
+                                        Text("Tier customer."),
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        AutoSizeText(
+                                          "You are ${res.toStringAsFixed(2)} points away from ",
+                                          style: TextStyle(
+                                            color: HexColor("#175244"),
+                                          ),
+                                          minFontSize: 18,
+                                        ),
+                                        AutoSizeText(
+                                          nexttier,
+                                          style: TextStyle(
+                                            color: nexttier == 'silver'
+                                                ? Colors.grey
+                                                : Colors.amberAccent,
+                                          ),
+                                          minFontSize: 18,
+                                        ),
+                                        AutoSizeText(
+                                          " tier.",
+                                          style: TextStyle(
+                                            color: HexColor("#175244"),
+                                          ),
+                                          minFontSize: 18,
+                                        ),
+                                      ],
                                     ),
-                                    minFontSize: 18,
-                                  ),AutoSizeText(
-                                    nexttier,
-                                    style: TextStyle(
-                                      color: nexttier=='silver'?Colors.grey:Colors.amberAccent,
-                                    ),
-                                    minFontSize: 18,
-                                  ),AutoSizeText(
-                                    " tier.",
-                                    style: TextStyle(
-                                      color: HexColor("#175244"),
-                                    ),
-                                    minFontSize: 18,
-                                  ),
-                                ],
-                              ),
                             ),
                             Container(
                               padding: const EdgeInsets.all(10),
@@ -227,62 +247,64 @@ class _RewardsState extends State<Rewards> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Column(
-                                    children: [
-                                      const Icon(
+                                    children: const [
+                                      Icon(
                                         Icons.stars_sharp,
                                         color: Colors.brown,
                                       ),
-                                      Text("0 Points",style: TextStyle(fontSize: 11))
+                                      Text("0 Points",
+                                          style: TextStyle(fontSize: 11))
                                     ],
                                   ),
                                   Container(
-                                    margin: EdgeInsets.only(bottom: 15),
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.26,
+                                    margin: const EdgeInsets.only(bottom: 15),
+                                    width: MediaQuery.of(context).size.width *
+                                        0.26,
                                     child: LinearProgressIndicator(
                                       // color: Colors.white,
-                                      backgroundColor:HexColor("#175244"),
-                                      valueColor:
-                                          const AlwaysStoppedAnimation<Color>(
-                                              Colors.brown),
+                                      backgroundColor: HexColor("#175244"),
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          usernames[0]['tier'] == 'gold'?Colors.amberAccent:Colors.brown),
                                       value: silvervalue,
                                     ),
                                   ),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      const Icon(Icons.stars_sharp,
+                                    children: const [
+                                      Icon(Icons.stars_sharp,
                                           color: Colors.grey),
-                                      Text('10 Points',style: TextStyle(fontSize: 11))
+                                      Text('10 Points',
+                                          style: TextStyle(fontSize: 11))
                                     ],
                                   ),
                                   Container(
-                                    margin: EdgeInsets.only(bottom: 15),
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.26,
+                                    margin: const EdgeInsets.only(bottom: 15),
+                                    width: MediaQuery.of(context).size.width *
+                                        0.26,
                                     child: LinearProgressIndicator(
                                       // color: Colors.white,
-                                      backgroundColor:HexColor("#175244"),
-                                      valueColor:
-                                          new AlwaysStoppedAnimation<Color>(
+                                      backgroundColor: HexColor("#175244"),
+                                      valueColor: AlwaysStoppedAnimation<Color>( usernames[0]['tier'] == 'gold'?Colors.amberAccent:
                                               Colors.grey),
                                       value: goldvalue,
                                     ),
                                   ),
                                   Column(
-                                    children: [
-                                      const Icon(Icons.stars_sharp,
+                                    children: const [
+                                      Icon(Icons.stars_sharp,
                                           color: Colors.amberAccent),
-                                      Text('20 Points',style: TextStyle(fontSize: 11),)
+                                      Text(
+                                        '20 Points',
+                                        style: TextStyle(fontSize: 11),
+                                      )
                                     ],
                                   ),
-
                                 ],
                               ),
                             ),
-                            Padding(
+                            const Padding(
                               padding: EdgeInsets.only(
-                                  left: 8, right: 8, top: 10,bottom: 10),
+                                  left: 8, right: 8, top: 10, bottom: 10),
                               child: Divider(
                                 color: Colors.black38,
                                 height: 1,
@@ -291,9 +313,16 @@ class _RewardsState extends State<Rewards> {
                                 endIndent: 0,
                               ),
                             ),
-                            TextButton(onPressed: (){
-                              Get.to(Rewarddetails(),transition: Transition.leftToRightWithFade);
-                            }, child: Text("Know More", style: TextStyle(color: HexColor("#175244")),))
+                            TextButton(
+                                onPressed: () {
+                                  Get.to(const Rewarddetails(),
+                                      transition:
+                                          Transition.rightToLeftWithFade);
+                                },
+                                child: Text(
+                                  "Know More",
+                                  style: TextStyle(color: HexColor("#175244")),
+                                ))
                           ],
                         ),
                       ),
@@ -372,7 +401,8 @@ class _RewardsState extends State<Rewards> {
                                       width: 20,
                                     ),
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         const Text(
                                           "Invite your friends",
