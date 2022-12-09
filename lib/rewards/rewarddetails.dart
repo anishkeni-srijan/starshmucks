@@ -414,8 +414,6 @@ class undertile extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                 child: ListTile(
                   title: Text(maintext[index]),
-                  subtitle: const Text('alt',
-                      style: TextStyle(fontSize: 14, color: Colors.black38)),
                   onTap: () {},
                 ),
               ),

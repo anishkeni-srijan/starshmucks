@@ -36,7 +36,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
   late double cartttl = 0;
   late double savings = 0;
   late UserDB udb;
-  late double delchar = 0;
+  double delchar = 5;
   late int orderid=0;
 
   @override
@@ -66,21 +66,20 @@ class _OrderSuccessState extends State<OrderSuccess> {
     cartttl = total.getDouble('total')!;
     savings = total.getDouble('savings')!;
     if(userddt[0]['tier'] =='bronze'){
-      delchar =5;
+
       ttl=(cartttl+delchar) - savings;
     }
     else if(userddt[0]['tier'] =='silver'){
       if(cartttl>50.0){
-        delchar=0;
+
         ttl=(cartttl) - savings;
       }
       else{
-        delchar =5;
+
         ttl=(cartttl+delchar) - savings;
       }
     }
     else{
-      delchar =0;
       ttl=(cartttl) - savings;
     }
     setState(() {
@@ -138,7 +137,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
             ),
             label: Text(''),
             onPressed: () {
-             gohomefromsuccess();
+              gohomefromsuccess();
 
             },
           ),
