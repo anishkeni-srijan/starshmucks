@@ -24,7 +24,7 @@ class HomePage extends StatefulWidget {
 
 bool cartinit = false;
 late String username;
-
+late double res = 0;
 class _HomePageState extends State<HomePage> {
   late MenuDB db;
   List<MenuModel> data = [];
@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
   late var tier = '';
   late double rewards = 0;
   late UserDB udb;
+
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
@@ -51,6 +52,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   getnexttier() {
+
     usernames.isEmpty
         ? nexttier = "bronze"
         : usernames[0]['rewards'] > 10
@@ -63,6 +65,7 @@ class _HomePageState extends State<HomePage> {
     usernames = await udb.getDataUserData();
     getcurrenttier();
     getnexttier();
+    starsneeded();
     setState(() {});
   }
 
@@ -84,6 +87,18 @@ class _HomePageState extends State<HomePage> {
   setUserForLogin(email) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('signedInEmail', email);
+    setState(() {});
+  }
+  starsneeded() {
+    if (usernames.isEmpty) {
+      silvervalue = 0;
+    } else {
+      if (usernames[0]['rewards'] < 10) {
+        res = 10.0 - usernames[0]['rewards'];
+      } else if (usernames[0]['rewards'] > 10) {
+        res = 20.0 - usernames[0]['rewards'];
+      }
+    }
     setState(() {});
   }
 
@@ -276,7 +291,7 @@ getbanner(context, username, tier, rewards) {
                           minFontSize: 15,
                         )
                       : AutoSizeText(
-                          'You are ${(20 - rewards).toStringAsFixed(2)} points away from $nexttier tier.',
+                          'You are ${res.toStringAsFixed(2)} points away from $nexttier tier.',
                           style: TextStyle(
                             color: HexColor('#175244'),
                           ),

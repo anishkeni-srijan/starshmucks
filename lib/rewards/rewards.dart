@@ -21,7 +21,7 @@ class Rewards extends StatefulWidget {
 late double silvervalue = 0;
 late double goldvalue = 0;
 late double progvalue = 0;
-late double res = 0;
+
 String nexttier = '';
 class _RewardsState extends State<Rewards> {
   String refLink = "http://starshmucks.com/refferal/cdJkk5";
@@ -34,7 +34,7 @@ class _RewardsState extends State<Rewards> {
     setState(() {});
     getnexttier();
     getprogress();
-    starsneeded();
+
   }
 
   @override
@@ -66,18 +66,7 @@ class _RewardsState extends State<Rewards> {
     }
     setState(() {});
   }
-  starsneeded() {
-    if (usernames.isEmpty) {
-      silvervalue = 0;
-    } else {
-      if (usernames[0]['rewards'] < 10) {
-        res = 10.0 - usernames[0]['rewards'];
-      } else if (usernames[0]['rewards'] > 10) {
-        res = 20.0 - usernames[0]['rewards'];
-      }
-    }
-    setState(() {});
-  }
+
   @override
   Widget build(BuildContext context) {
     return usernames.isEmpty

@@ -48,7 +48,6 @@ class _OrderSuccessState extends State<OrderSuccess> {
     cartdb = CartDB();
     cartdb.initDBCart();
     getUser();
-
     getAddress();
     super.initState();
 
@@ -78,6 +77,8 @@ class _OrderSuccessState extends State<OrderSuccess> {
     } else {
       ttl = (cartttl) - savings;
     }
+    setState(() {
+    });
   }
 
   getDataIds() async {
@@ -308,145 +309,141 @@ class _OrderSuccessState extends State<OrderSuccess> {
                           ),
                         ),
 
-                  // Text(
-                  //   "\$ " + data[0].ttlPrice.toStringAsFixed(2),
-                  //   style: TextStyle(fontWeight: FontWeight.w300),
-                  // ),
+            // Text(
+            //   "\$ " + data[0].ttlPrice.toStringAsFixed(2),
+            //   style: TextStyle(fontWeight: FontWeight.w300),
+            // ),
 
-                  Container(
-                    padding:
-                        const EdgeInsets.only(left: 10, right: 10, top: 10),
-                    width: MediaQuery.of(context).size.width * 1,
-                    child: Card(
-                      elevation: 8,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 20, right: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "Cart total",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  "\$ ${cartttl.toStringAsFixed(2)}",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w300),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "Points savings",
-                                  style: TextStyle(fontWeight: FontWeight.w300),
-                                ),
-                                Text(
-                                  '-\$${savings.toStringAsFixed(2)}',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w300),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "Delivery Charges",
-                                  style: TextStyle(fontWeight: FontWeight.w300),
-                                ),
-                                Text(
-                                  "\$ ${delchar.toStringAsFixed(2)}",
-                                  style: TextStyle(fontWeight: FontWeight.w300),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Total Amount",
-                                  style: TextStyle(fontWeight: FontWeight.w600),
-                                ),
-                                Text(
-                                  "\$ ${ttl.toStringAsFixed(2)}",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+            Container(
+              padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+              width: MediaQuery.of(context).size.width * 1,
+              child: Card(
+                elevation: 8,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20.0, bottom: 20.0, left: 20, right: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 10,
                       ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(
-                      left: 10,
-                      right: 10,
-                      top: 10,
-                    ),
-                    width: MediaQuery.of(context).size.width * 1,
-                    child: Card(
-                      elevation: 8,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Deliver To",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Text(selectedAddress),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(() => Help());
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                        left: 10,
-                        right: 10,
-                        top: 10,
-                      ),
-                      width: MediaQuery.of(context).size.width * 1,
-                      child: Card(
-                        elevation: 8,
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            children: [
-                              Text(
-                                "Need Help?",
-                                style: TextStyle(
-                                    color: HexColor("#175244"),
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children:[
+                          const Text(
+                            "Cart total",
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                        ),
+                          Text(
+                            "\$ ${cartttl.toStringAsFixed(2)}",
+                            style: const TextStyle(fontWeight: FontWeight.w300),
+                          ),
+                        ],
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children:[
+                          const Text(
+                            "Points savings",
+                            style: TextStyle(fontWeight: FontWeight.w300),
+                          ),
+                          Text(
+                            '-\$${savings.toStringAsFixed(2)}',
+                            style: const TextStyle(fontWeight: FontWeight.w300),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            "Delivery Charges",
+                            style: TextStyle(fontWeight: FontWeight.w300),
+                          ),
+                          Text(
+                            "\$ ${delchar.toStringAsFixed(2)}",
+                            style: TextStyle(fontWeight: FontWeight.w300),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Total Amount",
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                          Text(
+                            "\$ ${ttl.toStringAsFixed(2)}",
+                            style: const TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(
+                left: 10,
+                right: 10,
+                top: 10,
+              ),
+              width: MediaQuery.of(context).size.width * 1,
+              child: Card(
+                elevation: 8,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Deliver To",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(selectedAddress),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Get.to(() => Help());
+              },
+              child: Container(
+                padding: const EdgeInsets.only(
+                  left: 10,
+                  right: 10,
+                  top: 10,
+                ),
+                width: MediaQuery.of(context).size.width * 1,
+                child: Card(
+                  elevation: 8,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Need Help?",
+                          style: TextStyle(
+                              color: HexColor("#175244"),
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ),
+                ),
+              ),
+            ),
 
-                  const SizedBox(
-                    height: 20,
-                  ),
-                ],
-              )),
+            const SizedBox(
+              height: 20,
+            ),
+          ],
+        )),
       ),
     );
   }

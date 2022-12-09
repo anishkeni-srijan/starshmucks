@@ -308,18 +308,16 @@ class _OrderdetailState extends State<Orderdetail> {
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: const [
+                                children: [
                                   Text(
                                     "Total Amount",
                                     style:
                                         TextStyle(fontWeight: FontWeight.w600),
                                   ),
-                                  // Text(
-                                  //   "\$ " +
-                                  //       (data[0].ttlPrice - 10.0 + 5.00)
-                                  //           .toStringAsFixed(2),
-                                  //   style: TextStyle(fontWeight: FontWeight.w600),
-                                  // ),
+                                  Text(
+                                    "\$ " +ttl.toStringAsFixed(2),
+                                    style: TextStyle(fontWeight: FontWeight.w600),
+                                  ),
                                 ],
                               ),
                             ],

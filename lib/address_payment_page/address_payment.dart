@@ -423,6 +423,8 @@ class _AddressState extends State<Address> {
                                                 ", " +
                                                 addressList[index]['state'] +
                                                 ".",
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
                                             style: const TextStyle(
                                                 color: Colors.black),
                                           ),
@@ -726,7 +728,7 @@ class _AddressState extends State<Address> {
                                         style:
                                             TextStyle(color: Colors.redAccent),
                                       )
-                                    : Row(
+                                    :userddt[0]['rewards'] ==0? Container():Row(
                                         children: [
                                           Checkbox(
                                             checkColor: Colors.white,
@@ -741,7 +743,7 @@ class _AddressState extends State<Address> {
                                               setState(() {});
                                             },
                                           ),
-                                          AutoSizeText(
+                                        AutoSizeText(
                                             'Use my rewards',
                                             minFontSize: 20,
                                             style: TextStyle(
