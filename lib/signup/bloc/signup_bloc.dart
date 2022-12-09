@@ -16,7 +16,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 // incorrect credentials
         if (event.namevalue.isEmpty || event.namevalue.length < 2) {
           emit(
-            SignupErrorState("Please enter a valid username"),
+            SignupErrorState(""),
           );
         } else
           emit(
@@ -59,11 +59,11 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       (event, emit) {
         if (event.phnumbervalue == null || event.phnumbervalue.trim().isEmpty) {
           emit(
-            SignupErrorState("Please enter your phone number"),
+            SignupErrorState(""),
           );
         } else if (event.phnumbervalue.trim().length < 4) {
           emit(
-            SignupErrorState("Your phone number must be at least 4 digits"),
+            SignupErrorState(""),
           );
         }
         // Return null if the entered username is valid

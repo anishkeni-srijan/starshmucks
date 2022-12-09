@@ -314,7 +314,8 @@ class _SignupPageState extends State<SignupPage> {
                     selectorConfig: SelectorConfig(
                         trailingSpace: false,
                         selectorType: PhoneInputSelectorType.DROPDOWN),
-                    autoValidateMode: AutovalidateMode.disabled,
+                    autoValidateMode: AutovalidateMode.onUserInteraction,
+                    errorMessage: "Enter Valid Phone Number",
                     selectorTextStyle: TextStyle(color: HexColor("#175244")),
                     initialValue: number,
                     textFieldController: phone,
