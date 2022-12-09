@@ -96,8 +96,11 @@ class _NowServingState extends State<NowServing> {
 
   getdata() async {
     nowdata = await db.NowServedata();
-    getdataf = true;
-    setState(() {});
+    if (this.mounted) {
+      setState(() {
+        getdataf = true;
+      });
+    }
   }
 
   @override
