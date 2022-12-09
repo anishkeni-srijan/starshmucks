@@ -117,6 +117,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
   getAddress() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     selectedAddress = prefs.getString("selectedAddress")!;
+    selectedAddress = prefs.getString("selectedAddress")!;
     setState(() {});
     print("test " + selectedAddress);
     return selectedAddress;

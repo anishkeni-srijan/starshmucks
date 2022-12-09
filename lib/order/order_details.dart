@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
+import 'package:starshmucks/db/user_db.dart';
 import 'dart:io' show Platform;
 import '../help_page.dart';
 import '/db/menu_db.dart';
@@ -24,14 +25,50 @@ class _OrderdetailState extends State<Orderdetail> {
   List<dynamic> qtylistfromstring = [];
   List<MenuModel> items = [];
   List<MenuModel> items1 = [];
+  late double ttl = 0;
+  late double cartttl = 0;
+  late double savings = 0;
+  double delchar = 5;
+  UserDB udb = UserDB();
 
   @override
   void initState() {
     getorderid();
+    getUser();
     getAddress();
     super.initState();
   }
+  List<Map<String, dynamic>> userddt = [];
+  getUser() async {
+    userddt = await udb.getDataUserData();
+    getttl();
+    setState(() {});
+  }
 
+  getttl() async{
+    final total = await SharedPreferences.getInstance();
+    cartttl = total.getDouble('total')!;
+    savings = total.getDouble('savings')!;
+    if(userddt[0]['tier'] =='bronze'){
+
+      ttl=(cartttl+delchar) - savings;
+    }
+    else if(userddt[0]['tier'] =='silver'){
+      if(cartttl>50.0){
+
+        ttl=(cartttl) - savings;
+      }
+      else{
+
+        ttl=(cartttl+delchar) - savings;
+      }
+    }
+    else{
+      ttl=(cartttl) - savings;
+    }
+    setState(() {
+    });
+  }
   getorderid() async {
     final prefs = await SharedPreferences.getInstance();
     id = (await prefs.getInt('orderid'))!;
@@ -208,10 +245,6 @@ class _OrderdetailState extends State<Orderdetail> {
                             ),
                           ),
 
-                    // Text(
-                    //   "\$ " + data[0].ttlPrice.toStringAsFixed(2),
-                    //   style: TextStyle(fontWeight: FontWeight.w300),
-                    // ),
 
                     Container(
                       padding:
@@ -225,39 +258,32 @@ class _OrderdetailState extends State<Orderdetail> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Mode of payment",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              Text("data"),
-                              SizedBox(
-                                height: 10,
-                              ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: const [
+                                children: [
                                   Text(
                                     "Cart total",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  // Text(
-                                  //   "\$ " + data[0].ttlPrice.toStringAsFixed(2),
-                                  //   style: TextStyle(fontWeight: FontWeight.w300),
-                                  // ),
+                                  Text(
+                                    "\$ " + cartttl.toStringAsFixed(2),
+                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                  ),
                                 ],
                               ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: const [
-                                  Text(
+                                children:[
+                                  const Text(
                                     "Points savings",
                                     style:
                                         TextStyle(fontWeight: FontWeight.w300),
                                   ),
                                   Text(
-                                    '-\$ 10.00',
+                                    '-\$ ${savings}',
                                     style:
                                         TextStyle(fontWeight: FontWeight.w300),
                                   ),
