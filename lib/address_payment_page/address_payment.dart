@@ -65,8 +65,8 @@ class _AddressState extends State<Address> {
   }
 
   addAddress(context) {
-    final fname = TextEditingController();
-    final phone = TextEditingController();
+    final fname = TextEditingController(text: userddt[0]['name']);
+    final phone = TextEditingController(text: userddt[0]['phone']);
     final hno = TextEditingController();
     final roadname = TextEditingController();
     final city = TextEditingController();
