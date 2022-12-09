@@ -68,7 +68,7 @@ class _OrdersState extends State<Orders> {
                 leading: CircleAvatar(
                   backgroundColor: const Color(0xff6ae792),
                   child: Text(
-                    "d",
+                    "#" + res.toString().toString(),
                     style: TextStyle(color: Colors.black),
                   ),
                 ),

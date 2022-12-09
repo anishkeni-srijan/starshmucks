@@ -28,7 +28,10 @@ class _UserProfileState extends State<UserProfile> {
   List<Map<String, dynamic>> usernames = [];
   getUser() async {
     usernames = await udb.getDataUserData();
-    setState(() {});
+
+    if (this.mounted) {
+      setState(() {});
+    }
   }
 
   late UserDB udb;
