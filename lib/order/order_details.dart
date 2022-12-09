@@ -41,7 +41,7 @@ class _OrderdetailState extends State<Orderdetail> {
   getorderdetails(id) async {
     MenuDB menudb = MenuDB();
     menudb.initDBMenu();
-    print("sending id to db:" + id.toString());
+
     orderdb = OrdersDB();
     orderdb.initDBOrders();
     orderdata = await orderdb.getDataOrderswrtID(id);
@@ -61,7 +61,7 @@ class _OrderdetailState extends State<Orderdetail> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     selectedAddress = prefs.getString("selectedAddress")!;
     setState(() {});
-    print("test " + selectedAddress);
+
     return selectedAddress;
   }
 

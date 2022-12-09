@@ -37,7 +37,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
   late double savings = 0;
   late UserDB udb;
   late double delchar = 0;
-  late int orderid=0;
+  late int orderid = 0;
 
   @override
   void initState() {
@@ -55,37 +55,35 @@ class _OrderSuccessState extends State<OrderSuccess> {
 
     cartinit = false;
   }
+
   List<Map<String, dynamic>> userddt = [];
   getUser() async {
     userddt = await udb.getDataUserData();
     setState(() {});
   }
 
-  getttl() async{
+  getttl() async {
     final total = await SharedPreferences.getInstance();
     cartttl = total.getDouble('total')!;
     savings = total.getDouble('savings')!;
-    if(userddt[0]['tier'] =='bronze'){
-      delchar =5;
-      ttl=(cartttl+delchar) - savings;
-    }
-    else if(userddt[0]['tier'] =='silver'){
-      if(cartttl>50.0){
-        delchar=0;
-        ttl=(cartttl) - savings;
+    if (userddt[0]['tier'] == 'bronze') {
+      delchar = 5;
+      ttl = (cartttl + delchar) - savings;
+    } else if (userddt[0]['tier'] == 'silver') {
+      if (cartttl > 50.0) {
+        delchar = 0;
+        ttl = (cartttl) - savings;
+      } else {
+        delchar = 5;
+        ttl = (cartttl + delchar) - savings;
       }
-      else{
-        delchar =5;
-        ttl=(cartttl+delchar) - savings;
-      }
+    } else {
+      delchar = 0;
+      ttl = (cartttl) - savings;
     }
-    else{
-      delchar =0;
-      ttl=(cartttl) - savings;
-    }
-    setState(() {
-    });
+    setState(() {});
   }
+
   getDataIds() async {
     MenuDB menudb = MenuDB();
     menudb.initDBMenu();
@@ -104,15 +102,11 @@ class _OrderSuccessState extends State<OrderSuccess> {
 
   getorderid() async {
     db.initDBOrders();
-    Map<dynamic, dynamic>orderlist = await db.getalldata();
+    Map<dynamic, dynamic> orderlist = await db.getalldata();
     orderid = orderlist.length;
-    print(orderid);
-    // if(orderid.length==1)
-    // orderid1.add(orderid.first);
-     setState(() {
-     });
-  }
 
+    setState(() {});
+  }
 
   late String selectedAddress = '';
   getAddress() async {
@@ -138,8 +132,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
             ),
             label: Text(''),
             onPressed: () {
-             gohomefromsuccess();
-
+              gohomefromsuccess();
             },
           ),
           title: Text("Order details"),
@@ -244,10 +237,10 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding:  EdgeInsets.only(
+                                    padding: EdgeInsets.only(
                                         left: 20,
                                         right: 20,
-                                        bottom: Platform.isIOS?0:20,
+                                        bottom: Platform.isIOS ? 0 : 20,
                                         top: 5),
                                     child: Row(
                                       mainAxisAlignment:
@@ -319,7 +312,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children:[
+                        children: [
                           const Text(
                             "Cart total",
                             style: TextStyle(fontWeight: FontWeight.bold),
@@ -332,7 +325,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children:[
+                        children: [
                           const Text(
                             "Points savings",
                             style: TextStyle(fontWeight: FontWeight.w300),
