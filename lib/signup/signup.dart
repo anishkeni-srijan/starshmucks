@@ -438,7 +438,8 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       validator: (value) {
                         if (value == null) return "Enter the password";
-                        if (value != pass1.text) return "Not same ";
+                        if (value != pass1.text)
+                          return "Password doesn't match";
                       },
                     ),
                   ),
