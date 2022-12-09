@@ -187,7 +187,7 @@ getbanner(context, username, tier, rewards) {
 
           transform: Matrix4.translationValues(
             0,
-            80,
+            MediaQuery.of(context).size.height*0.1,
             0,
           ),
             child:

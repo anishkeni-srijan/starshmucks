@@ -215,7 +215,7 @@ class _RewardsState extends State<Rewards> {
                                           style: TextStyle(
                                             color: HexColor("#175244"),
                                           ),
-                                          minFontSize: 18,
+                                          minFontSize: 15,
                                         ),
                                         AutoSizeText(
                                           nexttier,
@@ -275,8 +275,7 @@ class _RewardsState extends State<Rewards> {
                                   ),
                                   Container(
                                     margin: const EdgeInsets.only(bottom: 15),
-                                    width: MediaQuery.of(context).size.width *
-                                        0.26,
+                                    width: MediaQuery.of(context).size.width * 0.26,
                                     child: LinearProgressIndicator(
                                       // color: Colors.white,
                                       backgroundColor: HexColor("#175244"),
