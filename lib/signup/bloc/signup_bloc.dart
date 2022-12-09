@@ -1,13 +1,10 @@
 import 'package:get/get.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:starshmucks/common_things.dart';
-import 'package:starshmucks/signin/signin.dart';
-import 'package:starshmucks/signup/bloc/signup_states.dart';
 
+import '/common_things.dart';
+import '/signup/bloc/signup_states.dart';
 import '/signup/bloc/signup_events.dart';
-import 'signup_states.dart';
-import '../../home/home_screen.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc() : super(SignupInitialState()) {
@@ -53,7 +50,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         // Return null if the entered username is valid
         else
           emit(
-            SignupErrorState("Please enter your email"),
+            // SignupErrorState("Please enter your email"),
+            SignupErrorState(""),
           );
       },
     );
@@ -79,11 +77,11 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       (event, emit) {
         if (event.passwordvalue == null || event.passwordvalue.trim().isEmpty) {
           emit(
-            SignupErrorState("Please enter a password"),
+            SignupErrorState(""),
           );
         } else if (event.passwordvalue.trim().length < 4) {
           emit(
-            SignupErrorState("Your password must be at least 4 Characters"),
+            SignupErrorState(""),
           );
         } else
           emit(
@@ -96,16 +94,15 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         if (event.confirmpassvalue == null ||
             event.confirmpassvalue.trim().isEmpty) {
           emit(
-            SignupErrorState("Please confirm your password"),
+            SignupErrorState(""),
           );
         } else if (event.confirmpassvalue.trim().length < 4) {
           emit(
-            SignupErrorState(
-                "Your confirm password must be at least 4 Characters"),
+            SignupErrorState(""),
           );
         } else if (event.confirmpassvalue != event.passwordvalue) {
           emit(
-            SignupErrorState("Your password and confirm password should match"),
+            SignupErrorState(""),
           );
         }
         // Return null if the entered username is valid
