@@ -184,6 +184,5 @@ class _WishListPageState extends State<WishListPage> {
               ),
             ),
     );
-    ;
   }
 }
