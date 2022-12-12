@@ -9,7 +9,7 @@
   "tag": "Tastes like strawberries on a summer evenin'",
   "qty": 1,
   "category": "cake",
-  "quantity": "330ml",
+  "quantity": "90gms",
   "calories": "200cals/100gms"
 },
 {
@@ -22,7 +22,7 @@
   "tag": "Tastes like strawberries on a summer evenin'",
   "qty": 1,
   "category": "cake",
-  "quantity": "330ml",
+  "quantity": "130gms",
   "calories": "283cals/100gms"
 },
 {
@@ -35,7 +35,7 @@
   "tag": "Tastes like strawberries on a summer evenin'",
   "qty": 1,
   "category": "cake",
-  "quantity": "330ml",
+  "quantity": "100gms",
   "calories": "340cals/100gms"
 },
 {
@@ -48,7 +48,7 @@
   "tag": "Tastes like strawberries on a summer evenin'",
   "qty": 1,
   "category": "coffee",
-  "quantity": "330ml",
+  "quantity": "300ml",
   "calories": "30cals/100gms"
 },
 {
@@ -61,7 +61,7 @@
   "tag": "Tastes like strawberries on a summer evenin'",
   "qty": 1,
   "category": "coffee",
-  "quantity": "330ml",
+  "quantity": "300ml",
   "calories": "40cals/100gms"
 },
 {
@@ -74,7 +74,7 @@
   "tag": "Tastes like strawberries on a summer evenin'",
   "qty": 1,
   "category": "coffee",
-  "quantity": "330ml",
+  "quantity": "300ml",
   "calories": "40cals/100gms"
 },
 {
@@ -106,7 +106,7 @@
 {
 "title": "Schtrawberry",
 "price": "7",
-"description": "Our homegrown Schtrawberries and milk, then blended with ice to give you a nice little jolt and lots of sipping joy.",
+"description": "Our homegrown Strawberries and milk, then blended with ice to give you a nice little jolt and lots of sipping joy, bursting with the sweet taste of strawberry.",
 "image": "images/seasonal.png",
 "id": 9,
 "rating": "4.0",
@@ -116,16 +116,15 @@
   "quantity": "330ml",
   "calories": "40cals/100gms"
 },
-
   {
     "image": "images/newone.png",
     "title": "Watermelon Sugar",
-    "tag": "Tastes like strawberries on a summer evenin'",
+    "description": "The sweet yet simple Watermelon Spritz contains fresh muddled watermelon and simple syrup and is topped with sparking water and ice and is available at select stores.",
     "price": "13.5",
     "bgcolor": "Colors.deepOrangeAccent",
-    "description": "We wish you a merry Christmas.",
+    "tag": "We wish you a merry Christmas.",
     "category": "nowserve",
-    "rating": "4.3/5",
+    "rating": "4.3",
     "qty": 1,
     "id": 10,
     "quantity": "330ml",
@@ -134,11 +133,11 @@
   {
     "image": "images/newtwo.png",
     "title": "Absolute Green",
-    "tag": "Kiwi is here to make you happy.",
+    "description": "What do you do when you find yourself with 5 pounds of kiwis? Make margaritas! With a zippy kick-in-the-pants, this is a great new way to enjoy an old favorite and its non alcoholic.",
     "price": "13.6",
     "bgcolor": "Colors.teal",
-    "description": "We wish you a merry Christmas.",
-    "rating": "4.3/5",
+    "tag": "We wish you a merry Christmas.",
+    "rating": "4.3",
     "category": "nowserve",
     "qty": 1,
     "id": 11,
@@ -150,8 +149,8 @@
     "tag": "Join us this Christmas",
     "title": "A Schtarry Decade",
     "price": "13.5",
-    "description": "We wish you a merry Christmas.",
-    "rating": "4.3/5",
+    "description": "When it comes to chocolate, too much of a good thing doesn’t apply. Created for the chocolate connoisseur, this shake is literally overflowing with chocolatey goodness that will have you questioning if it’s all just a dream. Lucky for you, it’s just a few minutes away from reality.",
+    "rating": "4.3",
     "category": "offers",
     "qty": 1,
     "id": 12,
@@ -163,8 +162,8 @@
     "tag": "Join us this Christmas",
     "title": "Berries and Cherries",
     "price": "13.5",
-    "description": "We wish you a merry Christmas.",
-    "rating": "4.3/5",
+    "description": "This deep, well-rounded drink sees berries and bubbles come together in sweet harmony to create a rich, sparkling spritz.",
+    "rating": "4.3",
     "category": "offers",
     "qty": 1,
     "id": 13,
@@ -176,8 +175,8 @@
     "tag": "Join us this Christmas",
     "title": "Schtrawberry",
     "price": "13.5",
-    "description": "We wish you a merry Christmas.",
-    "rating": "4.3/5",
+    "description": "Our homegrown Strawberries and milk, then blended with ice to give you a nice little jolt and lots of sipping joy, bursting with the sweet taste of strawberry.",
+    "rating": "4.3",
     "category": "offers",
     "qty": 1,
     "id": 14,

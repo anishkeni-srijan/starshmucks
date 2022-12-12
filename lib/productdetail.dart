@@ -223,8 +223,8 @@ class _ProductDetailState extends State<ProductDetail> {
                             Text(product.rating),
                             Icon(
                               Icons.star,
-                              size: 20,
-                              color: Colors.yellow,
+                              size: 15,
+                              color: Colors.amber,
                             ),
                           ],
                         ),
