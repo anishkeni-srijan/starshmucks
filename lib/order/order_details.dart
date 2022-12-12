@@ -50,16 +50,13 @@ class _OrderdetailState extends State<Orderdetail> {
     cartttl = total.getDouble('total')!;
     savings = total.getDouble('savings')!;
     if(userddt[0]['tier'] =='bronze'){
-
       ttl=(cartttl+delchar) - savings;
     }
     else if(userddt[0]['tier'] =='silver'){
       if(cartttl>50.0){
-
         ttl=(cartttl) - savings;
       }
       else{
-
         ttl=(cartttl+delchar) - savings;
       }
     }
@@ -117,7 +114,7 @@ class _OrderdetailState extends State<Orderdetail> {
             foregroundColor: HexColor("#175244"),
             expandedHeight: 150.0,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text('Order id: #' + id.toString(),
+              title: Text('Order id: #$id',
                   style: TextStyle(
                     color: HexColor("#175244"),
                   )),
@@ -132,7 +129,7 @@ class _OrderdetailState extends State<Orderdetail> {
                     orderdata.isEmpty ||
                             items1.isEmpty ||
                             qtylistfromstring.isEmpty
-                        ? Center(
+                        ? const Center(
                             child: Text('updating...'),
                           )
                         : Padding(
@@ -151,7 +148,7 @@ class _OrderdetailState extends State<Orderdetail> {
                                           "Order placed",
                                           style: TextStyle(fontSize: 22),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         Row(
@@ -159,14 +156,11 @@ class _OrderdetailState extends State<Orderdetail> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              "on " +
-                                                  orderdata[0].date.toString(),
-                                              style: TextStyle(fontSize: 13),
+                                              "on ${orderdata[0].date}",
+                                              style: const TextStyle(fontSize: 13),
                                             ),
                                             Text(
-                                              "items: " +
-                                                  idlistfromstring.length
-                                                      .toString(),
+                                              "items: ${idlistfromstring.length}",
                                               style:
                                                   const TextStyle(fontSize: 13),
                                             ),
@@ -207,7 +201,7 @@ class _OrderdetailState extends State<Orderdetail> {
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          Container(
+                                                          SizedBox(
                                                               width: 150,
                                                               child: Text(
                                                                   items1[index]
@@ -262,14 +256,14 @@ class _OrderdetailState extends State<Orderdetail> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Cart total",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    "\$ " + cartttl.toStringAsFixed(2),
-                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                    "\$ ${cartttl.toStringAsFixed(2)}",
+                                    style: const TextStyle(fontWeight: FontWeight.w300),
                                   ),
                                 ],
                               ),
@@ -283,9 +277,9 @@ class _OrderdetailState extends State<Orderdetail> {
                                         TextStyle(fontWeight: FontWeight.w300),
                                   ),
                                   Text(
-                                    '-\$ ${savings}',
+                                    '-\$ $savings',
                                     style:
-                                        TextStyle(fontWeight: FontWeight.w300),
+                                        const TextStyle(fontWeight: FontWeight.w300),
                                   ),
                                 ],
                               ),
@@ -309,14 +303,14 @@ class _OrderdetailState extends State<Orderdetail> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Total Amount",
                                     style:
                                         TextStyle(fontWeight: FontWeight.w600),
                                   ),
                                   Text(
-                                    "\$ " +ttl.toStringAsFixed(2),
-                                    style: TextStyle(fontWeight: FontWeight.w600),
+                                    "\$ ${ttl.toStringAsFixed(2)}",
+                                    style: const TextStyle(fontWeight: FontWeight.w600),
                                   ),
                                 ],
                               ),
@@ -339,7 +333,7 @@ class _OrderdetailState extends State<Orderdetail> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 "Deliver To",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
@@ -351,7 +345,7 @@ class _OrderdetailState extends State<Orderdetail> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.to(() => Help());
+                        Get.to(() => const Help());
                       },
                       child: Container(
                         padding: const EdgeInsets.only(
@@ -379,7 +373,7 @@ class _OrderdetailState extends State<Orderdetail> {
                       ),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                   ],
