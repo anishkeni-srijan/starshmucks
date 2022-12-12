@@ -355,7 +355,7 @@ class _AddressState extends State<Address> {
                   ),
                   Container(
                     color: HexColor("#eeeeee"),
-                    height: MediaQuery.of(context).size.height * 0.25,
+                    height: MediaQuery.of(context).size.height * 0.24,
                     width: MediaQuery.of(context).size.width * 1,
                     padding: const EdgeInsets.only(bottom: 15),
                     child: SizedBox(
@@ -395,7 +395,9 @@ class _AddressState extends State<Address> {
                                     RadioListTile(
                                       title: Padding(
                                         padding: const EdgeInsets.only(
-                                            top: 5, bottom: 5),
+                                          top: 5,
+                                          bottom: 5,
+                                        ),
                                         child: Text(
                                           addressList[index]['fname'],
                                           style: const TextStyle(
@@ -411,8 +413,9 @@ class _AddressState extends State<Address> {
                                           const Text(
                                             "Address",
                                             style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black38),
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black38,
+                                            ),
                                           ),
                                           Text(
                                             addressList[index]['hno'] +
@@ -426,20 +429,23 @@ class _AddressState extends State<Address> {
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 1,
                                             style: const TextStyle(
-                                                color: Colors.black),
+                                              color: Colors.black,
+                                            ),
                                           ),
                                           Row(
                                             children: [
                                               const Text(
                                                 "Pincode: ",
                                                 style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black38),
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black38,
+                                                ),
                                               ),
                                               Text(
                                                 addressList[index]['pincode'],
                                                 style: const TextStyle(
-                                                    color: Colors.black),
+                                                  color: Colors.black,
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -458,9 +464,9 @@ class _AddressState extends State<Address> {
                                                 Text(
                                                   addressList[index]['phone'],
                                                   style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black),
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -490,7 +496,7 @@ class _AddressState extends State<Address> {
                                     ),
                                     const Padding(
                                       padding: EdgeInsets.only(
-                                          left: 8, right: 8, top: 10),
+                                          left: 8, right: 8, top: 14),
                                       child: Divider(
                                         color: Colors.black38,
                                         height: 1,
@@ -498,6 +504,9 @@ class _AddressState extends State<Address> {
                                         indent: 0,
                                         endIndent: 0,
                                       ),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
                                     ),
                                     Row(
                                       children: [
