@@ -355,7 +355,7 @@ class _AddressState extends State<Address> {
                   ),
                   Container(
                     color: HexColor("#eeeeee"),
-                    height: MediaQuery.of(context).size.height * 0.24,
+                    height: MediaQuery.of(context).size.height * 0.25,
                     width: MediaQuery.of(context).size.width * 1,
                     padding: const EdgeInsets.only(bottom: 15),
                     child: SizedBox(
@@ -505,9 +505,7 @@ class _AddressState extends State<Address> {
                                         endIndent: 0,
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
+
                                     Row(
                                       children: [
                                         TextButton(
