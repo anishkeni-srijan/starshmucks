@@ -25,11 +25,7 @@ getpdata(item) {
 class _ProductDetailState extends State<ProductDetail> {
   addToCart(prod) async {
     CartDB cdb = CartDB();
-    MenuDB db = MenuDB();
-    var ttl = await cdb.getDataCart();
-    ttl.isEmpty
-        ? cdb.insertDataCart(CartModel(id: prod.id, qty: 1))
-        : cdb.insertDataCart(CartModel(id: prod.id, qty: 1));
+    cdb.insertDataCart(CartModel(id: prod.id, qty: 1));
   }
 
   late List<int> ids = [];
@@ -93,7 +89,6 @@ class _ProductDetailState extends State<ProductDetail> {
       if (ids[i] == product.id) status = true;
     }
     return Scaffold(
-        persistentFooterButtons: cartinit ? [viewincart()] : null,
         bottomNavigationBar: Container(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
@@ -241,13 +236,12 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.1,
-                        transform: Matrix4.translationValues(
-                            MediaQuery.of(context).size.width * 0.42, 0, 0),
+                        margin: ,
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
                                 blurStyle: BlurStyle.solid,
-                                blurRadius: 20,
+                                blurRadius: 10,
                                 color: Colors.grey, //New
                                 offset: Offset(0, 0))
                           ],
@@ -279,16 +273,15 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
                       Container(
                           width: MediaQuery.of(context).size.width * 0.1,
-                          margin: EdgeInsets.only(right: 20),
-                          transform: Matrix4.translationValues(
-                              MediaQuery.of(context).size.width * 0.07, 0, 0),
+                          margin: EdgeInsets.only(right: 10, left: 30),
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  blurStyle: BlurStyle.solid,
-                                  blurRadius: 20,
-                                  color: Colors.grey, //New
-                                  offset: Offset(0, 0))
+                                blurStyle: BlurStyle.solid,
+                                blurRadius: 10,
+                                color: Colors.grey, //New
+                                offset: Offset(0, 0),
+                              )
                             ],
                             color: HexColor("#175244"),
                             shape: BoxShape.circle,
@@ -302,9 +295,8 @@ class _ProductDetailState extends State<ProductDetail> {
                           ))
                     ]),
               ),
-              Container(
-                transform: Matrix4.translationValues(
-                    20, MediaQuery.of(context).size.height * -0.03, 0),
+              Padding(
+                padding: EdgeInsets.all(15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
