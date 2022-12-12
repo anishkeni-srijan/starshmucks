@@ -77,8 +77,6 @@ class _OrderSuccessState extends State<OrderSuccess> {
     } else {
       ttl = (cartttl) - savings;
     }
-    setState(() {
-    });
   }
 
   getDataIds() async {
@@ -182,7 +180,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                         ),
                         Container(
                             transform: Matrix4.translationValues(0, 40, 0),
-                            child: AutoSizeText(
+                            child: const AutoSizeText(
                               'Your order will take 30-35mins',
                               style: TextStyle(color: Colors.white),
                             ))
@@ -325,9 +323,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: 10,
-                      ),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children:[
