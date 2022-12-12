@@ -139,14 +139,14 @@ class _UserProfileState extends State<UserProfile> {
                       },
                       icon: Icons.star_outline_sharp,
                     ),
-                    const DividerForTiles(),
-                    profileTile(
-                      text: 'Wishlist',
-                      press: () {
-                        Get.to(() => WishListPage());
-                      },
-                      icon: Icons.favorite_border,
-                    ),
+                    // const DividerForTiles(),
+                    // profileTile(
+                    //   text: 'Wishlist',
+                    //   press: () {
+                    //     Get.to(() => WishListPage());
+                    //   },
+                    //   icon: Icons.favorite_border,
+                    // ),
                     const DividerForTiles(),
                     profileTile(
                       text: 'Help',

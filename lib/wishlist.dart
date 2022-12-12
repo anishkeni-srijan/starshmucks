@@ -27,9 +27,13 @@ class _WishListPageState extends State<WishListPage> {
   late List<MenuModel> kart = [];
   late List<WishlistModel> datalist = [];
   List<WishlistModel> wishlist = [];
+  var route;
   //double ttl = 0;
   @override
   void initState() {
+    // route = Get.previousRoute;
+    // print("route");
+    // print(route);
     menudb = MenuDB();
     menudb.initDBMenu();
     wdb = WishlistDB();
@@ -58,9 +62,10 @@ class _WishListPageState extends State<WishListPage> {
 
   Future<bool> onWillPop() async {
     //Navigator.pop(context,true);
-    return (await Get.to(() => bottomBar(),
-            transition: Transition.leftToRight)) ??
-        false;
+    return (await Get.to(bottomBar())) ?? false;
+    // var route = Get.back();
+    // print("route");
+    //print(route);
   }
 
   @override
@@ -80,9 +85,7 @@ class _WishListPageState extends State<WishListPage> {
                       automaticallyImplyLeading: false,
                       leading: IconButton(
                         icon: Icon(Icons.arrow_back),
-                        onPressed: () {
-                          onWillPop();
-                        },
+                        onPressed: () {},
                       ),
                       elevation: 4,
                       //toolbarHeight: 120,
