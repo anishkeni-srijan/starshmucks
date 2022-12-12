@@ -8,7 +8,10 @@
   "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
   "qty": 1,
-  "category": "cake"
+  "category": "cake",
+  "quantity": "330ml",
+  "calories": "200cals/100gms"
+
 },
 {
 "title": "Tiramisu Torte",
@@ -19,7 +22,9 @@
 "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
   "qty": 1,
-  "category": "cake"
+  "category": "cake",
+  "quantity": "330ml",
+  "calories": "283cals/100gms"
 },
 {
 "title": "Jam Filled Berliner with Cinnamon",
@@ -30,7 +35,9 @@
 "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
   "qty": 1,
-  "category": "cake"
+  "category": "cake",
+  "quantity": "330ml",
+  "calories": "340cals/100gms"
 },
 {
 "title": "Caffè Americano",
@@ -41,7 +48,9 @@
 "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
   "qty": 1,
-  "category": "coffee"
+  "category": "coffee",
+  "quantity": "330ml",
+  "calories": "30cals/100gms"
 },
 {
 "title": "Dark Chocolate Mocha",
@@ -52,7 +61,9 @@
 "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
   "qty": 1,
-  "category": "coffee"
+  "category": "coffee",
+  "cquantity": "330ml",
+  "calories": "40cals/100gms"
 },
 {
 "title": "Latte macchiato",
@@ -63,7 +74,9 @@
 "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
   "qty": 1,
-  "category": "coffee"
+  "category": "coffee",
+  "quantity": "330ml",
+  "calories": "40cals/100gms"
 },
 {
 "title": "A Schtarry Decade",
@@ -74,7 +87,9 @@
 "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
   "qty": 1,
-  "category": "smoothie"
+  "category": "smoothie",
+  "quantity": "330ml",
+  "calories": "50cals/100gms"
 },
 {
 "title": "Berries and Cherries",
@@ -85,7 +100,9 @@
 "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
   "qty": 1,
-  "category": "smoothie"
+  "category": "smoothie",
+  "quantity": "330ml",
+  "calories": "50cals/100gms"
 },
 {
 "title": "Schtrawberry",
@@ -96,7 +113,9 @@
 "rating": "4.0",
   "tag": "Tastes like strawberries on a summer evenin'",
   "qty": 1,
-  "category": "smoothie"
+  "category": "smoothie",
+  "quantity": "330ml",
+  "calories": "40cals/100gms"
 },
 
   {
@@ -109,7 +128,9 @@
     "category": "nowserve",
     "rating": "4.3/5",
     "qty": 1,
-    "id": 10
+    "id": 10,
+    "quantity": "330ml",
+    "calories": "50cals/100gms"
   },
   {
     "image": "images/newtwo.png",
@@ -121,7 +142,9 @@
     "rating": "4.3/5",
     "category": "nowserve",
     "qty": 1,
-    "id": 11
+    "id": 11,
+    "quantity": "330ml",
+    "calories": "30cals/100gms"
   },
   {
     "image": "images/christmas.png",
@@ -132,7 +155,9 @@
     "rating": "4.3/5",
     "category": "offers",
     "qty": 1,
-    "id": 12
+    "id": 12,
+    "quantity": "330ml",
+    "calories": "50cals/100gms"
   },
   {
     "image": "images/buytwo.png",
@@ -143,7 +168,9 @@
     "rating": "4.3/5",
     "category": "offers",
     "qty": 1,
-    "id": 13
+    "id": 13,
+    "quantity": "330ml",
+    "calories": "50cals/100gms"
   },
   {
     "image": "images/seasonal.png",
@@ -154,7 +181,9 @@
     "rating": "4.3/5",
     "category": "offers",
     "qty": 1,
-    "id": 14
+    "id": 14,
+    "quantity": "330ml",
+    "calories": "30cals/100gms"
   }
 
 ]
