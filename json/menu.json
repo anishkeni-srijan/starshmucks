@@ -11,7 +11,6 @@
   "category": "cake",
   "quantity": "330ml",
   "calories": "200cals/100gms"
-
 },
 {
 "title": "Tiramisu Torte",
@@ -62,7 +61,7 @@
   "tag": "Tastes like strawberries on a summer evenin'",
   "qty": 1,
   "category": "coffee",
-  "cquantity": "330ml",
+  "quantity": "330ml",
   "calories": "40cals/100gms"
 },
 {
@@ -185,6 +184,5 @@
     "quantity": "330ml",
     "calories": "30cals/100gms"
   }
-
 ]
 }

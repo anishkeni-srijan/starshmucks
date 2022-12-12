@@ -182,10 +182,10 @@ class _ProductDetailState extends State<ProductDetail> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         const Text(
-                          "Capacity",
+                          "Quantity",
                           style: TextStyle(fontWeight: FontWeight.w600),
                         ),
-                        const Text("330ml"),
+                        Text(product.quantity),
                       ],
                     ),
                   ],
@@ -208,17 +208,26 @@ class _ProductDetailState extends State<ProductDetail> {
                           "Calories",
                           style: TextStyle(fontWeight: FontWeight.w600),
                         ),
-                        const Text("40cals / 100gms", maxLines: 2),
+                        Text(product.calories),
                       ],
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         const Text(
-                          "Placeholder",
+                          "Rating",
                           style: TextStyle(fontWeight: FontWeight.w600),
                         ),
-                        const Text("temp"),
+                        Row(
+                          children: [
+                            Text(product.rating),
+                            Icon(
+                              Icons.star,
+                              size: 20,
+                              color: Colors.yellow,
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ],
@@ -235,7 +244,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     )),
               ),
               Padding(
-                padding: const EdgeInsets.only(left:15.0,right:15),
+                padding: const EdgeInsets.only(left: 15.0, right: 15),
                 child: Container(
                   transform: Matrix4.translationValues(
                       0, MediaQuery.of(context).size.height * -0.05, 0),
@@ -284,7 +293,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             ),
                             Container(
                                 width: MediaQuery.of(context).size.width * 0.1,
-                                margin: const EdgeInsets.only( left: 10),
+                                margin: const EdgeInsets.only(left: 10),
                                 decoration: BoxDecoration(
                                   boxShadow: const [
                                     BoxShadow(
@@ -310,7 +319,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left:15,right: 15),
+                padding: const EdgeInsets.only(left: 15, right: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
