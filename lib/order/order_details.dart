@@ -36,19 +36,23 @@ class _OrderdetailState extends State<Orderdetail> {
     getorderid();
     getUser();
     getAddress();
+
     super.initState();
+
   }
   List<Map<String, dynamic>> userddt = [];
   getUser() async {
     userddt = await udb.getDataUserData();
-    getttl();
     setState(() {});
   }
 
   getttl() async{
     final total = await SharedPreferences.getInstance();
-    cartttl = total.getDouble('total')!;
     savings = total.getDouble('savings')!;
+    for(var i =0;i< items1.length;i++)
+      {
+        cartttl = cartttl + double.parse(items1[i].price);
+      }
     if(userddt[0]['tier'] =='bronze'){
 
       ttl=(cartttl+delchar) - savings;
@@ -66,12 +70,11 @@ class _OrderdetailState extends State<Orderdetail> {
     else{
       ttl=(cartttl) - savings;
     }
-    setState(() {
-    });
   }
   getorderid() async {
     final prefs = await SharedPreferences.getInstance();
     id = (await prefs.getInt('orderid'))!;
+    await getorderdetails(id);
     setState(() {});
   }
 
@@ -90,6 +93,7 @@ class _OrderdetailState extends State<Orderdetail> {
       items = await menudb.getitemwithId_order(idlistfromstring[i]);
       items1.add(items.first);
     }
+    getttl();
     setState(() {});
   }
 
@@ -103,7 +107,7 @@ class _OrderdetailState extends State<Orderdetail> {
   }
 
   Widget build(BuildContext context) {
-    getorderdetails(id);
+
     return Scaffold(
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(
