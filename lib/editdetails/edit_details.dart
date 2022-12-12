@@ -156,7 +156,7 @@ class _EditProfileState extends State<EditProfile> {
                       Row(
                         children: [
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * .9,
+                            width: MediaQuery.of(context).size.width * .89,
                             child: TextFormField(
                               style: const TextStyle(color: Colors.black),
                               controller: econtroller,
@@ -199,7 +199,7 @@ class _EditProfileState extends State<EditProfile> {
                       Row(
                         children: [
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * .9,
+                            width: MediaQuery.of(context).size.width * .89,
                             child: TextFormField(
                               style: const TextStyle(
                                   color: Colors.black), //<-- SEE HERE
@@ -236,7 +236,7 @@ class _EditProfileState extends State<EditProfile> {
                       Row(
                         children: [
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * .9,
+                            width: MediaQuery.of(context).size.width * .89,
                             child: TextFormField(
                               style: const TextStyle(
                                   color: Colors.black), //<-- SEE HERE

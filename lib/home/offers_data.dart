@@ -229,9 +229,9 @@ class _GetOffersState extends State<GetOffers> {
                           icon: status
                               ? Icon(
                                   Icons.favorite,
-                                  color: Colors.red,
+                                  color: Colors.white,
                                 )
-                              : Icon(Icons.favorite_border))
+                              : Icon(Icons.favorite_border,color: Colors.white))
                     ],
                   ),
                 ),

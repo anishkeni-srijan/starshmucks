@@ -225,74 +225,76 @@ class _ProductDetailState extends State<ProductDetail> {
                     )),
               ),
               Container(
+                padding: EdgeInsets.all(10),
                 transform: Matrix4.translationValues(
-                    0, MediaQuery.of(context).size.height * -0.05, 0),
+                    0, MediaQuery.of(context).size.height * -0.04, 0),
                 child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         "\$" + product.price,
                         style: TextStyle(fontSize: 30),
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.1,
-                        margin: ,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                                blurStyle: BlurStyle.solid,
-                                blurRadius: 10,
-                                color: Colors.grey, //New
-                                offset: Offset(0, 0))
-                          ],
-                          color: HexColor("#175244"),
-                          shape: BoxShape.circle,
-                        ),
-                        child: IconButton(
-                          onPressed: () {
-                            //int id = odata[index].id;
-                            status
-                                ? removefromwishlist(
-                                    WishlistModel(id: product.id))
-                                : addToWishlist(context, product.id);
-                            // getIds();
-                          },
-                          icon: status
-                              ? Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                )
-                              : Icon(
-                                  Icons.favorite_border,
+                      Row(
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.1,
+                            // margin: ,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    blurStyle: BlurStyle.outer,
+                                    blurRadius: 5,
+                                    color: Colors.grey, //New
+                                    offset: Offset(0, 0))
+                              ],
+                              color: HexColor("#175244"),
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                              onPressed: () {
+                                //int id = odata[index].id;
+                                status
+                                    ? removefromwishlist(
+                                        WishlistModel(id: product.id))
+                                    : addToWishlist(context, product.id);
+                                // getIds();
+                              },
+                              icon: status
+                                  ? Icon(
+                                      Icons.favorite,
+                                      color: Colors.white,
+                                    )
+                                  : Icon(
+                                      Icons.favorite_border,
+                                      color: Colors.white,
+                                    ),
+                            ),
+                          ),
+                          Container(
+                              width: MediaQuery.of(context).size.width * 0.1,
+                              margin: EdgeInsets.only( left: 10),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurStyle: BlurStyle.solid,
+                                    blurRadius: 5,
+                                    color: Colors.grey, //New
+                                    offset: Offset(0, 0),
+                                  )
+                                ],
+                                color: HexColor("#175244"),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(9.0),
+                                child: Icon(
+                                  Icons.share,
                                   color: Colors.white,
                                 ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.2,
-                      ),
-                      Container(
-                          width: MediaQuery.of(context).size.width * 0.1,
-                          margin: EdgeInsets.only(right: 10, left: 30),
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                blurStyle: BlurStyle.solid,
-                                blurRadius: 10,
-                                color: Colors.grey, //New
-                                offset: Offset(0, 0),
-                              )
-                            ],
-                            color: HexColor("#175244"),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(9.0),
-                            child: Icon(
-                              Icons.share,
-                              color: Colors.white,
-                            ),
-                          ))
+                              )),
+                        ],
+                      )
                     ]),
               ),
               Padding(

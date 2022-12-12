@@ -221,16 +221,16 @@ class _NowServingState extends State<NowServing> {
                             //int id = odata[index].id;
                             status
                                 ? removefromwishlist(
-                                    WishlistModel(id: nowdata[index].id))
+                                WishlistModel(id: nowdata[index].id))
                                 : addToWishlist(context, index);
                             // getIds();
                           },
                           icon: status
                               ? Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                )
-                              : Icon(Icons.favorite_border))
+                            Icons.favorite,
+                            color: Colors.white,
+                          )
+                              : Icon(Icons.favorite_border,color: Colors.white))
                     ],
                   ),
                 ),
