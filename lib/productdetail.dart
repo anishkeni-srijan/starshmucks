@@ -94,6 +94,16 @@ class _ProductDetailState extends State<ProductDetail> {
           child: ElevatedButton(
             onPressed: () {
               addToCart(product);
+              String toastMessage = "ITEM ADDED TO CART";
+              fToast.showToast(
+                child: CustomToast(toastMessage),
+                positionedToastBuilder: (context, child) => Positioned(
+                  child: child,
+                  bottom: MediaQuery.of(context).size.height * 0.14,
+                  left: MediaQuery.of(context).size.width * 0.1,
+                  right: MediaQuery.of(context).size.width * 0.1,
+                ),
+              );
               cartinit = true;
               setState(() {});
             },
@@ -236,7 +246,6 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.1,
-                        margin: ,
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
