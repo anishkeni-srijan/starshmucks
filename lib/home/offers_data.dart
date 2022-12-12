@@ -73,16 +73,6 @@ class _GetOffersState extends State<GetOffers> {
   }
 
   addToWishlist(context, index) async {
-    String toastMessage = "ITEM ADDED TO WISHLIST";
-    fToast.showToast(
-      child: CustomToast(toastMessage),
-      positionedToastBuilder: (context, child) => Positioned(
-        child: child,
-        bottom: MediaQuery.of(context).size.height * 0.14,
-        left: MediaQuery.of(context).size.width * 0.1,
-        right: MediaQuery.of(context).size.width * 0.1,
-      ),
-    );
     final cartp = await db.Offersdata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
     getIds();
@@ -90,16 +80,6 @@ class _GetOffersState extends State<GetOffers> {
 
   removefromwishlist(sendid) {
     wdb.deleteitemFromWishlist(sendid);
-    String toastMessage = "ITEM REMOVED TO WISHLIST";
-    fToast.showToast(
-      child: CustomToast(toastMessage),
-      positionedToastBuilder: (context, child) => Positioned(
-        child: child,
-        bottom: MediaQuery.of(context).size.height * 0.14,
-        left: MediaQuery.of(context).size.width * 0.1,
-        right: MediaQuery.of(context).size.width * 0.1,
-      ),
-    );
     getIds();
   }
 
@@ -229,9 +209,10 @@ class _GetOffersState extends State<GetOffers> {
                           icon: status
                               ? Icon(
                                   Icons.favorite,
-                                  color: Colors.red,
+                                  color: Colors.white,
                                 )
-                              : Icon(Icons.favorite_border))
+                              : Icon(Icons.favorite_border,
+                                  color: Colors.white))
                     ],
                   ),
                 ),

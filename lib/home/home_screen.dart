@@ -52,7 +52,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   getnexttier() {
-
     usernames.isEmpty
         ? nexttier = "bronze"
         : usernames[0]['rewards'] > 10
@@ -120,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                     ? const CircularProgressIndicator()
                     : getbanner(context, username, tier, rewards),
                 Container(
-                  padding: const EdgeInsets.only(left: 10, top: 20, bottom: 10),
+                  padding: EdgeInsets.only(left: 10, top: Platform.isIOS?30:20, bottom: 10),
                   alignment: Alignment.topLeft,
                   child: AutoSizeText(
                     'Offers',
@@ -197,9 +196,9 @@ getbanner(context, username, tier, rewards) {
               blurRadius: 10.0,
             ),
           ]),
-          transform: Matrix4.translationValues(
+          transform:  Matrix4.translationValues(
             0,
-            MediaQuery.of(context).size.height * 0.1,
+            Platform.isIOS?MediaQuery.of(context).size.height * 0.12:MediaQuery.of(context).size.height * 0.1,
             0,
           ),
           child: Padding(
@@ -208,11 +207,11 @@ getbanner(context, username, tier, rewards) {
               children: [
                 Icon(
                   Icons.stars_sharp,
-                  color: tier == "bronze"
-                      ? Colors.brown
+                  color: tier == "gold"
+                      ? Colors.amberAccent
                       : tier == "silver"
                           ? Colors.grey
-                          : Colors.amberAccent,
+                          : Colors.brown,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -231,11 +230,11 @@ getbanner(context, username, tier, rewards) {
                                 ? "Gold"
                                 : "Bronze",
                         style: TextStyle(
-                          color: tier == "bronze"
-                              ? Colors.brown
+                          color: tier == "gold"
+                              ? Colors.amberAccent
                               : tier == "silver"
-                                  ? Colors.grey
-                                  : Colors.amberAccent,
+                              ? Colors.grey
+                              : Colors.brown,
                         ),
                         minFontSize: 12,
                       )

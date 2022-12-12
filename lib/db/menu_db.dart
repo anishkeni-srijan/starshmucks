@@ -19,7 +19,9 @@ class MenuDB {
           rating TEXT NOT NULL,
           price TEXT NOT NULL,
           tag TEXT NOT NULL,
-          category TEXT NOT NULL
+          category TEXT NOT NULL,
+          quantity TEXT NOT NULL,
+          calories TEXT NOT NULL
           )
           """);
       },
@@ -91,6 +93,8 @@ class MenuDB {
           category: maps[i]['category'],
           image: maps[i]['image'],
           rating: maps[i]['rating'],
+          quantity: maps[i]['quantity'],
+          calories: maps[i]['calories'],
         );
       },
     );
@@ -113,6 +117,8 @@ class MenuDB {
           category: maps[i]['category'],
           image: maps[i]['image'],
           rating: maps[i]['rating'],
+          quantity: maps[i]['quantity'],
+          calories: maps[i]['calories'],
         );
       },
     );

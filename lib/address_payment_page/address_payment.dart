@@ -285,18 +285,39 @@ class _AddressState extends State<Address> {
     getUser();
     return Scaffold(
       persistentFooterButtons: [
-        Row(
-          children: [
-            isChecked
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Points savings: \$" + savings.toStringAsFixed(2)),
-                      Text("Amount to be paid: \$" + ttl.toStringAsFixed(2)),
-                    ],
-                  )
-                : Text("Amount to be paid: \$" + ttl.toStringAsFixed(2)),
-          ],
+        Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              isChecked
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Points savings: \$" + savings.toStringAsFixed(2)),
+                        Text(
+                          "Amount to be paid: \$" +
+                              (ttl + 5).toStringAsFixed(2),
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ],
+                    )
+                  : Text("Amount to be paid: \$" + (ttl + 5).toStringAsFixed(2),
+                      style: TextStyle(fontSize: 20)),
+              Tooltip(
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  icon: Icon(
+                    Icons.info,
+                  ),
+                  onPressed: null,
+                ),
+                message: 'Amount Including \$5 delivery charges',
+                showDuration: const Duration(seconds: 4),
+                textStyle: const TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
         )
       ],
       appBar: AppBar(
@@ -355,7 +376,7 @@ class _AddressState extends State<Address> {
                   ),
                   Container(
                     color: HexColor("#eeeeee"),
-                    height: MediaQuery.of(context).size.height * 0.24,
+                    height: MediaQuery.of(context).size.height * 0.25,
                     width: MediaQuery.of(context).size.width * 1,
                     padding: const EdgeInsets.only(bottom: 15),
                     child: SizedBox(
@@ -505,9 +526,7 @@ class _AddressState extends State<Address> {
                                         endIndent: 0,
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
+
                                     Row(
                                       children: [
                                         TextButton(
