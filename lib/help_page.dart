@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'common_things.dart';
+
 class Help extends StatelessWidget {
   const Help({Key? key}) : super(key: key);
 
@@ -10,14 +12,7 @@ class Help extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "Need Help?",
-        ),
-        backgroundColor: Colors.white,
-        foregroundColor: HexColor("#175244"),
-      ),
+      appBar: gethomeappbar("Need Help?", [Container()], true, 0.0),
       body: SingleChildScrollView(
         child: Column(
           children: [

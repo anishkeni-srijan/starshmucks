@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../common_things.dart';
 import '/db/orders_db.dart';
 import '/model/order_history.dart';
 import 'order_details.dart';
@@ -39,17 +40,7 @@ class _OrdersState extends State<Orders> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Orders',
-          style: TextStyle(
-            color: HexColor("#175244"),
-          ),
-        ),
-        titleSpacing: 0,
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: HexColor("#175244")),
-      ),
+      appBar: gethomeappbar("Orders", [Container()], true, 0.0),
       body: data1.isEmpty
           ? Center(
               child: Text(
