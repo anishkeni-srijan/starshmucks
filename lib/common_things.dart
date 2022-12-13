@@ -47,7 +47,7 @@ class _bottomBarState extends State<bottomBar> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Are you sure?'),
-        content: Text('Do you want to exit an App'),
+        content: Text('Do you want to exit this app'),
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
