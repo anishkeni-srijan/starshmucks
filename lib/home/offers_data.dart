@@ -201,6 +201,7 @@ class _GetOffersState extends State<GetOffers> {
                       IconButton(
                           onPressed: () {
                             //int id = odata[index].id;
+                            print("hi");
                             status
                                 ? removefromwishlist(
                                     WishlistModel(id: odata[index].id))

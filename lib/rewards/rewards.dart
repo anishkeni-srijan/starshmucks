@@ -95,70 +95,78 @@ class _RewardsState extends State<Rewards> {
                       shadowColor: Colors.black,
                       elevation: 4,
                       child: Container(
-                        margin: const EdgeInsets.only(left: 30),
-                        transform: Matrix4.translationValues(-10, 20, 0),
                         height: 200,
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const AutoSizeText(
-                                    'My Points',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                    minFontSize: 23,
-                                  ),
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                      top: 5.0,
-                                    ),
-                                    child: Row(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        AutoSizeText(
-                                          usernames[0]['rewards']
-                                              .toStringAsFixed(2),
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.w600,
+                                        const AutoSizeText(
+                                          'My Points',
+                                          style: TextStyle(
                                             color: Colors.white,
                                           ),
                                           minFontSize: 23,
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                              top: 2.0, left: 5),
-                                          child: Icon(
-                                            Icons.stars_sharp,
-                                            color:
-                                                usernames[0]['tier'] == 'gold'
-                                                    ? Colors.amberAccent
-                                                    : usernames[0]['tier'] ==
-                                                            'silver'
-                                                        ? Colors.grey
-                                                        : Colors.brown,
+                                            top: 5.0,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              AutoSizeText(
+                                                usernames[0]['rewards']
+                                                    .toStringAsFixed(2),
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.white,
+                                                ),
+                                                minFontSize: 23,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 2.0, left: 5),
+                                                child: Icon(
+                                                  Icons.stars_sharp,
+                                                  color:
+                                                      usernames[0]['tier'] == 'gold'
+                                                          ? Colors.amberAccent
+                                                          : usernames[0]['tier'] ==
+                                                                  'silver'
+                                                              ? Colors.grey
+                                                              : Colors.brown,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 70,
-                                  ),
-                                  Text(
-                                    usernames[0]['name'],
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 25,
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Text(
+                                      usernames[0]['name'],
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 25,
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
                               Container(
-                                transform:
-                                    Matrix4.translationValues(20, -20, 0),
-                                child: Image.asset("images/shmucks.png"),
+                                padding: EdgeInsets.all(15),
+                                child: Image.asset("images/shmucks.png",width: 150,height: 150,),
                               )
                             ]),
                       ),

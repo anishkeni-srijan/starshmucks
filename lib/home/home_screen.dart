@@ -374,6 +374,7 @@ learnmore(context) {
                 ),
                 Text(
                   learnmorep.learnmore[index].tag,
+                  maxLines: 5,
                   style: TextStyle(
                     color: HexColor('#175244'),
                     fontSize: 18,

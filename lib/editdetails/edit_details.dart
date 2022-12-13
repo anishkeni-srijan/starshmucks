@@ -143,7 +143,7 @@ class _EditProfileState extends State<EditProfile> {
                           if (state is EditdetailsErrorState) {
                             return Text(
                               state.errormessage,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.red,
                               ),
                             );
