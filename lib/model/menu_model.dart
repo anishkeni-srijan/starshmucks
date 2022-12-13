@@ -34,6 +34,7 @@ class MenuModel {
       category: json["category"],
       quantity: json["quantity"],
       calories: json["calories"]);
+
   Map<String, dynamic> toMap() => {
         "id": id,
         "tag": tag,

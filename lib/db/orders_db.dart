@@ -1,5 +1,5 @@
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../model/order_history.dart';
 
@@ -58,27 +58,27 @@ class OrdersDB {
         await db.rawQuery("Select * from OrdersTable");
     return data.asMap();
   }
-  // gainrewards(OrderHistoryModel cartitem,res) async {
-  //   final db = await initDBOrders();
-  //   var fido = OrderHistoryModel(
-  //     rewards:res,
-  //     qty: cartitem.qty,
-  //     id: cartitem.id,
-  //   );
-  //   updaterewards(fido);
-  // }
-  // //
-  // Future<void> updaterewards(OrderHistoryModel cartitem) async {
-  //   // Get a reference to the database.
-  //   final db = await initDBOrders();
-  //   // Update the given Dog.
-  //   await db.update(
-  //     'CartTable', cartitem.toMap(),
-  //     // Ensure that the Dog has a matching id.
-  //     where: 'id= ?',
-  //     // Pass the Dog's id as a whereArg to prevent SQL injection.
-  //     whereArgs: [cartitem.id],
-  //   );
-  // }
+// gainrewards(OrderHistoryModel cartitem,res) async {
+//   final db = await initDBOrders();
+//   var fido = OrderHistoryModel(
+//     rewards:res,
+//     qty: cartitem.qty,
+//     id: cartitem.id,
+//   );
+//   updaterewards(fido);
+// }
+// //
+// Future<void> updaterewards(OrderHistoryModel cartitem) async {
+//   // Get a reference to the database.
+//   final db = await initDBOrders();
+//   // Update the given Dog.
+//   await db.update(
+//     'CartTable', cartitem.toMap(),
+//     // Ensure that the Dog has a matching id.
+//     where: 'id= ?',
+//     // Pass the Dog's id as a whereArg to prevent SQL injection.
+//     whereArgs: [cartitem.id],
+//   );
+// }
 
 }

@@ -1,24 +1,26 @@
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io' show Platform;
 
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:starshmucks/db/cart_db.dart';
 import 'package:starshmucks/db/menu_db.dart';
 import 'package:starshmucks/db/orders_db.dart';
 import 'package:starshmucks/model/menu_model.dart';
+
+import '/common_things.dart';
+import '/home/home_screen.dart';
+import '/model/order_history.dart';
 import '../db/user_db.dart';
 import '../help_page.dart';
 import '../model/cart_model.dart';
-import '/model/order_history.dart';
-import '/common_things.dart';
-import '/home/home_screen.dart';
 
 class OrderSuccess extends StatefulWidget {
   OrderSuccess({Key? key}) : super(key: key);
+
   @override
   _OrderSuccessState createState() => _OrderSuccessState();
 }
@@ -55,6 +57,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
   }
 
   List<Map<String, dynamic>> userddt = [];
+
   getUser() async {
     userddt = await udb.getDataUserData();
     getttl();
@@ -105,6 +108,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
   }
 
   late String selectedAddress = '';
+
   getAddress() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     selectedAddress = prefs.getString("selectedAddress")!;
@@ -307,139 +311,142 @@ class _OrderSuccessState extends State<OrderSuccess> {
                           ),
                         ),
 
-            // Text(
-            //   "\$ " + data[0].ttlPrice.toStringAsFixed(2),
-            //   style: TextStyle(fontWeight: FontWeight.w300),
-            // ),
+                  // Text(
+                  //   "\$ " + data[0].ttlPrice.toStringAsFixed(2),
+                  //   style: TextStyle(fontWeight: FontWeight.w300),
+                  // ),
 
-            Container(
-              padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-              width: MediaQuery.of(context).size.width * 1,
-              child: Card(
-                elevation: 8,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 20.0, bottom: 20.0, left: 20, right: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children:[
-                          const Text(
-                            "Cart total",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "\$ ${cartttl.toStringAsFixed(2)}",
-                            style: const TextStyle(fontWeight: FontWeight.w300),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children:[
-                          const Text(
-                            "Points savings",
-                            style: TextStyle(fontWeight: FontWeight.w300),
-                          ),
-                          Text(
-                            '-\$${savings.toStringAsFixed(2)}',
-                            style: const TextStyle(fontWeight: FontWeight.w300),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            "Delivery Charges",
-                            style: TextStyle(fontWeight: FontWeight.w300),
-                          ),
-                          Text(
-                            "\$ ${delchar.toStringAsFixed(2)}",
-                            style: TextStyle(fontWeight: FontWeight.w300),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Total Amount",
-                            style: TextStyle(fontWeight: FontWeight.w600),
-                          ),
-                          Text(
-                            "\$ ${ttl.toStringAsFixed(2)}",
-                            style: const TextStyle(fontWeight: FontWeight.w600),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(
-                left: 10,
-                right: 10,
-                top: 10,
-              ),
-              width: MediaQuery.of(context).size.width * 1,
-              child: Card(
-                elevation: 8,
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Deliver To",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text(selectedAddress),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Get.to(() => Help());
-              },
-              child: Container(
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  right: 10,
-                  top: 10,
-                ),
-                width: MediaQuery.of(context).size.width * 1,
-                child: Card(
-                  elevation: 8,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          "Need Help?",
-                          style: TextStyle(
-                              color: HexColor("#175244"),
-                              fontWeight: FontWeight.bold),
+                  Container(
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 10, top: 10),
+                    width: MediaQuery.of(context).size.width * 1,
+                    child: Card(
+                      elevation: 8,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 20.0, bottom: 20.0, left: 20, right: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "Cart total",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "\$ ${cartttl.toStringAsFixed(2)}",
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w300),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "Points savings",
+                                  style: TextStyle(fontWeight: FontWeight.w300),
+                                ),
+                                Text(
+                                  '-\$${savings.toStringAsFixed(2)}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w300),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "Delivery Charges",
+                                  style: TextStyle(fontWeight: FontWeight.w300),
+                                ),
+                                Text(
+                                  "\$ ${delchar.toStringAsFixed(2)}",
+                                  style: TextStyle(fontWeight: FontWeight.w300),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Total Amount",
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                                Text(
+                                  "\$ ${ttl.toStringAsFixed(2)}",
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
+                  Container(
+                    padding: const EdgeInsets.only(
+                      left: 10,
+                      right: 10,
+                      top: 10,
+                    ),
+                    width: MediaQuery.of(context).size.width * 1,
+                    child: Card(
+                      elevation: 8,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Deliver To",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(selectedAddress),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => Help());
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                        left: 10,
+                        right: 10,
+                        top: 10,
+                      ),
+                      width: MediaQuery.of(context).size.width * 1,
+                      child: Card(
+                        elevation: 8,
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            children: [
+                              Text(
+                                "Need Help?",
+                                style: TextStyle(
+                                    color: HexColor("#175244"),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
 
-            const SizedBox(
-              height: 20,
-            ),
-          ],
-        )),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ],
+              )),
       ),
     );
   }

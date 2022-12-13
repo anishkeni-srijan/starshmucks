@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:starshmucks/home/home_screen.dart';
-import 'package:starshmucks/rewards/rewards.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 
 import '../db/user_db.dart';
 
@@ -21,6 +18,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
   double rewards = 0;
 
   UserDB udb = UserDB();
+
   getuser() async {
     usernames = await udb.getDataUserData();
     rewards = usernames[0]['rewards']!;
@@ -440,6 +438,7 @@ class undertile extends StatelessWidget {
   }) : super(key: key);
 
   final List maintext;
+
   // final String subtext;
 
   @override

@@ -1,14 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:get/get.dart';
-import 'package:starshmucks/db/user_db.dart';
 import 'dart:io' show Platform;
-import '../help_page.dart';
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:starshmucks/db/user_db.dart';
+
 import '/db/menu_db.dart';
 import '/db/orders_db.dart';
 import '/model/menu_model.dart';
 import '/model/order_history.dart';
+import '../help_page.dart';
 
 class Orderdetail extends StatefulWidget {
   const Orderdetail({Key? key}) : super(key: key);
@@ -38,39 +40,34 @@ class _OrderdetailState extends State<Orderdetail> {
     getAddress();
 
     super.initState();
-
   }
+
   List<Map<String, dynamic>> userddt = [];
+
   getUser() async {
     userddt = await udb.getDataUserData();
     setState(() {});
   }
 
-  getttl() async{
+  getttl() async {
     final total = await SharedPreferences.getInstance();
     savings = total.getDouble('savings')!;
-    for(var i =0;i< items1.length;i++)
-      {
-        cartttl = cartttl + double.parse(items1[i].price);
-      }
-    if(userddt[0]['tier'] =='bronze'){
-
-      ttl=(cartttl+delchar) - savings;
+    for (var i = 0; i < items1.length; i++) {
+      cartttl = cartttl + double.parse(items1[i].price);
     }
-    else if(userddt[0]['tier'] =='silver'){
-      if(cartttl>50.0){
-
-        ttl=(cartttl) - savings;
+    if (userddt[0]['tier'] == 'bronze') {
+      ttl = (cartttl + delchar) - savings;
+    } else if (userddt[0]['tier'] == 'silver') {
+      if (cartttl > 50.0) {
+        ttl = (cartttl) - savings;
+      } else {
+        ttl = (cartttl + delchar) - savings;
       }
-      else{
-
-        ttl=(cartttl+delchar) - savings;
-      }
-    }
-    else{
-      ttl=(cartttl) - savings;
+    } else {
+      ttl = (cartttl) - savings;
     }
   }
+
   getorderid() async {
     final prefs = await SharedPreferences.getInstance();
     id = (await prefs.getInt('orderid'))!;
@@ -98,6 +95,7 @@ class _OrderdetailState extends State<Orderdetail> {
   }
 
   late String selectedAddress = '';
+
   getAddress() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     selectedAddress = prefs.getString("selectedAddress")!;
@@ -107,7 +105,6 @@ class _OrderdetailState extends State<Orderdetail> {
   }
 
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(
@@ -248,8 +245,6 @@ class _OrderdetailState extends State<Orderdetail> {
                               ),
                             ),
                           ),
-
-
                     Container(
                       padding:
                           const EdgeInsets.only(left: 10, right: 10, top: 10),
@@ -273,14 +268,15 @@ class _OrderdetailState extends State<Orderdetail> {
                                   ),
                                   Text(
                                     "\$ " + cartttl.toStringAsFixed(2),
-                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w300),
                                   ),
                                 ],
                               ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children:[
+                                children: [
                                   const Text(
                                     "Points savings",
                                     style:
@@ -319,8 +315,9 @@ class _OrderdetailState extends State<Orderdetail> {
                                         TextStyle(fontWeight: FontWeight.w600),
                                   ),
                                   Text(
-                                    "\$ " +ttl.toStringAsFixed(2),
-                                    style: TextStyle(fontWeight: FontWeight.w600),
+                                    "\$ " + ttl.toStringAsFixed(2),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600),
                                   ),
                                 ],
                               ),
@@ -382,7 +379,6 @@ class _OrderdetailState extends State<Orderdetail> {
                         ),
                       ),
                     ),
-
                     SizedBox(
                       height: 20,
                     ),

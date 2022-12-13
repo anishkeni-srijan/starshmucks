@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:starshmucks/db/menu_db.dart';
 import 'package:starshmucks/home/home_screen.dart';
-import 'package:hexcolor/hexcolor.dart';
+
 import 'common_things.dart';
 import 'db/cart_db.dart';
 import 'db/wishlist_db.dart';
@@ -18,6 +18,7 @@ class ProductDetail extends StatefulWidget {
 }
 
 var product;
+
 getpdata(item) {
   product = item;
 }
@@ -33,6 +34,7 @@ class _ProductDetailState extends State<ProductDetail> {
   }
 
   late List<int> ids = [];
+
   getIds() async {
     ids.clear();
     late List<WishlistModel> datalist = [];
@@ -58,6 +60,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
   late FToast fToast;
   late WishlistDB wdb;
+
   @override
   void initState() {
     wdb = WishlistDB();

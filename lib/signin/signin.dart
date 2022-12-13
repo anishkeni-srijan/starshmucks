@@ -1,16 +1,17 @@
 import 'dart:io';
-import 'package:get/get.dart';
-import 'package:flutter/material.dart';
+
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '/forgotpassword/forgot_password.dart';
 import '../db/user_db.dart';
+import '../signup/signup.dart';
 import 'bloc/signin_bloc.dart';
 import 'bloc/signin_events.dart';
 import 'bloc/signin_states.dart';
-import '/forgotpassword/forgot_password.dart';
-import '../signup/signup.dart';
 
 class SigninPage extends StatefulWidget {
   const SigninPage({Key? key}) : super(key: key);
@@ -27,6 +28,7 @@ class _SigninPageState extends State<SigninPage> {
 
   bool keeploggedin = false;
   late UserDB udb;
+
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
@@ -35,6 +37,7 @@ class _SigninPageState extends State<SigninPage> {
   }
 
   List<Map<String, dynamic>> userddt = [];
+
   getUser() async {
     userddt = await udb.getDataUserData();
   }

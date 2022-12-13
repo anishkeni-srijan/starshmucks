@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '/db/cart_db.dart';
-import 'db/user_db.dart';
-import 'home/home_screen.dart';
+import '/model/cart_model.dart';
 import '/user_profile.dart';
 import 'cart.dart';
+import 'db/user_db.dart';
 import 'gift_card.dart';
+import 'home/home_screen.dart';
 import 'menu/menu_page.dart';
 import 'model/user_model.dart';
 import 'order/order_failed.dart';
 import 'order/order_success.dart';
-import '/model/cart_model.dart';
 import 'wishlist.dart';
 
 class bottomBar extends StatefulWidget {
@@ -121,6 +121,7 @@ gethomeappbar() {
 late double ttl;
 late double savings = 0;
 late var size = 0;
+
 getdata() async {
   CartDB cdb = CartDB();
   List<CartModel> data = await cdb.getDataCart();
@@ -239,7 +240,8 @@ calcrewards() async {
     name: usernames[0]['name'],
     password: usernames[0]['password'],
     phone: usernames[0]['phone'],
-    tnc: usernames[0]['tnc'], image: usernames[0]['image'],
+    tnc: usernames[0]['tnc'],
+    image: usernames[0]['image'],
     // addressID: ,
   );
 
@@ -250,7 +252,9 @@ class CustomToast extends StatelessWidget {
   const CustomToast(
     String this.toastMessage,
   );
+
   final String toastMessage;
+
   @override
   Widget build(BuildContext context) {
     return Container(

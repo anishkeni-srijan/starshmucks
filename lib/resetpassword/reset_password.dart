@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../db/user_db.dart';
@@ -19,6 +19,7 @@ class ResetPasswordPage extends StatefulWidget {
 
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
   late int reset0;
+
   gete0() async {
     final keypref = await SharedPreferences.getInstance();
     reset0 = keypref.getInt('reset0')!;
@@ -28,6 +29,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   }
 
   late UserDB udb;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -39,6 +41,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   }
 
   List<Map<String, dynamic>> userddt = [];
+
   getUser() async {
     userddt = await udb.getDataUserData();
   }

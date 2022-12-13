@@ -1,17 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:get/get.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:email_auth/email_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../db/user_db.dart';
-import '../signup/signup.dart';
-import '/resetpassword/reset_password.dart';
-import 'bloc/forgotpassword_event.dart';
 import '/forgotpassword/bloc/forgotpassword_bloc.dart';
 import '/forgotpassword/bloc/forgotpassword_state.dart';
+import '/resetpassword/reset_password.dart';
+import '../db/user_db.dart';
+import 'bloc/forgotpassword_event.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
@@ -43,6 +42,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   }
 
   List<Map<String, dynamic>> userddt = [];
+
   getUser() async {
     userddt = await udb.getDataUserData();
     obtainedkey = userddt[0]['id'];

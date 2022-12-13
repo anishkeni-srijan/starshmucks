@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:upi_india/upi_india.dart';
 
-
 class UpiPayment extends StatefulWidget {
   @override
   _UpiPaymentState createState() => _UpiPaymentState();
@@ -130,9 +129,9 @@ class _UpiPaymentState extends State<UpiPayment> {
           Text("$title: ", style: header),
           Flexible(
               child: Text(
-                body,
-                style: value,
-              )),
+            body,
+            style: value,
+          )),
         ],
       ),
     );
@@ -152,7 +151,8 @@ class _UpiPaymentState extends State<UpiPayment> {
           Expanded(
             child: FutureBuilder(
               future: _transaction,
-              builder: (BuildContext context, AsyncSnapshot<UpiResponse> snapshot) {
+              builder:
+                  (BuildContext context, AsyncSnapshot<UpiResponse> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasError) {
                     return Center(

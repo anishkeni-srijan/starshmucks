@@ -3,6 +3,7 @@ class OrderHistoryModel {
   late String? id;
   late String? date;
   late String? time;
+
   OrderHistoryModel({
     required this.qty,
     required this.id,
@@ -17,6 +18,7 @@ class OrderHistoryModel {
         date: json["date"],
         time: json["time"],
       );
+
   Map<String, dynamic> toMap() => {
         "qty": qty,
         "id": id,

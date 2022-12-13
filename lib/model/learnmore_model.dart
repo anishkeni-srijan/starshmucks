@@ -1,4 +1,4 @@
-class LearnMoreModel{
+class LearnMoreModel {
   late String image;
   late String title;
   late String tag;

@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:get/get.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '/upi_payment.dart';
 import '/model/address_model.dart';
+import '/upi_payment.dart';
 import '../common_things.dart';
 import '../db/cart_db.dart';
 import '../db/orders_db.dart';
@@ -39,6 +39,7 @@ class _AddressState extends State<Address> {
   late bool rewards;
   late double ttl = 0;
   late double tempttl = 0;
+
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
@@ -55,6 +56,7 @@ class _AddressState extends State<Address> {
   }
 
   List<Map<String, dynamic>> userddt = [];
+
   getUser() async {
     userddt = await udb.getDataUserData();
     addressList = await udb.getDataUserAddress1();
@@ -253,6 +255,7 @@ class _AddressState extends State<Address> {
   }
 
   late double maxrewards = 0;
+
   userewards() async {
     maxrewards = userddt[0]['rewards'] / 2;
     if (maxrewards < (ttl / 20)) {
@@ -271,6 +274,7 @@ class _AddressState extends State<Address> {
   }
 
   var selectedVal;
+
   setSelectedVal(var val) {
     setState(() {
       selectedVal = val;
@@ -280,6 +284,7 @@ class _AddressState extends State<Address> {
   final offers = TextEditingController();
   bool afterSelecting = false;
   late double savings = 0;
+
   @override
   Widget build(BuildContext context) {
     getUser();

@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:tbib_splash_screen/splash_screen_view.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tbib_splash_screen/splash_screen_view.dart';
 
-import '../signin/signin.dart';
 import '/common_things.dart';
+import '../signin/signin.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
+
   @override
   State<Splash> createState() => _SplashState();
 }
 
 class _SplashState extends State<Splash> {
   bool flag = false;
+
   void initState() {
     checkifloggedin();
     super.initState();

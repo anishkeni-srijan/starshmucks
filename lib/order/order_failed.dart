@@ -1,15 +1,16 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 
+import '/common_things.dart';
 import '../address_payment_page/address_payment.dart';
 import '../help_page.dart';
-import '/common_things.dart';
 
 class OrderFail extends StatefulWidget {
   late String message;
+
   OrderFail(this.message);
 
   @override
@@ -18,8 +19,10 @@ class OrderFail extends StatefulWidget {
 
 class _OrderFailState extends State<OrderFail> {
   var result;
+
   getcarttotal() {}
   String failedMessage = getMessage();
+
   @override
   void initState() {
     result = getcarttotal();

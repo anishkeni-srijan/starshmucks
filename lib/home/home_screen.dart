@@ -1,19 +1,21 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:provider/provider.dart';
-import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io' show Platform;
+
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '/db/menu_db.dart';
 import '../common_things.dart';
 import '../db/user_db.dart';
 import '../model/menu_model.dart';
 import '../providers/learnmore_provider.dart';
+import '../rewards/rewards.dart';
 import 'now_serving.dart';
 import 'offers_data.dart';
-import '/db/menu_db.dart';
-import '../rewards/rewards.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -25,6 +27,7 @@ class HomePage extends StatefulWidget {
 bool cartinit = false;
 late String username;
 late double res = 0;
+
 class _HomePageState extends State<HomePage> {
   late MenuDB db;
   List<MenuModel> data = [];
@@ -60,6 +63,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<Map<String, dynamic>> usernames = [];
+
   getUser() async {
     usernames = await udb.getDataUserData();
     getcurrenttier();
@@ -88,6 +92,7 @@ class _HomePageState extends State<HomePage> {
     await prefs.setString('signedInEmail', email);
     setState(() {});
   }
+
   starsneeded() {
     if (usernames.isEmpty) {
       silvervalue = 0;
@@ -119,7 +124,8 @@ class _HomePageState extends State<HomePage> {
                     ? const CircularProgressIndicator()
                     : getbanner(context, username, tier, rewards),
                 Container(
-                  padding: EdgeInsets.only(left: 10, top: Platform.isIOS?30:20, bottom: 10),
+                  padding: EdgeInsets.only(
+                      left: 10, top: Platform.isIOS ? 30 : 20, bottom: 10),
                   alignment: Alignment.topLeft,
                   child: AutoSizeText(
                     'Offers',
@@ -196,9 +202,11 @@ getbanner(context, username, tier, rewards) {
               blurRadius: 10.0,
             ),
           ]),
-          transform:  Matrix4.translationValues(
+          transform: Matrix4.translationValues(
             0,
-            Platform.isIOS?MediaQuery.of(context).size.height * 0.12:MediaQuery.of(context).size.height * 0.1,
+            Platform.isIOS
+                ? MediaQuery.of(context).size.height * 0.12
+                : MediaQuery.of(context).size.height * 0.1,
             0,
           ),
           child: Padding(
@@ -233,8 +241,8 @@ getbanner(context, username, tier, rewards) {
                           color: tier == "gold"
                               ? Colors.amberAccent
                               : tier == "silver"
-                              ? Colors.grey
-                              : Colors.brown,
+                                  ? Colors.grey
+                                  : Colors.brown,
                         ),
                         minFontSize: 12,
                       )

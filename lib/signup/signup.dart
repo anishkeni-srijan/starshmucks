@@ -1,26 +1,28 @@
-import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:get/get.dart';
 
 import '/db/user_db.dart';
-import '../model/user_model.dart';
 import '/signup/bloc/signup_bloc.dart';
 import '/signup/bloc/signup_events.dart';
+import '../model/user_model.dart';
 import '../signin/signin.dart';
 import 'bloc/signup_states.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
+
   @override
   State<SignupPage> createState() => _SignupPageState();
 }
 
 class _SignupPageState extends State<SignupPage> {
   bool isChecked = false;
+
   Color getColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
       MaterialState.pressed,
@@ -187,7 +189,8 @@ class _SignupPageState extends State<SignupPage> {
                   child: Form(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: TextFormField(
-                      controller: dob, //editing controller of this TextField
+                      controller: dob,
+                      //editing controller of this TextField
                       onChanged: (value) {
                         BlocProvider.of<SignupBloc>(context).add(
                           SignupDobChangedEvent(dob.text),
@@ -219,8 +222,8 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                         ),
                       ),
-                      readOnly:
-                          true, //set it true, so that user will not able to edit text
+                      readOnly: true,
+                      //set it true, so that user will not able to edit text
                       onTap: () async {
                         DateTime? pickedDate = await showDatePicker(
                           context: context,
@@ -229,7 +232,8 @@ class _SignupPageState extends State<SignupPage> {
                             1900,
                             1,
                             1,
-                          ), //DateTime.now() - not to allow to choose before today.
+                          ),
+                          //DateTime.now() - not to allow to choose before today.
                           lastDate: DateTime(2101),
                         );
 

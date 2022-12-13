@@ -15,17 +15,18 @@ class ResetpasswordInitialState extends ResetpasswordState {
 
 class ResetpasswordValidState extends ResetpasswordState {
   String validity = '';
+
   ResetpasswordValidState(this.validity);
 }
 
 class ResetpasswordErrorState extends ResetpasswordState {
   String errormessage = '';
+
   ResetpasswordErrorState(this.errormessage);
 }
 
 class ResetpasswordConfirmState extends ResetpasswordState {
   String message = '';
+
   ResetpasswordConfirmState(this.message);
 }
-
-

@@ -1,9 +1,12 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
+
+import '/db/cart_db.dart';
+import '/db/menu_db.dart';
 import '../common_things.dart';
 import '../db/wishlist_db.dart';
 import '../home/home_screen.dart';
@@ -11,8 +14,6 @@ import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 import '../model/wishlist_model.dart';
 import '../productdetail.dart';
-import '/db/cart_db.dart';
-import '/db/menu_db.dart';
 
 class GetCakeData extends StatefulWidget {
   const GetCakeData({Key? key}) : super(key: key);
@@ -28,6 +29,7 @@ class _GetCakeDataState extends State<GetCakeData> {
   late FToast fToast;
   late CartDB cdb;
   late WishlistDB wdb;
+
   @override
   void initState() {
     cdb = CartDB();
@@ -44,6 +46,7 @@ class _GetCakeDataState extends State<GetCakeData> {
   }
 
   late List<int> ids = [];
+
   getIds() async {
     ids.clear();
     late List<WishlistModel> datalist = [];
@@ -53,7 +56,6 @@ class _GetCakeDataState extends State<GetCakeData> {
     }
     setState(() {});
   }
-
 
   addToCart(context, index) async {
     final cartp = await db.cakedata();
@@ -89,7 +91,8 @@ class _GetCakeDataState extends State<GetCakeData> {
             return GestureDetector(
               onTap: () {
                 getpdata(data[index]);
-                Get.to(() => const ProductDetail(), transition: Transition.downToUp);
+                Get.to(() => const ProductDetail(),
+                    transition: Transition.downToUp);
               },
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.18,

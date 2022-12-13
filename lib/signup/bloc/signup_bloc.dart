@@ -1,10 +1,10 @@
-import 'package:get/get.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 import '/common_things.dart';
-import '/signup/bloc/signup_states.dart';
 import '/signup/bloc/signup_events.dart';
+import '/signup/bloc/signup_states.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc() : super(SignupInitialState()) {

@@ -15,17 +15,18 @@ class SignupInitialState extends SignupState {
 
 class SignupValidState extends SignupState {
   String validity = '';
+
   SignupValidState(this.validity);
 }
 
 class SignupErrorState extends SignupState {
   String errormessage = '';
+
   SignupErrorState(this.errormessage);
 }
 
 class SignupNoerrorState extends SignupState {
   String noerrormessage = '';
+
   SignupNoerrorState(this.noerrormessage);
 }
-
-

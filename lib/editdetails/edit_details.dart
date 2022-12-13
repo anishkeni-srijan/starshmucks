@@ -1,13 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '/model/user_model.dart';
 import '../db/user_db.dart';
 import 'bloc/editdetails_bloc.dart';
 import 'bloc/editdetails_states.dart';
-import 'dart:io';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -31,12 +32,14 @@ class _EditProfileState extends State<EditProfile> {
   late TextEditingController phcontroller;
 
   List<Map<String, dynamic>> usernames = [];
+
   getUser() async {
     usernames = await udb.getDataUserData();
     setState(() {});
   }
 
   late UserDB udb;
+
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
@@ -372,6 +375,7 @@ class _EditProfileState extends State<EditProfile> {
                 getUser();
 
                 Navigator.of(context).pop();
+                Navigator.of(context).pop();
               },
               child: Text(
                 "YES",
@@ -381,7 +385,7 @@ class _EditProfileState extends State<EditProfile> {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                //Navigator.of(context).pop();
+                Navigator.of(context).pop();
               },
               child: Text(
                 "NO",

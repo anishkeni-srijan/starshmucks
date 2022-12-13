@@ -15,11 +15,13 @@ class EditdetailsInitialState extends EditdetailsState {
 
 class EditdetailsValidState extends EditdetailsState {
   String validity = '';
+
   EditdetailsValidState(this.validity);
 }
 
 class EditdetailsErrorState extends EditdetailsState {
   String errormessage = '';
+
   EditdetailsErrorState(this.errormessage);
 }
 
