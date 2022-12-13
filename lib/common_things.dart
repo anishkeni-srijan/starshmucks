@@ -158,7 +158,7 @@ late var size = 0;
 getdata() async {
   CartDB cdb = CartDB();
   List<CartModel> data = await cdb.getDataCart();
-  size = data.length;
+  size=data.length;
 }
 
 getttl() async {
@@ -166,8 +166,7 @@ getttl() async {
   ttl = total.getDouble('total') ?? 0;
   savings = total.getDouble('savings') ?? 0;
 }
-
-viewincart() {
+viewincart(){
   getttl();
   getdata();
   return Row(

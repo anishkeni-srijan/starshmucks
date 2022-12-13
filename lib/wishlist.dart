@@ -9,6 +9,7 @@ import '/db/wishlist_db.dart';
 import '/model/wishlist_model.dart';
 import 'db/menu_db.dart';
 
+import 'home/offers_data.dart';
 import 'model/menu_model.dart';
 
 class WishListPage extends StatefulWidget {
@@ -53,10 +54,11 @@ class _WishListPageState extends State<WishListPage> {
       }
     }
     kart = wishlistTmp;
-    setState(() {});
+    this.mounted?setState(() {}):null;
   }
 
   removefromwishlist(sendid) {
+
     wdb.deleteitemFromWishlist(sendid);
     getDataOnIds();
   }
@@ -82,13 +84,13 @@ class _WishListPageState extends State<WishListPage> {
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return <Widget>[
                     SliverAppBar(
-                      automaticallyImplyLeading: false,
-                      leading: IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        onPressed: () {
-                          onWillPop();
-                        },
-                      ),
+                      // automaticallyImplyLeading: false,
+                      // leading: IconButton(
+                      //   icon: Icon(Icons.arrow_back),
+                      //   onPressed: () {
+                      //     onWillPop();
+                      //   },
+                      // ),
                       elevation: 4,
                       //toolbarHeight: 120,
                       backgroundColor: Colors.white,
