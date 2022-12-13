@@ -395,6 +395,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                 ),
+
                 //Confirm Password
                 Container(
                   width: MediaQuery.of(context).size.width * 0.8,
