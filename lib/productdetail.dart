@@ -56,7 +56,6 @@ class _ProductDetailState extends State<ProductDetail> {
 
   removefromwishlist(sendid) {
     wdb.deleteitemFromWishlist(sendid);
-
     getIds();
   }
 
@@ -80,7 +79,7 @@ class _ProductDetailState extends State<ProductDetail> {
       if (ids[i] == product.id) status = true;
     }
     return Scaffold(
-        persistentFooterButtons: cartinit ? [viewincart()] : null,
+        // persistentFooterButtons: cartinit ? [viewincart()] : null,
         bottomNavigationBar: Container(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(

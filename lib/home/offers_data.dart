@@ -201,20 +201,16 @@ class _GetOffersState extends State<GetOffers> {
                       IconButton(
                           onPressed: () {
                             //int id = odata[index].id;
-                            print("hi");
                             status
                                 ? removefromwishlist(
                                     WishlistModel(id: odata[index].id))
                                 : addToWishlist(context, index);
                             // getIds();
                           },
-                          icon: status
-                              ? Icon(
-                                  Icons.favorite,
-                                  color: Colors.white,
-                                )
-                              : Icon(Icons.favorite_border,
-                                  color: Colors.white))
+                          icon: Icon(
+                            status ? Icons.favorite : Icons.favorite_border,
+                            color: Colors.white,
+                          ))
                     ],
                   ),
                 ),
