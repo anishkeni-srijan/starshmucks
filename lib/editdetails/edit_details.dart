@@ -200,10 +200,8 @@ class _EditProfileState extends State<EditProfile> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * .89,
                             child: TextFormField(
-                              style: const TextStyle(
-                                  color: Colors.black), //<-- SEE HERE
+                              style: const TextStyle(color: Colors.black),
                               controller: phcontroller,
-
                               decoration: InputDecoration(
                                 contentPadding: EdgeInsets.all(5),
                                 labelText: "Phone1",
@@ -237,10 +235,8 @@ class _EditProfileState extends State<EditProfile> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * .89,
                             child: TextFormField(
-                              style: const TextStyle(
-                                  color: Colors.black), //<-- SEE HERE
+                              style: const TextStyle(color: Colors.black),
                               controller: ncontroller,
-
                               decoration: InputDecoration(
                                 contentPadding: EdgeInsets.all(5),
                                 labelText: "Name",
@@ -320,7 +316,7 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   showSelectionDialog() {
-    return Container(
+    return SizedBox(
       height: 100,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         TextButton.icon(
@@ -342,7 +338,7 @@ class _EditProfileState extends State<EditProfile> {
           },
           icon: Icon(Icons.image, color: HexColor("#175244")),
           label: Text(
-            'Choose one from galary',
+            'Choose from gallary',
             style: TextStyle(color: HexColor("#175244")),
           ),
         )
@@ -355,20 +351,48 @@ class _EditProfileState extends State<EditProfile> {
     imagefile = File(pickedfile!.path);
 
     saveImage = pickedfile.path;
-
-    var updateData = UserModel(
-        tier: usernames[0]['tier'],
-        dob: usernames[0]['dob'],
-        email: econtroller.text,
-        phone: phcontroller.text,
-        name: ncontroller.text,
-        password: usernames[0]['password'],
-        rewards: usernames[0]['rewards'],
-        tnc: usernames[0]['tnc'],
-        image: saveImage);
-    udb.updateUserData(usernames[0]['id'], updateData);
-    getUser();
-    setState(() {});
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Do you want to save the picture?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                var updateData = UserModel(
+                    tier: usernames[0]['tier'],
+                    dob: usernames[0]['dob'],
+                    email: econtroller.text,
+                    phone: phcontroller.text,
+                    name: ncontroller.text,
+                    password: usernames[0]['password'],
+                    rewards: usernames[0]['rewards'],
+                    tnc: usernames[0]['tnc'],
+                    image: saveImage);
+                udb.updateUserData(usernames[0]['id'], updateData);
+                getUser();
+                setState(() {});
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                "YES",
+                style: TextStyle(color: HexColor("#036635")),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                //Navigator.of(context).pop();
+              },
+              child: Text(
+                "NO",
+                style: TextStyle(color: HexColor("#036635")),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
