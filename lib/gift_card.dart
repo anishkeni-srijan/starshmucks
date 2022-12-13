@@ -1,7 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 
 import 'common_things.dart';
 import 'home/home_screen.dart';
@@ -15,6 +15,7 @@ class GiftCard extends StatefulWidget {
 
 class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
   late TabController tabController;
+
   @override
   void initState() {
     super.initState();
@@ -123,6 +124,7 @@ class giftCardDesign extends StatelessWidget {
 
   final VoidCallback press;
   final String price;
+
   @override
   Widget build(BuildContext context) {
     return Container(

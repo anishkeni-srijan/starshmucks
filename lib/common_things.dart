@@ -1,19 +1,21 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '/db/cart_db.dart';
-import 'db/user_db.dart';
-import 'home/home_screen.dart';
+import '/model/cart_model.dart';
 import '/user_profile.dart';
 import 'cart.dart';
+import 'db/user_db.dart';
 import 'gift_card.dart';
+import 'home/home_screen.dart';
 import 'menu/menu_page.dart';
 import 'model/user_model.dart';
 import 'order/order_failed.dart';
 import 'order/order_success.dart';
-import '/model/cart_model.dart';
 import 'wishlist.dart';
 
 class bottomBar extends StatefulWidget {
@@ -41,37 +43,78 @@ class _bottomBarState extends State<bottomBar> {
     });
   }
 
+  Future<bool> onWillPop() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Are you sure?'),
+            content: Text('Do you want to exit this app'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text('No', style: TextStyle(color: HexColor("#175244"))),
+              ),
+              TextButton(
+                onPressed: () => exit(0),
+                child: Text(
+                  'Yes',
+                  style: TextStyle(color: HexColor("#175244")),
+                ),
+              ),
+            ],
+          ),
+        )) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: gethomeappbar(),
-      body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: HexColor("#175244")),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.card_giftcard,
-              color: HexColor("#175244"),
+    return WillPopScope(
+      onWillPop: onWillPop,
+      child: Scaffold(
+        appBar: gethomeappbar(
+            "Starschmucks",
+            [
+              IconButton(
+                color: HexColor("#175244"),
+                onPressed: () {
+                  Get.to(() => WishListPage());
+                },
+                icon: const Icon(
+                  Icons.favorite,
+                ),
+              )
+            ],
+            false,
+            10.0),
+        body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.white,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home, color: HexColor("#175244")),
+              label: 'Home',
             ),
-            label: 'Gift',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu, color: HexColor("#175244")),
-            label: 'Order',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: HexColor("#175244")),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: HexColor("#175244"),
-        onTap: _onItemTapped,
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.card_giftcard,
+                color: HexColor("#175244"),
+              ),
+              label: 'Gift',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.menu, color: HexColor("#175244")),
+              label: 'Order',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person, color: HexColor("#175244")),
+              label: 'Profile',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: HexColor("#175244"),
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }
@@ -92,35 +135,30 @@ orderbutton() {
   );
 }
 
-gethomeappbar() {
+var route;
+
+gethomeappbar(title, action, automaticallyImplyLeadingStatus, ttlspacing) {
   return AppBar(
     backgroundColor: Colors.white,
     title: Text(
-      'Starschmucks',
+      title,
       style: TextStyle(
         color: HexColor("#175244"),
         fontWeight: FontWeight.w600,
       ),
     ),
     elevation: 0,
-    actions: [
-      IconButton(
-        color: HexColor("#175244"),
-        onPressed: () {
-          Get.to(() => WishListPage());
-        },
-        icon: const Icon(
-          Icons.favorite,
-        ),
-      ),
-    ],
-    automaticallyImplyLeading: false,
+    actions: action,
+    automaticallyImplyLeading: automaticallyImplyLeadingStatus,
+    foregroundColor: HexColor("#175244"),
+    titleSpacing: ttlspacing,
   );
 }
 
 late double ttl;
 late double savings = 0;
 late var size = 0;
+
 getdata() async {
   CartDB cdb = CartDB();
   List<CartModel> data = await cdb.getDataCart();
@@ -217,7 +255,6 @@ calcrewards() async {
   UserDB udb = UserDB();
   List<Map<String, dynamic>> usernames = [];
   usernames = await udb.getDataUserData();
-
   if (usernames[0]['tier'] == 'bronze') {
     res = usernames[0]['rewards'] + (ttl / 10) - (savings * 2);
   } else if (usernames[0]['tier'] == 'silver') {
@@ -239,7 +276,8 @@ calcrewards() async {
     name: usernames[0]['name'],
     password: usernames[0]['password'],
     phone: usernames[0]['phone'],
-    tnc: usernames[0]['tnc'], image: usernames[0]['image'],
+    tnc: usernames[0]['tnc'],
+    image: usernames[0]['image'],
     // addressID: ,
   );
 
@@ -250,7 +288,9 @@ class CustomToast extends StatelessWidget {
   const CustomToast(
     String this.toastMessage,
   );
+
   final String toastMessage;
+
   @override
   Widget build(BuildContext context) {
     return Container(

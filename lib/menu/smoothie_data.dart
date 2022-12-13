@@ -1,9 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 
+import '/db/cart_db.dart';
+import '/db/menu_db.dart';
 import '../common_things.dart';
 import '../db/wishlist_db.dart';
 import '../home/home_screen.dart';
@@ -11,8 +13,6 @@ import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 import '../model/wishlist_model.dart';
 import '../productdetail.dart';
-import '/db/cart_db.dart';
-import '/db/menu_db.dart';
 
 class GetSmoothieData extends StatefulWidget {
   const GetSmoothieData(context, {Key? key}) : super(key: key);
@@ -28,6 +28,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
   late CartDB cdb;
   late WishlistDB wdb;
   late FToast fToast;
+
   @override
   void initState() {
     cdb = CartDB();
@@ -43,6 +44,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
   }
 
   late List<int> ids = [];
+
   getIds() async {
     ids.clear();
     late List<WishlistModel> datalist = [];
@@ -52,7 +54,6 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     }
     setState(() {});
   }
-
 
   addToCartSmoothie(context, index) async {
     final cartp = await db.smoothiedata();

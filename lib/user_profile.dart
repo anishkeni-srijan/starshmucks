@@ -1,20 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:starshmucks/wishlist.dart';
-
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '/help_page.dart';
 import '/signin/signin.dart';
 // import 'boxes.dart';
 import 'common_things.dart';
 import 'db/user_db.dart';
 import 'editdetails/edit_details.dart';
 import 'home/home_screen.dart';
-
 import 'order/order_history.dart';
-import '/help_page.dart';
 import 'rewards/rewards.dart';
 
 class UserProfile extends StatefulWidget {
@@ -26,6 +24,7 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
   List<Map<String, dynamic>> usernames = [];
+
   getUser() async {
     usernames = await udb.getDataUserData();
 
@@ -35,6 +34,7 @@ class _UserProfileState extends State<UserProfile> {
   }
 
   late UserDB udb;
+
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
@@ -205,6 +205,7 @@ class profileTile extends StatelessWidget {
   final String text;
   final IconData icon;
   final VoidCallback press;
+
   @override
   Widget build(BuildContext context) {
     return Padding(

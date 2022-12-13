@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
-import 'package:starshmucks/common_things.dart';
-import 'package:starshmucks/home/home_screen.dart';
-import 'dart:io' show Platform;
+import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:starshmucks/home/home_screen.dart';
 
 import '/db/cart_db.dart';
 import '/model/cart_model.dart';
@@ -15,6 +13,7 @@ import 'model/menu_model.dart';
 
 class MyCart extends StatefulWidget {
   const MyCart({Key? key}) : super(key: key);
+
   @override
   State<MyCart> createState() => _MyCartState();
 }
@@ -31,6 +30,7 @@ class _MyCartState extends State<MyCart> {
   late List<CartModel> qtylist = [];
   List<CartModel> cartlist = [];
   late double ttl = 0;
+
   @override
   void initState() {
     menudb = MenuDB();

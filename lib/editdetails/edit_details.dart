@@ -1,13 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '/model/user_model.dart';
+import '../common_things.dart';
 import '../db/user_db.dart';
 import 'bloc/editdetails_bloc.dart';
 import 'bloc/editdetails_states.dart';
-import 'dart:io';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -31,12 +33,14 @@ class _EditProfileState extends State<EditProfile> {
   late TextEditingController phcontroller;
 
   List<Map<String, dynamic>> usernames = [];
+
   getUser() async {
     usernames = await udb.getDataUserData();
     setState(() {});
   }
 
   late UserDB udb;
+
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
@@ -53,11 +57,7 @@ class _EditProfileState extends State<EditProfile> {
       ncontroller = TextEditingController(text: usernames[0]['name']);
       phcontroller = TextEditingController(text: usernames[0]['phone']);
       return Scaffold(
-          appBar: AppBar(
-            title: Text("Edit Profile"),
-            backgroundColor: Colors.white,
-            foregroundColor: HexColor("#175244"),
-          ),
+          appBar: gethomeappbar("Edit Profile", [Container()], true, 0.0),
           backgroundColor: HexColor("#175244"),
           body: SingleChildScrollView(
             child: Column(
@@ -140,7 +140,7 @@ class _EditProfileState extends State<EditProfile> {
                           if (state is EditdetailsErrorState) {
                             return Text(
                               state.errormessage,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.red,
                               ),
                             );
@@ -200,13 +200,11 @@ class _EditProfileState extends State<EditProfile> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * .89,
                             child: TextFormField(
-                              style: const TextStyle(
-                                  color: Colors.black), //<-- SEE HERE
+                              style: const TextStyle(color: Colors.black),
                               controller: phcontroller,
-
                               decoration: InputDecoration(
                                 contentPadding: EdgeInsets.all(5),
-                                labelText: "Phone1",
+                                labelText: "Phone",
                                 labelStyle: TextStyle(
                                   color: HexColor("#175244"),
                                 ),
@@ -237,10 +235,8 @@ class _EditProfileState extends State<EditProfile> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * .89,
                             child: TextFormField(
-                              style: const TextStyle(
-                                  color: Colors.black), //<-- SEE HERE
+                              style: const TextStyle(color: Colors.black),
                               controller: ncontroller,
-
                               decoration: InputDecoration(
                                 contentPadding: EdgeInsets.all(5),
                                 labelText: "Name",
@@ -306,7 +302,6 @@ class _EditProfileState extends State<EditProfile> {
                               image: usernames[0]['image']);
                           udb.updateUserData(usernames[0]['id'], updateData);
                           getUser();
-                          setState(() {});
                         },
                         child: Text('UPDATE'),
                       )
@@ -320,7 +315,7 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   showSelectionDialog() {
-    return Container(
+    return SizedBox(
       height: 100,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         TextButton.icon(
@@ -342,7 +337,7 @@ class _EditProfileState extends State<EditProfile> {
           },
           icon: Icon(Icons.image, color: HexColor("#175244")),
           label: Text(
-            'Choose one from galary',
+            'Choose from gallary',
             style: TextStyle(color: HexColor("#175244")),
           ),
         )
@@ -355,20 +350,49 @@ class _EditProfileState extends State<EditProfile> {
     imagefile = File(pickedfile!.path);
 
     saveImage = pickedfile.path;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Do you want to save the picture?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                var updateData = UserModel(
+                    tier: usernames[0]['tier'],
+                    dob: usernames[0]['dob'],
+                    email: econtroller.text,
+                    phone: phcontroller.text,
+                    name: ncontroller.text,
+                    password: usernames[0]['password'],
+                    rewards: usernames[0]['rewards'],
+                    tnc: usernames[0]['tnc'],
+                    image: saveImage);
+                udb.updateUserData(usernames[0]['id'], updateData);
+                getUser();
 
-    var updateData = UserModel(
-        tier: usernames[0]['tier'],
-        dob: usernames[0]['dob'],
-        email: econtroller.text,
-        phone: phcontroller.text,
-        name: ncontroller.text,
-        password: usernames[0]['password'],
-        rewards: usernames[0]['rewards'],
-        tnc: usernames[0]['tnc'],
-        image: saveImage);
-    udb.updateUserData(usernames[0]['id'], updateData);
-    getUser();
-    setState(() {});
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                "YES",
+                style: TextStyle(color: HexColor("#036635")),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                "NO",
+                style: TextStyle(color: HexColor("#036635")),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 

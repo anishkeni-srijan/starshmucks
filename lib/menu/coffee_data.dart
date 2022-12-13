@@ -1,10 +1,12 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 
+import '/db/cart_db.dart';
+import '/db/menu_db.dart';
 import '../common_things.dart';
 import '../db/wishlist_db.dart';
 import '../home/home_screen.dart';
@@ -12,8 +14,6 @@ import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 import '../model/wishlist_model.dart';
 import '../productdetail.dart';
-import '/db/cart_db.dart';
-import '/db/menu_db.dart';
 
 class GetCoffeeData extends StatefulWidget {
   const GetCoffeeData({Key? key}) : super(key: key);
@@ -31,6 +31,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
   late WishlistDB wdb;
   late MenuDB db;
   late FToast fToast;
+
   @override
   void initState() {
     cdb = CartDB();
@@ -48,6 +49,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
   }
 
   late List<int> ids = [];
+
   getIds() async {
     ids.clear();
     late List<WishlistModel> datalist = [];
@@ -96,6 +98,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
   }
 
   List<CartModel> cartData = [];
+
   getCartData1() async {
     cartData = await cdb.getDataCart();
     setState(() {});
@@ -249,7 +252,6 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                                       child: const Text('Add'),
                                     ),
                                   ),
-
                                 ],
                               ),
                             ],
@@ -261,7 +263,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                 );
               },
             )
-          : const CircularProgressIndicator(),
+          : Center(child: const CircularProgressIndicator()),
     );
   }
 }

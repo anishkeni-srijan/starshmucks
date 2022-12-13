@@ -54,9 +54,8 @@ commonTextIPWidget(
       top: MediaQuery.of(context).size.height * 0.005,
     ),
     child: TextFormField(
-      style: const TextStyle(color: Colors.black), //<-- SEE HERE
+      style: const TextStyle(color: Colors.black),
       controller: txtcontroler,
-
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(5),
         labelText: lbltxt,

@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 
-import '../common_things.dart';
-import '../db/wishlist_db.dart';
-import '../model/wishlist_model.dart';
-import '../productdetail.dart';
 import '/db/menu_db.dart';
+import '../common_things.dart';
 import '../db/cart_db.dart';
+import '../db/wishlist_db.dart';
 import '../model/cart_model.dart';
 import '../model/menu_model.dart';
+import '../model/wishlist_model.dart';
+import '../productdetail.dart';
 import 'home_screen.dart';
 
 class NowServing extends StatefulWidget {
@@ -30,6 +30,7 @@ class _NowServingState extends State<NowServing> {
   late CartDB cdb;
   late WishlistDB wdb;
   late FToast fToast;
+
   @override
   void initState() {
     cdb = CartDB();
@@ -45,6 +46,7 @@ class _NowServingState extends State<NowServing> {
   }
 
   late List<int> ids = [];
+
   getIds() async {
     ids.clear();
     late List<WishlistModel> datalist = [];

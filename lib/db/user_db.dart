@@ -1,5 +1,6 @@
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+
 import '/model/address_model.dart';
 import '/model/user_model.dart';
 

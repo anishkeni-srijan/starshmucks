@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:get/get.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '/upi_payment.dart';
 import '/model/address_model.dart';
+import '/upi_payment.dart';
 import '../common_things.dart';
 import '../db/cart_db.dart';
 import '../db/orders_db.dart';
@@ -39,6 +39,7 @@ class _AddressState extends State<Address> {
   late bool rewards;
   late double ttl = 0;
   late double tempttl = 0;
+
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
@@ -55,6 +56,7 @@ class _AddressState extends State<Address> {
   }
 
   List<Map<String, dynamic>> userddt = [];
+
   getUser() async {
     userddt = await udb.getDataUserData();
     addressList = await udb.getDataUserAddress1();
@@ -253,6 +255,7 @@ class _AddressState extends State<Address> {
   }
 
   late double maxrewards = 0;
+
   userewards() async {
     maxrewards = userddt[0]['rewards'] / 2;
     if (maxrewards < (ttl / 20)) {
@@ -271,6 +274,7 @@ class _AddressState extends State<Address> {
   }
 
   var selectedVal;
+
   setSelectedVal(var val) {
     setState(() {
       selectedVal = val;
@@ -280,6 +284,7 @@ class _AddressState extends State<Address> {
   final offers = TextEditingController();
   bool afterSelecting = false;
   late double savings = 0;
+
   @override
   Widget build(BuildContext context) {
     getUser();
@@ -320,25 +325,44 @@ class _AddressState extends State<Address> {
           ),
         )
       ],
-      appBar: AppBar(
-        title: const Text('Checkout'),
-        backgroundColor: Colors.white,
-        foregroundColor: HexColor("#175244"),
-        actions: [
-          TextButton(
-            onPressed: () {
-              addAddress(context);
-            },
-            child: Container(
-              margin: const EdgeInsets.only(right: 10),
-              child: Text(
-                '+ Add Address',
-                style: TextStyle(color: HexColor("#036635")),
+      appBar: gethomeappbar(
+          "Checkout",
+          [
+            TextButton(
+              onPressed: () {
+                addAddress(context);
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 10),
+                child: Text(
+                  '+ Add Address',
+                  style: TextStyle(color: HexColor("#036635")),
+                ),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+          true,
+          0.0),
+
+      // AppBar(
+      //   title: const Text('Checkout'),
+      //   backgroundColor: Colors.white,
+      //   foregroundColor: HexColor("#175244"),
+      //   actions: [
+      //     TextButton(
+      //       onPressed: () {
+      //         addAddress(context);
+      //       },
+      //       child: Container(
+      //         margin: const EdgeInsets.only(right: 10),
+      //         child: Text(
+      //           '+ Add Address',
+      //           style: TextStyle(color: HexColor("#036635")),
+      //         ),
+      //       ),
+      //     ),
+      //   ],
+      // ),
       body: addressList.isEmpty
           ? Center(
               child: Column(
@@ -671,8 +695,7 @@ class _AddressState extends State<Address> {
                                   bottom: 10, left: 20, right: 20),
                               width: MediaQuery.of(context).size.width * 0.89,
                               child: TextFormField(
-                                style: const TextStyle(
-                                    color: Colors.black), //<-- SEE HERE
+                                style: const TextStyle(color: Colors.black),
                                 controller: offers,
                                 onChanged: (value) {},
                                 decoration: InputDecoration(
@@ -790,7 +813,7 @@ class _AddressState extends State<Address> {
                                           Text(
                                               "You can avail a max discount of 20% of your order total"),
                                           Text("Points used: " +
-                                              maxrewards.toString()),
+                                              maxrewards.toStringAsFixed(2)),
                                         ],
                                       )
                                     : Container(),
@@ -812,8 +835,8 @@ class _AddressState extends State<Address> {
             } else if (_value == 2 && afterSelecting == true) {
               Razorpay razorpay = Razorpay();
               var options = {
-                'key': 'rzp_test_jrCnK1rxXepbtl',
-                'amount': 100,
+                'key': 'rzp_test_tqyAEMlbjJL5b8',
+                'amount': (ttl + 5) * 100 * 83,
                 'name': 'Starschmucks.',
                 'description': 'Fine Coffee',
                 'retry': {'enabled': true, 'max_count': 1},

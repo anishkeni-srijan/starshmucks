@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:starshmucks/db/menu_db.dart';
-import 'package:starshmucks/home/home_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '/db/menu_db.dart';
+import '/home/home_screen.dart';
 import 'common_things.dart';
 import 'db/cart_db.dart';
 import 'db/wishlist_db.dart';
@@ -18,6 +18,7 @@ class ProductDetail extends StatefulWidget {
 }
 
 var product;
+
 getpdata(item) {
   product = item;
 }
@@ -33,6 +34,7 @@ class _ProductDetailState extends State<ProductDetail> {
   }
 
   late List<int> ids = [];
+
   getIds() async {
     ids.clear();
     late List<WishlistModel> datalist = [];
@@ -52,12 +54,12 @@ class _ProductDetailState extends State<ProductDetail> {
 
   removefromwishlist(sendid) {
     wdb.deleteitemFromWishlist(sendid);
-
     getIds();
   }
 
   late FToast fToast;
   late WishlistDB wdb;
+
   @override
   void initState() {
     wdb = WishlistDB();
@@ -75,7 +77,7 @@ class _ProductDetailState extends State<ProductDetail> {
       if (ids[i] == product.id) status = true;
     }
     return Scaffold(
-        persistentFooterButtons: cartinit ? [viewincart()] : null,
+        // persistentFooterButtons: cartinit ? [viewincart()] : null,
         bottomNavigationBar: Container(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
@@ -92,7 +94,7 @@ class _ProductDetailState extends State<ProductDetail> {
             // ],
           ),
         ),
-        appBar: gethomeappbar(),
+        appBar: gethomeappbar("Starschmucks", [Container()], false, 10.0),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,10 +161,10 @@ class _ProductDetailState extends State<ProductDetail> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          "Capacity",
+                          "Quantity",
                           style: TextStyle(fontWeight: FontWeight.w600),
                         ),
-                        Text("330ml"),
+                        Text(product.quantity),
                       ],
                     ),
                   ],
@@ -180,7 +182,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: const [
                         Text(
                           "Calories",
                           style: TextStyle(fontWeight: FontWeight.w600),
@@ -192,10 +194,19 @@ class _ProductDetailState extends State<ProductDetail> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          "Placeholder",
+                          "Ratings",
                           style: TextStyle(fontWeight: FontWeight.w600),
                         ),
-                        Text("temp"),
+                        Row(
+                          children: [
+                            Text(product.rating),
+                            Icon(
+                              Icons.star,
+                              color: Colors.amberAccent,
+                              size: 20,
+                            )
+                          ],
+                        )
                       ],
                     ),
                   ],
@@ -226,7 +237,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         transform: Matrix4.translationValues(
                             MediaQuery.of(context).size.width * 0.42, 0, 0),
                         decoration: BoxDecoration(
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                                 blurStyle: BlurStyle.solid,
                                 blurRadius: 20,
@@ -265,7 +276,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           transform: Matrix4.translationValues(
                               MediaQuery.of(context).size.width * 0.07, 0, 0),
                           decoration: BoxDecoration(
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                   blurStyle: BlurStyle.solid,
                                   blurRadius: 20,

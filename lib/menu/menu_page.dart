@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '/menu/smoothie_data.dart';
 import '../db/menu_db.dart';
 import '../model/menu_model.dart';
 import 'cake_data.dart';
 import 'coffee_data.dart';
-import '/menu/smoothie_data.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({Key? key}) : super(key: key);
@@ -22,6 +23,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
 
   late var product;
   List<MenuModel> data = [];
+
   //
   // late CartDB cdb;
   @override

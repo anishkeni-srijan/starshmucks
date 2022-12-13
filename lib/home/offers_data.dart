@@ -1,11 +1,11 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import 'dart:io' show Platform;
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:get/get.dart';
 import '/common_things.dart';
 import '/model/wishlist_model.dart';
 import '/productdetail.dart';
@@ -32,6 +32,7 @@ class _GetOffersState extends State<GetOffers> {
   late CartDB cdb;
   late WishlistDB wdb;
   late List<int> ids = [];
+
   getIds() async {
     ids.clear();
     late List<WishlistModel> datalist = [];
@@ -206,13 +207,10 @@ class _GetOffersState extends State<GetOffers> {
                                 : addToWishlist(context, index);
                             // getIds();
                           },
-                          icon: status
-                              ? Icon(
-                                  Icons.favorite,
-                                  color: Colors.white,
-                                )
-                              : Icon(Icons.favorite_border,
-                                  color: Colors.white))
+                          icon: Icon(
+                            status ? Icons.favorite : Icons.favorite_border,
+                            color: Colors.white,
+                          ))
                     ],
                   ),
                 ),

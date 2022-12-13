@@ -15,10 +15,12 @@ class ForgotpasswordInitialState extends ForgotpasswordState {
 
 class ForgotpasswordValidState extends ForgotpasswordState {
   String validity = '';
+
   ForgotpasswordValidState(this.validity);
 }
 
 class ForgotpasswordErrorState extends ForgotpasswordState {
   String errormessage = '';
+
   ForgotpasswordErrorState(this.errormessage);
 }

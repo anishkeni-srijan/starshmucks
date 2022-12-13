@@ -43,10 +43,9 @@ class SignupConfirmPasswordChangedEvent extends SignupEvent {
 }
 
 class SignuptandcChangedEvent extends SignupEvent {
- late bool checked;
+  late bool checked;
 
   SignuptandcChangedEvent(this.checked);
 }
 
-class SignupSumittedEvent extends SignupEvent {
-}
+class SignupSumittedEvent extends SignupEvent {}

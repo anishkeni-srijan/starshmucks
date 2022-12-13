@@ -1,14 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
-import '/common_things.dart';
+import 'package:hexcolor/hexcolor.dart';
 
+import '/common_things.dart';
 import '/db/wishlist_db.dart';
 import '/model/wishlist_model.dart';
 import 'db/menu_db.dart';
-
 import 'model/menu_model.dart';
 
 class WishListPage extends StatefulWidget {
@@ -28,6 +25,7 @@ class _WishListPageState extends State<WishListPage> {
   late List<WishlistModel> datalist = [];
   List<WishlistModel> wishlist = [];
   var route;
+
   //double ttl = 0;
   @override
   void initState() {
@@ -52,7 +50,7 @@ class _WishListPageState extends State<WishListPage> {
       }
     }
     kart = wishlistTmp;
-    setState(() {});
+    this.mounted ? setState(() {}) : null;
   }
 
   removefromwishlist(sendid) {
@@ -62,10 +60,9 @@ class _WishListPageState extends State<WishListPage> {
 
   Future<bool> onWillPop() async {
     //Navigator.pop(context,true);
-    return (await Get.to(bottomBar())) ?? false;
-    // var route = Get.back();
-    // print("route");
-    //print(route);
+    return (await Get.to(() => bottomBar(),
+            transition: Transition.leftToRight)) ??
+        false;
   }
 
   @override
@@ -82,11 +79,13 @@ class _WishListPageState extends State<WishListPage> {
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return <Widget>[
                     SliverAppBar(
-                      automaticallyImplyLeading: false,
-                      leading: IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        onPressed: () {},
-                      ),
+                      // automaticallyImplyLeading: false,
+                      // leading: IconButton(
+                      //   icon: Icon(Icons.arrow_back),
+                      //   onPressed: () {
+                      //     onWillPop();
+                      //   },
+                      // ),
                       elevation: 4,
                       //toolbarHeight: 120,
                       backgroundColor: Colors.white,

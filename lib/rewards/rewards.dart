@@ -1,16 +1,16 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:dotted_line/dotted_line.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:starshmucks/rewards/rewarddetails.dart';
-import 'package:get/get.dart';
-import '../db/user_db.dart';
+
 import '/common_things.dart';
 import '/home/home_screen.dart';
-import '../model/user_model.dart';
+import '../db/user_db.dart';
 
 class Rewards extends StatefulWidget {
   const Rewards({Key? key}) : super(key: key);
@@ -18,23 +18,25 @@ class Rewards extends StatefulWidget {
   @override
   State<Rewards> createState() => _RewardsState();
 }
+
 late double silvervalue = 0;
 late double goldvalue = 0;
 late double progvalue = 0;
 
 String nexttier = '';
+
 class _RewardsState extends State<Rewards> {
   String refLink = "http://starshmucks.com/refferal/cdJkk5";
   TextEditingController test = TextEditingController();
   late ItemScrollController itemScrollController = ItemScrollController();
   UserDB udb = UserDB();
   List<Map<String, dynamic>> usernames = [];
+
   getuser() async {
     usernames = await udb.getDataUserData();
     setState(() {});
     getnexttier();
     getprogress();
-
   }
 
   @override
@@ -73,11 +75,7 @@ class _RewardsState extends State<Rewards> {
         ? const Center(child: CircularProgressIndicator())
         : Scaffold(
             persistentFooterButtons: cartinit ? [viewincart()] : null,
-            appBar: AppBar(
-              title: const Text('Rewards'),
-              backgroundColor: Colors.white,
-              foregroundColor: HexColor("#175244"),
-            ),
+            appBar: gethomeappbar("Rewards", [Container()], true, 0.0),
             body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,70 +91,83 @@ class _RewardsState extends State<Rewards> {
                       shadowColor: Colors.black,
                       elevation: 4,
                       child: Container(
-                        margin: const EdgeInsets.only(left: 30),
-                        transform: Matrix4.translationValues(-10, 20, 0),
                         height: 200,
                         child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const AutoSizeText(
-                                    'My Points',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                    minFontSize: 23,
-                                  ),
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                      top: 5.0,
-                                    ),
-                                    child: Row(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        AutoSizeText(
-                                          usernames[0]['rewards']
-                                              .toStringAsFixed(2),
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.w600,
+                                        const AutoSizeText(
+                                          'My Points',
+                                          style: TextStyle(
                                             color: Colors.white,
                                           ),
                                           minFontSize: 23,
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                              top: 2.0, left: 5),
-                                          child: Icon(
-                                            Icons.stars_sharp,
-                                            color:
-                                                usernames[0]['tier'] == 'gold'
-                                                    ? Colors.amberAccent
-                                                    : usernames[0]['tier'] ==
-                                                            'silver'
-                                                        ? Colors.grey
-                                                        : Colors.brown,
+                                            top: 5.0,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              AutoSizeText(
+                                                usernames[0]['rewards']
+                                                    .toStringAsFixed(2),
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.white,
+                                                ),
+                                                minFontSize: 23,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 2.0, left: 5),
+                                                child: Icon(
+                                                  Icons.stars_sharp,
+                                                  color: usernames[0]['tier'] ==
+                                                          'gold'
+                                                      ? Colors.amberAccent
+                                                      : usernames[0]['tier'] ==
+                                                              'silver'
+                                                          ? Colors.grey
+                                                          : Colors.brown,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 70,
-                                  ),
-                                  Text(
-                                    usernames[0]['name'],
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 25,
+                                  Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Text(
+                                      usernames[0]['name'],
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 25,
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
                               Container(
-                                transform:
-                                    Matrix4.translationValues(20, -20, 0),
-                                child: Image.asset("images/shmucks.png"),
+                                padding: EdgeInsets.all(15),
+                                child: Image.asset(
+                                  "images/shmucks.png",
+                                  width: 150,
+                                  height: 150,
+                                ),
                               )
                             ]),
                       ),
@@ -249,7 +260,9 @@ class _RewardsState extends State<Rewards> {
                                       // color: Colors.white,
                                       backgroundColor: HexColor("#175244"),
                                       valueColor: AlwaysStoppedAnimation<Color>(
-                                          usernames[0]['tier'] == 'gold'?Colors.amberAccent:Colors.brown),
+                                          usernames[0]['tier'] == 'gold'
+                                              ? Colors.amberAccent
+                                              : Colors.brown),
                                       value: silvervalue,
                                     ),
                                   ),
@@ -264,12 +277,15 @@ class _RewardsState extends State<Rewards> {
                                   ),
                                   Container(
                                     margin: const EdgeInsets.only(bottom: 15),
-                                    width: MediaQuery.of(context).size.width * 0.26,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.26,
                                     child: LinearProgressIndicator(
                                       // color: Colors.white,
                                       backgroundColor: HexColor("#175244"),
-                                      valueColor: AlwaysStoppedAnimation<Color>( usernames[0]['tier'] == 'gold'?Colors.amberAccent:
-                                              Colors.grey),
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          usernames[0]['tier'] == 'gold'
+                                              ? Colors.amberAccent
+                                              : Colors.grey),
                                       value: goldvalue,
                                     ),
                                   ),
@@ -283,7 +299,6 @@ class _RewardsState extends State<Rewards> {
                                       )
                                     ],
                                   ),
-
                                 ],
                               ),
                             ),
@@ -386,7 +401,8 @@ class _RewardsState extends State<Rewards> {
                                       width: 20,
                                     ),
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         const Text(
                                           "Invite your friends",
@@ -613,6 +629,7 @@ class TierTile extends StatelessWidget {
   final String text;
   final Color color;
   final VoidCallback press;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(

@@ -15,11 +15,13 @@ class SigninInitialState extends SigninState {
 
 class SigninValidState extends SigninState {
   String validity = '';
+
   SigninValidState(this.validity);
 }
 
 class SigninErrorState extends SigninState {
   String errormessage = '';
+
   SigninErrorState(this.errormessage);
 }
 

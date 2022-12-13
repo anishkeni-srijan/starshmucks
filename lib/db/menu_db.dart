@@ -1,5 +1,5 @@
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../model/menu_model.dart';
 
@@ -45,35 +45,35 @@ class MenuDB {
   Future<List<MenuModel>> coffeedata() async {
     final Database db = await initDBMenu();
     final List<Map<String, dynamic?>> coffee =
-        await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['coffee']);
+        await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['Coffee']);
     return coffee.map((e) => MenuModel.fromJson(e)).toList();
   }
 
   Future<List<MenuModel>> cakedata() async {
     final Database db = await initDBMenu();
     final List<Map<String, dynamic?>> cake =
-        await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['cake']);
+        await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['Cake']);
     return cake.map((e) => MenuModel.fromJson(e)).toList();
   }
 
   Future<List<MenuModel>> smoothiedata() async {
     final Database db = await initDBMenu();
     final List<Map<String, dynamic?>> data =
-        await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['smoothie']);
+        await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['Smoothie']);
     return data.map((e) => MenuModel.fromJson(e)).toList();
   }
 
   Future<List<MenuModel>> NowServedata() async {
     final Database db = await initDBMenu();
     final List<Map<String, dynamic?>> nowserve =
-        await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['nowserve']);
+        await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['Nowserve']);
     return nowserve.map((e) => MenuModel.fromJson(e)).toList();
   }
 
   Future<List<MenuModel>> Offersdata() async {
     final Database db = await initDBMenu();
     final List<Map<String, dynamic>> offerlist =
-        await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['offers']);
+        await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['Offers']);
     return offerlist.map((e) => MenuModel.fromJson(e)).toList();
   }
 
