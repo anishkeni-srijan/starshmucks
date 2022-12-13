@@ -263,7 +263,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                 );
               },
             )
-          : const CircularProgressIndicator(),
+          : Center(child: const CircularProgressIndicator()),
     );
   }
 }

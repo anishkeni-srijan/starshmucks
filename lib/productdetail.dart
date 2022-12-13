@@ -185,7 +185,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: const [
                         Text(
                           "Calories",
                           style: TextStyle(fontWeight: FontWeight.w600),
@@ -240,7 +240,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         transform: Matrix4.translationValues(
                             MediaQuery.of(context).size.width * 0.42, 0, 0),
                         decoration: BoxDecoration(
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                                 blurStyle: BlurStyle.solid,
                                 blurRadius: 20,
@@ -279,7 +279,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           transform: Matrix4.translationValues(
                               MediaQuery.of(context).size.width * 0.07, 0, 0),
                           decoration: BoxDecoration(
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                   blurStyle: BlurStyle.solid,
                                   blurRadius: 20,

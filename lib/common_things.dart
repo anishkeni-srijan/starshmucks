@@ -107,6 +107,8 @@ orderbutton() {
 }
 
 gethomeappbar(title, action, automaticallyImplyLeadingStatus, ttlspacing) {
+var route;
+gethomeappbar() {
   return AppBar(
     backgroundColor: Colors.white,
     title: Text(
@@ -224,7 +226,6 @@ calcrewards() async {
   UserDB udb = UserDB();
   List<Map<String, dynamic>> usernames = [];
   usernames = await udb.getDataUserData();
-
   if (usernames[0]['tier'] == 'bronze') {
     res = usernames[0]['rewards'] + (ttl / 10) - (savings * 2);
   } else if (usernames[0]['tier'] == 'silver') {
