@@ -83,7 +83,9 @@ class _WishListPageState extends State<WishListPage> {
                       automaticallyImplyLeading: false,
                       leading: IconButton(
                         icon: Icon(Icons.arrow_back),
-                        onPressed: () {},
+                        onPressed: () {
+                          onWillPop();
+                        },
                       ),
                       elevation: 4,
                       //toolbarHeight: 120,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:starshmucks/db/menu_db.dart';
-import 'package:starshmucks/home/home_screen.dart';
+import 'package:get/get.dart';
+import 'package:starshmucks/wishlist.dart';
+import '/db/menu_db.dart';
+import '/home/home_screen.dart';
 
 import 'common_things.dart';
 import 'db/cart_db.dart';
@@ -95,7 +97,21 @@ class _ProductDetailState extends State<ProductDetail> {
             // ],
           ),
         ),
-        appBar: gethomeappbar(),
+        appBar: gethomeappbar(
+            "Starschmucks",
+            [
+              IconButton(
+                color: HexColor("#175244"),
+                onPressed: () {
+                  Get.to(() => WishListPage());
+                },
+                icon: const Icon(
+                  Icons.favorite,
+                ),
+              )
+            ],
+            false,
+            10),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

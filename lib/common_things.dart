@@ -44,7 +44,21 @@ class _bottomBarState extends State<bottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: gethomeappbar(),
+      appBar: gethomeappbar(
+          "Starschmucks",
+          [
+            IconButton(
+              color: HexColor("#175244"),
+              onPressed: () {
+                Get.to(() => WishListPage());
+              },
+              icon: const Icon(
+                Icons.favorite,
+              ),
+            )
+          ],
+          false,
+          10.0),
       body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
@@ -92,29 +106,21 @@ orderbutton() {
   );
 }
 
-gethomeappbar() {
+gethomeappbar(title, action, automaticallyImplyLeadingStatus, ttlspacing) {
   return AppBar(
     backgroundColor: Colors.white,
     title: Text(
-      'Starschmucks',
+      title,
       style: TextStyle(
         color: HexColor("#175244"),
         fontWeight: FontWeight.w600,
       ),
     ),
     elevation: 0,
-    actions: [
-      IconButton(
-        color: HexColor("#175244"),
-        onPressed: () {
-          Get.to(() => WishListPage());
-        },
-        icon: const Icon(
-          Icons.favorite,
-        ),
-      ),
-    ],
-    automaticallyImplyLeading: false,
+    actions: action,
+    automaticallyImplyLeading: automaticallyImplyLeadingStatus,
+    foregroundColor: HexColor("#175244"),
+    titleSpacing: ttlspacing,
   );
 }
 
