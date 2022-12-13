@@ -97,21 +97,7 @@ class _ProductDetailState extends State<ProductDetail> {
             // ],
           ),
         ),
-        appBar: gethomeappbar(
-            "Starschmucks",
-            [
-              IconButton(
-                color: HexColor("#175244"),
-                onPressed: () {
-                  Get.to(() => WishListPage());
-                },
-                icon: const Icon(
-                  Icons.favorite,
-                ),
-              )
-            ],
-            false,
-            10),
+        appBar: gethomeappbar("Starschmucks", [Container()], false, 10.0),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

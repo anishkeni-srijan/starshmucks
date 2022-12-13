@@ -75,11 +75,7 @@ class _RewardsState extends State<Rewards> {
         ? const Center(child: CircularProgressIndicator())
         : Scaffold(
             persistentFooterButtons: cartinit ? [viewincart()] : null,
-            appBar: AppBar(
-              title: const Text('Rewards'),
-              backgroundColor: Colors.white,
-              foregroundColor: HexColor("#175244"),
-            ),
+            appBar: gethomeappbar("Rewards", [Container()], true, 0.0),
             body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
