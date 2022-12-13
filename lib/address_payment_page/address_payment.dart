@@ -835,8 +835,8 @@ class _AddressState extends State<Address> {
             } else if (_value == 2 && afterSelecting == true) {
               Razorpay razorpay = Razorpay();
               var options = {
-                'key': 'rzp_test_jrCnK1rxXepbtl',
-                'amount': 100,
+                'key': 'rzp_test_tqyAEMlbjJL5b8',
+                'amount': (ttl + 5) * 100 * 83,
                 'name': 'Starschmucks.',
                 'description': 'Fine Coffee',
                 'retry': {'enabled': true, 'max_count': 1},
