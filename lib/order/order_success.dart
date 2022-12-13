@@ -165,13 +165,15 @@ class _OrderSuccessState extends State<OrderSuccess> {
                       children: [
                         Container(
                           transform: Matrix4.translationValues(0, 12, 0),
-                          child: Text(
-                            'Order id: ' + orderid.toString(),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                            ),
-                          ),
+                          child: orderid == 0
+                              ? LinearProgressIndicator()
+                              : Text(
+                                  'Order id: ' + orderid.toString(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 40,
+                                  ),
+                                ),
                         ),
                         Container(
                           transform: Matrix4.translationValues(0, 28, 0),
@@ -273,7 +275,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                                                 CrossAxisAlignment
                                                                     .start,
                                                             children: [
-                                                              Container(
+                                                              SizedBox(
                                                                   width: 150,
                                                                   child: Text(
                                                                       items1[index]

@@ -13,7 +13,6 @@ import '../model/menu_model.dart';
 import '../model/wishlist_model.dart';
 import '../productdetail.dart';
 import 'home_screen.dart';
-import 'offers_data.dart';
 
 class NowServing extends StatefulWidget {
   const NowServing({Key? key}) : super(key: key);
@@ -97,7 +96,7 @@ class _NowServingState extends State<NowServing> {
         scrollDirection: Axis.horizontal,
         itemCount: nowdata.length,
         itemBuilder: (context, index) {
-           bool status = false;
+          bool status = false;
           for (var i = 0; i < ids.length; i++) {
             if (ids[i] == nowdata[index].id) status = true;
           }

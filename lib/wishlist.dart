@@ -1,15 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
-import '/common_things.dart';
+import 'package:hexcolor/hexcolor.dart';
 
+import '/common_things.dart';
 import '/db/wishlist_db.dart';
 import '/model/wishlist_model.dart';
 import 'db/menu_db.dart';
-
-import 'home/offers_data.dart';
 import 'model/menu_model.dart';
 
 class WishListPage extends StatefulWidget {
@@ -54,11 +50,10 @@ class _WishListPageState extends State<WishListPage> {
       }
     }
     kart = wishlistTmp;
-    this.mounted?setState(() {}):null;
+    this.mounted ? setState(() {}) : null;
   }
 
   removefromwishlist(sendid) {
-
     wdb.deleteitemFromWishlist(sendid);
     getDataOnIds();
   }

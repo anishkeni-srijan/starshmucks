@@ -4,7 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../home/offers_data.dart';
 import '/db/cart_db.dart';
 import '/db/menu_db.dart';
 import '../common_things.dart';

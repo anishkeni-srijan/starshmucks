@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../common_things.dart';
 import '/model/user_model.dart';
+import '../common_things.dart';
 import '../db/user_db.dart';
 import 'bloc/editdetails_bloc.dart';
 import 'bloc/editdetails_states.dart';

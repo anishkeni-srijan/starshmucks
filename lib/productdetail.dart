@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:get/get.dart';
-import 'package:starshmucks/wishlist.dart';
+
 import '/db/menu_db.dart';
 import '/home/home_screen.dart';
-
 import 'common_things.dart';
 import 'db/cart_db.dart';
 import 'db/wishlist_db.dart';

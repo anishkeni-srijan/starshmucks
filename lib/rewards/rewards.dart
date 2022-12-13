@@ -93,17 +93,19 @@ class _RewardsState extends State<Rewards> {
                       child: Container(
                         height: 200,
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.all(15.0),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         const AutoSizeText(
                                           'My Points',
@@ -132,13 +134,13 @@ class _RewardsState extends State<Rewards> {
                                                     top: 2.0, left: 5),
                                                 child: Icon(
                                                   Icons.stars_sharp,
-                                                  color:
-                                                      usernames[0]['tier'] == 'gold'
-                                                          ? Colors.amberAccent
-                                                          : usernames[0]['tier'] ==
-                                                                  'silver'
-                                                              ? Colors.grey
-                                                              : Colors.brown,
+                                                  color: usernames[0]['tier'] ==
+                                                          'gold'
+                                                      ? Colors.amberAccent
+                                                      : usernames[0]['tier'] ==
+                                                              'silver'
+                                                          ? Colors.grey
+                                                          : Colors.brown,
                                                 ),
                                               ),
                                             ],
@@ -161,7 +163,11 @@ class _RewardsState extends State<Rewards> {
                               ),
                               Container(
                                 padding: EdgeInsets.all(15),
-                                child: Image.asset("images/shmucks.png",width: 150,height: 150,),
+                                child: Image.asset(
+                                  "images/shmucks.png",
+                                  width: 150,
+                                  height: 150,
+                                ),
                               )
                             ]),
                       ),

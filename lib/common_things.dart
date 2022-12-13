@@ -42,29 +42,31 @@ class _bottomBarState extends State<bottomBar> {
       _selectedIndex = index;
     });
   }
+
   Future<bool> onWillPop() async {
     return (await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Are you sure?'),
-        content: Text('Do you want to exit this app'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text('No', style: TextStyle(color: HexColor("#175244"))),
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Are you sure?'),
+            content: Text('Do you want to exit this app'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text('No', style: TextStyle(color: HexColor("#175244"))),
+              ),
+              TextButton(
+                onPressed: () => exit(0),
+                child: Text(
+                  'Yes',
+                  style: TextStyle(color: HexColor("#175244")),
+                ),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () => exit(0),
-            child: Text(
-              'Yes',
-              style: TextStyle(color: HexColor("#175244")),
-            ),
-          ),
-        ],
-      ),
-    )) ??
+        )) ??
         false;
   }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -132,7 +134,9 @@ orderbutton() {
     ), //icon inside button
   );
 }
+
 var route;
+
 gethomeappbar(title, action, automaticallyImplyLeadingStatus, ttlspacing) {
   return AppBar(
     backgroundColor: Colors.white,
@@ -158,7 +162,7 @@ late var size = 0;
 getdata() async {
   CartDB cdb = CartDB();
   List<CartModel> data = await cdb.getDataCart();
-  size=data.length;
+  size = data.length;
 }
 
 getttl() async {
@@ -166,7 +170,8 @@ getttl() async {
   ttl = total.getDouble('total') ?? 0;
   savings = total.getDouble('savings') ?? 0;
 }
-viewincart(){
+
+viewincart() {
   getttl();
   getdata();
   return Row(

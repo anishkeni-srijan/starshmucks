@@ -813,7 +813,7 @@ class _AddressState extends State<Address> {
                                           Text(
                                               "You can avail a max discount of 20% of your order total"),
                                           Text("Points used: " +
-                                              maxrewards.toString()),
+                                              maxrewards.toStringAsFixed(2)),
                                         ],
                                       )
                                     : Container(),
