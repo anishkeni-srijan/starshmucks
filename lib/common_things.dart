@@ -105,10 +105,8 @@ orderbutton() {
     ), //icon inside button
   );
 }
-
-gethomeappbar(title, action, automaticallyImplyLeadingStatus, ttlspacing) {
 var route;
-gethomeappbar() {
+gethomeappbar(title, action, automaticallyImplyLeadingStatus, ttlspacing) {
   return AppBar(
     backgroundColor: Colors.white,
     title: Text(
