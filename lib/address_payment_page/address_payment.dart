@@ -671,8 +671,7 @@ class _AddressState extends State<Address> {
                                   bottom: 10, left: 20, right: 20),
                               width: MediaQuery.of(context).size.width * 0.89,
                               child: TextFormField(
-                                style: const TextStyle(
-                                    color: Colors.black), //<-- SEE HERE
+                                style: const TextStyle(color: Colors.black),
                                 controller: offers,
                                 onChanged: (value) {},
                                 decoration: InputDecoration(

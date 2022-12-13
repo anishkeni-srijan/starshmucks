@@ -139,8 +139,7 @@ class _SignupPageState extends State<SignupPage> {
                   child: Form(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: TextFormField(
-                      style:
-                          const TextStyle(color: Colors.black), //<-- SEE HERE
+                      style: const TextStyle(color: Colors.black),
                       controller: name,
                       onChanged: (value) {
                         BlocProvider.of<SignupBloc>(context).add(
@@ -353,8 +352,7 @@ class _SignupPageState extends State<SignupPage> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: TextFormField(
                       obscureText: true,
-                      style:
-                          const TextStyle(color: Colors.black), //<-- SEE HERE
+                      style: const TextStyle(color: Colors.black),
                       controller: pass1,
                       onChanged: (value) {
                         BlocProvider.of<SignupBloc>(context).add(

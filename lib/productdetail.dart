@@ -159,10 +159,10 @@ class _ProductDetailState extends State<ProductDetail> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          "Capacity",
+                          "Quantity",
                           style: TextStyle(fontWeight: FontWeight.w600),
                         ),
-                        Text("330ml"),
+                        Text(product.quantity),
                       ],
                     ),
                   ],
@@ -192,10 +192,19 @@ class _ProductDetailState extends State<ProductDetail> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          "Placeholder",
+                          "Ratings",
                           style: TextStyle(fontWeight: FontWeight.w600),
                         ),
-                        Text("temp"),
+                        Row(
+                          children: [
+                            Text(product.rating),
+                            Icon(
+                              Icons.star,
+                              color: Colors.amberAccent,
+                              size: 20,
+                            )
+                          ],
+                        )
                       ],
                     ),
                   ],

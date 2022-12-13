@@ -206,8 +206,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         ),
                         child: TextFormField(
                           obscureText: true,
-                          style: const TextStyle(
-                              color: Colors.black), //<-- SEE HERE
+                          style: const TextStyle(color: Colors.black),
                           controller: confirmpasswordcontroller,
                           onChanged: (value) {
                             BlocProvider.of<ResetpasswordBloc>(context).add(
@@ -247,7 +246,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             var updateData = UserModel(
-                                tier:userddt[0]['tier'],
+                                tier: userddt[0]['tier'],
                                 dob: userddt[0]['dob'],
                                 email: userddt[0]['email'],
                                 phone: userddt[0]['phone'],
