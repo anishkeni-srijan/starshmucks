@@ -4,6 +4,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../common_things.dart';
+import '../db/menu_db.dart';
+import '../model/menu_model.dart';
 import '/db/orders_db.dart';
 import '/model/order_history.dart';
 import 'order_details.dart';
@@ -16,12 +18,31 @@ class Orders extends StatefulWidget {
 }
 
 class _OrdersState extends State<Orders> {
-  var idlistfromstring;
-  var qtylistfromstring;
   late Map<dynamic, dynamic> data = {};
   late List<dynamic> data1 = [];
-  List<OrderHistoryModel> Orderdata = [];
   late OrdersDB orderdb;
+  List<dynamic> idlistfromstring = [];
+  List<dynamic> qtylistfromstring = [];
+  List<MenuModel> items = [];
+  List<MenuModel> items1 = [];
+  List<OrderHistoryModel> orderdata = [];
+  getorderdetails(id) async {
+    MenuDB menudb = MenuDB();
+    menudb.initDBMenu();
+    orderdb = OrdersDB();
+    orderdb.initDBOrders();
+    orderdata = await orderdb.getDataOrderswrtID(id);
+    for (var i = 0; i < orderdata.length; i++) {
+      idlistfromstring = orderdata[i].id!.split(' ');
+      qtylistfromstring = orderdata[i].qty!.split(' ');
+    }
+    for (var i = 0; i < idlistfromstring.length; i++) {
+      items = await menudb.getitemwithId_order(idlistfromstring[i]);
+      items1.add(items.first);
+    }
+    getttl();
+    setState(() {});
+  }
 
   @override
   void initState() {
@@ -54,6 +75,7 @@ class _OrdersState extends State<Orders> {
               itemCount: data1.length,
               itemBuilder: (context, index) {
                 var res = index + 1;
+                getorderdetails(res);
                 return Padding(
                   padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                   child: ListTile(
@@ -67,20 +89,23 @@ class _OrdersState extends State<Orders> {
                         )),
                         label: Text("")),
                     leading: CircleAvatar(
-                      backgroundColor: const Color(0xff6ae792),
-                      child: Text(
-                        "#" + res.toString().toString(),
-                        style: TextStyle(color: Colors.black),
-                      ),
+                      radius: 50,
+                      child: items1.isEmpty
+                          ? Text("S1")
+                          : Image.asset(
+                              items1[index].image,
+                              height: 80,
+                              width: 80,
+                            ),
                     ),
                     contentPadding: EdgeInsets.all(10),
                     title: Text(
                       "Order id: #" + res.toString(),
                       style:
-                          TextStyle(fontSize: 14, color: HexColor("#175244")),
+                          TextStyle(fontSize: 16, color: HexColor("#175244")),
                     ),
                     subtitle: Text("Order Placed",
-                        style: TextStyle(fontSize: 14, color: Colors.black38)),
+                        style: TextStyle(fontSize: 16, color: Colors.black38)),
                     onTap: () async {
                       getdetails(res);
                     },
