@@ -34,30 +34,7 @@ class _OrderFailState extends State<OrderFail> {
     return WillPopScope(
       onWillPop: gohome,
       child: Scaffold(
-        appBar: AppBar(
-          titleSpacing: 0,
-          automaticallyImplyLeading: false,
-          title: Row(
-            children: [
-              TextButton.icon(
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: HexColor("#036635"),
-                ),
-                label: Text(''),
-                onPressed: () {
-                  Get.to(() => bottomBar());
-                },
-              ),
-              Text(
-                "Order Details",
-                style: TextStyle(color: HexColor("#175244")),
-              ),
-            ],
-          ),
-          backgroundColor: Colors.white,
-          foregroundColor: HexColor("#175244"),
-        ),
+        appBar: gethomeappbar("Order Details", [Container()], true, 0.0),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

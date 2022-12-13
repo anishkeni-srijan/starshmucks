@@ -124,22 +124,23 @@ class _OrderSuccessState extends State<OrderSuccess> {
     return WillPopScope(
       onWillPop: gohomefromsuccess,
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          leading: TextButton.icon(
-            icon: Icon(
-              Icons.arrow_back,
-              color: HexColor("#175244"),
-            ),
-            label: Text(''),
-            onPressed: () {
-              gohomefromsuccess();
-            },
-          ),
-          title: Text("Order details"),
-          backgroundColor: Colors.white,
-          foregroundColor: HexColor("#175244"),
-        ),
+        appBar: gethomeappbar("Order Details", [Container()], true, 0.0),
+        // AppBar(
+        //   automaticallyImplyLeading: false,
+        //   leading: TextButton.icon(
+        //     icon: Icon(
+        //       Icons.arrow_back,
+        //       color: HexColor("#175244"),
+        //     ),
+        //     label: Text(''),
+        //     onPressed: () {
+        //       gohomefromsuccess();
+        //     },
+        //   ),
+        //   title: Text("Order details"),
+        //   backgroundColor: Colors.white,
+        //   foregroundColor: HexColor("#175244"),
+        // ),
         body: qtylistfromstring.isEmpty || items1.isEmpty
             ? Center(child: CircularProgressIndicator())
             : SingleChildScrollView(

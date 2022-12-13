@@ -325,25 +325,44 @@ class _AddressState extends State<Address> {
           ),
         )
       ],
-      appBar: AppBar(
-        title: const Text('Checkout'),
-        backgroundColor: Colors.white,
-        foregroundColor: HexColor("#175244"),
-        actions: [
-          TextButton(
-            onPressed: () {
-              addAddress(context);
-            },
-            child: Container(
-              margin: const EdgeInsets.only(right: 10),
-              child: Text(
-                '+ Add Address',
-                style: TextStyle(color: HexColor("#036635")),
+      appBar: gethomeappbar(
+          "Checkout",
+          [
+            TextButton(
+              onPressed: () {
+                addAddress(context);
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 10),
+                child: Text(
+                  '+ Add Address',
+                  style: TextStyle(color: HexColor("#036635")),
+                ),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+          true,
+          0.0),
+
+      // AppBar(
+      //   title: const Text('Checkout'),
+      //   backgroundColor: Colors.white,
+      //   foregroundColor: HexColor("#175244"),
+      //   actions: [
+      //     TextButton(
+      //       onPressed: () {
+      //         addAddress(context);
+      //       },
+      //       child: Container(
+      //         margin: const EdgeInsets.only(right: 10),
+      //         child: Text(
+      //           '+ Add Address',
+      //           style: TextStyle(color: HexColor("#036635")),
+      //         ),
+      //       ),
+      //     ),
+      //   ],
+      // ),
       body: addressList.isEmpty
           ? Center(
               child: Column(
