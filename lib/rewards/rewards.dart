@@ -151,7 +151,6 @@ class _RewardsState extends State<Rewards> {
                                       ],
                                     ),
                                   ),
-
                                   Padding(
                                     padding: const EdgeInsets.all(15.0),
                                     child: Text(
