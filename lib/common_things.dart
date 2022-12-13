@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -40,52 +42,77 @@ class _bottomBarState extends State<bottomBar> {
       _selectedIndex = index;
     });
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: gethomeappbar(
-          "Starschmucks",
-          [
-            IconButton(
-              color: HexColor("#175244"),
-              onPressed: () {
-                Get.to(() => WishListPage());
-              },
-              icon: const Icon(
-                Icons.favorite,
-              ),
-            )
-          ],
-          false,
-          10.0),
-      body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: HexColor("#175244")),
-            label: 'Home',
+  Future<bool> onWillPop() async {
+    return (await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Are you sure?'),
+        content: Text('Do you want to exit an App'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text('No', style: TextStyle(color: HexColor("#175244"))),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.card_giftcard,
-              color: HexColor("#175244"),
+          TextButton(
+            onPressed: () => exit(0),
+            child: Text(
+              'Yes',
+              style: TextStyle(color: HexColor("#175244")),
             ),
-            label: 'Gift',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu, color: HexColor("#175244")),
-            label: 'Order',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: HexColor("#175244")),
-            label: 'Profile',
           ),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: HexColor("#175244"),
-        onTap: _onItemTapped,
+      ),
+    )) ??
+        false;
+  }
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: onWillPop,
+      child: Scaffold(
+        appBar: gethomeappbar(
+            "Starschmucks",
+            [
+              IconButton(
+                color: HexColor("#175244"),
+                onPressed: () {
+                  Get.to(() => WishListPage());
+                },
+                icon: const Icon(
+                  Icons.favorite,
+                ),
+              )
+            ],
+            false,
+            10.0),
+        body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.white,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home, color: HexColor("#175244")),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.card_giftcard,
+                color: HexColor("#175244"),
+              ),
+              label: 'Gift',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.menu, color: HexColor("#175244")),
+              label: 'Order',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person, color: HexColor("#175244")),
+              label: 'Profile',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: HexColor("#175244"),
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }
