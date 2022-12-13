@@ -204,7 +204,7 @@ class _EditProfileState extends State<EditProfile> {
                               controller: phcontroller,
                               decoration: InputDecoration(
                                 contentPadding: EdgeInsets.all(5),
-                                labelText: "Phone1",
+                                labelText: "Phone",
                                 labelStyle: TextStyle(
                                   color: HexColor("#175244"),
                                 ),
@@ -302,7 +302,6 @@ class _EditProfileState extends State<EditProfile> {
                               image: usernames[0]['image']);
                           udb.updateUserData(usernames[0]['id'], updateData);
                           getUser();
-                          setState(() {});
                         },
                         child: Text('UPDATE'),
                       )
@@ -371,7 +370,7 @@ class _EditProfileState extends State<EditProfile> {
                     image: saveImage);
                 udb.updateUserData(usernames[0]['id'], updateData);
                 getUser();
-                setState(() {});
+
                 Navigator.of(context).pop();
               },
               child: Text(
