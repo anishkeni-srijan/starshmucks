@@ -101,7 +101,7 @@ class _ProductDetailState extends State<ProductDetail> {
             Container(
               width: MediaQuery.of(context).size.width * 1,
               height: 500,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
                       "https://picsum.photos/id/1060/536/354.jpg?blur=5",
@@ -114,7 +114,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   Container(
                     transform: Matrix4.translationValues(
                         0, MediaQuery.of(context).size.height * 0.30, 0),
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(40.0),
@@ -123,7 +123,9 @@ class _ProductDetailState extends State<ProductDetail> {
                           bottomLeft: Radius.circular(40.0)),
                     ),
                   ),
-                  Center(
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.only(bottom: 20),
                     child: Image.asset(
                       product.image,
                       width: MediaQuery.of(context).size.width * 0.75,
@@ -135,8 +137,8 @@ class _ProductDetailState extends State<ProductDetail> {
             ),
             Container(
               margin: product.category == 'cake'
-                  ? EdgeInsets.only(top: 0)
-                  : EdgeInsets.only(top: 60),
+                  ? const EdgeInsets.only(top: 0)
+                  : const EdgeInsets.only(top: 60),
               padding: EdgeInsets.only(
                 left: MediaQuery.of(context).size.width * 0.2,
                 right: MediaQuery.of(context).size.width * 0.2,
@@ -149,7 +151,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Category",
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
@@ -159,7 +161,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
+                      const Text(
                         "Quantity",
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
@@ -192,14 +194,14 @@ class _ProductDetailState extends State<ProductDetail> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
+                      const Text(
                         "Ratings",
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                       Row(
                         children: [
                           Text(product.rating),
-                          Icon(
+                          const Icon(
                             Icons.star,
                             color: Colors.amberAccent,
                             size: 20,
@@ -218,7 +220,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   child: Text(
                     product.title,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 30),
+                    style: const TextStyle(fontSize: 30),
                   )),
             ),
             Padding(
@@ -231,7 +233,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     children: [
                       Text(
                         "\$" + product.price,
-                        style: TextStyle(fontSize: 30),
+                        style: const TextStyle(fontSize: 30),
                       ),
                       Row(
                         children: [
@@ -239,7 +241,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             width: MediaQuery.of(context).size.width * 0.1,
                             // margin: ,
                             decoration: BoxDecoration(
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                     blurStyle: BlurStyle.outer,
                                     blurRadius: 5,
@@ -259,11 +261,11 @@ class _ProductDetailState extends State<ProductDetail> {
                                 // getIds();
                               },
                               icon: status
-                                  ? Icon(
+                                  ? const Icon(
                                       Icons.favorite,
                                       color: Colors.white,
                                     )
-                                  : Icon(
+                                  : const Icon(
                                       Icons.favorite_border,
                                       color: Colors.white,
                                     ),
@@ -271,9 +273,9 @@ class _ProductDetailState extends State<ProductDetail> {
                           ),
                           Container(
                               width: MediaQuery.of(context).size.width * 0.1,
-                              margin: EdgeInsets.only(left: 10),
+                              margin: const EdgeInsets.only(left: 10),
                               decoration: BoxDecoration(
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     blurStyle: BlurStyle.solid,
                                     blurRadius: 5,
@@ -284,8 +286,8 @@ class _ProductDetailState extends State<ProductDetail> {
                                 color: HexColor("#175244"),
                                 shape: BoxShape.circle,
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(9.0),
+                              child: const Padding(
+                                padding: EdgeInsets.all(9.0),
                                 child: Icon(
                                   Icons.share,
                                   color: Colors.white,
@@ -298,17 +300,17 @@ class _ProductDetailState extends State<ProductDetail> {
             ),
             Container(
               transform: Matrix4.translationValues(0, -20, 0),
-              padding: EdgeInsets.only(left: 15, right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Description:",
+                  const Text("Description:",
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
                   Container(
                     child: Text(
                       product.description,
-                      style: TextStyle(fontSize: 15),
+                      style: const TextStyle(fontSize: 15),
                     ),
                   ),
                 ],

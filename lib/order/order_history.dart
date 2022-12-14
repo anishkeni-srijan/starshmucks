@@ -89,15 +89,17 @@ class _OrdersState extends State<Orders> {
                           color: Colors.black38,
                         )),
                         label: Text("")),
-                    leading: CircleAvatar(
-                      radius: 50,
-                      child: items1.isEmpty
-                          ? Text("S1")
-                          : Image.asset(
-                              items1[index].image,
-                              height: 80,
-                              width: 80,
-                            ),
+                    leading: Container(
+                      child: CircleAvatar(
+                        radius: 60,
+                        child: items1.isEmpty
+                            ? Text("S1")
+                            : Image.asset(
+                                items1[index].image,
+                                // height: 80,
+                                // width: 80,
+                              ),
+                      ),
                     ),
                     contentPadding: EdgeInsets.all(10),
                     title: Text(
