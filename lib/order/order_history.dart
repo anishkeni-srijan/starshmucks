@@ -73,7 +73,6 @@ class _OrdersState extends State<Orders> {
                   color: HexColor("#175244")),
             ))
           : ListView.separated(
-          // EdgeInsets.symmetric(horizontal: 16.0)
               itemCount: data1.length,
               itemBuilder: (context, index) {
                 var res = index + 1;
@@ -84,7 +83,7 @@ class _OrdersState extends State<Orders> {
                           getDetails(res);
                         },
                         icon: const Icon(
-                          Icons.arrow_forward_ios,
+                          Icons.arrow_forward,
                           color: Colors.black38,
                         ),
                         label: const Text("")),
