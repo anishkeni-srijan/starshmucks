@@ -254,7 +254,10 @@ class _OrderdetailState extends State<Orderdetail> {
                                           child: Center(
                                             child: Text(
                                               qtylistfromstring[index]+"x",
-                                              style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.white),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2
+                                                  ?.copyWith(color: Colors.white),
                                             ),
                                           ),
                                         ),
@@ -309,12 +312,11 @@ class _OrderdetailState extends State<Orderdetail> {
                               children: [
                                 const Text(
                                   "Subtotal",
-                                  style:
-                                  TextStyle(fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
                                 Text(
-                                  "\$ ${cartttl.toStringAsFixed(2)}",
-                                  style: const TextStyle(fontWeight: FontWeight.w300),
+                                  "\$${cartttl.toStringAsFixed(2)}",
+                                  style: const TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ],
                             ),
@@ -329,7 +331,7 @@ class _OrderdetailState extends State<Orderdetail> {
                                   TextStyle(fontWeight: FontWeight.w300),
                                 ),
                                 Text(
-                                  '- \$ $savings',
+                                  '- \$$savings',
                                   style:
                                   const TextStyle(fontWeight: FontWeight.w300),
                                 ),
@@ -346,7 +348,7 @@ class _OrderdetailState extends State<Orderdetail> {
                                   TextStyle(fontWeight: FontWeight.w300),
                                 ),
                                 Text(
-                                  "\$ 5.00",
+                                  "\$5.00",
                                   style:
                                   TextStyle(fontWeight: FontWeight.w300),
                                 ),
@@ -365,11 +367,11 @@ class _OrderdetailState extends State<Orderdetail> {
                                 const Text(
                                   "Total",
                                   style:
-                                  TextStyle(fontWeight: FontWeight.w600),
+                                  TextStyle(fontSize:18, fontWeight: FontWeight.w900),
                                 ),
                                 Text(
-                                  "\$ ${ttl.toStringAsFixed(2)}",
-                                  style: const TextStyle(fontWeight: FontWeight.w600),
+                                  "\$${ttl.toStringAsFixed(2)}",
+                                  style: const TextStyle(fontSize:18, fontWeight: FontWeight.w900),
                                 ),
                               ],
                             ),
