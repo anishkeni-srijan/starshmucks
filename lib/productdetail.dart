@@ -234,66 +234,27 @@ class _ProductDetailState extends State<ProductDetail> {
                           style: TextStyle(fontSize: 30),
                         ),
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.1,
-                            margin: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              boxShadow: const [
-                                BoxShadow(
-                                    blurStyle: BlurStyle.solid,
-                                    blurRadius: 20,
-                                    color: Colors.grey, //New
-                                    offset: Offset(0, 0))
-                              ],
-                              color: HexColor("#175244"),
-                              shape: BoxShape.circle,
-                            ),
-                            child: IconButton(
-                              onPressed: () {
-                                //int id = odata[index].id;
-                                status
-                                    ? removefromwishlist(
-                                    WishlistModel(id: product.id))
-                                    : addToWishlist(context, product.id);
-                                // getIds();
-                              },
-                              icon: status
-                                  ? Icon(
-                                Icons.favorite,
-                                color: Colors.white,
-                              )
-                                  : Icon(
-                                Icons.favorite_border,
-                                color: Colors.white,
-                              ),
-                            ),
+                      Container(
+                          width: MediaQuery.of(context).size.width * 0.1,
+                          margin: EdgeInsets.only(right:20),
+                          decoration: BoxDecoration(
+                            boxShadow: const [
+                              BoxShadow(
+                                  blurStyle: BlurStyle.solid,
+                                  blurRadius: 20,
+                                  color: Colors.grey, //New
+                                  offset: Offset(0, 0))
+                            ],
+                            color: HexColor("#175244"),
+                            shape: BoxShape.circle,
                           ),
-
-                          Container(
-                              width: MediaQuery.of(context).size.width * 0.1,
-                              margin: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                boxShadow: const [
-                                  BoxShadow(
-                                      blurStyle: BlurStyle.solid,
-                                      blurRadius: 20,
-                                      color: Colors.grey, //New
-                                      offset: Offset(0, 0))
-                                ],
-                                color: HexColor("#175244"),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(9.0),
-                                child: Icon(
-                                  Icons.share,
-                                  color: Colors.white,
-                                ),
-                              )),
-                        ],
-                      )
+                          child: Padding(
+                            padding: const EdgeInsets.all(9.0),
+                            child: Icon(
+                              Icons.share,
+                              color: Colors.white,
+                            ),
+                          ))
                     ]),
               ),
               Container(
