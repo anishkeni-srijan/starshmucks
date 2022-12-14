@@ -106,6 +106,8 @@ class _OrderdetailState extends State<Orderdetail> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData themeStyle = Theme.of(context);
+    double textWidth = MediaQuery.of(context).size.width * 0.45;
     return Scaffold(
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(
@@ -147,11 +149,11 @@ class _OrderdetailState extends State<Orderdetail> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
+                                    Text(
                                       "Deliver To",
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.blueGrey,
+                                        color: themeStyle.primaryColor,
                                         fontSize: 18),
                                     ),
                                     const SizedBox(height: 8),
@@ -199,11 +201,11 @@ class _OrderdetailState extends State<Orderdetail> {
                               crossAxisAlignment:
                               CrossAxisAlignment.start,
                               children: [
-                                const Text(
+                                Text(
                                   "Order Summary",
-                                  style: TextStyle(fontSize: 22,
+                                  style: TextStyle(fontSize: 20,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blueGrey),
+                                  color: themeStyle.primaryColor),
                                 ),
                                 const SizedBox(
                                   height: 10,
@@ -223,11 +225,6 @@ class _OrderdetailState extends State<Orderdetail> {
                                       "${orderdata[0].date}",
                                       style: const TextStyle(fontSize: 15),
                                     ),
-                                    // Text(
-                                    //   "items: ${idlistfromstring.length}",
-                                    //   style:
-                                    //   const TextStyle(fontSize: 13),
-                                    // ),
                                   ],
                                 ),
                               ],
@@ -238,48 +235,66 @@ class _OrderdetailState extends State<Orderdetail> {
                               shrinkWrap: true,
                               itemCount: qtylistfromstring.length,
                               itemBuilder: (context, index) {
-                                return Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment
-                                      .spaceBetween,
-                                  children: [
-                                    qtylistfromstring.isEmpty ||
-                                        items1.isEmpty
-                                        ? const Center(
-                                      child: Text('updating...'),
-                                    )
-                                        : Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment
-                                          .start,
-                                      children: [
-                                        SizedBox(
-                                            width: 150,
+                                return Padding(
+                                    padding: const EdgeInsets.only(
+                                      bottom: 10,
+                                    ),
+                                    child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Row(
+                                      children: <Widget>[
+                                        Container(
+                                          height: 32,
+                                          width: 32,
+                                          decoration: BoxDecoration(
+                                            color: themeStyle.primaryColor,
+                                            borderRadius: BorderRadius.circular(7),
+                                          ),
+                                          child: Center(
                                             child: Text(
+                                              qtylistfromstring[index]+"x",
+                                              style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 25),
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              width: textWidth,
+                                              child: Text(
                                                 items1[index]
                                                     .title
                                                     .toString(),
-                                                maxLines: 2,
-                                                overflow:
-                                                TextOverflow
-                                                    .ellipsis)),
-                                        Text(
-                                            qtylistfromstring[
-                                            index] +
-                                                ' x qty'),
+                                                overflow: TextOverflow.ellipsis,
+                                                style: Theme.of(context).textTheme.subtitle1,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: textWidth,
+                                              child: Text("Regular",
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .caption
+                                                      ?.copyWith(color: themeStyle.primaryColor)),
+                                            ),
+                                          ],
+                                        ),
                                       ],
                                     ),
-                                    Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.end,
-                                        children: [
-                                          Row(children: [
-                                            Text(
-                                              "\$ ${items1[index].price}",
-                                            ),
-                                          ]),
-                                        ])
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 4),
+                                      child: Text(
+                                        "\$${items1[index].price}",
+                                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w100),
+                                      ),
+                                    ),
                                   ],
+                                )
                                 );
                               },
                             ),
