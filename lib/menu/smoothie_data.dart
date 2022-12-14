@@ -61,7 +61,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
   }
 
   addToWishlist(context, index) async {
-    final cartp = await db.coffeedata();
+    final cartp = await db.smoothiedata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
 
     getIds();

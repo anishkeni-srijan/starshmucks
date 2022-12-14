@@ -65,7 +65,7 @@ class _GetCakeDataState extends State<GetCakeData> {
     //setState(() {});
   }
   addToWishlist(context, index) async {
-    final cartp = await db.NowServedata();
+    final cartp = await db.cakedata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
     getIds();
     // setState(() {});
