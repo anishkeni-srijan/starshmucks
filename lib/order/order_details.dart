@@ -35,7 +35,7 @@ class _OrderdetailState extends State<Orderdetail> {
 
   @override
   void initState() {
-    getorderid();
+    getOrderId();
     getUser();
     getAddress();
 
@@ -49,7 +49,7 @@ class _OrderdetailState extends State<Orderdetail> {
     setState(() {});
   }
 
-  getttl() async {
+  getTotal() async {
     final total = await SharedPreferences.getInstance();
     savings = total.getDouble('savings')!;
     for (var i = 0; i < items1.length; i++) {
@@ -68,16 +68,16 @@ class _OrderdetailState extends State<Orderdetail> {
     }
   }
 
-  getorderid() async {
+  getOrderId() async {
     final prefs = await SharedPreferences.getInstance();
     id = (await prefs.getInt('orderid'))!;
-    await getorderdetails(id);
+    await getOrderDetails(id);
     setState(() {});
   }
 
-  getorderdetails(id) async {
-    MenuDB menudb = MenuDB();
-    menudb.initDBMenu();
+  getOrderDetails(id) async {
+    MenuDB menuDb = MenuDB();
+    menuDb.initDBMenu();
 
     orderdb = OrdersDB();
     orderdb.initDBOrders();
@@ -87,10 +87,10 @@ class _OrderdetailState extends State<Orderdetail> {
       qtylistfromstring = orderdata[i].qty!.split(' ');
     }
     for (var i = 0; i < idlistfromstring.length; i++) {
-      items = await menudb.getitemwithId_order(idlistfromstring[i]);
+      items = await menuDb.getitemwithId_order(idlistfromstring[i]);
       items1.add(items.first);
     }
-    getttl();
+    getTotal();
     setState(() {});
   }
 
@@ -104,6 +104,7 @@ class _OrderdetailState extends State<Orderdetail> {
     return selectedAddress;
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
@@ -136,213 +137,235 @@ class _OrderdetailState extends State<Orderdetail> {
                         ? const Center(
                             child: Text('updating...'),
                           )
-                        : Padding(
-                            padding: const EdgeInsets.all(10.0),
+                        : Container(
+                          padding: const EdgeInsets.all(10),
+                          width: MediaQuery.of(context).size.width * 1,
                             child: Card(
                               elevation: 8,
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(20.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "Deliver To",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.blueGrey,
+                                        fontSize: 18),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        const Text(
-                                          "Order placed",
-                                          style: TextStyle(fontSize: 22),
+                                        Image.asset(
+                                          'images/map.png',
+                                          height: 100,
+                                          width: 100,
+                                          alignment: Alignment.centerLeft,
                                         ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              "on ${orderdata[0].date}",
-                                              style: const TextStyle(fontSize: 13),
-                                            ),
-                                            Text(
-                                              "items: ${idlistfromstring.length}",
-                                              style:
-                                                  const TextStyle(fontSize: 13),
-                                            ),
-                                          ],
+                                        const SizedBox(width: 10),
+                                        Expanded(
+                                          child:
+                                          Text(
+                                            selectedAddress,
+                                            softWrap: false,
+                                            maxLines: 4,
+                                            overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontSize: 16)//new
+                                          ),
                                         ),
                                       ],
-                                    ),
-                                  ),
-                                  ListView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: qtylistfromstring.length,
-                                    itemBuilder: (context, index) {
-                                      return Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 20,
-                                                right: 20,
-                                                bottom: Platform.isIOS ? 0 : 20,
-                                                top: 0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                qtylistfromstring.isEmpty ||
-                                                        items1.isEmpty
-                                                    ? const Center(
-                                                        child:
-                                                            Text('updating...'),
-                                                      )
-                                                    : Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          SizedBox(
-                                                              width: 150,
-                                                              child: Text(
-                                                                  items1[index]
-                                                                      .title
-                                                                      .toString(),
-                                                                  maxLines: 2,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis)),
-                                                          Text(
-                                                              qtylistfromstring[
-                                                                      index] +
-                                                                  ' x qty'),
-                                                        ],
-                                                      ),
-                                                Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
-                                                    children: [
-                                                      Row(children: [
-                                                        Text(
-                                                          "\$ ${items1[index].price}",
-                                                        ),
-                                                      ]),
-                                                    ])
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                     Container(
-                      padding:
-                          const EdgeInsets.only(left: 10, right: 10, top: 10),
-                      width: MediaQuery.of(context).size.width * 1,
-                      child: Card(
-                        elevation: 8,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20.0, bottom: 20.0, left: 20, right: 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    "Cart total",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    "\$ ${cartttl.toStringAsFixed(2)}",
-                                    style: const TextStyle(fontWeight: FontWeight.w300),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    "Points savings",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w300),
-                                  ),
-                                  Text(
-                                    '-\$ $savings',
-                                    style:
-                                        const TextStyle(fontWeight: FontWeight.w300),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: const [
-                                  Text(
-                                    "Delivery Charges",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w300),
-                                  ),
-                                  Text(
-                                    "\$ 5.00",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w300),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    "Total Amount",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w600),
-                                  ),
-                                  Text(
-                                    "\$ ${ttl.toStringAsFixed(2)}",
-                                    style: const TextStyle(fontWeight: FontWeight.w600),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
                       padding: const EdgeInsets.only(
                         left: 10,
                         right: 10,
-                        top: 10,
                       ),
                       width: MediaQuery.of(context).size.width * 1,
                       child: Card(
                         elevation: 8,
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
+                        child:Padding(
+                          padding: const EdgeInsets.all(15.0),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Deliver To",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              Text(selectedAddress),
-                            ],
-                          ),
+                          children: [
+                            Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Order Summary",
+                                  style: TextStyle(fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blueGrey),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.start,
+                                  children: [
+                                    const Icon(
+                                      Icons.date_range_outlined,
+                                      size: 20.0,
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "${orderdata[0].date}",
+                                      style: const TextStyle(fontSize: 15),
+                                    ),
+                                    // Text(
+                                    //   "items: ${idlistfromstring.length}",
+                                    //   style:
+                                    //   const TextStyle(fontSize: 13),
+                                    // ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            ListView.builder(
+                              physics:
+                              const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: qtylistfromstring.length,
+                              itemBuilder: (context, index) {
+                                return Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment
+                                      .spaceBetween,
+                                  children: [
+                                    qtylistfromstring.isEmpty ||
+                                        items1.isEmpty
+                                        ? const Center(
+                                      child: Text('updating...'),
+                                    )
+                                        : Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment
+                                          .start,
+                                      children: [
+                                        SizedBox(
+                                            width: 150,
+                                            child: Text(
+                                                items1[index]
+                                                    .title
+                                                    .toString(),
+                                                maxLines: 2,
+                                                overflow:
+                                                TextOverflow
+                                                    .ellipsis)),
+                                        Text(
+                                            qtylistfromstring[
+                                            index] +
+                                                ' x qty'),
+                                      ],
+                                    ),
+                                    Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.end,
+                                        children: [
+                                          Row(children: [
+                                            Text(
+                                              "\$ ${items1[index].price}",
+                                            ),
+                                          ]),
+                                        ])
+                                  ],
+                                );
+                              },
+                            ),
+                            const Divider(
+                              color: Colors.grey,
+                              thickness: 1,
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "Subtotal",
+                                  style:
+                                  TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "\$ ${cartttl.toStringAsFixed(2)}",
+                                  style: const TextStyle(fontWeight: FontWeight.w300),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "Points savings",
+                                  style:
+                                  TextStyle(fontWeight: FontWeight.w300),
+                                ),
+                                Text(
+                                  '- \$ $savings',
+                                  style:
+                                  const TextStyle(fontWeight: FontWeight.w300),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: const [
+                                Text(
+                                  "Delivery Charges",
+                                  style:
+                                  TextStyle(fontWeight: FontWeight.w300),
+                                ),
+                                Text(
+                                  "\$ 5.00",
+                                  style:
+                                  TextStyle(fontWeight: FontWeight.w300),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            const Divider(
+                              color: Colors.grey,
+                              thickness: 1,
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "Total",
+                                  style:
+                                  TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                                Text(
+                                  "\$ ${ttl.toStringAsFixed(2)}",
+                                  style: const TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            const Divider(
+                              color: Colors.grey,
+                              thickness: 1,
+                            ),
+                          ],
                         ),
+                        )
                       ),
                     ),
                     GestureDetector(
@@ -388,3 +411,4 @@ class _OrderdetailState extends State<Orderdetail> {
     );
   }
 }
+
