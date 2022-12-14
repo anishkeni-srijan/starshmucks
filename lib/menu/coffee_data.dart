@@ -60,38 +60,20 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     setState(() {});
   }
 
-  // removefromwishlist(sendid) {
-  //   wdb.deleteitemFromWishlist(sendid);
-  //   String toastMessage = "ITEM REMOVED TO WISHLIST";
-  //   fToast.showToast(
-  //     child: CustomToast(toastMessage),
-  //     positionedToastBuilder: (context, child) => Positioned(
-  //       child: child,
-  //       bottom: MediaQuery.of(context).size.height * 0.14,
-  //       left: MediaQuery.of(context).size.width * 0.1,
-  //       right: MediaQuery.of(context).size.width * 0.1,
-  //     ),
-  //   );
-  //   getIds();
-  // }
-  //
-  // addToWishlist(context, index) async {
-  //   final cartp = await menuDB.coffeedata();
-  //   wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
-  //   String toastMessage = "ITEM ADDED TO WISHLIST";
-  //   fToast.showToast(
-  //     child: CustomToast(toastMessage),
-  //     positionedToastBuilder: (context, child) => Positioned(
-  //       child: child,
-  //       bottom: MediaQuery.of(context).size.height * 0.14,
-  //       left: MediaQuery.of(context).size.width * 0.1,
-  //       right: MediaQuery.of(context).size.width * 0.1,
-  //     ),
-  //   );
-  //   getIds();
-  // }
+  removefromwishlist(sendid) {
+    wdb.deleteitemFromWishlist(sendid);
 
-  addToCartCoffee(context, index) async {
+    getIds();
+  }
+
+  addToWishlist(context, index) async {
+    final cartp = await menuDB.coffeedata();
+    wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
+
+    getIds();
+  }
+
+  addToCart(context, index) async {
     final cartp = await menuDB.coffeedata();
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
     //setState(() {});
@@ -101,7 +83,9 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
 
   getCartData1() async {
     cartData = await cdb.getDataCart();
-    setState(() {});
+    if (this.mounted) {
+      setState(() {});
+    }
   }
 
   getCoffeeData() async {
@@ -139,37 +123,41 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border(
-                          bottom: BorderSide(
-                              color: HexColor("#175244"), width: 0.2)),
+                          bottom:
+                          BorderSide(color: HexColor("#175244"), width: 0.2)),
                     ),
                     child: Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.start, //change here don't //worked
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
-                          padding: const EdgeInsets.only(left: 10, bottom: 20),
-                          transform: Matrix4.translationValues(-10, 20, 0),
+                          padding: const EdgeInsets.only(left: 10,),
                           child: Image.asset(
                             data[index].image,
-                            width: 150,
-                            height: 150,
+                            width: 120,
+                            height: 120,
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.only(
-                            top: 15,
-                          ),
+                          padding: const EdgeInsets.all(10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              AutoSizeText(
-                                data[index].title,
-                                style: const TextStyle(
-                                  color: Colors.black,
+                              Container(
+                                padding: EdgeInsets.only(top: 10),
+                                width:150,
+                                child: AutoSizeText(
+                                  data[index].title,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                  maxFontSize: 18,
+                                  maxLines: 1,
                                 ),
-                                maxFontSize: 18,
-                                maxLines: 1,
+                              ),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.height * 0.01,
                               ),
                               Text(
                                 " \$ " + data[index].price,
@@ -180,8 +168,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                                 ),
                               ),
                               SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.width * 0.02,
+                                height: MediaQuery.of(context).size.height * 0.04,
                               ),
                               Row(
                                 children: <Widget>[
@@ -199,60 +186,74 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                                     size: 20,
                                     color: Colors.amberAccent,
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                        left:
-                                            MediaQuery.of(context).size.width *
-                                                0.22),
-                                    child: TextButton(
-                                      onPressed: () {
-                                        addToCartCoffee(context, index);
-                                        String toastMessage =
-                                            "ITEM ADDED TO CART";
-                                        fToast.showToast(
-                                          child: CustomToast(toastMessage),
-                                          positionedToastBuilder:
-                                              (context, child) => Positioned(
-                                            child: child,
-                                            bottom: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.14,
-                                            left: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.1,
-                                            right: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.1,
-                                          ),
-                                        );
-                                        setState(() {
-                                          cartinit = true;
-                                        });
-                                      },
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                index % 2 == 0
-                                                    ? Colors.teal
-                                                    : Colors.deepOrangeAccent),
-                                        foregroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.white),
-                                        shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(18.0),
-                                          ),
-                                        ),
-                                      ),
-                                      child: const Text('Add'),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(right: 10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              IconButton(
+                                  onPressed: () {
+                                    //int id = odata[index].id;
+                                    status
+                                        ? removefromwishlist(
+                                        WishlistModel(id: data[index].id))
+                                        : addToWishlist(context, index);
+                                  },
+                                  icon: status
+                                      ? const Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                  )
+                                      : Icon(Icons.favorite_border,)),
+                              TextButton(
+                                onPressed: () {
+                                  addToCart(context, index);
+                                  String toastMessage = "ITEM ADDED TO CART";
+                                  fToast.showToast(
+                                    child: CustomToast(toastMessage),
+                                    positionedToastBuilder:
+                                        (context, child) => Positioned(
+                                      child: child,
+                                      bottom:
+                                      MediaQuery.of(context).size.height *
+                                          0.14,
+                                      left:
+                                      MediaQuery.of(context).size.width *
+                                          0.1,
+                                      right:
+                                      MediaQuery.of(context).size.width *
+                                          0.1,
+                                    ),
+                                  );
+                                  setState(
+                                        () {
+                                      cartinit = true;
+                                    },
+                                  );
+                                },
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                  MaterialStateProperty.all<Color>(
+                                      index % 2 == 0
+                                          ? Colors.teal
+                                          : Colors.deepOrangeAccent),
+                                  foregroundColor:
+                                  MaterialStateProperty.all<Color>(
+                                      Colors.white),
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(18.0),
                                     ),
                                   ),
-                                ],
+                                ),
+                                child: const Text('Add'),
                               ),
                             ],
                           ),

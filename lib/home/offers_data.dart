@@ -76,11 +76,13 @@ class _GetOffersState extends State<GetOffers> {
   addToWishlist(context, index) async {
     final cartp = await db.Offersdata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
+
     getIds();
   }
 
   removefromwishlist(sendid) {
     wdb.deleteitemFromWishlist(sendid);
+
     getIds();
   }
 

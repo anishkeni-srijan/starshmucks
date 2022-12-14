@@ -79,13 +79,13 @@ class _WishListPageState extends State<WishListPage> {
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return <Widget>[
                     SliverAppBar(
-                      // automaticallyImplyLeading: false,
-                      // leading: IconButton(
-                      //   icon: Icon(Icons.arrow_back),
-                      //   onPressed: () {
-                      //     onWillPop();
-                      //   },
-                      // ),
+                      automaticallyImplyLeading: false,
+                      leading: IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        onPressed: () {
+                          onWillPop();
+                        },
+                      ),
                       elevation: 4,
                       //toolbarHeight: 120,
                       backgroundColor: Colors.white,

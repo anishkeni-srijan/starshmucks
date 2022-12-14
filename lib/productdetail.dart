@@ -27,6 +27,7 @@ class _ProductDetailState extends State<ProductDetail> {
   addToCart(prod) async {
     CartDB cdb = CartDB();
     MenuDB db = MenuDB();
+
     var ttl = await cdb.getDataCart();
     ttl.isEmpty
         ? cdb.insertDataCart(CartModel(id: prod.id, qty: 1))
@@ -77,7 +78,7 @@ class _ProductDetailState extends State<ProductDetail> {
       if (ids[i] == product.id) status = true;
     }
     return Scaffold(
-        // persistentFooterButtons: cartinit ? [viewincart()] : null,
+      // persistentFooterButtons: cartinit ? [viewincart()] : null,
         bottomNavigationBar: Container(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
@@ -88,7 +89,7 @@ class _ProductDetailState extends State<ProductDetail> {
             },
             style: ButtonStyle(
                 backgroundColor:
-                    MaterialStateProperty.all(HexColor("#036635"))),
+                MaterialStateProperty.all(HexColor("#036635"))),
             child: const Text("Add To Cart"),
             //   ),
             // ],
@@ -97,11 +98,10 @@ class _ProductDetailState extends State<ProductDetail> {
         appBar: gethomeappbar("Starschmucks", [Container()], false, 10.0),
         body: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 width: MediaQuery.of(context).size.width * 1,
-                height: 500,
+                height: MediaQuery.of(context).size.height * 0.55,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(
@@ -114,7 +114,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   children: [
                     Container(
                       transform: Matrix4.translationValues(
-                          0, MediaQuery.of(context).size.height * 0.30, 0),
+                          0, MediaQuery.of(context).size.height * 0.25, 0),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
@@ -127,8 +127,8 @@ class _ProductDetailState extends State<ProductDetail> {
                     Center(
                       child: Image.asset(
                         product.image,
-                        width: MediaQuery.of(context).size.width * 0.75,
-                        height: MediaQuery.of(context).size.height * 0.45,
+                        width: MediaQuery.of(context).size.width * 0.50,
+                        height: MediaQuery.of(context).size.height * 0.50,
                       ),
                     ),
                   ],
@@ -212,69 +212,31 @@ class _ProductDetailState extends State<ProductDetail> {
                   ],
                 ),
               ),
-              Center(
-                child: Container(
-                    transform: Matrix4.translationValues(
-                        0, MediaQuery.of(context).size.height * -0.07, 0),
-                    child: Text(
-                      product.title,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 30),
-                    )),
-              ),
+              Container(
+                alignment: Alignment.center,
+                  transform: Matrix4.translationValues(
+                      0, MediaQuery.of(context).size.height * -0.07, 0),
+                  child: Text(
+                    product.title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 30),
+                  )),
               Container(
                 transform: Matrix4.translationValues(
                     0, MediaQuery.of(context).size.height * -0.05, 0),
                 child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "\$" + product.price,
-                        style: TextStyle(fontSize: 30),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.1,
-                        transform: Matrix4.translationValues(
-                            MediaQuery.of(context).size.width * 0.42, 0, 0),
-                        decoration: BoxDecoration(
-                          boxShadow: const [
-                            BoxShadow(
-                                blurStyle: BlurStyle.solid,
-                                blurRadius: 20,
-                                color: Colors.grey, //New
-                                offset: Offset(0, 0))
-                          ],
-                          color: HexColor("#175244"),
-                          shape: BoxShape.circle,
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          "\$" + product.price,
+                          style: TextStyle(fontSize: 30),
                         ),
-                        child: IconButton(
-                          onPressed: () {
-                            //int id = odata[index].id;
-                            status
-                                ? removefromwishlist(
-                                    WishlistModel(id: product.id))
-                                : addToWishlist(context, product.id);
-                            // getIds();
-                          },
-                          icon: status
-                              ? Icon(
-                                  Icons.favorite,
-                                  color: Colors.white,
-                                )
-                              : Icon(
-                                  Icons.favorite_border,
-                                  color: Colors.white,
-                                ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.2,
                       ),
                       Container(
                           width: MediaQuery.of(context).size.width * 0.1,
-                          margin: EdgeInsets.only(right: 20),
-                          transform: Matrix4.translationValues(
-                              MediaQuery.of(context).size.width * 0.07, 0, 0),
+                          margin: EdgeInsets.only(right:20),
                           decoration: BoxDecoration(
                             boxShadow: const [
                               BoxShadow(
@@ -296,8 +258,9 @@ class _ProductDetailState extends State<ProductDetail> {
                     ]),
               ),
               Container(
+                padding: EdgeInsets.all(10),
                 transform: Matrix4.translationValues(
-                    20, MediaQuery.of(context).size.height * -0.03, 0),
+                    0, MediaQuery.of(context).size.height * -0.03, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -306,9 +269,9 @@ class _ProductDetailState extends State<ProductDetail> {
                             fontSize: 15, fontWeight: FontWeight.w600)),
                     Container(
                         child: Text(
-                      product.description,
-                      style: TextStyle(fontSize: 15),
-                    )),
+                          product.description,
+                          style: TextStyle(fontSize: 15),
+                        )),
                   ],
                 ),
               ),
