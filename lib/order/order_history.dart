@@ -27,9 +27,9 @@ class _OrdersState extends State<Orders> {
   List<MenuModel> items1 = [];
   List<OrderHistoryModel> orderdata = [];
 
-  getorderdetails(id) async {
-    MenuDB menudb = MenuDB();
-    menudb.initDBMenu();
+  getOrderDetails(id) async {
+    MenuDB menuDb = MenuDB();
+    menuDb.initDBMenu();
     orderdb = OrdersDB();
     orderdb.initDBOrders();
     orderdata = await orderdb.getDataOrderswrtID(id);
@@ -38,7 +38,7 @@ class _OrdersState extends State<Orders> {
       qtylistfromstring = orderdata[i].qty!.split(' ');
     }
     for (var i = 0; i < idlistfromstring.length; i++) {
-      items = await menudb.getitemwithId_order(idlistfromstring[i]);
+      items = await menuDb.getitemwithId_order(idlistfromstring[i]);
       items1.add(items.first);
     }
     getttl();
@@ -49,11 +49,11 @@ class _OrdersState extends State<Orders> {
   void initState() {
     orderdb = OrdersDB();
     orderdb.initDBOrders();
-    getorderdata();
+    getOrderData();
     super.initState();
   }
 
-  getorderdata() async {
+  getOrderData() async {
     data = await orderdb.getalldata();
     data1.addAll(data.keys);
     setState(() {});
@@ -73,50 +73,47 @@ class _OrdersState extends State<Orders> {
                   color: HexColor("#175244")),
             ))
           : ListView.separated(
+          // EdgeInsets.symmetric(horizontal: 16.0)
               itemCount: data1.length,
               itemBuilder: (context, index) {
                 var res = index + 1;
-                getorderdetails(res);
-                return Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                  child: ListTile(
+                getOrderDetails(res);
+                return ListTile(
                     trailing: TextButton.icon(
                         onPressed: () {
-                          getdetails(res);
+                          getDetails(res);
                         },
-                        icon: (Icon(
+                        icon: const Icon(
                           Icons.arrow_forward_ios,
                           color: Colors.black38,
-                        )),
-                        label: Text("")),
-                    leading: Container(
-                      child: CircleAvatar(
-                        radius: 60,
-                        child: items1.isEmpty
-                            ? Text("S1")
-                            : Image.asset(
-                                items1[index].image,
-                                // height: 80,
-                                // width: 80,
-                              ),
-                      ),
+                        ),
+                        label: const Text("")),
+                    leading: CircleAvatar(
+                      radius: 60,
+                      child: items1.isEmpty
+                          ? const Text("S1")
+                          : Image.asset(
+                              items1[index].image,
+                              // height: 80,
+                              // width: 80,
+                            ),
                     ),
-                    contentPadding: EdgeInsets.all(10),
+                    contentPadding: const
+                    EdgeInsets.symmetric(vertical: 10.0),
                     title: Text(
-                      "Order id: #" + res.toString(),
+                      "Order id: #$res",
                       style:
                           TextStyle(fontSize: 16, color: HexColor("#175244")),
                     ),
-                    subtitle: Text("Order Placed",
+                    subtitle: const Text("Order Placed",
                         style: TextStyle(fontSize: 16, color: Colors.black38)),
                     onTap: () async {
-                      getdetails(res);
+                      getDetails(res);
                     },
-                  ),
-                );
+                  );
               },
               separatorBuilder: (context, index) {
-                return Divider(
+                return const Divider(
                   thickness: 2,
                 );
               }),
@@ -124,8 +121,8 @@ class _OrdersState extends State<Orders> {
   }
 }
 
-getdetails(res) async {
+getDetails(res) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setInt('orderid', res);
-  Get.to(transition: Transition.rightToLeft, () => Orderdetail());
+  Get.to(transition: Transition.rightToLeft, () => const Orderdetail());
 }
