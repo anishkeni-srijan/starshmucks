@@ -109,7 +109,11 @@ class _OrderdetailState extends State<Orderdetail> {
     final ThemeData themeStyle = Theme.of(context);
     double textWidth = MediaQuery.of(context).size.width * 0.45;
     return Scaffold(
-      body: CustomScrollView(
+      body:    orderdata.isEmpty ||
+          items1.isEmpty ||
+          qtylistfromstring.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          :  CustomScrollView(
         physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics()),
         slivers: <Widget>[
@@ -133,11 +137,8 @@ class _OrderdetailState extends State<Orderdetail> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    orderdata.isEmpty ||
-                            items1.isEmpty ||
-                            qtylistfromstring.isEmpty
-                        ? CircularProgressIndicator()
-                        : Container(
+
+                    Container(
                             padding: const EdgeInsets.all(10),
                             width: MediaQuery.of(context).size.width * 1,
                             child: Card(
@@ -151,7 +152,7 @@ class _OrderdetailState extends State<Orderdetail> {
                                       "Deliver To",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: themeStyle.primaryColor,
+                                          color: HexColor("#175244"),
                                           fontSize: 18),
                                     ),
                                     const SizedBox(height: 8),
@@ -182,11 +183,7 @@ class _OrderdetailState extends State<Orderdetail> {
                               ),
                             ),
                           ),
-                    orderdata.isEmpty ||
-                            items1.isEmpty ||
-                            qtylistfromstring.isEmpty
-                        ? CircularProgressIndicator()
-                        : Container(
+                    Container(
                             padding: const EdgeInsets.only(
                               left: 10,
                               right: 10,
@@ -207,7 +204,7 @@ class _OrderdetailState extends State<Orderdetail> {
                                             style: TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold,
-                                                color: themeStyle.primaryColor),
+                                                color: HexColor("#175244")),
                                           ),
                                           const SizedBox(
                                             height: 10,
@@ -253,8 +250,7 @@ class _OrderdetailState extends State<Orderdetail> {
                                                         width: 32,
                                                         decoration:
                                                             BoxDecoration(
-                                                          color: themeStyle
-                                                              .primaryColor,
+                                                          color: HexColor("#036635"),
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(7),
@@ -310,8 +306,7 @@ class _OrderdetailState extends State<Orderdetail> {
                                                                     .textTheme
                                                                     .caption
                                                                     ?.copyWith(
-                                                                        color: themeStyle
-                                                                            .primaryColor)),
+                                                                        color:HexColor("#036635"))),
                                                           ),
                                                         ],
                                                       ),
@@ -421,11 +416,7 @@ class _OrderdetailState extends State<Orderdetail> {
                                   ),
                                 )),
                           ),
-                    orderdata.isEmpty ||
-                            items1.isEmpty ||
-                            qtylistfromstring.isEmpty
-                        ? CircularProgressIndicator()
-                        : GestureDetector(
+                GestureDetector(
                             onTap: () {
                               Get.to(() => const Help());
                             },
