@@ -90,7 +90,7 @@ class _OrdersState extends State<Orders> {
                     leading: CircleAvatar(
                       radius: 60,
                       child: items1.isEmpty
-                          ? const Text("S1")
+                          ? const Text("image")
                           : Image.asset(
                               items1[index].image,
                               // height: 80,

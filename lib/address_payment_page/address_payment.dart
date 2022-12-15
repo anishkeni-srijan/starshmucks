@@ -836,7 +836,7 @@ class _AddressState extends State<Address> {
               Razorpay razorpay = Razorpay();
               var options = {
                 'key': 'rzp_test_tqyAEMlbjJL5b8',
-                'amount': (ttl + 5) * 100 * 83,
+                'amount': 100,
                 'name': 'Starschmucks.',
                 'description': 'Fine Coffee',
                 'retry': {'enabled': true, 'max_count': 1},

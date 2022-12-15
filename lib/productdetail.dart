@@ -78,6 +78,8 @@ class _ProductDetailState extends State<ProductDetail> {
       if (ids[i] == product.id) status = true;
     }
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0.0,),
       // persistentFooterButtons: cartinit ? [viewincart()] : null,
         bottomNavigationBar: Container(
           padding: const EdgeInsets.all(8.0),
@@ -95,7 +97,6 @@ class _ProductDetailState extends State<ProductDetail> {
             // ],
           ),
         ),
-        appBar: gethomeappbar("Starschmucks", [Container()], false, 10.0),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -249,7 +250,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             shape: BoxShape.circle,
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(9.0),
+                            padding: EdgeInsets.only(left: 7.0,right: 10,bottom: 10,top: 10),
                             child: Icon(
                               Icons.share,
                               color: Colors.white,
@@ -267,6 +268,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     Text("Description:",
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w600)),
+                    SizedBox(height: 10,),
                     Container(
                         child: Text(
                           product.description,
