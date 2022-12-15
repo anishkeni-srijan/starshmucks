@@ -29,80 +29,88 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
       length: 4,
       child: Scaffold(
         persistentFooterButtons: cartinit ? [viewincart()] : [Container()],
-        body: Column(
-          children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Column(
-                children: [
-                  Row(
+        body: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height*1,
+            child: Column(
+              children: [
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Column(
                     children: [
-                      SizedBox(
-                        width: 10,
-                      ),
-                      giftCardDesign(
-                        image: 'images/giftdiwali.png',
-                        giftCardText:
-                            'Gift For Diwali.You can gift this to your sister for Bhai Dooj',
-                        price: 'Rs 659.00',
-                        titleText: 'Celebrate With Starshmucks',
-                        press: () {},
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      giftCardDesign(
-                        image: 'images/giftdiwali2.png',
-                        giftCardText:
-                            'Gift For Diwali.You can gift this to your sister for Bhai Dooj',
-                        price: 'Rs.999.00',
-                        titleText: 'Celebrate With Starshmucks',
-                        press: () {},
-                      ),
-                      SizedBox(
-                        width: 10,
+                      Row(
+                        children: [
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          giftCardDesign(
+                            image: 'images/giftdiwali.png',
+                            giftCardText:
+                                'Gift For Diwali.You can gift this to your sister for Bhai Dooj',
+                            price: 'Rs 659.00',
+                            titleText: 'Celebrate With Starshmucks',
+                            press: () {},
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          giftCardDesign(
+                            image: 'images/giftdiwali2.png',
+                            giftCardText:
+                                'Gift For Diwali.You can gift this to your sister for Bhai Dooj',
+                            price: 'Rs.999.00',
+                            titleText: 'Celebrate With Starshmucks',
+                            press: () {},
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
-            ),
-            TabBar(
-              controller: tabController,
-              labelStyle: TextStyle(fontWeight: FontWeight.bold),
-              // indicatorSize: TabBarIndicatorSize.label,
-              indicatorColor: HexColor("#175244"),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: TabBar(
+                    controller: tabController,
+                    labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+                    // indicatorSize: TabBarIndicatorSize.label,
+                    indicatorColor: HexColor("#175244"),
 
-              labelColor: Colors.black,
-              // unselectedLabelColor: Colors.black,
-              isScrollable: true,
-              tabs: <Widget>[
-                Tab(
-                  text: 'ALL',
+                    labelColor: Colors.black,
+                    // unselectedLabelColor: Colors.black,
+                    isScrollable: true,
+                    tabs: const <Widget>[
+                      Tab(
+                        text: 'ALL',
+                      ),
+                      Tab(
+                        text: 'FEATURED',
+                      ),
+                      Tab(
+                        text: 'CONGRATULATIONS',
+                      ),
+                      Tab(
+                        text: 'THANK YOU',
+                      ),
+                    ],
+                  ),
                 ),
-                Tab(
-                  text: 'FEATURED',
-                ),
-                Tab(
-                  text: 'CONGRATULATIONS',
-                ),
-                Tab(
-                  text: 'THANK YOU',
+                Expanded(
+                  child: TabBarView(
+                    controller: tabController,
+                    children: <Widget>[
+                      getAllCards(context),
+                      getAllCards(context),
+                      getAllCards(context),
+                      getAllCards(context),
+                    ],
+                  ),
                 ),
               ],
             ),
-            Expanded(
-              child: TabBarView(
-                controller: tabController,
-                children: <Widget>[
-                  getAllCards(context),
-                  getAllCards(context),
-                  getAllCards(context),
-                  getAllCards(context),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -128,7 +136,7 @@ class giftCardDesign extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           color: HexColor("#ede38c"), borderRadius: BorderRadius.circular(20)),
       height: MediaQuery.of(context).size.height * 0.25,
@@ -149,7 +157,7 @@ class giftCardDesign extends StatelessWidget {
               transform: Matrix4.translationValues(100, 10, 0),
               child: Text(
                 titleText,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 15,
                 ),
@@ -165,7 +173,7 @@ class giftCardDesign extends StatelessWidget {
             ),
             child: Text(
               giftCardText,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
                   fontWeight: FontWeight.w800),
@@ -173,7 +181,7 @@ class giftCardDesign extends StatelessWidget {
           ),
           Container(
             transform: Matrix4.translationValues(30, 130, 0),
-            child: AutoSizeText(
+            child: const AutoSizeText(
               'Starting from',
               style: TextStyle(
                 color: Colors.black,
@@ -185,7 +193,7 @@ class giftCardDesign extends StatelessWidget {
             transform: Matrix4.translationValues(30, 145, 0),
             child: AutoSizeText(
               price,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.black,
                   fontSize: 12,
                   fontWeight: FontWeight.bold),
@@ -195,7 +203,7 @@ class giftCardDesign extends StatelessWidget {
             transform: Matrix4.translationValues(200, 120, 0),
             child: TextButton(
               onPressed: press,
-              child: Text('Gift Now'),
+              child: const Text('Gift Now'),
               style: ButtonStyle(
                 backgroundColor:
                     MaterialStateProperty.all<Color>(HexColor("#175244")),
@@ -218,11 +226,12 @@ getAllCards(context) {
   return Container(
     //margin: EdgeInsets.all(),
     //color: HexColor("#175244"),
-    padding: EdgeInsets.only(left: 20, right: 20, top: 20),
+    padding: const EdgeInsets.only(left: 20, right: 20, top: 0),
     child: ListView(
+      shrinkWrap: true,
       children: [
         Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
               color: HexColor("#ade38c"),
               borderRadius: BorderRadius.circular(20)),
@@ -242,7 +251,7 @@ getAllCards(context) {
               Container(
                 child: Container(
                   transform: Matrix4.translationValues(110, 10, 0),
-                  child: Text(
+                  child: const Text(
                     'Celebrate With Starshmucks',
                     style: TextStyle(
                       color: Colors.black,
@@ -258,7 +267,7 @@ getAllCards(context) {
                   40,
                   0,
                 ),
-                child: Text(
+                child: const Text(
                   'Gift For Diwali.You can gift this to your sister for Bhai Dooj',
                   style: TextStyle(
                       color: Colors.black,
@@ -268,7 +277,7 @@ getAllCards(context) {
               ),
               Container(
                 transform: Matrix4.translationValues(30, 130, 0),
-                child: AutoSizeText(
+                child: const AutoSizeText(
                   'Starting from',
                   style: TextStyle(
                     color: Colors.black,
@@ -278,7 +287,7 @@ getAllCards(context) {
               ),
               Container(
                 transform: Matrix4.translationValues(30, 145, 0),
-                child: AutoSizeText(
+                child: const AutoSizeText(
                   'Rs.659.00',
                   style: TextStyle(
                       color: Colors.black,
@@ -294,7 +303,7 @@ getAllCards(context) {
                 ),
                 child: TextButton(
                   onPressed: () {},
-                  child: Text('Gift Now'),
+                  child: const Text('Gift Now'),
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(HexColor("#175244")),
@@ -311,11 +320,11 @@ getAllCards(context) {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
               color: HexColor("#ede38c"),
               borderRadius: BorderRadius.circular(20)),
@@ -335,7 +344,7 @@ getAllCards(context) {
               Container(
                 child: Container(
                   transform: Matrix4.translationValues(110, 10, 0),
-                  child: Text(
+                  child: const Text(
                     'Celebrate With Starshmucks',
                     style: TextStyle(
                       color: Colors.black,
@@ -351,7 +360,7 @@ getAllCards(context) {
                   40,
                   0,
                 ),
-                child: Text(
+                child: const Text(
                   'Gift For Diwali.You can gift this to your sister for Bhai Dooj',
                   style: TextStyle(
                       color: Colors.black,
@@ -361,7 +370,7 @@ getAllCards(context) {
               ),
               Container(
                 transform: Matrix4.translationValues(30, 130, 0),
-                child: AutoSizeText(
+                child: const AutoSizeText(
                   'Starting from',
                   style: TextStyle(
                     color: Colors.black,
@@ -371,7 +380,7 @@ getAllCards(context) {
               ),
               Container(
                 transform: Matrix4.translationValues(30, 145, 0),
-                child: AutoSizeText(
+                child: const AutoSizeText(
                   'Rs.659.00',
                   style: TextStyle(
                       color: Colors.black,
@@ -387,7 +396,7 @@ getAllCards(context) {
                 ),
                 child: TextButton(
                   onPressed: () {},
-                  child: Text('Gift Now'),
+                  child: const Text('Gift Now'),
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(HexColor("#175244")),
@@ -404,11 +413,11 @@ getAllCards(context) {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
               color: HexColor("#ade38c"),
               borderRadius: BorderRadius.circular(20)),
@@ -428,7 +437,7 @@ getAllCards(context) {
               Container(
                 child: Container(
                   transform: Matrix4.translationValues(110, 10, 0),
-                  child: Text(
+                  child: const Text(
                     'Celebrate With Starshmucks',
                     style: TextStyle(
                       color: Colors.black,
@@ -444,7 +453,7 @@ getAllCards(context) {
                   40,
                   0,
                 ),
-                child: Text(
+                child: const Text(
                   'Gift For Diwali.You can gift this to your sister for Bhai Dooj',
                   style: TextStyle(
                       color: Colors.black,
@@ -454,7 +463,7 @@ getAllCards(context) {
               ),
               Container(
                 transform: Matrix4.translationValues(30, 130, 0),
-                child: AutoSizeText(
+                child: const AutoSizeText(
                   'Starting from',
                   style: TextStyle(
                     color: Colors.black,
@@ -464,7 +473,7 @@ getAllCards(context) {
               ),
               Container(
                 transform: Matrix4.translationValues(30, 145, 0),
-                child: AutoSizeText(
+                child: const AutoSizeText(
                   'Rs.659.00',
                   style: TextStyle(
                       color: Colors.black,
@@ -480,7 +489,7 @@ getAllCards(context) {
                 ),
                 child: TextButton(
                   onPressed: () {},
-                  child: Text('Gift Now'),
+                  child: const Text('Gift Now'),
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(HexColor("#175244")),
