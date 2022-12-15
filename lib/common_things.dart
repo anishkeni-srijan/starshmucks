@@ -120,20 +120,20 @@ class _bottomBarState extends State<bottomBar> {
   }
 }
 
-orderbutton() {
-  return FloatingActionButton(
-    //Floating action button on Scaffold
-    elevation: 10,
-    backgroundColor: Color(0xffb036635),
-    onPressed: () {
-      Get.to(() => OrderPage(), transition: Transition.downToUp);
-    },
-    child: Icon(
-      Icons.coffee_maker_outlined,
-      color: Colors.white,
-    ), //icon inside button
-  );
-}
+// orderbutton() {
+//   return FloatingActionButton(
+//     //Floating action button on Scaffold
+//     elevation: 10,
+//     backgroundColor: Color(0xffb036635),
+//     onPressed: () {
+//       Get.to(() => OrderPage(), transition: Transition.downToUp);
+//     },
+//     child: Icon(
+//       Icons.coffee_maker_outlined,
+//       color: Colors.white,
+//     ), //icon inside button
+//   );
+// }
 
 var route;
 
