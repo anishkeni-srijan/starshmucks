@@ -4,19 +4,41 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:starshmucks/common_things.dart';
+import 'package:starshmucks/model/user_model.dart';
 
+import '../../db/user_db.dart';
 import '/signin/bloc/signin_events.dart';
 import '/signin/bloc/signin_states.dart';
+late String obtainedemail;
+late String obtainedpassword;
+List<Map<String, dynamic>> userddt = [];
+UserDB udb = UserDB();
 
+
+getUser() async {
+  udb.initDBUserData();
+  userddt = await udb.getDataUserData();
+}
 class SigninBloc extends Bloc<SigninEvent, SigninState> {
   SigninBloc() : super(SigninInitialState()) {
+
+
     //works on login text changed
     on<SigninemailChangedEvent>((event, emit) {
 //user exists
-      if (event.emailvalue == event.obtainedemail) {
+      getUser();
+      if (userddt.isEmpty) {
+        obtainedemail = '';
+        obtainedpassword = '';
+      } else {
+        obtainedemail = userddt[0]['email'];
+        obtainedpassword = userddt[0]['password'];
+      }
+
+      if (event.emailvalue == obtainedemail) {
         emit(SigninValidState("all good"));
       } else if (event.emailvalue == '' ||
-          event.emailvalue != event.obtainedemail) {
+          event.emailvalue != obtainedemail) {
         emit(
           SigninErrorState("Please enter a valid Email"),
         );
@@ -26,10 +48,10 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
     });
     on<SigninpassChangedEvent>((event, emit) {
 //user exists
-      if (event.passwordvalue == event.obtainedpassword) {
-        Get.to(() => BottomBar());
+      if (event.passwordvalue == obtainedpassword) {
+        Get.to(() => bottomBar());
       } else if (event.passwordvalue == '' ||
-          event.passwordvalue != event.obtainedpassword) {
+          event.passwordvalue != obtainedpassword) {
         emit(
           SigninErrorState("Please enter a valid Password"),
         );

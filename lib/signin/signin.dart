@@ -23,26 +23,15 @@ class SigninPage extends StatefulWidget {
 class _SigninPageState extends State<SigninPage> {
   final pcontroller = TextEditingController();
   final econtroller = TextEditingController();
-  late String obtainedemail;
-  late String obtainedpassword;
-
   bool keeploggedin = false;
   late UserDB udb;
 
   @override
   void initState() {
-    udb = UserDB();
-    udb.initDBUserData();
-    getUser();
     super.initState();
   }
 
   List<Map<String, dynamic>> userddt = [];
-
-  getUser() async {
-    userddt = await udb.getDataUserData();
-  }
-
   Future<bool> onWillPop() async {
     return (await showDialog(
           context: context,
@@ -69,13 +58,6 @@ class _SigninPageState extends State<SigninPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (userddt.isEmpty) {
-      obtainedemail = '';
-      obtainedpassword = '';
-    } else {
-      obtainedemail = userddt[0]['email'];
-      obtainedpassword = userddt[0]['password'];
-    }
     return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
@@ -152,7 +134,6 @@ class _SigninPageState extends State<SigninPage> {
                           BlocProvider.of<SigninBloc>(context).add(
                             SigninemailChangedEvent(
                               econtroller.text,
-                              obtainedemail,
                             ),
                           );
                         },
@@ -259,7 +240,6 @@ class _SigninPageState extends State<SigninPage> {
                           BlocProvider.of<SigninBloc>(context).add(
                             SigninpassChangedEvent(
                               pcontroller.text,
-                              obtainedpassword,
                             ),
                           );
 
