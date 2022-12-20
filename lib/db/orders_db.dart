@@ -16,7 +16,7 @@ class OrdersDB {
            id TEXT NOT NULL,
            qty TEXT NOT NULL,
            date TEXT NOT NULL,
-           time TEXT NOT NULL        )
+           time TEXT NOT NULL)
           """);
       },
       version: 1,
@@ -24,12 +24,8 @@ class OrdersDB {
   }
 
   createarr(idarr, qtyarr, date, time) async {
-    var fido = OrderHistoryModel(
-      id: idarr,
-      qty: qtyarr,
-      date: date,
-      time: time,
-    );
+    var fido =
+        OrderHistoryModel(id: idarr, qty: qtyarr, date: date, time: time);
     insertDataOrders(fido);
   }
 
@@ -58,27 +54,4 @@ class OrdersDB {
         await db.rawQuery("Select * from OrdersTable");
     return data.asMap();
   }
-// gainrewards(OrderHistoryModel cartitem,res) async {
-//   final db = await initDBOrders();
-//   var fido = OrderHistoryModel(
-//     rewards:res,
-//     qty: cartitem.qty,
-//     id: cartitem.id,
-//   );
-//   updaterewards(fido);
-// }
-// //
-// Future<void> updaterewards(OrderHistoryModel cartitem) async {
-//   // Get a reference to the database.
-//   final db = await initDBOrders();
-//   // Update the given Dog.
-//   await db.update(
-//     'CartTable', cartitem.toMap(),
-//     // Ensure that the Dog has a matching id.
-//     where: 'id= ?',
-//     // Pass the Dog's id as a whereArg to prevent SQL injection.
-//     whereArgs: [cartitem.id],
-//   );
-// }
-
 }

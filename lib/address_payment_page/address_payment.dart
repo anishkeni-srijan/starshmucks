@@ -70,7 +70,7 @@ class _AddressState extends State<Address> {
     udb.deleteitem(sendingID);
   }
 
-  BottomSheetAddress(
+  bottomSheetAddress(
       context,
       TextEditingController fname,
       TextEditingController phone,
@@ -156,7 +156,7 @@ class _AddressState extends State<Address> {
                       ),
                       child: Text(
                         buttonText,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           color: Colors.white,
                         ),
@@ -181,7 +181,7 @@ class _AddressState extends State<Address> {
     final city = TextEditingController();
     final state = TextEditingController();
     final pincode = TextEditingController();
-    BottomSheetAddress(
+    bottomSheetAddress(
         context, fname, phone, hno, roadname, city, state, pincode, 0, "ADD");
   }
 
@@ -194,7 +194,7 @@ class _AddressState extends State<Address> {
     final city = TextEditingController(text: addressList[index]['city']);
     final state = TextEditingController(text: addressList[index]['state']);
     final pincode = TextEditingController(text: addressList[index]['pincode']);
-    BottomSheetAddress(context, fname, phone, hno, roadname, city, state,
+    bottomSheetAddress(context, fname, phone, hno, roadname, city, state,
         pincode, addid, "UPDATE");
   }
 
@@ -285,8 +285,6 @@ class _AddressState extends State<Address> {
                 ],
               ),
             )
-
-          //int? len = int?.parse(data[0].address.length! / 7);
           : SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -28,28 +28,21 @@ class CartDB {
 
     if (count > 0) {
     } else {
-      final List<Map<String, dynamic>> maps = await db.query(
-        "CartTable",
-        where: 'id = ?',
-        whereArgs: [item.id],
-      );
+      final List<Map<String, dynamic>> maps =
+          await db.query("CartTable", where: 'id = ?', whereArgs: [item.id]);
       var test = CartModel(id: maps[0]['id'], qty: maps[0]['qty']);
       increseqty(test);
     }
-
     return true;
   }
 
   Future<List<CartModel>> getDataCart() async {
     final Database db = await initDBCart();
-    final List<Map<String, dynamic>> data = await db.query(
-      "CartTable",
-    );
+    final List<Map<String, dynamic>> data = await db.query("CartTable");
 
     return data.map((e) => CartModel.fromJson(e)).toList();
   }
 
-  //temp
   clear() async {
     final Database db = await initDBCart();
     db.delete("CartTable");
@@ -57,37 +50,22 @@ class CartDB {
 
   Future<void> deleteitem(CartModel cartitem) async {
     final db = await initDBCart();
-    await db.delete(
-      'CartTable',
-      where: 'id = ?',
-      whereArgs: [cartitem.id],
-    );
+    await db.delete('CartTable', where: 'id = ?', whereArgs: [cartitem.id]);
   }
 
   increseqty(CartModel cartitem) async {
-    // final db = await initDBCart();
-    var fido = CartModel(
-      id: cartitem.id,
-      qty: cartitem.qty + 1,
-    );
+    var fido = CartModel(id: cartitem.id, qty: cartitem.qty + 1);
     updateqty(fido);
   }
 
   decreaseqty(CartModel cartitem) async {
-    var fido = CartModel(
-      id: cartitem.id,
-      qty: cartitem.qty - 1,
-    );
+    var fido = CartModel(id: cartitem.id, qty: cartitem.qty - 1);
     updateqty(fido);
   }
 
   Future<void> updateqty(CartModel cartitem) async {
     final db = await initDBCart();
-    await db.update(
-      'CartTable',
-      cartitem.toMap(),
-      where: 'id = ?',
-      whereArgs: [cartitem.id],
-    );
+    await db.update('CartTable', cartitem.toMap(),
+        where: 'id = ?', whereArgs: [cartitem.id]);
   }
 }

@@ -1,5 +1,4 @@
 import 'dart:io' show Platform;
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -61,7 +60,7 @@ class _GetOffersState extends State<GetOffers> {
   getdata() async {
     odata = await db.offersData();
 
-    if (this.mounted) {
+    if (mounted) {
       setState(() {
         getdataf = true;
       });
@@ -76,7 +75,6 @@ class _GetOffersState extends State<GetOffers> {
   addToWishlist(context, index) async {
     final cartp = await db.offersData();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
-
     getIds();
   }
 
@@ -119,25 +117,20 @@ class _GetOffersState extends State<GetOffers> {
                     children: [
                       Container(
                         transform: Matrix4.translationValues(-10, 20, 0),
-                        child: Image.asset(
-                          odata[index].image,
-                          width: 150,
-                          height: 150,
-                        ),
+                        child: Image.asset(odata[index].image,
+                            width: 150, height: 150),
                       ),
                       Container(
-                        child: Container(
-                          // transform: Matrix4.translationValues(-120, 10, 0),
-                          margin: EdgeInsets.only(
-                            top: Platform.isIOS ? 0 : 10,
-                            left: 130,
-                          ),
-                          child: Text(
-                            odata[index].tag,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                            ),
+                        // transform: Matrix4.translationValues(-120, 10, 0),
+                        margin: EdgeInsets.only(
+                          top: Platform.isIOS ? 0 : 10,
+                          left: 130,
+                        ),
+                        child: Text(
+                          odata[index].tag,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
                           ),
                         ),
                       ),
@@ -156,32 +149,29 @@ class _GetOffersState extends State<GetOffers> {
                         ),
                       ),
                       Container(
-                        // transform: Matrix4.translationValues(-320, 40, 0),
                         margin: const EdgeInsets.only(
                           top: 85,
                           left: 190,
                         ),
                         child: TextButton(
                           onPressed: () {
-                            //if (data.isEmpty) {
                             addToCart(context, index);
                             String toastMessage = "ITEM ADDED TO CART";
                             fToast.showToast(
                               child: CustomToast(toastMessage),
                               positionedToastBuilder: (context, child) =>
                                   Positioned(
-                                child: child,
                                 bottom:
                                     MediaQuery.of(context).size.height * 0.14,
                                 left: MediaQuery.of(context).size.width * 0.1,
                                 right: MediaQuery.of(context).size.width * 0.1,
+                                child: child,
                               ),
                             );
                             setState(() {
                               cartinit = true;
                             });
                           },
-                          child: const Text("Add"),
                           style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all<Color>(Colors.white),
@@ -194,24 +184,24 @@ class _GetOffersState extends State<GetOffers> {
                               ),
                             ),
                           ),
+                          child: const Text("Add"),
                         ),
                       ),
                       ValueListenableBuilder(
                         valueListenable: real,
                         builder: (context, value, child) => IconButton(
-                            onPressed: () {
-                              //int id = odata[index].id;
-                              real.value
-                                  ? removefromwishlist(
-                                      WishlistModel(id: odata[index].id))
-                                  : addToWishlist(context, index);
-                            },
-                            icon: Icon(
-                              real.value
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: Colors.white,
-                            )),
+                          onPressed: () {
+                            //int id = odata[index].id;
+                            real.value
+                                ? removefromwishlist(
+                                    WishlistModel(id: odata[index].id))
+                                : addToWishlist(context, index);
+                          },
+                          icon: Icon(
+                            real.value ? Icons.favorite : Icons.favorite_border,
+                            color: Colors.white,
+                          ),
+                        ),
                       )
                     ],
                   ),

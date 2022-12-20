@@ -69,25 +69,23 @@ class _NowServingState extends State<NowServing> {
     fToast.showToast(
       child: CustomToast(toastMessage),
       positionedToastBuilder: (context, child) => Positioned(
-        child: child,
         bottom: MediaQuery.of(context).size.height * 0.14,
         left: MediaQuery.of(context).size.width * 0.1,
         right: MediaQuery.of(context).size.width * 0.1,
+        child: child,
       ),
     );
-    // setState(() {});
   }
 
   addToWishlist(context, index) async {
     final cartp = await db.nowServeData();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
     getIds();
-    // setState(() {});
   }
 
   getdata() async {
     nowdata = await db.nowServeData();
-    if (this.mounted) {
+    if (mounted) {
       setState(() {
         getdataf = true;
       });
@@ -109,15 +107,15 @@ class _NowServingState extends State<NowServing> {
           }
           return Row(
             children: [
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               GestureDetector(
                 onTap: () {
                   getpdata(nowdata[index]);
-                  Get.to(() => ProductDetail(),
+                  Get.to(() => const ProductDetail(),
                       transition: Transition.downToUp);
                 },
                 child: Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color:
                         index % 2 == 0 ? Colors.deepOrangeAccent : Colors.teal,
@@ -136,29 +134,27 @@ class _NowServingState extends State<NowServing> {
                         ),
                       ),
                       Container(
-                        child: Container(
-                          // transform: Matrix4.translationValues(-120, 10, 0),
-                          margin: EdgeInsets.only(
-                            top: 10,
-                            left: 130,
-                          ),
-                          child: Text(
-                            nowdata[index].title,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                            ),
+                        // transform: Matrix4.translationValues(-120, 10, 0),
+                        margin: const EdgeInsets.only(
+                          top: 10,
+                          left: 130,
+                        ),
+                        child: Text(
+                          nowdata[index].title,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
                           ),
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           top: 30,
                           left: 130,
                         ),
                         child: Text(
                           nowdata[index].tag,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 15,
                             fontWeight: FontWeight.w800,
@@ -167,31 +163,29 @@ class _NowServingState extends State<NowServing> {
                       ),
                       Container(
                         // transform: Matrix4.translationValues(-320, 40, 0),
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           top: 85,
                           left: 190,
                         ),
                         child: TextButton(
                           onPressed: () {
                             addToCart(context, index);
-
                             String toastMessage = "ITEM ADDED TO CART";
                             fToast.showToast(
                               child: CustomToast(toastMessage),
                               positionedToastBuilder: (context, child) =>
                                   Positioned(
-                                child: child,
                                 bottom:
                                     MediaQuery.of(context).size.height * 0.14,
                                 left: MediaQuery.of(context).size.width * 0.1,
                                 right: MediaQuery.of(context).size.width * 0.1,
+                                child: child,
                               ),
                             );
                             setState(() {
                               cartinit = true;
                             });
                           },
-                          child: Text('Add'),
                           style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all<Color>(Colors.white),
@@ -204,23 +198,24 @@ class _NowServingState extends State<NowServing> {
                               ),
                             ),
                           ),
+                          child: const Text('Add'),
                         ),
                       ),
                       IconButton(
-                          onPressed: () {
-                            //int id = odata[index].id;
-                            status
-                                ? removefromwishlist(
-                                    WishlistModel(id: nowdata[index].id))
-                                : addToWishlist(context, index);
-                          },
-                          icon: status
-                              ? Icon(
-                                  Icons.favorite,
-                                  color: Colors.white,
-                                )
-                              : Icon(Icons.favorite_border,
-                                  color: Colors.white))
+                        onPressed: () {
+                          //int id = odata[index].id;
+                          status
+                              ? removefromwishlist(
+                                  WishlistModel(id: nowdata[index].id))
+                              : addToWishlist(context, index);
+                        },
+                        icon: status
+                            ? const Icon(
+                                Icons.favorite,
+                                color: Colors.white,
+                              )
+                            : Icon(Icons.favorite_border, color: Colors.white),
+                      )
                     ],
                   ),
                 ),

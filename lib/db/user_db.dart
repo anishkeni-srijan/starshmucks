@@ -42,8 +42,6 @@ class UserDB {
           )
           """);
       },
-
-      // onConfigure: _onConfigure,
       version: 1,
     );
   }
@@ -57,18 +55,12 @@ class UserDB {
   Future<List<Map<String, dynamic>>> getDataUserData() async {
     final Database db = await initDBUserData();
     final List<Map<String, dynamic>> data = await db.query("UserData");
-
     return data;
   }
 
   Future<void> updateUserData(id, um) async {
     final db = await initDBUserData();
-    await db.update(
-      "UserData",
-      um.toMap(),
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    await db.update("UserData", um.toMap(), where: 'id = ?', whereArgs: [id]);
   }
 
   Future<bool> insertUserAddress(AddressModel address) async {
@@ -91,34 +83,17 @@ class UserDB {
 
   Future<void> deleteitem(id) async {
     final db = await initDBUserData();
-    await db.delete(
-      "UserAddress",
-      where: 'addressID = ?',
-      whereArgs: [id],
-    );
+    await db.delete("UserAddress", where: 'addressID = ?', whereArgs: [id]);
   }
 
   Future<void> updateAddress(id, am) async {
     final db = await initDBUserData();
-    await db.update(
-      "UserAddress",
-      am.toMap(),
-      where: 'addressID = ?',
-      whereArgs: [id],
-    );
+    await db.update("UserAddress", am.toMap(),
+        where: 'addressID = ?', whereArgs: [id]);
   }
 
   Future<void> updaterewards(am) async {
-    // Get a reference to the database.
     final db = await initDBUserData();
-
-    // Update the given Dog.
-    await db.update(
-      "UserData", am.toMap(),
-      // Ensure that the Dog has a matching id.
-      where: 'id= ?',
-      // Pass the Dog's id as a whereArg to prevent SQL injection.
-      whereArgs: [1],
-    );
+    await db.update("UserData", am.toMap(), where: 'id= ?', whereArgs: [1]);
   }
 }

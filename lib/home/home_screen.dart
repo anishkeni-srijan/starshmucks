@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io' show Platform;
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -108,64 +107,63 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (usernames.isEmpty)
+    if (usernames.isEmpty) {
       return CircularProgressIndicator(backgroundColor: HexColor("#175244"));
-    else {
+    } else {
       username = usernames[0]['name'];
       String email = usernames[0]['email'];
       setUserForLogin(email);
       initcart();
       return Scaffold(
-          persistentFooterButtons: cartinit ? [viewincart()] : null,
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                usernames.isEmpty
-                    ? const CircularProgressIndicator()
-                    : getbanner(context, username, tier, rewards),
-                Container(
-                  padding: EdgeInsets.only(
-                      left: 10, top: Platform.isIOS ? 30 : 20, bottom: 10),
-                  alignment: Alignment.topLeft,
-                  child: AutoSizeText(
-                    'Offers',
+        persistentFooterButtons: cartinit ? [viewincart()] : null,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              usernames.isEmpty
+                  ? const CircularProgressIndicator()
+                  : getbanner(context, username, tier, rewards),
+              Container(
+                padding: EdgeInsets.only(
+                    left: 10, top: Platform.isIOS ? 30 : 20, bottom: 10),
+                alignment: Alignment.topLeft,
+                child: AutoSizeText('Offers',
                     style: TextStyle(
                       color: HexColor("#175244"),
                       fontWeight: FontWeight.w700,
                     ),
-                    minFontSize: 25,
+                    minFontSize: 25),
+              ),
+              const GetOffers(),
+              Container(
+                padding: const EdgeInsets.all(10),
+                alignment: Alignment.topLeft,
+                child: AutoSizeText(
+                  'Now Serving',
+                  style: TextStyle(
+                    color: HexColor("#175244"),
+                    fontWeight: FontWeight.w700,
                   ),
+                  minFontSize: 25,
                 ),
-                const GetOffers(),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  alignment: Alignment.topLeft,
-                  child: AutoSizeText(
-                    'Now Serving',
-                    style: TextStyle(
-                      color: HexColor("#175244"),
-                      fontWeight: FontWeight.w700,
-                    ),
-                    minFontSize: 25,
+              ),
+              const NowServing(),
+              Container(
+                padding: const EdgeInsets.all(10),
+                alignment: Alignment.topLeft,
+                child: AutoSizeText(
+                  'Learn More About Our Drinks',
+                  style: TextStyle(
+                    color: HexColor("#175244"),
+                    fontWeight: FontWeight.w700,
                   ),
+                  minFontSize: 25,
                 ),
-                const NowServing(),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  alignment: Alignment.topLeft,
-                  child: AutoSizeText(
-                    'Learn More About Our Drinks',
-                    style: TextStyle(
-                      color: HexColor("#175244"),
-                      fontWeight: FontWeight.w700,
-                    ),
-                    minFontSize: 25,
-                  ),
-                ),
-                learnmore(context),
-              ],
-            ),
-          ));
+              ),
+              learnmore(context),
+            ],
+          ),
+        ),
+      );
     }
   }
 }
@@ -197,11 +195,12 @@ getbanner(context, username, tier, rewards) {
           ),
         ),
         Container(
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(
-              blurRadius: 10.0,
-            ),
-          ]),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(blurRadius: 10.0),
+            ],
+          ),
           transform: Matrix4.translationValues(
             0,
             Platform.isIOS
@@ -249,12 +248,10 @@ getbanner(context, username, tier, rewards) {
                     ],
                   ),
                 ),
-                Container(
-                  child: const Icon(
-                    Icons.card_giftcard,
-                    color: Colors.amber,
-                    size: 20,
-                  ),
+                const Icon(
+                  Icons.card_giftcard,
+                  color: Colors.amber,
+                  size: 20,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -284,11 +281,7 @@ getbanner(context, username, tier, rewards) {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.4,
-                  transform: Matrix4.translationValues(
-                    20,
-                    0,
-                    0,
-                  ),
+                  transform: Matrix4.translationValues(20, 0, 0),
                   child: tier == 'gold'
                       ? AutoSizeText(
                           'You are a Gold tier customer.',
@@ -305,17 +298,15 @@ getbanner(context, username, tier, rewards) {
                           minFontSize: 15,
                         ),
                 ),
-                Container(
-                  child: IconButton(
-                    onPressed: () {
-                      Get.to(const Rewards(),
-                          transition: Transition.rightToLeftWithFade);
-                    },
-                    icon: Icon(
-                      Icons.play_arrow_sharp,
-                      color: HexColor('#175244'),
-                      size: 20,
-                    ),
+                IconButton(
+                  onPressed: () {
+                    Get.to(const Rewards(),
+                        transition: Transition.rightToLeftWithFade);
+                  },
+                  icon: Icon(
+                    Icons.play_arrow_sharp,
+                    color: HexColor('#175244'),
+                    size: 20,
                   ),
                 ),
               ],
@@ -367,7 +358,7 @@ learnmore(context) {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
                   learnmorep.learnmore[index].tag,
                   maxLines: 5,

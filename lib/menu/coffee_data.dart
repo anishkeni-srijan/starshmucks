@@ -69,28 +69,26 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
   addToWishlist(context, index) async {
     final cartp = await menuDB.coffeedata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
-
     getIds();
   }
 
   addToCart(context, index) async {
     final cartp = await menuDB.coffeedata();
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
-    //setState(() {});
   }
 
   List<CartModel> cartData = [];
 
   getCartData1() async {
     cartData = await cdb.getDataCart();
-    if (this.mounted) {
+    if (mounted) {
       setState(() {});
     }
   }
 
   getCoffeeData() async {
     data = await menuDB.coffeedata();
-    if (this.mounted) {
+    if (mounted) {
       setState(() {
         getdataf = true;
       });
@@ -162,7 +160,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                                   height: MediaQuery.of(context).size.height *
                                       0.01),
                               Text(
-                                " \$ " + data[index].price,
+                                " \$ ${data[index].price}",
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 18,
@@ -194,26 +192,26 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(right: 10),
+                          padding: const EdgeInsets.only(right: 10),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               IconButton(
-                                  onPressed: () {
-                                    //int id = odata[index].id;
-                                    status
-                                        ? removefromwishlist(
-                                            WishlistModel(id: data[index].id))
-                                        : addToWishlist(context, index);
-                                  },
-                                  icon: status
-                                      ? const Icon(
-                                          Icons.favorite,
-                                          color: Colors.red,
-                                        )
-                                      : Icon(
-                                          Icons.favorite_border,
-                                        )),
+                                onPressed: () {
+                                  status
+                                      ? removefromwishlist(
+                                          WishlistModel(id: data[index].id))
+                                      : addToWishlist(context, index);
+                                },
+                                icon: status
+                                    ? const Icon(
+                                        Icons.favorite,
+                                        color: Colors.red,
+                                      )
+                                    : const Icon(
+                                        Icons.favorite_border,
+                                      ),
+                              ),
                               TextButton(
                                 onPressed: () {
                                   addToCart(context, index);
@@ -222,7 +220,6 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                                     child: CustomToast(toastMessage),
                                     positionedToastBuilder: (context, child) =>
                                         Positioned(
-                                      child: child,
                                       bottom:
                                           MediaQuery.of(context).size.height *
                                               0.14,
@@ -230,6 +227,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                                           0.1,
                                       right: MediaQuery.of(context).size.width *
                                           0.1,
+                                      child: child,
                                     ),
                                   );
                                   setState(
