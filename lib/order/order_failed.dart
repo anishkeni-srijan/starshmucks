@@ -191,9 +191,9 @@ class _OrderFailState extends State<OrderFail> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () {
-                      Get.to(() => bottomBar());
+                      Get.to(() => const bottomBar());
                     },
-                    child: Text("Continue Shopping")),
+                    child: const Text("Continue Shopping")),
               )
             ],
           ),

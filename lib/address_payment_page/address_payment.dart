@@ -25,7 +25,6 @@ class Address extends StatefulWidget {
 }
 
 String message = '';
-final offers = TextEditingController();
 
 class _AddressState extends State<Address> {
   late UserDB udb;
@@ -37,6 +36,13 @@ class _AddressState extends State<Address> {
   late bool rewards;
   late double ttl = 0;
   late double tempttl = 0;
+  late bool add;
+  late double maxrewards = 0;
+  List<Map<String, dynamic>> userddt = [];
+  var selectedVal;
+  final offers = TextEditingController();
+  bool afterSelecting = false;
+  late double savings = 0;
 
   @override
   void initState() {
@@ -54,8 +60,6 @@ class _AddressState extends State<Address> {
     res = 10 - ttl;
   }
 
-  List<Map<String, dynamic>> userddt = [];
-
   getUser() async {
     userddt = await udb.getDataUserData();
     addressList = await udb.getDataUserAddress1();
@@ -64,18 +68,19 @@ class _AddressState extends State<Address> {
 
   deleteAddress(sendingID) {
     udb.deleteitem(sendingID);
-    setState(() {});
   }
 
-  addAddress(context) {
-    final fname = TextEditingController(text: userddt[0]['name']);
-    final phone = TextEditingController(text: userddt[0]['phone']);
-    final hno = TextEditingController();
-    final roadname = TextEditingController();
-    final city = TextEditingController();
-    final state = TextEditingController();
-    final pincode = TextEditingController();
-
+  BottomSheetAddress(
+      context,
+      TextEditingController fname,
+      TextEditingController phone,
+      TextEditingController hno,
+      TextEditingController roadname,
+      TextEditingController city,
+      TextEditingController state,
+      TextEditingController pincode,
+      int addid,
+      String buttonText) {
     return showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -89,18 +94,7 @@ class _AddressState extends State<Address> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.all(20),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "New Address",
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: HexColor("#175244"),
-                      ),
-                    ),
-                  ),
+                  const SizedBox(height: 25),
                   //full name
                   commonTextIPWidget(context, fname, "Full Name"),
                   //phone number
@@ -122,28 +116,46 @@ class _AddressState extends State<Address> {
                     width: 300,
                     child: ElevatedButton(
                       onPressed: () {
-                        var addressStore = AddressModel(
-                          userID: userddt[0]['id'],
-                          fname: fname.text,
-                          phone: phone.text,
-                          hno: hno.text,
-                          road: roadname.text,
-                          city: city.text,
-                          state: state.text,
-                          pincode: pincode.text,
-                          // addressID: ,
-                        );
-                        udb.insertUserAddress(addressStore);
-                        Navigator.of(context).pop();
-                        setState(() {});
+                        if (add) {
+                          var addressStore = AddressModel(
+                            userID: userddt[0]['id'],
+                            fname: fname.text,
+                            phone: phone.text,
+                            hno: hno.text,
+                            road: roadname.text,
+                            city: city.text,
+                            state: state.text,
+                            pincode: pincode.text,
+                            // addressID: ,
+                          );
+                          udb.insertUserAddress(addressStore);
+                          Navigator.of(context).pop();
+                          setState(() {});
+                        } else {
+                          var addressUpdate = AddressModel(
+                            userID: userddt[0]['id'],
+                            fname: fname.text,
+                            phone: phone.text,
+                            hno: hno.text,
+                            road: roadname.text,
+                            city: city.text,
+                            state: state.text,
+                            pincode: pincode.text,
+                            // addressID: ,
+                          );
+
+                          udb.updateAddress(addid, addressUpdate);
+                          setState(() {});
+                          Navigator.of(context).pop();
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(60)),
                         backgroundColor: HexColor("#036635"),
                       ),
-                      child: const Text(
-                        'Add',
+                      child: Text(
+                        buttonText,
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.white,
@@ -160,7 +172,21 @@ class _AddressState extends State<Address> {
     );
   }
 
+  addAddress(context) {
+    add = true;
+    final fname = TextEditingController(text: userddt[0]['name']);
+    final phone = TextEditingController(text: userddt[0]['phone']);
+    final hno = TextEditingController();
+    final roadname = TextEditingController();
+    final city = TextEditingController();
+    final state = TextEditingController();
+    final pincode = TextEditingController();
+    BottomSheetAddress(
+        context, fname, phone, hno, roadname, city, state, pincode, 0, "ADD");
+  }
+
   editAddress(context, index, addid) {
+    add = false;
     final fname = TextEditingController(text: addressList[index]['fname']);
     final phone = TextEditingController(text: addressList[index]['phone']);
     final hno = TextEditingController(text: addressList[index]['hno']);
@@ -168,88 +194,9 @@ class _AddressState extends State<Address> {
     final city = TextEditingController(text: addressList[index]['city']);
     final state = TextEditingController(text: addressList[index]['state']);
     final pincode = TextEditingController(text: addressList[index]['pincode']);
-
-    showModalBottomSheet(
-      isScrollControlled: true,
-      context: context,
-      builder: (BuildContext context) {
-        return SingleChildScrollView(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.70,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                    margin: const EdgeInsets.all(20),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Edit Address",
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: HexColor("#175244"),
-                      ),
-                    )),
-                //full name
-                commonTextIPWidget(context, fname, "Full Name"),
-                //phone number
-                commonPhoneNumberWidget(context, phone),
-                //house no, building name
-                commonTextIPWidget(context, hno, 'House No., Building Name'),
-                //road name,area,colony
-                commonTextIPWidget(
-                    context, roadname, 'Road Name, Area, Colony'),
-                //city
-                commonTextIPWidget(context, city, 'City'),
-                //state
-                commonTextIPWidget(context, state, 'State'),
-                //pincode
-                commonTextIPWidget(context, pincode, 'Pincode'),
-                const SizedBox(height: 15),
-                SizedBox(
-                  // height: 100,
-                  width: 300,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      var addressUpdate = AddressModel(
-                        userID: userddt[0]['id'],
-                        fname: fname.text,
-                        phone: phone.text,
-                        hno: hno.text,
-                        road: roadname.text,
-                        city: city.text,
-                        state: state.text,
-                        pincode: pincode.text,
-                        // addressID: ,
-                      );
-
-                      udb.updateAddress(addid, addressUpdate);
-                      setState(() {});
-                      Navigator.of(context).pop();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(60)),
-                      backgroundColor: HexColor("#036635"),
-                    ),
-                    child: const Text(
-                      'Save',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
+    BottomSheetAddress(context, fname, phone, hno, roadname, city, state,
+        pincode, addid, "UPDATE");
   }
-
-  late double maxrewards = 0;
 
   userewards() async {
     maxrewards = userddt[0]['rewards'] / 2;
@@ -257,10 +204,8 @@ class _AddressState extends State<Address> {
       ttl = isChecked ? ttl - maxrewards : tempttl;
     } else {
       maxrewards = ttl / 20;
-
       ttl = isChecked ? ttl - maxrewards : tempttl;
     }
-
     final prefs = await SharedPreferences.getInstance();
     await prefs.setDouble("cartttl", ttl);
     savings = isChecked == false ? 0 : maxrewards;
@@ -268,17 +213,11 @@ class _AddressState extends State<Address> {
     setState(() {});
   }
 
-  var selectedVal;
-
   setSelectedVal(var val) {
     setState(() {
       selectedVal = val;
     });
   }
-
-  final offers = TextEditingController();
-  bool afterSelecting = false;
-  late double savings = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -337,26 +276,6 @@ class _AddressState extends State<Address> {
           ],
           true,
           0.0),
-
-      // AppBar(
-      //   title: const Text('Checkout'),
-      //   backgroundColor: Colors.white,
-      //   foregroundColor: HexColor("#175244"),
-      //   actions: [
-      //     TextButton(
-      //       onPressed: () {
-      //         addAddress(context);
-      //       },
-      //       child: Container(
-      //         margin: const EdgeInsets.only(right: 10),
-      //         child: Text(
-      //           '+ Add Address',
-      //           style: TextStyle(color: HexColor("#036635")),
-      //         ),
-      //       ),
-      //     ),
-      //   ],
-      // ),
       body: addressList.isEmpty
           ? Center(
               child: Column(
@@ -785,7 +704,6 @@ class _AddressState extends State<Address> {
                                                 onChanged: (bool? value) {
                                                   isChecked = !isChecked;
                                                   userewards();
-                                                  setState(() {});
                                                 },
                                               ),
                                               AutoSizeText(
@@ -849,10 +767,6 @@ class _AddressState extends State<Address> {
                   Razorpay.EVENT_EXTERNAL_WALLET, handleExternalWalletSelected);
               razorpay.open(options);
             }
-
-            //   afterSelecting
-            //       ? Get.to(PaymentPage(), transition: Transition.rightToLeft)
-            //       : Container();
           },
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(HexColor("#036635"))),
@@ -944,7 +858,6 @@ class _AddressState extends State<Address> {
         continueButton,
       ],
     );
-    // show the dialog
     showDialog(
       context: context,
       builder: (BuildContext context) {
