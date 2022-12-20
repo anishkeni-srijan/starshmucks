@@ -2,16 +2,15 @@ abstract class SigninEvent {}
 
 class SigninpassChangedEvent extends SigninEvent {
   String passwordvalue = '';
-  String obtainedpassword = '';
 
-  SigninpassChangedEvent(this.passwordvalue, this.obtainedpassword);
+  SigninpassChangedEvent(this.passwordvalue);
 }
 
 class SigninemailChangedEvent extends SigninEvent {
   String emailvalue = '';
-  String obtainedemail = '';
 
-  SigninemailChangedEvent(this.emailvalue, this.obtainedemail);
+
+  SigninemailChangedEvent(this.emailvalue);
 }
 
 class SigninSumittedEvent extends SigninEvent {
