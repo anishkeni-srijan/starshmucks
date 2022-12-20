@@ -295,11 +295,13 @@ class _AddressState extends State<Address> {
                       ? Container()
                       : Center(
                           child: Container(
-                              padding: const EdgeInsets.all(8),
-                              child: const Text(
-                                "Select a Address",
-                                style: TextStyle(color: Colors.red),
-                              ))),
+                            padding: const EdgeInsets.all(8),
+                            child: const Text(
+                              "Select a Address",
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ),
+                        ),
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 20, top: 10, bottom: 10),
