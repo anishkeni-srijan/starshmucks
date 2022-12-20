@@ -48,13 +48,11 @@ class _SignupPageState extends State<SignupPage> {
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
-
-    dob.text = ""; //set the initial value of text field
+    dob.text = "";
     super.initState();
   }
 
   void addUserData() {
-    //sqflite UserModel
     var userSQL = UserModel(
       tier: "bronze",
       name: name.text,
@@ -133,52 +131,22 @@ class _SignupPageState extends State<SignupPage> {
                 ),
 
                 //Name
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.01,
-                  ),
-                  child: Form(
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    child: TextFormField(
-                      style: const TextStyle(color: Colors.black),
-                      controller: name,
-                      onChanged: (value) {
-                        BlocProvider.of<SignupBloc>(context).add(
-                          SignupNameChangedEvent(name.text),
-                        );
-                      },
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'Name',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null)
-                          return "Please enter name";
-                        else if (value.length < 3)
-                          return "Please enter 3 character for name";
-                        else
-                          return null;
-                      },
-                    ),
-                  ),
+                TextInputWidget(
+                  lbltxt: "Name",
+                  cntroller: name,
+                  onchange: (value) {
+                    BlocProvider.of<SignupBloc>(context).add(
+                      SignupNameChangedEvent(name.text),
+                    );
+                  },
+                  validator: (value) {
+                    if (value == null)
+                      return "Please enter name";
+                    else if (value.length < 3)
+                      return "Please enter 3 character for name";
+                    else
+                      return null;
+                  },
                 ),
                 //Date of Birth
                 Container(
@@ -257,55 +225,24 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ),
                 //Email
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: Form(
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    child: TextFormField(
-                      autocorrect: false,
-                      style: const TextStyle(color: Colors.black),
-                      controller: email,
-                      onChanged: (value) {
-                        BlocProvider.of<SignupBloc>(context)
-                            .add(SignupEmailChangedEvent(email.text));
-                      },
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'Email',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (RegExp(
-                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                            .hasMatch(value!))
-                          return null;
-                        else
-                          return "Please Enter a valid email";
-                      },
-                    ),
-                  ),
+                TextInputWidget(
+                  lbltxt: "Email",
+                  cntroller: email,
+                  onchange: (value) {
+                    BlocProvider.of<SignupBloc>(context)
+                        .add(SignupEmailChangedEvent(email.text));
+                  },
+                  validator: (value) {
+                    if (RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(value!))
+                      return null;
+                    else
+                      return "Please Enter a valid email";
+                  },
                 ),
                 //Phone Number
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
                   height: 80,
                   child: InternationalPhoneNumberInput(
@@ -347,105 +284,39 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ),
                 //Password
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: Form(
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    child: TextFormField(
-                      obscureText: true,
-                      style: const TextStyle(color: Colors.black),
-                      controller: pass1,
-                      onChanged: (value) {
-                        BlocProvider.of<SignupBloc>(context).add(
-                          SignupPasswordChangedEvent(pass1.text),
-                        );
-                      },
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'Password',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                      validator: (value) {
-                        RegExp regex = RegExp(
-                            r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
-                        if (!regex.hasMatch(value!))
-                          return """* Minimum 1 Upper case\n* Minimum 1 lowercase\n* Minimum 1 Numeric Number\n* Minimum 1 Special Character\n* Common Allow Character ( ! @ # \$ & * ~ )""";
-                        else
-                          return null;
-                      },
-                    ),
-                  ),
+                TextInputWidget(
+                  lbltxt: "Password",
+                  cntroller: pass1,
+                  onchange: (value) {
+                    BlocProvider.of<SignupBloc>(context).add(
+                      SignupPasswordChangedEvent(pass1.text),
+                    );
+                  },
+                  validator: (value) {
+                    RegExp regex = RegExp(
+                        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+                    if (!regex.hasMatch(value!))
+                      return """* Minimum 1 Upper case\n* Minimum 1 lowercase\n* Minimum 1 Numeric Number\n* Minimum 1 Special Character\n* Common Allow Character ( ! @ # \$ & * ~ )""";
+                    else
+                      return null;
+                  },
                 ),
-
                 //Confirm Password
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.005,
-                  ),
-                  child: Form(
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    child: TextFormField(
-                      obscureText: true,
-                      style: const TextStyle(
-                        color: Colors.black,
+                TextInputWidget(
+                  lbltxt: "Confirm Password",
+                  cntroller: pass2,
+                  onchange: (value) {
+                    BlocProvider.of<SignupBloc>(context).add(
+                      SignupConfirmPasswordChangedEvent(
+                        pass2.text,
+                        pass1.text,
                       ),
-                      controller: pass2,
-                      onChanged: (value) {
-                        BlocProvider.of<SignupBloc>(context).add(
-                          SignupConfirmPasswordChangedEvent(
-                            pass2.text,
-                            pass1.text,
-                          ),
-                        );
-                      },
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        labelText: 'Confirm Password',
-                        labelStyle: TextStyle(
-                          color: HexColor("#175244"),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: HexColor("#175244"),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null) return "Enter the password";
-                        if (value != pass1.text)
-                          return "Password doesn't match";
-                      },
-                    ),
-                  ),
+                    );
+                  },
+                  validator: (value) {
+                    if (value == null) return "Enter the password";
+                    if (value != pass1.text) return "Password doesn't match";
+                  },
                 ),
                 //CheckBox
                 Container(
@@ -531,6 +402,60 @@ class _SignupPageState extends State<SignupPage> {
           Get.to(() => SigninPage());
         },
         label: Text(''),
+      ),
+    );
+  }
+}
+
+class TextInputWidget extends StatelessWidget {
+  const TextInputWidget({
+    Key? key,
+    required this.cntroller,
+    required this.lbltxt,
+    required this.onchange,
+    this.validator,
+  }) : super(key: key);
+
+  final TextEditingController cntroller;
+  final String lbltxt;
+  final onchange;
+  final validator;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
+      margin: EdgeInsets.only(
+        top: MediaQuery.of(context).size.height * 0.01,
+      ),
+      child: Form(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: TextFormField(
+            style: const TextStyle(color: Colors.black),
+            controller: cntroller,
+            onChanged: onchange,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(5),
+              labelText: lbltxt,
+              labelStyle: TextStyle(
+                color: HexColor("#175244"),
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: HexColor("#175244"),
+                  width: 2,
+                ),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: HexColor("#175244"),
+                  width: 2,
+                ),
+              ),
+            ),
+            validator: validator),
       ),
     );
   }
