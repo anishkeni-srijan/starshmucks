@@ -19,7 +19,7 @@ commonPhoneNumberWidget(
       initialValue: number,
       textFieldController: phone,
       inputDecoration: InputDecoration(
-        contentPadding: EdgeInsets.all(5),
+        contentPadding: const EdgeInsets.all(5),
         labelText: 'Phone Number',
         labelStyle: TextStyle(
           color: HexColor("#175244"),

@@ -59,17 +59,13 @@ class _GetCakeDataState extends State<GetCakeData> {
 
   addToCart(context, index) async {
     final cartp = await db.cakedata();
-
-    // setState(() {});
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
-    //setState(() {});
   }
 
   addToWishlist(context, index) async {
     final cartp = await db.cakedata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
     getIds();
-    // setState(() {});
   }
 
   removefromwishlist(sendid) {
@@ -79,7 +75,7 @@ class _GetCakeDataState extends State<GetCakeData> {
 
   getCakeData() async {
     data = await db.cakedata();
-    if (this.mounted) {
+    if (mounted) {
       setState(() {
         getdataf = true;
       });
@@ -91,163 +87,154 @@ class _GetCakeDataState extends State<GetCakeData> {
     initcart();
     getCakeData();
     return Scaffold(
-        persistentFooterButtons: cartinit ? [viewincart()] : null,
-        body: ListView.builder(
-          shrinkWrap: true,
-          itemCount: data.length,
-          itemBuilder: (context, index) {
-            bool status = false;
-            for (var i = 0; i < ids.length; i++) {
-              if (ids[i] == data[index].id) status = true;
-            }
-            return GestureDetector(
-              onTap: () {
-                getpdata(data[index]);
-                Get.to(() => const ProductDetail(),
-                    transition: Transition.downToUp);
-              },
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.18,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border(
-                      bottom:
-                          BorderSide(color: HexColor("#175244"), width: 0.2)),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.only(
-                        left: 10,
-                      ),
-                      child: Image.asset(
-                        data[index].image,
-                        width: 120,
-                        height: 120,
-                      ),
+      persistentFooterButtons: cartinit ? [viewincart()] : null,
+      body: ListView.builder(
+        shrinkWrap: true,
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          bool status = false;
+          for (var i = 0; i < ids.length; i++) {
+            if (ids[i] == data[index].id) status = true;
+          }
+          return GestureDetector(
+            onTap: () {
+              getpdata(data[index]);
+              Get.to(() => const ProductDetail(),
+                  transition: Transition.downToUp);
+            },
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.18,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                    bottom: BorderSide(color: HexColor("#175244"), width: 0.2)),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(
+                      left: 10,
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.only(top: 10),
-                            width: 150,
-                            child: AutoSizeText(
-                              data[index].title,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                color: Colors.black,
-                              ),
-                              maxFontSize: 18,
-                              maxLines: 1,
-                            ),
-                          ),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.01),
-                          Text(
-                            " \$ " + data[index].price,
+                    child:
+                        Image.asset(data[index].image, width: 120, height: 120),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.only(top: 10),
+                          width: 150,
+                          child: AutoSizeText(
+                            data[index].title,
+                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w800,
                             ),
+                            maxFontSize: 18,
+                            maxLines: 1,
                           ),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.04),
-                          Row(
-                            children: <Widget>[
-                              AutoSizeText(
-                                data[index].rating,
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                                minFontSize: 12,
-                                maxFontSize: 18,
-                              ),
-                              const Icon(
-                                Icons.star,
-                                size: 20,
-                                color: Colors.amberAccent,
-                              ),
-                            ],
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01),
+                        Text(
+                          " \$ ${data[index].price}",
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w800,
                           ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.04),
+                        Row(
+                          children: <Widget>[
+                            AutoSizeText(
+                              data[index].rating,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w800,
+                              ),
+                              minFontSize: 12,
+                              maxFontSize: 18,
+                            ),
+                            const Icon(
+                              Icons.star,
+                              size: 20,
+                              color: Colors.amberAccent,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    Container(
-                      padding: EdgeInsets.only(right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                //int id = odata[index].id;
-                                status
-                                    ? removefromwishlist(
-                                        WishlistModel(id: data[index].id))
-                                    : addToWishlist(context, index);
-                              },
-                              icon: status
-                                  ? const Icon(
-                                      Icons.favorite,
-                                      color: Colors.red,
-                                    )
-                                  : Icon(
-                                      Icons.favorite_border,
-                                    )),
-                          TextButton(
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
                             onPressed: () {
-                              addToCart(context, index);
-                              String toastMessage = "ITEM ADDED TO CART";
-                              fToast.showToast(
-                                child: CustomToast(toastMessage),
-                                positionedToastBuilder: (context, child) =>
-                                    Positioned(
-                                  child: child,
-                                  bottom:
-                                      MediaQuery.of(context).size.height * 0.14,
-                                  left: MediaQuery.of(context).size.width * 0.1,
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.1,
-                                ),
-                              );
-                              setState(
-                                () {
-                                  cartinit = true;
-                                },
-                              );
+                              status
+                                  ? removefromwishlist(
+                                      WishlistModel(id: data[index].id))
+                                  : addToWishlist(context, index);
                             },
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  index % 2 == 0
-                                      ? Colors.teal
-                                      : Colors.deepOrangeAccent),
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                ),
+                            icon: status
+                                ? const Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                  )
+                                : const Icon(
+                                    Icons.favorite_border,
+                                  )),
+                        TextButton(
+                          onPressed: () {
+                            addToCart(context, index);
+                            String toastMessage = "ITEM ADDED TO CART";
+                            fToast.showToast(
+                              child: CustomToast(toastMessage),
+                              positionedToastBuilder: (context, child) =>
+                                  Positioned(
+                                bottom:
+                                    MediaQuery.of(context).size.height * 0.14,
+                                left: MediaQuery.of(context).size.width * 0.1,
+                                right: MediaQuery.of(context).size.width * 0.1,
+                                child: child,
+                              ),
+                            );
+                            setState(() {
+                              cartinit = true;
+                            });
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                index % 2 == 0
+                                    ? Colors.teal
+                                    : Colors.deepOrangeAccent),
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(Colors.white),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
                               ),
                             ),
-                            child: const Text('Add'),
                           ),
-                        ],
-                      ),
+                          child: const Text('Add'),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            );
-          },
-        ));
+            ),
+          );
+        },
+      ),
+    );
   }
 }
