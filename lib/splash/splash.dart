@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:starshmucks/splash/bloc/splash_bloc.dart';
 import 'package:starshmucks/splash/bloc/splash_events.dart';
 import 'package:tbib_splash_screen/splash_screen_view.dart';
@@ -16,7 +15,7 @@ class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<SplashScreenBloc>(context).add(
-      LoginStatuscheckEvent(),
+      LoginStatusCheckEvent(),
     );
     return Scaffold(
         backgroundColor: HexColor("#175244"),
@@ -27,9 +26,9 @@ class Splash extends StatelessWidget {
             builder: (context, state) {
 
               if (state is UserExistsState) {
-                return BottomBar();
+                return const BottomBar();
               } else {
-                return  SigninPage();
+                return  const SigninPage();
               }
             },
           ),
