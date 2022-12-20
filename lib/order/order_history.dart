@@ -78,38 +78,36 @@ class _OrdersState extends State<Orders> {
                 var res = index + 1;
                 getOrderDetails(res);
                 return ListTile(
-                    trailing: TextButton.icon(
-                        onPressed: () {
-                          getDetails(res);
-                        },
-                        icon: const Icon(
-                          Icons.arrow_forward_ios,
-                          color: Colors.black38,
-                        ),
-                        label: const Text("")),
-                    leading: CircleAvatar(
-                      radius: 60,
-                      child: items1.isEmpty
-                          ? const Text("image")
-                          : Image.asset(
-                              items1[index].image,
-                              // height: 80,
-                              // width: 80,
-                            ),
-                    ),
-                    contentPadding: const
-                    EdgeInsets.symmetric(vertical: 10.0),
-                    title: Text(
-                      "Order id: #$res",
-                      style:
-                          TextStyle(fontSize: 16, color: HexColor("#175244")),
-                    ),
-                    subtitle: const Text("Order Placed",
-                        style: TextStyle(fontSize: 16, color: Colors.black38)),
-                    onTap: () async {
-                      getDetails(res);
-                    },
-                  );
+                  trailing: TextButton.icon(
+                      onPressed: () {
+                        getDetails(res);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.black38,
+                      ),
+                      label: const Text("")),
+                  leading: CircleAvatar(
+                    radius: 60,
+                    child: items1.isEmpty
+                        ? const Text("image")
+                        : Image.asset(
+                            items1[index].image,
+                            // height: 80,
+                            // width: 80,
+                          ),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
+                  title: Text(
+                    "Order id: #$res",
+                    style: TextStyle(fontSize: 16, color: HexColor("#175244")),
+                  ),
+                  subtitle: const Text("Order Placed",
+                      style: TextStyle(fontSize: 16, color: Colors.black38)),
+                  onTap: () async {
+                    getDetails(res);
+                  },
+                );
               },
               separatorBuilder: (context, index) {
                 return const Divider(

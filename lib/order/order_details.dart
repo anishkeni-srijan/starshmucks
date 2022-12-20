@@ -1,5 +1,3 @@
-import 'dart:io' show Platform;
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -109,36 +107,33 @@ class _OrderdetailState extends State<Orderdetail> {
     final ThemeData themeStyle = Theme.of(context);
     double textWidth = MediaQuery.of(context).size.width * 0.45;
     return Scaffold(
-      body:    orderdata.isEmpty ||
-          items1.isEmpty ||
-          qtylistfromstring.isEmpty
+      body: orderdata.isEmpty || items1.isEmpty || qtylistfromstring.isEmpty
           ? Center(child: CircularProgressIndicator())
-          :  CustomScrollView(
-        physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics()),
-        slivers: <Widget>[
-          SliverAppBar(
-            pinned: true,
-            snap: false,
-            floating: false,
-            backgroundColor: Colors.white,
-            foregroundColor: HexColor("#175244"),
-            expandedHeight: 150.0,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text('Order id: #$id',
-                  style: TextStyle(
-                    color: HexColor("#175244"),
-                  )),
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-
-                    Container(
+          : CustomScrollView(
+              physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
+              slivers: <Widget>[
+                SliverAppBar(
+                  pinned: true,
+                  snap: false,
+                  floating: false,
+                  backgroundColor: Colors.white,
+                  foregroundColor: HexColor("#175244"),
+                  expandedHeight: 150.0,
+                  flexibleSpace: FlexibleSpaceBar(
+                    title: Text('Order id: #$id',
+                        style: TextStyle(
+                          color: HexColor("#175244"),
+                        )),
+                  ),
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
                             padding: const EdgeInsets.all(10),
                             width: MediaQuery.of(context).size.width * 1,
                             child: Card(
@@ -183,7 +178,7 @@ class _OrderdetailState extends State<Orderdetail> {
                               ),
                             ),
                           ),
-                    Container(
+                          Container(
                             padding: const EdgeInsets.only(
                               left: 10,
                               right: 10,
@@ -250,7 +245,8 @@ class _OrderdetailState extends State<Orderdetail> {
                                                         width: 32,
                                                         decoration:
                                                             BoxDecoration(
-                                                          color: HexColor("#036635"),
+                                                          color: HexColor(
+                                                              "#036635"),
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(7),
@@ -306,7 +302,8 @@ class _OrderdetailState extends State<Orderdetail> {
                                                                     .textTheme
                                                                     .caption
                                                                     ?.copyWith(
-                                                                        color:HexColor("#036635"))),
+                                                                        color: HexColor(
+                                                                            "#036635"))),
                                                           ),
                                                         ],
                                                       ),
@@ -416,7 +413,7 @@ class _OrderdetailState extends State<Orderdetail> {
                                   ),
                                 )),
                           ),
-                GestureDetector(
+                          GestureDetector(
                             onTap: () {
                               Get.to(() => const Help());
                             },
@@ -445,17 +442,17 @@ class _OrderdetailState extends State<Orderdetail> {
                               ),
                             ),
                           ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                  ],
-                );
-              },
-              childCount: 1,
+                          const SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      );
+                    },
+                    childCount: 1,
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 }

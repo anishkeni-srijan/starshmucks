@@ -54,6 +54,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     }
     setState(() {});
   }
+
   removefromwishlist(sendid) {
     wdb.deleteitemFromWishlist(sendid);
 
@@ -108,15 +109,17 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border(
-                          bottom:
-                          BorderSide(color: HexColor("#175244"), width: 0.2)),
+                          bottom: BorderSide(
+                              color: HexColor("#175244"), width: 0.2)),
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
-                          padding: const EdgeInsets.only(left: 10,),
+                          padding: const EdgeInsets.only(
+                            left: 10,
+                          ),
                           child: Image.asset(
                             data[index].image,
                             width: 120,
@@ -130,7 +133,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                             children: <Widget>[
                               Container(
                                 padding: EdgeInsets.only(top: 10),
-                                width:150,
+                                width: 150,
                                 child: AutoSizeText(
                                   data[index].title,
                                   overflow: TextOverflow.ellipsis,
@@ -142,7 +145,8 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                 ),
                               ),
                               SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.01,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01,
                               ),
                               Text(
                                 " \$ " + data[index].price,
@@ -153,7 +157,8 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                 ),
                               ),
                               SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.04,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.04,
                               ),
                               Row(
                                 children: <Widget>[
@@ -186,55 +191,54 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                     //int id = odata[index].id;
                                     status
                                         ? removefromwishlist(
-                                        WishlistModel(id: data[index].id))
+                                            WishlistModel(id: data[index].id))
                                         : addToWishlist(context, index);
                                   },
                                   icon: status
                                       ? const Icon(
-                                    Icons.favorite,
-                                    color: Colors.red,
-                                  )
-                                      : Icon(Icons.favorite_border,)),
+                                          Icons.favorite,
+                                          color: Colors.red,
+                                        )
+                                      : Icon(
+                                          Icons.favorite_border,
+                                        )),
                               TextButton(
                                 onPressed: () {
                                   addToCart(context, index);
                                   String toastMessage = "ITEM ADDED TO CART";
                                   fToast.showToast(
                                     child: CustomToast(toastMessage),
-                                    positionedToastBuilder:
-                                        (context, child) => Positioned(
+                                    positionedToastBuilder: (context, child) =>
+                                        Positioned(
                                       child: child,
                                       bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.14,
-                                      left:
-                                      MediaQuery.of(context).size.width *
+                                          MediaQuery.of(context).size.height *
+                                              0.14,
+                                      left: MediaQuery.of(context).size.width *
                                           0.1,
-                                      right:
-                                      MediaQuery.of(context).size.width *
+                                      right: MediaQuery.of(context).size.width *
                                           0.1,
                                     ),
                                   );
                                   setState(
-                                        () {
+                                    () {
                                       cartinit = true;
                                     },
                                   );
                                 },
                                 style: ButtonStyle(
                                   backgroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      index % 2 == 0
-                                          ? Colors.teal
-                                          : Colors.deepOrangeAccent),
+                                      MaterialStateProperty.all<Color>(
+                                          index % 2 == 0
+                                              ? Colors.teal
+                                              : Colors.deepOrangeAccent),
                                   foregroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      Colors.white),
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.white),
                                   shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.circular(18.0),
+                                      borderRadius: BorderRadius.circular(18.0),
                                     ),
                                   ),
                                 ),

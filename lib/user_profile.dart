@@ -27,7 +27,6 @@ class _UserProfileState extends State<UserProfile> {
 
   getUser() async {
     usernames = await udb.getDataUserData();
-
     if (this.mounted) {
       setState(() {});
     }
@@ -38,7 +37,6 @@ class _UserProfileState extends State<UserProfile> {
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
-
     super.initState();
   }
 
@@ -116,7 +114,7 @@ class _UserProfileState extends State<UserProfile> {
                 ),
                 child: Column(
                   children: [
-                    profileTile(
+                    ProfileTile(
                       text: 'My Account',
                       press: () {
                         Get.to(() => EditProfile());
@@ -124,7 +122,7 @@ class _UserProfileState extends State<UserProfile> {
                       icon: Icons.account_circle_outlined,
                     ),
                     const DividerForTiles(),
-                    profileTile(
+                    ProfileTile(
                       text: 'Orders',
                       press: () {
                         Get.to(() => Orders());
@@ -132,23 +130,15 @@ class _UserProfileState extends State<UserProfile> {
                       icon: Icons.coffee_outlined,
                     ),
                     const DividerForTiles(),
-                    profileTile(
+                    ProfileTile(
                       text: 'Rewards',
                       press: () {
                         Get.to(() => Rewards());
                       },
                       icon: Icons.star_outline_sharp,
                     ),
-                    // const DividerForTiles(),
-                    // profileTile(
-                    //   text: 'Wishlist',
-                    //   press: () {
-                    //     Get.to(() => WishListPage());
-                    //   },
-                    //   icon: Icons.favorite_border,
-                    // ),
                     const DividerForTiles(),
-                    profileTile(
+                    ProfileTile(
                       text: 'Help',
                       press: () {
                         Get.to(() => Help());
@@ -156,7 +146,7 @@ class _UserProfileState extends State<UserProfile> {
                       icon: Icons.help_outline_rounded,
                     ),
                     const DividerForTiles(),
-                    profileTile(
+                    ProfileTile(
                       text: 'Logout',
                       press: () async {
                         SharedPreferences prefs =
@@ -195,8 +185,8 @@ class DividerForTiles extends StatelessWidget {
   }
 }
 
-class profileTile extends StatelessWidget {
-  const profileTile({
+class ProfileTile extends StatelessWidget {
+  const ProfileTile({
     Key? key,
     required this.text,
     required this.press,

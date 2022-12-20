@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:starshmucks/home/home_screen.dart';
 
+import '/home/home_screen.dart';
 import '/db/cart_db.dart';
 import '/model/cart_model.dart';
 import 'address_payment_page/address_payment.dart';
@@ -62,19 +62,16 @@ class _MyCartState extends State<MyCart> {
     datalist.isEmpty ? cartinit = false : cartinit = true;
     cartdb.deleteitem(sendid);
     getDataOnIds();
-    // setState(() {});
   }
 
   increaseqty(sendid) {
     cartdb.increseqty(sendid);
     getDataOnIds();
-    // setState(() {});
   }
 
   decreaseqty(sendid) {
     cartdb.decreaseqty(sendid);
     getDataOnIds();
-    // setState(() {});
   }
 
   @override
@@ -119,9 +116,7 @@ class _MyCartState extends State<MyCart> {
                   ),
                 ],
               ),
-              const Text(
-                "( Inclusive of packaging charge )",
-              ),
+              Text("( Inclusive of packaging charge )"),
             ],
           ),
         )
@@ -141,22 +136,25 @@ class _MyCartState extends State<MyCart> {
                     flexibleSpace: Container(
                       padding: const EdgeInsets.all(20),
                       child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              "Order",
-                              style: TextStyle(
-                                  fontSize: 30, color: HexColor("#175244")),
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Order",
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: HexColor("#175244"),
                             ),
-                            Text(
-                              "Summary",
-                              style: TextStyle(
-                                  fontSize: 35,
-                                  color: HexColor("#175244"),
-                                  fontWeight: FontWeight.w600),
-                            ),
-                          ]),
+                          ),
+                          Text(
+                            "Summary",
+                            style: TextStyle(
+                                fontSize: 35,
+                                color: HexColor("#175244"),
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ];
@@ -164,12 +162,14 @@ class _MyCartState extends State<MyCart> {
               body: datalist.isEmpty
                   ? Center(
                       child: Text(
-                      "No items in cart.",
-                      style: TextStyle(
+                        "No items in cart.",
+                        style: TextStyle(
                           fontSize: 15,
                           color: HexColor("#175244"),
-                          fontWeight: FontWeight.w300),
-                    ))
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    )
                   : SingleChildScrollView(
                       physics: NeverScrollableScrollPhysics(),
                       child: Column(
@@ -222,10 +222,12 @@ class _MyCartState extends State<MyCart> {
                                                         datalist[index]);
                                                   },
                                                   style: ButtonStyle(
-                                                      foregroundColor:
-                                                          MaterialStateProperty
-                                                              .all(HexColor(
-                                                                  "#036635"))),
+                                                    foregroundColor:
+                                                        MaterialStateProperty
+                                                            .all(
+                                                      HexColor("#036635"),
+                                                    ),
+                                                  ),
                                                   child: const Text(
                                                     'Remove',
                                                   ),
@@ -254,26 +256,32 @@ class _MyCartState extends State<MyCart> {
                                                       setState(() {});
                                                     },
                                                     style: ButtonStyle(
-                                                        foregroundColor:
-                                                            MaterialStateProperty
-                                                                .all(HexColor(
-                                                                    "#036635"))),
+                                                      foregroundColor:
+                                                          MaterialStateProperty
+                                                              .all(
+                                                        HexColor("#036635"),
+                                                      ),
+                                                    ),
                                                   ),
-                                                  Text(datalist[index]
-                                                      .qty
-                                                      .toString()),
+                                                  Text(
+                                                    datalist[index]
+                                                        .qty
+                                                        .toString(),
+                                                  ),
                                                   IconButton(
                                                     icon: const Icon(Icons.add),
                                                     onPressed: () {
                                                       increaseqty(
-                                                          datalist[index]);
-                                                      // setState(() {});
+                                                        datalist[index],
+                                                      );
                                                     },
                                                     style: ButtonStyle(
-                                                        foregroundColor:
-                                                            MaterialStateProperty
-                                                                .all(HexColor(
-                                                                    "#036635"))),
+                                                      foregroundColor:
+                                                          MaterialStateProperty
+                                                              .all(
+                                                        HexColor("#036635"),
+                                                      ),
+                                                    ),
                                                   ),
                                                 ],
                                               ),

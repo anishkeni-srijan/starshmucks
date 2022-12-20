@@ -64,16 +64,19 @@ class _GetCakeDataState extends State<GetCakeData> {
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
     //setState(() {});
   }
+
   addToWishlist(context, index) async {
     final cartp = await db.cakedata();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
     getIds();
     // setState(() {});
   }
+
   removefromwishlist(sendid) {
     wdb.deleteitemFromWishlist(sendid);
     getIds();
   }
+
   getCakeData() async {
     data = await db.cakedata();
     if (this.mounted) {
@@ -116,7 +119,9 @@ class _GetCakeDataState extends State<GetCakeData> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
-                      padding: const EdgeInsets.only(left: 10,),
+                      padding: const EdgeInsets.only(
+                        left: 10,
+                      ),
                       child: Image.asset(
                         data[index].image,
                         width: 120,
@@ -130,7 +135,7 @@ class _GetCakeDataState extends State<GetCakeData> {
                         children: <Widget>[
                           Container(
                             padding: EdgeInsets.only(top: 10),
-                            width:150,
+                            width: 150,
                             child: AutoSizeText(
                               data[index].title,
                               overflow: TextOverflow.ellipsis,
@@ -186,55 +191,50 @@ class _GetCakeDataState extends State<GetCakeData> {
                                 //int id = odata[index].id;
                                 status
                                     ? removefromwishlist(
-                                    WishlistModel(id: data[index].id))
+                                        WishlistModel(id: data[index].id))
                                     : addToWishlist(context, index);
                               },
                               icon: status
                                   ? const Icon(
-                                Icons.favorite,
-                                color: Colors.red,
-                              )
-                                  : Icon(Icons.favorite_border,)),
+                                      Icons.favorite,
+                                      color: Colors.red,
+                                    )
+                                  : Icon(
+                                      Icons.favorite_border,
+                                    )),
                           TextButton(
                             onPressed: () {
                               addToCart(context, index);
                               String toastMessage = "ITEM ADDED TO CART";
                               fToast.showToast(
                                 child: CustomToast(toastMessage),
-                                positionedToastBuilder:
-                                    (context, child) => Positioned(
+                                positionedToastBuilder: (context, child) =>
+                                    Positioned(
                                   child: child,
                                   bottom:
-                                  MediaQuery.of(context).size.height *
-                                      0.14,
-                                  left:
-                                  MediaQuery.of(context).size.width *
-                                      0.1,
+                                      MediaQuery.of(context).size.height * 0.14,
+                                  left: MediaQuery.of(context).size.width * 0.1,
                                   right:
-                                  MediaQuery.of(context).size.width *
-                                      0.1,
+                                      MediaQuery.of(context).size.width * 0.1,
                                 ),
                               );
                               setState(
-                                    () {
+                                () {
                                   cartinit = true;
                                 },
                               );
                             },
                             style: ButtonStyle(
-                              backgroundColor:
-                              MaterialStateProperty.all<Color>(
+                              backgroundColor: MaterialStateProperty.all<Color>(
                                   index % 2 == 0
                                       ? Colors.teal
                                       : Colors.deepOrangeAccent),
-                              foregroundColor:
-                              MaterialStateProperty.all<Color>(
+                              foregroundColor: MaterialStateProperty.all<Color>(
                                   Colors.white),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(18.0),
+                                  borderRadius: BorderRadius.circular(18.0),
                                 ),
                               ),
                             ),

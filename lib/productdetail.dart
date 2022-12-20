@@ -4,7 +4,6 @@ import 'package:hexcolor/hexcolor.dart';
 
 import '/db/menu_db.dart';
 import '/home/home_screen.dart';
-import 'common_things.dart';
 import 'db/cart_db.dart';
 import 'db/wishlist_db.dart';
 import 'model/cart_model.dart';
@@ -78,9 +77,11 @@ class _ProductDetailState extends State<ProductDetail> {
       if (ids[i] == product.id) status = true;
     }
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0.0,),
-      // persistentFooterButtons: cartinit ? [viewincart()] : null,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
         bottomNavigationBar: Container(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
@@ -91,7 +92,7 @@ class _ProductDetailState extends State<ProductDetail> {
             },
             style: ButtonStyle(
                 backgroundColor:
-                MaterialStateProperty.all(HexColor("#036635"))),
+                    MaterialStateProperty.all(HexColor("#036635"))),
             child: const Text("Add To Cart"),
             //   ),
             // ],
@@ -214,7 +215,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 ),
               ),
               Container(
-                alignment: Alignment.center,
+                  alignment: Alignment.center,
                   transform: Matrix4.translationValues(
                       0, MediaQuery.of(context).size.height * -0.07, 0),
                   child: Text(
@@ -237,7 +238,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
                       Container(
                           width: MediaQuery.of(context).size.width * 0.1,
-                          margin: EdgeInsets.only(right:20),
+                          margin: EdgeInsets.only(right: 20),
                           decoration: BoxDecoration(
                             boxShadow: const [
                               BoxShadow(
@@ -250,7 +251,8 @@ class _ProductDetailState extends State<ProductDetail> {
                             shape: BoxShape.circle,
                           ),
                           child: Padding(
-                            padding: EdgeInsets.only(left: 7.0,right: 10,bottom: 10,top: 10),
+                            padding: EdgeInsets.only(
+                                left: 7.0, right: 10, bottom: 10, top: 10),
                             child: Icon(
                               Icons.share,
                               color: Colors.white,
@@ -268,12 +270,14 @@ class _ProductDetailState extends State<ProductDetail> {
                     Text("Description:",
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w600)),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Container(
                         child: Text(
-                          product.description,
-                          style: TextStyle(fontSize: 15),
-                        )),
+                      product.description,
+                      style: TextStyle(fontSize: 15),
+                    )),
                   ],
                 ),
               ),

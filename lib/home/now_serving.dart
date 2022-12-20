@@ -61,6 +61,7 @@ class _NowServingState extends State<NowServing> {
     wdb.deleteitemFromWishlist(sendid);
     getIds();
   }
+
   addToCart(context, index) async {
     final cartp = await db.NowServedata();
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
