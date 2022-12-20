@@ -9,20 +9,19 @@ import 'package:starshmucks/model/user_model.dart';
 import '../../db/user_db.dart';
 import '/signin/bloc/signin_events.dart';
 import '/signin/bloc/signin_states.dart';
+
 late String obtainedemail;
 late String obtainedpassword;
 List<Map<String, dynamic>> userddt = [];
 UserDB udb = UserDB();
 
-
 getUser() async {
   udb.initDBUserData();
   userddt = await udb.getDataUserData();
 }
+
 class SigninBloc extends Bloc<SigninEvent, SigninState> {
   SigninBloc() : super(SigninInitialState()) {
-
-
     //works on login text changed
     on<SigninemailChangedEvent>((event, emit) {
 //user exists
@@ -37,8 +36,7 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
 
       if (event.emailvalue == obtainedemail) {
         emit(SigninValidState("all good"));
-      } else if (event.emailvalue == '' ||
-          event.emailvalue != obtainedemail) {
+      } else if (event.emailvalue == '' || event.emailvalue != obtainedemail) {
         emit(
           SigninErrorState("Please enter a valid Email"),
         );
@@ -49,7 +47,7 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
     on<SigninpassChangedEvent>((event, emit) {
 //user exists
       if (event.passwordvalue == obtainedpassword) {
-        Get.to(() => bottomBar());
+        Get.to(() => BottomBar());
       } else if (event.passwordvalue == '' ||
           event.passwordvalue != obtainedpassword) {
         emit(
