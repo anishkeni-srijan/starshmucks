@@ -80,7 +80,7 @@ class _GetOffersState extends State<GetOffers> {
     getIds();
   }
 
-  removefromwishlist(sendid)async{
+  removefromwishlist(sendid) async {
     wdb.deleteitemFromWishlist(sendid);
     await getIds();
   }
@@ -99,9 +99,7 @@ class _GetOffersState extends State<GetOffers> {
           }
           return Row(
             children: [
-              const SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               GestureDetector(
                 onTap: () {
                   getpdata(odata[index]);
@@ -200,7 +198,7 @@ class _GetOffersState extends State<GetOffers> {
                       ),
                       ValueListenableBuilder(
                         valueListenable: real,
-                        builder:(context, value, child) =>  IconButton(
+                        builder: (context, value, child) => IconButton(
                             onPressed: () {
                               //int id = odata[index].id;
                               real.value
@@ -209,7 +207,9 @@ class _GetOffersState extends State<GetOffers> {
                                   : addToWishlist(context, index);
                             },
                             icon: Icon(
-                              real.value ? Icons.favorite : Icons.favorite_border,
+                              real.value
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
                               color: Colors.white,
                             )),
                       )

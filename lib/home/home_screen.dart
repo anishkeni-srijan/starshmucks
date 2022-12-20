@@ -337,9 +337,7 @@ learnmore(context) {
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) => Row(
         children: [
-          const SizedBox(
-            width: 10,
-          ),
+          const SizedBox(width: 10),
           Container(
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -369,9 +367,7 @@ learnmore(context) {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: 10),
                 Text(
                   learnmorep.learnmore[index].tag,
                   maxLines: 5,

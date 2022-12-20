@@ -265,9 +265,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   const Text("Description:",
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   Text(
                     product.description,
                     style: const TextStyle(fontSize: 15),

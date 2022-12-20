@@ -306,9 +306,7 @@ class CustomToast extends StatelessWidget {
             Icons.check,
             color: Colors.white,
           ),
-          SizedBox(
-            width: 12.0,
-          ),
+          SizedBox(width: 12.0),
           Text(
             toastMessage,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),

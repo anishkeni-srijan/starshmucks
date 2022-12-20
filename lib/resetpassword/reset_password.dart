@@ -100,9 +100,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               indent: MediaQuery.of(context).size.width * 0.126,
               endIndent: MediaQuery.of(context).size.width * 0.69,
             ),
-            const SizedBox(
-              height: 15,
-            ),
+            const SizedBox(height: 15),
             Container(
               width: 300,
               child: reset
@@ -119,9 +117,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       ),
                     ),
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 30),
             BlocBuilder<ResetpasswordBloc, ResetpasswordState>(
               builder: (context, state) {
                 //checking if There's an error in Loginstate
@@ -241,9 +237,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 15,
-                      ),
+                      const SizedBox(height: 15),
                       SizedBox(
                         width: 300,
                         child: ElevatedButton(

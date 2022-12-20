@@ -109,9 +109,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               indent: MediaQuery.of(context).size.width * 0.126,
               endIndent: MediaQuery.of(context).size.width * 0.658,
             ),
-            const SizedBox(
-              height: 15,
-            ),
+            const SizedBox(height: 15),
             SizedBox(
               width: 300,
               child: AutoSizeText(
@@ -227,9 +225,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       ),
                     ),
                   ),
-            const SizedBox(
-              height: 15,
-            ),
+            const SizedBox(height: 15),
             SizedBox(
               width: 300,
               child: ElevatedButton(

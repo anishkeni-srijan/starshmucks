@@ -201,9 +201,7 @@ class _OrderdetailState extends State<Orderdetail> {
                                                 fontWeight: FontWeight.bold,
                                                 color: HexColor("#175244")),
                                           ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
+                                          const SizedBox(height: 10),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
@@ -212,9 +210,7 @@ class _OrderdetailState extends State<Orderdetail> {
                                                 Icons.date_range_outlined,
                                                 size: 20.0,
                                               ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
+                                              const SizedBox(width: 5),
                                               Text(
                                                 "${orderdata[0].date}",
                                                 style: TextStyle(fontSize: 15),

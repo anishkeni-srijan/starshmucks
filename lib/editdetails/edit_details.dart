@@ -62,9 +62,7 @@ class _EditProfileState extends State<EditProfile> {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(
-                  height: 50,
-                ),
+                const SizedBox(height: 50),
                 GestureDetector(
                   onTap: () {
                     showModalBottomSheet(
@@ -116,9 +114,7 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.70,
                   padding: const EdgeInsets.all(20),
@@ -190,9 +186,7 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
                           SizedBox(
@@ -225,9 +219,7 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
                           SizedBox(

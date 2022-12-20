@@ -110,9 +110,7 @@ class _SignupPageState extends State<SignupPage> {
                   indent: MediaQuery.of(context).size.width * 0.119,
                   endIndent: MediaQuery.of(context).size.width * 0.746,
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
 
                 BlocBuilder<SignupBloc, SignupState>(
                   builder: (context, state) {

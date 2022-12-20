@@ -53,9 +53,7 @@ class Help extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -73,9 +71,7 @@ class Help extends StatelessWidget {
                 )
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Container(
               alignment: AlignmentDirectional.center,
               width: MediaQuery.of(context).size.width * 0.7,
@@ -89,9 +85,7 @@ class Help extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 30),
             buildExpansionTile(
               text: "Chat",
               img: "images/chat.png",
@@ -112,22 +106,34 @@ class Help extends StatelessWidget {
               ),
             ),
             buildExpansionTile(
-              text: "FAQ",
-              img: "images/faq.png",
-              content: Column(
-                  children:const [
-                faqTile(title:"Can I edit my order?" ,child:"Your order can be edited before it reaches the restaurant. You could contact customer support team via call to do so. Once order is placed and restaurant starts preparing your food, you may not edit its contents"),
-                faqTile(title:"I want to cancel my order" ,child:"We will do our best to accommodate your request if the order is not placed to the restaurant (Customer service number:  1800999999). Please note that we will have a right to charge a cancellation fee up to full order value to compensate our restaurant and delivery partners if your order has been confirmed."),
-                faqTile(title:"Do you charge for delivery?" ,child: "Delivery fee varies from city to city and is applicable if order value is below a certain amount. Delivery fee (if any) is specified on the 'Review Order' page. "),
-                faqTile(title:"How long do you take to deliver?" ,child:  "Standard delivery times vary by the location selected and prevailing conditions. Once you select your location, an estimated delivery time is mentioned for each outlet."),
-                faqTile(title:"Can I order in advance?" ,child: "We currently do not support this functionality. All our orders are placed and executed on-demand."),
-              ]
-              )
-            ),
+                text: "FAQ",
+                img: "images/faq.png",
+                content: Column(children: const [
+                  faqTile(
+                      title: "Can I edit my order?",
+                      child:
+                          "Your order can be edited before it reaches the restaurant. You could contact customer support team via call to do so. Once order is placed and restaurant starts preparing your food, you may not edit its contents"),
+                  faqTile(
+                      title: "I want to cancel my order",
+                      child:
+                          "We will do our best to accommodate your request if the order is not placed to the restaurant (Customer service number:  1800999999). Please note that we will have a right to charge a cancellation fee up to full order value to compensate our restaurant and delivery partners if your order has been confirmed."),
+                  faqTile(
+                      title: "Do you charge for delivery?",
+                      child:
+                          "Delivery fee varies from city to city and is applicable if order value is below a certain amount. Delivery fee (if any) is specified on the 'Review Order' page. "),
+                  faqTile(
+                      title: "How long do you take to deliver?",
+                      child:
+                          "Standard delivery times vary by the location selected and prevailing conditions. Once you select your location, an estimated delivery time is mentioned for each outlet."),
+                  faqTile(
+                      title: "Can I order in advance?",
+                      child:
+                          "We currently do not support this functionality. All our orders are placed and executed on-demand."),
+                ])),
             buildExpansionTile(
               text: "Call Us",
               img: "images/call.png",
-              content:    Row(
+              content: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
@@ -157,14 +163,12 @@ class Help extends StatelessWidget {
                 ],
               ),
             ),
-
           ],
         ),
       ),
     );
   }
 }
-
 
 class buildExpansionTile extends StatelessWidget {
   const buildExpansionTile({
@@ -184,9 +188,7 @@ class buildExpansionTile extends StatelessWidget {
       child: Card(
         elevation: 8,
         child: ExpansionTile(
-          trailing: const SizedBox(
-            width: 10,
-          ),
+          trailing: const SizedBox(width: 10),
           iconColor: HexColor("#036635"),
           collapsedIconColor: HexColor("#036635"),
           title: Padding(
@@ -197,9 +199,7 @@ class buildExpansionTile extends StatelessWidget {
                     img,
                     width: 50,
                   ),
-                  const SizedBox(
-                    width: 20,
-                  ),
+                  const SizedBox(width: 20),
                   Text(
                     text,
                     style: TextStyle(fontSize: 20, color: HexColor("#036635")),
@@ -212,6 +212,7 @@ class buildExpansionTile extends StatelessWidget {
     );
   }
 }
+
 class faqTile extends StatelessWidget {
   const faqTile({
     required this.title,
@@ -224,8 +225,7 @@ class faqTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      childrenPadding: const EdgeInsets.only(
-          left: 15, bottom: 10, right: 15),
+      childrenPadding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
       iconColor: HexColor("#036635"),
       collapsedIconColor: HexColor("#036635"),
       expandedAlignment: Alignment.topLeft,
@@ -233,8 +233,10 @@ class faqTile extends StatelessWidget {
         title,
         style: TextStyle(color: HexColor("#036635")),
       ),
-      children:  [
-        Text (child,)
+      children: [
+        Text(
+          child,
+        )
       ],
     );
   }

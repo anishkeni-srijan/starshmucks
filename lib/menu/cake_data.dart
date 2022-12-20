@@ -147,8 +147,8 @@ class _GetCakeDataState extends State<GetCakeData> {
                             ),
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01,
-                          ),
+                              height:
+                                  MediaQuery.of(context).size.height * 0.01),
                           Text(
                             " \$ " + data[index].price,
                             style: const TextStyle(
@@ -158,8 +158,8 @@ class _GetCakeDataState extends State<GetCakeData> {
                             ),
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.04,
-                          ),
+                              height:
+                                  MediaQuery.of(context).size.height * 0.04),
                           Row(
                             children: <Widget>[
                               AutoSizeText(

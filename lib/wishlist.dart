@@ -104,8 +104,8 @@ class _WishListPageState extends State<WishListPage> {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.01,
-                            ),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01),
                             ListView.builder(
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,

@@ -82,7 +82,10 @@ class _RewardsState extends State<Rewards> {
                 children: [
                   Container(
                     height: 220,
-                    padding: const EdgeInsets.only(left: 10.0, right: 10,),
+                    padding: const EdgeInsets.only(
+                      left: 10.0,
+                      right: 10,
+                    ),
                     child: Card(
                       color: HexColor("#175244"),
                       margin: const EdgeInsets.only(top: 20),
@@ -96,8 +99,7 @@ class _RewardsState extends State<Rewards> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Column(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
@@ -293,16 +295,12 @@ class _RewardsState extends State<Rewards> {
                                         color: HexColor("#175244")),
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
+                                const SizedBox(height: 5),
                                 const Text(
                                   "And you both save \$XX.",
                                   style: TextStyle(fontSize: 15),
                                 ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
+                                const SizedBox(height: 10),
                                 Row(
                                   // mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -310,9 +308,7 @@ class _RewardsState extends State<Rewards> {
                                       CupertinoIcons.info_circle,
                                       color: HexColor("#175244"),
                                     ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
+                                    const SizedBox(width: 5),
                                     Text(
                                       "How it works",
                                       style: TextStyle(
@@ -322,9 +318,7 @@ class _RewardsState extends State<Rewards> {
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
+                                const SizedBox(height: 20),
                                 buildRow("1", "Invite your friends",
                                     "Just share your link"),
                                 Align(
@@ -359,9 +353,7 @@ class _RewardsState extends State<Rewards> {
                                 ),
                                 buildRow("3", "You make savings",
                                     "and get \$XX off"),
-                                const SizedBox(
-                                  height: 10,
-                                ),
+                                const SizedBox(height: 10),
                                 Wrap(
                                   children: [
                                     Container(
@@ -481,9 +473,7 @@ class _RewardsState extends State<Rewards> {
             ),
           ),
         ),
-        const SizedBox(
-          width: 20,
-        ),
+        const SizedBox(width: 20),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -491,9 +481,7 @@ class _RewardsState extends State<Rewards> {
               maintext,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(
-              height: 8,
-            ),
+            const SizedBox(height: 8),
             Text(
               subtext,
               style: TextStyle(

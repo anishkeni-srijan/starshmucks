@@ -116,9 +116,7 @@ class _AddressState extends State<Address> {
                   commonTextIPWidget(context, state, 'State'),
                   //pincode
                   commonTextIPWidget(context, pincode, 'Pincode'),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  const SizedBox(height: 15),
                   SizedBox(
                     // height: 100,
                     width: 300,
@@ -207,9 +205,7 @@ class _AddressState extends State<Address> {
                 commonTextIPWidget(context, state, 'State'),
                 //pincode
                 commonTextIPWidget(context, pincode, 'Pincode'),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
                 SizedBox(
                   // height: 100,
                   width: 300,

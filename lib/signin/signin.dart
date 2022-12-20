@@ -116,9 +116,7 @@ class _SigninPageState extends State<SigninPage> {
                   indent: MediaQuery.of(context).size.width * 0.119,
                   endIndent: MediaQuery.of(context).size.width * 0.746,
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 BlocBuilder<SigninBloc, SigninState>(
                   builder: (context, state) {
                     //checking if There's an error in Loginstate

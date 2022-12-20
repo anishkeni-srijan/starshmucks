@@ -40,9 +40,7 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
                     children: [
                       Row(
                         children: [
-                          const SizedBox(
-                            width: 10,
-                          ),
+                          const SizedBox(width: 10),
                           giftCardDesign(
                             image: 'images/giftdiwali.png',
                             giftCardText:
@@ -51,9 +49,7 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
                             titleText: 'Celebrate With Starshmucks',
                             press: () {},
                           ),
-                          const SizedBox(
-                            width: 10,
-                          ),
+                          const SizedBox(width: 10),
                           giftCardDesign(
                             image: 'images/giftdiwali2.png',
                             giftCardText:
@@ -62,9 +58,7 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
                             titleText: 'Celebrate With Starshmucks',
                             press: () {},
                           ),
-                          const SizedBox(
-                            width: 10,
-                          ),
+                          const SizedBox(width: 10),
                         ],
                       ),
                     ],

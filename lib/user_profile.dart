@@ -57,9 +57,7 @@ class _UserProfileState extends State<UserProfile> {
                 color: HexColor("#175244"),
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     Container(
                       width: 150.0,
                       height: 150.0,
@@ -82,9 +80,7 @@ class _UserProfileState extends State<UserProfile> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     Align(
                       alignment: Alignment.center,
                       child: Text(
@@ -96,9 +92,7 @@ class _UserProfileState extends State<UserProfile> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                   ],
                 ),
               ),
@@ -215,9 +209,7 @@ class ProfileTile extends StatelessWidget {
               size: 30,
               color: HexColor("#036635"),
             ),
-            const SizedBox(
-              width: 20,
-            ),
+            const SizedBox(width: 20),
             Expanded(
               child: Text(
                 text,

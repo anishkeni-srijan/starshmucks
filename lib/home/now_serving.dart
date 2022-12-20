@@ -109,9 +109,7 @@ class _NowServingState extends State<NowServing> {
           }
           return Row(
             children: [
-              SizedBox(
-                width: 10,
-              ),
+              SizedBox(width: 10),
               GestureDetector(
                 onTap: () {
                   getpdata(nowdata[index]);

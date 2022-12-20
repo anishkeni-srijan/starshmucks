@@ -116,9 +116,7 @@ class _OrderFailState extends State<OrderFail> {
                               "Order Details",
                               style: TextStyle(fontWeight: FontWeight.w900),
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
+                            SizedBox(height: 10),
                             Row(
                               children: [
                                 Expanded(
@@ -127,9 +125,7 @@ class _OrderFailState extends State<OrderFail> {
                                 Text("\$ " + result.toString()),
                               ],
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
+                            SizedBox(height: 10),
                             Row(
                               children: [
                                 Expanded(
@@ -138,9 +134,7 @@ class _OrderFailState extends State<OrderFail> {
                                 Text("\$ 5.00"),
                               ],
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
+                            SizedBox(height: 10),
                             Row(
                               children: [
                                 Expanded(

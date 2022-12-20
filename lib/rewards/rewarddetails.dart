@@ -157,9 +157,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                     size: 30,
                                     color: Colors.brown,
                                   ),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
+                                  const SizedBox(width: 20),
                                   Expanded(
                                     child: Text(
                                       "Bronze Tier",
@@ -282,9 +280,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                     size: 30,
                                     color: Colors.grey,
                                   ),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
+                                  const SizedBox(width: 20),
                                   Expanded(
                                     child: Text(
                                       'Silver Tier',
@@ -397,11 +393,8 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                     size: 30,
                                     color: Colors.amberAccent,
                                   ),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
+                                  const SizedBox(width: 20),
                                   Expanded(
-
                                     child: Text(
                                       "Gold Tier",
                                       style: TextStyle(
@@ -451,7 +444,11 @@ class undertile extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 8.0),
             child: ListTile(
-              title: Text(maintext[index], maxLines: 1,overflow: TextOverflow.ellipsis,),
+              title: Text(
+                maintext[index],
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
               onTap: () {},
             ),
           );
