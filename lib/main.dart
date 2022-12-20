@@ -32,26 +32,25 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => SigninBloc(),
-          child: SigninPage(),
+          child: const SigninPage(),
         ),
         BlocProvider(
           create: (context) => EditdetailsBloc(),
-          child: EditProfile(),
+          child: const EditProfile(),
         ),
         BlocProvider(
           create: (context) => SignupBloc(),
-          child: SignupPage(),
+          child: const SignupPage(),
         ),
         BlocProvider(
           create: (context) => ForgotpasswordBloc(),
-          child: ForgotPasswordPage(),
+          child: const ForgotPasswordPage(),
         ),
         BlocProvider(
           create: (context) => ResetpasswordBloc(),
-          child: ResetPasswordPage(),
+          child: const ResetPasswordPage(),
         ),
         ChangeNotifierProvider(create: (context) => Learnmore()),
-        //  ChangeNotifierProvider(create: (context) => Menudata()),
       ],
       child: GestureDetector(
         onTap: () {

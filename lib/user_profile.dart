@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -7,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '/help_page.dart';
 import '/signin/signin.dart';
-// import 'boxes.dart';
 import 'common_things.dart';
 import 'db/user_db.dart';
 import 'editdetails/edit_details.dart';
@@ -34,6 +32,7 @@ class _UserProfileState extends State<UserProfile> {
 
   late UserDB udb;
 
+  @override
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
@@ -44,9 +43,9 @@ class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     initcart();
     getUser();
-    if (usernames.isEmpty)
-      return CircularProgressIndicator();
-    else {
+    if (usernames.isEmpty) {
+      return const CircularProgressIndicator();
+    } else {
       return Scaffold(
         persistentFooterButtons: cartinit ? [viewincart()] : [Container()],
         backgroundColor: Colors.white,
@@ -67,14 +66,14 @@ class _UserProfileState extends State<UserProfile> {
                       decoration: BoxDecoration(
                         color: const Color(0xff7c94b6),
                         image: usernames[0]['image'] == ''
-                            ? DecorationImage(
+                            ? const DecorationImage(
                                 image: AssetImage(
                                     'images/profile1.jpg')) // set a placeholder image when no photo is set
                             : DecorationImage(
                                 image: FileImage(File(usernames[0]['image'])),
                                 fit: BoxFit.cover,
                               ),
-                        borderRadius: BorderRadius.all(
+                        borderRadius: const BorderRadius.all(
                           Radius.circular(75.0),
                         ),
                         border: Border.all(
@@ -90,7 +89,7 @@ class _UserProfileState extends State<UserProfile> {
                       alignment: Alignment.center,
                       child: Text(
                         usernames[0]['name'],
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 35,
@@ -104,8 +103,8 @@ class _UserProfileState extends State<UserProfile> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(40),
@@ -125,7 +124,7 @@ class _UserProfileState extends State<UserProfile> {
                     ProfileTile(
                       text: 'Orders',
                       press: () {
-                        Get.to(() => Orders());
+                        Get.to(() => const Orders());
                       },
                       icon: Icons.coffee_outlined,
                     ),
