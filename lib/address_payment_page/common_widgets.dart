@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -8,11 +7,11 @@ commonPhoneNumberWidget(
   TextEditingController phone,
 ) {
   PhoneNumber number = PhoneNumber(isoCode: 'IN');
-  return Container(
+  return SizedBox(
     width: MediaQuery.of(context).size.width * 0.8,
     height: 80,
     child: InternationalPhoneNumberInput(
-      selectorConfig: SelectorConfig(
+      selectorConfig: const SelectorConfig(
           trailingSpace: false, selectorType: PhoneInputSelectorType.DROPDOWN),
       autoValidateMode: AutovalidateMode.onUserInteraction,
       errorMessage: "Enter Valid Phone Number",
@@ -20,7 +19,7 @@ commonPhoneNumberWidget(
       initialValue: number,
       textFieldController: phone,
       inputDecoration: InputDecoration(
-        contentPadding: EdgeInsets.all(5),
+        contentPadding: const EdgeInsets.all(5),
         labelText: 'Phone Number',
         labelStyle: TextStyle(
           color: HexColor("#175244"),
@@ -57,7 +56,7 @@ commonTextIPWidget(
       style: const TextStyle(color: Colors.black),
       controller: txtcontroler,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(5),
+        contentPadding: const EdgeInsets.all(5),
         labelText: lbltxt,
         labelStyle: TextStyle(
           color: HexColor("#175244"),

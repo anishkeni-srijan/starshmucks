@@ -24,14 +24,12 @@ class Address extends StatefulWidget {
   State<Address> createState() => _AddressState();
 }
 
-enum Pet { Upi, Razorpay }
-
 String message = '';
 final offers = TextEditingController();
 
 class _AddressState extends State<Address> {
   late UserDB udb;
-  late List<Map<String, dynamic?>> addressList = [];
+  late List<Map<String, dynamic>> addressList = [];
   bool isChecked = false;
   bool paid = false;
   int _value = 1;
@@ -40,6 +38,7 @@ class _AddressState extends State<Address> {
   late double ttl = 0;
   late double tempttl = 0;
 
+  @override
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
@@ -60,7 +59,7 @@ class _AddressState extends State<Address> {
   getUser() async {
     userddt = await udb.getDataUserData();
     addressList = await udb.getDataUserAddress1();
-    if (this.mounted) setState(() {});
+    if (mounted) setState(() {});
   }
 
   deleteAddress(sendingID) {
@@ -299,17 +298,19 @@ class _AddressState extends State<Address> {
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Points savings: \$" + savings.toStringAsFixed(2)),
+                        Text("Points savings: ${savings.toStringAsFixed(2)}"),
                         Text(
-                          "Amount to be paid: \$" +
-                              (ttl + 5).toStringAsFixed(2),
-                          style: TextStyle(fontSize: 20),
+                          "Amount to be paid: ${(ttl + 5).toStringAsFixed(2)}",
+                          style: const TextStyle(fontSize: 20),
                         ),
                       ],
                     )
-                  : Text("Amount to be paid: \$" + (ttl + 5).toStringAsFixed(2),
-                      style: TextStyle(fontSize: 20)),
-              Tooltip(
+                  : Text("Amount to be paid: ${(ttl + 5).toStringAsFixed(2)}",
+                      style: const TextStyle(fontSize: 20)),
+              const Tooltip(
+                message: 'Amount Including \$5 delivery charges',
+                showDuration: Duration(seconds: 4),
+                textStyle: TextStyle(color: Colors.white),
                 child: IconButton(
                   padding: EdgeInsets.zero,
                   icon: Icon(
@@ -317,9 +318,6 @@ class _AddressState extends State<Address> {
                   ),
                   onPressed: null,
                 ),
-                message: 'Amount Including \$5 delivery charges',
-                showDuration: const Duration(seconds: 4),
-                textStyle: const TextStyle(color: Colors.white),
               ),
             ],
           ),
@@ -367,8 +365,8 @@ class _AddressState extends State<Address> {
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('No Address'),
+                children: const [
+                  Text('No Address'),
                 ],
               ),
             )
@@ -773,11 +771,9 @@ class _AddressState extends State<Address> {
                                 ),
                                 !rewards
                                     ? Text(
-                                        "Add more items worth \$" +
-                                            res.toStringAsFixed(2) +
-                                            " to avail your reward points",
-                                        style:
-                                            TextStyle(color: Colors.redAccent),
+                                        "Add more items worth ${res.toStringAsFixed(2)} to avail your reward points",
+                                        style: const TextStyle(
+                                            color: Colors.redAccent),
                                       )
                                     : userddt[0]['rewards'] == 0
                                         ? Container()
@@ -810,10 +806,10 @@ class _AddressState extends State<Address> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
+                                          const Text(
                                               "You can avail a max discount of 20% of your order total"),
-                                          Text("Points used: " +
-                                              maxrewards.toStringAsFixed(2)),
+                                          Text(
+                                              "Points used: ${maxrewards.toStringAsFixed(2)}"),
                                         ],
                                       )
                                     : Container(),
@@ -862,9 +858,9 @@ class _AddressState extends State<Address> {
             //       ? Get.to(PaymentPage(), transition: Transition.rightToLeft)
             //       : Container();
           },
-          child: const Text("Pay"),
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(HexColor("#036635"))),
+          child: const Text("Pay"),
         ),
       ),
     );
@@ -922,8 +918,8 @@ class _AddressState extends State<Address> {
         idar = idar + cartlist[i].id.toString();
         qtyar = qtyar + cartlist[i].qty.toString();
       } else {
-        idar = idar + ' ' + cartlist[i].id.toString();
-        qtyar = qtyar + ' ' + cartlist[i].qty.toString();
+        idar = '$idar ${cartlist[i].id}';
+        qtyar = '$qtyar ${cartlist[i].qty}';
       }
     }
 

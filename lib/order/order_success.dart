@@ -92,7 +92,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
       qtylistfromstring = OrderData[i].qty!.split(' ');
     }
     for (var i = 0; i < idlistfromstring.length; i++) {
-      items = await menudb.getitemwithId_order(idlistfromstring[i]);
+      items = await menudb.getItemWithIdOrder(idlistfromstring[i]);
       items1.add(items.first);
     }
     setState(() {});

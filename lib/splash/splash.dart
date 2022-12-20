@@ -16,6 +16,7 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   bool flag = false;
 
+  @override
   void initState() {
     checkifloggedin();
     super.initState();
@@ -32,12 +33,10 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: HexColor("#175244"),
-        body: Container(
-          child: SplashScreenView(
-            duration: Duration(milliseconds: 1500),
-            imageSrc: "images/shmucks.png",
-            navigateRoute: flag ? bottomBar() : SigninPage(),
-          ),
+        body: SplashScreenView(
+          duration: const Duration(milliseconds: 1500),
+          imageSrc: "images/shmucks.png",
+          navigateRoute: flag ? const bottomBar() : const SigninPage(),
         ));
   }
 }

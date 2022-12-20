@@ -33,13 +33,13 @@ class WishlistDB {
 
   Future<List<WishlistModel>> getDataWishlist() async {
     final Database db = await initDBWishlist();
-    final List<Map<String, dynamic?>> data = await db.query("WishlistTable");
+    final List<Map<String, dynamic>> data = await db.query("WishlistTable");
     return data.map((e) => WishlistModel.fromJson(e)).toList();
   }
 
   isInWishlist(id) async {
     final Database db = await initDBWishlist();
-    final List<Map<String, dynamic?>> data =
+    final List<Map<String, dynamic>> data =
         await db.query('WishlistTable', where: 'id = ?', whereArgs: [id]);
     return data.length == 1;
   }

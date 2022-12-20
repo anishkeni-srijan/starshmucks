@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -41,6 +40,7 @@ class _EditProfileState extends State<EditProfile> {
 
   late UserDB udb;
 
+  @override
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
@@ -50,9 +50,9 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-    if (usernames.isEmpty)
-      return CircularProgressIndicator();
-    else {
+    if (usernames.isEmpty) {
+      return const CircularProgressIndicator();
+    } else {
       econtroller = TextEditingController(text: usernames[0]['email']);
       ncontroller = TextEditingController(text: usernames[0]['name']);
       phcontroller = TextEditingController(text: usernames[0]['phone']);
@@ -62,7 +62,7 @@ class _EditProfileState extends State<EditProfile> {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 GestureDetector(
@@ -79,14 +79,14 @@ class _EditProfileState extends State<EditProfile> {
                         decoration: BoxDecoration(
                           color: const Color(0xff7c94b6),
                           image: usernames[0]['image'] == ''
-                              ? DecorationImage(
+                              ? const DecorationImage(
                                   image: AssetImage(
                                       'images/profile1.jpg')) // set a placeholder image when no photo is set
                               : DecorationImage(
                                   image: FileImage(File(usernames[0]['image'])),
                                   fit: BoxFit.cover,
                                 ),
-                          borderRadius: BorderRadius.all(
+                          borderRadius: const BorderRadius.all(
                             Radius.circular(75.0),
                           ),
                           border: Border.all(
@@ -97,35 +97,32 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                       Container(
                           transform: Matrix4.translationValues(60, 150, 0),
-                          child: Icon(
+                          child: const Icon(
                             Icons.add_a_photo,
                             color: Colors.white,
                           )),
                     ],
                   ),
                 ),
-                SizedBox(height: 30),
-                SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 30),
                 Align(
                   alignment: Alignment.center,
                   child: Text(
                     usernames[0]['name'],
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 35,
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.70,
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.all(20),
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(40),
@@ -160,7 +157,7 @@ class _EditProfileState extends State<EditProfile> {
                               style: const TextStyle(color: Colors.black),
                               controller: econtroller,
                               decoration: InputDecoration(
-                                contentPadding: EdgeInsets.all(5),
+                                contentPadding: const EdgeInsets.all(5),
                                 labelText: "Email",
                                 labelStyle: TextStyle(
                                   color: HexColor("#175244"),
@@ -183,16 +180,17 @@ class _EditProfileState extends State<EditProfile> {
                               validator: (value) {
                                 if (RegExp(
                                         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                    .hasMatch(value!))
+                                    .hasMatch(value!)) {
                                   return null;
-                                else
+                                } else {
                                   return "Please Enter a valid email";
+                                }
                               },
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(
@@ -203,7 +201,7 @@ class _EditProfileState extends State<EditProfile> {
                               style: const TextStyle(color: Colors.black),
                               controller: phcontroller,
                               decoration: InputDecoration(
-                                contentPadding: EdgeInsets.all(5),
+                                contentPadding: const EdgeInsets.all(5),
                                 labelText: "Phone",
                                 labelStyle: TextStyle(
                                   color: HexColor("#175244"),
@@ -227,7 +225,7 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(
@@ -238,7 +236,7 @@ class _EditProfileState extends State<EditProfile> {
                               style: const TextStyle(color: Colors.black),
                               controller: ncontroller,
                               decoration: InputDecoration(
-                                contentPadding: EdgeInsets.all(5),
+                                contentPadding: const EdgeInsets.all(5),
                                 labelText: "Name",
                                 labelStyle: TextStyle(
                                   color: HexColor("#175244"),
@@ -259,18 +257,19 @@ class _EditProfileState extends State<EditProfile> {
                                 ),
                               ),
                               validator: (value) {
-                                if (value == null)
+                                if (value == null) {
                                   return "Please enter name";
-                                else if (value.length < 3)
+                                } else if (value.length < 3) {
                                   return "Please enter 3 character for name";
-                                else
+                                } else {
                                   return null;
+                                }
                               },
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       ElevatedButton(
@@ -283,7 +282,7 @@ class _EditProfileState extends State<EditProfile> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               backgroundColor: HexColor("#175244"),
-                              content: Text(
+                              content: const Text(
                                 'Details Updated',
                                 style: TextStyle(color: Colors.white),
                               ),
@@ -303,7 +302,7 @@ class _EditProfileState extends State<EditProfile> {
                           udb.updateUserData(usernames[0]['id'], updateData);
                           getUser();
                         },
-                        child: Text('UPDATE'),
+                        child: const Text('UPDATE'),
                       )
                     ],
                   ),
@@ -416,21 +415,21 @@ class EditableField extends StatelessWidget {
         ),
         controller: econtroller,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(10),
+          contentPadding: const EdgeInsets.all(10),
           labelText: lbltxt,
-          labelStyle: TextStyle(
+          labelStyle: const TextStyle(
             color: Colors.black,
           ),
           enabledBorder: UnderlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.black,
               width: 2,
             ),
           ),
           focusedBorder: UnderlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.black,
               width: 2,
             ),

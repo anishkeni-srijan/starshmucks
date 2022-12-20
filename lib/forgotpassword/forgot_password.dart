@@ -36,7 +36,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     getUser();
     super.initState();
     // Initialize the package
-    emailAuth = new EmailAuth(
+    emailAuth = EmailAuth(
       sessionName: "Sample session",
     );
   }
@@ -74,7 +74,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             child: Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: 30, left: 0),
+              margin: const EdgeInsets.only(top: 30, left: 0),
               alignment: Alignment.topLeft,
               child: TextButton.icon(
                 icon: Icon(Icons.arrow_back_ios_new_rounded,
@@ -82,7 +82,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 onPressed: () {
                   Navigator.of(context).pop(context);
                 },
-                label: Text(''),
+                label: const Text(''),
               ),
             ),
             Padding(
@@ -109,10 +109,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               indent: MediaQuery.of(context).size.width * 0.126,
               endIndent: MediaQuery.of(context).size.width * 0.658,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
-            Container(
+            SizedBox(
               width: 300,
               child: AutoSizeText(
                 'Please enter your details and We\'ll send you an OTP.',
@@ -127,7 +127,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 if (state is ForgotpasswordErrorState) {
                   return Text(
                     state.errormessage,
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   );
                 }
                 //if the login is valid
@@ -138,8 +138,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       color: HexColor("#036635"),
                     ),
                   );
-                } else
+                } else {
                   return Container();
+                }
               },
             ),
             submitValid
@@ -155,7 +156,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       controller: otpinput,
                       onChanged: (value) {},
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10),
+                        contentPadding: const EdgeInsets.all(10),
                         labelText: 'Enter the Verification Code',
                         labelStyle: TextStyle(
                           color: HexColor("#175244"),
@@ -204,7 +205,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         );
                       },
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10),
+                        contentPadding: const EdgeInsets.all(10),
                         labelText: 'Email or Phone Number',
                         labelStyle: TextStyle(
                           color: HexColor("#175244"),
@@ -226,7 +227,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       ),
                     ),
                   ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             SizedBox(
@@ -237,8 +238,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   await resetkey.setInt('reset0', obtainedkey);
                   if (userfound) {
                     submitValid ? verify() : sendOtp();
-                  } else
+                  } else {
                     print('nootpfor you');
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -247,14 +249,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   backgroundColor: HexColor("#036635"),
                 ),
                 child: submitValid
-                    ? Text(
+                    ? const Text(
                         'Verify',
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.white,
                         ),
                       )
-                    : Text(
+                    : const Text(
                         'Reset Password',
                         style: TextStyle(
                           fontSize: 18,
@@ -265,9 +267,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             ),
             TextButton(
                 onPressed: () {
-                  Get.to(() => ResetPasswordPage());
+                  Get.to(() => const ResetPasswordPage());
                 },
-                child: Text("Skip"))
+                child: const Text("Skip"))
           ],
         )),
       ),
@@ -281,7 +283,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         ? verificationflag = true
         : verificationflag = false;
 
-    verificationflag ? Get.to(() => ResetPasswordPage()) : print('wrongotp');
+    verificationflag
+        ? Get.to(() => const ResetPasswordPage())
+        : print('wrongotp');
   }
 
   void sendOtp() async {

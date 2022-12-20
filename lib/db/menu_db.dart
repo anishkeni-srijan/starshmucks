@@ -38,46 +38,46 @@ class MenuDB {
 
   Future<List<MenuModel>> getDataMenu() async {
     final Database db = await initDBMenu();
-    final List<Map<String, dynamic?>> data = await db.query("Menu");
+    final List<Map<String, dynamic>> data = await db.query("Menu");
     return data.map((e) => MenuModel.fromJson(e)).toList();
   }
 
   Future<List<MenuModel>> coffeedata() async {
     final Database db = await initDBMenu();
-    final List<Map<String, dynamic?>> coffee =
+    final List<Map<String, dynamic>> coffee =
         await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['Coffee']);
     return coffee.map((e) => MenuModel.fromJson(e)).toList();
   }
 
   Future<List<MenuModel>> cakedata() async {
     final Database db = await initDBMenu();
-    final List<Map<String, dynamic?>> cake =
+    final List<Map<String, dynamic>> cake =
         await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['Cake']);
     return cake.map((e) => MenuModel.fromJson(e)).toList();
   }
 
   Future<List<MenuModel>> smoothiedata() async {
     final Database db = await initDBMenu();
-    final List<Map<String, dynamic?>> data =
+    final List<Map<String, dynamic>> data =
         await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['Smoothie']);
     return data.map((e) => MenuModel.fromJson(e)).toList();
   }
 
-  Future<List<MenuModel>> NowServedata() async {
+  Future<List<MenuModel>> nowServeData() async {
     final Database db = await initDBMenu();
-    final List<Map<String, dynamic?>> nowserve =
+    final List<Map<String, dynamic>> nowserve =
         await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['Nowserve']);
     return nowserve.map((e) => MenuModel.fromJson(e)).toList();
   }
 
-  Future<List<MenuModel>> Offersdata() async {
+  Future<List<MenuModel>> offersData() async {
     final Database db = await initDBMenu();
     final List<Map<String, dynamic>> offerlist =
         await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['Offers']);
     return offerlist.map((e) => MenuModel.fromJson(e)).toList();
   }
 
-  Future<List<MenuModel>> getElementOnId_Menu(getit) async {
+  Future<List<MenuModel>> getElementOnIdMenu(getit) async {
     final db = await initDBMenu();
     final List<Map<String, dynamic>> maps =
         await db.query('Menu', where: "id = ?", whereArgs: [getit]);
@@ -100,7 +100,7 @@ class MenuDB {
     );
   }
 
-  Future<List<MenuModel>> getitemwithId_order(getit) async {
+  Future<List<MenuModel>> getItemWithIdOrder(getit) async {
     final db = await initDBMenu();
     final List<Map<String, dynamic>> maps =
         await db.query('Menu', where: "id = ?", whereArgs: [getit]);

@@ -56,7 +56,7 @@ class UserDB {
 
   Future<List<Map<String, dynamic>>> getDataUserData() async {
     final Database db = await initDBUserData();
-    final List<Map<String, dynamic?>> data = await db.query("UserData");
+    final List<Map<String, dynamic>> data = await db.query("UserData");
 
     return data;
   }
@@ -79,13 +79,13 @@ class UserDB {
 
   Future<List<AddressModel>> getDataUserAddress() async {
     final Database db = await initDBUserData();
-    final List<Map<String, dynamic?>> data = await db.query("UserAddress");
+    final List<Map<String, dynamic>> data = await db.query("UserAddress");
     return data.map((e) => AddressModel.fromJson(e)).toList();
   }
 
-  Future<List<Map<String, dynamic?>>> getDataUserAddress1() async {
+  Future<List<Map<String, dynamic>>> getDataUserAddress1() async {
     final Database db = await initDBUserData();
-    final List<Map<String, dynamic?>> data = await db.query("UserAddress");
+    final List<Map<String, dynamic>> data = await db.query("UserAddress");
     return data;
   }
 

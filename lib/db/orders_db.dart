@@ -24,7 +24,7 @@ class OrdersDB {
   }
 
   createarr(idarr, qtyarr, date, time) async {
-    var fido = await OrderHistoryModel(
+    var fido = OrderHistoryModel(
       id: idarr,
       qty: qtyarr,
       date: date,
@@ -41,20 +41,20 @@ class OrdersDB {
 
   Future<List<OrderHistoryModel>> getDataOrders() async {
     final Database db = await initDBOrders();
-    final List<Map<String, dynamic?>> data = await db.query("OrdersTable");
+    final List<Map<String, dynamic>> data = await db.query("OrdersTable");
     return data.map((e) => OrderHistoryModel.fromJson(e)).toList();
   }
 
   Future<List<OrderHistoryModel>> getDataOrderswrtID(id) async {
     final Database db = await initDBOrders();
-    final List<Map<String, dynamic?>> data =
+    final List<Map<String, dynamic>> data =
         await db.query("OrdersTable", where: 'orderid = ?', whereArgs: [id]);
     return data.map((e) => OrderHistoryModel.fromJson(e)).toList();
   }
 
   Future<dynamic> getalldata() async {
     final Database db = await initDBOrders();
-    final List<Map<String, dynamic?>> data =
+    final List<Map<String, dynamic>> data =
         await db.rawQuery("Select * from OrdersTable");
     return data.asMap();
   }

@@ -29,6 +29,7 @@ class _SigninPageState extends State<SigninPage> {
   bool keeploggedin = false;
   late UserDB udb;
 
+  @override
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
@@ -46,8 +47,8 @@ class _SigninPageState extends State<SigninPage> {
     return (await showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Are you sure?'),
-            content: Text('Do you want to exit this app'),
+            title: const Text('Are you sure?'),
+            content: const Text('Do you want to exit this app'),
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
@@ -115,7 +116,7 @@ class _SigninPageState extends State<SigninPage> {
                   indent: MediaQuery.of(context).size.width * 0.119,
                   endIndent: MediaQuery.of(context).size.width * 0.746,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 BlocBuilder<SigninBloc, SigninState>(
@@ -124,7 +125,7 @@ class _SigninPageState extends State<SigninPage> {
                     if (state is SigninErrorState) {
                       return Text(
                         state.errormessage,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.red,
                         ),
                       );
@@ -158,7 +159,7 @@ class _SigninPageState extends State<SigninPage> {
                           );
                         },
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(10),
+                          contentPadding: const EdgeInsets.all(10),
                           labelText: 'Email',
                           labelStyle: TextStyle(
                             color: HexColor("#036635"),
@@ -180,17 +181,16 @@ class _SigninPageState extends State<SigninPage> {
                         ),
                       ),
                     ),
-
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     //password
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: TextFormField(
                         style: const TextStyle(color: Colors.black),
                         controller: pcontroller,
                         obscureText: true,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(10),
+                          contentPadding: const EdgeInsets.all(10),
                           labelText: 'Password',
                           labelStyle: TextStyle(
                             color: HexColor("#036635"),
@@ -224,7 +224,7 @@ class _SigninPageState extends State<SigninPage> {
                       ),
                     ),
                     onPressed: () {
-                      Get.to(() => ForgotPasswordPage());
+                      Get.to(() => const ForgotPasswordPage());
                     },
                   ),
                 ),
@@ -295,12 +295,13 @@ class _SigninPageState extends State<SigninPage> {
                       ),
                       TextButton(
                         onPressed: () {
-                          if (userddt.isEmpty)
-                            Get.to(() => SignupPage());
-                          else
+                          if (userddt.isEmpty) {
+                            Get.to(() => const SignupPage());
+                          } else {
                             BlocProvider.of<SigninBloc>(context).add(
                               SignupRedirect(),
                             );
+                          }
                         },
                         child: Text(
                           'Sign Up.',
@@ -323,7 +324,7 @@ class _SigninPageState extends State<SigninPage> {
 }
 
 getlogo(context) {
-  return Image(
+  return const Image(
     image: AssetImage(
       'images/shmucks.png',
     ),

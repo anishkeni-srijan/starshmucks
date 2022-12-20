@@ -63,7 +63,7 @@ class _NowServingState extends State<NowServing> {
   }
 
   addToCart(context, index) async {
-    final cartp = await db.NowServedata();
+    final cartp = await db.nowServeData();
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
     String toastMessage = "ITEM ADDED TO WISHLIST";
     fToast.showToast(
@@ -79,14 +79,14 @@ class _NowServingState extends State<NowServing> {
   }
 
   addToWishlist(context, index) async {
-    final cartp = await db.NowServedata();
+    final cartp = await db.nowServeData();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
     getIds();
     // setState(() {});
   }
 
   getdata() async {
-    nowdata = await db.NowServedata();
+    nowdata = await db.nowServeData();
     if (this.mounted) {
       setState(() {
         getdataf = true;

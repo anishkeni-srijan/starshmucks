@@ -45,6 +45,7 @@ class _SignupPageState extends State<SignupPage> {
   PhoneNumber number = PhoneNumber(isoCode: 'IN');
   late UserDB udb;
 
+  @override
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
@@ -69,7 +70,7 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   Future<bool> getToSignin() async {
-    return (await Get.to(() => SigninPage())) ?? false;
+    return (await Get.to(() => const SigninPage())) ?? false;
   }
 
   @override
@@ -109,7 +110,7 @@ class _SignupPageState extends State<SignupPage> {
                   indent: MediaQuery.of(context).size.width * 0.119,
                   endIndent: MediaQuery.of(context).size.width * 0.746,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
 
@@ -119,14 +120,15 @@ class _SignupPageState extends State<SignupPage> {
                     if (state is SignupErrorState) {
                       return Text(
                         state.errormessage,
-                        style: TextStyle(color: Colors.red),
+                        style: const TextStyle(color: Colors.red),
                       );
                     }
                     //if the login is valid
                     else if (state is SignupValidState) {
                       return Container();
-                    } else
+                    } else {
                       return Container();
+                    }
                   },
                 ),
 
@@ -140,12 +142,13 @@ class _SignupPageState extends State<SignupPage> {
                     );
                   },
                   validator: (value) {
-                    if (value == null)
+                    if (value == null) {
                       return "Please enter name";
-                    else if (value.length < 3)
+                    } else if (value.length < 3) {
                       return "Please enter 3 character for name";
-                    else
+                    } else {
                       return null;
+                    }
                   },
                 ),
                 //Date of Birth
@@ -166,7 +169,7 @@ class _SignupPageState extends State<SignupPage> {
                       },
                       decoration: InputDecoration(
                         //label text of field
-                        contentPadding: EdgeInsets.all(5),
+                        contentPadding: const EdgeInsets.all(5),
                         labelText: 'Date Of Birth',
                         labelStyle: TextStyle(
                           color: HexColor("#175244"),
@@ -206,20 +209,17 @@ class _SignupPageState extends State<SignupPage> {
                         );
 
                         if (pickedDate != null) {
-                          print(
-                              pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                          //pickedDate output format => 2021-03-10 00:00:00.000
                           String formattedDate =
                               DateFormat('yyyy-MM-dd').format(pickedDate);
-                          print(formattedDate);
+
                           setState(
                             () {
                               dob.text =
                                   formattedDate; //set output date to TextField value.
                             },
                           );
-                        } else {
-                          print("Date is not selected");
-                        }
+                        } else {}
                       },
                     ),
                   ),
@@ -235,10 +235,11 @@ class _SignupPageState extends State<SignupPage> {
                   validator: (value) {
                     if (RegExp(
                             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(value!))
+                        .hasMatch(value!)) {
                       return null;
-                    else
+                    } else {
                       return "Please Enter a valid email";
+                    }
                   },
                 ),
                 //Phone Number
@@ -251,7 +252,7 @@ class _SignupPageState extends State<SignupPage> {
                         SignupNumberChangedEvent(phone.text),
                       );
                     },
-                    selectorConfig: SelectorConfig(
+                    selectorConfig: const SelectorConfig(
                         trailingSpace: false,
                         selectorType: PhoneInputSelectorType.DROPDOWN),
                     autoValidateMode: AutovalidateMode.onUserInteraction,
@@ -260,7 +261,7 @@ class _SignupPageState extends State<SignupPage> {
                     initialValue: number,
                     textFieldController: phone,
                     inputDecoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
+                      contentPadding: const EdgeInsets.all(5),
                       labelText: 'Phone Number',
                       labelStyle: TextStyle(
                         color: HexColor("#175244"),
@@ -295,10 +296,11 @@ class _SignupPageState extends State<SignupPage> {
                   validator: (value) {
                     RegExp regex = RegExp(
                         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
-                    if (!regex.hasMatch(value!))
+                    if (!regex.hasMatch(value!)) {
                       return """* Minimum 1 Upper case\n* Minimum 1 lowercase\n* Minimum 1 Numeric Number\n* Minimum 1 Special Character\n* Common Allow Character ( ! @ # \$ & * ~ )""";
-                    else
+                    } else {
                       return null;
+                    }
                   },
                 ),
                 //Confirm Password
@@ -361,8 +363,9 @@ class _SignupPageState extends State<SignupPage> {
                           SignupSumittedEvent(),
                         );
                         addUserData();
-                      } else
-                        return null;
+                      } else {
+                        return;
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -388,7 +391,7 @@ class _SignupPageState extends State<SignupPage> {
 
   backbutton(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         top: 30,
         left: 0,
       ),
@@ -399,9 +402,9 @@ class _SignupPageState extends State<SignupPage> {
           color: HexColor("#036635"),
         ),
         onPressed: () {
-          Get.to(() => SigninPage());
+          Get.to(() => const SigninPage());
         },
-        label: Text(''),
+        label: const Text(''),
       ),
     );
   }
@@ -435,7 +438,7 @@ class TextInputWidget extends StatelessWidget {
             controller: cntroller,
             onChanged: onchange,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.all(5),
+              contentPadding: const EdgeInsets.all(5),
               labelText: lbltxt,
               labelStyle: TextStyle(
                 color: HexColor("#175244"),

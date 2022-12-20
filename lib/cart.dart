@@ -46,7 +46,7 @@ class _MyCartState extends State<MyCart> {
     List<MenuModel> kartTemp = [];
     double tempTotal = 0;
     for (var i = 0; i < datalist.length; i++) {
-      var kartData = await menudb.getElementOnId_Menu(datalist[i].id);
+      var kartData = await menudb.getElementOnIdMenu(datalist[i].id);
 
       if (kartData.length == 1) {
         tempTotal += (double.parse(kartData.first.price) * datalist[i].qty);

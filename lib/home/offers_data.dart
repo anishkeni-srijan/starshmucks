@@ -59,7 +59,7 @@ class _GetOffersState extends State<GetOffers> {
   }
 
   getdata() async {
-    odata = await db.Offersdata();
+    odata = await db.offersData();
 
     if (this.mounted) {
       setState(() {
@@ -69,12 +69,12 @@ class _GetOffersState extends State<GetOffers> {
   }
 
   addToCart(context, index) async {
-    final cartp = await db.Offersdata();
+    final cartp = await db.offersData();
     cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
   }
 
   addToWishlist(context, index) async {
-    final cartp = await db.Offersdata();
+    final cartp = await db.offersData();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
 
     getIds();

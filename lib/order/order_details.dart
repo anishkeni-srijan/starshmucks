@@ -85,7 +85,7 @@ class _OrderdetailState extends State<Orderdetail> {
       qtylistfromstring = orderdata[i].qty!.split(' ');
     }
     for (var i = 0; i < idlistfromstring.length; i++) {
-      items = await menuDb.getitemwithId_order(idlistfromstring[i]);
+      items = await menuDb.getItemWithIdOrder(idlistfromstring[i]);
       items1.add(items.first);
     }
     getTotal();

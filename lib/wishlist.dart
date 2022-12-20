@@ -44,7 +44,7 @@ class _WishListPageState extends State<WishListPage> {
     datalist = await wdb.getDataWishlist();
     List<MenuModel> wishlistTmp = [];
     for (var i = 0; i < datalist.length; i++) {
-      var wdata = await menudb.getElementOnId_Menu(datalist[i].id);
+      var wdata = await menudb.getElementOnIdMenu(datalist[i].id);
       if (wdata.length == 1) {
         wishlistTmp.add(wdata.first);
       }

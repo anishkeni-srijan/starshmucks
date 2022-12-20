@@ -38,7 +38,7 @@ class _OrdersState extends State<Orders> {
       qtylistfromstring = orderdata[i].qty!.split(' ');
     }
     for (var i = 0; i < idlistfromstring.length; i++) {
-      items = await menuDb.getitemwithId_order(idlistfromstring[i]);
+      items = await menuDb.getItemWithIdOrder(idlistfromstring[i]);
       items1.add(items.first);
     }
     getttl();

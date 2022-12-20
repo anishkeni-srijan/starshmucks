@@ -42,7 +42,7 @@ class CartDB {
 
   Future<List<CartModel>> getDataCart() async {
     final Database db = await initDBCart();
-    final List<Map<String, dynamic?>> data = await db.query(
+    final List<Map<String, dynamic>> data = await db.query(
       "CartTable",
     );
 
