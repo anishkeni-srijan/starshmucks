@@ -9,14 +9,14 @@ class SignupState extends StatelessWidget {
   }
 }
 
-class SignupInitialState extends SignupState {
-  //check if the user exists
+class SignupNoErrorState extends SignupState {
+
+  SignupNoErrorState();
 }
 
 class SignupValidState extends SignupState {
-  String validity = '';
-
-  SignupValidState(this.validity);
+  String message = '';
+  SignupValidState(this.message);
 }
 
 class SignupErrorState extends SignupState {
@@ -25,8 +25,4 @@ class SignupErrorState extends SignupState {
   SignupErrorState(this.errormessage);
 }
 
-class SignupNoerrorState extends SignupState {
-  String noerrormessage = '';
 
-  SignupNoerrorState(this.noerrormessage);
-}

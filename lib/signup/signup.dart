@@ -22,7 +22,6 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   bool isChecked = false;
-
   Color getColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
       MaterialState.pressed,
@@ -51,22 +50,6 @@ class _SignupPageState extends State<SignupPage> {
     udb.initDBUserData();
     dob.text = "";
     super.initState();
-  }
-
-  void addUserData() {
-    var userSQL = UserModel(
-      tier: "bronze",
-      name: name.text,
-      email: email.text,
-      phone: phone.text,
-      dob: dob.text,
-      password: pass1.text,
-      tnc: true.toString(),
-      rewards: 0,
-      image: '',
-    );
-    udb.insertUserData(userSQL);
-    udb.getDataUserData();
   }
 
   Future<bool> getToSignin() async {
@@ -118,12 +101,15 @@ class _SignupPageState extends State<SignupPage> {
                     if (state is SignupErrorState) {
                       return Text(
                         state.errormessage,
-                        style: const TextStyle(color: Colors.red),
+                        style:  TextStyle(color: HexColor("#175244")),
                       );
                     }
                     //if the login is valid
                     else if (state is SignupValidState) {
-                      return Container();
+                      return Text(
+                        state.message,
+                        style:  TextStyle(color: HexColor("#175244")),
+                      );
                     } else {
                       return Container();
                     }
@@ -134,20 +120,20 @@ class _SignupPageState extends State<SignupPage> {
                 TextInputWidget(
                   lbltxt: "Name",
                   cntroller: name,
-                  onchange: (value) {
-                    BlocProvider.of<SignupBloc>(context).add(
-                      SignupNameChangedEvent(name.text),
-                    );
-                  },
                   validator: (value) {
                     if (value == null) {
                       return "Please enter name";
                     } else if (value.length < 3) {
+                      BlocProvider.of<SignupBloc>(context).emit(
+                          SignupErrorState("What do we call you"));
                       return "Please enter 3 character for name";
                     } else {
+                      BlocProvider.of<SignupBloc>(context)
+                          .emit(SignupNoErrorState());
                       return null;
                     }
                   },
+                  onchange: null,
                 ),
                 //Date of Birth
                 Container(
@@ -161,9 +147,14 @@ class _SignupPageState extends State<SignupPage> {
                       controller: dob,
                       //editing controller of this TextField
                       onChanged: (value) {
-                        BlocProvider.of<SignupBloc>(context).add(
-                          SignupDobChangedEvent(dob.text),
-                        );
+                        if (dob.text == '') {
+                          BlocProvider.of<SignupBloc>(context).emit(
+                              SignupErrorState(
+                                  "You might get a free drink!"));
+                        } else {
+                          BlocProvider.of<SignupBloc>(context)
+                              .emit(SignupNoErrorState());
+                        }
                       },
                       decoration: InputDecoration(
                         //label text of field
@@ -226,16 +217,17 @@ class _SignupPageState extends State<SignupPage> {
                 TextInputWidget(
                   lbltxt: "Email",
                   cntroller: email,
-                  onchange: (value) {
-                    BlocProvider.of<SignupBloc>(context)
-                        .add(SignupEmailChangedEvent(email.text));
-                  },
+                  onchange: (value) {},
                   validator: (value) {
                     if (RegExp(
                             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                         .hasMatch(value!)) {
+                      BlocProvider.of<SignupBloc>(context)
+                          .emit(SignupNoErrorState());
                       return null;
                     } else {
+                      BlocProvider.of<SignupBloc>(context).emit(
+                          SignupErrorState("Stay updated with our newsletter"));
                       return "Please Enter a valid email";
                     }
                   },
@@ -246,9 +238,12 @@ class _SignupPageState extends State<SignupPage> {
                   height: 80,
                   child: InternationalPhoneNumberInput(
                     onInputChanged: (PhoneNumber number) {
-                      BlocProvider.of<SignupBloc>(context).add(
-                        SignupNumberChangedEvent(phone.text),
-                      );
+                      phone.text == ""
+                          ? BlocProvider.of<SignupBloc>(context).emit(
+                              SignupErrorState(
+                                  "We'll keep you updated via texts"))
+                          : BlocProvider.of<SignupBloc>(context)
+                              .emit(SignupNoErrorState());
                     },
                     selectorConfig: const SelectorConfig(
                         trailingSpace: false,
@@ -286,17 +281,14 @@ class _SignupPageState extends State<SignupPage> {
                 TextInputWidget(
                   lbltxt: "Password",
                   cntroller: pass1,
-                  onchange: (value) {
-                    BlocProvider.of<SignupBloc>(context).add(
-                      SignupPasswordChangedEvent(pass1.text),
-                    );
-                  },
+                  onchange: (value) {},
                   validator: (value) {
                     RegExp regex = RegExp(
                         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
                     if (!regex.hasMatch(value!)) {
                       return """* Minimum 1 Upper case\n* Minimum 1 lowercase\n* Minimum 1 Numeric Number\n* Minimum 1 Special Character\n* Common Allow Character ( ! @ # \$ & * ~ )""";
                     } else {
+                      BlocProvider.of<SignupBloc>(context).emit(SignupNoErrorState());
                       return null;
                     }
                   },
@@ -305,14 +297,7 @@ class _SignupPageState extends State<SignupPage> {
                 TextInputWidget(
                   lbltxt: "Confirm Password",
                   cntroller: pass2,
-                  onchange: (value) {
-                    BlocProvider.of<SignupBloc>(context).add(
-                      SignupConfirmPasswordChangedEvent(
-                        pass2.text,
-                        pass1.text,
-                      ),
-                    );
-                  },
+                  onchange: (value) {},
                   validator: (value) {
                     if (value == null) return "Enter the password";
                     if (value != pass1.text) return "Password doesn't match";
@@ -333,14 +318,10 @@ class _SignupPageState extends State<SignupPage> {
                         focusColor: Colors.green,
                         value: isChecked,
                         onChanged: (bool? value) {
-                          BlocProvider.of<SignupBloc>(context).add(
-                            SignuptandcChangedEvent(isChecked),
-                          );
+                          isChecked = !isChecked;
+                          isChecked==true?BlocProvider.of<SignupBloc>(context).emit(SignupNoErrorState()):BlocProvider.of<SignupBloc>(context).emit(SignupErrorState("Please read before you agree "));
                           setState(
-                            () {
-                              isChecked = !isChecked;
-                            },
-                          );
+                            () {});
                         },
                       ),
                       AutoSizeText(
@@ -356,13 +337,24 @@ class _SignupPageState extends State<SignupPage> {
                   width: 300,
                   child: ElevatedButton(
                     onPressed: () {
-                      if (isChecked) {
-                        BlocProvider.of<SignupBloc>(context).add(
-                          SignupSumittedEvent(),
+                      if(isChecked){
+                        BlocProvider.of<SignupBloc>(context).emit(SignupValidState("All Set"));
+                        var userSQL = UserModel(
+                          tier: "bronze",
+                          name: name.text,
+                          email: email.text,
+                          phone: phone.text,
+                          dob: dob.text,
+                          password: pass1.text,
+                          tnc: true.toString(),
+                          rewards: 0,
+                          image: '',
                         );
-                        addUserData();
+                        BlocProvider.of<SignupBloc>(context).add(
+                          SignupSumittedEvent(userSQL),
+                        );
                       } else {
-                        return;
+                        return BlocProvider.of<SignupBloc>(context).emit(SignupErrorState("Please fill out all the fields")) ;
                       }
                     },
                     style: ElevatedButton.styleFrom(

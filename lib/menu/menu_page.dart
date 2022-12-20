@@ -24,8 +24,6 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   late var product;
   List<MenuModel> data = [];
 
-  //
-  // late CartDB cdb;
   @override
   void initState() {
     db = MenuDB();

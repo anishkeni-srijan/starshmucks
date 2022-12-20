@@ -1,3 +1,5 @@
+// ignore_for_file: void_checks
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -18,8 +20,9 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
         emit(
           SigninErrorState("Please enter a valid Email"),
         );
-      } else
+      } else {
         return Container();
+      }
     });
     on<SigninpassChangedEvent>((event, emit) {
 //user exists

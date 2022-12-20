@@ -1,7 +1,3 @@
-import 'dart:io' show Platform;
-
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -221,7 +217,9 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                                     fontWeight: FontWeight.bold,
                                                     color: HexColor("#175244")),
                                               ),
-                                              const SizedBox(height: 10),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
                                               Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
@@ -230,7 +228,9 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                                     Icons.date_range_outlined,
                                                     size: 20.0,
                                                   ),
-                                                  const SizedBox(width: 5),
+                                                  const SizedBox(
+                                                    width: 5,
+                                                  ),
                                                   Text(
                                                     "${OrderData[0].date}",
                                                     style:
@@ -472,7 +472,9 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 20),
+                              const SizedBox(
+                                height: 20,
+                              ),
                             ],
                           );
                         },

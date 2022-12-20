@@ -180,6 +180,7 @@ class buildExpansionTile extends StatelessWidget {
   final String img;
   final String text;
   final Widget content;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -222,6 +223,7 @@ class faqTile extends StatelessWidget {
 
   final String title;
   final String child;
+
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
