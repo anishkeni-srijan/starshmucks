@@ -42,8 +42,8 @@ class _RewarddetailsState extends State<Rewarddetails> {
   ];
   List<String> silvermaindata = [
     'Earn 1.5x rewards',
-    'Free delivery on orders abover \$50.',
-    'Free drink on your Birthday'
+    'Free delivery on orders abover \$50.Free delivery on orders abover \$50.Free delivery on orders abover \$50.Free delivery on orders abover \$50.Free delivery on orders abover \$50.',
+    'Free drink on your BirthdayFree drink on your BirthdayFree drink on your BirthdayFree drink on your BirthdayFree drink on your Birthday'
   ];
   List<String> goldmaindata = [
     'Earn 2x rewards',
@@ -401,6 +401,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                     width: 20,
                                   ),
                                   Expanded(
+
                                     child: Text(
                                       "Gold Tier",
                                       style: TextStyle(
@@ -447,16 +448,12 @@ class undertile extends StatelessWidget {
         shrinkWrap: true,
         itemCount: maintext.length,
         itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                child: ListTile(
-                  title: Text(maintext[index]),
-                  onTap: () {},
-                ),
-              ),
-            ],
+          return Padding(
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+            child: ListTile(
+              title: Text(maintext[index], maxLines: 1,overflow: TextOverflow.ellipsis,),
+              onTap: () {},
+            ),
           );
         },
         separatorBuilder: (context, index) {
