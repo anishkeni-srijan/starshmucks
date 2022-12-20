@@ -121,336 +121,358 @@ class _OrderSuccessState extends State<OrderSuccess> {
   @override
   Widget build(BuildContext context) {
     getDataIds();
+    double textWidth = MediaQuery.of(context).size.width * 0.45;
     return WillPopScope(
       onWillPop: gohomefromsuccess,
       child: Scaffold(
-        appBar: gethomeappbar("Order Details", [Container()], true, 0.0),
-        // AppBar(
-        //   automaticallyImplyLeading: false,
-        //   leading: TextButton.icon(
-        //     icon: Icon(
-        //       Icons.arrow_back,
-        //       color: HexColor("#175244"),
-        //     ),
-        //     label: Text(''),
-        //     onPressed: () {
-        //       gohomefromsuccess();
-        //     },
-        //   ),
-        //   title: Text("Order details"),
-        //   backgroundColor: Colors.white,
-        //   foregroundColor: HexColor("#175244"),
-        // ),
-        body: qtylistfromstring.isEmpty || items1.isEmpty
+        body:    OrderData.isEmpty ||
+            items1.isEmpty ||
+            qtylistfromstring.isEmpty
             ? Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
-                child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    decoration: BoxDecoration(
+            :  CustomScrollView(
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
+          slivers: <Widget>[
+            SliverAppBar(
+              pinned: true,
+              snap: false,
+              floating: false,
+              backgroundColor: Colors.white,
+              foregroundColor: HexColor("#175244"),
+              expandedHeight: 150.0,
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text('Order id: #$orderid',
+                    style: TextStyle(
                       color: HexColor("#175244"),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        colorFilter: ColorFilter.mode(
-                          Colors.black.withOpacity(0.05),
-                          BlendMode.dstATop,
-                        ),
-                        image: ExactAssetImage('images/shmucks.png'),
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          transform: Matrix4.translationValues(0, 12, 0),
-                          child: orderid == 0
-                              ? LinearProgressIndicator()
-                              : Text(
-                                  'Order id: ' + orderid.toString(),
+                    )),
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        width: MediaQuery.of(context).size.width * 1,
+                        child: Card(
+                          elevation: 8,
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Deliver To",
                                   style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 40,
-                                  ),
+                                      fontWeight: FontWeight.bold,
+                                      color: HexColor("#175244"),
+                                      fontSize: 18),
                                 ),
-                        ),
-                        Container(
-                          transform: Matrix4.translationValues(0, 28, 0),
-                          child: Text(
-                            'Order Placed!',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
+                                const SizedBox(height: 8),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.start,
+                                  children: [
+                                    Image.asset(
+                                      'images/map.png',
+                                      height: 100,
+                                      width: 100,
+                                      alignment: Alignment.centerLeft,
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Expanded(
+                                      child: Text(selectedAddress,
+                                          softWrap: false,
+                                          maxLines: 4,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                              fontSize: 16) //new
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
                           ),
                         ),
-                        Container(
-                            transform: Matrix4.translationValues(0, 40, 0),
-                            child: const AutoSizeText(
-                              'Your order will take 30-35mins',
-                              style: TextStyle(color: Colors.white),
-                            ))
-                      ],
-                    ),
-                  ),
-                  OrderData.isEmpty ||
-                          items1.isEmpty ||
-                          qtylistfromstring.isEmpty
-                      ? Center(
-                          child: Text('updating...'),
-                        )
-                      : Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Card(
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(
+                          left: 10,
+                          right: 10,
+                        ),
+                        width: MediaQuery.of(context).size.width * 1,
+                        child: Card(
                             elevation: 8,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: Column(
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Column(
+                                children: [
+                                  Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
-                                      const Text(
-                                        "Order placed",
-                                        style: TextStyle(fontSize: 22),
+                                      Text(
+                                        "Order Summary",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: HexColor("#175244")),
                                       ),
-                                      SizedBox(
-                                        height: 5,
+                                      const SizedBox(
+                                        height: 10,
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            "on " +
-                                                OrderData[0].date.toString(),
-                                            style: TextStyle(fontSize: 13),
+                                          const Icon(
+                                            Icons.date_range_outlined,
+                                            size: 20.0,
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
                                           ),
                                           Text(
-                                            "items: " +
-                                                idlistfromstring.length
-                                                    .toString(),
-                                            style:
-                                                const TextStyle(fontSize: 13),
+                                            "${OrderData[0].date}",
+                                            style: TextStyle(fontSize: 15),
                                           ),
                                         ],
                                       ),
                                     ],
                                   ),
-                                ),
-                                qtylistfromstring.isEmpty || items1.isEmpty
-                                    ? Center(child: LinearProgressIndicator())
-                                    : ListView.builder(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemCount: qtylistfromstring.length,
-                                        itemBuilder: (context, index) {
-                                          return Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    left: 20,
-                                                    right: 20,
-                                                    bottom:
-                                                        Platform.isIOS ? 0 : 20,
-                                                    top: 5),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    qtylistfromstring.isEmpty ||
-                                                            items1.isEmpty
-                                                        ? const Center(
-                                                            child: Text(
-                                                                'updating...'),
-                                                          )
-                                                        : Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              SizedBox(
-                                                                  width: 150,
-                                                                  child: Text(
-                                                                      items1[index]
-                                                                          .title
-                                                                          .toString(),
-                                                                      maxLines:
-                                                                          2,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis)),
-                                                              Text(qtylistfromstring[
-                                                                      index] +
-                                                                  ' x qty'),
-                                                            ],
-                                                          ),
-                                                    Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          Row(children: [
-                                                            Text(
-                                                              "\$ ${items1[index].price}",
-                                                            ),
-                                                          ]),
-                                                        ])
-                                                  ],
+                                  ListView.builder(
+                                    physics:
+                                    const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: qtylistfromstring.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                          padding: const EdgeInsets.only(
+                                            bottom: 10,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment
+                                                .spaceBetween,
+                                            children: <Widget>[
+                                              Row(
+                                                children: <Widget>[
+                                                  Container(
+                                                    height: 32,
+                                                    width: 32,
+                                                    decoration:
+                                                    BoxDecoration(
+                                                      color: HexColor("#036635"),
+                                                      borderRadius:
+                                                      BorderRadius
+                                                          .circular(7),
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        qtylistfromstring[
+                                                        index] +
+                                                            "x",
+                                                        style: Theme.of(
+                                                            context)
+                                                            .textTheme
+                                                            .bodyText2
+                                                            ?.copyWith(
+                                                            color: Colors
+                                                                .white),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 25),
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .center,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .start,
+                                                    children: <Widget>[
+                                                      SizedBox(
+                                                        width: textWidth,
+                                                        child: Text(
+                                                          items1[index]
+                                                              .title
+                                                              .toString(),
+                                                          overflow:
+                                                          TextOverflow
+                                                              .ellipsis,
+                                                          style: Theme.of(
+                                                              context)
+                                                              .textTheme
+                                                              .subtitle1,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: textWidth,
+                                                        child: Text(
+                                                            "Regular",
+                                                            overflow:
+                                                            TextOverflow
+                                                                .ellipsis,
+                                                            style: Theme.of(
+                                                                context)
+                                                                .textTheme
+                                                                .caption
+                                                                ?.copyWith(
+                                                                color:HexColor("#036635"))),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                              Container(
+                                                margin:
+                                                const EdgeInsets.only(
+                                                    left: 4),
+                                                child: Text(
+                                                  "\$${items1[index].price}",
+                                                  style: const TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                      FontWeight.w100),
                                                 ),
                                               ),
                                             ],
-                                          );
-                                        },
+                                          ));
+                                    },
+                                  ),
+                                  const Divider(
+                                    color: Colors.grey,
+                                    thickness: 1,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        "Subtotal",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600),
                                       ),
-                              ],
-                            ),
-                          ),
-                        ),
-
-                  // Text(
-                  //   "\$ " + data[0].ttlPrice.toStringAsFixed(2),
-                  //   style: TextStyle(fontWeight: FontWeight.w300),
-                  // ),
-
-                  Container(
-                    padding:
-                        const EdgeInsets.only(left: 10, right: 10, top: 10),
-                    width: MediaQuery.of(context).size.width * 1,
-                    child: Card(
-                      elevation: 8,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 20, right: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "Cart total",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  "\$ ${cartttl.toStringAsFixed(2)}",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w300),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "Points savings",
-                                  style: TextStyle(fontWeight: FontWeight.w300),
-                                ),
-                                Text(
-                                  '-\$${savings.toStringAsFixed(2)}',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w300),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "Delivery Charges",
-                                  style: TextStyle(fontWeight: FontWeight.w300),
-                                ),
-                                Text(
-                                  "\$ ${delchar.toStringAsFixed(2)}",
-                                  style: TextStyle(fontWeight: FontWeight.w300),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Total Amount",
-                                  style: TextStyle(fontWeight: FontWeight.w600),
-                                ),
-                                Text(
-                                  "\$ ${ttl.toStringAsFixed(2)}",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(
-                      left: 10,
-                      right: 10,
-                      top: 10,
-                    ),
-                    width: MediaQuery.of(context).size.width * 1,
-                    child: Card(
-                      elevation: 8,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Deliver To",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Text(selectedAddress),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(() => Help());
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                        left: 10,
-                        right: 10,
-                        top: 10,
-                      ),
-                      width: MediaQuery.of(context).size.width * 1,
-                      child: Card(
-                        elevation: 8,
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            children: [
-                              Text(
-                                "Need Help?",
-                                style: TextStyle(
-                                    color: HexColor("#175244"),
-                                    fontWeight: FontWeight.bold),
+                                      Text(
+                                        "\$${cartttl.toStringAsFixed(2)}",
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        "Points savings",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                      Text(
+                                        '- \$$savings',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: const [
+                                      Text(
+                                        "Delivery Charges",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                      Text(
+                                        "\$5.00",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  const Divider(
+                                    color: Colors.grey,
+                                    thickness: 1,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        "Total",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w900),
+                                      ),
+                                      Text(
+                                        "\$${ttl.toStringAsFixed(2)}",
+                                        style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w900),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  const Divider(
+                                    color: Colors.grey,
+                                    thickness: 1,
+                                  ),
+                                ],
                               ),
-                            ],
+                            )),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(() => const Help());
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.only(
+                            left: 10,
+                            right: 10,
+                            top: 10,
+                          ),
+                          width: MediaQuery.of(context).size.width * 1,
+                          child: Card(
+                            elevation: 8,
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "Need Help?",
+                                    style: TextStyle(
+                                        color: HexColor("#175244"),
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-
-                  const SizedBox(
-                    height: 20,
-                  ),
-                ],
-              )),
-      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  );
+                },
+                childCount: 1,
+              ),
+            ),
+          ],
+        ),
+      )
     );
   }
 }

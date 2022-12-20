@@ -197,7 +197,7 @@ getbanner(context, username, tier, rewards) {
           ),
         ),
         Container(
-          decoration: BoxDecoration(color: Colors.white, boxShadow: [
+          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
             BoxShadow(
               blurRadius: 10.0,
             ),

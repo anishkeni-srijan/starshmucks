@@ -80,38 +80,36 @@ class _GetOffersState extends State<GetOffers> {
     getIds();
   }
 
-  removefromwishlist(sendid) {
+  removefromwishlist(sendid)async{
     wdb.deleteitemFromWishlist(sendid);
-
-    getIds();
+    await getIds();
   }
 
   @override
   Widget build(BuildContext context) {
-    getdata();
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.18,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: odata.length,
         itemBuilder: (context, index) {
-          bool status = false;
+          ValueNotifier<bool> real = ValueNotifier<bool>(false);
           for (var i = 0; i < ids.length; i++) {
-            if (ids[i] == odata[index].id) status = true;
+            if (ids[i] == odata[index].id) real.value = true;
           }
           return Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               GestureDetector(
                 onTap: () {
                   getpdata(odata[index]);
-                  Get.to(() => ProductDetail(),
+                  Get.to(() => const ProductDetail(),
                       transition: Transition.rightToLeftWithFade);
                 },
                 child: Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color:
                         index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent,
@@ -138,7 +136,7 @@ class _GetOffersState extends State<GetOffers> {
                           ),
                           child: Text(
                             odata[index].tag,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 15,
                             ),
@@ -152,7 +150,7 @@ class _GetOffersState extends State<GetOffers> {
                         ),
                         child: Text(
                           odata[index].title,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 18,
                             fontWeight: FontWeight.w800,
@@ -161,7 +159,7 @@ class _GetOffersState extends State<GetOffers> {
                       ),
                       Container(
                         // transform: Matrix4.translationValues(-320, 40, 0),
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           top: 85,
                           left: 190,
                         ),
@@ -185,7 +183,7 @@ class _GetOffersState extends State<GetOffers> {
                               cartinit = true;
                             });
                           },
-                          child: Text("Add"),
+                          child: const Text("Add"),
                           style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all<Color>(Colors.white),
@@ -200,19 +198,21 @@ class _GetOffersState extends State<GetOffers> {
                           ),
                         ),
                       ),
-                      IconButton(
-                          onPressed: () {
-                            //int id = odata[index].id;
-                            status
-                                ? removefromwishlist(
-                                    WishlistModel(id: odata[index].id))
-                                : addToWishlist(context, index);
-                            // getIds();
-                          },
-                          icon: Icon(
-                            status ? Icons.favorite : Icons.favorite_border,
-                            color: Colors.white,
-                          ))
+                      ValueListenableBuilder(
+                        valueListenable: real,
+                        builder:(context, value, child) =>  IconButton(
+                            onPressed: () {
+                              //int id = odata[index].id;
+                              real.value
+                                  ? removefromwishlist(
+                                      WishlistModel(id: odata[index].id))
+                                  : addToWishlist(context, index);
+                            },
+                            icon: Icon(
+                              real.value ? Icons.favorite : Icons.favorite_border,
+                              color: Colors.white,
+                            )),
+                      )
                     ],
                   ),
                 ),

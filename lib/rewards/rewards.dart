@@ -80,8 +80,9 @@ class _RewardsState extends State<Rewards> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0, right: 10),
+                  Container(
+                    height: 220,
+                    padding: const EdgeInsets.only(left: 10.0, right: 10,),
                     child: Card(
                       color: HexColor("#175244"),
                       margin: const EdgeInsets.only(top: 20),
@@ -90,91 +91,85 @@ class _RewardsState extends State<Rewards> {
                       ),
                       shadowColor: Colors.black,
                       elevation: 4,
-                      child: Container(
-                        height: 200,
-                        child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(15.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const AutoSizeText(
-                                          'My Points',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                          minFontSize: 23,
+                      child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const AutoSizeText(
+                                        'My Points',
+                                        style: TextStyle(
+                                          color: Colors.white,
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                            top: 5.0,
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              AutoSizeText(
-                                                usernames[0]['rewards']
-                                                    .toStringAsFixed(2),
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.white,
-                                                ),
-                                                minFontSize: 23,
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 2.0, left: 5),
-                                                child: Icon(
-                                                  Icons.stars_sharp,
-                                                  color: usernames[0]['tier'] ==
-                                                          'gold'
-                                                      ? Colors.amberAccent
-                                                      : usernames[0]['tier'] ==
-                                                              'silver'
-                                                          ? Colors.grey
-                                                          : Colors.brown,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(15.0),
-                                    child: Text(
-                                      usernames[0]['name'],
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 25,
+                                        minFontSize: 23,
                                       ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          top: 5.0,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            AutoSizeText(
+                                              usernames[0]['rewards']
+                                                  .toStringAsFixed(2),
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white,
+                                              ),
+                                              minFontSize: 23,
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 2.0, left: 5),
+                                              child: Icon(
+                                                Icons.stars_sharp,
+                                                color: usernames[0]['tier'] ==
+                                                        'gold'
+                                                    ? Colors.amberAccent
+                                                    : usernames[0]['tier'] ==
+                                                            'silver'
+                                                        ? Colors.grey
+                                                        : Colors.brown,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Text(
+                                    usernames[0]['name'],
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 25,
                                     ),
                                   ),
-                                ],
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(15),
-                                child: Image.asset(
-                                  "images/shmucks.png",
-                                  width: 150,
-                                  height: 150,
                                 ),
-                              )
-                            ]),
-                      ),
+                              ],
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(15),
+                              child: Image.asset(
+                                "images/shmucks.png",
+                                width: 150,
+                                height: 150,
+                              ),
+                            )
+                          ]),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
                   ),
                   GestureDetector(
                     onTap: () {
@@ -242,63 +237,13 @@ class _RewardsState extends State<Rewards> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Column(
-                                    children: const [
-                                      Icon(
-                                        Icons.stars_sharp,
-                                        color: Colors.brown,
-                                      ),
-                                      Text("0 Points",
-                                          style: TextStyle(fontSize: 11))
-                                    ],
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(bottom: 15),
-                                    width: MediaQuery.of(context).size.width *
-                                        0.26,
-                                    child: LinearProgressIndicator(
-                                      // color: Colors.white,
-                                      backgroundColor: HexColor("#175244"),
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          usernames[0]['tier'] == 'gold'
-                                              ? Colors.amberAccent
-                                              : Colors.brown),
-                                      value: silvervalue,
-                                    ),
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: const [
-                                      Icon(Icons.stars_sharp,
-                                          color: Colors.grey),
-                                      Text('10 Points',
-                                          style: TextStyle(fontSize: 11))
-                                    ],
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(bottom: 15),
-                                    width: MediaQuery.of(context).size.width *
-                                        0.26,
-                                    child: LinearProgressIndicator(
-                                      // color: Colors.white,
-                                      backgroundColor: HexColor("#175244"),
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          usernames[0]['tier'] == 'gold'
-                                              ? Colors.amberAccent
-                                              : Colors.grey),
-                                      value: goldvalue,
-                                    ),
-                                  ),
-                                  Column(
-                                    children: const [
-                                      Icon(Icons.stars_sharp,
-                                          color: Colors.amberAccent),
-                                      Text(
-                                        '20 Points',
-                                        style: TextStyle(fontSize: 11),
-                                      )
-                                    ],
-                                  ),
+                                  buildstar(Colors.brown, "0 points"),
+                                  buildprogressbar(
+                                      context, Colors.brown, silvervalue),
+                                  buildstar(Colors.grey, "10 points"),
+                                  buildprogressbar(
+                                      context, Colors.grey, goldvalue),
+                                  buildstar(Colors.amberAccent, "20 points"),
                                 ],
                               ),
                             ),
@@ -380,50 +325,8 @@ class _RewardsState extends State<Rewards> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Row(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: CircleAvatar(
-                                        backgroundColor: HexColor("#175244"),
-                                        child: const Text(
-                                          "1",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 23,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        radius: 30,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "Invite your friends",
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        const SizedBox(
-                                          height: 8,
-                                        ),
-                                        Text(
-                                          "Just share your link",
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w200,
-                                              color: Colors.grey.shade600),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
+                                buildRow("1", "Invite your friends",
+                                    "Just share your link"),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Container(
@@ -438,50 +341,8 @@ class _RewardsState extends State<Rewards> {
                                     ),
                                   ),
                                 ),
-                                Row(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: CircleAvatar(
-                                        backgroundColor: HexColor("#175244"),
-                                        child: const Text(
-                                          "2",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 23,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        radius: 30,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "They get coffee",
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        const SizedBox(
-                                          height: 8,
-                                        ),
-                                        Text(
-                                          "With \$XX off",
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w200,
-                                              color: Colors.grey.shade600),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
+                                buildRow(
+                                    "2", "They get coffee", "with \$XX off"),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Container(
@@ -496,50 +357,8 @@ class _RewardsState extends State<Rewards> {
                                     ),
                                   ),
                                 ),
-                                Row(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: CircleAvatar(
-                                        backgroundColor: HexColor("#175244"),
-                                        child: const Text(
-                                          "3",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 23,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        radius: 30,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "You make savings!",
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        const SizedBox(
-                                          height: 8,
-                                        ),
-                                        Text(
-                                          "Then you get \$XX off",
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w200,
-                                              color: Colors.grey.shade600),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
+                                buildRow("3", "You make savings",
+                                    "and get \$XX off"),
                                 const SizedBox(
                                   height: 10,
                                 ),
@@ -617,65 +436,74 @@ class _RewardsState extends State<Rewards> {
             ),
           );
   }
-}
 
-class TierTile extends StatelessWidget {
-  const TierTile({
-    Key? key,
-    required this.text,
-    required this.press,
-    required this.color,
-  }) : super(key: key);
-  final String text;
-  final Color color;
-  final VoidCallback press;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.9,
-      child: Card(
-        margin: const EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 10,
-        ),
-        elevation: 10,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 0,
-            vertical: 0,
-          ),
-          child: TextButton(
-            onPressed: press,
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.white,
-              padding: const EdgeInsets.all(20),
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.stars_sharp,
-                  size: 30,
-                  color: color,
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Expanded(
-                  child: Text(
-                    text,
-                    style: TextStyle(
-                      color: HexColor("#036635"),
-                      fontWeight: FontWeight.w300,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+  Container buildprogressbar(BuildContext context, Color color, progress) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 15),
+      width: MediaQuery.of(context).size.width * 0.26,
+      child: LinearProgressIndicator(
+        // color: Colors.white,
+        backgroundColor: HexColor("#175244"),
+        valueColor: AlwaysStoppedAnimation<Color>(
+            usernames[0]['tier'] == 'gold' ? Colors.amberAccent : color),
+        value: progress,
       ),
+    );
+  }
+
+  Column buildstar(Color color, text) {
+    return Column(
+      children: [
+        Icon(
+          Icons.stars_sharp,
+          color: color,
+        ),
+        Text(text, style: TextStyle(fontSize: 11))
+      ],
+    );
+  }
+
+  Row buildRow(number, maintext, subtext) {
+    return Row(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: CircleAvatar(
+            backgroundColor: HexColor("#175244"),
+            radius: 30,
+            child: Text(
+              number,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 23,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          width: 20,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              maintext,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              subtext,
+              style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w200,
+                  color: Colors.grey.shade600),
+            ),
+          ],
+        )
+      ],
     );
   }
 }

@@ -53,9 +53,9 @@ class _WishListPageState extends State<WishListPage> {
     this.mounted ? setState(() {}) : null;
   }
 
-  removefromwishlist(sendid) {
+  removefromwishlist(sendid)async{
     wdb.deleteitemFromWishlist(sendid);
-    getDataOnIds();
+   await getDataOnIds();
   }
 
   Future<bool> onWillPop() async {
@@ -72,119 +72,117 @@ class _WishListPageState extends State<WishListPage> {
       backgroundColor: Colors.white,
       body: datalist == null
           ? const CircularProgressIndicator()
-          : WillPopScope(
-              onWillPop: onWillPop,
-              child: NestedScrollView(
-                headerSliverBuilder:
-                    (BuildContext context, bool innerBoxIsScrolled) {
-                  return <Widget>[
-                    SliverAppBar(
-                      automaticallyImplyLeading: false,
-                      leading: IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        onPressed: () {
-                          onWillPop();
-                        },
-                      ),
-                      elevation: 4,
-                      //toolbarHeight: 120,
-                      backgroundColor: Colors.white,
-                      foregroundColor: HexColor("#175244"),
-                      title: Text('Wishlist'),
-                    ),
-                  ];
-                },
-                body: datalist.isEmpty
-                    ? Center(
-                        child: Text(
-                          "Nothing in Wishlist",
-                          style: TextStyle(
-                              color: HexColor("#175244"),
-                              fontWeight: FontWeight.w300,
-                              fontSize: 15),
-                        ),
-                      )
-                    : SingleChildScrollView(
-                        physics: NeverScrollableScrollPhysics(),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.01,
-                            ),
-                            ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: datalist.length,
-                              itemBuilder: (context, index) {
-                                return Card(
-                                  elevation: 10,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8.0, bottom: 8),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Image.asset(
-                                              kart[index].image,
-                                              height: 100,
-                                              width: 100,
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  SizedBox(
-                                                      width: 150,
-                                                      child: Text(
-                                                          kart[index].title,
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow
-                                                              .ellipsis)),
-                                                  Text(
-                                                    "\$ " + kart[index].price,
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      removefromwishlist(
-                                                          datalist[index]);
+          : NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverAppBar(
+                  automaticallyImplyLeading: false,
+                  leading: IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {
+                      onWillPop();
 
-                                                      setState(() {});
-                                                    },
-                                                    style: ButtonStyle(
-                                                      foregroundColor:
-                                                          MaterialStateProperty
-                                                              .all(
-                                                        HexColor("#036635"),
-                                                      ),
-                                                    ),
-                                                    child: const Text(
-                                                      'Remove',
-                                                    ),
-                                                  ),
-                                                ],
+                    },
+                  ),
+                  elevation: 4,
+                  //toolbarHeight: 120,
+                  backgroundColor: Colors.white,
+                  foregroundColor: HexColor("#175244"),
+                  title: Text('Wishlist'),
+                ),
+              ];
+            },
+            body: datalist.isEmpty
+                ? Center(
+                    child: Text(
+                      "Nothing in Wishlist",
+                      style: TextStyle(
+                          color: HexColor("#175244"),
+                          fontWeight: FontWeight.w300,
+                          fontSize: 15),
+                    ),
+                  )
+                : SingleChildScrollView(
+                    physics: NeverScrollableScrollPhysics(),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01,
+                        ),
+                        ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: datalist.length,
+                          itemBuilder: (context, index) {
+                            return Card(
+                              elevation: 10,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 8.0, bottom: 8),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Image.asset(
+                                          kart[index].image,
+                                          height: 100,
+                                          width: 100,
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                  width: 150,
+                                                  child: Text(
+                                                      kart[index].title,
+                                                      maxLines: 2,
+                                                      overflow: TextOverflow
+                                                          .ellipsis)),
+                                              Text(
+                                                "\$ " + kart[index].price,
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                               ),
-                                            ),
-                                          ],
+                                              TextButton(
+                                                onPressed: () {
+                                                  removefromwishlist(
+                                                      datalist[index]);
+
+                                                  setState(() {});
+                                                },
+                                                style: ButtonStyle(
+                                                  foregroundColor:
+                                                      MaterialStateProperty
+                                                          .all(
+                                                    HexColor("#036635"),
+                                                  ),
+                                                ),
+                                                child: const Text(
+                                                  'Remove',
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      ),
-              ),
-            ),
+                      ],
+                    ),
+                  ),
+          ),
     );
   }
 }
