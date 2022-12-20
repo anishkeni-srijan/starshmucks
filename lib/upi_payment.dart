@@ -11,12 +11,12 @@ class _UpiPaymentState extends State<UpiPayment> {
   UpiIndia _upiIndia = UpiIndia();
   List<UpiApp>? apps;
 
-  TextStyle header = TextStyle(
+  TextStyle header = const TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,
   );
 
-  TextStyle value = TextStyle(
+  TextStyle value = const TextStyle(
     fontWeight: FontWeight.w400,
     fontSize: 14,
   );
@@ -45,20 +45,20 @@ class _UpiPaymentState extends State<UpiPayment> {
   }
 
   Widget displayUpiApps() {
-    if (apps == null)
+    if (apps == null) {
       return Center(child: CircularProgressIndicator());
-    else if (apps!.length == 0)
+    } else if (apps!.isEmpty) {
       return Center(
         child: Text(
           "No apps found to handle transaction.",
           style: header,
         ),
       );
-    else
+    } else {
       return Align(
         alignment: Alignment.topCenter,
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Wrap(
             children: apps!.map<Widget>((UpiApp app) {
               return GestureDetector(
@@ -66,7 +66,7 @@ class _UpiPaymentState extends State<UpiPayment> {
                   _transaction = initiateTransaction(app);
                   setState(() {});
                 },
-                child: Container(
+                child: SizedBox(
                   height: 100,
                   width: 100,
                   child: Column(
@@ -87,6 +87,7 @@ class _UpiPaymentState extends State<UpiPayment> {
           ),
         ),
       );
+    }
   }
 
   String _upiErrorHandler(error) {
@@ -141,7 +142,7 @@ class _UpiPaymentState extends State<UpiPayment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('UPI'),
+        title: const Text('UPI'),
       ),
       body: Column(
         children: <Widget>[
@@ -188,10 +189,11 @@ class _UpiPaymentState extends State<UpiPayment> {
                       ],
                     ),
                   );
-                } else
-                  return Center(
+                } else {
+                  return const Center(
                     child: Text(''),
                   );
+                }
               },
             ),
           )

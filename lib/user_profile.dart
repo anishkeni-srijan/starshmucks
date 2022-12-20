@@ -25,7 +25,7 @@ class _UserProfileState extends State<UserProfile> {
 
   getUser() async {
     usernames = await udb.getDataUserData();
-    if (this.mounted) {
+    if (mounted) {
       setState(() {});
     }
   }
@@ -65,8 +65,7 @@ class _UserProfileState extends State<UserProfile> {
                         color: const Color(0xff7c94b6),
                         image: usernames[0]['image'] == ''
                             ? const DecorationImage(
-                                image: AssetImage(
-                                    'images/profile1.jpg')) // set a placeholder image when no photo is set
+                                image: AssetImage('images/profile1.jpg'))
                             : DecorationImage(
                                 image: FileImage(File(usernames[0]['image'])),
                                 fit: BoxFit.cover,
@@ -110,11 +109,11 @@ class _UserProfileState extends State<UserProfile> {
                     ProfileTile(
                       text: 'My Account',
                       press: () {
-                        Get.to(() => EditProfile());
+                        Get.to(() => const EditProfile());
                       },
                       icon: Icons.account_circle_outlined,
                     ),
-                    const DividerForTiles(),
+                    dividerForTiles,
                     ProfileTile(
                       text: 'Orders',
                       press: () {
@@ -122,7 +121,7 @@ class _UserProfileState extends State<UserProfile> {
                       },
                       icon: Icons.coffee_outlined,
                     ),
-                    const DividerForTiles(),
+                    dividerForTiles,
                     ProfileTile(
                       text: 'Rewards',
                       press: () {
@@ -130,7 +129,7 @@ class _UserProfileState extends State<UserProfile> {
                       },
                       icon: Icons.star_outline_sharp,
                     ),
-                    const DividerForTiles(),
+                    dividerForTiles,
                     ProfileTile(
                       text: 'Help',
                       press: () {
@@ -138,18 +137,18 @@ class _UserProfileState extends State<UserProfile> {
                       },
                       icon: Icons.help_outline_rounded,
                     ),
-                    const DividerForTiles(),
+                    dividerForTiles,
                     ProfileTile(
                       text: 'Logout',
                       press: () async {
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
                         prefs.remove('signedInEmail');
-                        Get.to(() => SigninPage());
+                        Get.to(() => const SigninPage());
                       },
                       icon: Icons.logout,
                     ),
-                    DividerForTiles(),
+                    dividerForTiles,
                   ],
                 ),
               )
@@ -161,22 +160,13 @@ class _UserProfileState extends State<UserProfile> {
   }
 }
 
-class DividerForTiles extends StatelessWidget {
-  const DividerForTiles({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Divider(
-      color: HexColor("#036635"),
-      height: 1,
-      thickness: 0.5,
-      indent: 0,
-      endIndent: 0,
-    );
-  }
-}
+var dividerForTiles = Divider(
+  color: HexColor("#036635"),
+  height: 1,
+  thickness: 0.5,
+  indent: 0,
+  endIndent: 0,
+);
 
 class ProfileTile extends StatelessWidget {
   const ProfileTile({

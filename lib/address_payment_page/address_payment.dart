@@ -789,8 +789,6 @@ class _AddressState extends State<Address> {
       goToFailed(message);
     });
 
-    // showAlertDialog(context, "Payment Failed",
-    //     "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
     message = "${response.message}";
   }
 
@@ -806,9 +804,6 @@ class _AddressState extends State<Address> {
       goToSuccess();
       paid = true;
     });
-
-    // showAlertDialog(
-    //     context, "Payment Successful", "Payment ID: ${response.paymentId}");
   }
 
   List<CartModel> cartlist = [];
@@ -843,14 +838,12 @@ class _AddressState extends State<Address> {
   }
 
   void showAlertDialog(BuildContext context, String title, String message) {
-    // set up the buttons
     Widget continueButton = ElevatedButton(
       child: const Text("Continue"),
       onPressed: () {
         paid ? Get.to(OrderSuccess()) : Get.to(OrderFail(message));
       },
     );
-    // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text(title),
       content: Text(message),

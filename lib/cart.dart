@@ -84,7 +84,7 @@ class _MyCartState extends State<MyCart> {
           onPressed: () async {
             final total = await SharedPreferences.getInstance();
             await total.setDouble('total', ttl);
-            Get.to(() => Address(), transition: Transition.rightToLeft);
+            Get.to(() => const Address(), transition: Transition.rightToLeft);
           },
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(HexColor("#036635"))),
@@ -108,7 +108,7 @@ class _MyCartState extends State<MyCart> {
                         fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    "\$" + ttl.toStringAsFixed(2),
+                    "\$${ttl.toStringAsFixed(2)}",
                     style: TextStyle(
                         fontSize: 35,
                         color: HexColor("#175244"),
@@ -116,7 +116,7 @@ class _MyCartState extends State<MyCart> {
                   ),
                 ],
               ),
-              Text("( Inclusive of packaging charge )"),
+              const Text("( Inclusive of packaging charge )"),
             ],
           ),
         )

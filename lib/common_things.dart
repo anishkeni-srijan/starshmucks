@@ -18,23 +18,21 @@ import 'order/order_failed.dart';
 import 'order/order_success.dart';
 import 'wishlist.dart';
 
-class bottomBar extends StatefulWidget {
-  const bottomBar({super.key});
-
-  static const String _title = 'Flutter Code Sample';
+class BottomBar extends StatefulWidget {
+  const BottomBar({super.key});
 
   @override
-  State<bottomBar> createState() => _bottomBarState();
+  State<BottomBar> createState() => _BottomBarState();
 }
 
-class _bottomBarState extends State<bottomBar> {
+class _BottomBarState extends State<BottomBar> {
   int _selectedIndex = 0;
 
   final List<Widget> _widgetOptions = [
-    HomePage(),
-    GiftCard(),
-    OrderPage(),
-    UserProfile(),
+    const HomePage(),
+    const GiftCard(),
+    const OrderPage(),
+    const UserProfile(),
   ];
 
   void _onItemTapped(int index) {
@@ -47,8 +45,8 @@ class _bottomBarState extends State<bottomBar> {
     return (await showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Are you sure?'),
-            content: Text('Do you want to exit this app'),
+            title: const Text('Are you sure?'),
+            content: const Text('Do you want to exit this app'),
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
@@ -78,7 +76,7 @@ class _bottomBarState extends State<bottomBar> {
               IconButton(
                 color: HexColor("#175244"),
                 onPressed: () {
-                  Get.to(() => WishListPage());
+                  Get.to(() => const WishListPage());
                 },
                 icon: const Icon(
                   Icons.favorite,
@@ -120,21 +118,6 @@ class _bottomBarState extends State<bottomBar> {
   }
 }
 
-// orderbutton() {
-//   return FloatingActionButton(
-//     //Floating action button on Scaffold
-//     elevation: 10,
-//     backgroundColor: Color(0xffb036635),
-//     onPressed: () {
-//       Get.to(() => OrderPage(), transition: Transition.downToUp);
-//     },
-//     child: Icon(
-//       Icons.coffee_maker_outlined,
-//       color: Colors.white,
-//     ), //icon inside button
-//   );
-// }
-
 var route;
 
 gethomeappbar(title, action, automaticallyImplyLeadingStatus, ttlspacing) {
@@ -156,8 +139,8 @@ gethomeappbar(title, action, automaticallyImplyLeadingStatus, ttlspacing) {
 }
 
 late double ttl;
-late double savings = 0;
-late var size = 0;
+double savings = 0;
+var size = 0;
 
 getdata() async {
   CartDB cdb = CartDB();
@@ -199,13 +182,6 @@ viewincart() {
                 color: HexColor("#036635"),
               ),
             ),
-          // Text(
-          //   "\$" + "XX",
-          //   style: TextStyle(
-          //     color: HexColor("#036635"),
-          //     fontWeight: FontWeight.w600,
-          //   ),
-          // ),
         ],
       ),
       TextButton(
@@ -214,7 +190,7 @@ viewincart() {
                 MaterialStateProperty.all<Color?>(HexColor("#036635")),
             foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
           ),
-          child: Text(
+          child: const Text(
             "View in Cart",
           ),
           onPressed: () {
@@ -232,14 +208,14 @@ initcart() async {
 }
 
 Future<bool> gohome() async {
-  return (await Get.to(() => bottomBar())) ?? false;
+  return (await Get.to(() => BottomBar())) ?? false;
 }
 
 Future<bool> gohomefromsuccess() async {
   calcrewards();
   CartDB cartdb = CartDB();
   cartdb.clear();
-  return (await Get.to(() => bottomBar())) ?? false;
+  return (await Get.to(() => BottomBar())) ?? false;
 }
 
 goToSuccess() {
@@ -261,8 +237,9 @@ calcrewards() async {
     res = (usernames[0]['rewards'] + ((ttl / 10) * 1.5) - (savings * 2));
   } else if (usernames[0]['tier'] == 'gold') {
     res = (usernames[0]['rewards'] + ((ttl / 10) * 2) - (savings * 2));
-  } else
+  } else {
     res = usernames[0]['rewards'] + (ttl / 10) - (savings * 2);
+  }
 
   var rewardUpdate = UserModel(
     rewards: res,
@@ -278,7 +255,6 @@ calcrewards() async {
     phone: usernames[0]['phone'],
     tnc: usernames[0]['tnc'],
     image: usernames[0]['image'],
-    // addressID: ,
   );
 
   udb.updaterewards(rewardUpdate);
@@ -302,14 +278,15 @@ class CustomToast extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
+          const Icon(
             Icons.check,
             color: Colors.white,
           ),
-          SizedBox(width: 12.0),
+          const SizedBox(width: 12.0),
           Text(
             toastMessage,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ],
       ),

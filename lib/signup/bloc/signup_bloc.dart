@@ -18,7 +18,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         if (state is SignupValidState) {
           udb.insertUserData(event.userdata);
           udb.getDataUserData();
-          Get.to(() => bottomBar());
+          Get.to(() => BottomBar());
         } else {
           emit(SignupErrorState("Please fill out all the fields"));
         }

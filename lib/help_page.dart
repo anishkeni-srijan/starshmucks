@@ -86,7 +86,7 @@ class Help extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            buildExpansionTile(
+            BuildExpansionTile(
               text: "Chat",
               img: "images/chat.png",
               content: TextButton(
@@ -105,32 +105,32 @@ class Help extends StatelessWidget {
                 ),
               ),
             ),
-            buildExpansionTile(
+            BuildExpansionTile(
                 text: "FAQ",
                 img: "images/faq.png",
                 content: Column(children: const [
-                  faqTile(
+                  FaqTile(
                       title: "Can I edit my order?",
                       child:
                           "Your order can be edited before it reaches the restaurant. You could contact customer support team via call to do so. Once order is placed and restaurant starts preparing your food, you may not edit its contents"),
-                  faqTile(
+                  FaqTile(
                       title: "I want to cancel my order",
                       child:
                           "We will do our best to accommodate your request if the order is not placed to the restaurant (Customer service number:  1800999999). Please note that we will have a right to charge a cancellation fee up to full order value to compensate our restaurant and delivery partners if your order has been confirmed."),
-                  faqTile(
+                  FaqTile(
                       title: "Do you charge for delivery?",
                       child:
                           "Delivery fee varies from city to city and is applicable if order value is below a certain amount. Delivery fee (if any) is specified on the 'Review Order' page. "),
-                  faqTile(
+                  FaqTile(
                       title: "How long do you take to deliver?",
                       child:
                           "Standard delivery times vary by the location selected and prevailing conditions. Once you select your location, an estimated delivery time is mentioned for each outlet."),
-                  faqTile(
+                  FaqTile(
                       title: "Can I order in advance?",
                       child:
                           "We currently do not support this functionality. All our orders are placed and executed on-demand."),
                 ])),
-            buildExpansionTile(
+            BuildExpansionTile(
               text: "Call Us",
               img: "images/call.png",
               content: Row(
@@ -170,8 +170,8 @@ class Help extends StatelessWidget {
   }
 }
 
-class buildExpansionTile extends StatelessWidget {
-  const buildExpansionTile({
+class BuildExpansionTile extends StatelessWidget {
+  const BuildExpansionTile({
     required this.img,
     required this.text,
     required this.content,
@@ -193,20 +193,21 @@ class buildExpansionTile extends StatelessWidget {
           iconColor: HexColor("#036635"),
           collapsedIconColor: HexColor("#036635"),
           title: Padding(
-              padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 30),
-              child: Row(
-                children: [
-                  Image.asset(
-                    img,
-                    width: 50,
-                  ),
-                  const SizedBox(width: 20),
-                  Text(
-                    text,
-                    style: TextStyle(fontSize: 20, color: HexColor("#036635")),
-                  ),
-                ],
-              )),
+            padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 30),
+            child: Row(
+              children: [
+                Image.asset(
+                  img,
+                  width: 50,
+                ),
+                const SizedBox(width: 20),
+                Text(
+                  text,
+                  style: TextStyle(fontSize: 20, color: HexColor("#036635")),
+                ),
+              ],
+            ),
+          ),
           children: [content],
         ),
       ),
@@ -214,8 +215,8 @@ class buildExpansionTile extends StatelessWidget {
   }
 }
 
-class faqTile extends StatelessWidget {
-  const faqTile({
+class FaqTile extends StatelessWidget {
+  const FaqTile({
     required this.title,
     required this.child,
     Key? key,

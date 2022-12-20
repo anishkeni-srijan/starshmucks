@@ -45,7 +45,7 @@ class _WishListPageState extends State<WishListPage> {
       }
     }
     kart = wishlistTmp;
-    this.mounted ? setState(() {}) : null;
+    mounted ? setState(() {}) : null;
   }
 
   removefromwishlist(sendid) {
@@ -54,8 +54,7 @@ class _WishListPageState extends State<WishListPage> {
   }
 
   Future<bool> onWillPop() async {
-    //Navigator.pop(context,true);
-    return (await Get.to(() => bottomBar(),
+    return (await Get.to(() => const BottomBar(),
             transition: Transition.leftToRight)) ??
         false;
   }
@@ -82,7 +81,6 @@ class _WishListPageState extends State<WishListPage> {
                         },
                       ),
                       elevation: 4,
-                      //toolbarHeight: 120,
                       backgroundColor: Colors.white,
                       foregroundColor: HexColor("#175244"),
                       title: const Text('Wishlist'),
@@ -100,14 +98,14 @@ class _WishListPageState extends State<WishListPage> {
                         ),
                       )
                     : SingleChildScrollView(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         child: Column(
                           children: [
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.01),
                             ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: datalist.length,
                               itemBuilder: (context, index) {
@@ -120,11 +118,8 @@ class _WishListPageState extends State<WishListPage> {
                                       children: [
                                         Row(
                                           children: [
-                                            Image.asset(
-                                              kart[index].image,
-                                              height: 100,
-                                              width: 100,
-                                            ),
+                                            Image.asset(kart[index].image,
+                                                height: 100, width: 100),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -133,15 +128,16 @@ class _WishListPageState extends State<WishListPage> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   SizedBox(
-                                                      width: 150,
-                                                      child: Text(
-                                                          kart[index].title,
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow
-                                                              .ellipsis)),
+                                                    width: 150,
+                                                    child: Text(
+                                                        kart[index].title,
+                                                        maxLines: 2,
+                                                        overflow: TextOverflow
+                                                            .ellipsis),
+                                                  ),
                                                   Text(
-                                                    "\$ " + kart[index].price,
-                                                    style: TextStyle(
+                                                    "\$ ${kart[index].price}",
+                                                    style: const TextStyle(
                                                         fontSize: 18,
                                                         fontWeight:
                                                             FontWeight.w600),

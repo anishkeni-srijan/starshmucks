@@ -41,7 +41,7 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
                       Row(
                         children: [
                           const SizedBox(width: 10),
-                          giftCardDesign(
+                          GiftCardDesign(
                             image: 'images/giftdiwali.png',
                             giftCardText:
                                 'Gift For Diwali.You can gift this to your sister for Bhai Dooj',
@@ -50,7 +50,7 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
                             press: () {},
                           ),
                           const SizedBox(width: 10),
-                          giftCardDesign(
+                          GiftCardDesign(
                             image: 'images/giftdiwali2.png',
                             giftCardText:
                                 'Gift For Diwali.You can gift this to your sister for Bhai Dooj',
@@ -76,18 +76,10 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
                     // unselectedLabelColor: Colors.black,
                     isScrollable: true,
                     tabs: const <Widget>[
-                      Tab(
-                        text: 'ALL',
-                      ),
-                      Tab(
-                        text: 'FEATURED',
-                      ),
-                      Tab(
-                        text: 'CONGRATULATIONS',
-                      ),
-                      Tab(
-                        text: 'THANK YOU',
-                      ),
+                      Tab(text: 'ALL'),
+                      Tab(text: 'FEATURED'),
+                      Tab(text: 'CONGRATULATIONS'),
+                      Tab(text: 'THANK YOU'),
                     ],
                   ),
                 ),
@@ -111,8 +103,8 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
   }
 }
 
-class giftCardDesign extends StatelessWidget {
-  const giftCardDesign({
+class GiftCardDesign extends StatelessWidget {
+  const GiftCardDesign({
     Key? key,
     required this.image,
     required this.giftCardText,
@@ -139,12 +131,8 @@ class giftCardDesign extends StatelessWidget {
         children: [
           Container(
             transform: Matrix4.translationValues(5, 12, 0),
-            child: Image.asset(
-              image,
-              width: 100,
-              height: 100,
-              fit: BoxFit.fill,
-            ),
+            child:
+                Image.asset(image, width: 100, height: 100, fit: BoxFit.fill),
           ),
           Container(
             child: Container(
@@ -160,11 +148,7 @@ class giftCardDesign extends StatelessWidget {
           ),
           Container(
             width: 200,
-            transform: Matrix4.translationValues(
-              100,
-              40,
-              0,
-            ),
+            transform: Matrix4.translationValues(100, 40, 0),
             child: Text(
               giftCardText,
               style: const TextStyle(
@@ -197,7 +181,6 @@ class giftCardDesign extends StatelessWidget {
             transform: Matrix4.translationValues(200, 120, 0),
             child: TextButton(
               onPressed: press,
-              child: const Text('Gift Now'),
               style: ButtonStyle(
                 backgroundColor:
                     MaterialStateProperty.all<Color>(HexColor("#175244")),
@@ -208,6 +191,7 @@ class giftCardDesign extends StatelessWidget {
                   ),
                 ),
               ),
+              child: const Text('Gift Now'),
             ),
           )
         ],
@@ -243,24 +227,18 @@ getAllCards(context) {
                 ),
               ),
               Container(
-                child: Container(
-                  transform: Matrix4.translationValues(110, 10, 0),
-                  child: const Text(
-                    'Celebrate With Starshmucks',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                    ),
+                transform: Matrix4.translationValues(110, 10, 0),
+                child: const Text(
+                  'Celebrate With Starshmucks',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
                   ),
                 ),
               ),
               Container(
                 width: 220,
-                transform: Matrix4.translationValues(
-                  110,
-                  40,
-                  0,
-                ),
+                transform: Matrix4.translationValues(110, 40, 0),
                 child: const Text(
                   'Gift For Diwali.You can gift this to your sister for Bhai Dooj',
                   style: TextStyle(
@@ -290,14 +268,9 @@ getAllCards(context) {
                 ),
               ),
               Container(
-                transform: Matrix4.translationValues(
-                  250,
-                  120,
-                  0,
-                ),
+                transform: Matrix4.translationValues(250, 120, 0),
                 child: TextButton(
                   onPressed: () {},
-                  child: const Text('Gift Now'),
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(HexColor("#175244")),
@@ -309,6 +282,7 @@ getAllCards(context) {
                       ),
                     ),
                   ),
+                  child: const Text('Gift Now'),
                 ),
               )
             ],
@@ -336,24 +310,18 @@ getAllCards(context) {
                 ),
               ),
               Container(
-                child: Container(
-                  transform: Matrix4.translationValues(110, 10, 0),
-                  child: const Text(
-                    'Celebrate With Starshmucks',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                    ),
+                transform: Matrix4.translationValues(110, 10, 0),
+                child: const Text(
+                  'Celebrate With Starshmucks',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
                   ),
                 ),
               ),
               Container(
                 width: 220,
-                transform: Matrix4.translationValues(
-                  110,
-                  40,
-                  0,
-                ),
+                transform: Matrix4.translationValues(110, 40, 0),
                 child: const Text(
                   'Gift For Diwali.You can gift this to your sister for Bhai Dooj',
                   style: TextStyle(
@@ -383,14 +351,9 @@ getAllCards(context) {
                 ),
               ),
               Container(
-                transform: Matrix4.translationValues(
-                  250,
-                  120,
-                  0,
-                ),
+                transform: Matrix4.translationValues(250, 120, 0),
                 child: TextButton(
                   onPressed: () {},
-                  child: const Text('Gift Now'),
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(HexColor("#175244")),
@@ -402,6 +365,7 @@ getAllCards(context) {
                       ),
                     ),
                   ),
+                  child: const Text('Gift Now'),
                 ),
               )
             ],
@@ -429,24 +393,18 @@ getAllCards(context) {
                 ),
               ),
               Container(
-                child: Container(
-                  transform: Matrix4.translationValues(110, 10, 0),
-                  child: const Text(
-                    'Celebrate With Starshmucks',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                    ),
+                transform: Matrix4.translationValues(110, 10, 0),
+                child: const Text(
+                  'Celebrate With Starshmucks',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
                   ),
                 ),
               ),
               Container(
                 width: 220,
-                transform: Matrix4.translationValues(
-                  110,
-                  40,
-                  0,
-                ),
+                transform: Matrix4.translationValues(110, 40, 0),
                 child: const Text(
                   'Gift For Diwali.You can gift this to your sister for Bhai Dooj',
                   style: TextStyle(
@@ -476,14 +434,9 @@ getAllCards(context) {
                 ),
               ),
               Container(
-                transform: Matrix4.translationValues(
-                  250,
-                  120,
-                  0,
-                ),
+                transform: Matrix4.translationValues(250, 120, 0),
                 child: TextButton(
                   onPressed: () {},
-                  child: const Text('Gift Now'),
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(HexColor("#175244")),
@@ -495,6 +448,7 @@ getAllCards(context) {
                       ),
                     ),
                   ),
+                  child: const Text('Gift Now'),
                 ),
               )
             ],

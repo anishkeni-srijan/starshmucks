@@ -36,7 +36,7 @@ class _SplashState extends State<Splash> {
         body: SplashScreenView(
           duration: const Duration(milliseconds: 1500),
           imageSrc: "images/shmucks.png",
-          navigateRoute: flag ? const bottomBar() : const SigninPage(),
+          navigateRoute: flag ? const BottomBar() : const SigninPage(),
         ));
   }
 }
