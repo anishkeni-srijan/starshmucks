@@ -28,7 +28,7 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
       initialIndex: 1,
       length: 4,
       child: Scaffold(
-        persistentFooterButtons: cartinit ? [viewincart()] : [Container()],
+        persistentFooterButtons: cartinit ? [ViewInCart()] : [Container()],
         body: SingleChildScrollView(
           child: SizedBox(
             height: MediaQuery.of(context).size.height * 1,
@@ -85,6 +85,7 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
                 ),
                 Expanded(
                   child: TabBarView(
+                    physics: ScrollPhysics(),
                     controller: tabController,
                     children: <Widget>[
                       getAllCards(context),
@@ -135,14 +136,12 @@ class GiftCardDesign extends StatelessWidget {
                 Image.asset(image, width: 100, height: 100, fit: BoxFit.fill),
           ),
           Container(
-            child: Container(
-              transform: Matrix4.translationValues(100, 10, 0),
-              child: Text(
-                titleText,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 15,
-                ),
+            transform: Matrix4.translationValues(100, 10, 0),
+            child: Text(
+              titleText,
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 15,
               ),
             ),
           ),
@@ -202,11 +201,9 @@ class GiftCardDesign extends StatelessWidget {
 
 getAllCards(context) {
   return Container(
-    //margin: EdgeInsets.all(),
-    //color: HexColor("#175244"),
     padding: const EdgeInsets.only(left: 20, right: 20, top: 0),
     child: ListView(
-      shrinkWrap: true,
+     physics: NeverScrollableScrollPhysics(),
       children: [
         Container(
           padding: const EdgeInsets.all(10),

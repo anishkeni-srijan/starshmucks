@@ -100,7 +100,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     initcart();
     getCoffeeData();
     return Scaffold(
-      persistentFooterButtons: cartinit ? [viewincart()] : null,
+      persistentFooterButtons: cartinit ? [ViewInCart()] : null,
       body: getdataf
           ? ListView.builder(
               shrinkWrap: true,

@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '/home/home_screen.dart';
+import 'common_things.dart';
 import 'databse/cart_db.dart';
 import 'databse/wishlist_db.dart';
 import 'model/cart_model.dart';
@@ -73,6 +74,7 @@ class _ProductDetailState extends State<ProductDetail> {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
+      persistentFooterButtons: cartinit ? [ViewInCart()] : null,
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(

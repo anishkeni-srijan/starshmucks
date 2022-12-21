@@ -137,12 +137,12 @@ gethomeappbar(title, action, automaticallyImplyLeadingStatus, ttlspacing) {
 
 late double ttl;
 double savings = 0;
-var size = 0;
+ValueNotifier<int>size = ValueNotifier<int>(0);
 
 getdata() async {
   CartDB cdb = CartDB();
   List<CartModel> data = await cdb.getDataCart();
-  size = data.length;
+  size.value = data.length;
 }
 
 getttl() async {
@@ -151,50 +151,56 @@ getttl() async {
   savings = total.getDouble('savings') ?? 0;
 }
 
-viewincart() {
-  getttl();
-  getdata();
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      Row(
-        children: [
-          Text(
-            size.toString(),
-            style: TextStyle(
-                color: HexColor("#036635"), fontWeight: FontWeight.w600),
-          ),
-          if (size < 2)
-            Text(
-              " item",
+class ViewInCart extends StatelessWidget {
+  const ViewInCart({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    getttl();
+    getdata();
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Row(
+          children: [
+            ValueListenableBuilder(valueListenable: size, builder: (context, value, child) => Text(
+              size.value.toString(),
               style: TextStyle(
-                color: HexColor("#036635"),
+                  color: HexColor("#036635"), fontWeight: FontWeight.w600),
+            ),),
+            if (size.value < 2)
+              Text(
+                " item",
+                style: TextStyle(
+                  color: HexColor("#036635"),
+                ),
+              )
+            else
+              Text(
+                " items",
+                style: TextStyle(
+                  color: HexColor("#036635"),
+                ),
               ),
-            )
-          else
-            Text(
-              " items",
-              style: TextStyle(
-                color: HexColor("#036635"),
-              ),
+          ],
+        ),
+        TextButton(
+            style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all<Color?>(HexColor("#036635")),
+              foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
             ),
-        ],
-      ),
-      TextButton(
-          style: ButtonStyle(
-            backgroundColor:
-                MaterialStateProperty.all<Color?>(HexColor("#036635")),
-            foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
-          ),
-          child: const Text(
-            "View in Cart",
-          ),
-          onPressed: () {
-            Get.to(() => const MyCart(), transition: Transition.downToUp);
-          }),
-    ],
-  );
+            child: const Text(
+              "View in Cart",
+            ),
+            onPressed: () {
+              Get.to(() => const MyCart(), transition: Transition.downToUp);
+            }),
+      ],
+    );
+  }
 }
 
 initcart() async {

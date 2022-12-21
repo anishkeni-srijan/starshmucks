@@ -87,7 +87,7 @@ class _GetCakeDataState extends State<GetCakeData> {
     initcart();
     getCakeData();
     return Scaffold(
-      persistentFooterButtons: cartinit ? [viewincart()] : null,
+      persistentFooterButtons: cartinit ? [ViewInCart()] : null,
       body: ListView.builder(
         shrinkWrap: true,
         itemCount: data.length,

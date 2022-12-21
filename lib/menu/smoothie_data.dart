@@ -88,7 +88,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     initcart();
     getSmoothieData();
     return Scaffold(
-      persistentFooterButtons: cartinit ? [viewincart()] : null,
+      persistentFooterButtons: cartinit ? [ViewInCart()] : null,
       body: getdataf
           ? ListView.builder(
               shrinkWrap: true,

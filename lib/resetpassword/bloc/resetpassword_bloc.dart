@@ -19,10 +19,11 @@ class ResetpasswordBloc extends Bloc<ResetpasswordEvent, ResetpasswordState> {
               "Your password must be at least 4 Characters"));
         }
         // Return null if the entered username is valid
-        else
+        else {
           emit(
             ResetpasswordValidState('Done! Now let\'s confirm your password'),
           );
+        }
       },
     );
     on<ConfirmpasswordChangedEvent>(
@@ -56,8 +57,9 @@ class ResetpasswordBloc extends Bloc<ResetpasswordEvent, ResetpasswordState> {
               Get.to(() => SigninPage());
             },
           );
-        } else
+        } else {
           return null;
+        }
       },
     );
   }

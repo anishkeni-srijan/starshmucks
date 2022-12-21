@@ -1,3 +1,5 @@
+// ignore_for_file: void_checks
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
