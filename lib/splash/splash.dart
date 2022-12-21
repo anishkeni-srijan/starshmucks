@@ -14,9 +14,7 @@ class Splash extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<SplashScreenBloc>(context).add(
-      LoginStatusCheckEvent(),
-    );
+
     return Scaffold(
       backgroundColor: HexColor("#175244"),
       body: SplashScreenView(
@@ -24,7 +22,11 @@ class Splash extends StatelessWidget {
         imageSrc: "images/shmucks.png",
         navigateRoute: BlocBuilder<SplashScreenBloc, SplashScreenState>(
           builder: (context, state) {
+            BlocProvider.of<SplashScreenBloc>(context).add(
+              LoginStatusCheckEvent(),
+            );
             if (state is UserExistsState) {
+
               return const BottomBar();
             } else {
               return const SigninPage();

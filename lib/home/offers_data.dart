@@ -108,7 +108,7 @@ class _GetOffersState extends State<GetOffers> {
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color:
-                        index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent,
+                    index % 2 == 0 ? Colors.teal : Colors.deepOrangeAccent,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   height: MediaQuery.of(context).size.height * 0.18,
@@ -161,12 +161,12 @@ class _GetOffersState extends State<GetOffers> {
                               child: CustomToast(toastMessage),
                               positionedToastBuilder: (context, child) =>
                                   Positioned(
-                                bottom:
+                                    bottom:
                                     MediaQuery.of(context).size.height * 0.14,
-                                left: MediaQuery.of(context).size.width * 0.1,
-                                right: MediaQuery.of(context).size.width * 0.1,
-                                child: child,
-                              ),
+                                    left: MediaQuery.of(context).size.width * 0.1,
+                                    right: MediaQuery.of(context).size.width * 0.1,
+                                    child: child,
+                                  ),
                             );
                             setState(() {
                               cartinit = true;
@@ -174,7 +174,7 @@ class _GetOffersState extends State<GetOffers> {
                           },
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
+                            MaterialStateProperty.all<Color>(Colors.white),
                             foregroundColor: MaterialStateProperty.all<Color>(
                                 HexColor('#175244')),
                             shape: MaterialStateProperty.all<
@@ -194,7 +194,7 @@ class _GetOffersState extends State<GetOffers> {
                             //int id = odata[index].id;
                             real.value
                                 ? removefromwishlist(
-                                    WishlistModel(id: odata[index].id))
+                                WishlistModel(id: odata[index].id))
                                 : addToWishlist(context, index);
                           },
                           icon: Icon(

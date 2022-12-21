@@ -195,122 +195,128 @@ getbanner(context, username, tier, rewards) {
             ),
           ),
         ),
-        Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(blurRadius: 10.0),
-            ],
-          ),
-          transform: Matrix4.translationValues(
-            0,
-            Platform.isIOS
-                ? MediaQuery.of(context).size.height * 0.12
-                : MediaQuery.of(context).size.height * 0.1,
-            0,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.stars_sharp,
-                  color: tier == "gold"
-                      ? Colors.amberAccent
-                      : tier == "silver"
-                          ? Colors.grey
-                          : Colors.brown,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
+         Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(blurRadius: 10.0),
+              ],
+            ),
+            transform: Matrix4.translationValues(
+              0,
+              Platform.isIOS
+                  ? MediaQuery.of(context).size.height * 0.12
+                  : MediaQuery.of(context).size.height * 0.1,
+              0,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(() => const Rewards(),
+                      transition: Transition.rightToLeftWithFade);
+                },
+                child:Row(
+                children: [
+                  Icon(
+                    Icons.stars_sharp,
+                    color: tier == "gold"
+                        ? Colors.amberAccent
+                        : tier == "silver"
+                            ? Colors.grey
+                            : Colors.brown,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Tier',
+                          style: TextStyle(
+                              color: HexColor('#175244'), fontSize: 12),
+                        ),
+                        AutoSizeText(
+                          tier == 'silver'
+                              ? "Silver"
+                              : tier == 'gold'
+                                  ? "Gold"
+                                  : "Bronze",
+                          style: TextStyle(
+                            color: tier == "gold"
+                                ? Colors.amberAccent
+                                : tier == "silver"
+                                    ? Colors.grey
+                                    : Colors.brown,
+                          ),
+                          minFontSize: 12,
+                        )
+                      ],
+                    ),
+                  ),
+                  const Icon(
+                    Icons.card_giftcard,
+                    color: Colors.amber,
+                    size: 20,
+                  ),
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Tier',
-                        style:
-                            TextStyle(color: HexColor('#175244'), fontSize: 12),
-                      ),
-                      AutoSizeText(
-                        tier == 'silver'
-                            ? "Silver"
-                            : tier == 'gold'
-                                ? "Gold"
-                                : "Bronze",
-                        style: TextStyle(
-                          color: tier == "gold"
-                              ? Colors.amberAccent
-                              : tier == "silver"
-                                  ? Colors.grey
-                                  : Colors.brown,
+                      Container(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text(
+                          'Rewards',
+                          style: TextStyle(
+                              color: HexColor('#175244'), fontSize: 12),
                         ),
-                        minFontSize: 12,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 2.0,
+                          left: 8,
+                        ),
+                        child: AutoSizeText(
+                          rewards.toStringAsFixed(2),
+                          style: TextStyle(
+                            color: HexColor('#175244'),
+                          ),
+                          minFontSize: 12,
+                        ),
                       )
                     ],
                   ),
-                ),
-                const Icon(
-                  Icons.card_giftcard,
-                  color: Colors.amber,
-                  size: 20,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Text(
-                        'Rewards',
-                        style:
-                            TextStyle(color: HexColor('#175244'), fontSize: 12),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 2.0,
-                        left: 8,
-                      ),
-                      child: AutoSizeText(
-                        rewards.toStringAsFixed(2),
-                        style: TextStyle(
-                          color: HexColor('#175244'),
-                        ),
-                        minFontSize: 12,
-                      ),
-                    )
-                  ],
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  transform: Matrix4.translationValues(20, 0, 0),
-                  child: tier == 'gold'
-                      ? AutoSizeText(
-                          'You are a Gold tier customer.',
-                          style: TextStyle(
-                            color: HexColor('#175244'),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    transform: Matrix4.translationValues(20, 0, 0),
+                    child: tier == 'gold'
+                        ? AutoSizeText(
+                            'You are a Gold tier customer.',
+                            style: TextStyle(
+                              color: HexColor('#175244'),
+                            ),
+                            minFontSize: 15,
+                          )
+                        : AutoSizeText(
+                            'You are ${res.toStringAsFixed(2)} points away from $nexttier tier.',
+                            style: TextStyle(
+                              color: HexColor('#175244'),
+                            ),
+                            minFontSize: 15,
                           ),
-                          minFontSize: 15,
-                        )
-                      : AutoSizeText(
-                          'You are ${res.toStringAsFixed(2)} points away from $nexttier tier.',
-                          style: TextStyle(
-                            color: HexColor('#175244'),
-                          ),
-                          minFontSize: 15,
-                        ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    Get.to(const Rewards(),
-                        transition: Transition.rightToLeftWithFade);
-                  },
-                  icon: Icon(
-                    Icons.play_arrow_sharp,
-                    color: HexColor('#175244'),
-                    size: 20,
                   ),
-                ),
-              ],
+                  IconButton(
+                    onPressed: () {
+                      Get.to(const Rewards(),
+                          transition: Transition.rightToLeftWithFade);
+                    },
+                    icon: Icon(
+                      Icons.play_arrow_sharp,
+                      color: HexColor('#175244'),
+                      size: 20,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
