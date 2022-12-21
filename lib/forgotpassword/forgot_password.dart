@@ -29,7 +29,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   late EmailAuth emailAuth;
   late UserDB udb;
   List<Map<String, dynamic>> userddt = [];
-
   @override
   void initState() {
     udb = UserDB();

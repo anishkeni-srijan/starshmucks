@@ -23,7 +23,6 @@ getpdata(item) {
 
 class _ProductDetailState extends State<ProductDetail> {
   late List<int> ids = [];
-
   addToCart(prod) async {
     CartDB cdb = CartDB();
     cdb.insertDataCart(CartModel(id: prod.id, qty: 1));
