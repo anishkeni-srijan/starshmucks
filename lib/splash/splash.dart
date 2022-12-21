@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:tbib_splash_screen/splash_screen_view.dart';
 
+import '/common_things.dart';
 import '/splash/bloc/splash_bloc.dart';
 import '/splash/bloc/splash_events.dart';
-import '/common_things.dart';
 import '../signin/signin.dart';
 import 'bloc/splash_states.dart';
 

@@ -2,9 +2,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
-import '/resetpassword/reset_password.dart';
 import '/forgotpassword/bloc/forgotpassword_event.dart';
 import '/forgotpassword/bloc/forgotpassword_state.dart';
+import '/resetpassword/reset_password.dart';
 
 class ForgotpasswordBloc
     extends Bloc<ForgotpasswordEvent, ForgotpasswordState> {

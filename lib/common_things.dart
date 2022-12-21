@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -6,7 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '/databse/cart_db.dart';
 import '/model/cart_model.dart';
-import 'user_profile/user_profile.dart';
 import 'cart.dart';
 import 'databse/user_db.dart';
 import 'gift_card.dart';
@@ -15,6 +15,7 @@ import 'menu/menu_page.dart';
 import 'model/user_model.dart';
 import 'order/order_failed.dart';
 import 'order/order_success.dart';
+import 'user_profile/user_profile.dart';
 import 'wishlist.dart';
 
 class BottomBar extends StatefulWidget {
@@ -229,7 +230,7 @@ goToSuccess() {
 }
 
 goToFailed(String message) {
-  return Get.to(() => OrderFail(message));
+  return Get.to(() => OrderFailed(message));
 }
 
 calcrewards() async {

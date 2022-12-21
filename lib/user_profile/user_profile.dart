@@ -1,18 +1,19 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'widgets/profile_tile_widget.dart';
-import '../help/help_page.dart';
 import '/signin/signin.dart';
 import '../common_things.dart';
 import '../databse/user_db.dart';
 import '../editdetails/edit_details.dart';
+import '../help/help_page.dart';
 import '../home/home_screen.dart';
 import '../order/order_history.dart';
 import '../rewards/rewards.dart';
+import 'widgets/profile_tile_widget.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);

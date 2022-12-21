@@ -262,11 +262,7 @@ class _SigninPageState extends State<SigninPage> {
                 ),
 
                 Container(
-                  transform: Matrix4.translationValues(
-                    135,
-                    -20,
-                    0,
-                  ),
+                  transform: Matrix4.translationValues(135, -20, 0),
                   child: Row(
                     children: [
                       Text(

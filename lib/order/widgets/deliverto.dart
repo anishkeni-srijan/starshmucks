@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-
 
 class DeliverTo extends StatelessWidget {
   const DeliverTo({
@@ -21,8 +19,7 @@ class DeliverTo extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(
-            crossAxisAlignment:
-            CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "Deliver To",
@@ -33,8 +30,7 @@ class DeliverTo extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Row(
-                mainAxisAlignment:
-                MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Image.asset(
                     'images/map.png',
@@ -47,11 +43,9 @@ class DeliverTo extends StatelessWidget {
                     child: Text(selectedAddress,
                         softWrap: false,
                         maxLines: 4,
-                        overflow:
-                        TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            fontSize: 16) //new
-                    ),
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontSize: 16) //new
+                        ),
                   ),
                 ],
               )

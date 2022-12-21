@@ -203,7 +203,7 @@ getAllCards(context) {
   return Container(
     padding: const EdgeInsets.only(left: 20, right: 20, top: 0),
     child: ListView(
-     physics: NeverScrollableScrollPhysics(),
+      physics: NeverScrollableScrollPhysics(),
       children: [
         Container(
           padding: const EdgeInsets.all(10),

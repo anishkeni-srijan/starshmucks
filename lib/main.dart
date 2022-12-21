@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '/splash/bloc/splash_bloc.dart';
 import '/editdetails/bloc/editdetails_bloc.dart';
 import '/forgotpassword/forgot_password.dart';
 import '/providers/learnmore_provider.dart';
@@ -12,6 +11,7 @@ import '/signin/bloc/signin_bloc.dart';
 import '/signin/signin.dart';
 import '/signup/bloc/signup_bloc.dart';
 import '/signup/signup.dart';
+import '/splash/bloc/splash_bloc.dart';
 import '/splash/splash.dart';
 import 'editdetails/edit_details.dart';
 import 'forgotpassword/bloc/forgotpassword_bloc.dart';

@@ -4,7 +4,6 @@ import 'package:hexcolor/hexcolor.dart';
 
 import '../../help/help_page.dart';
 
-
 class NeedHelp extends StatelessWidget {
   const NeedHelp({
     Key? key,
@@ -32,8 +31,7 @@ class NeedHelp extends StatelessWidget {
                 Text(
                   "Need Help?",
                   style: TextStyle(
-                      color: HexColor("#175244"),
-                      fontWeight: FontWeight.bold),
+                      color: HexColor("#175244"), fontWeight: FontWeight.bold),
                 ),
               ],
             ),

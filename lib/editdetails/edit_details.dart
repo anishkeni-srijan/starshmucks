@@ -1,13 +1,14 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '/editdetails/widgets/editable_field_widget.dart';
-import '../databse/user_db.dart';
 import '/model/user_model.dart';
 import '../common_things.dart';
+import '../databse/user_db.dart';
 import 'bloc/editdetails_bloc.dart';
 import 'bloc/editdetails_states.dart';
 

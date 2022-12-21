@@ -1,14 +1,13 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 
 class CartSummary extends StatelessWidget {
-  const CartSummary({
-    Key? key,
-    required this.text,
-    required this.value,
-    required this.wt,
-    required this.textsize
-  }) : super(key: key);
+  const CartSummary(
+      {Key? key,
+      required this.text,
+      required this.value,
+      required this.wt,
+      required this.textsize})
+      : super(key: key);
 
   final double value;
   final String text;
@@ -18,20 +17,15 @@ class CartSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment:
-      MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           text,
-          style: TextStyle(
-              fontSize: textsize,
-              fontWeight: wt),
+          style: TextStyle(fontSize: textsize, fontWeight: wt),
         ),
         Text(
           ' \$$value',
-          style:  TextStyle(
-              fontSize: textsize,
-              fontWeight: wt),
+          style: TextStyle(fontSize: textsize, fontWeight: wt),
         ),
       ],
     );

@@ -3,11 +3,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:starshmucks/signup/signup.dart';
 
 import '/common_things.dart';
 import '/signin/bloc/signin_events.dart';
 import '/signin/bloc/signin_states.dart';
+import '/signup/signup.dart';
 import '../../databse/user_db.dart';
 
 late String obtainedemail;
@@ -60,7 +60,7 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
     //works if login is valid
     on<SignupRedirect>(
       (event, emit) {
-       Get.to(SignupPage());
+        Get.to(SignupPage());
       },
     );
   }
