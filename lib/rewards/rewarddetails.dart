@@ -88,7 +88,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                 ),
                                 shadowColor: Colors.black,
                                 elevation: 4,
-                                child: Container(
+                                child: SizedBox(
                                   height: 200,
                                   child: Center(
                                       child: Column(
@@ -110,7 +110,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                             Icons.stars_sharp,
                                             color: Colors.brown,
                                           ),
-                                          Container(
+                                          SizedBox(
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
@@ -173,7 +173,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                             ),
                           ),
                           Expanded(
-                            child: undertile(
+                            child: UnderTile(
                               maintext: bronzemaindata,
                             ),
                           ),
@@ -203,7 +203,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                 ),
                                 shadowColor: Colors.black,
                                 elevation: 4,
-                                child: Container(
+                                child: SizedBox(
                                   height: 200,
                                   child: Center(
                                       child: Column(
@@ -215,7 +215,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Container(
+                                          SizedBox(
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
@@ -233,7 +233,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                           ),
                                           const Icon(Icons.stars_sharp,
                                               color: Colors.grey),
-                                          Container(
+                                          SizedBox(
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
@@ -296,7 +296,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                             ),
                           ),
                           Expanded(
-                            child: undertile(
+                            child: UnderTile(
                               maintext: silvermaindata,
                             ),
                           ),
@@ -326,7 +326,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                 ),
                                 shadowColor: Colors.black,
                                 elevation: 4,
-                                child: Container(
+                                child: SizedBox(
                                   height: 200,
                                   child: Center(
                                       child: Column(
@@ -338,7 +338,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Container(
+                                          SizedBox(
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
@@ -409,7 +409,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
                             ),
                           ),
                           Expanded(
-                            child: undertile(
+                            child: UnderTile(
                               maintext: goldmaindata,
                             ),
                           ),
@@ -424,8 +424,8 @@ class _RewarddetailsState extends State<Rewarddetails> {
   }
 }
 
-class undertile extends StatelessWidget {
-  const undertile({
+class UnderTile extends StatelessWidget {
+  const UnderTile({
     Key? key,
     required this.maintext,
     // required this.subtext,

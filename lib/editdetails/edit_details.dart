@@ -1,14 +1,13 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '/editdetails/widgets/editable_field_widget.dart';
 import '../databse/user_db.dart';
 import '/model/user_model.dart';
 import '../common_things.dart';
-
 import 'bloc/editdetails_bloc.dart';
 import 'bloc/editdetails_states.dart';
 
@@ -140,122 +139,43 @@ class _EditProfileState extends State<EditProfile> {
                         }
                       },
                     ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * .89,
-                          child: TextFormField(
-                            style: const TextStyle(color: Colors.black),
-                            controller: econtroller,
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.all(5),
-                              labelText: "Email",
-                              labelStyle: TextStyle(
-                                color: HexColor("#175244"),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: HexColor("#175244"),
-                                  width: 2,
-                                ),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: HexColor("#175244"),
-                                  width: 2,
-                                ),
-                              ),
-                            ),
-                            validator: (value) {
-                              if (RegExp(
-                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                  .hasMatch(value!)) {
-                                return null;
-                              } else {
-                                return "Please Enter a valid email";
-                              }
-                            },
-                          ),
-                        ),
-                      ],
+                    //name
+                    EditableField(
+                      ncontroller: ncontroller,
+                      lbltxt: 'Name',
+                      vldtr: (value) {
+                        if (value == null) {
+                          return "Please enter name";
+                        } else if (value.length < 3) {
+                          return "Please enter 3 character for name";
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
                     const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * .89,
-                          child: TextFormField(
-                            style: const TextStyle(color: Colors.black),
-                            controller: phcontroller,
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.all(5),
-                              labelText: "Phone",
-                              labelStyle: TextStyle(
-                                color: HexColor("#175244"),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: HexColor("#175244"),
-                                  width: 2,
-                                ),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: HexColor("#175244"),
-                                  width: 2,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                    //email
+                    EditableField(
+                      ncontroller: econtroller,
+                      lbltxt: 'Email',
+                      vldtr: (value) {
+                        if (RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(value!)) {
+                          return null;
+                        } else {
+                          return "Please Enter a valid email";
+                        }
+                      },
                     ),
                     const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * .89,
-                          child: TextFormField(
-                            style: const TextStyle(color: Colors.black),
-                            controller: ncontroller,
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.all(5),
-                              labelText: "Name",
-                              labelStyle: TextStyle(
-                                color: HexColor("#175244"),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: HexColor("#175244"),
-                                  width: 2,
-                                ),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: HexColor("#175244"),
-                                  width: 2,
-                                ),
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value == null) {
-                                return "Please enter name";
-                              } else if (value.length < 3) {
-                                return "Please enter 3 character for name";
-                              } else {
-                                return null;
-                              }
-                            },
-                          ),
-                        ),
-                      ],
+                    //phone
+                    EditableField(
+                      ncontroller: phcontroller,
+                      lbltxt: 'Phone',
+                      vldtr: null,
                     ),
+
                     const SizedBox(
                       height: 20,
                     ),
@@ -371,51 +291,6 @@ class _EditProfileState extends State<EditProfile> {
           ],
         );
       },
-    );
-  }
-}
-
-class EditableField extends StatelessWidget {
-  const EditableField({
-    Key? key,
-    required this.econtroller,
-    required this.lbltxt,
-  }) : super(key: key);
-
-  final TextEditingController econtroller;
-  final String lbltxt;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: TextFormField(
-        autocorrect: false,
-        style: const TextStyle(
-          color: Colors.black,
-        ),
-        controller: econtroller,
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.all(10),
-          labelText: lbltxt,
-          labelStyle: const TextStyle(
-            color: Colors.black,
-          ),
-          enabledBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-              color: Colors.black,
-              width: 2,
-            ),
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-              color: Colors.black,
-              width: 2,
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

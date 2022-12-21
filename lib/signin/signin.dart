@@ -8,7 +8,6 @@ import 'package:hexcolor/hexcolor.dart';
 
 import '/forgotpassword/forgot_password.dart';
 import '../databse/user_db.dart';
-import '../signup/signup.dart';
 import 'bloc/signin_bloc.dart';
 import 'bloc/signin_events.dart';
 import 'bloc/signin_states.dart';
@@ -30,15 +29,13 @@ class _SigninPageState extends State<SigninPage> {
   void initState() {
     super.initState();
   }
+
   List<Map<String, dynamic>> userddt = [];
   getUser() async {
     udb.initDBUserData();
     userddt = await udb.getDataUserData();
-    setState(() {
-
-    });
+    setState(() {});
   }
-
 
   Future<bool> onWillPop() async {
     return (await showDialog(

@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '/address_payment/wigdets/phone_number_widget.dart';
+import '/address_payment/widgets/phone_number_widget.dart';
 import '../databse/cart_db.dart';
 import '../databse/orders_db.dart';
 import '../databse/user_db.dart';
@@ -16,7 +16,7 @@ import '../common_things.dart';
 import '../model/cart_model.dart';
 import '../order/order_failed.dart';
 import '../order/order_success.dart';
-import 'wigdets/text_widget.dart';
+import 'widgets/text_widget.dart';
 
 class Address extends StatefulWidget {
   const Address({Key? key}) : super(key: key);
