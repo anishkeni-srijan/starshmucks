@@ -278,7 +278,7 @@ class _SigninPageState extends State<SigninPage> {
                       TextButton(
                         onPressed: () {
                           getUser();
-                          if (userddt.isEmpty) {
+                          if (userddt.isNotEmpty) {
                             BlocProvider.of<SigninBloc>(context).emit(
                               SigninErrorState("User Already Exists"),
                             );
