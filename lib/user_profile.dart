@@ -125,7 +125,7 @@ class _UserProfileState extends State<UserProfile> {
                     ProfileTile(
                       text: 'Rewards',
                       press: () {
-                        Get.to(() => Rewards());
+                        Get.to(() => const Rewards());
                       },
                       icon: Icons.star_outline_sharp,
                     ),
@@ -133,7 +133,7 @@ class _UserProfileState extends State<UserProfile> {
                     ProfileTile(
                       text: 'Help',
                       press: () {
-                        Get.to(() => Help());
+                        Get.to(() => const Help());
                       },
                       icon: Icons.help_outline_rounded,
                     ),

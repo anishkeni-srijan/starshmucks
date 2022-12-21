@@ -9,7 +9,9 @@ class SplashScreenState extends StatelessWidget {
   }
 }
 
-class SplashInitialState extends SplashScreenState {}
+class SplashInitialState extends SplashScreenState {
+  const SplashInitialState({super.key});
+}
 
 class SplashloadingState extends SplashScreenState {}
 

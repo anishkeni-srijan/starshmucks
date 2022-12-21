@@ -22,12 +22,11 @@ getpdata(item) {
 }
 
 class _ProductDetailState extends State<ProductDetail> {
+  late List<int> ids = [];
   addToCart(prod) async {
     CartDB cdb = CartDB();
     cdb.insertDataCart(CartModel(id: prod.id, qty: 1));
   }
-
-  late List<int> ids = [];
 
   getIds() async {
     ids.clear();
@@ -83,9 +82,7 @@ class _ProductDetailState extends State<ProductDetail> {
             setState(() {});
           },
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(
-              HexColor("#036635"),
-            ),
+            backgroundColor: MaterialStateProperty.all(HexColor("#036635")),
           ),
           child: const Text("Add To Cart"),
         ),
@@ -194,11 +191,8 @@ class _ProductDetailState extends State<ProductDetail> {
                       Row(
                         children: [
                           Text(product.rating),
-                          const Icon(
-                            Icons.star,
-                            color: Colors.amberAccent,
-                            size: 20,
-                          )
+                          const Icon(Icons.star,
+                              color: Colors.amberAccent, size: 20)
                         ],
                       )
                     ],
@@ -207,14 +201,15 @@ class _ProductDetailState extends State<ProductDetail> {
               ),
             ),
             Container(
-                alignment: Alignment.center,
-                transform: Matrix4.translationValues(
-                    0, MediaQuery.of(context).size.height * -0.07, 0),
-                child: Text(
-                  product.title,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 30),
-                )),
+              alignment: Alignment.center,
+              transform: Matrix4.translationValues(
+                  0, MediaQuery.of(context).size.height * -0.07, 0),
+              child: Text(
+                product.title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 30),
+              ),
+            ),
             Container(
               transform: Matrix4.translationValues(
                   0, MediaQuery.of(context).size.height * -0.05, 0),

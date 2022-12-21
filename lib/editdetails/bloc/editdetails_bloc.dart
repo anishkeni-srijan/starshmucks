@@ -15,8 +15,9 @@ class EditdetailsBloc extends Bloc<EditdetailsEvent, EditdetailsState> {
         emit(
           EditdetailsErrorState("Please enter a valid Email"),
         );
-      } else
+      } else {
         return Container();
+      }
     });
     on<EditdetailsNameChangedEvent>((event, emit) {
 //user exists
@@ -24,8 +25,9 @@ class EditdetailsBloc extends Bloc<EditdetailsEvent, EditdetailsState> {
         emit(
           EditdetailsErrorState("Please enter a valid Name"),
         );
-      } else
+      } else {
         return Container();
+      }
     });
     on<EditdetailsNumberChangedEvent>(
       (event, emit) {

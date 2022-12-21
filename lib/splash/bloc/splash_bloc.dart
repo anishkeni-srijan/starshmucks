@@ -4,15 +4,14 @@ import '/splash/bloc/splash_events.dart';
 import '/splash/bloc/splash_states.dart';
 
 class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
-  SplashScreenBloc() : super(
-            //if new user
-            SplashInitialState()) {
+  SplashScreenBloc() : super(SplashInitialState()) {
     late bool flag = false;
-    checkifloggedin() async {
+    checkIfLoggedIn() async {
       final prefs = await SharedPreferences.getInstance();
-      String? useremail = prefs.getString('signedInEmail');
-      if (useremail != null) flag = true;
+      String? userEmail = prefs.getString('signedInEmail');
+      if (userEmail != null) flag = true;
     }
+
     on<OnSplashEvent>(
       (event, emit) async {
         await Future<void>.delayed(const Duration(seconds: 1));
@@ -21,9 +20,10 @@ class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
         );
       },
     );
-    on<LoginStatuscheckEvent>(
+
+    on<LoginStatusCheckEvent>(
       (event, emit) {
-        checkifloggedin();
+        checkIfLoggedIn();
         flag
             ? emit(
                 UserExistsState(),
@@ -34,5 +34,5 @@ class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
       },
     );
   }
-  //else if the user exists
+//else if the user exists
 }

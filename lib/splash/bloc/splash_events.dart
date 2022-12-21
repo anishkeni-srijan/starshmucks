@@ -1,5 +1,5 @@
 abstract class SplashScreenEvent {}
 
 class OnSplashEvent extends SplashScreenEvent {}
-class LoginStatuscheckEvent extends SplashScreenEvent {}
+class LoginStatusCheckEvent extends SplashScreenEvent {}
 

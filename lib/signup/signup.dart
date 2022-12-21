@@ -101,14 +101,14 @@ class _SignupPageState extends State<SignupPage> {
                     if (state is SignupErrorState) {
                       return Text(
                         state.errormessage,
-                        style:  TextStyle(color: HexColor("#175244")),
+                        style: TextStyle(color: HexColor("#175244")),
                       );
                     }
                     //if the login is valid
                     else if (state is SignupValidState) {
                       return Text(
                         state.message,
-                        style:  TextStyle(color: HexColor("#175244")),
+                        style: TextStyle(color: HexColor("#175244")),
                       );
                     } else {
                       return Container();
@@ -124,8 +124,8 @@ class _SignupPageState extends State<SignupPage> {
                     if (value == null) {
                       return "Please enter name";
                     } else if (value.length < 3) {
-                      BlocProvider.of<SignupBloc>(context).emit(
-                          SignupErrorState("What do we call you"));
+                      BlocProvider.of<SignupBloc>(context)
+                          .emit(SignupErrorState("What do we call you"));
                       return "Please enter 3 character for name";
                     } else {
                       BlocProvider.of<SignupBloc>(context)
@@ -134,6 +134,7 @@ class _SignupPageState extends State<SignupPage> {
                     }
                   },
                   onchange: null,
+                  obstxt: false,
                 ),
                 //Date of Birth
                 Container(
@@ -149,8 +150,7 @@ class _SignupPageState extends State<SignupPage> {
                       onChanged: (value) {
                         if (dob.text == '') {
                           BlocProvider.of<SignupBloc>(context).emit(
-                              SignupErrorState(
-                                  "You might get a free drink!"));
+                              SignupErrorState("You might get a free drink!"));
                         } else {
                           BlocProvider.of<SignupBloc>(context)
                               .emit(SignupNoErrorState());
@@ -231,6 +231,7 @@ class _SignupPageState extends State<SignupPage> {
                       return "Please Enter a valid email";
                     }
                   },
+                  obstxt: false,
                 ),
                 //Phone Number
                 SizedBox(
@@ -288,10 +289,12 @@ class _SignupPageState extends State<SignupPage> {
                     if (!regex.hasMatch(value!)) {
                       return """* Minimum 1 Upper case\n* Minimum 1 lowercase\n* Minimum 1 Numeric Number\n* Minimum 1 Special Character\n* Common Allow Character ( ! @ # \$ & * ~ )""";
                     } else {
-                      BlocProvider.of<SignupBloc>(context).emit(SignupNoErrorState());
+                      BlocProvider.of<SignupBloc>(context)
+                          .emit(SignupNoErrorState());
                       return null;
                     }
                   },
+                  obstxt: true,
                 ),
                 //Confirm Password
                 TextInputWidget(
@@ -302,14 +305,11 @@ class _SignupPageState extends State<SignupPage> {
                     if (value == null) return "Enter the password";
                     if (value != pass1.text) return "Password doesn't match";
                   },
+                  obstxt: true,
                 ),
                 //CheckBox
                 Container(
-                  transform: Matrix4.translationValues(
-                    30,
-                    0,
-                    0,
-                  ),
+                  transform: Matrix4.translationValues(30, 0, 0),
                   child: Row(
                     children: [
                       Checkbox(
@@ -319,9 +319,13 @@ class _SignupPageState extends State<SignupPage> {
                         value: isChecked,
                         onChanged: (bool? value) {
                           isChecked = !isChecked;
-                          isChecked==true?BlocProvider.of<SignupBloc>(context).emit(SignupNoErrorState()):BlocProvider.of<SignupBloc>(context).emit(SignupErrorState("Please read before you agree "));
-                          setState(
-                            () {});
+                          isChecked == true
+                              ? BlocProvider.of<SignupBloc>(context)
+                                  .emit(SignupNoErrorState())
+                              : BlocProvider.of<SignupBloc>(context).emit(
+                                  SignupErrorState(
+                                      "Please read before you agree "));
+                          setState(() {});
                         },
                       ),
                       AutoSizeText(
@@ -337,8 +341,9 @@ class _SignupPageState extends State<SignupPage> {
                   width: 300,
                   child: ElevatedButton(
                     onPressed: () {
-                      if(isChecked){
-                        BlocProvider.of<SignupBloc>(context).emit(SignupValidState("All Set"));
+                      if (isChecked) {
+                        BlocProvider.of<SignupBloc>(context)
+                            .emit(SignupValidState("All Set"));
                         var userSQL = UserModel(
                           tier: "bronze",
                           name: name.text,
@@ -354,7 +359,8 @@ class _SignupPageState extends State<SignupPage> {
                           SignupSumittedEvent(userSQL),
                         );
                       } else {
-                        return BlocProvider.of<SignupBloc>(context).emit(SignupErrorState("Please fill out all the fields")) ;
+                        return BlocProvider.of<SignupBloc>(context).emit(
+                            SignupErrorState("Please fill out all the fields"));
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -381,10 +387,7 @@ class _SignupPageState extends State<SignupPage> {
 
   backbutton(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(
-        top: 30,
-        left: 0,
-      ),
+      margin: const EdgeInsets.only(top: 30, left: 0),
       alignment: Alignment.topLeft,
       child: TextButton.icon(
         icon: Icon(
@@ -407,12 +410,14 @@ class TextInputWidget extends StatelessWidget {
     required this.lbltxt,
     required this.onchange,
     this.validator,
+    this.obstxt,
   }) : super(key: key);
 
   final TextEditingController cntroller;
   final String lbltxt;
   final onchange;
   final validator;
+  final obstxt;
 
   @override
   Widget build(BuildContext context) {
@@ -424,31 +429,33 @@ class TextInputWidget extends StatelessWidget {
       child: Form(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: TextFormField(
-            style: const TextStyle(color: Colors.black),
-            controller: cntroller,
-            onChanged: onchange,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(5),
-              labelText: lbltxt,
-              labelStyle: TextStyle(
+          obscureText: obstxt,
+          style: const TextStyle(color: Colors.black),
+          controller: cntroller,
+          onChanged: onchange,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(5),
+            labelText: lbltxt,
+            labelStyle: TextStyle(
+              color: HexColor("#175244"),
+            ),
+            enabledBorder: UnderlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
                 color: HexColor("#175244"),
-              ),
-              enabledBorder: UnderlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
-                  color: HexColor("#175244"),
-                  width: 2,
-                ),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
-                  color: HexColor("#175244"),
-                  width: 2,
-                ),
+                width: 2,
               ),
             ),
-            validator: validator),
+            focusedBorder: UnderlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: HexColor("#175244"),
+                width: 2,
+              ),
+            ),
+          ),
+          validator: validator,
+        ),
       ),
     );
   }
