@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '/address_payment/wigdets/phone_number_widget.dart';
 import '../databse/cart_db.dart';
 import '../databse/orders_db.dart';
 import '../databse/user_db.dart';
@@ -15,7 +16,7 @@ import '../common_things.dart';
 import '../model/cart_model.dart';
 import '../order/order_failed.dart';
 import '../order/order_success.dart';
-import 'common_widgets.dart';
+import 'wigdets/text_widget.dart';
 
 class Address extends StatefulWidget {
   const Address({Key? key}) : super(key: key);
@@ -96,20 +97,33 @@ class _AddressState extends State<Address> {
                 children: <Widget>[
                   const SizedBox(height: 25),
                   //full name
-                  commonTextIPWidget(context, fname, "Full Name"),
+                  TextWidget(
+                      context: context,
+                      txtcontroler: fname,
+                      lbltxt: "Full Name"),
                   //phone number
-                  commonPhoneNumberWidget(context, phone),
+                  PhoneNumberWidget(context: context, phone: phone),
                   //house no, building name
-                  commonTextIPWidget(context, hno, 'House No., Building Name'),
+                  TextWidget(
+                      context: context,
+                      txtcontroler: hno,
+                      lbltxt: 'House No., Building Name'),
                   //road name,area,colony
-                  commonTextIPWidget(
-                      context, roadname, 'Road Name, Area, Colony'),
+                  TextWidget(
+                      context: context,
+                      txtcontroler: roadname,
+                      lbltxt: 'Road Name, Area, Colony'),
                   //city
-                  commonTextIPWidget(context, city, 'City'),
+                  TextWidget(
+                      context: context, txtcontroler: city, lbltxt: 'City'),
                   //state
-                  commonTextIPWidget(context, state, 'State'),
+                  TextWidget(
+                      context: context, txtcontroler: state, lbltxt: 'State'),
                   //pincode
-                  commonTextIPWidget(context, pincode, 'Pincode'),
+                  TextWidget(
+                      context: context,
+                      txtcontroler: pincode,
+                      lbltxt: 'Pincode'),
                   const SizedBox(height: 15),
                   SizedBox(
                     // height: 100,
