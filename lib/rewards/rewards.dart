@@ -6,6 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:starshmucks/rewards/widgets/buildstar.dart';
+import 'package:starshmucks/rewards/widgets/progressbar.dart';
+import 'package:starshmucks/rewards/widgets/referwidgets.dart';
 
 import '/common_things.dart';
 import '/home/home_screen.dart';
@@ -239,13 +242,22 @@ class _RewardsState extends State<Rewards> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  buildstar(Colors.brown, "0 points"),
+                                  BuildStar(
+                                      color: Colors.brown, text: "0 points"),
                                   buildprogressbar(
-                                      context, Colors.brown, silvervalue),
-                                  buildstar(Colors.grey, "10 points"),
+                                    tier: usernames[0]['tier'],
+                                    color: Colors.brown,
+                                    progress: silvervalue,
+                                  ),
+                                  BuildStar(
+                                      color: Colors.grey, text: "10 points"),
                                   buildprogressbar(
-                                      context, Colors.grey, goldvalue),
-                                  buildstar(Colors.amberAccent, "20 points"),
+                                      tier: usernames[0]['tier'],
+                                      color: Colors.grey,
+                                      progress: goldvalue),
+                                  BuildStar(
+                                      color: Colors.amberAccent,
+                                      text: "20 points"),
                                 ],
                               ),
                             ),
@@ -327,8 +339,8 @@ class _RewardsState extends State<Rewards> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                buildRow("1", "Invite your friends",
-                                    "Just share your link"),
+                                ReferWidgets(number:"1", maintext:"Invite your friends",
+                                   subtext: "Just share your link"),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Container(
@@ -343,8 +355,7 @@ class _RewardsState extends State<Rewards> {
                                     ),
                                   ),
                                 ),
-                                buildRow(
-                                    "2", "They get coffee", "with \$XX off"),
+                                ReferWidgets(number:"2", maintext: "They get coffee", subtext: "with \$XX off"),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Container(
@@ -359,8 +370,8 @@ class _RewardsState extends State<Rewards> {
                                     ),
                                   ),
                                 ),
-                                buildRow("3", "You make savings",
-                                    "and get \$XX off"),
+                                ReferWidgets(number:"3", maintext:"You make savings",
+                                    subtext:"and get \$XX off"),
                                 const SizedBox(
                                   height: 10,
                                 ),
@@ -438,74 +449,9 @@ class _RewardsState extends State<Rewards> {
             ),
           );
   }
-
-  Container buildprogressbar(BuildContext context, Color color, progress) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 15),
-      width: MediaQuery.of(context).size.width * 0.26,
-      child: LinearProgressIndicator(
-        // color: Colors.white,
-        backgroundColor: HexColor("#175244"),
-        valueColor: AlwaysStoppedAnimation<Color>(
-            usernames[0]['tier'] == 'gold' ? Colors.amberAccent : color),
-        value: progress,
-      ),
-    );
-  }
-
-  Column buildstar(Color color, text) {
-    return Column(
-      children: [
-        Icon(
-          Icons.stars_sharp,
-          color: color,
-        ),
-        Text(text, style: TextStyle(fontSize: 11))
-      ],
-    );
-  }
-
-  Row buildRow(number, maintext, subtext) {
-    return Row(
-      children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: CircleAvatar(
-            backgroundColor: HexColor("#175244"),
-            radius: 30,
-            child: Text(
-              number,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 23,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              maintext,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Text(
-              subtext,
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w200,
-                  color: Colors.grey.shade600),
-            ),
-          ],
-        )
-      ],
-    );
-  }
 }
+
+
+
+
+
