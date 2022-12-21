@@ -65,13 +65,13 @@ class MyApp extends StatelessWidget {
           }
         },
         child: GetMaterialApp(
-          title: 'Flutter Demo',
+          title: 'StarSchmucks',
           theme: ThemeData(
             textTheme: GoogleFonts.ubuntuTextTheme(),
             primarySwatch: Colors.teal,
           ),
           debugShowCheckedModeBanner: false,
-          home: Splash(),
+          home: const Splash(),
         ),
       ),
     );

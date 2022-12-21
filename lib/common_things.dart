@@ -118,8 +118,6 @@ class _BottomBarState extends State<BottomBar> {
   }
 }
 
-var route;
-
 gethomeappbar(title, action, automaticallyImplyLeadingStatus, ttlspacing) {
   return AppBar(
     backgroundColor: Colors.white,
@@ -194,7 +192,7 @@ viewincart() {
             "View in Cart",
           ),
           onPressed: () {
-            Get.to(() => MyCart(), transition: Transition.downToUp);
+            Get.to(() => const MyCart(), transition: Transition.downToUp);
           }),
     ],
   );
@@ -208,14 +206,14 @@ initcart() async {
 }
 
 Future<bool> gohome() async {
-  return (await Get.to(() => BottomBar())) ?? false;
+  return (await Get.to(() => const BottomBar())) ?? false;
 }
 
 Future<bool> gohomefromsuccess() async {
   calcrewards();
   CartDB cartdb = CartDB();
   cartdb.clear();
-  return (await Get.to(() => BottomBar())) ?? false;
+  return (await Get.to(() => const BottomBar())) ?? false;
 }
 
 goToSuccess() {
@@ -261,9 +259,7 @@ calcrewards() async {
 }
 
 class CustomToast extends StatelessWidget {
-  const CustomToast(
-    String this.toastMessage,
-  );
+  const CustomToast(this.toastMessage, {super.key});
 
   final String toastMessage;
 

@@ -106,9 +106,10 @@ class Help extends StatelessWidget {
               ),
             ),
             BuildExpansionTile(
-                text: "FAQ",
-                img: "images/faq.png",
-                content: Column(children: const [
+              text: "FAQ",
+              img: "images/faq.png",
+              content: Column(
+                children: const [
                   FaqTile(
                       title: "Can I edit my order?",
                       child:
@@ -129,7 +130,9 @@ class Help extends StatelessWidget {
                       title: "Can I order in advance?",
                       child:
                           "We currently do not support this functionality. All our orders are placed and executed on-demand."),
-                ])),
+                ],
+              ),
+            ),
             BuildExpansionTile(
               text: "Call Us",
               img: "images/call.png",
