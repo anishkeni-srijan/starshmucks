@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
           create: (context) => ResetpasswordBloc(),
           child: const ResetPasswordPage(),
         ),
-        ChangeNotifierProvider(create: (context) => Learnmore()),
+        ChangeNotifierProvider(create: (context) => LearnMore()),
       ],
       child: GestureDetector(
         onTap: () {

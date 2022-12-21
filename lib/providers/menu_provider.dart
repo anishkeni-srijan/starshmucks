@@ -8,17 +8,14 @@ class Menudata extends ChangeNotifier {
   late List<MenuModel> smoothiemenudata = [];
 
   cakefetchData(context) async {
-    print(cakemenudata.length);
     notifyListeners();
   }
 
   coffeefetchData(context) async {
-    print(cakemenudata.length);
     notifyListeners();
   }
 
   smoothiefetchData(context) async {
-    print(cakemenudata.length);
     notifyListeners();
   }
 }
