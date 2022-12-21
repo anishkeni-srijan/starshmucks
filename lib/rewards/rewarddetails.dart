@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../db/user_db.dart';
+import '../databse/user_db.dart';
 
 class Rewarddetails extends StatefulWidget {
   const Rewarddetails({Key? key}) : super(key: key);

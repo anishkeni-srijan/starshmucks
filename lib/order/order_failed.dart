@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../address_payment/address_payment.dart';
 import '/common_things.dart';
-import '../address_payment_page/address_payment.dart';
+
 import '../help_page.dart';
 
 class OrderFail extends StatefulWidget {

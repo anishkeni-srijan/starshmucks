@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '/common_things.dart';
-import '/db/wishlist_db.dart';
+import '/databse/wishlist_db.dart';
 import '/model/wishlist_model.dart';
-import 'db/menu_db.dart';
+import 'databse/menu_db.dart';
 import 'model/menu_model.dart';
 
 class WishListPage extends StatefulWidget {

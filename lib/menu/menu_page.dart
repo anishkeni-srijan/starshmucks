@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '/menu/smoothie_data.dart';
-import '../db/menu_db.dart';
+import '../databse/menu_db.dart';
 import '../model/menu_model.dart';
 import 'cake_data.dart';
 import 'coffee_data.dart';

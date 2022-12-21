@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:starshmucks/db/user_db.dart';
 
-import '/db/menu_db.dart';
-import '/db/orders_db.dart';
+import '/databse/user_db.dart';
+import '/databse/menu_db.dart';
+import '/databse/orders_db.dart';
 import '/model/menu_model.dart';
 import '/model/order_history.dart';
 import '../help_page.dart';

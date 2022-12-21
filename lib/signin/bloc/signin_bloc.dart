@@ -3,10 +3,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:starshmucks/common_things.dart';
-import 'package:starshmucks/model/user_model.dart';
 
-import '../../db/user_db.dart';
+import '/common_things.dart';
+import '../../databse/user_db.dart';
 import '/signin/bloc/signin_events.dart';
 import '/signin/bloc/signin_states.dart';
 

@@ -1,15 +1,14 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '/db/cart_db.dart';
+import '/databse/cart_db.dart';
 import '/model/cart_model.dart';
 import '/user_profile.dart';
 import 'cart.dart';
-import 'db/user_db.dart';
+import 'databse/user_db.dart';
 import 'gift_card.dart';
 import 'home/home_screen.dart';
 import 'menu/menu_page.dart';
@@ -102,7 +101,7 @@ class _BottomBarState extends State<BottomBar> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.menu, color: HexColor("#175244")),
-              label: 'Order',
+              label: 'Menu',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person, color: HexColor("#175244")),

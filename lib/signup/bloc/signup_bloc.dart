@@ -1,9 +1,7 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:starshmucks/db/user_db.dart';
 
-import '../../model/user_model.dart';
+import '/databse/user_db.dart';
 import '/common_things.dart';
 import '/signup/bloc/signup_events.dart';
 import '/signup/bloc/signup_states.dart';

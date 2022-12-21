@@ -6,7 +6,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
-import '/db/user_db.dart';
+import '/databse/user_db.dart';
 import '/signup/bloc/signup_bloc.dart';
 import '/signup/bloc/signup_events.dart';
 import '../model/user_model.dart';
