@@ -30,8 +30,15 @@ class _SigninPageState extends State<SigninPage> {
   void initState() {
     super.initState();
   }
-
   List<Map<String, dynamic>> userddt = [];
+  getUser() async {
+    udb.initDBUserData();
+    userddt = await udb.getDataUserData();
+    setState(() {
+
+    });
+  }
+
 
   Future<bool> onWillPop() async {
     return (await showDialog(
@@ -74,7 +81,6 @@ class _SigninPageState extends State<SigninPage> {
                   ),
                   child: getlogo(context),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.only(
                     top: 50.0,
@@ -274,8 +280,11 @@ class _SigninPageState extends State<SigninPage> {
                       ),
                       TextButton(
                         onPressed: () {
+                          getUser();
                           if (userddt.isEmpty) {
-                            Get.to(() => const SignupPage());
+                            BlocProvider.of<SigninBloc>(context).emit(
+                              SigninErrorState("User Already Exists"),
+                            );
                           } else {
                             BlocProvider.of<SigninBloc>(context).add(
                               SignupRedirect(),
