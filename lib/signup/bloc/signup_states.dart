@@ -10,12 +10,12 @@ class SignupState extends StatelessWidget {
 }
 
 class SignupNoErrorState extends SignupState {
-
   SignupNoErrorState();
 }
 
 class SignupValidState extends SignupState {
   String message = '';
+
   SignupValidState(this.message);
 }
 
@@ -24,5 +24,3 @@ class SignupErrorState extends SignupState {
 
   SignupErrorState(this.errormessage);
 }
-
-

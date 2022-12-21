@@ -9,7 +9,6 @@ class SigninpassChangedEvent extends SigninEvent {
 class SigninemailChangedEvent extends SigninEvent {
   String emailvalue = '';
 
-
   SigninemailChangedEvent(this.emailvalue);
 }
 

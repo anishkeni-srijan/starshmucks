@@ -7,9 +7,9 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import '/rewards/rewarddetails.dart';
 import '/common_things.dart';
 import '/home/home_screen.dart';
+import '/rewards/rewarddetails.dart';
 import '../databse/user_db.dart';
 
 class Rewards extends StatefulWidget {
