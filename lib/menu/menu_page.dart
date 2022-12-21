@@ -10,14 +10,14 @@ import '../model/menu_model.dart';
 import 'cake_data.dart';
 import 'coffee_data.dart';
 
-class OrderPage extends StatefulWidget {
-  const OrderPage({Key? key}) : super(key: key);
+class MenuPage extends StatefulWidget {
+  const MenuPage({Key? key}) : super(key: key);
 
   @override
-  State<OrderPage> createState() => _OrderPageState();
+  State<MenuPage> createState() => _MenuPageState();
 }
 
-class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
+class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
   late TabController tabController;
   late MenuDB db;
 

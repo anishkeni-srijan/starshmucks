@@ -31,7 +31,7 @@ class _BottomBarState extends State<BottomBar> {
   final List<Widget> _widgetOptions = [
     const HomePage(),
     const GiftCard(),
-    const OrderPage(),
+    const MenuPage(),
     const UserProfile(),
   ];
 
