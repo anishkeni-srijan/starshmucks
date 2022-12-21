@@ -8,16 +8,16 @@ import '/common_things.dart';
 import '../address_payment/address_payment.dart';
 import '../help/help_page.dart';
 
-class OrderFail extends StatefulWidget {
+class OrderFailed extends StatefulWidget {
   late String message;
 
-  OrderFail(this.message);
+  OrderFailed(this.message);
 
   @override
-  State<OrderFail> createState() => _OrderFailState();
+  State<OrderFailed> createState() => _OrderFailedState();
 }
 
-class _OrderFailState extends State<OrderFail> {
+class _OrderFailedState extends State<OrderFailed> {
   var result;
 
   getcarttotal() {}
@@ -50,14 +50,14 @@ class _OrderFailState extends State<OrderFail> {
                       Colors.black.withOpacity(0.05),
                       BlendMode.dstATop,
                     ),
-                    image: ExactAssetImage('images/shmucks.png'),
+                    image: const ExactAssetImage('images/shmucks.png'),
                   ),
                 ),
                 child: Column(
                   children: [
                     Container(
                       transform: Matrix4.translationValues(0, 28, 0),
-                      child: Text(
+                      child: const Text(
                         'Order Failed!',
                         style: TextStyle(
                           color: Colors.white,
@@ -66,11 +66,12 @@ class _OrderFailState extends State<OrderFail> {
                       ),
                     ),
                     Container(
-                        transform: Matrix4.translationValues(0, 40, 0),
-                        child: AutoSizeText(
-                          'Any amount if debited will get refunded within 4-7 days',
-                          style: TextStyle(color: Colors.white),
-                        ))
+                      transform: Matrix4.translationValues(0, 40, 0),
+                      child: const AutoSizeText(
+                        'Any amount if debited will get refunded within 4-7 days',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -88,7 +89,7 @@ class _OrderFailState extends State<OrderFail> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               "Payment Failure:",
                               style: TextStyle(
                                 color: Colors.red,
@@ -112,31 +113,31 @@ class _OrderFailState extends State<OrderFail> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               "Order Details",
                               style: TextStyle(fontWeight: FontWeight.w900),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Row(
                               children: [
-                                Expanded(
+                                const Expanded(
                                   child: Text("Cart Total"),
                                 ),
-                                Text("\$ " + result.toString()),
+                                Text("\$ $result"),
                               ],
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Row(
-                              children: [
+                              children: const [
                                 Expanded(
                                   child: Text("Delivery Charges"),
                                 ),
                                 Text("\$ 5.00"),
                               ],
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Row(
-                              children: [
+                              children: const [
                                 Expanded(
                                   child: Text(
                                     "Total Amount",
@@ -154,7 +155,7 @@ class _OrderFailState extends State<OrderFail> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.to(() => Help());
+                      Get.to(() => const Help());
                     },
                     child: Container(
                       padding: const EdgeInsets.only(

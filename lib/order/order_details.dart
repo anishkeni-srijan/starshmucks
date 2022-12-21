@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:starshmucks/order/widgets/cartsummary.dart';
-import 'package:starshmucks/order/widgets/deliverto.dart';
-import 'package:starshmucks/order/widgets/needhelp.dart';
-import 'package:starshmucks/order/widgets/ordersummary.dart';
 
 import '/databse/menu_db.dart';
 import '/databse/orders_db.dart';
 import '/databse/user_db.dart';
 import '/model/menu_model.dart';
 import '/model/order_history.dart';
-import '../help/help_page.dart';
+import '/order/widgets/cartsummary.dart';
+import '/order/widgets/deliverto.dart';
+import '/order/widgets/item_list.dart';
+import '/order/widgets/needhelp.dart';
+import '/order/widgets/ordersummary.dart';
 
-class Orderdetail extends StatefulWidget {
-  const Orderdetail({Key? key}) : super(key: key);
+class OrderDetails extends StatefulWidget {
+  const OrderDetails({Key? key}) : super(key: key);
 
   @override
-  State<Orderdetail> createState() => _OrderdetailState();
+  State<OrderDetails> createState() => _OrderDetailsState();
 }
 
-class _OrderdetailState extends State<Orderdetail> {
+class _OrderDetailsState extends State<OrderDetails> {
   late OrdersDB orderdb;
   late int? id = 0;
   List<OrderHistoryModel> orderdata = [];
@@ -43,27 +42,21 @@ class _OrderdetailState extends State<Orderdetail> {
     super.initState();
   }
 
-
-
   List<Map<String, dynamic>> userddt = [];
-
 
   late String selectedAddress = '';
 
   getAddress() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     selectedAddress = prefs.getString("selectedAddress")!;
-setState(() {
-
-});
+    setState(() {});
 
     return selectedAddress;
   }
+
   getUser() async {
     userddt = await udb.getDataUserData();
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   getTotal() async {
@@ -83,18 +76,14 @@ setState(() {
     } else {
       ttl = (cartttl) - savings;
     }
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   getOrderId() async {
     final prefs = await SharedPreferences.getInstance();
-    id = (await prefs.getInt('orderid'))!;
+    id = (prefs.getInt('orderid'))!;
     await getOrderDetails(id);
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   getOrderDetails(id) async {
@@ -112,18 +101,15 @@ setState(() {
       items = await menuDb.getItemWithIdOrder(idlistfromstring[i]);
       items1.add(items.first);
     }
-    setState(() {
-
-    });
+    setState(() {});
     getTotal();
   }
-    @override
+
+  @override
   Widget build(BuildContext context) {
-    final ThemeData themeStyle = Theme.of(context);
-    double textWidth = MediaQuery.of(context).size.width * 0.45;
     return Scaffold(
       body: orderdata.isEmpty || items1.isEmpty || qtylistfromstring.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : CustomScrollView(
               physics: const BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics()),
@@ -145,7 +131,6 @@ setState(() {
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
-
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -162,126 +147,48 @@ setState(() {
                                   padding: const EdgeInsets.all(15.0),
                                   child: Column(
                                     children: [
-                                      ordersummary(OrderData: orderdata),
-                                      ListView.builder(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemCount: qtylistfromstring.length,
-                                        itemBuilder: (context, index) {
-                                          return Padding(
-                                              padding: const EdgeInsets.only(
-                                                bottom: 10,
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: <Widget>[
-                                                  Row(
-                                                    children: <Widget>[
-                                                      Container(
-                                                        height: 32,
-                                                        width: 32,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: HexColor(
-                                                              "#036635"),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(7),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            qtylistfromstring[
-                                                                    index] +
-                                                                "x",
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .bodyText2
-                                                                ?.copyWith(
-                                                                    color: Colors
-                                                                        .white),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(width: 25),
-                                                      Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: <Widget>[
-                                                          SizedBox(
-                                                            width: textWidth,
-                                                            child: Text(
-                                                              items1[index]
-                                                                  .title
-                                                                  .toString(),
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              style: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .subtitle1,
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            width: textWidth,
-                                                            child: Text(
-                                                                "Regular",
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .caption
-                                                                    ?.copyWith(
-                                                                        color: HexColor(
-                                                                            "#036635"))),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            left: 4),
-                                                    child: Text(
-                                                      "\$${items1[index].price}",
-                                                      style: const TextStyle(
-                                                          fontSize: 15,
-                                                          fontWeight:
-                                                              FontWeight.w100),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ));
-                                        },
+                                      OrderSummary(OrderData: orderdata),
+                                      ItemList(
+                                        qtylistfromstring: qtylistfromstring,
+                                        items1: items1,
                                       ),
                                       const Divider(
                                         color: Colors.grey,
                                         thickness: 1,
                                       ),
                                       const SizedBox(height: 8),
-                                      CartSummary(value: cartttl,text:"Subtotal",wt: FontWeight.w600,textsize: 15,),
+                                      CartSummary(
+                                        value: cartttl,
+                                        text: "Subtotal",
+                                        wt: FontWeight.w600,
+                                        textsize: 15,
+                                      ),
                                       const SizedBox(height: 8),
-                                      CartSummary(value: savings,text: 'Points savings',wt: FontWeight.w300,textsize: 15,),
+                                      CartSummary(
+                                        value: savings,
+                                        text: 'Points savings',
+                                        wt: FontWeight.w300,
+                                        textsize: 15,
+                                      ),
                                       const SizedBox(height: 8),
-                                      CartSummary(value: 5.00,text: 'Delivery Charges',wt: FontWeight.w300,textsize: 15,),
+                                      const CartSummary(
+                                        value: 5.00,
+                                        text: 'Delivery Charges',
+                                        wt: FontWeight.w300,
+                                        textsize: 15,
+                                      ),
                                       const SizedBox(height: 8),
                                       const Divider(
                                         color: Colors.grey,
                                         thickness: 1,
                                       ),
                                       const SizedBox(height: 8),
-                                      CartSummary(value:ttl,text: 'Total',wt: FontWeight.w900,textsize: 18,),
+                                      CartSummary(
+                                        value: ttl,
+                                        text: 'Total',
+                                        wt: FontWeight.w900,
+                                        textsize: 18,
+                                      ),
                                       const SizedBox(height: 8),
                                       const Divider(
                                         color: Colors.grey,
@@ -291,7 +198,7 @@ setState(() {
                                   ),
                                 )),
                           ),
-                          NeedHelp(),
+                          const NeedHelp(),
                           const SizedBox(
                             height: 20,
                           ),
@@ -306,5 +213,3 @@ setState(() {
     );
   }
 }
-
-

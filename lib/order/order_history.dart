@@ -66,12 +66,14 @@ class _OrdersState extends State<Orders> {
       body: data1.isEmpty
           ? Center(
               child: Text(
-              "No Orders Found",
-              style: TextStyle(
+                "No Orders Found",
+                style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
-                  color: HexColor("#175244")),
-            ))
+                  color: HexColor("#175244"),
+                ),
+              ),
+            )
           : ListView.separated(
               itemCount: data1.length,
               itemBuilder: (context, index) {
@@ -79,31 +81,35 @@ class _OrdersState extends State<Orders> {
                 getOrderDetails(res);
                 return ListTile(
                   trailing: TextButton.icon(
-                      onPressed: () {
-                        getDetails(res);
-                      },
-                      icon: const Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.black38,
-                      ),
-                      label: const Text("")),
+                    onPressed: () {
+                      getDetails(res);
+                    },
+                    icon: const Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.black38,
+                    ),
+                    label: const Text(""),
+                  ),
                   leading: CircleAvatar(
                     radius: 60,
                     child: items1.isEmpty
                         ? const Text("image")
                         : Image.asset(
                             items1[index].image,
-                            // height: 80,
-                            // width: 80,
                           ),
                   ),
                   contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
                   title: Text(
                     "Order id: #$res",
-                    style: TextStyle(fontSize: 16, color: HexColor("#175244")),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: HexColor("#175244"),
+                    ),
                   ),
-                  subtitle: const Text("Order Placed",
-                      style: TextStyle(fontSize: 16, color: Colors.black38)),
+                  subtitle: const Text(
+                    "Order Placed",
+                    style: TextStyle(fontSize: 16, color: Colors.black38),
+                  ),
                   onTap: () async {
                     getDetails(res);
                   },
@@ -113,7 +119,8 @@ class _OrdersState extends State<Orders> {
                 return const Divider(
                   thickness: 2,
                 );
-              }),
+              },
+            ),
     );
   }
 }
@@ -121,5 +128,5 @@ class _OrdersState extends State<Orders> {
 getDetails(res) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setInt('orderid', res);
-  Get.to(transition: Transition.rightToLeft, () => const Orderdetail());
+  Get.to(transition: Transition.rightToLeft, () => const OrderDetails());
 }

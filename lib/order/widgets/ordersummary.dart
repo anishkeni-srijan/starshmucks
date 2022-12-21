@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
-import '../../model/order_history.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../model/order_history.dart';
 
-class ordersummary extends StatelessWidget {
-  const ordersummary({
+class OrderSummary extends StatelessWidget {
+  const OrderSummary({
     Key? key,
     required this.OrderData,
   }) : super(key: key);
@@ -15,8 +14,7 @@ class ordersummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment:
-      CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           "Order Summary",
@@ -29,8 +27,7 @@ class ordersummary extends StatelessWidget {
           height: 10,
         ),
         Row(
-          mainAxisAlignment:
-          MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const Icon(
               Icons.date_range_outlined,
@@ -41,8 +38,7 @@ class ordersummary extends StatelessWidget {
             ),
             Text(
               "${OrderData[0].date}",
-              style:
-              TextStyle(fontSize: 15),
+              style: const TextStyle(fontSize: 15),
             ),
           ],
         ),
