@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:starshmucks/signup/signup.dart';
 
 import '/common_things.dart';
 import '/signin/bloc/signin_events.dart';
@@ -59,9 +60,7 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
     //works if login is valid
     on<SignupRedirect>(
       (event, emit) {
-        emit(
-          SigninErrorState("User already exists Please Signin.."),
-        );
+       Get.to(SignupPage());
       },
     );
   }
