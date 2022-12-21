@@ -4,14 +4,15 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '/help_page.dart';
+import 'widgets/profile_tile_widget.dart';
+import '../help/help_page.dart';
 import '/signin/signin.dart';
-import 'common_things.dart';
-import 'databse/user_db.dart';
-import 'editdetails/edit_details.dart';
-import 'home/home_screen.dart';
-import 'order/order_history.dart';
-import 'rewards/rewards.dart';
+import '../common_things.dart';
+import '../databse/user_db.dart';
+import '../editdetails/edit_details.dart';
+import '../home/home_screen.dart';
+import '../order/order_history.dart';
+import '../rewards/rewards.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
@@ -167,56 +168,3 @@ var dividerForTiles = Divider(
   indent: 0,
   endIndent: 0,
 );
-
-class ProfileTile extends StatelessWidget {
-  const ProfileTile({
-    Key? key,
-    required this.text,
-    required this.press,
-    required this.icon,
-  }) : super(key: key);
-  final String text;
-  final IconData icon;
-  final VoidCallback press;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 0,
-        vertical: 0,
-      ),
-      child: TextButton(
-        onPressed: press,
-        style: TextButton.styleFrom(
-          backgroundColor: Colors.white,
-          padding: const EdgeInsets.all(20),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              size: 30,
-              color: HexColor("#036635"),
-            ),
-            const SizedBox(width: 20),
-            Expanded(
-              child: Text(
-                text,
-                style: TextStyle(
-                  color: HexColor("#036635"),
-                  fontWeight: FontWeight.w300,
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            Icon(
-              Icons.arrow_forward_ios,
-              color: HexColor("#036635"),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

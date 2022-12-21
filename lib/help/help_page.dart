@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import '/help/widgets/build_expansion_tile_widget.dart';
+import '/help/widgets/faq_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'common_things.dart';
+import '../common_things.dart';
 
 class Help extends StatelessWidget {
   const Help({Key? key}) : super(key: key);
@@ -169,81 +171,6 @@ class Help extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class BuildExpansionTile extends StatelessWidget {
-  const BuildExpansionTile({
-    required this.img,
-    required this.text,
-    required this.content,
-    Key? key,
-  }) : super(key: key);
-  final String img;
-  final String text;
-  final Widget content;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      width: MediaQuery.of(context).size.width * 1,
-      child: Card(
-        elevation: 8,
-        child: ExpansionTile(
-          trailing: const SizedBox(width: 10),
-          iconColor: HexColor("#036635"),
-          collapsedIconColor: HexColor("#036635"),
-          title: Padding(
-            padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 30),
-            child: Row(
-              children: [
-                Image.asset(
-                  img,
-                  width: 50,
-                ),
-                const SizedBox(width: 20),
-                Text(
-                  text,
-                  style: TextStyle(fontSize: 20, color: HexColor("#036635")),
-                ),
-              ],
-            ),
-          ),
-          children: [content],
-        ),
-      ),
-    );
-  }
-}
-
-class FaqTile extends StatelessWidget {
-  const FaqTile({
-    required this.title,
-    required this.child,
-    Key? key,
-  }) : super(key: key);
-
-  final String title;
-  final String child;
-
-  @override
-  Widget build(BuildContext context) {
-    return ExpansionTile(
-      childrenPadding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
-      iconColor: HexColor("#036635"),
-      collapsedIconColor: HexColor("#036635"),
-      expandedAlignment: Alignment.topLeft,
-      title: Text(
-        title,
-        style: TextStyle(color: HexColor("#036635")),
-      ),
-      children: [
-        Text(
-          child,
-        )
-      ],
     );
   }
 }

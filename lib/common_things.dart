@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '/databse/cart_db.dart';
 import '/model/cart_model.dart';
-import '/user_profile.dart';
+import 'user_profile/user_profile.dart';
 import 'cart.dart';
 import 'databse/user_db.dart';
 import 'gift_card.dart';
@@ -137,7 +137,7 @@ gethomeappbar(title, action, automaticallyImplyLeadingStatus, ttlspacing) {
 
 late double ttl;
 double savings = 0;
-ValueNotifier<int>size = ValueNotifier<int>(0);
+ValueNotifier<int> size = ValueNotifier<int>(0);
 
 getdata() async {
   CartDB cdb = CartDB();
@@ -165,11 +165,14 @@ class ViewInCart extends StatelessWidget {
       children: [
         Row(
           children: [
-            ValueListenableBuilder(valueListenable: size, builder: (context, value, child) => Text(
-              size.value.toString(),
-              style: TextStyle(
-                  color: HexColor("#036635"), fontWeight: FontWeight.w600),
-            ),),
+            ValueListenableBuilder(
+              valueListenable: size,
+              builder: (context, value, child) => Text(
+                size.value.toString(),
+                style: TextStyle(
+                    color: HexColor("#036635"), fontWeight: FontWeight.w600),
+              ),
+            ),
             if (size.value < 2)
               Text(
                 " item",

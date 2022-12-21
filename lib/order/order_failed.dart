@@ -6,7 +6,7 @@ import 'package:hexcolor/hexcolor.dart';
 
 import '/common_things.dart';
 import '../address_payment/address_payment.dart';
-import '../help_page.dart';
+import '../help/help_page.dart';
 
 class OrderFail extends StatefulWidget {
   late String message;

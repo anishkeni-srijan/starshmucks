@@ -1,8 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:starshmucks/resetpassword/reset_password.dart';
 
+import '/resetpassword/reset_password.dart';
 import '/forgotpassword/bloc/forgotpassword_event.dart';
 import '/forgotpassword/bloc/forgotpassword_state.dart';
 

@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:starshmucks/splash/bloc/splash_bloc.dart';
 
+import '/splash/bloc/splash_bloc.dart';
 import '/editdetails/bloc/editdetails_bloc.dart';
 import '/forgotpassword/forgot_password.dart';
 import '/providers/learnmore_provider.dart';

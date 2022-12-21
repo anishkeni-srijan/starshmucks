@@ -1,4 +1,4 @@
-import 'package:starshmucks/model/user_model.dart';
+import '/model/user_model.dart';
 
 abstract class SignupEvent {}
 

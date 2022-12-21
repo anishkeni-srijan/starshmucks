@@ -6,6 +6,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
+import '/signup/widgets/back_button_widget.dart';
 import '/signup/widgets/text_input.dart';
 import '/databse/user_db.dart';
 import '/signup/bloc/signup_bloc.dart';
@@ -69,7 +70,7 @@ class _SignupPageState extends State<SignupPage> {
           child: Center(
             child: Column(
               children: <Widget>[
-                backbutton(context),
+                BackButtonW(ctx: context),
                 getlogo(context),
                 Padding(
                   padding: const EdgeInsets.only(
@@ -383,23 +384,6 @@ class _SignupPageState extends State<SignupPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  backbutton(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 30, left: 0),
-      alignment: Alignment.topLeft,
-      child: TextButton.icon(
-        icon: Icon(
-          Icons.arrow_back_ios_new_rounded,
-          color: HexColor("#036635"),
-        ),
-        onPressed: () {
-          Get.to(() => const SigninPage());
-        },
-        label: const Text(''),
       ),
     );
   }
