@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:starshmucks/order/widgets/cartsummary.dart';
+import 'package:starshmucks/order/widgets/deliverto.dart';
+import 'package:starshmucks/order/widgets/needhelp.dart';
+import 'package:starshmucks/order/widgets/ordersummary.dart';
 
 import '/common_things.dart';
 import '/databse/cart_db.dart';
@@ -147,53 +151,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Container(
-                                padding: const EdgeInsets.all(10),
-                                width: MediaQuery.of(context).size.width * 1,
-                                child: Card(
-                                  elevation: 8,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(15.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Deliver To",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: HexColor("#175244"),
-                                              fontSize: 18),
-                                        ),
-                                        const SizedBox(height: 8),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Image.asset(
-                                              'images/map.png',
-                                              height: 100,
-                                              width: 100,
-                                              alignment: Alignment.centerLeft,
-                                            ),
-                                            const SizedBox(width: 10),
-                                            Expanded(
-                                              child: Text(selectedAddress,
-                                                  softWrap: false,
-                                                  maxLines: 4,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: const TextStyle(
-                                                      fontSize: 16) //new
-                                                  ),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              DeliverTo(selectedAddress: selectedAddress),
                               Container(
                                 padding: const EdgeInsets.only(
                                   left: 10,
@@ -206,40 +164,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                       padding: const EdgeInsets.all(15.0),
                                       child: Column(
                                         children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Order Summary",
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: HexColor("#175244")),
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  const Icon(
-                                                    Icons.date_range_outlined,
-                                                    size: 20.0,
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  Text(
-                                                    "${OrderData[0].date}",
-                                                    style:
-                                                        TextStyle(fontSize: 15),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                          ordersummary(OrderData: OrderData),
                                           ListView.builder(
                                             physics:
                                                 const NeverScrollableScrollPhysics(),
@@ -352,88 +277,18 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                             thickness: 1,
                                           ),
                                           const SizedBox(height: 8),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              const Text(
-                                                "Subtotal",
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ),
-                                              Text(
-                                                "\$${cartttl.toStringAsFixed(2)}",
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ),
-                                            ],
-                                          ),
+                                          CartSummary(value: cartttl,text:"Subtotal",wt: FontWeight.w600,textsize: 15,),
                                           const SizedBox(height: 8),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              const Text(
-                                                "Points savings",
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w300),
-                                              ),
-                                              Text(
-                                                '- \$$savings',
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w300),
-                                              ),
-                                            ],
-                                          ),
+                                          CartSummary(value: savings,text: 'Points savings',wt: FontWeight.w300,textsize: 15,),
                                           const SizedBox(height: 8),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: const [
-                                              Text(
-                                                "Delivery Charges",
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w300),
-                                              ),
-                                              Text(
-                                                "\$5.00",
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w300),
-                                              ),
-                                            ],
-                                          ),
+                                          CartSummary(value: 5.00,text: 'Delivery Charges',wt: FontWeight.w300,textsize: 15,),
                                           const SizedBox(height: 8),
                                           const Divider(
                                             color: Colors.grey,
                                             thickness: 1,
                                           ),
                                           const SizedBox(height: 8),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              const Text(
-                                                "Total",
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                        FontWeight.w900),
-                                              ),
-                                              Text(
-                                                "\$${ttl.toStringAsFixed(2)}",
-                                                style: const TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                        FontWeight.w900),
-                                              ),
-                                            ],
-                                          ),
+                                          CartSummary(value:ttl,text: 'Total',wt: FontWeight.w900,textsize: 18,),
                                           const SizedBox(height: 8),
                                           const Divider(
                                             color: Colors.grey,
@@ -443,35 +298,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                       ),
                                     )),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  Get.to(() => const Help());
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.only(
-                                    left: 10,
-                                    right: 10,
-                                    top: 10,
-                                  ),
-                                  width: MediaQuery.of(context).size.width * 1,
-                                  child: Card(
-                                    elevation: 8,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(20.0),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Need Help?",
-                                            style: TextStyle(
-                                                color: HexColor("#175244"),
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              NeedHelp(),
                               const SizedBox(
                                 height: 20,
                               ),
@@ -486,3 +313,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
         ));
   }
 }
+
+
+
+
