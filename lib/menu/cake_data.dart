@@ -87,7 +87,7 @@ class _GetCakeDataState extends State<GetCakeData> {
     initcart();
     getCakeData();
     return Scaffold(
-      persistentFooterButtons: cartinit ? [ViewInCart()] : null,
+      persistentFooterButtons: cartinit ? [const ViewInCart()] : null,
       body: ListView.builder(
         shrinkWrap: true,
         itemCount: data.length,
@@ -177,20 +177,21 @@ class _GetCakeDataState extends State<GetCakeData> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         IconButton(
-                            onPressed: () {
-                              status
-                                  ? removefromwishlist(
-                                      WishlistModel(id: data[index].id))
-                                  : addToWishlist(context, index);
-                            },
-                            icon: status
-                                ? const Icon(
-                                    Icons.favorite,
-                                    color: Colors.red,
-                                  )
-                                : const Icon(
-                                    Icons.favorite_border,
-                                  )),
+                          onPressed: () {
+                            status
+                                ? removefromwishlist(
+                                    WishlistModel(id: data[index].id))
+                                : addToWishlist(context, index);
+                          },
+                          icon: status
+                              ? const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )
+                              : const Icon(
+                                  Icons.favorite_border,
+                                ),
+                        ),
                         TextButton(
                           onPressed: () {
                             addToCart(context, index);

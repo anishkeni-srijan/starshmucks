@@ -320,7 +320,7 @@ getbanner(context, username, tier, rewards) {
 }
 
 learnmore(context) {
-  final learnmorep = Provider.of<Learnmore>(context);
+  final learnmorep = Provider.of<LearnMore>(context);
   learnmorep.fetchData(context);
   return SizedBox(
     height: 350,
