@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:starshmucks/database/wishlist_db.dart';
 
+import '/database/wishlist_db.dart';
 import '/database/cart_db.dart';
 import '/model/cart_model.dart';
 import 'cart.dart';
@@ -315,7 +315,7 @@ addToWishlist(id) async {
   wdb.insertDataWishlist(WishlistModel(id: id));
 }
 
-late List<int> ids = [];
+List<int> ids = [];
 getIds() async {
   wdb = WishlistDB();
   ids.clear();

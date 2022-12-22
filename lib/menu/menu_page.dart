@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:core';
-
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -20,7 +19,6 @@ class MenuPage extends StatefulWidget {
 class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
   late TabController tabController;
   late MenuDB db;
-
   late var product;
   List<MenuModel> data = [];
 
@@ -63,22 +61,14 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
               indicatorColor: HexColor("#175244"),
               tabs: <Widget>[
                 Tab(
-                  icon: Icon(
-                    Icons.coffee,
-                    color: HexColor("#175244"),
-                  ),
+                  icon: Icon(Icons.coffee, color: HexColor("#175244")),
                 ),
                 Tab(
-                  icon: Icon(
-                    Icons.cake_outlined,
-                    color: HexColor("#175244"),
-                  ),
+                  icon: Icon(Icons.cake_outlined, color: HexColor("#175244")),
                 ),
                 Tab(
-                  icon: Icon(
-                    Icons.local_drink_sharp,
-                    color: HexColor("#175244"),
-                  ),
+                  icon:
+                      Icon(Icons.local_drink_sharp, color: HexColor("#175244")),
                 ),
               ],
             ),
