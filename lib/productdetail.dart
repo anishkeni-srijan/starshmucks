@@ -4,10 +4,6 @@ import 'package:hexcolor/hexcolor.dart';
 
 import '/home/home_screen.dart';
 import 'common_things.dart';
-import 'database/cart_db.dart';
-import 'database/wishlist_db.dart';
-import 'model/cart_model.dart';
-import 'model/wishlist_model.dart';
 
 class ProductDetail extends StatefulWidget {
   const ProductDetail({Key? key}) : super(key: key);
@@ -18,45 +14,17 @@ class ProductDetail extends StatefulWidget {
 
 var product;
 
-getpdata(item) {
+getItem(item) {
   product = item;
 }
 
 class _ProductDetailState extends State<ProductDetail> {
   late List<int> ids = [];
 
-  addToCart(prod) async {
-    CartDB cdb = CartDB();
-    cdb.insertDataCart(CartModel(id: prod.id, qty: 1));
-  }
-
-  getIds() async {
-    ids.clear();
-    late List<WishlistModel> datalist = [];
-    datalist = await wdb.getDataWishlist();
-    for (var i = 0; i < datalist.length; i++) {
-      ids.add(datalist[i].id);
-    }
-    setState(() {});
-  }
-
-  addToWishlist(context, id) async {
-    wdb.insertDataWishlist(WishlistModel(id: id));
-    getIds();
-  }
-
-  removefromwishlist(sendid) {
-    wdb.deleteitemFromWishlist(sendid);
-    getIds();
-  }
-
   late FToast fToast;
-  late WishlistDB wdb;
 
   @override
   void initState() {
-    wdb = WishlistDB();
-    wdb.initDBWishlist();
     getIds();
     super.initState();
     fToast = FToast();
@@ -80,9 +48,8 @@ class _ProductDetailState extends State<ProductDetail> {
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
           onPressed: () {
-            addToCart(product);
+            addToCart(product.id);
             cartinit = true;
-            setState(() {});
           },
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(HexColor("#036635")),
@@ -264,10 +231,8 @@ class _ProductDetailState extends State<ProductDetail> {
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 10),
-                  Text(
-                    product.description,
-                    style: const TextStyle(fontSize: 15),
-                  ),
+                  Text(product.description,
+                      style: const TextStyle(fontSize: 15)),
                 ],
               ),
             ),
