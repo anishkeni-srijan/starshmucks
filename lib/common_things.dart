@@ -154,55 +154,54 @@ getttl() async {
   savings = total.getDouble('savings') ?? 0;
 }
 
-Widget ViewInCart(){
-    getttl();
-    getdata();
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Row(
-          children: [
-            ValueListenableBuilder(
-              valueListenable: size,
-              builder: (context, value, child) => Text(
-                size.value.toString(),
-                style: TextStyle(
-                    color: HexColor("#036635"), fontWeight: FontWeight.w600),
+Widget viewInCart() {
+  getttl();
+  getdata();
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Row(
+        children: [
+          ValueListenableBuilder(
+            valueListenable: size,
+            builder: (context, value, child) => Text(
+              size.value.toString(),
+              style: TextStyle(
+                  color: HexColor("#036635"), fontWeight: FontWeight.w600),
+            ),
+          ),
+          if (size.value < 2)
+            Text(
+              " item",
+              style: TextStyle(
+                color: HexColor("#036635"),
+              ),
+            )
+          else
+            Text(
+              " items",
+              style: TextStyle(
+                color: HexColor("#036635"),
               ),
             ),
-            if (size.value < 2)
-              Text(
-                " item",
-                style: TextStyle(
-                  color: HexColor("#036635"),
-                ),
-              )
-            else
-              Text(
-                " items",
-                style: TextStyle(
-                  color: HexColor("#036635"),
-                ),
-              ),
-          ],
-        ),
-        TextButton(
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all<Color?>(HexColor("#036635")),
-              foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
-            ),
-            child: const Text(
-              "View in Cart",
-            ),
-            onPressed: () {
-              Get.to(() => const MyCart(), transition: Transition.downToUp);
-            }),
-      ],
-    );
-  }
-
+        ],
+      ),
+      TextButton(
+          style: ButtonStyle(
+            backgroundColor:
+                MaterialStateProperty.all<Color?>(HexColor("#036635")),
+            foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
+          ),
+          child: const Text(
+            "View in Cart",
+          ),
+          onPressed: () {
+            Get.to(() => const MyCart(), transition: Transition.downToUp);
+          }),
+    ],
+  );
+}
 
 initcart() async {
   CartDB cdb = CartDB();
@@ -223,7 +222,7 @@ Future<bool> gohomefromsuccess() async {
 }
 
 goToSuccess() {
-  return Get.to(() => OrderSuccess());
+  return Get.to(() => const OrderSuccess());
 }
 
 goToFailed(String message) {
@@ -308,11 +307,10 @@ removefromwishlist(sendid) {
   wdb = WishlistDB();
   wdb.initDBWishlist();
   wdb.deleteitemFromWishlist(sendid);
-
 }
 
 addToWishlist(id) async {
   wdb = WishlistDB();
   wdb.initDBWishlist();
-  wdb.insertDataWishlist(WishlistModel(id:id));
+  wdb.insertDataWishlist(WishlistModel(id: id));
 }

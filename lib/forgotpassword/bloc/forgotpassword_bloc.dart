@@ -8,7 +8,7 @@ import '/resetpassword/reset_password.dart';
 
 class ForgotpasswordBloc
     extends Bloc<ForgotpasswordEvent, ForgotpasswordState> {
-  ForgotpasswordBloc() : super(ForgotpasswordInitialState()) {
+  ForgotpasswordBloc() : super(const ForgotpasswordInitialState()) {
     //works on login text changed
     on<ForgotpasswordInputChangedEvent>(
       (event, emit) {

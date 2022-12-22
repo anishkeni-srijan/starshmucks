@@ -52,12 +52,10 @@ class _GetCakeDataState extends State<GetCakeData> {
     for (var i = 0; i < datalist.length; i++) {
       ids.add(datalist[i].id);
     }
-    if(mounted) {
+    if (mounted) {
       setState(() {});
     }
   }
-
-
 
   getCakeData() async {
     data = await db.cakedata();
@@ -73,7 +71,7 @@ class _GetCakeDataState extends State<GetCakeData> {
     initcart();
     getCakeData();
     return Scaffold(
-      persistentFooterButtons: cartinit ? [ViewInCart()] : null,
+      persistentFooterButtons: cartinit ? [viewInCart()] : null,
       body: ListView.builder(
         shrinkWrap: true,
         itemCount: data.length,
@@ -167,15 +165,14 @@ class _GetCakeDataState extends State<GetCakeData> {
                               //int id = odata[index].id;
                               status
                                   ? removefromwishlist(
-                                  WishlistModel(id: data[index].id))
+                                      WishlistModel(id: data[index].id))
                                   : addToWishlist(data[index].id);
                               getIds();
                             },
-                            icon:   Icon(
-                              status? Icons.favorite:Icons.favorite_border,
+                            icon: Icon(
+                              status ? Icons.favorite : Icons.favorite_border,
                               color: HexColor("#036635"),
-                            )
-                        ),
+                            )),
                         TextButton(
                           onPressed: () {
                             addToCart(data[index].id);

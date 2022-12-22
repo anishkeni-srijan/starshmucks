@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:starshmucks/menu/coffee_data.dart';
 
 import '/databse/cart_db.dart';
 import '/databse/menu_db.dart';
 import '../common_things.dart';
 import '../databse/wishlist_db.dart';
 import '../home/home_screen.dart';
-import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 import '../model/wishlist_model.dart';
 import '../productdetail.dart';
@@ -53,16 +51,14 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     for (var i = 0; i < datalist.length; i++) {
       ids.add(datalist[i].id);
     }
-    if(mounted){
+    if (mounted) {
       setState(() {});
     }
   }
 
-
-
   getSmoothieData() async {
     data = await db.smoothiedata();
-    if (this.mounted) {
+    if (mounted) {
       setState(() {
         getdataf = true;
       });
@@ -74,7 +70,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     initcart();
     getSmoothieData();
     return Scaffold(
-      persistentFooterButtons: cartinit ? [ViewInCart()] : null,
+      persistentFooterButtons: cartinit ? [viewInCart()] : null,
       body: getdataf
           ? ListView.builder(
               shrinkWrap: true,
@@ -118,7 +114,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.only(top: 10),
+                                padding: const EdgeInsets.only(top: 10),
                                 width: 150,
                                 child: AutoSizeText(
                                   data[index].title,
@@ -134,7 +130,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                   height: MediaQuery.of(context).size.height *
                                       0.01),
                               Text(
-                                " \$ " + data[index].price,
+                                " \$ ${data[index].price}",
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 18,
@@ -166,7 +162,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(right: 10),
+                          padding: const EdgeInsets.only(right: 10),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -179,11 +175,12 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                         : addToWishlist(data[index].id);
                                     getIds();
                                   },
-                                  icon:   Icon(
-                                    status? Icons.favorite:Icons.favorite_border,
+                                  icon: Icon(
+                                    status
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
                                     color: HexColor("#036635"),
-                                  )
-                              ),
+                                  )),
                               TextButton(
                                 onPressed: () {
                                   addToCart(data[index].id);
@@ -192,7 +189,6 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                     child: CustomToast(toastMessage),
                                     positionedToastBuilder: (context, child) =>
                                         Positioned(
-                                      child: child,
                                       bottom:
                                           MediaQuery.of(context).size.height *
                                               0.14,
@@ -200,6 +196,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                           0.1,
                                       right: MediaQuery.of(context).size.width *
                                           0.1,
+                                      child: child,
                                     ),
                                   );
                                   setState(

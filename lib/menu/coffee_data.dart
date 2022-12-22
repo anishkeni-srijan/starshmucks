@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -21,8 +20,8 @@ class GetCoffeeData extends StatefulWidget {
   @override
   State<GetCoffeeData> createState() => _GetCoffeeDataState();
 }
-WishlistDB wdb = WishlistDB();
 
+WishlistDB wdb = WishlistDB();
 
 class _GetCoffeeDataState extends State<GetCoffeeData> {
   late MenuDB menuDB;
@@ -58,13 +57,10 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     for (var i = 0; i < datalist.length; i++) {
       ids.add(datalist[i].id);
     }
-    if(mounted){
-      setState(() {
-
-      });
+    if (mounted) {
+      setState(() {});
     }
   }
-
 
   List<CartModel> cartData = [];
 
@@ -89,13 +85,13 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     initcart();
     getCoffeeData();
     return Scaffold(
-      persistentFooterButtons: cartinit ? [ ViewInCart()] : null,
+      persistentFooterButtons: cartinit ? [viewInCart()] : null,
       body: getdataf
           ? ListView.builder(
               shrinkWrap: true,
               itemCount: data.length,
               itemBuilder: (context, index) {
-               bool status = false;
+                bool status = false;
                 for (var i = 0; i < ids.length; i++) {
                   if (ids[i] == data[index].id) status = true;
                 }
@@ -180,7 +176,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                             ],
                           ),
                         ),
-                      Container(
+                        Container(
                           padding: const EdgeInsets.only(right: 10),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -190,15 +186,16 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                                     //int id = odata[index].id;
                                     status
                                         ? removefromwishlist(
-                                        WishlistModel(id: data[index].id))
+                                            WishlistModel(id: data[index].id))
                                         : addToWishlist(data[index].id);
                                     getIds();
                                   },
-                                  icon:   Icon(
-                                    status? Icons.favorite:Icons.favorite_border,
+                                  icon: Icon(
+                                    status
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
                                     color: HexColor("#036635"),
-                                  )
-                              ),
+                                  )),
                               TextButton(
                                 onPressed: () {
                                   addToCart(data[index].id);
@@ -207,31 +204,31 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                                     child: CustomToast(toastMessage),
                                     positionedToastBuilder: (context, child) =>
                                         Positioned(
-                                          bottom:
+                                      bottom:
                                           MediaQuery.of(context).size.height *
                                               0.14,
-                                          left: MediaQuery.of(context).size.width *
-                                              0.1,
-                                          right: MediaQuery.of(context).size.width *
-                                              0.1,
-                                          child: child,
-                                        ),
+                                      left: MediaQuery.of(context).size.width *
+                                          0.1,
+                                      right: MediaQuery.of(context).size.width *
+                                          0.1,
+                                      child: child,
+                                    ),
                                   );
                                   setState(
-                                        () {
+                                    () {
                                       cartinit = true;
                                     },
                                   );
                                 },
                                 style: ButtonStyle(
                                   backgroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      index % 2 == 0
-                                          ? Colors.teal
-                                          : Colors.deepOrangeAccent),
+                                      MaterialStateProperty.all<Color>(
+                                          index % 2 == 0
+                                              ? Colors.teal
+                                              : Colors.deepOrangeAccent),
                                   foregroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      Colors.white),
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.white),
                                   shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
@@ -244,7 +241,6 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                             ],
                           ),
                         ),
-
                       ],
                     ),
                   ),

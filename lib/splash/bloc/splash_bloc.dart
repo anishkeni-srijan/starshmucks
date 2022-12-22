@@ -17,7 +17,7 @@ class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
       (event, emit) async {
         await Future<void>.delayed(const Duration(seconds: 1));
         emit(
-          SplashloadingState(),
+          const SplashloadingState(),
         );
       },
     );
@@ -27,10 +27,10 @@ class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
         checkIfLoggedIn();
         flag
             ? emit(
-                UserExistsState(),
+                const UserExistsState(),
               )
             : emit(
-                NewUserState(),
+                const NewUserState(),
               );
       },
     );

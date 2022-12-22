@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
       setUserForLogin(email);
       initcart();
       return Scaffold(
-        persistentFooterButtons: cartinit ? [ViewInCart()] : null,
+        persistentFooterButtons: cartinit ? [viewInCart()] : null,
         body: SingleChildScrollView(
           child: Column(
             children: [

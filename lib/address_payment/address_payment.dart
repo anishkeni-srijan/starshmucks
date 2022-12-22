@@ -755,7 +755,7 @@ class _AddressState extends State<Address> {
           onPressed: () {
             !isChecked ? userewards() : null;
             if (_value == 1 && afterSelecting == true) {
-              Get.to(UpiPayment());
+              Get.to(const UpiPayment());
             } else if (_value == 2 && afterSelecting == true) {
               Razorpay razorpay = Razorpay();
               var options = {
