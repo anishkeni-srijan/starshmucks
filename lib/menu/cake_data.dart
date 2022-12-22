@@ -55,19 +55,12 @@ class _GetCakeDataState extends State<GetCakeData> {
     for (var i = 0; i < datalist.length; i++) {
       ids.add(datalist[i].id);
     }
-    setState(() {});
+    if(mounted) {
+      setState(() {});
+    }
   }
 
-  addToWishlist(context, index) async {
-    final cartp = await db.cakedata();
-    wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
-    getIds();
-  }
 
-  removefromwishlist(sendid) {
-    wdb.deleteitemFromWishlist(sendid);
-    getIds();
-  }
 
   getCakeData() async {
     data = await db.cakedata();
@@ -83,7 +76,7 @@ class _GetCakeDataState extends State<GetCakeData> {
     initcart();
     getCakeData();
     return Scaffold(
-      persistentFooterButtons: cartinit ? [const ViewInCart()] : null,
+      persistentFooterButtons: cartinit ? [ViewInCart()] : null,
       body: ListView.builder(
         shrinkWrap: true,
         itemCount: data.length,
@@ -173,20 +166,18 @@ class _GetCakeDataState extends State<GetCakeData> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         IconButton(
-                          onPressed: () {
-                            status
-                                ? removefromwishlist(
-                                    WishlistModel(id: data[index].id))
-                                : addToWishlist(context, index);
-                          },
-                          icon: status
-                              ? const Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                )
-                              : const Icon(
-                                  Icons.favorite_border,
-                                ),
+                            onPressed: () {
+                              //int id = odata[index].id;
+                              status
+                                  ? removefromwishlist(
+                                  WishlistModel(id: data[index].id))
+                                  : addToWishlist(data[index].id);
+                              getIds();
+                            },
+                            icon:   Icon(
+                              status? Icons.favorite:Icons.favorite_border,
+                              color: HexColor("#036635"),
+                            )
                         ),
                         TextButton(
                           onPressed: () {

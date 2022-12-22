@@ -21,6 +21,8 @@ class GetCoffeeData extends StatefulWidget {
   @override
   State<GetCoffeeData> createState() => _GetCoffeeDataState();
 }
+WishlistDB wdb = WishlistDB();
+
 
 class _GetCoffeeDataState extends State<GetCoffeeData> {
   late MenuDB menuDB;
@@ -56,17 +58,12 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     for (var i = 0; i < datalist.length; i++) {
       ids.add(datalist[i].id);
     }
+    if(mounted){
+      setState(() {
+
+      });
+    }
   }
-
-  removefromwishlist(sendid) {
-    wdb.deleteitemFromWishlist(sendid);
-
-  }
-
-  addToWishlist(id) async {
-    wdb.insertDataWishlist(WishlistModel(id:id));
-   }
-
 
 
   List<CartModel> cartData = [];
@@ -92,13 +89,13 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     initcart();
     getCoffeeData();
     return Scaffold(
-      persistentFooterButtons: cartinit ? [const ViewInCart()] : null,
+      persistentFooterButtons: cartinit ? [ ViewInCart()] : null,
       body: getdataf
           ? ListView.builder(
               shrinkWrap: true,
               itemCount: data.length,
               itemBuilder: (context, index) {
-                bool status = false;
+               bool status = false;
                 for (var i = 0; i < ids.length; i++) {
                   if (ids[i] == data[index].id) status = true;
                 }
@@ -183,23 +180,24 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                             ],
                           ),
                         ),
-                        FutureBuilder(future:getIds(),builder: (context, snapshot) =>  Container(
+                      Container(
                           padding: const EdgeInsets.only(right: 10),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               IconButton(
                                   onPressed: () {
+                                    //int id = odata[index].id;
                                     status
                                         ? removefromwishlist(
                                         WishlistModel(id: data[index].id))
                                         : addToWishlist(data[index].id);
+                                    getIds();
                                   },
                                   icon:   Icon(
-                                    status ? Icons.favorite:Icons.favorite_border,
+                                    status? Icons.favorite:Icons.favorite_border,
                                     color: HexColor("#036635"),
                                   )
-
                               ),
                               TextButton(
                                 onPressed: () {
@@ -245,7 +243,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                               ),
                             ],
                           ),
-                        ),),
+                        ),
 
                       ],
                     ),

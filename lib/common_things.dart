@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:starshmucks/databse/wishlist_db.dart';
 
 import '/databse/cart_db.dart';
 import '/model/cart_model.dart';
@@ -13,6 +14,7 @@ import 'gift_card.dart';
 import 'home/home_screen.dart';
 import 'menu/menu_page.dart';
 import 'model/user_model.dart';
+import 'model/wishlist_model.dart';
 import 'order/order_failed.dart';
 import 'order/order_success.dart';
 import 'user_profile/user_profile.dart';
@@ -152,14 +154,9 @@ getttl() async {
   savings = total.getDouble('savings') ?? 0;
 }
 
-class ViewInCart extends StatelessWidget {
-  const ViewInCart({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+Widget ViewInCart(){
     getttl();
     getdata();
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -205,7 +202,7 @@ class ViewInCart extends StatelessWidget {
       ],
     );
   }
-}
+
 
 initcart() async {
   CartDB cdb = CartDB();
@@ -304,4 +301,18 @@ addToCart(id) async {
   cdb = CartDB();
   cdb.initDBCart();
   cdb.insertDataCart(CartModel(id: id, qty: 1));
+}
+
+late WishlistDB wdb;
+removefromwishlist(sendid) {
+  wdb = WishlistDB();
+  wdb.initDBWishlist();
+  wdb.deleteitemFromWishlist(sendid);
+
+}
+
+addToWishlist(id) async {
+  wdb = WishlistDB();
+  wdb.initDBWishlist();
+  wdb.insertDataWishlist(WishlistModel(id:id));
 }

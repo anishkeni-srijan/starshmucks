@@ -53,21 +53,11 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     for (var i = 0; i < datalist.length; i++) {
       ids.add(datalist[i].id);
     }
-    setState(() {});
+    if(mounted){
+      setState(() {});
+    }
   }
 
-  removefromwishlist(sendid) {
-    wdb.deleteitemFromWishlist(sendid);
-
-    getIds();
-  }
-
-  addToWishlist(context, index) async {
-    final cartp = await db.smoothiedata();
-    wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
-
-    getIds();
-  }
 
 
   getSmoothieData() async {
@@ -186,16 +176,14 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                     status
                                         ? removefromwishlist(
                                             WishlistModel(id: data[index].id))
-                                        : addToWishlist(context, index);
+                                        : addToWishlist(data[index].id);
+                                    getIds();
                                   },
-                                  icon: status
-                                      ? const Icon(
-                                          Icons.favorite,
-                                          color: Colors.red,
-                                        )
-                                      : Icon(
-                                          Icons.favorite_border,
-                                        )),
+                                  icon:   Icon(
+                                    status? Icons.favorite:Icons.favorite_border,
+                                    color: HexColor("#036635"),
+                                  )
+                              ),
                               TextButton(
                                 onPressed: () {
                                   addToCart(data[index].id);
