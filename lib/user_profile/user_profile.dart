@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '/signin/signin.dart';
 import '../common_things.dart';
-import '../databse/user_db.dart';
+import '../database/user_db.dart';
 import '../editdetails/edit_details.dart';
 import '../help/help_page.dart';
 import '../home/home_screen.dart';

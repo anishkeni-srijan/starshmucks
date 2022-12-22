@@ -13,7 +13,7 @@ import 'package:starshmucks/rewards/widgets/referwidgets.dart';
 import '/common_things.dart';
 import '/home/home_screen.dart';
 import '/rewards/rewarddetails.dart';
-import '../databse/user_db.dart';
+import '../database/user_db.dart';
 
 class Rewards extends StatefulWidget {
   const Rewards({Key? key}) : super(key: key);

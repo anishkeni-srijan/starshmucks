@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 import '/common_things.dart';
-import '/databse/user_db.dart';
+import '/database/user_db.dart';
 import '/signup/bloc/signup_events.dart';
 import '/signup/bloc/signup_states.dart';
 

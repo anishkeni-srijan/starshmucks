@@ -4,10 +4,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '/databse/cart_db.dart';
-import '/databse/menu_db.dart';
+import '/database/cart_db.dart';
+import '/database/menu_db.dart';
 import '../common_things.dart';
-import '../databse/wishlist_db.dart';
+import '../database/wishlist_db.dart';
 import '../home/home_screen.dart';
 import '../model/menu_model.dart';
 import '../model/wishlist_model.dart';

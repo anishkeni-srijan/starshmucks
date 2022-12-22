@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '/forgotpassword/forgot_password.dart';
-import '../databse/user_db.dart';
+import '../database/user_db.dart';
 import 'bloc/signin_bloc.dart';
 import 'bloc/signin_events.dart';
 import 'bloc/signin_states.dart';

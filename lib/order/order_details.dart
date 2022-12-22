@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '/databse/menu_db.dart';
-import '/databse/orders_db.dart';
-import '/databse/user_db.dart';
+import '/database/menu_db.dart';
+import '/database/orders_db.dart';
+import '/database/user_db.dart';
 import '/model/menu_model.dart';
 import '/model/order_history.dart';
 import '/order/widgets/cartsummary.dart';

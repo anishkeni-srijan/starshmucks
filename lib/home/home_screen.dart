@@ -8,9 +8,9 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '/databse/menu_db.dart';
+import '/database/menu_db.dart';
 import '../common_things.dart';
-import '../databse/user_db.dart';
+import '../database/user_db.dart';
 import '../model/menu_model.dart';
 import '../providers/learnmore_provider.dart';
 import '../rewards/rewards.dart';

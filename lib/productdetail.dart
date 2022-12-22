@@ -4,8 +4,8 @@ import 'package:hexcolor/hexcolor.dart';
 
 import '/home/home_screen.dart';
 import 'common_things.dart';
-import 'databse/cart_db.dart';
-import 'databse/wishlist_db.dart';
+import 'database/cart_db.dart';
+import 'database/wishlist_db.dart';
 import 'model/cart_model.dart';
 import 'model/wishlist_model.dart';
 

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../databse/user_db.dart';
+import '../database/user_db.dart';
 import '../model/user_model.dart';
 import 'bloc/resetpassword_bloc.dart';
 import 'bloc/resetpassword_event.dart';

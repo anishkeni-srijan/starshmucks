@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '/forgotpassword/bloc/forgotpassword_bloc.dart';
 import '/forgotpassword/bloc/forgotpassword_state.dart';
 import '/resetpassword/reset_password.dart';
-import '../databse/user_db.dart';
+import '../database/user_db.dart';
 import 'bloc/forgotpassword_event.dart';
 
 class ForgotPasswordPage extends StatefulWidget {

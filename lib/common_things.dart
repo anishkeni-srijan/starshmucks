@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:starshmucks/databse/wishlist_db.dart';
+import 'package:starshmucks/database/wishlist_db.dart';
 
-import '/databse/cart_db.dart';
+import '/database/cart_db.dart';
 import '/model/cart_model.dart';
 import 'cart.dart';
-import 'databse/user_db.dart';
+import 'database/user_db.dart';
 import 'gift_card.dart';
 import 'home/home_screen.dart';
 import 'menu/menu_page.dart';

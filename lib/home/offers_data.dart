@@ -8,9 +8,9 @@ import 'package:hexcolor/hexcolor.dart';
 import '/common_things.dart';
 import '/model/wishlist_model.dart';
 import '/productdetail.dart';
-import '../databse/cart_db.dart';
-import '../databse/menu_db.dart';
-import '../databse/wishlist_db.dart';
+import '../database/cart_db.dart';
+import '../database/menu_db.dart';
+import '../database/wishlist_db.dart';
 import '../model/menu_model.dart';
 import 'home_screen.dart';
 

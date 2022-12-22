@@ -8,7 +8,7 @@ import '/common_things.dart';
 import '/signin/bloc/signin_events.dart';
 import '/signin/bloc/signin_states.dart';
 import '/signup/signup.dart';
-import '../../databse/user_db.dart';
+import '../../database/user_db.dart';
 
 late String obtainedemail;
 late String obtainedpassword;
