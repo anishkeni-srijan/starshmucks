@@ -46,6 +46,6 @@ class _GetCakeDataState extends State<GetCakeData> {
     getCakeData();
     return Scaffold(
         persistentFooterButtons: cartinit ? [viewInCart()] : null,
-        body: MenuItemList(data: data));
+        body: MenuItemList(data: data, fToast: fToast));
   }
 }

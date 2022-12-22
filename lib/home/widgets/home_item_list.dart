@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -8,9 +9,10 @@ import '../../productdetail.dart';
 import '../home_screen.dart';
 
 class HomeItemList extends StatelessWidget {
-  const HomeItemList({Key? key, this.data}) : super(key: key);
+  const HomeItemList({Key? key, this.data, required this.fToast})
+      : super(key: key);
   final data;
-
+  final FToast fToast;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -84,18 +86,17 @@ class HomeItemList extends StatelessWidget {
                       child: TextButton(
                         onPressed: () {
                           addToCart(data[index].id);
-                          // String toastMessage = "ITEM ADDED TO CART";
-                          // fToast.showToast(
-                          //   child: CustomToast(toastMessage),
-                          //   positionedToastBuilder: (context, child) =>
-                          //       Positioned(
-                          //         bottom:
-                          //         MediaQuery.of(context).size.height * 0.14,
-                          //         left: MediaQuery.of(context).size.width * 0.1,
-                          //         right: MediaQuery.of(context).size.width * 0.1,
-                          //         child: child,
-                          //       ),
-                          // );
+                          String toastMessage = "ITEM ADDED TO CART";
+                          fToast.showToast(
+                            child: CustomToast(toastMessage),
+                            positionedToastBuilder: (context, child) =>
+                                Positioned(
+                              bottom: MediaQuery.of(context).size.height * 0.14,
+                              left: MediaQuery.of(context).size.width * 0.1,
+                              right: MediaQuery.of(context).size.width * 0.1,
+                              child: child,
+                            ),
+                          );
 
                           cartinit = true;
                         },

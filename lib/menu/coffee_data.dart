@@ -59,7 +59,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     return Scaffold(
       persistentFooterButtons: cartinit ? [viewInCart()] : null,
       body: getdataf
-          ? MenuItemList(data: data)
+          ? MenuItemList(data: data, fToast: fToast)
           : const Center(child: CircularProgressIndicator()),
     );
   }

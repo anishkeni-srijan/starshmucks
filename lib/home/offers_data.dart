@@ -43,6 +43,6 @@ class _GetOffersState extends State<GetOffers> {
     getdata();
     return SizedBox(
         height: MediaQuery.of(context).size.height * 0.18,
-        child: HomeItemList(data: odata));
+        child: HomeItemList(data: odata, fToast: fToast));
   }
 }

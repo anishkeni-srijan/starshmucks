@@ -46,7 +46,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     return Scaffold(
       persistentFooterButtons: cartinit ? [viewInCart()] : null,
       body: getdataf
-          ? MenuItemList(data: data)
+          ? MenuItemList(data: data, fToast: fToast)
           : const CircularProgressIndicator(),
     );
   }

@@ -43,6 +43,6 @@ class _NowServingState extends State<NowServing> {
     getdata();
     return SizedBox(
         height: MediaQuery.of(context).size.height * 0.18,
-        child: HomeItemList(data: nowdata));
+        child: HomeItemList(data: nowdata, fToast: fToast));
   }
 }

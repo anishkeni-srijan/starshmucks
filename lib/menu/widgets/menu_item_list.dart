@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:starshmucks/common_things.dart';
@@ -10,9 +11,10 @@ import '../../model/wishlist_model.dart';
 import '../../productdetail.dart';
 
 class MenuItemList extends StatelessWidget {
-  const MenuItemList({Key? key, this.data}) : super(key: key);
+  const MenuItemList({Key? key, this.data, required this.fToast})
+      : super(key: key);
   final data;
-
+  final FToast fToast;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -122,21 +124,17 @@ class MenuItemList extends StatelessWidget {
                       TextButton(
                         onPressed: () {
                           addToCart(data[index].id);
-                          // String toastMessage = "ITEM ADDED TO CART";
-                          // fToast.showToast(
-                          //   child: CustomToast(toastMessage),
-                          //   positionedToastBuilder: (context, child) =>
-                          //       Positioned(
-                          //         bottom:
-                          //         MediaQuery.of(context).size.height *
-                          //             0.14,
-                          //         left: MediaQuery.of(context).size.width *
-                          //             0.1,
-                          //         right: MediaQuery.of(context).size.width *
-                          //             0.1,
-                          //         child: child,
-                          //       ),
-                          // );
+                          String toastMessage = "ITEM ADDED TO CART";
+                          fToast.showToast(
+                            child: CustomToast(toastMessage),
+                            positionedToastBuilder: (context, child) =>
+                                Positioned(
+                              bottom: MediaQuery.of(context).size.height * 0.14,
+                              left: MediaQuery.of(context).size.width * 0.1,
+                              right: MediaQuery.of(context).size.width * 0.1,
+                              child: child,
+                            ),
+                          );
                           cartinit = true;
                         },
                         style: ButtonStyle(
