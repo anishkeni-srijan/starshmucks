@@ -10,17 +10,17 @@ class SignupState extends StatelessWidget {
 }
 
 class SignupNoErrorState extends SignupState {
-  SignupNoErrorState();
+  const SignupNoErrorState({super.key});
 }
 
 class SignupValidState extends SignupState {
   String message = '';
 
-  SignupValidState(this.message);
+  SignupValidState(this.message, {super.key});
 }
 
 class SignupErrorState extends SignupState {
   String errormessage = '';
 
-  SignupErrorState(this.errormessage);
+  SignupErrorState(this.errormessage, {super.key});
 }

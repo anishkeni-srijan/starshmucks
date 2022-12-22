@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BuildStar extends StatelessWidget {
-  BuildStar({Key? key, this.color, this.text}) : super(key: key);
+  const BuildStar({Key? key, this.color, this.text}) : super(key: key);
   final color;
   final text;
 
@@ -13,7 +13,7 @@ class BuildStar extends StatelessWidget {
           Icons.stars_sharp,
           color: color,
         ),
-        Text(text, style: TextStyle(fontSize: 11))
+        Text(text, style: const TextStyle(fontSize: 11))
       ],
     );
   }

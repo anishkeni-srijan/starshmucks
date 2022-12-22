@@ -7,7 +7,7 @@ import '/signup/bloc/signup_events.dart';
 import '/signup/bloc/signup_states.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
-  SignupBloc() : super(SignupNoErrorState()) {
+  SignupBloc() : super(const SignupNoErrorState()) {
     UserDB udb = UserDB();
     udb.initDBUserData();
     //works if login is valid
@@ -16,7 +16,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         if (state is SignupValidState) {
           udb.insertUserData(event.userdata);
           udb.getDataUserData();
-          Get.to(() => BottomBar());
+          Get.to(() => const BottomBar());
         } else {
           emit(SignupErrorState("Please fill out all the fields"));
         }

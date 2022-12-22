@@ -132,7 +132,7 @@ class _SignupPageState extends State<SignupPage> {
                       return "Please enter 3 character for name";
                     } else {
                       BlocProvider.of<SignupBloc>(context)
-                          .emit(SignupNoErrorState());
+                          .emit(const SignupNoErrorState());
                       return null;
                     }
                   },
@@ -156,7 +156,7 @@ class _SignupPageState extends State<SignupPage> {
                               SignupErrorState("You might get a free drink!"));
                         } else {
                           BlocProvider.of<SignupBloc>(context)
-                              .emit(SignupNoErrorState());
+                              .emit(const SignupNoErrorState());
                         }
                       },
                       decoration: InputDecoration(
@@ -226,7 +226,7 @@ class _SignupPageState extends State<SignupPage> {
                             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                         .hasMatch(value!)) {
                       BlocProvider.of<SignupBloc>(context)
-                          .emit(SignupNoErrorState());
+                          .emit(const SignupNoErrorState());
                       return null;
                     } else {
                       BlocProvider.of<SignupBloc>(context).emit(
@@ -247,7 +247,7 @@ class _SignupPageState extends State<SignupPage> {
                               SignupErrorState(
                                   "We'll keep you updated via texts"))
                           : BlocProvider.of<SignupBloc>(context)
-                              .emit(SignupNoErrorState());
+                              .emit(const SignupNoErrorState());
                     },
                     selectorConfig: const SelectorConfig(
                         trailingSpace: false,
@@ -293,7 +293,7 @@ class _SignupPageState extends State<SignupPage> {
                       return """* Minimum 1 Upper case\n* Minimum 1 lowercase\n* Minimum 1 Numeric Number\n* Minimum 1 Special Character\n* Common Allow Character ( ! @ # \$ & * ~ )""";
                     } else {
                       BlocProvider.of<SignupBloc>(context)
-                          .emit(SignupNoErrorState());
+                          .emit(const SignupNoErrorState());
                       return null;
                     }
                   },
@@ -324,7 +324,7 @@ class _SignupPageState extends State<SignupPage> {
                           isChecked = !isChecked;
                           isChecked == true
                               ? BlocProvider.of<SignupBloc>(context)
-                                  .emit(SignupNoErrorState())
+                                  .emit(const SignupNoErrorState())
                               : BlocProvider.of<SignupBloc>(context).emit(
                                   SignupErrorState(
                                       "Please read before you agree "));

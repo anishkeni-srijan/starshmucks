@@ -86,8 +86,8 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
               child: TabBarView(
                 controller: tabController,
                 children: <Widget>[
-                  GetCoffeeData(),
-                  GetCakeData(),
+                  const GetCoffeeData(),
+                  const GetCakeData(),
                   GetSmoothieData(context),
                 ],
               ),

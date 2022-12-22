@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:upi_india/upi_india.dart';
 
 class UpiPayment extends StatefulWidget {
+  const UpiPayment({super.key});
+
   @override
   _UpiPaymentState createState() => _UpiPaymentState();
 }
 
 class _UpiPaymentState extends State<UpiPayment> {
   Future<UpiResponse>? _transaction;
-  UpiIndia _upiIndia = UpiIndia();
+  final UpiIndia _upiIndia = UpiIndia();
   List<UpiApp>? apps;
 
   TextStyle header = const TextStyle(
@@ -46,7 +48,7 @@ class _UpiPaymentState extends State<UpiPayment> {
 
   Widget displayUpiApps() {
     if (apps == null) {
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator());
     } else if (apps!.isEmpty) {
       return Center(
         child: Text(
@@ -166,14 +168,14 @@ class _UpiPaymentState extends State<UpiPayment> {
 
                   // If we have data then definitely we will have UpiResponse.
                   // It cannot be null
-                  UpiResponse _upiResponse = snapshot.data!;
+                  UpiResponse upiResponse = snapshot.data!;
 
                   // Data in UpiResponse can be null. Check before printing
-                  String txnId = _upiResponse.transactionId ?? 'N/A';
-                  String resCode = _upiResponse.responseCode ?? 'N/A';
-                  String txnRef = _upiResponse.transactionRefId ?? 'N/A';
-                  String status = _upiResponse.status ?? 'N/A';
-                  String approvalRef = _upiResponse.approvalRefNo ?? 'N/A';
+                  String txnId = upiResponse.transactionId ?? 'N/A';
+                  String resCode = upiResponse.responseCode ?? 'N/A';
+                  String txnRef = upiResponse.transactionRefId ?? 'N/A';
+                  String status = upiResponse.status ?? 'N/A';
+                  String approvalRef = upiResponse.approvalRefNo ?? 'N/A';
                   _checkTxnStatus(status);
 
                   return Padding(

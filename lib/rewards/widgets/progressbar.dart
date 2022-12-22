@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class buildprogressbar extends StatelessWidget {
-  const buildprogressbar({Key? key, this.color, this.progress, this.tier})
+class ProgressBar extends StatelessWidget {
+  const ProgressBar({Key? key, this.color, this.progress, this.tier})
       : super(key: key);
   final progress;
   final tier;

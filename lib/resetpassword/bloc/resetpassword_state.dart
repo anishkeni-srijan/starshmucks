@@ -10,23 +10,24 @@ class ResetpasswordState extends StatelessWidget {
 }
 
 class ResetpasswordInitialState extends ResetpasswordState {
-  //check if the user exists
+  const ResetpasswordInitialState({super.key});
+//check if the user exists
 }
 
 class ResetpasswordValidState extends ResetpasswordState {
   String validity = '';
 
-  ResetpasswordValidState(this.validity);
+  ResetpasswordValidState(this.validity, {super.key});
 }
 
 class ResetpasswordErrorState extends ResetpasswordState {
   String errormessage = '';
 
-  ResetpasswordErrorState(this.errormessage);
+  ResetpasswordErrorState(this.errormessage, {super.key});
 }
 
 class ResetpasswordConfirmState extends ResetpasswordState {
   String message = '';
 
-  ResetpasswordConfirmState(this.message);
+  ResetpasswordConfirmState(this.message, {super.key});
 }

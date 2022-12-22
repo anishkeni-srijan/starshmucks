@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -8,7 +7,6 @@ import '/databse/menu_db.dart';
 import '../common_things.dart';
 import '../databse/cart_db.dart';
 import '../databse/wishlist_db.dart';
-import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 import '../model/wishlist_model.dart';
 import '../productdetail.dart';
@@ -60,21 +58,6 @@ class _NowServingState extends State<NowServing> {
   removefromwishlist(sendid) {
     wdb.deleteitemFromWishlist(sendid);
     getIds();
-  }
-
-  addToCart(context, index) async {
-    final cartp = await db.nowServeData();
-    cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
-    String toastMessage = "ITEM ADDED TO WISHLIST";
-    fToast.showToast(
-      child: CustomToast(toastMessage),
-      positionedToastBuilder: (context, child) => Positioned(
-        bottom: MediaQuery.of(context).size.height * 0.14,
-        left: MediaQuery.of(context).size.width * 0.1,
-        right: MediaQuery.of(context).size.width * 0.1,
-        child: child,
-      ),
-    );
   }
 
   addToWishlist(context, index) async {
@@ -134,7 +117,6 @@ class _NowServingState extends State<NowServing> {
                         ),
                       ),
                       Container(
-                        // transform: Matrix4.translationValues(-120, 10, 0),
                         margin: const EdgeInsets.only(
                           top: 10,
                           left: 130,
@@ -169,7 +151,7 @@ class _NowServingState extends State<NowServing> {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            addToCart(context, index);
+                            addToCart(nowdata[index].id);
                             String toastMessage = "ITEM ADDED TO CART";
                             fToast.showToast(
                               child: CustomToast(toastMessage),
@@ -203,7 +185,6 @@ class _NowServingState extends State<NowServing> {
                       ),
                       IconButton(
                         onPressed: () {
-                          //int id = odata[index].id;
                           status
                               ? removefromwishlist(
                                   WishlistModel(id: nowdata[index].id))
@@ -214,7 +195,8 @@ class _NowServingState extends State<NowServing> {
                                 Icons.favorite,
                                 color: Colors.white,
                               )
-                            : Icon(Icons.favorite_border, color: Colors.white),
+                            : const Icon(Icons.favorite_border,
+                                color: Colors.white),
                       )
                     ],
                   ),

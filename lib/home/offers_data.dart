@@ -1,6 +1,5 @@
 import 'dart:io' show Platform;
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -12,7 +11,6 @@ import '/productdetail.dart';
 import '../databse/cart_db.dart';
 import '../databse/menu_db.dart';
 import '../databse/wishlist_db.dart';
-import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 import 'home_screen.dart';
 
@@ -68,11 +66,6 @@ class _GetOffersState extends State<GetOffers> {
     }
   }
 
-  addToCart(context, index) async {
-    final cartp = await db.offersData();
-    cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
-  }
-
   addToWishlist(context, index) async {
     final cartp = await db.offersData();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
@@ -122,7 +115,6 @@ class _GetOffersState extends State<GetOffers> {
                             width: 150, height: 150),
                       ),
                       Container(
-                        // transform: Matrix4.translationValues(-120, 10, 0),
                         margin: EdgeInsets.only(
                           top: Platform.isIOS ? 0 : 10,
                           left: 130,
@@ -156,7 +148,7 @@ class _GetOffersState extends State<GetOffers> {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            addToCart(context, index);
+                            addToCart(odata[index].id);
                             String toastMessage = "ITEM ADDED TO CART";
                             fToast.showToast(
                               child: CustomToast(toastMessage),
@@ -192,7 +184,6 @@ class _GetOffersState extends State<GetOffers> {
                         valueListenable: real,
                         builder: (context, value, child) => IconButton(
                           onPressed: () {
-                            //int id = odata[index].id;
                             real.value
                                 ? removefromwishlist(
                                     WishlistModel(id: odata[index].id))

@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -11,7 +10,7 @@ import '../help/help_page.dart';
 class OrderFailed extends StatefulWidget {
   late String message;
 
-  OrderFailed(this.message);
+  OrderFailed(this.message, {super.key});
 
   @override
   State<OrderFailed> createState() => _OrderFailedState();

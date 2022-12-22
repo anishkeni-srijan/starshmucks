@@ -5,7 +5,7 @@ import '/splash/bloc/splash_events.dart';
 import '/splash/bloc/splash_states.dart';
 
 class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
-  SplashScreenBloc() : super(SplashInitialState()) {
+  SplashScreenBloc() : super(const SplashInitialState()) {
     late bool flag = false;
     checkIfLoggedIn() async {
       final prefs = await SharedPreferences.getInstance();

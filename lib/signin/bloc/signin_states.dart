@@ -10,19 +10,22 @@ class SigninState extends StatelessWidget {
 }
 
 class SigninInitialState extends SigninState {
-  //check if the user exists
+  const SigninInitialState({super.key});
+//check if the user exists
 }
 
 class SigninValidState extends SigninState {
   String validity = '';
 
-  SigninValidState(this.validity);
+  SigninValidState(this.validity, {super.key});
 }
 
 class SigninErrorState extends SigninState {
   String errormessage = '';
 
-  SigninErrorState(this.errormessage);
+  SigninErrorState(this.errormessage, {super.key});
 }
 
-class SigninLoadingState extends SigninState {}
+class SigninLoadingState extends SigninState {
+  const SigninLoadingState({super.key});
+}

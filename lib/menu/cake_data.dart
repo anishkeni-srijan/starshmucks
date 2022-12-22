@@ -1,17 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:starshmucks/menu/coffee_data.dart';
 
 import '/databse/cart_db.dart';
 import '/databse/menu_db.dart';
 import '../common_things.dart';
 import '../databse/wishlist_db.dart';
 import '../home/home_screen.dart';
-import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 import '../model/wishlist_model.dart';
 import '../productdetail.dart';

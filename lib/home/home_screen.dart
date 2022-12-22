@@ -26,7 +26,7 @@ class HomePage extends StatefulWidget {
 
 bool cartinit = false;
 late String username;
-late double res = 0;
+double res = 0;
 
 class _HomePageState extends State<HomePage> {
   late MenuDB db;
@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> {
   late double rewards = 0;
   late UserDB udb;
 
+  @override
   void initState() {
     udb = UserDB();
     udb.initDBUserData();
@@ -116,7 +117,7 @@ class _HomePageState extends State<HomePage> {
       setUserForLogin(email);
       initcart();
       return Scaffold(
-        persistentFooterButtons: cartinit ? [ViewInCart()] : null,
+        persistentFooterButtons: cartinit ? [const ViewInCart()] : null,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -337,7 +338,7 @@ learnmore(context) {
         children: [
           const SizedBox(width: 10),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
