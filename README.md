@@ -1,7 +1,7 @@
 # starshmucks
 
 - [flutter_bloc package](https://pub.dev/packages/flutter_bloc)
-- [bLoc architecture](https://bloclibrary.dev/#/architecture)
+- [bloc architecture](https://bloclibrary.dev/#/architecture)
 
 
 figure 1:
