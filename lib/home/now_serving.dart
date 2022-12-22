@@ -8,7 +8,6 @@ import '/databse/menu_db.dart';
 import '../common_things.dart';
 import '../databse/cart_db.dart';
 import '../databse/wishlist_db.dart';
-import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 import '../model/wishlist_model.dart';
 import '../productdetail.dart';
@@ -119,7 +118,6 @@ class _NowServingState extends State<NowServing> {
                         ),
                       ),
                       Container(
-                        // transform: Matrix4.translationValues(-120, 10, 0),
                         margin: const EdgeInsets.only(
                           top: 10,
                           left: 130,
@@ -198,7 +196,8 @@ class _NowServingState extends State<NowServing> {
                                 Icons.favorite,
                                 color: Colors.white,
                               )
-                            : Icon(Icons.favorite_border, color: Colors.white),
+                            : const Icon(Icons.favorite_border,
+                                color: Colors.white),
                       )
                     ],
                   ),

@@ -115,7 +115,6 @@ class _GetOffersState extends State<GetOffers> {
                             width: 150, height: 150),
                       ),
                       Container(
-                        // transform: Matrix4.translationValues(-120, 10, 0),
                         margin: EdgeInsets.only(
                           top: Platform.isIOS ? 0 : 10,
                           left: 130,
@@ -185,7 +184,6 @@ class _GetOffersState extends State<GetOffers> {
                         valueListenable: real,
                         builder: (context, value, child) => IconButton(
                           onPressed: () {
-                            //int id = odata[index].id;
                             real.value
                                 ? removefromwishlist(
                                     WishlistModel(id: odata[index].id))
