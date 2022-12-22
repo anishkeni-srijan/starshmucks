@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:starshmucks/menu/coffee_data.dart';
 
 import '/databse/cart_db.dart';
 import '/databse/menu_db.dart';
@@ -68,11 +69,6 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     getIds();
   }
 
-  addToCart(context, index) async {
-    final cartp = await db.smoothiedata();
-    cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
-    // setState(() {});
-  }
 
   getSmoothieData() async {
     data = await db.smoothiedata();
@@ -202,7 +198,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                         )),
                               TextButton(
                                 onPressed: () {
-                                  addToCart(context, index);
+                                  addToCart(data[index].id);
                                   String toastMessage = "ITEM ADDED TO CART";
                                   fToast.showToast(
                                     child: CustomToast(toastMessage),

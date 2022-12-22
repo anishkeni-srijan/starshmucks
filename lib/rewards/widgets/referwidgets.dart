@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class ReferWidgets extends StatelessWidget {
-  const ReferWidgets( {Key? key, this.number, this.maintext, this.subtext}) : super(key: key);
+  const ReferWidgets({Key? key, this.number, this.maintext, this.subtext})
+      : super(key: key);
   final number;
   final maintext;
   final subtext;
+
   @override
   Widget build(BuildContext context) {
     return Row(

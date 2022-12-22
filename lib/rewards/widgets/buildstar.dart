@@ -4,6 +4,7 @@ class BuildStar extends StatelessWidget {
   BuildStar({Key? key, this.color, this.text}) : super(key: key);
   final color;
   final text;
+
   @override
   Widget build(BuildContext context) {
     return Column(

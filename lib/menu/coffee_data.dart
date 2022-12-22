@@ -24,10 +24,9 @@ class GetCoffeeData extends StatefulWidget {
 
 class _GetCoffeeDataState extends State<GetCoffeeData> {
   late MenuDB menuDB;
+  late CartDB cdb;
   bool getdataf = false;
   List<MenuModel> data = [];
-
-  late CartDB cdb;
   late WishlistDB wdb;
   late MenuDB db;
   late FToast fToast;
@@ -57,25 +56,18 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     for (var i = 0; i < datalist.length; i++) {
       ids.add(datalist[i].id);
     }
-    setState(() {});
   }
 
   removefromwishlist(sendid) {
     wdb.deleteitemFromWishlist(sendid);
 
-    getIds();
   }
 
-  addToWishlist(context, index) async {
-    final cartp = await menuDB.coffeedata();
-    wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
-    getIds();
-  }
+  addToWishlist(id) async {
+    wdb.insertDataWishlist(WishlistModel(id:id));
+   }
 
-  addToCart(context, index) async {
-    final cartp = await menuDB.coffeedata();
-    cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
-  }
+
 
   List<CartModel> cartData = [];
 
@@ -100,7 +92,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     initcart();
     getCoffeeData();
     return Scaffold(
-      persistentFooterButtons: cartinit ? [ViewInCart()] : null,
+      persistentFooterButtons: cartinit ? [const ViewInCart()] : null,
       body: getdataf
           ? ListView.builder(
               shrinkWrap: true,
@@ -144,7 +136,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.only(top: 10),
+                                padding: const EdgeInsets.only(top: 10),
                                 width: 150,
                                 child: AutoSizeText(
                                   data[index].title,
@@ -191,60 +183,57 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                             ],
                           ),
                         ),
-                        Container(
+                        FutureBuilder(future:getIds(),builder: (context, snapshot) =>  Container(
                           padding: const EdgeInsets.only(right: 10),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               IconButton(
-                                onPressed: () {
-                                  status
-                                      ? removefromwishlist(
-                                          WishlistModel(id: data[index].id))
-                                      : addToWishlist(context, index);
-                                },
-                                icon: status
-                                    ? const Icon(
-                                        Icons.favorite,
-                                        color: Colors.red,
-                                      )
-                                    : const Icon(
-                                        Icons.favorite_border,
-                                      ),
+                                  onPressed: () {
+                                    status
+                                        ? removefromwishlist(
+                                        WishlistModel(id: data[index].id))
+                                        : addToWishlist(data[index].id);
+                                  },
+                                  icon:   Icon(
+                                    status ? Icons.favorite:Icons.favorite_border,
+                                    color: HexColor("#036635"),
+                                  )
+
                               ),
                               TextButton(
                                 onPressed: () {
-                                  addToCart(context, index);
+                                  addToCart(data[index].id);
                                   String toastMessage = "ITEM ADDED TO CART";
                                   fToast.showToast(
                                     child: CustomToast(toastMessage),
                                     positionedToastBuilder: (context, child) =>
                                         Positioned(
-                                      bottom:
+                                          bottom:
                                           MediaQuery.of(context).size.height *
                                               0.14,
-                                      left: MediaQuery.of(context).size.width *
-                                          0.1,
-                                      right: MediaQuery.of(context).size.width *
-                                          0.1,
-                                      child: child,
-                                    ),
+                                          left: MediaQuery.of(context).size.width *
+                                              0.1,
+                                          right: MediaQuery.of(context).size.width *
+                                              0.1,
+                                          child: child,
+                                        ),
                                   );
                                   setState(
-                                    () {
+                                        () {
                                       cartinit = true;
                                     },
                                   );
                                 },
                                 style: ButtonStyle(
                                   backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          index % 2 == 0
-                                              ? Colors.teal
-                                              : Colors.deepOrangeAccent),
+                                  MaterialStateProperty.all<Color>(
+                                      index % 2 == 0
+                                          ? Colors.teal
+                                          : Colors.deepOrangeAccent),
                                   foregroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.white),
+                                  MaterialStateProperty.all<Color>(
+                                      Colors.white),
                                   shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
@@ -256,14 +245,15 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
                               ),
                             ],
                           ),
-                        ),
+                        ),),
+
                       ],
                     ),
                   ),
                 );
               },
             )
-          : Center(child: const CircularProgressIndicator()),
+          : const Center(child: CircularProgressIndicator()),
     );
   }
 }

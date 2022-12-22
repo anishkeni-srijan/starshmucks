@@ -13,6 +13,7 @@ class EditableField extends StatelessWidget {
   final TextEditingController ncontroller;
   final String lbltxt;
   final vldtr;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(

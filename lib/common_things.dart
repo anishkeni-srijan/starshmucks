@@ -298,3 +298,10 @@ class CustomToast extends StatelessWidget {
     );
   }
 }
+
+late CartDB cdb;
+addToCart(id) async {
+  cdb = CartDB();
+  cdb.initDBCart();
+  cdb.insertDataCart(CartModel(id: id, qty: 1));
+}

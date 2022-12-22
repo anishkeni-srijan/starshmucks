@@ -195,28 +195,28 @@ getbanner(context, username, tier, rewards) {
             ),
           ),
         ),
-         Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(blurRadius: 10.0),
-              ],
-            ),
-            transform: Matrix4.translationValues(
-              0,
-              Platform.isIOS
-                  ? MediaQuery.of(context).size.height * 0.12
-                  : MediaQuery.of(context).size.height * 0.1,
-              0,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                onTap: () {
-                  Get.to(() => const Rewards(),
-                      transition: Transition.rightToLeftWithFade);
-                },
-                child:Row(
+        Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(blurRadius: 10.0),
+            ],
+          ),
+          transform: Matrix4.translationValues(
+            0,
+            Platform.isIOS
+                ? MediaQuery.of(context).size.height * 0.12
+                : MediaQuery.of(context).size.height * 0.1,
+            0,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+              onTap: () {
+                Get.to(() => const Rewards(),
+                    transition: Transition.rightToLeftWithFade);
+              },
+              child: Row(
                 children: [
                   Icon(
                     Icons.stars_sharp,

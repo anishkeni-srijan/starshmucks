@@ -3,9 +3,11 @@ import 'package:hexcolor/hexcolor.dart';
 
 class TextWidget extends StatelessWidget {
   const TextWidget({super.key, this.lbltxt, this.context, this.txtcontroler});
+
   final context;
   final txtcontroler;
   final lbltxt;
+
   @override
   Widget build(BuildContext context) {
     return Container(

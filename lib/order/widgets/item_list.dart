@@ -8,6 +8,7 @@ class ItemList extends StatelessWidget {
 
   final items1;
   final qtylistfromstring;
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(

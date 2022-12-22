@@ -339,8 +339,10 @@ class _RewardsState extends State<Rewards> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                ReferWidgets(number:"1", maintext:"Invite your friends",
-                                   subtext: "Just share your link"),
+                                ReferWidgets(
+                                    number: "1",
+                                    maintext: "Invite your friends",
+                                    subtext: "Just share your link"),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Container(
@@ -355,7 +357,10 @@ class _RewardsState extends State<Rewards> {
                                     ),
                                   ),
                                 ),
-                                ReferWidgets(number:"2", maintext: "They get coffee", subtext: "with \$XX off"),
+                                ReferWidgets(
+                                    number: "2",
+                                    maintext: "They get coffee",
+                                    subtext: "with \$XX off"),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Container(
@@ -370,8 +375,10 @@ class _RewardsState extends State<Rewards> {
                                     ),
                                   ),
                                 ),
-                                ReferWidgets(number:"3", maintext:"You make savings",
-                                    subtext:"and get \$XX off"),
+                                ReferWidgets(
+                                    number: "3",
+                                    maintext: "You make savings",
+                                    subtext: "and get \$XX off"),
                                 const SizedBox(
                                   height: 10,
                                 ),
@@ -450,8 +457,3 @@ class _RewardsState extends State<Rewards> {
           );
   }
 }
-
-
-
-
-
