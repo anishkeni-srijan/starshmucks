@@ -27,7 +27,7 @@ class MenuItemList extends StatelessWidget {
         }
         return GestureDetector(
           onTap: () {
-            getpdata(data[index]);
+            getItem(data[index]);
             Get.to(() => const ProductDetail(),
                 transition: Transition.downToUp);
           },

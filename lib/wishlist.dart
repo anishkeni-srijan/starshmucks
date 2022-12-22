@@ -48,11 +48,6 @@ class _WishListPageState extends State<WishListPage> {
     mounted ? setState(() {}) : null;
   }
 
-  removefromwishlist(sendid) {
-    wdb.deleteitemFromWishlist(sendid);
-    getDataOnIds();
-  }
-
   Future<bool> onWillPop() async {
     return (await Get.to(() => const BottomBar(),
             transition: Transition.leftToRight)) ??
@@ -152,9 +147,8 @@ class _WishListPageState extends State<WishListPage> {
                                                     style: ButtonStyle(
                                                       foregroundColor:
                                                           MaterialStateProperty
-                                                              .all(
-                                                        HexColor("#036635"),
-                                                      ),
+                                                              .all(HexColor(
+                                                                  "#036635")),
                                                     ),
                                                     child: const Text(
                                                       'Remove',
