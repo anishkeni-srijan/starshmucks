@@ -29,17 +29,17 @@ class _GetOffersState extends State<GetOffers> {
   late FToast fToast;
   late CartDB cdb;
   late WishlistDB wdb;
-  late List<int> ids = [];
-
-  getIds() async {
-    ids.clear();
-    late List<WishlistModel> datalist = [];
-    datalist = await wdb.getDataWishlist();
-    for (var i = 0; i < datalist.length; i++) {
-      ids.add(datalist[i].id);
-    }
-    setState(() {});
-  }
+  // late List<int> ids = [];
+  //
+  // getIds() async {
+  //   ids.clear();
+  //   late List<WishlistModel> datalist = [];
+  //   datalist = await wdb.getDataWishlist();
+  //   for (var i = 0; i < datalist.length; i++) {
+  //     ids.add(datalist[i].id);
+  //   }
+  //   setState(() {});
+  // }
 
   @override
   void initState() {
@@ -49,7 +49,7 @@ class _GetOffersState extends State<GetOffers> {
     db.initDBMenu();
     wdb = WishlistDB();
     wdb.initDBWishlist();
-    getdata();
+
     getIds();
     super.initState();
     fToast = FToast();
@@ -66,28 +66,18 @@ class _GetOffersState extends State<GetOffers> {
     }
   }
 
-  addToWishlist(context, index) async {
-    final cartp = await db.offersData();
-    wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
-    getIds();
-  }
-
-  removefromwishlist(sendid) async {
-    wdb.deleteitemFromWishlist(sendid);
-    await getIds();
-  }
-
   @override
   Widget build(BuildContext context) {
+    getdata();
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.18,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: odata.length,
         itemBuilder: (context, index) {
-          ValueNotifier<bool> real = ValueNotifier<bool>(false);
+          bool status = false;
           for (var i = 0; i < ids.length; i++) {
-            if (ids[i] == odata[index].id) real.value = true;
+            if (ids[i] == odata[index].id) status = true;
           }
           return Row(
             children: [
@@ -180,20 +170,21 @@ class _GetOffersState extends State<GetOffers> {
                           child: const Text("Add"),
                         ),
                       ),
-                      ValueListenableBuilder(
-                        valueListenable: real,
-                        builder: (context, value, child) => IconButton(
-                          onPressed: () {
-                            real.value
-                                ? removefromwishlist(
-                                    WishlistModel(id: odata[index].id))
-                                : addToWishlist(context, index);
-                          },
-                          icon: Icon(
-                            real.value ? Icons.favorite : Icons.favorite_border,
-                            color: Colors.white,
-                          ),
-                        ),
+                      IconButton(
+                        onPressed: () {
+                          status
+                              ? removefromwishlist(
+                                  WishlistModel(id: odata[index].id))
+                              : addToWishlist(odata[index].id);
+                          getIds();
+                        },
+                        icon: status
+                            ? const Icon(
+                                Icons.favorite,
+                                color: Colors.white,
+                              )
+                            : const Icon(Icons.favorite_border,
+                                color: Colors.white),
                       )
                     ],
                   ),

@@ -43,19 +43,19 @@ class _GetCakeDataState extends State<GetCakeData> {
     fToast.init(context);
   }
 
-  late List<int> ids = [];
-
-  getIds() async {
-    ids.clear();
-    late List<WishlistModel> datalist = [];
-    datalist = await wdb.getDataWishlist();
-    for (var i = 0; i < datalist.length; i++) {
-      ids.add(datalist[i].id);
-    }
-    if (mounted) {
-      setState(() {});
-    }
-  }
+  // late List<int> ids = [];
+  //
+  // getIds() async {
+  //   ids.clear();
+  //   late List<WishlistModel> datalist = [];
+  //   datalist = await wdb.getDataWishlist();
+  //   for (var i = 0; i < datalist.length; i++) {
+  //     ids.add(datalist[i].id);
+  //   }
+  //   if (mounted) {
+  //     setState(() {});
+  //   }
+  // }
 
   getCakeData() async {
     data = await db.cakedata();
@@ -162,7 +162,6 @@ class _GetCakeDataState extends State<GetCakeData> {
                       children: [
                         IconButton(
                             onPressed: () {
-                              //int id = odata[index].id;
                               status
                                   ? removefromwishlist(
                                       WishlistModel(id: data[index].id))

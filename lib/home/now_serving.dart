@@ -43,29 +43,6 @@ class _NowServingState extends State<NowServing> {
     fToast.init(context);
   }
 
-  late List<int> ids = [];
-
-  getIds() async {
-    ids.clear();
-    late List<WishlistModel> datalist = [];
-    datalist = await wdb.getDataWishlist();
-    for (var i = 0; i < datalist.length; i++) {
-      ids.add(datalist[i].id);
-    }
-    setState(() {});
-  }
-
-  removefromwishlist(sendid) {
-    wdb.deleteitemFromWishlist(sendid);
-    getIds();
-  }
-
-  addToWishlist(context, index) async {
-    final cartp = await db.nowServeData();
-    wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
-    getIds();
-  }
-
   getdata() async {
     nowdata = await db.nowServeData();
     if (mounted) {
@@ -188,7 +165,8 @@ class _NowServingState extends State<NowServing> {
                           status
                               ? removefromwishlist(
                                   WishlistModel(id: nowdata[index].id))
-                              : addToWishlist(context, index);
+                              : addToWishlist(nowdata[index].id);
+                          getIds();
                         },
                         icon: status
                             ? const Icon(

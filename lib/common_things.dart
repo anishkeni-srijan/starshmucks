@@ -314,3 +314,14 @@ addToWishlist(id) async {
   wdb.initDBWishlist();
   wdb.insertDataWishlist(WishlistModel(id: id));
 }
+
+late List<int> ids = [];
+getIds() async {
+  wdb = WishlistDB();
+  ids.clear();
+  late List<WishlistModel> datalist = [];
+  datalist = await wdb.getDataWishlist();
+  for (var i = 0; i < datalist.length; i++) {
+    ids.add(datalist[i].id);
+  }
+}

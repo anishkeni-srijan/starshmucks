@@ -42,20 +42,6 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     fToast.init(context);
   }
 
-  late List<int> ids = [];
-
-  getIds() async {
-    ids.clear();
-    late List<WishlistModel> datalist = [];
-    datalist = await wdb.getDataWishlist();
-    for (var i = 0; i < datalist.length; i++) {
-      ids.add(datalist[i].id);
-    }
-    if (mounted) {
-      setState(() {});
-    }
-  }
-
   getSmoothieData() async {
     data = await db.smoothiedata();
     if (mounted) {
