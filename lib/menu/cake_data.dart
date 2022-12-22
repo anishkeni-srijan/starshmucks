@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '/menu/widgets/menu_item_list.dart';
-import '/database/cart_db.dart';
 import '/database/menu_db.dart';
+import '/menu/widgets/menu_item_list.dart';
 import '../common_things.dart';
-import '../database/wishlist_db.dart';
 import '../home/home_screen.dart';
 import '../model/menu_model.dart';
 

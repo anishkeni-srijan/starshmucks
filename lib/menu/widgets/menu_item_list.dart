@@ -1,9 +1,9 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:starshmucks/common_things.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:starshmucks/common_things.dart';
 
 import '../../home/home_screen.dart';
 import '../../model/wishlist_model.dart';
@@ -12,6 +12,7 @@ import '../../productdetail.dart';
 class MenuItemList extends StatelessWidget {
   const MenuItemList({Key? key, this.data}) : super(key: key);
   final data;
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(

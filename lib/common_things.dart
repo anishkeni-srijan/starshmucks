@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '/database/wishlist_db.dart';
 import '/database/cart_db.dart';
+import '/database/wishlist_db.dart';
 import '/model/cart_model.dart';
 import 'cart.dart';
 import 'database/user_db.dart';
@@ -296,6 +296,7 @@ class CustomToast extends StatelessWidget {
 }
 
 late CartDB cdb;
+
 addToCart(id) async {
   cdb = CartDB();
   cdb.initDBCart();
@@ -303,6 +304,7 @@ addToCart(id) async {
 }
 
 late WishlistDB wdb;
+
 removefromwishlist(sendid) {
   wdb = WishlistDB();
   wdb.initDBWishlist();
@@ -316,6 +318,7 @@ addToWishlist(id) async {
 }
 
 List<int> ids = [];
+
 getIds() async {
   wdb = WishlistDB();
   ids.clear();

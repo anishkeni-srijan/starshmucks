@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -11,6 +10,7 @@ import '../home_screen.dart';
 class HomeItemList extends StatelessWidget {
   const HomeItemList({Key? key, this.data}) : super(key: key);
   final data;
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
