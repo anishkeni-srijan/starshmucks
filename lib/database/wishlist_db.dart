@@ -44,7 +44,7 @@ class WishlistDB {
     return data.length == 1;
   }
 
-  Future<void> deleteitemFromWishlist(WishlistModel item) async {
+  Future<void> deleteItemFromWishlist(WishlistModel item) async {
     final db = await initDBWishlist();
     await db.delete('WishlistTable', where: 'id = ?', whereArgs: [item.id]);
   }

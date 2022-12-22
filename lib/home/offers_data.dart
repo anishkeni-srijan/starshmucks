@@ -22,7 +22,7 @@ class _GetOffersState extends State<GetOffers> {
   @override
   void initState() {
     db = MenuDB();
-    db.initDBMenu();
+    db.initMenuDB();
     getIds();
     super.initState();
     fToast = FToast();

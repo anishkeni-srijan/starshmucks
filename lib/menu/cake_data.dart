@@ -23,7 +23,7 @@ class _GetCakeDataState extends State<GetCakeData> {
   @override
   void initState() {
     db = MenuDB();
-    db.initDBMenu();
+    db.initMenuDB();
     getCakeData();
     getIds();
     super.initState();
@@ -32,7 +32,7 @@ class _GetCakeDataState extends State<GetCakeData> {
   }
 
   getCakeData() async {
-    data = await db.cakedata();
+    data = await db.cakeData();
     if (mounted) {
       setState(() {
         getdataf = true;

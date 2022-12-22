@@ -20,7 +20,7 @@ class _OrderFailedState extends State<OrderFailed> {
   var result;
 
   getcarttotal() {}
-  String failedMessage = getMessage();
+  String failedMessage = paymentMessage();
 
   @override
   void initState() {

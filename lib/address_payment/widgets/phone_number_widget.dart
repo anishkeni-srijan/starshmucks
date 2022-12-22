@@ -3,11 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class PhoneNumberWidget extends StatelessWidget {
-  PhoneNumberWidget({
-    super.key,
-    this.phone,
-    this.context,
-  });
+  PhoneNumberWidget({super.key, this.phone, this.context});
 
   final phone;
   final context;

@@ -28,7 +28,7 @@ class _WishListPageState extends State<WishListPage> {
   @override
   void initState() {
     menudb = MenuDB();
-    menudb.initDBMenu();
+    menudb.initMenuDB();
     wdb = WishlistDB();
     wdb.initDBWishlist();
     getDataOnIds();

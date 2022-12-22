@@ -68,7 +68,7 @@ class _AddressState extends State<Address> {
   }
 
   deleteAddress(sendingID) {
-    udb.deleteitem(sendingID);
+    udb.deleteItem(sendingID);
   }
 
   bottomSheetAddress(
@@ -826,12 +826,12 @@ class _AddressState extends State<Address> {
     OrdersDB orderdb = OrdersDB();
     CartDB cartdb = CartDB();
     orderdb.initDBOrders();
-    cartdb.initDBCart();
+    cartdb.initCartDB();
     String idar = '';
     String qtyar = '';
     String date = DateFormat.yMMMMd('en_US').format(DateTime.now());
     String time = DateFormat.jm().format(DateTime.now());
-    cartlist = await cartdb.getDataCart();
+    cartlist = await cartdb.getCartData();
     for (var i = 0; i < cartlist.length; i++) {
       if (idar.isEmpty) {
         idar = idar + cartlist[i].id.toString();
@@ -874,6 +874,6 @@ class _AddressState extends State<Address> {
   }
 }
 
-getMessage() {
+paymentMessage() {
   return message;
 }

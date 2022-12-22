@@ -29,7 +29,7 @@ class _OrdersState extends State<Orders> {
 
   getOrderDetails(id) async {
     MenuDB menuDb = MenuDB();
-    menuDb.initDBMenu();
+    menuDb.initMenuDB();
     orderdb = OrdersDB();
     orderdb.initDBOrders();
     orderdata = await orderdb.getDataOrderswrtID(id);
@@ -54,7 +54,7 @@ class _OrdersState extends State<Orders> {
   }
 
   getOrderData() async {
-    data = await orderdb.getalldata();
+    data = await orderdb.getAllData();
     data1.addAll(data.keys);
     setState(() {});
   }

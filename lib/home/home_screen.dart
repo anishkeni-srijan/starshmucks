@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
     udb.initDBUserData();
     getUser();
     db = MenuDB();
-    db.initDBMenu();
+    db.initMenuDB();
     getdata();
     putdata();
     // setUserForLogin();
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   getdata() async {
-    data = await db.getDataMenu();
+    data = await db.getMenuData();
     setState(() {});
   }
 
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
     final responseData = jsonDecode(response);
     for (var item = 0; item < responseData['Menu'].length; item++) {
       product = MenuModel.fromJson(responseData['Menu'][item]);
-      db.insertDataMenu(product);
+      db.insertMenuData(product);
     }
   }
 

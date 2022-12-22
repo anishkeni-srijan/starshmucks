@@ -48,7 +48,7 @@ class OrdersDB {
     return data.map((e) => OrderHistoryModel.fromJson(e)).toList();
   }
 
-  Future<dynamic> getalldata() async {
+  Future<dynamic> getAllData() async {
     final Database db = await initDBOrders();
     final List<Map<String, dynamic>> data =
         await db.rawQuery("Select * from OrdersTable");

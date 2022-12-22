@@ -26,7 +26,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
   @override
   void initState() {
     db = MenuDB();
-    db.initDBMenu();
+    db.initMenuDB();
     getdata();
     putdata();
     tabController = TabController(length: 3, vsync: this);
@@ -34,7 +34,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
   }
 
   getdata() async {
-    data = await db.getDataMenu();
+    data = await db.getMenuData();
     setState(() {});
   }
 
@@ -44,7 +44,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
     final responseData = jsonDecode(response);
     for (var item = 0; item < responseData['Menu'].length; item++) {
       product = MenuModel.fromJson(responseData['Menu'][item]);
-      db.insertDataMenu(product);
+      db.insertMenuData(product);
     }
   }
 

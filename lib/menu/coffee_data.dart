@@ -26,7 +26,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
   void initState() {
     getCartData1();
     menuDB = MenuDB();
-    menuDB.initDBMenu();
+    menuDB.initMenuDB();
     getCoffeeData();
     getIds();
     super.initState();
@@ -37,14 +37,14 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
   List<CartModel> cartData = [];
 
   getCartData1() async {
-    cartData = await cdb.getDataCart();
+    cartData = await cdb.getCartData();
     if (mounted) {
       setState(() {});
     }
   }
 
   getCoffeeData() async {
-    data = await menuDB.coffeedata();
+    data = await menuDB.coffeeData();
     if (mounted) {
       setState(() {
         getdataf = true;

@@ -88,7 +88,7 @@ class _OrderDetailsState extends State<OrderDetails> {
 
   getOrderDetails(id) async {
     MenuDB menuDb = MenuDB();
-    menuDb.initDBMenu();
+    menuDb.initMenuDB();
 
     orderdb = OrdersDB();
     orderdb.initDBOrders();

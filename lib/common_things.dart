@@ -144,7 +144,7 @@ ValueNotifier<int> size = ValueNotifier<int>(0);
 
 getdata() async {
   CartDB cdb = CartDB();
-  List<CartModel> data = await cdb.getDataCart();
+  List<CartModel> data = await cdb.getCartData();
   size.value = data.length;
 }
 
@@ -205,8 +205,8 @@ Widget viewInCart() {
 
 initcart() async {
   CartDB cdb = CartDB();
-  cdb.initDBCart();
-  List<CartModel> datal = await cdb.getDataCart();
+  cdb.initCartDB();
+  List<CartModel> datal = await cdb.getCartData();
   datal.isEmpty ? cartinit = false : cartinit = true;
 }
 
@@ -217,7 +217,7 @@ Future<bool> gohome() async {
 Future<bool> gohomefromsuccess() async {
   calcrewards();
   CartDB cartdb = CartDB();
-  cartdb.clear();
+  cartdb.clearCart();
   return (await Get.to(() => const BottomBar())) ?? false;
 }
 
@@ -260,7 +260,7 @@ calcrewards() async {
     image: usernames[0]['image'],
   );
 
-  udb.updaterewards(rewardUpdate);
+  udb.updateRewards(rewardUpdate);
 }
 
 class CustomToast extends StatelessWidget {
@@ -299,8 +299,8 @@ late CartDB cdb;
 
 addToCart(id) async {
   cdb = CartDB();
-  cdb.initDBCart();
-  cdb.insertDataCart(CartModel(id: id, qty: 1));
+  cdb.initCartDB();
+  cdb.insertCartData(CartModel(id: id, qty: 1));
 }
 
 late WishlistDB wdb;
@@ -308,7 +308,7 @@ late WishlistDB wdb;
 removefromwishlist(id) {
   wdb = WishlistDB();
   wdb.initDBWishlist();
-  wdb.deleteitemFromWishlist(id);
+  wdb.deleteItemFromWishlist(id);
 }
 
 addToWishlist(id) async {

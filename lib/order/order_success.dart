@@ -47,7 +47,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
     db = OrdersDB();
     db.initDBOrders();
     cartdb = CartDB();
-    cartdb.initDBCart();
+    cartdb.initCartDB();
     getUser();
     getAddress();
     super.initState();
@@ -83,7 +83,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
 
   getDataIds() async {
     MenuDB menudb = MenuDB();
-    menudb.initDBMenu();
+    menudb.initMenuDB();
     db.initDBOrders();
     orderData = await db.getDataOrders();
     for (var i = 0; i < orderData.length; i++) {
@@ -99,7 +99,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
 
   getorderid() async {
     db.initDBOrders();
-    Map<dynamic, dynamic> orderlist = await db.getalldata();
+    Map<dynamic, dynamic> orderlist = await db.getAllData();
     orderid = orderlist.length;
   }
 

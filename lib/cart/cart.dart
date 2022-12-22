@@ -33,15 +33,15 @@ class _MyCartState extends State<MyCart> {
   @override
   void initState() {
     menudb = MenuDB();
-    menudb.initDBMenu();
+    menudb.initMenuDB();
     cartdb = CartDB();
-    cartdb.initDBCart();
+    cartdb.initCartDB();
     getDataOnIds();
     super.initState();
   }
 
   getDataOnIds() async {
-    datalist = await cartdb.getDataCart();
+    datalist = await cartdb.getCartData();
     List<MenuModel> kartTemp = [];
     double tempTotal = 0;
     for (var i = 0; i < datalist.length; i++) {
@@ -57,19 +57,19 @@ class _MyCartState extends State<MyCart> {
     setState(() {});
   }
 
-  removefromcart(sendid) {
+  removeFromCart(id) {
     datalist.isEmpty ? cartinit = false : cartinit = true;
-    cartdb.deleteitem(sendid);
+    cartdb.removeItemFromCart(id);
     getDataOnIds();
   }
 
-  increaseqty(sendid) {
-    cartdb.increseqty(sendid);
+  increaseQuantity(id) {
+    cartdb.increaseQty(id);
     getDataOnIds();
   }
 
-  decreaseqty(sendid) {
-    cartdb.decreaseqty(sendid);
+  decreaseQuantity(id) {
+    cartdb.decreaseQty(id);
     getDataOnIds();
   }
 
@@ -217,7 +217,7 @@ class _MyCartState extends State<MyCart> {
                                                 ),
                                                 TextButton(
                                                   onPressed: () {
-                                                    removefromcart(
+                                                    removeFromCart(
                                                         datalist[index]);
                                                   },
                                                   style: ButtonStyle(
@@ -246,10 +246,10 @@ class _MyCartState extends State<MyCart> {
                                                     onPressed: () {
                                                       if (datalist[index].qty ==
                                                           1) {
-                                                        removefromcart(
+                                                        removeFromCart(
                                                             datalist[index]);
                                                       } else {
-                                                        decreaseqty(
+                                                        decreaseQuantity(
                                                             datalist[index]);
                                                       }
                                                       setState(() {});
@@ -270,7 +270,7 @@ class _MyCartState extends State<MyCart> {
                                                   IconButton(
                                                     icon: const Icon(Icons.add),
                                                     onPressed: () {
-                                                      increaseqty(
+                                                      increaseQuantity(
                                                         datalist[index],
                                                       );
                                                     },

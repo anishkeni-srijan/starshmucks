@@ -23,7 +23,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
   @override
   void initState() {
     db = MenuDB();
-    db.initDBMenu();
+    db.initMenuDB();
     getIds();
     super.initState();
     fToast = FToast();
@@ -31,7 +31,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
   }
 
   getSmoothieData() async {
-    data = await db.smoothiedata();
+    data = await db.smoothieData();
     if (mounted) {
       setState(() {
         getdataf = true;

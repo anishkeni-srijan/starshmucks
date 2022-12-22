@@ -22,7 +22,7 @@ class _NowServingState extends State<NowServing> {
   @override
   void initState() {
     db = MenuDB();
-    db.initDBMenu();
+    db.initMenuDB();
     getIds();
     super.initState();
     fToast = FToast();

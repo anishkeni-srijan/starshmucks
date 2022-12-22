@@ -81,7 +81,7 @@ class UserDB {
     return data;
   }
 
-  Future<void> deleteitem(id) async {
+  Future<void> deleteItem(id) async {
     final db = await initDBUserData();
     await db.delete("UserAddress", where: 'addressID = ?', whereArgs: [id]);
   }
@@ -92,7 +92,7 @@ class UserDB {
         where: 'addressID = ?', whereArgs: [id]);
   }
 
-  Future<void> updaterewards(am) async {
+  Future<void> updateRewards(am) async {
     final db = await initDBUserData();
     await db.update("UserData", am.toMap(), where: 'id= ?', whereArgs: [1]);
   }
