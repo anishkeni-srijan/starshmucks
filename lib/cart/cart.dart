@@ -6,10 +6,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '/database/cart_db.dart';
 import '/home/home_screen.dart';
 import '/model/cart_model.dart';
-import 'address_payment/address_payment.dart';
-import 'database/menu_db.dart';
-import 'database/orders_db.dart';
-import 'model/menu_model.dart';
+import '../address_payment/address_payment.dart';
+import '../database/menu_db.dart';
+import '../database/orders_db.dart';
+import '../model/menu_model.dart';
 
 class MyCart extends StatefulWidget {
   const MyCart({Key? key}) : super(key: key);
