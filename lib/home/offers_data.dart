@@ -1,5 +1,4 @@
 import 'dart:io' show Platform;
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,7 +11,6 @@ import '/productdetail.dart';
 import '../databse/cart_db.dart';
 import '../databse/menu_db.dart';
 import '../databse/wishlist_db.dart';
-import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 import 'home_screen.dart';
 
@@ -66,11 +64,6 @@ class _GetOffersState extends State<GetOffers> {
         getdataf = true;
       });
     }
-  }
-
-  addToCart(context, index) async {
-    final cartp = await db.offersData();
-    cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
   }
 
   addToWishlist(context, index) async {
@@ -156,7 +149,7 @@ class _GetOffersState extends State<GetOffers> {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            addToCart(context, index);
+                            addToCart(odata[index].id);
                             String toastMessage = "ITEM ADDED TO CART";
                             fToast.showToast(
                               child: CustomToast(toastMessage),

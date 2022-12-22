@@ -62,21 +62,6 @@ class _NowServingState extends State<NowServing> {
     getIds();
   }
 
-  addToCart(context, index) async {
-    final cartp = await db.nowServeData();
-    cdb.insertDataCart(CartModel(id: cartp[index].id, qty: 1));
-    String toastMessage = "ITEM ADDED TO WISHLIST";
-    fToast.showToast(
-      child: CustomToast(toastMessage),
-      positionedToastBuilder: (context, child) => Positioned(
-        bottom: MediaQuery.of(context).size.height * 0.14,
-        left: MediaQuery.of(context).size.width * 0.1,
-        right: MediaQuery.of(context).size.width * 0.1,
-        child: child,
-      ),
-    );
-  }
-
   addToWishlist(context, index) async {
     final cartp = await db.nowServeData();
     wdb.insertDataWishlist(WishlistModel(id: cartp[index].id));
@@ -169,7 +154,7 @@ class _NowServingState extends State<NowServing> {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            addToCart(context, index);
+                            addToCart(nowdata[index].id);
                             String toastMessage = "ITEM ADDED TO CART";
                             fToast.showToast(
                               child: CustomToast(toastMessage),
@@ -203,7 +188,6 @@ class _NowServingState extends State<NowServing> {
                       ),
                       IconButton(
                         onPressed: () {
-                          //int id = odata[index].id;
                           status
                               ? removefromwishlist(
                                   WishlistModel(id: nowdata[index].id))
