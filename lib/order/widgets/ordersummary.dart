@@ -6,10 +6,10 @@ import '../../model/order_history.dart';
 class OrderSummary extends StatelessWidget {
   const OrderSummary({
     Key? key,
-    required this.OrderData,
+    required this.orderData,
   }) : super(key: key);
 
-  final List<OrderHistoryModel> OrderData;
+  final List<OrderHistoryModel> orderData;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class OrderSummary extends StatelessWidget {
               width: 5,
             ),
             Text(
-              "${OrderData[0].date}",
+              "${orderData[0].date}",
               style: const TextStyle(fontSize: 15),
             ),
           ],

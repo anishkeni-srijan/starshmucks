@@ -1,6 +1,5 @@
 // ignore_for_file: void_checks
-
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'editdetails_events.dart';
@@ -33,7 +32,7 @@ class EditdetailsBloc extends Bloc<EditdetailsEvent, EditdetailsState> {
     });
     on<EditdetailsNumberChangedEvent>(
       (event, emit) {
-        if (event.phnvalue == null || event.phnvalue.trim().isEmpty) {
+        if (event.phnvalue.trim().isEmpty) {
           emit(
             EditdetailsErrorState("Please enter your phone number"),
           );
@@ -44,8 +43,9 @@ class EditdetailsBloc extends Bloc<EditdetailsEvent, EditdetailsState> {
           );
         }
         // Return null if the entered username is valid
-        else
+        else {
           return Container();
+        }
       },
     );
     //works if login is valid

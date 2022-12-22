@@ -147,7 +147,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   padding: const EdgeInsets.all(15.0),
                                   child: Column(
                                     children: [
-                                      OrderSummary(OrderData: orderdata),
+                                      OrderSummary(orderData: orderdata),
                                       ItemList(
                                         qtylistfromstring: qtylistfromstring,
                                         items1: items1,

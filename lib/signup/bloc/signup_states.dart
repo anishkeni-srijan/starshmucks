@@ -10,7 +10,7 @@ class SignupState extends StatelessWidget {
 }
 
 class SignupNoErrorState extends SignupState {
-  SignupNoErrorState();
+  const SignupNoErrorState();
 }
 
 class SignupValidState extends SignupState {

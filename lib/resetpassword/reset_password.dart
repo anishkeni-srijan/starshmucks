@@ -24,7 +24,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     final keypref = await SharedPreferences.getInstance();
     reset0 = keypref.getInt('reset0')!;
     setState(() {});
-    print(reset0);
     return reset0;
   }
 
@@ -101,7 +100,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               endIndent: MediaQuery.of(context).size.width * 0.69,
             ),
             const SizedBox(height: 15),
-            Container(
+            SizedBox(
               width: 300,
               child: reset
                   ? AutoSizeText(
@@ -124,7 +123,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 if (state is ResetpasswordErrorState) {
                   return Text(
                     state.errormessage,
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   );
                 }
                 //if the login is valid
@@ -176,7 +175,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             );
                           },
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(10),
+                            contentPadding: const EdgeInsets.all(10),
                             labelText: 'New Password',
                             labelStyle: TextStyle(
                               color: HexColor("#175244"),
@@ -215,7 +214,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             );
                           },
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(10),
+                            contentPadding: const EdgeInsets.all(10),
                             labelText: 'Confirm New Password',
                             labelStyle: TextStyle(
                               color: HexColor("#175244"),

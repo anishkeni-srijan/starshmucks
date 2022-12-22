@@ -18,7 +18,7 @@ import '../databse/user_db.dart';
 import '../model/cart_model.dart';
 
 class OrderSuccess extends StatefulWidget {
-  OrderSuccess({Key? key}) : super(key: key);
+  const OrderSuccess({Key? key}) : super(key: key);
 
   @override
   _OrderSuccessState createState() => _OrderSuccessState();
@@ -27,7 +27,7 @@ class OrderSuccess extends StatefulWidget {
 class _OrderSuccessState extends State<OrderSuccess> {
   late OrdersDB db;
   late CartDB cartdb;
-  List<OrderHistoryModel> OrderData = [];
+  List<OrderHistoryModel> orderData = [];
   List<CartModel> cartlist = [];
   List<String> idlistfromstring = [];
   List<String> qtylistfromstring = [];
@@ -85,10 +85,10 @@ class _OrderSuccessState extends State<OrderSuccess> {
     MenuDB menudb = MenuDB();
     menudb.initDBMenu();
     db.initDBOrders();
-    OrderData = await db.getDataOrders();
-    for (var i = 0; i < OrderData.length; i++) {
-      idlistfromstring = OrderData[i].id!.split(' ');
-      qtylistfromstring = OrderData[i].qty!.split(' ');
+    orderData = await db.getDataOrders();
+    for (var i = 0; i < orderData.length; i++) {
+      idlistfromstring = orderData[i].id!.split(' ');
+      qtylistfromstring = orderData[i].qty!.split(' ');
     }
     for (var i = 0; i < idlistfromstring.length; i++) {
       items = await menudb.getItemWithIdOrder(idlistfromstring[i]);
@@ -101,9 +101,6 @@ class _OrderSuccessState extends State<OrderSuccess> {
     db.initDBOrders();
     Map<dynamic, dynamic> orderlist = await db.getalldata();
     orderid = orderlist.length;
-    print(orderid);
-    // if(orderid.length==1)
-    // orderid1.add(orderid.first);
   }
 
   late String selectedAddress = '';
@@ -113,7 +110,6 @@ class _OrderSuccessState extends State<OrderSuccess> {
     selectedAddress = prefs.getString("selectedAddress")!;
     selectedAddress = prefs.getString("selectedAddress")!;
     setState(() {});
-    print("test " + selectedAddress);
     return selectedAddress;
   }
 
@@ -123,8 +119,8 @@ class _OrderSuccessState extends State<OrderSuccess> {
     return WillPopScope(
         onWillPop: gohomefromsuccess,
         child: Scaffold(
-          body: OrderData.isEmpty || items1.isEmpty || qtylistfromstring.isEmpty
-              ? Center(child: CircularProgressIndicator())
+          body: orderData.isEmpty || items1.isEmpty || qtylistfromstring.isEmpty
+              ? const Center(child: CircularProgressIndicator())
               : CustomScrollView(
                   physics: const BouncingScrollPhysics(
                       parent: AlwaysScrollableScrollPhysics()),
@@ -162,7 +158,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                       padding: const EdgeInsets.all(15.0),
                                       child: Column(
                                         children: [
-                                          OrderSummary(OrderData: OrderData),
+                                          OrderSummary(orderData: orderData),
                                           ItemList(
                                               items1: items1,
                                               qtylistfromstring:
@@ -186,7 +182,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                             textsize: 15,
                                           ),
                                           const SizedBox(height: 8),
-                                          CartSummary(
+                                          const CartSummary(
                                             value: 5.00,
                                             text: 'Delivery Charges',
                                             wt: FontWeight.w300,
@@ -213,7 +209,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                       ),
                                     )),
                               ),
-                              NeedHelp(),
+                              const NeedHelp(),
                               const SizedBox(
                                 height: 20,
                               ),

@@ -69,7 +69,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
 
   getSmoothieData() async {
     data = await db.smoothiedata();
-    if (this.mounted) {
+    if (mounted) {
       setState(() {
         getdataf = true;
       });
@@ -81,7 +81,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     initcart();
     getSmoothieData();
     return Scaffold(
-      persistentFooterButtons: cartinit ? [ViewInCart()] : null,
+      persistentFooterButtons: cartinit ? [const ViewInCart()] : null,
       body: getdataf
           ? ListView.builder(
               shrinkWrap: true,
@@ -125,7 +125,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.only(top: 10),
+                                padding: const EdgeInsets.only(top: 10),
                                 width: 150,
                                 child: AutoSizeText(
                                   data[index].title,
@@ -141,7 +141,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                   height: MediaQuery.of(context).size.height *
                                       0.01),
                               Text(
-                                " \$ " + data[index].price,
+                                " \$ ${data[index].price}",
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 18,
@@ -173,7 +173,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(right: 10),
+                          padding: const EdgeInsets.only(right: 10),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -190,7 +190,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                           Icons.favorite,
                                           color: Colors.red,
                                         )
-                                      : Icon(
+                                      : const Icon(
                                           Icons.favorite_border,
                                         )),
                               TextButton(
@@ -201,7 +201,6 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                     child: CustomToast(toastMessage),
                                     positionedToastBuilder: (context, child) =>
                                         Positioned(
-                                      child: child,
                                       bottom:
                                           MediaQuery.of(context).size.height *
                                               0.14,
@@ -209,6 +208,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
                                           0.1,
                                       right: MediaQuery.of(context).size.width *
                                           0.1,
+                                      child: child,
                                     ),
                                   );
                                   setState(

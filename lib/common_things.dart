@@ -226,7 +226,7 @@ Future<bool> gohomefromsuccess() async {
 }
 
 goToSuccess() {
-  return Get.to(() => OrderSuccess());
+  return Get.to(() => const OrderSuccess());
 }
 
 goToFailed(String message) {

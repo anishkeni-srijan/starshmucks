@@ -170,14 +170,14 @@ class _MyCartState extends State<MyCart> {
                       ),
                     )
                   : SingleChildScrollView(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       child: Column(
                         children: [
                           SizedBox(
                               height:
                                   MediaQuery.of(context).size.height * 0.01),
                           ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: datalist.length,
                             itemBuilder: (context, index) {

@@ -10,7 +10,7 @@ class ResetpasswordBloc extends Bloc<ResetpasswordEvent, ResetpasswordState> {
     //works on login text changed
     on<PasswordChangedEvent>(
       (event, emit) {
-        if (event.newpassword == null || event.newpassword.trim().isEmpty) {
+        if (event.newpassword.trim().isEmpty) {
           emit(
             ResetpasswordErrorState("Please enter a password"),
           );
@@ -28,8 +28,7 @@ class ResetpasswordBloc extends Bloc<ResetpasswordEvent, ResetpasswordState> {
     );
     on<ConfirmpasswordChangedEvent>(
       (event, emit) {
-        if (event.confirmpassword == null ||
-            event.confirmpassword.trim().isEmpty) {
+        if (event.confirmpassword.trim().isEmpty) {
           emit(ResetpasswordErrorState("Please confirm your password"));
         } else if (event.confirmpassword.trim().length < 4) {
           emit(ResetpasswordErrorState(
@@ -52,9 +51,9 @@ class ResetpasswordBloc extends Bloc<ResetpasswordEvent, ResetpasswordState> {
         if (state is ResetpasswordConfirmState) {
           emit(ResetpasswordConfirmState(''));
           Future.delayed(
-            Duration(seconds: 5),
+            const Duration(seconds: 5),
             () {
-              Get.to(() => SigninPage());
+              Get.to(() => const SigninPage());
             },
           );
         } else {

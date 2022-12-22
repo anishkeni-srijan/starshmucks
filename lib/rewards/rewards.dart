@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -22,9 +23,9 @@ class Rewards extends StatefulWidget {
   State<Rewards> createState() => _RewardsState();
 }
 
-late double silvervalue = 0;
-late double goldvalue = 0;
-late double progvalue = 0;
+double silvervalue = 0;
+double goldvalue = 0;
+double progvalue = 0;
 
 String nexttier = '';
 
@@ -66,8 +67,9 @@ class _RewardsState extends State<Rewards> {
       } else if (usernames[0]['rewards'] > 10) {
         silvervalue = usernames[0]['rewards'] / 10.0;
         goldvalue = usernames[0]['rewards'] / 20.0;
-      } else
+      } else {
         progvalue = 0;
+      }
     }
     setState(() {});
   }
@@ -77,7 +79,7 @@ class _RewardsState extends State<Rewards> {
     return usernames.isEmpty
         ? const Center(child: CircularProgressIndicator())
         : Scaffold(
-            persistentFooterButtons: cartinit ? [ViewInCart()] : null,
+            persistentFooterButtons: cartinit ? [const ViewInCart()] : null,
             appBar: gethomeappbar("Rewards", [Container()], true, 0.0),
             body: SingleChildScrollView(
               child: Column(
@@ -166,7 +168,7 @@ class _RewardsState extends State<Rewards> {
                               ],
                             ),
                             Container(
-                              padding: EdgeInsets.all(15),
+                              padding: const EdgeInsets.all(15),
                               child: Image.asset(
                                 "images/shmucks.png",
                                 width: 150,
@@ -178,7 +180,7 @@ class _RewardsState extends State<Rewards> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.to(() => Rewarddetails());
+                      Get.to(() => const Rewarddetails());
                     },
                     child: Container(
                       color: Colors.white,
@@ -242,20 +244,20 @@ class _RewardsState extends State<Rewards> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  BuildStar(
+                                  const BuildStar(
                                       color: Colors.brown, text: "0 points"),
-                                  buildprogressbar(
+                                  ProgressBar(
                                     tier: usernames[0]['tier'],
                                     color: Colors.brown,
                                     progress: silvervalue,
                                   ),
-                                  BuildStar(
+                                  const BuildStar(
                                       color: Colors.grey, text: "10 points"),
-                                  buildprogressbar(
+                                  ProgressBar(
                                       tier: usernames[0]['tier'],
                                       color: Colors.grey,
                                       progress: goldvalue),
-                                  BuildStar(
+                                  const BuildStar(
                                       color: Colors.amberAccent,
                                       text: "20 points"),
                                 ],
@@ -274,7 +276,7 @@ class _RewardsState extends State<Rewards> {
                             ),
                             TextButton(
                                 onPressed: () {
-                                  Get.to(() => Rewarddetails(),
+                                  Get.to(() => const Rewarddetails(),
                                       transition:
                                           Transition.rightToLeftWithFade);
                                 },
@@ -339,7 +341,7 @@ class _RewardsState extends State<Rewards> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                ReferWidgets(
+                                const ReferWidgets(
                                     number: "1",
                                     maintext: "Invite your friends",
                                     subtext: "Just share your link"),
@@ -357,7 +359,7 @@ class _RewardsState extends State<Rewards> {
                                     ),
                                   ),
                                 ),
-                                ReferWidgets(
+                                const ReferWidgets(
                                     number: "2",
                                     maintext: "They get coffee",
                                     subtext: "with \$XX off"),
@@ -375,7 +377,7 @@ class _RewardsState extends State<Rewards> {
                                     ),
                                   ),
                                 ),
-                                ReferWidgets(
+                                const ReferWidgets(
                                     number: "3",
                                     maintext: "You make savings",
                                     subtext: "and get \$XX off"),

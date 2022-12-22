@@ -855,7 +855,7 @@ class _AddressState extends State<Address> {
     Widget continueButton = ElevatedButton(
       child: const Text("Continue"),
       onPressed: () {
-        paid ? Get.to(OrderSuccess()) : Get.to(OrderFailed(message));
+        paid ? Get.to(const OrderSuccess()) : Get.to(OrderFailed(message));
       },
     );
     AlertDialog alert = AlertDialog(

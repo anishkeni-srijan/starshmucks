@@ -1,8 +1,8 @@
 // ignore_for_file: void_checks
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
 import '/common_things.dart';
 import '/signin/bloc/signin_events.dart';
@@ -47,20 +47,21 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
     on<SigninpassChangedEvent>((event, emit) {
 //user exists
       if (event.passwordvalue == obtainedpassword) {
-        Get.to(() => BottomBar());
+        Get.to(() => const BottomBar());
       } else if (event.passwordvalue == '' ||
           event.passwordvalue != obtainedpassword) {
         emit(
           SigninErrorState("Please enter a valid Password"),
         );
-      } else
+      } else {
         return Container();
+      }
     });
 
     //works if login is valid
     on<SignupRedirect>(
       (event, emit) {
-        Get.to(SignupPage());
+        Get.to(const SignupPage());
       },
     );
   }

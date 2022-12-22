@@ -35,7 +35,7 @@ class ReferWidgets extends StatelessWidget {
           children: [
             Text(
               maintext,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(
               height: 8,

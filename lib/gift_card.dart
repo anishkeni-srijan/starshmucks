@@ -1,5 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -28,7 +28,8 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
       initialIndex: 1,
       length: 4,
       child: Scaffold(
-        persistentFooterButtons: cartinit ? [ViewInCart()] : [Container()],
+        persistentFooterButtons:
+            cartinit ? [const ViewInCart()] : [Container()],
         body: SingleChildScrollView(
           child: SizedBox(
             height: MediaQuery.of(context).size.height * 1,
@@ -85,7 +86,7 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
                 ),
                 Expanded(
                   child: TabBarView(
-                    physics: ScrollPhysics(),
+                    physics: const ScrollPhysics(),
                     controller: tabController,
                     children: <Widget>[
                       getAllCards(context),
@@ -203,7 +204,7 @@ getAllCards(context) {
   return Container(
     padding: const EdgeInsets.only(left: 20, right: 20, top: 0),
     child: ListView(
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       children: [
         Container(
           padding: const EdgeInsets.all(10),
