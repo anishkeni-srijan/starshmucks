@@ -10,6 +10,7 @@ class SigninState extends StatelessWidget {
 }
 
 class SigninInitialState extends SigninState {
+  const SigninInitialState({super.key});
   //check if the user exists
 }
 
