@@ -28,7 +28,7 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
       length: 4,
       child: Scaffold(
         persistentFooterButtons:
-            cartinit ? [const ViewInCart()] : [Container()],
+            cartinit ? [ViewInCart()] : [Container()],
         body: SingleChildScrollView(
           child: SizedBox(
             height: MediaQuery.of(context).size.height * 1,

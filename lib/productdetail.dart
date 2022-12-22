@@ -75,7 +75,7 @@ class _ProductDetailState extends State<ProductDetail> {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
-      persistentFooterButtons: cartinit ? [const ViewInCart()] : null,
+      persistentFooterButtons: cartinit ? [ViewInCart()] : null,
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(

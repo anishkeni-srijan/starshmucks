@@ -50,7 +50,7 @@ class _UserProfileState extends State<UserProfile> {
     } else {
       return Scaffold(
         persistentFooterButtons:
-            cartinit ? [const ViewInCart()] : [Container()],
+            cartinit ? [ViewInCart()] : [Container()],
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
