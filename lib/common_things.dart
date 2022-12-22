@@ -300,6 +300,7 @@ class CustomToast extends StatelessWidget {
 }
 
 late CartDB cdb;
+
 addToCart(id) async {
   cdb = CartDB();
   cdb.initDBCart();

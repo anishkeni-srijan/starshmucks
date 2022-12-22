@@ -11,7 +11,7 @@ class EditdetailsState extends StatelessWidget {
 
 class EditdetailsInitialState extends EditdetailsState {
   const EditdetailsInitialState({super.key});
-  //check if the user exists
+//check if the user exists
 }
 
 class EditdetailsValidState extends EditdetailsState {

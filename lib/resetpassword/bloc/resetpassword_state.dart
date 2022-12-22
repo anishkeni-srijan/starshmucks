@@ -11,7 +11,7 @@ class ResetpasswordState extends StatelessWidget {
 
 class ResetpasswordInitialState extends ResetpasswordState {
   const ResetpasswordInitialState({super.key});
-  //check if the user exists
+//check if the user exists
 }
 
 class ResetpasswordValidState extends ResetpasswordState {
