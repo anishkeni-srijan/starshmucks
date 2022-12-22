@@ -17,13 +17,15 @@ class EditdetailsInitialState extends EditdetailsState {
 class EditdetailsValidState extends EditdetailsState {
   String validity = '';
 
-  EditdetailsValidState(this.validity);
+  EditdetailsValidState(this.validity, {super.key});
 }
 
 class EditdetailsErrorState extends EditdetailsState {
   String errormessage = '';
 
-  EditdetailsErrorState(this.errormessage);
+  EditdetailsErrorState(this.errormessage, {super.key});
 }
 
-class EditdetailsLoadingState extends EditdetailsState {}
+class EditdetailsLoadingState extends EditdetailsState {
+  const EditdetailsLoadingState({super.key});
+}

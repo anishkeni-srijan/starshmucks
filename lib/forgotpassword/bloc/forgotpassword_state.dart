@@ -10,17 +10,18 @@ class ForgotpasswordState extends StatelessWidget {
 }
 
 class ForgotpasswordInitialState extends ForgotpasswordState {
+  const ForgotpasswordInitialState({super.key});
   //check if the user exists
 }
 
 class ForgotpasswordValidState extends ForgotpasswordState {
   String validity = '';
 
-  ForgotpasswordValidState(this.validity);
+  ForgotpasswordValidState(this.validity, {super.key});
 }
 
 class ForgotpasswordErrorState extends ForgotpasswordState {
   String errormessage = '';
 
-  ForgotpasswordErrorState(this.errormessage);
+  ForgotpasswordErrorState(this.errormessage, {super.key});
 }

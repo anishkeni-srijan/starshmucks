@@ -13,8 +13,14 @@ class SplashInitialState extends SplashScreenState {
   const SplashInitialState({super.key});
 }
 
-class SplashloadingState extends SplashScreenState {}
+class SplashloadingState extends SplashScreenState {
+  const SplashloadingState({super.key});
+}
 
-class NewUserState extends SplashScreenState {}
+class NewUserState extends SplashScreenState {
+  const NewUserState({super.key});
+}
 
-class UserExistsState extends SplashScreenState {}
+class UserExistsState extends SplashScreenState {
+  const UserExistsState({super.key});
+}

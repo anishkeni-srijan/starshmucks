@@ -21,7 +21,7 @@ getUser() async {
 }
 
 class SigninBloc extends Bloc<SigninEvent, SigninState> {
-  SigninBloc() : super(SigninInitialState()) {
+  SigninBloc() : super(const SigninInitialState()) {
     //works on login text changed
     on<SigninemailChangedEvent>((event, emit) {
 //user exists

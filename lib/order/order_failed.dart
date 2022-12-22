@@ -11,7 +11,7 @@ import '../help/help_page.dart';
 class OrderFailed extends StatefulWidget {
   late String message;
 
-  OrderFailed(this.message);
+  OrderFailed(this.message, {super.key});
 
   @override
   State<OrderFailed> createState() => _OrderFailedState();

@@ -6,7 +6,7 @@ import 'editdetails_events.dart';
 import 'editdetails_states.dart';
 
 class EditdetailsBloc extends Bloc<EditdetailsEvent, EditdetailsState> {
-  EditdetailsBloc() : super(EditdetailsInitialState()) {
+  EditdetailsBloc() : super(const EditdetailsInitialState()) {
     //works on login text changed
     on<EditdetailsemailChangedEvent>((event, emit) {
 //user exists

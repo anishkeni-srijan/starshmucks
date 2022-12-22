@@ -17,13 +17,15 @@ class SigninInitialState extends SigninState {
 class SigninValidState extends SigninState {
   String validity = '';
 
-  SigninValidState(this.validity);
+  SigninValidState(this.validity, {super.key});
 }
 
 class SigninErrorState extends SigninState {
   String errormessage = '';
 
-  SigninErrorState(this.errormessage);
+  SigninErrorState(this.errormessage, {super.key});
 }
 
-class SigninLoadingState extends SigninState {}
+class SigninLoadingState extends SigninState {
+  const SigninLoadingState({super.key});
+}
