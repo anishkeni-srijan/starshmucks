@@ -1,25 +1,11 @@
 HexColor("#036635") --> Light Green
 HexColor("#175244") --> Dark Green
 
-ede38c
-done today
-ui error handling Reset password and signup
-resetpassword page in bloc
-otp auth using email(test)
 
 
 
 
-bugs found
-signup works even if the form is empty (fixed)
 
-flutter packages pub run build_runner build
-
-
-creds:(anish)
-test
-test
-anish.keni@srijan
 
 
 
