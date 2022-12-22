@@ -123,13 +123,10 @@ class HomeItemList extends StatelessWidget {
                             : addToWishlist(data[index].id);
                         getIds();
                       },
-                      icon: status
-                          ? const Icon(
-                              Icons.favorite,
+                      icon:Icon( status ?
+                              Icons.favorite:Icons.favorite_border,
                               color: Colors.white,
-                            )
-                          : const Icon(Icons.favorite_border,
-                              color: Colors.white),
+                            ),
                     )
                   ],
                 ),

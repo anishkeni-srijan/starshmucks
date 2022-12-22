@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '/database/cart_db.dart';
 import '/database/wishlist_db.dart';
 import '/model/cart_model.dart';
-import 'cart.dart';
+import 'cart/cart.dart';
 import 'database/user_db.dart';
 import 'gift_card.dart';
 import 'home/home_screen.dart';
