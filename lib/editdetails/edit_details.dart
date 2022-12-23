@@ -39,6 +39,11 @@ class _EditProfileState extends State<EditProfile> {
 
   getUser() async {
     usernames = await udb.getUserData();
+
+      econtroller = TextEditingController(text: usernames[0]['email']);
+      ncontroller = TextEditingController(text: usernames[0]['name']);
+      phcontroller = TextEditingController(text: usernames[0]['phone']);
+
     setState(() {});
   }
 
@@ -52,12 +57,6 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-    if (usernames.isEmpty) {
-      return const CircularProgressIndicator();
-    } else {
-      econtroller = TextEditingController(text: usernames[0]['email']);
-      ncontroller = TextEditingController(text: usernames[0]['name']);
-      phcontroller = TextEditingController(text: usernames[0]['phone']);
       return Scaffold(
         appBar: getHomeAppBar("Edit Profile", [Container()], true, 0.0),
         backgroundColor: HexColor("#175244"),
@@ -104,16 +103,18 @@ class _EditProfileState extends State<EditProfile> {
               ),
               const SizedBox(height: 30),
               Align(
-                alignment: Alignment.center,
-                child: Text(
-                  usernames[0]['name'],
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 35,
-                  ),
-                ),
-              ),
+                     alignment: Alignment.center,
+                     child: Text(
+                       usernames[0]['name'],
+                       style: const TextStyle(
+                         color: Colors.white,
+                         fontWeight: FontWeight.bold,
+                         fontSize: 35,
+                       ),
+                     ),
+                   ),
+
+
               const SizedBox(height: 20),
               Container(
                 height: MediaQuery.of(context).size.height * 0.70,
@@ -133,7 +134,6 @@ class _EditProfileState extends State<EditProfile> {
                           return Text(
                             state.errormessage,
                             style: const TextStyle(
-                              fontSize: 30,
                               color: Colors.red,
                             ),
                           );
@@ -144,10 +144,12 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                     //name
                     EditableField(
+                      onchange: (value){
+                        BlocProvider.of<EditdetailsBloc>(context).add(EditdetailsNameChangedEvent(ncontroller.text));
+                      },
                       ncontroller: ncontroller,
                       lbltxt: 'Name',
                       vldtr: (value) {
-                        BlocProvider.of<EditdetailsBloc>(context).add(EditdetailsemailChangedEvent(econtroller.text));
                         if (value == null) {
                           return "Please enter name";
                         } else if (value.length < 3) {
@@ -156,14 +158,18 @@ class _EditProfileState extends State<EditProfile> {
                           return null;
                         }
                       },
+
                     ),
                     const SizedBox(height: 10),
                     //email
                     EditableField(
+                      onchange: (value){
+                        BlocProvider.of<EditdetailsBloc>(context).add(EditdetailsemailChangedEvent(econtroller.text));
+                      },
                       ncontroller: econtroller,
                       lbltxt: 'Email',
                       vldtr: (value) {
-                        BlocProvider.of<EditdetailsBloc>(context).add(EditdetailsemailChangedEvent(econtroller.text));
+
                         if (RegExp(
                                 r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                             .hasMatch(value!)) {
@@ -177,6 +183,9 @@ class _EditProfileState extends State<EditProfile> {
                     const SizedBox(height: 10),
                     //phone
                     EditableField(
+                      onchange: (value){
+                        BlocProvider.of<EditdetailsBloc>(context).add(EditdetailsNumberChangedEvent(phcontroller.text));
+                      },
                       ncontroller: phcontroller,
                       lbltxt: 'Phone',
                       vldtr: null,
@@ -192,6 +201,7 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                       ),
                       onPressed: () async {
+                        BlocProvider.of<EditdetailsBloc>(context).add(EditdetailsSumittedEvent(econtroller.text, ncontroller.text, phcontroller.text));
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             backgroundColor: HexColor("#175244"),
@@ -201,18 +211,6 @@ class _EditProfileState extends State<EditProfile> {
                             ),
                           ),
                         );
-
-                        var updateData = UserModel(
-                            tier: usernames[0]['tier'],
-                            dob: usernames[0]['dob'],
-                            email: econtroller.text,
-                            phone: phcontroller.text,
-                            name: ncontroller.text,
-                            password: usernames[0]['password'],
-                            rewards: usernames[0]['rewards'],
-                            tnc: usernames[0]['tnc'],
-                            image: usernames[0]['image']);
-                        udb.updateUser(usernames[0]['id'], updateData);
                         getUser();
                       },
                       child: const Text('UPDATE'),
@@ -224,7 +222,7 @@ class _EditProfileState extends State<EditProfile> {
           ),
         ),
       );
-    }
+
   }
 
   showSelectionDialog() {
@@ -300,3 +298,4 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 }
+

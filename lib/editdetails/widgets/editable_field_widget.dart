@@ -6,12 +6,13 @@ class EditableField extends StatelessWidget {
     Key? key,
     required this.ncontroller,
     required this.lbltxt,
-    this.vldtr,
+    this.vldtr, this.onchange,
   }) : super(key: key);
 
   final TextEditingController ncontroller;
   final String lbltxt;
   final vldtr;
+  final onchange;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +43,7 @@ class EditableField extends StatelessWidget {
           ),
         ),
         validator: vldtr,
+        onChanged: onchange,
       ),
     );
   }

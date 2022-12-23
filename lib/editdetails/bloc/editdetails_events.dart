@@ -19,9 +19,9 @@ class EditdetailsNameChangedEvent extends EditdetailsEvent {
 }
 
 class EditdetailsSumittedEvent extends EditdetailsEvent {
-  String? email;
-  String? phnvalue;
-  String? namevalue;
+  late String email;
+  late String phnvalue;
+  late String namevalue;
 
   EditdetailsSumittedEvent(
     this.email,
