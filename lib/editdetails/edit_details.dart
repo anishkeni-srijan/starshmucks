@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:starshmucks/editdetails/bloc/editdetails_events.dart';
 
 import '/editdetails/widgets/editable_field_widget.dart';
 import '/model/user_model.dart';
@@ -131,6 +132,7 @@ class _EditProfileState extends State<EditProfile> {
                           return Text(
                             state.errormessage,
                             style: const TextStyle(
+                              fontSize: 30,
                               color: Colors.red,
                             ),
                           );
@@ -144,6 +146,7 @@ class _EditProfileState extends State<EditProfile> {
                       ncontroller: ncontroller,
                       lbltxt: 'Name',
                       vldtr: (value) {
+                        BlocProvider.of<EditdetailsBloc>(context).add(EditdetailsemailChangedEvent(econtroller.text));
                         if (value == null) {
                           return "Please enter name";
                         } else if (value.length < 3) {
@@ -159,6 +162,7 @@ class _EditProfileState extends State<EditProfile> {
                       ncontroller: econtroller,
                       lbltxt: 'Email',
                       vldtr: (value) {
+                        BlocProvider.of<EditdetailsBloc>(context).add(EditdetailsemailChangedEvent(econtroller.text));
                         if (RegExp(
                                 r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                             .hasMatch(value!)) {
@@ -166,6 +170,7 @@ class _EditProfileState extends State<EditProfile> {
                         } else {
                           return "Please Enter a valid email";
                         }
+
                       },
                     ),
                     const SizedBox(height: 10),

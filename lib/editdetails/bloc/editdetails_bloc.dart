@@ -9,7 +9,6 @@ class EditdetailsBloc extends Bloc<EditdetailsEvent, EditdetailsState> {
   EditdetailsBloc() : super(const EditdetailsInitialState()) {
     //works on login text changed
     on<EditdetailsemailChangedEvent>((event, emit) {
-//user exists
       if (event.emailvalue != '') {
         emit(EditdetailsValidState("all good"));
       } else if (event.emailvalue == '' || event.emailvalue.trim().length < 4) {
