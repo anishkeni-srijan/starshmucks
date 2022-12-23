@@ -16,6 +16,7 @@ class MenuItemList extends StatelessWidget {
       : super(key: key);
   final data;
   final FToast fToast;
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
