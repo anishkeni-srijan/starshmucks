@@ -1,5 +1,4 @@
 class UserModel {
-  //int id;
   String name;
   String email;
   String phone;
@@ -20,18 +19,6 @@ class UserModel {
       required this.tnc,
       required this.rewards,
       required this.image});
-
-  // factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-  //       tier:json["tier"],
-  //       name: json["name"],
-  //       email: json["email"],
-  //       phone: json["phone"],
-  //       dob: json["dob"],
-  //       password: json["password"],
-  //       tnc: json["tnc"],
-  //       rewards: json["rewards"], image: json["image"],
-  //       // id: json["id"],
-  //     );
 
   Map<String, dynamic> toMap() => {
         "tier": tier,

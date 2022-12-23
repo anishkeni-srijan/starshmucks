@@ -49,7 +49,7 @@ class _UserProfileState extends State<UserProfile> {
       return const CircularProgressIndicator();
     } else {
       return Scaffold(
-        persistentFooterButtons: cartinit ? [viewInCart()] : [Container()],
+        persistentFooterButtons: cartInit ? [viewInCart()] : [Container()],
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(

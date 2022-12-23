@@ -16,7 +16,7 @@ class GetSmoothieData extends StatefulWidget {
 
 class _GetSmoothieDataState extends State<GetSmoothieData> {
   late MenuDB db;
-  bool getdataf = false;
+  bool getDataStatus = false;
   List<MenuModel> data = [];
   late FToast fToast;
 
@@ -34,7 +34,7 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     data = await db.smoothieData();
     if (mounted) {
       setState(() {
-        getdataf = true;
+        getDataStatus = true;
       });
     }
   }
@@ -44,8 +44,8 @@ class _GetSmoothieDataState extends State<GetSmoothieData> {
     initcart();
     getSmoothieData();
     return Scaffold(
-      persistentFooterButtons: cartinit ? [viewInCart()] : null,
-      body: getdataf
+      persistentFooterButtons: cartInit ? [viewInCart()] : null,
+      body: getDataStatus
           ? MenuItemList(data: data, fToast: fToast)
           : const CircularProgressIndicator(),
     );

@@ -27,18 +27,18 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
   void initState() {
     db = MenuDB();
     db.initMenuDB();
-    getdata();
-    putdata();
+    getData();
+    putData();
     tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
 
-  getdata() async {
+  getData() async {
     data = await db.getMenuData();
     setState(() {});
   }
 
-  putdata() async {
+  putData() async {
     final String response =
         await DefaultAssetBundle.of(context).loadString("json/menu.json");
     final responseData = jsonDecode(response);

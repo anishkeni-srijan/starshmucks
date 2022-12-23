@@ -43,13 +43,13 @@ class _ProductDetailState extends State<ProductDetail> {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
-      persistentFooterButtons: cartinit ? [viewInCart()] : null,
+      persistentFooterButtons: cartInit ? [viewInCart()] : null,
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
           onPressed: () {
             addToCart(product.id);
-            cartinit = true;
+            cartInit = true;
           },
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(HexColor("#036635")),

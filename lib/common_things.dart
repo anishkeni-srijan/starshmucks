@@ -207,7 +207,7 @@ initcart() async {
   CartDB cdb = CartDB();
   cdb.initCartDB();
   List<CartModel> datal = await cdb.getCartData();
-  datal.isEmpty ? cartinit = false : cartinit = true;
+  datal.isEmpty ? cartInit = false : cartInit = true;
 }
 
 Future<bool> gohome() async {

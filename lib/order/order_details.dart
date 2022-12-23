@@ -29,7 +29,7 @@ class _OrderDetailsState extends State<OrderDetails> {
   List<MenuModel> items = [];
   List<MenuModel> items1 = [];
   late double ttl = 0;
-  late double cartttl = 0;
+  late double cartTotal = 0;
   late double savings = 0;
   double delchar = 5;
   UserDB udb = UserDB();
@@ -63,18 +63,18 @@ class _OrderDetailsState extends State<OrderDetails> {
     final total = await SharedPreferences.getInstance();
     savings = total.getDouble('savings')!;
     for (var i = 0; i < items1.length; i++) {
-      cartttl = cartttl + double.parse(items1[i].price);
+      cartTotal = cartTotal + double.parse(items1[i].price);
     }
     if (userddt[0]['tier'] == 'bronze') {
-      ttl = (cartttl + delchar) - savings;
+      ttl = (cartTotal + delchar) - savings;
     } else if (userddt[0]['tier'] == 'silver') {
-      if (cartttl > 50.0) {
-        ttl = (cartttl) - savings;
+      if (cartTotal > 50.0) {
+        ttl = (cartTotal) - savings;
       } else {
-        ttl = (cartttl + delchar) - savings;
+        ttl = (cartTotal + delchar) - savings;
       }
     } else {
-      ttl = (cartttl) - savings;
+      ttl = (cartTotal) - savings;
     }
     setState(() {});
   }
@@ -158,7 +158,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                       ),
                                       const SizedBox(height: 8),
                                       CartSummary(
-                                        value: cartttl,
+                                        value: cartTotal,
                                         text: "Subtotal",
                                         wt: FontWeight.w600,
                                         textsize: 15,

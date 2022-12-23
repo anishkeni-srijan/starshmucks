@@ -58,7 +58,7 @@ class _MyCartState extends State<MyCart> {
   }
 
   removeFromCart(id) {
-    datalist.isEmpty ? cartinit = false : cartinit = true;
+    datalist.isEmpty ? cartInit = false : cartInit = true;
     cartdb.removeItemFromCart(id);
     getDataOnIds();
   }

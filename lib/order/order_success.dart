@@ -52,7 +52,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
     getAddress();
     super.initState();
 
-    cartinit = false;
+    cartInit = false;
   }
 
   List<Map<String, dynamic>> userddt = [];

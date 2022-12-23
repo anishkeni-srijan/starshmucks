@@ -98,7 +98,7 @@ class HomeItemList extends StatelessWidget {
                             ),
                           );
 
-                          cartinit = true;
+                          cartInit = true;
                         },
                         style: ButtonStyle(
                           backgroundColor:
@@ -123,10 +123,10 @@ class HomeItemList extends StatelessWidget {
                             : addToWishlist(data[index].id);
                         getIds();
                       },
-                      icon:Icon( status ?
-                              Icons.favorite:Icons.favorite_border,
-                              color: Colors.white,
-                            ),
+                      icon: Icon(
+                        status ? Icons.favorite : Icons.favorite_border,
+                        color: Colors.white,
+                      ),
                     )
                   ],
                 ),

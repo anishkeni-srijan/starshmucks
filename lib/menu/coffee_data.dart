@@ -5,7 +5,6 @@ import '/database/menu_db.dart';
 import '/menu/widgets/menu_item_list.dart';
 import '../common_things.dart';
 import '../home/home_screen.dart';
-import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 
 class GetCoffeeData extends StatefulWidget {
@@ -17,14 +16,14 @@ class GetCoffeeData extends StatefulWidget {
 
 class _GetCoffeeDataState extends State<GetCoffeeData> {
   late MenuDB menuDB;
-  bool getdataf = false;
+  bool getDataStatus = false;
   List<MenuModel> data = [];
   late MenuDB db;
   late FToast fToast;
 
   @override
   void initState() {
-    getCartData1();
+    //getCartData1();
     menuDB = MenuDB();
     menuDB.initMenuDB();
     getCoffeeData();
@@ -34,20 +33,20 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     fToast.init(context);
   }
 
-  List<CartModel> cartData = [];
-
-  getCartData1() async {
-    cartData = await cdb.getCartData();
-    if (mounted) {
-      setState(() {});
-    }
-  }
+  // List<CartModel> cartData = [];
+  //
+  // getCartData1() async {
+  //   cartData = await cdb.getCartData();
+  //   if (mounted) {
+  //     setState(() {});
+  //   }
+  // }
 
   getCoffeeData() async {
     data = await menuDB.coffeeData();
     if (mounted) {
       setState(() {
-        getdataf = true;
+        getDataStatus = true;
       });
     }
   }
@@ -57,8 +56,8 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     initcart();
     getCoffeeData();
     return Scaffold(
-      persistentFooterButtons: cartinit ? [viewInCart()] : null,
-      body: getdataf
+      persistentFooterButtons: cartInit ? [viewInCart()] : null,
+      body: getDataStatus
           ? MenuItemList(data: data, fToast: fToast)
           : const Center(child: CircularProgressIndicator()),
     );

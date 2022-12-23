@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io' show Platform;
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,14 +23,14 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-bool cartinit = false;
+bool cartInit = false;
 late String username;
 double res = 0;
 
 class _HomePageState extends State<HomePage> {
   late MenuDB db;
   List<MenuModel> data = [];
-  List<Map<String, dynamic>> userddt = [];
+  List<Map<String, dynamic>> userData = [];
   late var product;
   late var tier = '';
   late double rewards = 0;
@@ -44,18 +43,17 @@ class _HomePageState extends State<HomePage> {
     getUser();
     db = MenuDB();
     db.initMenuDB();
-    getdata();
-    putdata();
-    // setUserForLogin();
+    getData();
+    putData();
     super.initState();
   }
 
-  getcurrenttier() {
+  getCurrentTier() {
     rewards = usernames[0]['rewards'];
     tier = usernames[0]['tier'];
   }
 
-  getnexttier() {
+  getNextTier() {
     usernames.isEmpty
         ? nexttier = "bronze"
         : usernames[0]['rewards'] > 10
@@ -67,18 +65,18 @@ class _HomePageState extends State<HomePage> {
 
   getUser() async {
     usernames = await udb.getUserData();
-    getcurrenttier();
-    getnexttier();
-    starsneeded();
+    getCurrentTier();
+    getNextTier();
+    starsNeeded();
     setState(() {});
   }
 
-  getdata() async {
+  getData() async {
     data = await db.getMenuData();
     setState(() {});
   }
 
-  putdata() async {
+  putData() async {
     final String response =
         await DefaultAssetBundle.of(context).loadString("json/menu.json");
     final responseData = jsonDecode(response);
@@ -94,7 +92,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
-  starsneeded() {
+  starsNeeded() {
     if (usernames.isEmpty) {
       silvervalue = 0;
     } else {
@@ -117,13 +115,13 @@ class _HomePageState extends State<HomePage> {
       setUserForLogin(email);
       initcart();
       return Scaffold(
-        persistentFooterButtons: cartinit ? [viewInCart()] : null,
+        persistentFooterButtons: cartInit ? [viewInCart()] : null,
         body: SingleChildScrollView(
           child: Column(
             children: [
               usernames.isEmpty
                   ? const CircularProgressIndicator()
-                  : getbanner(context, username, tier, rewards),
+                  : getBanner(context, username, tier, rewards),
               Container(
                 padding: EdgeInsets.only(
                     left: 10, top: Platform.isIOS ? 30 : 20, bottom: 10),
@@ -161,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                   minFontSize: 25,
                 ),
               ),
-              learnmore(context),
+              learnMore(context),
             ],
           ),
         ),
@@ -170,7 +168,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-getbanner(context, username, tier, rewards) {
+getBanner(context, username, tier, rewards) {
   return Container(
     height: MediaQuery.of(context).size.height * 0.2,
     decoration: BoxDecoration(
@@ -326,13 +324,13 @@ getbanner(context, username, tier, rewards) {
   );
 }
 
-learnmore(context) {
-  final learnmorep = Provider.of<LearnMore>(context);
-  learnmorep.fetchData(context);
+learnMore(context) {
+  final learnMoreProvider = Provider.of<LearnMore>(context);
+  learnMoreProvider.fetchData(context);
   return SizedBox(
     height: 350,
     child: ListView.builder(
-      itemCount: learnmorep.learnmore.length,
+      itemCount: learnMoreProvider.learnmore.length,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) => Row(
         children: [
@@ -354,12 +352,12 @@ learnmore(context) {
             child: Column(
               children: [
                 Image.asset(
-                  learnmorep.learnmore[index].image,
+                  learnMoreProvider.learnmore[index].image,
                   height: 150,
                   width: 250,
                 ),
                 Text(
-                  learnmorep.learnmore[index].title,
+                  learnMoreProvider.learnmore[index].title,
                   style: TextStyle(
                     color: HexColor('#175244'),
                     fontSize: 15,
@@ -368,7 +366,7 @@ learnmore(context) {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  learnmorep.learnmore[index].tag,
+                  learnMoreProvider.learnmore[index].tag,
                   maxLines: 5,
                   style: TextStyle(
                     color: HexColor('#175244'),

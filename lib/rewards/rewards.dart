@@ -78,7 +78,7 @@ class _RewardsState extends State<Rewards> {
     return usernames.isEmpty
         ? const Center(child: CircularProgressIndicator())
         : Scaffold(
-            persistentFooterButtons: cartinit ? [viewInCart()] : null,
+            persistentFooterButtons: cartInit ? [viewInCart()] : null,
             appBar: gethomeappbar("Rewards", [Container()], true, 0.0),
             body: SingleChildScrollView(
               child: Column(

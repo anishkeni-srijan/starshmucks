@@ -15,8 +15,8 @@ class GetOffers extends StatefulWidget {
 
 class _GetOffersState extends State<GetOffers> {
   late MenuDB db;
-  bool getdataf = false;
-  List<MenuModel> odata = [];
+  bool getDataStatus = false;
+  List<MenuModel> offersData = [];
   late FToast fToast;
 
   @override
@@ -29,20 +29,20 @@ class _GetOffersState extends State<GetOffers> {
     fToast.init(context);
   }
 
-  getdata() async {
-    odata = await db.offersData();
+  getDataOffers() async {
+    offersData = await db.offersData();
     if (mounted) {
       setState(() {
-        getdataf = true;
+        getDataStatus = true;
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    getdata();
+    getDataOffers();
     return SizedBox(
         height: MediaQuery.of(context).size.height * 0.18,
-        child: HomeItemList(data: odata, fToast: fToast));
+        child: HomeItemList(data: offersData, fToast: fToast));
   }
 }

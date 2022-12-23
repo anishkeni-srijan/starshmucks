@@ -16,7 +16,7 @@ class GetCakeData extends StatefulWidget {
 
 class _GetCakeDataState extends State<GetCakeData> {
   late MenuDB db;
-  bool getdataf = false;
+  bool getDataStatus = false;
   List<MenuModel> data = [];
   late FToast fToast;
 
@@ -35,7 +35,7 @@ class _GetCakeDataState extends State<GetCakeData> {
     data = await db.cakeData();
     if (mounted) {
       setState(() {
-        getdataf = true;
+        getDataStatus = true;
       });
     }
   }
@@ -45,7 +45,7 @@ class _GetCakeDataState extends State<GetCakeData> {
     initcart();
     getCakeData();
     return Scaffold(
-        persistentFooterButtons: cartinit ? [viewInCart()] : null,
+        persistentFooterButtons: cartInit ? [viewInCart()] : null,
         body: MenuItemList(data: data, fToast: fToast));
   }
 }

@@ -15,8 +15,8 @@ class NowServing extends StatefulWidget {
 
 class _NowServingState extends State<NowServing> {
   late MenuDB db;
-  bool getdataf = false;
-  List<MenuModel> nowdata = [];
+  bool getDataStatus = false;
+  List<MenuModel> nowServingData = [];
   late FToast fToast;
 
   @override
@@ -29,20 +29,20 @@ class _NowServingState extends State<NowServing> {
     fToast.init(context);
   }
 
-  getdata() async {
-    nowdata = await db.nowServeData();
+  getDataNowServing() async {
+    nowServingData = await db.nowServeData();
     if (mounted) {
       setState(() {
-        getdataf = true;
+        getDataStatus = true;
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    getdata();
+    getDataNowServing();
     return SizedBox(
         height: MediaQuery.of(context).size.height * 0.18,
-        child: HomeItemList(data: nowdata, fToast: fToast));
+        child: HomeItemList(data: nowServingData, fToast: fToast));
   }
 }
