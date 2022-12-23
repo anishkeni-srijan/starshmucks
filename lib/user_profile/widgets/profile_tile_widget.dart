@@ -27,11 +27,7 @@ class ProfileTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(
-              icon,
-              size: 30,
-              color: HexColor("#036635"),
-            ),
+            Icon(icon, size: 30, color: HexColor("#036635")),
             const SizedBox(width: 20),
             Expanded(
               child: Text(
@@ -43,10 +39,7 @@ class ProfileTile extends StatelessWidget {
                 ),
               ),
             ),
-            Icon(
-              Icons.arrow_forward_ios,
-              color: HexColor("#036635"),
-            ),
+            Icon(Icons.arrow_forward_ios, color: HexColor("#036635")),
           ],
         ),
       ),
