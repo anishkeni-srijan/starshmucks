@@ -272,7 +272,7 @@ class _AddressState extends State<Address> {
           ),
         )
       ],
-      appBar: gethomeappbar(
+      appBar: getHomeAppBar(
           "Checkout",
           [
             TextButton(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 import '/database/menu_db.dart';
 import '/menu/widgets/menu_item_list.dart';
 import '../common_things.dart';
-import '../home/home_screen.dart';
 import '../model/menu_model.dart';
 import 'bloc/menu_bloc.dart';
 import 'bloc/menu_states.dart';
@@ -45,7 +45,7 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
 
   @override
   Widget build(BuildContext context) {
-    initcart();
+    initCart();
     getCoffeeData();
     return Scaffold(
       persistentFooterButtons: [

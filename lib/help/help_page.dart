@@ -13,7 +13,7 @@ class Help extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: gethomeappbar("Need Help?", [Container()], true, 0.0),
+      appBar: getHomeAppBar("Need Help?", [Container()], true, 0.0),
       body: SingleChildScrollView(
         child: Column(
           children: [

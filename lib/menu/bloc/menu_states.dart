@@ -8,14 +8,13 @@ class MenuStates extends StatelessWidget {
     return const Placeholder();
   }
 }
-class MenuInitialState extends MenuStates{
+
+class MenuInitialState extends MenuStates {
   const MenuInitialState({super.key});
 }
 
+class AddedToCartState extends MenuStates {}
 
-class AddedToCartState extends MenuStates{}
+class AddedToWishlistState extends MenuStates {}
 
-class AddedToWishlistState extends MenuStates{}
-
-class RemoveFromWishlistState extends MenuStates{}
-
+class RemoveFromWishlistState extends MenuStates {}

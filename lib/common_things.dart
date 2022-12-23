@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:flutter_bloc/flutter_bloc.dart' hide Transition;
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -12,8 +12,6 @@ import 'cart/cart.dart';
 import 'database/user_db.dart';
 import 'gift_card.dart';
 import 'home/home_screen.dart';
-import 'menu/bloc/menu_bloc.dart';
-import 'menu/bloc/menu_states.dart';
 import 'menu/menu_page.dart';
 import 'model/user_model.dart';
 import 'model/wishlist_model.dart';
@@ -74,7 +72,7 @@ class _BottomBarState extends State<BottomBar> {
     return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
-        appBar: gethomeappbar(
+        appBar: getHomeAppBar(
             "Starschmucks",
             [
               IconButton(
@@ -122,7 +120,7 @@ class _BottomBarState extends State<BottomBar> {
   }
 }
 
-gethomeappbar(title, action, automaticallyImplyLeadingStatus, ttlspacing) {
+getHomeAppBar(title, action, automaticallyImplyLeadingStatus, ttlspacing) {
   return AppBar(
     backgroundColor: Colors.white,
     title: Text(
@@ -144,21 +142,21 @@ late double ttl;
 double savings = 0;
 ValueNotifier<int> size = ValueNotifier<int>(0);
 
-getdata() async {
+getCartLength() async {
   CartDB cdb = CartDB();
   List<CartModel> data = await cdb.getCartData();
   size.value = data.length;
 }
 
-getttl() async {
+getTotal() async {
   final total = await SharedPreferences.getInstance();
   ttl = total.getDouble('total') ?? 0;
   savings = total.getDouble('savings') ?? 0;
 }
 
 Widget viewInCart() {
-  getttl();
-  getdata();
+  getTotal();
+  getCartLength();
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     crossAxisAlignment: CrossAxisAlignment.center,
@@ -205,21 +203,21 @@ Widget viewInCart() {
   );
 }
 
-initcart() async {
+initCart() async {
   CartDB cdb = CartDB();
   cdb.initCartDB();
   List<CartModel> datal = await cdb.getCartData();
   datal.isEmpty ? cartInit = false : cartInit = true;
 }
 
-Future<bool> gohome() async {
+Future<bool> goHome() async {
   return (await Get.to(() => const BottomBar())) ?? false;
 }
 
-Future<bool> gohomefromsuccess() async {
-  calcrewards();
-  CartDB cartdb = CartDB();
-  cartdb.clearCart();
+Future<bool> goHomeFromSuccess() async {
+  calculateRewards();
+  CartDB cartDB = CartDB();
+  cartDB.clearCart();
   return (await Get.to(() => const BottomBar())) ?? false;
 }
 
@@ -231,7 +229,7 @@ goToFailed(String message) {
   return Get.to(() => OrderFailed(message));
 }
 
-calcrewards() async {
+calculateRewards() async {
   late double res = 0;
   UserDB udb = UserDB();
   List<Map<String, dynamic>> usernames = [];
@@ -307,7 +305,7 @@ addToCart(id) async {
 
 late WishlistDB wdb;
 
-removefromwishlist(id,context) {
+removeFromWishlist(id, context) {
   wdb = WishlistDB();
   wdb.initWishlistDB();
   wdb.deleteFromWishlist(id);

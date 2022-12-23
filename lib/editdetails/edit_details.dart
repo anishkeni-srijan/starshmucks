@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -58,7 +59,7 @@ class _EditProfileState extends State<EditProfile> {
       ncontroller = TextEditingController(text: usernames[0]['name']);
       phcontroller = TextEditingController(text: usernames[0]['phone']);
       return Scaffold(
-        appBar: gethomeappbar("Edit Profile", [Container()], true, 0.0),
+        appBar: getHomeAppBar("Edit Profile", [Container()], true, 0.0),
         backgroundColor: HexColor("#175244"),
         body: SingleChildScrollView(
           child: Column(

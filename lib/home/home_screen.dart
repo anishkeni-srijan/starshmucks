@@ -1,18 +1,18 @@
 import 'dart:convert';
 import 'dart:io' show Platform;
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../menu/bloc/menu_bloc.dart';
-import '../menu/bloc/menu_states.dart';
 import '/database/menu_db.dart';
 import '../common_things.dart';
 import '../database/user_db.dart';
+import '../menu/bloc/menu_bloc.dart';
+import '../menu/bloc/menu_states.dart';
 import '../model/menu_model.dart';
 import '../providers/learnmore_provider.dart';
 import '../rewards/rewards.dart';
@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
       username = usernames[0]['name'];
       String email = usernames[0]['email'];
       setUserForLogin(email);
-      initcart();
+      initCart();
       return Scaffold(
         persistentFooterButtons: [
           BlocBuilder<MenuBloc, MenuStates>(builder: (context, state) {
@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
               return Container();
             }
           }),
-        ] ,
+        ],
         body: SingleChildScrollView(
           child: Column(
             children: [

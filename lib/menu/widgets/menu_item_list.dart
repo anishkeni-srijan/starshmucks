@@ -1,21 +1,22 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:starshmucks/menu/bloc/menu_bloc.dart';
 import 'package:starshmucks/menu/bloc/menu_events.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:starshmucks/menu/bloc/menu_states.dart';
+
 import '/common_things.dart';
 import '../../model/wishlist_model.dart';
-import '../../productdetail.dart';
 
 class MenuItemList extends StatelessWidget {
   const MenuItemList({Key? key, this.data, required this.fToast})
       : super(key: key);
   final data;
   final FToast fToast;
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -113,9 +114,13 @@ class MenuItemList extends StatelessWidget {
                           builder: (context, state) => IconButton(
                               onPressed: () {
                                 //int id = odata[index].id;
-                                status?
-                                BlocProvider.of<MenuBloc>(context).add(OnRemoveFromWishlistEvent(WishlistModel(id: data[index].id),context))
-                                    :  BlocProvider.of<MenuBloc>(context).add(OnAddToWishlistEvent(data[index].id));
+                                status
+                                    ? BlocProvider.of<MenuBloc>(context).add(
+                                        OnRemoveFromWishlistEvent(
+                                            WishlistModel(id: data[index].id),
+                                            context))
+                                    : BlocProvider.of<MenuBloc>(context).add(
+                                        OnAddToWishlistEvent(data[index].id));
                                 getIds();
                               },
                               icon: Icon(
@@ -125,9 +130,8 @@ class MenuItemList extends StatelessWidget {
                               ))),
                       TextButton(
                         onPressed: () {
-                          BlocProvider.of<MenuBloc>(context).add(
-                              OnAddToCartEvent(data[index].id, fToast)
-                          );
+                          BlocProvider.of<MenuBloc>(context)
+                              .add(OnAddToCartEvent(data[index].id, fToast));
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
@@ -135,9 +139,9 @@ class MenuItemList extends StatelessWidget {
                                   ? Colors.teal
                                   : Colors.deepOrangeAccent),
                           foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
+                              MaterialStateProperty.all<Color>(Colors.white),
                           shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
                             ),
