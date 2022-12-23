@@ -24,6 +24,15 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   bool isChecked = false;
+  final name = TextEditingController();
+  final dob = TextEditingController();
+  final email = TextEditingController();
+  final phone = TextEditingController();
+  final pass1 = TextEditingController();
+  final pass2 = TextEditingController();
+  String initialCountry = 'IN';
+  PhoneNumber number = PhoneNumber(isoCode: 'IN');
+  late UserDB udb;
 
   Color getColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -36,16 +45,6 @@ class _SignupPageState extends State<SignupPage> {
     }
     return HexColor("#036635");
   }
-
-  final name = TextEditingController();
-  final dob = TextEditingController();
-  final email = TextEditingController();
-  final phone = TextEditingController();
-  final pass1 = TextEditingController();
-  final pass2 = TextEditingController();
-  String initialCountry = 'IN';
-  PhoneNumber number = PhoneNumber(isoCode: 'IN');
-  late UserDB udb;
 
   @override
   void initState() {

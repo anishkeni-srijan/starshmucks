@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../signup/widgets/text_input.dart';
 import '/forgotpassword/forgot_password.dart';
 import '../database/user_db.dart';
 import 'bloc/signin_bloc.dart';
@@ -24,12 +25,6 @@ class _SigninPageState extends State<SigninPage> {
   final econtroller = TextEditingController();
   bool keeploggedin = false;
   late UserDB udb;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   List<Map<String, dynamic>> userddt = [];
 
   getUser() async {
@@ -51,10 +46,8 @@ class _SigninPageState extends State<SigninPage> {
               ),
               TextButton(
                 onPressed: () => exit(0),
-                child: Text(
-                  'Yes',
-                  style: TextStyle(color: HexColor("#175244")),
-                ),
+                child:
+                    Text('Yes', style: TextStyle(color: HexColor("#175244"))),
               ),
             ],
           ),
@@ -124,77 +117,27 @@ class _SigninPageState extends State<SigninPage> {
 
                 Column(
                   children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.01,
-                      ),
-                      child: TextFormField(
-                        autocorrect: false,
-                        style: const TextStyle(
-                          color: Colors.black,
-                        ),
-                        controller: econtroller,
-                        onChanged: (value) {
-                          BlocProvider.of<SigninBloc>(context).add(
-                            SigninemailChangedEvent(
-                              econtroller.text,
-                            ),
-                          );
-                        },
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.all(10),
-                          labelText: 'Email',
-                          labelStyle: TextStyle(
-                            color: HexColor("#036635"),
+                    TextInputWidget(
+                      lbltxt: "Email",
+                      cntroller: econtroller,
+                      onchange: (value) {
+                        BlocProvider.of<SigninBloc>(context).add(
+                          SigninemailChangedEvent(
+                            econtroller.text,
                           ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                              color: HexColor("#036635"),
-                              width: 2,
-                            ),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                              color: HexColor("#036635"),
-                              width: 2,
-                            ),
-                          ),
-                        ),
-                      ),
+                        );
+                      },
+                      validator: (value) {},
+                      obstxt: false,
                     ),
                     const SizedBox(height: 20),
                     //password
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: TextFormField(
-                        style: const TextStyle(color: Colors.black),
-                        controller: pcontroller,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.all(10),
-                          labelText: 'Password',
-                          labelStyle: TextStyle(
-                            color: HexColor("#036635"),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                              color: HexColor("#036635"),
-                              width: 2,
-                            ),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                              color: HexColor("#036635"),
-                              width: 2,
-                            ),
-                          ),
-                        ),
-                      ),
+                    TextInputWidget(
+                      lbltxt: "Password",
+                      cntroller: pcontroller,
+                      onchange: (value) {},
+                      validator: (value) {},
+                      obstxt: true,
                     ),
                   ],
                 ),
@@ -220,43 +163,29 @@ class _SigninPageState extends State<SigninPage> {
                       child: ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: (state is SigninValidState)
-                              ? MaterialStateProperty.all<Color>(
-                                  Colors.white,
-                                )
+                              ? MaterialStateProperty.all<Color>(Colors.white)
                               : MaterialStateProperty.all<Color>(
-                                  HexColor("#036635"),
-                                ),
+                                  HexColor("#036635")),
                           foregroundColor: (state is SigninValidState)
                               ? MaterialStateProperty.all<Color>(
-                                  HexColor("#036635"),
-                                )
+                                  HexColor("#036635"))
                               : MaterialStateProperty.all<Color>(Colors.white),
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
                               side: BorderSide(
-                                color: HexColor("#036635"),
-                                width: 2,
-                              ),
+                                  color: HexColor("#036635"), width: 2),
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                         ),
                         onPressed: () async {
                           BlocProvider.of<SigninBloc>(context).add(
-                            SigninpassChangedEvent(
-                              pcontroller.text,
-                            ),
+                            SigninpassChangedEvent(pcontroller.text),
                           );
-
-                          // setState(() {});
                         },
-                        child: const Text(
-                          'Sign in',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22,
-                          ),
-                        ),
+                        child: const Text('Sign in',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 22)),
                       ),
                     );
                   },
@@ -266,32 +195,23 @@ class _SigninPageState extends State<SigninPage> {
                   transform: Matrix4.translationValues(135, -20, 0),
                   child: Row(
                     children: [
-                      Text(
-                        'New User?',
-                        style: TextStyle(
-                          color: HexColor("#036635"),
-                        ),
-                      ),
+                      Text('New User?',
+                          style: TextStyle(color: HexColor("#036635"))),
                       TextButton(
                         onPressed: () {
                           getUser();
                           if (userddt.isNotEmpty) {
-                            BlocProvider.of<SigninBloc>(context).emit(
-                              SigninErrorState("User Already Exists"),
-                            );
+                            BlocProvider.of<SigninBloc>(context)
+                                .emit(SigninErrorState("User Already Exists"));
                           } else {
-                            BlocProvider.of<SigninBloc>(context).add(
-                              SignupRedirect(),
-                            );
+                            BlocProvider.of<SigninBloc>(context)
+                                .add(SignupRedirect());
                           }
                         },
-                        child: Text(
-                          'Sign Up.',
-                          style: TextStyle(
-                            color: HexColor("#036635"),
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
+                        child: Text('Sign Up.',
+                            style: TextStyle(
+                                color: HexColor("#036635"),
+                                decoration: TextDecoration.underline)),
                       ),
                     ],
                   ),
