@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '/database/menu_db.dart';
 import '/menu/widgets/menu_item_list.dart';
 import '../common_things.dart';
 import '../home/home_screen.dart';
 import '../model/menu_model.dart';
+import 'bloc/menu_bloc.dart';
+import 'bloc/menu_states.dart';
 
 class GetCakeData extends StatefulWidget {
   const GetCakeData({Key? key}) : super(key: key);
@@ -45,7 +48,19 @@ class _GetCakeDataState extends State<GetCakeData> {
     initcart();
     getCakeData();
     return Scaffold(
-        persistentFooterButtons: cartInit ? [viewInCart()] : null,
+        persistentFooterButtons: [
+          BlocBuilder<MenuBloc, MenuStates>(
+          builder: (context, state) {
+           if(state is AddedToCartState) {
+             return viewInCart();
+           }
+           else {
+             return Container();
+           }
+          }
+        ),
+        ],
+
         body: MenuItemList(data: data, fToast: fToast));
   }
 }

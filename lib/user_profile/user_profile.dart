@@ -1,10 +1,12 @@
 import 'dart:io';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../menu/bloc/menu_bloc.dart';
+import '../menu/bloc/menu_states.dart';
 import '/signin/signin.dart';
 import '../common_things.dart';
 import '../database/user_db.dart';
@@ -49,7 +51,15 @@ class _UserProfileState extends State<UserProfile> {
       return const CircularProgressIndicator();
     } else {
       return Scaffold(
-        persistentFooterButtons: cartInit ? [viewInCart()] : [Container()],
+        persistentFooterButtons: [
+          BlocBuilder<MenuBloc, MenuStates>(builder: (context, state) {
+            if (state is AddedToCartState) {
+              return viewInCart();
+            } else {
+              return Container();
+            }
+          }),
+        ],
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(

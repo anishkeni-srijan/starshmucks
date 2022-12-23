@@ -6,7 +6,10 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../menu/bloc/menu_bloc.dart';
+import '../menu/bloc/menu_states.dart';
 import '/database/menu_db.dart';
 import '../common_things.dart';
 import '../database/user_db.dart';
@@ -115,7 +118,15 @@ class _HomePageState extends State<HomePage> {
       setUserForLogin(email);
       initcart();
       return Scaffold(
-        persistentFooterButtons: cartInit ? [viewInCart()] : null,
+        persistentFooterButtons: [
+          BlocBuilder<MenuBloc, MenuStates>(builder: (context, state) {
+            if (state is AddedToCartState) {
+              return viewInCart();
+            } else {
+              return Container();
+            }
+          }),
+        ] ,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -212,8 +223,8 @@ getBanner(context, username, tier, rewards) {
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
               onTap: () {
-                Get.to(() => const Rewards(),
-                    transition: Transition.rightToLeftWithFade);
+                // Get.to(() => const Rewards(),
+                //     transition: Transition.rightToLeftWithFade);
               },
               child: Row(
                 children: [
@@ -305,8 +316,8 @@ getBanner(context, username, tier, rewards) {
                   ),
                   IconButton(
                     onPressed: () {
-                      Get.to(const Rewards(),
-                          transition: Transition.rightToLeftWithFade);
+                      // Get.to(const Rewards(),
+                      //     transition: Transition.rightToLeftWithFade);
                     },
                     icon: Icon(
                       Icons.play_arrow_sharp,

@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'common_things.dart';
 import 'home/home_screen.dart';
+import 'menu/bloc/menu_bloc.dart';
+import 'menu/bloc/menu_states.dart';
 
 class GiftCard extends StatefulWidget {
   const GiftCard({Key? key}) : super(key: key);
@@ -27,7 +29,15 @@ class _GiftCardState extends State<GiftCard> with TickerProviderStateMixin {
       initialIndex: 1,
       length: 4,
       child: Scaffold(
-        persistentFooterButtons: cartInit ? [viewInCart()] : [Container()],
+        persistentFooterButtons: [
+          BlocBuilder<MenuBloc, MenuStates>(builder: (context, state) {
+            if (state is AddedToCartState) {
+              return viewInCart();
+            } else {
+              return Container();
+            }
+          }),
+        ],
         body: SingleChildScrollView(
           child: SizedBox(
             height: MediaQuery.of(context).size.height * 1,

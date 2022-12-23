@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../common_things.dart';
+import '../../menu/bloc/menu_bloc.dart';
+import '../../menu/bloc/menu_events.dart';
 import '../../model/wishlist_model.dart';
 import '../../productdetail.dart';
 import '../home_screen.dart';
@@ -29,8 +31,8 @@ class HomeItemList extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 getItem(data[index]);
-                Get.to(() => const ProductDetail(),
-                    transition: Transition.downToUp);
+                // Get.to(() => const ProductDetail(),
+                //     transition: Transition.downToUp);
               },
               child: Container(
                 padding: const EdgeInsets.all(10),
@@ -85,20 +87,9 @@ class HomeItemList extends StatelessWidget {
                       ),
                       child: TextButton(
                         onPressed: () {
-                          addToCart(data[index].id);
-                          String toastMessage = "ITEM ADDED TO CART";
-                          fToast.showToast(
-                            child: CustomToast(toastMessage),
-                            positionedToastBuilder: (context, child) =>
-                                Positioned(
-                              bottom: MediaQuery.of(context).size.height * 0.14,
-                              left: MediaQuery.of(context).size.width * 0.1,
-                              right: MediaQuery.of(context).size.width * 0.1,
-                              child: child,
-                            ),
+                          BlocProvider.of<MenuBloc>(context).add(
+                              OnAddToCartEvent(data[index].id, fToast)
                           );
-
-                          cartInit = true;
                         },
                         style: ButtonStyle(
                           backgroundColor:
@@ -119,7 +110,7 @@ class HomeItemList extends StatelessWidget {
                       onPressed: () {
                         status
                             ? removefromwishlist(
-                                WishlistModel(id: data[index].id))
+                                WishlistModel(id: data[index].id),context)
                             : addToWishlist(data[index].id);
                         getIds();
                       },

@@ -140,7 +140,7 @@ class _WishListPageState extends State<WishListPage> {
                                                   TextButton(
                                                     onPressed: () {
                                                       removefromwishlist(
-                                                          datalist[index]);
+                                                          datalist[index],context);
 
                                                       setState(() {});
                                                     },

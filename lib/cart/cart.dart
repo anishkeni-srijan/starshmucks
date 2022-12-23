@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart' hide Transition;
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:starshmucks/menu/bloc/menu_states.dart';
 
+import '../menu/bloc/menu_bloc.dart';
 import '/database/cart_db.dart';
 import '/home/home_screen.dart';
 import '/model/cart_model.dart';
@@ -59,6 +62,7 @@ class _MyCartState extends State<MyCart> {
 
   removeFromCart(id) {
     datalist.isEmpty ? cartInit = false : cartInit = true;
+    BlocProvider.of<MenuBloc>(context).emit(MenuInitialState());
     cartdb.removeItemFromCart(id);
     getDataOnIds();
   }

@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:flutter_bloc/flutter_bloc.dart' hide Transition;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -12,6 +12,8 @@ import 'cart/cart.dart';
 import 'database/user_db.dart';
 import 'gift_card.dart';
 import 'home/home_screen.dart';
+import 'menu/bloc/menu_bloc.dart';
+import 'menu/bloc/menu_states.dart';
 import 'menu/menu_page.dart';
 import 'model/user_model.dart';
 import 'model/wishlist_model.dart';
@@ -305,11 +307,13 @@ addToCart(id) async {
 
 late WishlistDB wdb;
 
-removefromwishlist(id) {
+removefromwishlist(id,context) {
   wdb = WishlistDB();
   wdb.initWishlistDB();
   wdb.deleteFromWishlist(id);
 }
+
+
 
 addToWishlist(id) async {
   wdb = WishlistDB();

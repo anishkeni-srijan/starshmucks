@@ -17,3 +17,5 @@ class AddedToCartState extends MenuStates{}
 
 class AddedToWishlistState extends MenuStates{}
 
+class RemoveFromWishlistState extends MenuStates{}
+

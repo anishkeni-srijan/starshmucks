@@ -2,11 +2,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-
+import 'package:starshmucks/menu/bloc/menu_bloc.dart';
+import 'package:starshmucks/menu/bloc/menu_events.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:starshmucks/menu/bloc/menu_states.dart';
 import '/common_things.dart';
-import '../../home/home_screen.dart';
 import '../../model/wishlist_model.dart';
 import '../../productdetail.dart';
 
@@ -23,13 +24,13 @@ class MenuItemList extends StatelessWidget {
       itemBuilder: (context, index) {
         bool status = false;
         for (var i = 0; i < ids.length; i++) {
-          if (ids[i] == data[index].id) status = true;
+          if (ids[i] == data[index].id) {
+            status = true;
+          }
         }
         return GestureDetector(
           onTap: () {
-            getItem(data[index]);
-            Get.to(() => const ProductDetail(),
-                transition: Transition.downToUp);
+            BlocProvider.of<MenuBloc>(context).add(OnTapEvent(data[index]));
           },
           child: Container(
             height: MediaQuery.of(context).size.height * 0.18,
@@ -108,34 +109,24 @@ class MenuItemList extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      IconButton(
-                          onPressed: () {
-                            //int id = odata[index].id;
-                            status
-                                ? removefromwishlist(
-                                    WishlistModel(id: data[index].id))
-                                : addToWishlist(data[index].id);
-                            getIds();
-                          },
-                          icon: Icon(
-                            status ? Icons.favorite : Icons.favorite_border,
-                            color: HexColor("#036635"),
-                          )),
+                      BlocBuilder<MenuBloc, MenuStates>(
+                          builder: (context, state) => IconButton(
+                              onPressed: () {
+                                //int id = odata[index].id;
+                                status?
+                                BlocProvider.of<MenuBloc>(context).add(OnRemoveFromWishlistEvent(WishlistModel(id: data[index].id),context))
+                                    :  BlocProvider.of<MenuBloc>(context).add(OnAddToWishlistEvent(data[index].id));
+                                getIds();
+                              },
+                              icon: Icon(
+                                state is AddedToWishlistState ? Icons.favorite : Icons.favorite_border,
+                                color: HexColor("#036635"),
+                              ))),
                       TextButton(
                         onPressed: () {
-                          addToCart(data[index].id);
-                          String toastMessage = "ITEM ADDED TO CART";
-                          fToast.showToast(
-                            child: CustomToast(toastMessage),
-                            positionedToastBuilder: (context, child) =>
-                                Positioned(
-                              bottom: MediaQuery.of(context).size.height * 0.14,
-                              left: MediaQuery.of(context).size.width * 0.1,
-                              right: MediaQuery.of(context).size.width * 0.1,
-                              child: child,
-                            ),
+                          BlocProvider.of<MenuBloc>(context).add(
+                              OnAddToCartEvent(data[index].id, fToast)
                           );
-                          cartInit = true;
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
@@ -143,9 +134,9 @@ class MenuItemList extends StatelessWidget {
                                   ? Colors.teal
                                   : Colors.deepOrangeAccent),
                           foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
+                          MaterialStateProperty.all<Color>(Colors.white),
                           shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                          MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
                             ),
