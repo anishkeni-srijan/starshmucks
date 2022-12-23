@@ -305,7 +305,7 @@ addToCart(id) async {
 
 late WishlistDB wdb;
 
-removefromwishlist(id) {
+removeFromWishlist(id) {
   wdb = WishlistDB();
   wdb.initWishlistDB();
   wdb.deleteFromWishlist(id);

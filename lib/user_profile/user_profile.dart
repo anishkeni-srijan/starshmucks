@@ -24,15 +24,13 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
   List<Map<String, dynamic>> usernames = [];
-
+  late UserDB udb;
   getUser() async {
     usernames = await udb.getUserData();
     if (mounted) {
       setState(() {});
     }
   }
-
-  late UserDB udb;
 
   @override
   void initState() {

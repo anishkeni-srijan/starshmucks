@@ -112,7 +112,7 @@ class MenuItemList extends StatelessWidget {
                           onPressed: () {
                             //int id = odata[index].id;
                             status
-                                ? removefromwishlist(
+                                ? removeFromWishlist(
                                     WishlistModel(id: data[index].id))
                                 : addToWishlist(data[index].id);
                             getIds();

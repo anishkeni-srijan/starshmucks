@@ -20,7 +20,6 @@ getItem(item) {
 
 class _ProductDetailState extends State<ProductDetail> {
   late List<int> ids = [];
-
   late FToast fToast;
 
   @override

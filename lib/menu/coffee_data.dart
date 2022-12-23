@@ -23,7 +23,6 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
 
   @override
   void initState() {
-    //getCartData1();
     menuDB = MenuDB();
     menuDB.initMenuDB();
     getCoffeeData();
@@ -32,15 +31,6 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
     fToast = FToast();
     fToast.init(context);
   }
-
-  // List<CartModel> cartData = [];
-  //
-  // getCartData1() async {
-  //   cartData = await cdb.getCartData();
-  //   if (mounted) {
-  //     setState(() {});
-  //   }
-  // }
 
   getCoffeeData() async {
     data = await menuDB.coffeeData();

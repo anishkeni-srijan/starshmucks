@@ -118,7 +118,7 @@ class HomeItemList extends StatelessWidget {
                     IconButton(
                       onPressed: () {
                         status
-                            ? removefromwishlist(
+                            ? removeFromWishlist(
                                 WishlistModel(id: data[index].id))
                             : addToWishlist(data[index].id);
                         getIds();
