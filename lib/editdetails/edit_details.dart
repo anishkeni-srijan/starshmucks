@@ -37,14 +37,14 @@ class _EditProfileState extends State<EditProfile> {
   List<Map<String, dynamic>> usernames = [];
 
   getUser() async {
-    usernames = await udb.getDataUserData();
+    usernames = await udb.getUserData();
     setState(() {});
   }
 
   @override
   void initState() {
     udb = UserDB();
-    udb.initDBUserData();
+    udb.initUserDB();
     getUser();
     super.initState();
   }
@@ -207,7 +207,7 @@ class _EditProfileState extends State<EditProfile> {
                             rewards: usernames[0]['rewards'],
                             tnc: usernames[0]['tnc'],
                             image: usernames[0]['image']);
-                        udb.updateUserData(usernames[0]['id'], updateData);
+                        udb.updateUser(usernames[0]['id'], updateData);
                         getUser();
                       },
                       child: const Text('UPDATE'),
@@ -275,7 +275,7 @@ class _EditProfileState extends State<EditProfile> {
                     rewards: usernames[0]['rewards'],
                     tnc: usernames[0]['tnc'],
                     image: saveImage);
-                udb.updateUserData(usernames[0]['id'], updateData);
+                udb.updateUser(usernames[0]['id'], updateData);
                 getUser();
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();

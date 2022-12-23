@@ -48,7 +48,7 @@ class _AddressState extends State<Address> {
   @override
   void initState() {
     udb = UserDB();
-    udb.initDBUserData();
+    udb.initUserDB();
     getttl();
     super.initState();
   }
@@ -62,13 +62,13 @@ class _AddressState extends State<Address> {
   }
 
   getUser() async {
-    userddt = await udb.getDataUserData();
-    addressList = await udb.getDataUserAddress1();
+    userddt = await udb.getUserData();
+    addressList = await udb.getDataUserAddressListOfMap();
     if (mounted) setState(() {});
   }
 
   deleteAddress(sendingID) {
-    udb.deleteItem(sendingID);
+    udb.deleteAddress(sendingID);
   }
 
   bottomSheetAddress(
@@ -825,7 +825,7 @@ class _AddressState extends State<Address> {
   putDatafromcart() async {
     OrdersDB orderdb = OrdersDB();
     CartDB cartdb = CartDB();
-    orderdb.initDBOrders();
+    orderdb.initOrdersDB();
     cartdb.initCartDB();
     String idar = '';
     String qtyar = '';
@@ -842,7 +842,7 @@ class _AddressState extends State<Address> {
       }
     }
 
-    orderdb.createarr(idar, qtyar, date, time);
+    orderdb.createArray(idar, qtyar, date, time);
     setState(() {});
   }
 

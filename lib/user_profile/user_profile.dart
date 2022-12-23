@@ -26,7 +26,7 @@ class _UserProfileState extends State<UserProfile> {
   List<Map<String, dynamic>> usernames = [];
 
   getUser() async {
-    usernames = await udb.getDataUserData();
+    usernames = await udb.getUserData();
     if (mounted) {
       setState(() {});
     }
@@ -37,7 +37,7 @@ class _UserProfileState extends State<UserProfile> {
   @override
   void initState() {
     udb = UserDB();
-    udb.initDBUserData();
+    udb.initUserDB();
     super.initState();
   }
 

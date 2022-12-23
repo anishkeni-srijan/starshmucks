@@ -50,7 +50,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   void initState() {
     udb = UserDB();
-    udb.initDBUserData();
+    udb.initUserDB();
     dob.text = "";
     super.initState();
   }

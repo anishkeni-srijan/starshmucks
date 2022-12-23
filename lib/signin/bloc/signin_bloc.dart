@@ -16,8 +16,8 @@ List<Map<String, dynamic>> userddt = [];
 UserDB udb = UserDB();
 
 getUser() async {
-  udb.initDBUserData();
-  userddt = await udb.getDataUserData();
+  udb.initUserDB();
+  userddt = await udb.getUserData();
 }
 
 class SigninBloc extends Bloc<SigninEvent, SigninState> {

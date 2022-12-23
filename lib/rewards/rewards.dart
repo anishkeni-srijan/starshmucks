@@ -36,7 +36,7 @@ class _RewardsState extends State<Rewards> {
   List<Map<String, dynamic>> usernames = [];
 
   getuser() async {
-    usernames = await udb.getDataUserData();
+    usernames = await udb.getUserData();
     setState(() {});
     getnexttier();
     getprogress();

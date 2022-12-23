@@ -43,9 +43,9 @@ class _OrderSuccessState extends State<OrderSuccess> {
   @override
   void initState() {
     udb = UserDB();
-    udb.initDBUserData();
+    udb.initUserDB();
     db = OrdersDB();
-    db.initDBOrders();
+    db.initOrdersDB();
     cartdb = CartDB();
     cartdb.initCartDB();
     getUser();
@@ -58,7 +58,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
   List<Map<String, dynamic>> userddt = [];
 
   getUser() async {
-    userddt = await udb.getDataUserData();
+    userddt = await udb.getUserData();
     getttl();
     getorderid();
     setState(() {});
@@ -84,8 +84,8 @@ class _OrderSuccessState extends State<OrderSuccess> {
   getDataIds() async {
     MenuDB menudb = MenuDB();
     menudb.initMenuDB();
-    db.initDBOrders();
-    orderData = await db.getDataOrders();
+    db.initOrdersDB();
+    orderData = await db.getOrdersData();
     for (var i = 0; i < orderData.length; i++) {
       idlistfromstring = orderData[i].id!.split(' ');
       qtylistfromstring = orderData[i].qty!.split(' ');
@@ -98,7 +98,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
   }
 
   getorderid() async {
-    db.initDBOrders();
+    db.initOrdersDB();
     Map<dynamic, dynamic> orderlist = await db.getAllData();
     orderid = orderlist.length;
   }

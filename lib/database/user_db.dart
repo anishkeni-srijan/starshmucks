@@ -6,9 +6,9 @@ import '/model/user_model.dart';
 
 class UserDB {
   //user Data
-  Future<Database> initDBUserData() async {
-    String databasepath = await getDatabasesPath();
-    final path = join(databasepath, "User.db");
+  Future<Database> initUserDB() async {
+    String dBPath = await getDatabasesPath();
+    final path = join(dBPath, "User.db");
     return openDatabase(
       path,
       onCreate: (database, version) async {
@@ -47,53 +47,53 @@ class UserDB {
   }
 
   Future<bool> insertUserData(UserModel user) async {
-    final Database db = await initDBUserData();
+    final Database db = await initUserDB();
     db.insert("UserData", user.toMap());
     return true;
   }
 
-  Future<List<Map<String, dynamic>>> getDataUserData() async {
-    final Database db = await initDBUserData();
+  Future<List<Map<String, dynamic>>> getUserData() async {
+    final Database db = await initUserDB();
     final List<Map<String, dynamic>> data = await db.query("UserData");
     return data;
   }
 
-  Future<void> updateUserData(id, um) async {
-    final db = await initDBUserData();
+  Future<void> updateUser(id, um) async {
+    final db = await initUserDB();
     await db.update("UserData", um.toMap(), where: 'id = ?', whereArgs: [id]);
   }
 
   Future<bool> insertUserAddress(AddressModel address) async {
-    final Database db = await initDBUserData();
+    final Database db = await initUserDB();
     db.insert("UserAddress", address.toMap());
     return true;
   }
 
-  Future<List<AddressModel>> getDataUserAddress() async {
-    final Database db = await initDBUserData();
+  Future<List<AddressModel>> getUserAddressList() async {
+    final Database db = await initUserDB();
     final List<Map<String, dynamic>> data = await db.query("UserAddress");
     return data.map((e) => AddressModel.fromJson(e)).toList();
   }
 
-  Future<List<Map<String, dynamic>>> getDataUserAddress1() async {
-    final Database db = await initDBUserData();
+  Future<List<Map<String, dynamic>>> getDataUserAddressListOfMap() async {
+    final Database db = await initUserDB();
     final List<Map<String, dynamic>> data = await db.query("UserAddress");
     return data;
   }
 
-  Future<void> deleteItem(id) async {
-    final db = await initDBUserData();
+  Future<void> deleteAddress(id) async {
+    final db = await initUserDB();
     await db.delete("UserAddress", where: 'addressID = ?', whereArgs: [id]);
   }
 
   Future<void> updateAddress(id, am) async {
-    final db = await initDBUserData();
+    final db = await initUserDB();
     await db.update("UserAddress", am.toMap(),
         where: 'addressID = ?', whereArgs: [id]);
   }
 
   Future<void> updateRewards(am) async {
-    final db = await initDBUserData();
+    final db = await initUserDB();
     await db.update("UserData", am.toMap(), where: 'id= ?', whereArgs: [1]);
   }
 }

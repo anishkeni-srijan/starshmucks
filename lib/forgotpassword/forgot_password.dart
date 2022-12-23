@@ -33,14 +33,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   void initState() {
     udb = UserDB();
-    udb.initDBUserData();
+    udb.initUserDB();
     getUser();
     super.initState();
     emailAuth = EmailAuth(sessionName: "Sample session");
   }
 
   getUser() async {
-    userddt = await udb.getDataUserData();
+    userddt = await udb.getUserData();
     obtainedkey = userddt[0]['id'];
     setState(() {});
   }

@@ -4,9 +4,9 @@ import 'package:sqflite/sqflite.dart';
 import '/model/wishlist_model.dart';
 
 class WishlistDB {
-  Future<Database> initDBWishlist() async {
-    String databasepath = await getDatabasesPath();
-    final path = join(databasepath, "Wishlist.db");
+  Future<Database> initWishlistDB() async {
+    String dBPath = await getDatabasesPath();
+    final path = join(dBPath, "Wishlist.db");
     return openDatabase(
       path,
       onCreate: (database, version) async {
@@ -20,8 +20,8 @@ class WishlistDB {
     );
   }
 
-  Future<bool> insertDataWishlist(WishlistModel item) async {
-    final Database db = await initDBWishlist();
+  Future<bool> insertWishlistData(WishlistModel item) async {
+    final Database db = await initWishlistDB();
     int count = await db.insert("WishlistTable", item.toMap(),
         conflictAlgorithm: ConflictAlgorithm.ignore);
     if (count == 1) {
@@ -31,21 +31,21 @@ class WishlistDB {
     }
   }
 
-  Future<List<WishlistModel>> getDataWishlist() async {
-    final Database db = await initDBWishlist();
+  Future<List<WishlistModel>> getWishlistData() async {
+    final Database db = await initWishlistDB();
     final List<Map<String, dynamic>> data = await db.query("WishlistTable");
     return data.map((e) => WishlistModel.fromJson(e)).toList();
   }
 
   isInWishlist(id) async {
-    final Database db = await initDBWishlist();
+    final Database db = await initWishlistDB();
     final List<Map<String, dynamic>> data =
         await db.query('WishlistTable', where: 'id = ?', whereArgs: [id]);
     return data.length == 1;
   }
 
-  Future<void> deleteItemFromWishlist(WishlistModel item) async {
-    final db = await initDBWishlist();
+  Future<void> deleteFromWishlist(WishlistModel item) async {
+    final db = await initWishlistDB();
     await db.delete('WishlistTable', where: 'id = ?', whereArgs: [item.id]);
   }
 }

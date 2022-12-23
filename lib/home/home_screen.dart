@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     udb = UserDB();
-    udb.initDBUserData();
+    udb.initUserDB();
     getUser();
     db = MenuDB();
     db.initMenuDB();
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> usernames = [];
 
   getUser() async {
-    usernames = await udb.getDataUserData();
+    usernames = await udb.getUserData();
     getcurrenttier();
     getnexttier();
     starsneeded();

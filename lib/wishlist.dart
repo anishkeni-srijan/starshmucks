@@ -30,13 +30,13 @@ class _WishListPageState extends State<WishListPage> {
     menudb = MenuDB();
     menudb.initMenuDB();
     wdb = WishlistDB();
-    wdb.initDBWishlist();
+    wdb.initWishlistDB();
     getDataOnIds();
     super.initState();
   }
 
   getDataOnIds() async {
-    datalist = await wdb.getDataWishlist();
+    datalist = await wdb.getWishlistData();
     List<MenuModel> wishlistTmp = [];
     for (var i = 0; i < datalist.length; i++) {
       var wdata = await menudb.getElementOnIdMenu(datalist[i].id);

@@ -233,7 +233,7 @@ calcrewards() async {
   late double res = 0;
   UserDB udb = UserDB();
   List<Map<String, dynamic>> usernames = [];
-  usernames = await udb.getDataUserData();
+  usernames = await udb.getUserData();
   if (usernames[0]['tier'] == 'bronze') {
     res = usernames[0]['rewards'] + (ttl / 10) - (savings * 2);
   } else if (usernames[0]['tier'] == 'silver') {
@@ -307,14 +307,14 @@ late WishlistDB wdb;
 
 removefromwishlist(id) {
   wdb = WishlistDB();
-  wdb.initDBWishlist();
-  wdb.deleteItemFromWishlist(id);
+  wdb.initWishlistDB();
+  wdb.deleteFromWishlist(id);
 }
 
 addToWishlist(id) async {
   wdb = WishlistDB();
-  wdb.initDBWishlist();
-  wdb.insertDataWishlist(WishlistModel(id: id));
+  wdb.initWishlistDB();
+  wdb.insertWishlistData(WishlistModel(id: id));
 }
 
 List<int> ids = [];
@@ -323,7 +323,7 @@ getIds() async {
   wdb = WishlistDB();
   ids.clear();
   late List<WishlistModel> datalist = [];
-  datalist = await wdb.getDataWishlist();
+  datalist = await wdb.getWishlistData();
   for (var i = 0; i < datalist.length; i++) {
     ids.add(datalist[i].id);
   }

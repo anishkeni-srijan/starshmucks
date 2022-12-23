@@ -20,7 +20,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
   UserDB udb = UserDB();
 
   getuser() async {
-    usernames = await udb.getDataUserData();
+    usernames = await udb.getUserData();
     rewards = usernames[0]['rewards']!;
     color = text == 'bronze'
         ? Colors.brown

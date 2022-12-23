@@ -31,8 +31,8 @@ class _OrdersState extends State<Orders> {
     MenuDB menuDb = MenuDB();
     menuDb.initMenuDB();
     orderdb = OrdersDB();
-    orderdb.initDBOrders();
-    orderdata = await orderdb.getDataOrderswrtID(id);
+    orderdb.initOrdersDB();
+    orderdata = await orderdb.getOrdersDataOnID(id);
     for (var i = 0; i < orderdata.length; i++) {
       idlistfromstring = orderdata[i].id!.split(' ');
       qtylistfromstring = orderdata[i].qty!.split(' ');
@@ -48,7 +48,7 @@ class _OrdersState extends State<Orders> {
   @override
   void initState() {
     orderdb = OrdersDB();
-    orderdb.initDBOrders();
+    orderdb.initOrdersDB();
     getOrderData();
     super.initState();
   }

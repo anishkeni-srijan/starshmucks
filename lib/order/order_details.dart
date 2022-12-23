@@ -55,7 +55,7 @@ class _OrderDetailsState extends State<OrderDetails> {
   }
 
   getUser() async {
-    userddt = await udb.getDataUserData();
+    userddt = await udb.getUserData();
     setState(() {});
   }
 
@@ -91,8 +91,8 @@ class _OrderDetailsState extends State<OrderDetails> {
     menuDb.initMenuDB();
 
     orderdb = OrdersDB();
-    orderdb.initDBOrders();
-    orderdata = await orderdb.getDataOrderswrtID(id);
+    orderdb.initOrdersDB();
+    orderdata = await orderdb.getOrdersDataOnID(id);
     for (var i = 0; i < orderdata.length; i++) {
       idlistfromstring = orderdata[i].id!.split(' ');
       qtylistfromstring = orderdata[i].qty!.split(' ');

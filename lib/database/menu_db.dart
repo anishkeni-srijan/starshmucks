@@ -5,8 +5,8 @@ import '../model/menu_model.dart';
 
 class MenuDB {
   Future<Database> initMenuDB() async {
-    String databasepath = await getDatabasesPath();
-    final path = join(databasepath, "Menu2.db");
+    String dBPath = await getDatabasesPath();
+    final path = join(dBPath, "Menu2.db");
     return openDatabase(
       path,
       onCreate: (database, version) async {
@@ -65,16 +65,16 @@ class MenuDB {
 
   Future<List<MenuModel>> nowServeData() async {
     final Database db = await initMenuDB();
-    final List<Map<String, dynamic>> nowserve =
+    final List<Map<String, dynamic>> nowServe =
         await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['Nowserve']);
-    return nowserve.map((e) => MenuModel.fromJson(e)).toList();
+    return nowServe.map((e) => MenuModel.fromJson(e)).toList();
   }
 
   Future<List<MenuModel>> offersData() async {
     final Database db = await initMenuDB();
-    final List<Map<String, dynamic>> offerlist =
+    final List<Map<String, dynamic>> offerList =
         await db.rawQuery("SELECT * FROM Menu WHERE category=?", ['Offers']);
-    return offerlist.map((e) => MenuModel.fromJson(e)).toList();
+    return offerList.map((e) => MenuModel.fromJson(e)).toList();
   }
 
   Future<List<MenuModel>> getElementOnIdMenu(getit) async {

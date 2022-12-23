@@ -4,9 +4,9 @@ import 'package:sqflite/sqflite.dart';
 import '../model/order_history.dart';
 
 class OrdersDB {
-  Future<Database> initDBOrders() async {
-    String databasepath = await getDatabasesPath();
-    final path = join(databasepath, "Orders.db");
+  Future<Database> initOrdersDB() async {
+    String dBPath = await getDatabasesPath();
+    final path = join(dBPath, "Orders.db");
     return openDatabase(
       path,
       onCreate: (database, version) async {
@@ -23,33 +23,33 @@ class OrdersDB {
     );
   }
 
-  createarr(idarr, qtyarr, date, time) async {
-    var fido =
-        OrderHistoryModel(id: idarr, qty: qtyarr, date: date, time: time);
-    insertDataOrders(fido);
+  createArray(idArray, qtyArray, date, time) async {
+    var order =
+        OrderHistoryModel(id: idArray, qty: qtyArray, date: date, time: time);
+    insertOrdersData(order);
   }
 
-  Future<bool> insertDataOrders(OrderHistoryModel fido) async {
-    final Database db = await initDBOrders();
-    db.insert("OrdersTable", fido.toMap());
+  Future<bool> insertOrdersData(OrderHistoryModel order) async {
+    final Database db = await initOrdersDB();
+    db.insert("OrdersTable", order.toMap());
     return true;
   }
 
-  Future<List<OrderHistoryModel>> getDataOrders() async {
-    final Database db = await initDBOrders();
+  Future<List<OrderHistoryModel>> getOrdersData() async {
+    final Database db = await initOrdersDB();
     final List<Map<String, dynamic>> data = await db.query("OrdersTable");
     return data.map((e) => OrderHistoryModel.fromJson(e)).toList();
   }
 
-  Future<List<OrderHistoryModel>> getDataOrderswrtID(id) async {
-    final Database db = await initDBOrders();
+  Future<List<OrderHistoryModel>> getOrdersDataOnID(id) async {
+    final Database db = await initOrdersDB();
     final List<Map<String, dynamic>> data =
         await db.query("OrdersTable", where: 'orderid = ?', whereArgs: [id]);
     return data.map((e) => OrderHistoryModel.fromJson(e)).toList();
   }
 
   Future<dynamic> getAllData() async {
-    final Database db = await initDBOrders();
+    final Database db = await initOrdersDB();
     final List<Map<String, dynamic>> data =
         await db.rawQuery("Select * from OrdersTable");
     return data.asMap();

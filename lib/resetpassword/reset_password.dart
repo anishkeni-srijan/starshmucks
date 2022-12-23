@@ -33,7 +33,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   void initState() {
     // TODO: implement initState
     udb = UserDB();
-    udb.initDBUserData();
+    udb.initUserDB();
     getUser();
     gete0();
     super.initState();
@@ -42,7 +42,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   List<Map<String, dynamic>> userddt = [];
 
   getUser() async {
-    userddt = await udb.getDataUserData();
+    userddt = await udb.getUserData();
   }
 
   bool reset = false;
@@ -251,7 +251,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 rewards: userddt[0]['rewards'],
                                 tnc: userddt[0]['tnc'],
                                 image: userddt[0]['image']);
-                            udb.updateUserData(userddt[0]['id'], updateData);
+                            udb.updateUser(userddt[0]['id'], updateData);
                             setState(() {});
 
                             reset = true;
