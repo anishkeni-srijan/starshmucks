@@ -313,8 +313,6 @@ removefromwishlist(id,context) {
   wdb.deleteFromWishlist(id);
 }
 
-
-
 addToWishlist(id) async {
   wdb = WishlistDB();
   wdb.initWishlistDB();

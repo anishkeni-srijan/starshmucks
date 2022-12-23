@@ -25,7 +25,6 @@ class _GetCoffeeDataState extends State<GetCoffeeData> {
 
   @override
   void initState() {
-    //getCartData1();
     menuDB = MenuDB();
     menuDB.initMenuDB();
     getCoffeeData();

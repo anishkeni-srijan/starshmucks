@@ -27,7 +27,7 @@ dev_dependencies:
   provider: ^6.0.3
   email_validator: ^2.1.17
   google_fonts: ^3.0.1
-  intl: ^0.17.0
+  intl: ^0.18.0
   intl_phone_number_input: ^0.7.1
   flutter_bloc: ^8.1.1
   hexcolor:
@@ -40,7 +40,7 @@ dev_dependencies:
 
   dependencies:
   animated_check: ^1.0.0
-  flutter_launcher_icons: ^0.10.0
+  flutter_launcher_icons: ^0.11.0
 
 flutter_icons:
   android: true

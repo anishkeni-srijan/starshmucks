@@ -19,7 +19,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
 
   UserDB udb = UserDB();
 
-  getuser() async {
+  getUser() async {
     usernames = await udb.getUserData();
     rewards = usernames[0]['rewards']!;
     color = text == 'bronze'
@@ -32,7 +32,7 @@ class _RewarddetailsState extends State<Rewarddetails> {
 
   @override
   void initState() {
-    getuser();
+    getUser();
     super.initState();
   }
 
@@ -428,12 +428,9 @@ class UnderTile extends StatelessWidget {
   const UnderTile({
     Key? key,
     required this.maintext,
-    // required this.subtext,
   }) : super(key: key);
 
   final List maintext;
-
-  // final String subtext;
 
   @override
   Widget build(BuildContext context) {

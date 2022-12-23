@@ -17,7 +17,6 @@ class WishListPage extends StatefulWidget {
 
 class _WishListPageState extends State<WishListPage> {
   bool ischecked = false;
-
   late WishlistDB wdb;
   late MenuDB menudb;
   late List<MenuModel> kart = [];
