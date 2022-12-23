@@ -30,9 +30,7 @@ class HomeItemList extends StatelessWidget {
             const SizedBox(width: 10),
             GestureDetector(
               onTap: () {
-                getItem(data[index]);
-                // Get.to(() => const ProductDetail(),
-                //     transition: Transition.downToUp);
+                BlocProvider.of<MenuBloc>(context).add(OnTapEvent(data[index]));
               },
               child: Container(
                 padding: const EdgeInsets.all(10),
@@ -108,13 +106,13 @@ class HomeItemList extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                        status
-                            ? removefromwishlist(
-                                WishlistModel(id: data[index].id),context)
-                            : addToWishlist(data[index].id);
+                        status?
+                        BlocProvider.of<MenuBloc>(context).add(OnRemoveFromWishlistEvent(WishlistModel(id: data[index].id),context))
+                            :  BlocProvider.of<MenuBloc>(context).add(OnAddToWishlistEvent(data[index].id));
                         getIds();
                       },
                       icon: Icon(
+                        //not rebuilding because of status
                         status ? Icons.favorite : Icons.favorite_border,
                         color: Colors.white,
                       ),

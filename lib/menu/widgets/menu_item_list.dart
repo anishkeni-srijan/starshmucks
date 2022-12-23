@@ -119,7 +119,8 @@ class MenuItemList extends StatelessWidget {
                                 getIds();
                               },
                               icon: Icon(
-                                state is AddedToWishlistState ? Icons.favorite : Icons.favorite_border,
+                                //not rebuilding because of status
+                                status ? Icons.favorite : Icons.favorite_border,
                                 color: HexColor("#036635"),
                               ))),
                       TextButton(
