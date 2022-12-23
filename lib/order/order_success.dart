@@ -117,7 +117,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
   Widget build(BuildContext context) {
     getDataIds();
     return WillPopScope(
-        onWillPop: gohomefromsuccess,
+        onWillPop: goHomeFromSuccess,
         child: Scaffold(
           body: orderData.isEmpty || items1.isEmpty || qtylistfromstring.isEmpty
               ? const Center(child: CircularProgressIndicator())

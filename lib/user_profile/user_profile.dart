@@ -1,18 +1,18 @@
 import 'dart:io';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../menu/bloc/menu_bloc.dart';
-import '../menu/bloc/menu_states.dart';
 import '/signin/signin.dart';
 import '../common_things.dart';
 import '../database/user_db.dart';
 import '../editdetails/edit_details.dart';
 import '../help/help_page.dart';
-import '../home/home_screen.dart';
+import '../menu/bloc/menu_bloc.dart';
+import '../menu/bloc/menu_states.dart';
 import '../order/order_history.dart';
 import '../rewards/rewards.dart';
 import 'widgets/profile_tile_widget.dart';
@@ -43,7 +43,7 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   Widget build(BuildContext context) {
-    initcart();
+    initCart();
     getUser();
     if (usernames.isEmpty) {
       return const CircularProgressIndicator();

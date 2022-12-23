@@ -41,7 +41,7 @@ class _OrdersState extends State<Orders> {
       items = await menuDb.getItemWithIdOrder(idlistfromstring[i]);
       items1.add(items.first);
     }
-    getttl();
+    getTotal();
     setState(() {});
   }
 
@@ -62,7 +62,7 @@ class _OrdersState extends State<Orders> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: gethomeappbar("Orders", [Container()], true, 0.0),
+      appBar: getHomeAppBar("Orders", [Container()], true, 0.0),
       body: data1.isEmpty
           ? Center(
               child: Text(

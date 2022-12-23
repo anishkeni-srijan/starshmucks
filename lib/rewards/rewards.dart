@@ -7,12 +7,12 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import '/rewards/widgets/buildstar.dart';
-import '/rewards/widgets/progressbar.dart';
-import '/rewards/widgets/referwidgets.dart';
 import '/common_things.dart';
 import '/home/home_screen.dart';
 import '/rewards/rewarddetails.dart';
+import '/rewards/widgets/buildstar.dart';
+import '/rewards/widgets/progressbar.dart';
+import '/rewards/widgets/referwidgets.dart';
 import '../database/user_db.dart';
 
 class Rewards extends StatefulWidget {
@@ -79,7 +79,7 @@ class _RewardsState extends State<Rewards> {
         ? const Center(child: CircularProgressIndicator())
         : Scaffold(
             persistentFooterButtons: cartInit ? [viewInCart()] : null,
-            appBar: gethomeappbar("Rewards", [Container()], true, 0.0),
+            appBar: getHomeAppBar("Rewards", [Container()], true, 0.0),
             body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

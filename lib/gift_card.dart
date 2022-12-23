@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
+
 import 'common_things.dart';
-import 'home/home_screen.dart';
 import 'menu/bloc/menu_bloc.dart';
 import 'menu/bloc/menu_states.dart';
 

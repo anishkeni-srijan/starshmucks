@@ -31,9 +31,9 @@ class _OrderFailedState extends State<OrderFailed> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: gohome,
+      onWillPop: goHome,
       child: Scaffold(
-        appBar: gethomeappbar("Order Details", [Container()], true, 0.0),
+        appBar: getHomeAppBar("Order Details", [Container()], true, 0.0),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

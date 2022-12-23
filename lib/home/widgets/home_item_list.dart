@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' hide Transitions;
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hexcolor/hexcolor.dart';
+
 import '../../common_things.dart';
 import '../../menu/bloc/menu_bloc.dart';
 import '../../menu/bloc/menu_events.dart';
 import '../../model/wishlist_model.dart';
-import '../../productdetail.dart';
-import '../home_screen.dart';
 
 class HomeItemList extends StatelessWidget {
   const HomeItemList({Key? key, this.data, required this.fToast})
@@ -85,9 +83,8 @@ class HomeItemList extends StatelessWidget {
                       ),
                       child: TextButton(
                         onPressed: () {
-                          BlocProvider.of<MenuBloc>(context).add(
-                              OnAddToCartEvent(data[index].id, fToast)
-                          );
+                          BlocProvider.of<MenuBloc>(context)
+                              .add(OnAddToCartEvent(data[index].id, fToast));
                         },
                         style: ButtonStyle(
                           backgroundColor:
@@ -106,9 +103,12 @@ class HomeItemList extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                        status?
-                        BlocProvider.of<MenuBloc>(context).add(OnRemoveFromWishlistEvent(WishlistModel(id: data[index].id),context))
-                            :  BlocProvider.of<MenuBloc>(context).add(OnAddToWishlistEvent(data[index].id));
+                        status
+                            ? BlocProvider.of<MenuBloc>(context).add(
+                                OnRemoveFromWishlistEvent(
+                                    WishlistModel(id: data[index].id), context))
+                            : BlocProvider.of<MenuBloc>(context)
+                                .add(OnAddToWishlistEvent(data[index].id));
                         getIds();
                       },
                       icon: Icon(
