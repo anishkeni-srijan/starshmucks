@@ -19,14 +19,8 @@ class CartSummary extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          text,
-          style: TextStyle(fontSize: textsize, fontWeight: wt),
-        ),
-        Text(
-          ' \$$value',
-          style: TextStyle(fontSize: textsize, fontWeight: wt),
-        ),
+        Text(text, style: TextStyle(fontSize: textsize, fontWeight: wt)),
+        Text(' \$$value', style: TextStyle(fontSize: textsize, fontWeight: wt)),
       ],
     );
   }

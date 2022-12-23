@@ -9,8 +9,8 @@ import '/database/orders_db.dart';
 import '/home/home_screen.dart';
 import '/model/menu_model.dart';
 import '/model/order_history.dart';
-import '/order/widgets/cartsummary.dart';
-import '/order/widgets/deliverto.dart';
+import '/order/widgets/cart_summary.dart';
+import '/order/widgets/deliver_to.dart';
 import '/order/widgets/item_list.dart';
 import '/order/widgets/needhelp.dart';
 import '/order/widgets/ordersummary.dart';
@@ -160,8 +160,8 @@ class _OrderSuccessState extends State<OrderSuccess> {
                                         children: [
                                           OrderSummary(orderData: orderData),
                                           ItemList(
-                                              items1: items1,
-                                              qtylistfromstring:
+                                              items: items1,
+                                              qtyListFromString:
                                                   qtylistfromstring),
                                           const Divider(
                                             color: Colors.grey,

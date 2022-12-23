@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class DeliverTo extends StatelessWidget {
-  const DeliverTo({
-    Key? key,
-    required this.selectedAddress,
-  }) : super(key: key);
+  const DeliverTo({Key? key, required this.selectedAddress}) : super(key: key);
 
   final String selectedAddress;
 

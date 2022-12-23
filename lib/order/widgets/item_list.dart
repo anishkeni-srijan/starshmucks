@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class ItemList extends StatelessWidget {
-  const ItemList({Key? key, this.items1, this.qtylistfromstring})
+  const ItemList({Key? key, this.items, this.qtyListFromString})
       : super(key: key);
 
-  final items1;
-  final qtylistfromstring;
+  final items;
+  final qtyListFromString;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: qtylistfromstring.length,
+      itemCount: qtyListFromString.length,
       itemBuilder: (context, index) {
         return Padding(
             padding: const EdgeInsets.only(
@@ -33,7 +33,7 @@ class ItemList extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          qtylistfromstring[index] + "x",
+                          qtyListFromString[index] + "x",
                           style: Theme.of(context)
                               .textTheme
                               .bodyText2
@@ -49,7 +49,7 @@ class ItemList extends StatelessWidget {
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.45,
                           child: Text(
-                            items1[index].title.toString(),
+                            items[index].title.toString(),
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context).textTheme.subtitle1,
                           ),
@@ -70,7 +70,7 @@ class ItemList extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(left: 4),
                   child: Text(
-                    "\$${items1[index].price}",
+                    "\$${items[index].price}",
                     style: const TextStyle(
                         fontSize: 15, fontWeight: FontWeight.w100),
                   ),
