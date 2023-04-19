@@ -99,16 +99,16 @@ class _SplashState extends State<Splash> {
     final config = TalsecConfig(
       /// For Android
       androidConfig: AndroidConfig(
-        expectedPackageName: 'com.aheaditec.freeraspExample',
+        expectedPackageName: 'com.example.starshmucks',
         expectedSigningCertificateHashes: [
-          'AKoRuyLMM91E7lX/Zqp3u4jMmd0A7hH/Iqozu0TMVd0='
+
         ],
-        supportedAlternativeStores: ['com.sec.android.app.samsungapps'],
+        supportedAlternativeStores: [],
       ),
 
       /// For iOS
       iosConfig: const IOSconfig(
-        appBundleId: 'com.aheaditec.freeraspExample',
+        appBundleId: 'com.example.starshmucks',
         appTeamId: 'M8AK35...',
       ),
 
