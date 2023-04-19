@@ -12,15 +12,16 @@ import '/splash/bloc/splash_events.dart';
 import '../signin/signin.dart';
 import 'bloc/splash_states.dart';
 
-
 import 'dart:async';
 import 'dart:io';
+
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
 
   @override
   State<Splash> createState() => _SplashState();
 }
+
 class ThreatType {
   /// Threat constructor.
   ThreatType(this._text);
@@ -36,14 +37,13 @@ class ThreatType {
 }
 
 class _SplashState extends State<Splash> {
-
   final ThreatType _root = ThreatType('Root');
   final ThreatType _emulator = ThreatType('Emulator');
   final ThreatType _tamper = ThreatType('Tamper');
   final ThreatType _hook = ThreatType('Hook');
   final ThreatType _deviceBinding = ThreatType('Device binding');
   final ThreatType _untrustedSource =
-  ThreatType('Untrusted source of installation');
+      ThreatType('Untrusted source of installation');
 
   /// ThreatTypes to hold current state (iOS)
   final ThreatType _signature = ThreatType('Signature');
@@ -101,18 +101,12 @@ class _SplashState extends State<Splash> {
       androidConfig: AndroidConfig(
         expectedPackageName: 'com.example.starshmucks',
         expectedSigningCertificateHashes: [
-
+          'IeGzNncF55vbtV+8D2a/GmK4xNzsjJTAiDT/tlHjTd0='
         ],
-        supportedAlternativeStores: [],
       ),
 
-      /// For iOS
-      iosConfig: const IOSconfig(
-        appBundleId: 'com.example.starshmucks',
-        appTeamId: 'M8AK35...',
-      ),
 
-      watcherMail: 'anish.keni@srijan.net',
+      watcherMail: 'sanish.aukhale@srijan.net',
     );
 
     /// Callbacks thrown by library
@@ -159,6 +153,7 @@ class _SplashState extends State<Splash> {
   void _updateState(ThreatType type) {
     setState(type.threatFound);
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SplashScreenBloc, SplashScreenState>(
