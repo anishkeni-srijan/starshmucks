@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "257465157723",
+    "project_id": "starshmucks-app",
+    "storage_bucket": "starshmucks-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257465157723:android:559c09aa159e040b83177e",
+        "android_client_info": {
+          "package_name": "com.example.starshmucks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "257465157723-h8rfeu4l3tcjtnum624aqjjrcclp1hkn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAp7u6DSy1FrxUF9ps_-J0RHUOtBVm3Zks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "257465157723-h8rfeu4l3tcjtnum624aqjjrcclp1hkn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
